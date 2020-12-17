@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.StoreMapper">
+
+<insert id="addStore" parameterType="Store">
+	INSERT INTO tbStore
+		(storeCode
+		, storeId
+		, storeName
+		, storeRepresentative
+		, storeNumber
+		, storeBusinessType
+		, storeAddress
+		, storeIntroduction
+		, storeEmail
+		, storePhone
+		, storeAccountNumber
+		, storePaymentMethod
+		, storeImage
+		, storeLevel
+		, storeRegDate)
+	VALUES 
+		(NULL
+		, #{storeId}
+		, #{storeName}
+		, #{storeRepresentative}
+		, #{storeNumber}
+		, #{storeBusinessType}
+		, #{storeAddress}
+		, #{storeIntroduction}
+		, #{storeEmail}
+		, #{storePhone}
+		, #{storeAccountNumber}
+		, #{storePaymentMethod}
+		, #{storeImage}
+		, 1
+		, NOW())
+</insert>
+
+<select id = "storeList" resultType="Store">
+SELECT 
+	storeCode
+	, storeId
+	, storeName
+	, storeRepresentative
+	, storeNumber
+	, storeBusinessType
+	, storeAddress
+	, storeIntroduction
+	, storeEmail
+	, storePhone
+	, storeAccountNumber
+	, storePaymentMethod
+	, storeImage
+	, storeLevel
+FROM
+	tbStore;
+</select>
+
+</mapper>
