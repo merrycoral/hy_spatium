@@ -18,5 +18,4 @@ public class Test {
 		System.out.println(pbeEnc.decrypt("7FqzZlatahsHWanAnHNMvQ=="));
 		System.out.println(pbeEnc.decrypt("XZeoafDFft+Eur4PGPK5I6pgW3btnp/e"));
 	}
-
 }
