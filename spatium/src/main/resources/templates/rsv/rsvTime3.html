@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/whiteDefault}">
+<th:block layout:fragment="customCss">
+<style type="text/css">
+.disableMetter {
+	display: none
+}
+</style>
+<!-- datepicker css파일 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</th:block>
+<th:block layout:fragment="customContent">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					예약 화면 
+				</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br>
+				<form id="formRsv" class="form-horizontal form-label-left" action="/rsv" method="post">
+					<div class="item form-group">
+						<label class="col-form-label col-md-3 col-sm-3 label-align"
+							for="rsvUserName">예약자명 <span class="required">*</span>
+						</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="rsvUserName" required="required" name="rsvUserName"
+								class="form-control ">
+						</div>
+					</div>
+					<div class="item form-group">
+						<label class="col-form-label col-md-3 col-sm-3 label-align"
+							for="rsvUserPhone">예약자 연락처 <span class="required">*</span>
+						</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="rsvUserPhone" name="rsvUserPhone"
+								required="required" class="form-control">
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="rsvUserEmail"
+							class="col-form-label col-md-3 col-sm-3 label-align">예약자 이메일</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input id="rsvUserEmail" class="form-control" type="text"
+								name="rsvUserEmail">
+						</div>
+					</div>
+					
+					<div class="item form-group">
+						<label class="col-form-label col-md-3 col-sm-3 label-align">예약 날짜 선택 <span class="required">*</span>
+						</label>
+						<div class="col-md-6 col-sm-6 ">
+							<!-- 달력 인폿박스 시작 -->
+							<input type="text" name="rsvDate" autocomplete="off" class="form-control has-feedback-left" id="datepicker" > 
+							<!-- 달력 아이콘 -->
+							<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+							<!-- 달력 인폿박스 끝 -->
+							<input type="hidden" id="startTime" name="startTime" />
+							<input type="hidden" id="endTime" name="endTime" />
+						</div>
+					</div>
+					
+					<!-- 시간 선택 버튼 시작 -->
+					<div style="margin : 0 auto" align="center">
+					<div class="btn-group disableMetter" >
+						<label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="0">0
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="1">1
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="2" >2
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="3" >3
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="4" >4
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="5" >5
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="6" >6
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="7" >7
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="8" >8
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="9" >9
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="10" >10
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="11" >11
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="12" >12
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="13" >13
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="14" >14
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="15" >15
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="16" >16
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="17" >17
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="18" >18
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="19" >19
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="20" >20
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="21" >21
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="22" >22
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="23" >23
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="24" >24
+						</label>
+					</div>
+					</div>
+					
+					<div class="item form-group" style="margin-top: 9px">
+						<label for="rsvUserRequest"
+							class="col-form-label col-md-3 col-sm-3 label-align">요청 사항</label>
+						<div class="col-md-6 col-sm-6 ">
+							<textarea id="rsvUserRequest" class="form-control" type="text"
+								name="rsvUserRequest"></textarea>
+						</div>
+					</div>
+					
+					<div class="ln_solid"></div>
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button id="bringBtn" class="btn btn-primary" type="button">로그인 정보와 동일</button>
+							<button id="resetBtn" class="btn btn-primary" type="reset">리셋</button>
+							<button id="submitBtn" type="button" class="btn btn-success">예약하기</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+<th:block layout:fagment="customJs">
+<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript">
+		var num1 = 0;
+		var num2 = 0;
+		
+		$('#submitBtn').click(function(){
+			$('#formRsv').submit();
+		});
+		$('#resetBtn').click(function(){
+			$('.btn-group').addClass('disableMetter');
+		});
+		
+		$('#datepicker').datepicker({
+			singleDatePicker : true,
+			singleClasses : "picker_5",
+			minDate : 0,
+			maxDate : '+3m',
+			dateFormat: "yy-mm-dd"
+		}).on("change", function(e) {
+			$('.btn-group').removeClass('disableMetter');
+			console.log(e.data);
+		});
+	
+		$('.timeCheck input').click(function() {
+			var checkedTime = null;
+			$('.timeCheck input').each(function(i) {
+				var result = $(this).prop('checked');
+				checkedTime = $('.timeCheck input:checked');
+				//체크된 대상 가져오기
+				console.log(checkedTime.length, '체크된 대상 크기확인')
+			})
+	
+			//체크버튼을 3개 클릭했을경우 모두 체크 해제
+			if (checkedTime.length > 2) {
+				$('.timeCheck input').prop('checked', false);
+	
+				//체크 버튼을 2개 클릭했을경우 두개 사이 모두 체크
+			} else if (checkedTime.length == 2) {
+	
+				//체크된 두개 찾기
+				checkedTime.each(function(i, d) {
+					num1 = checkedTime[0].value
+					num2 = checkedTime[1].value
+				})
+				console.log(num1, num2, '체크된 번호 2개');
+	
+				//두개사이 모두 체크하기
+				$('.timeCheck input').each(function(i, d) {
+					if (num1 < i && i < num2) {
+						console.log(this, '체크');
+						$(this).prop('checked', true);
+					}
+				})
+				
+				$('#startTime').val(num1);
+				$('#endTime').val(num2);
+			}
+			
+			//체크된거 색바꾸기 
+			$('.timeCheck input').each(function(){
+				$(this).parent().removeClass('btn-primary');
+				$(this).parent().addClass('btn-secondary');
+			})
+			
+			checkedTime = $('.timeCheck input:checked');
+			checkedTime.each(function() {
+				console.log($(this));
+					$(this).parent().removeClass('btn-secondary');
+					$(this).parent().addClass('btn-primary');
+			})
+			
+			
+		})
+		
+		
+				
+		//(아직 미구현) single_cal5 인풋박스의 값이 변경되었을대  밑에있는 시간 선택창 디스플레이를 block으로 바꾸고  ajax를 호출해서 유효한 선택창만 표시
+	</script>
+</th:block>
+
+</th:block>
+</html>

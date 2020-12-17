@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.RsvMapper">
+		
+	<insert id="insertTbRsv" parameterType="Rsv">
+		INSERT INTO tbRsv(
+			  rsvUserId
+			, rsvUserName
+			, rsvUserPhone
+			, rsvUserEmail
+			, rsvUserRequest
+			, rsvTotalPrice
+			, rsvStartDateTime
+			, rsvEndDateTime
+			, rsvRegDate
+		)VALUES(
+			  #{rsvUserId}
+			, #{rsvUserName}
+			, #{rsvUserPhone}
+			, #{rsvUserEmail}
+			, #{rsvUserRequest}
+			, #{rsvTotalPrice}
+			, #{rsvStartDateTime}
+			, #{rsvEndDateTime}
+			, NOW()
+		);
+	</insert>
+	
+	<select id="rsvList" resultType="Rsv">
+		SELECT 
+			  rsvCode
+			, rsvUserId
+			, rsvUserName
+			, rsvUserPhone
+			, rsvUserEmail
+			, rsvUserRequest
+			, rsvTotalPrice
+			, rsvStartDateTime
+			, rsvEndDateTime
+			, rsvRegDate
+			, rsvState
+		FROM 
+			tbRsv
+	</select>
+	
+</mapper>

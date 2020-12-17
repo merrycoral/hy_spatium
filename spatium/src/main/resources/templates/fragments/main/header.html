@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Begin header -->
+<header id="header" th:fragment="headerFragment">
+	
+	<div class="navbar navbar-fixed-top nav_tab nav_alpa">
+		<div class="nav_container ">
+
+
+			<div class="nav_bar">
+				<img src="imges/B-logo.gif" alt="logo" class="logo " />
+				
+				
+				
+				<div class="serch ">
+					<input class="form-control serch_bar " placeholder="검색">
+						<button class="serch_btn">검색</button>
+					</input>
+					
+				</div>
+				
+				<div class="nav_contents ">
+
+					<a th:href="@{/login}" th:if="${session.SID == null}">06로그인</a> <a
+						th:href="@{/logout}" th:unless="${session.SID == null}">07로그아웃</a>
+
+					<br>
+					<br>
+					<div style="text-align: right;">
+						<label th:unless="${session.SID == null}"
+							th:text="${'id: ' + session.SID + ' ' + session.SNAME + '님이  로그인하셨습니다.'}"></label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</header>
+<!-- end header -->
+<th:block layout:fragment="customJs">
+	<script type="text/javascript">
+	$(function(){
+		  var navbar = $('navbar'); //헤더를 변수에 넣기
+		  var page = $('.nav_alpa'); //색상이 변할 부분
+		  var pageOffsetTop = page.offset().top; //색상 변할 부분의 top값 구하기
+		  $(window).resize(function(){ //반응형을 대비하여 리사이즈시 top값을 다시 계산
+		    pageOffsetTop = page.offset().top;
+		  });
+		  
+		  $(window).on('scroll', function(){
+		    if($(window).scrollTop() >= pageOffsetTop) { // 스크롤이 page보다 밑에 내려가면
+		      header.addClass('changeColor'); //클래스 추가
+		    } else { // 스크롤 올릴 때
+		      header.removeClass('changeColor'); //클래스 제거
+		    }
+		  });
+		});
+	</script>
+</th:block>
+</html>

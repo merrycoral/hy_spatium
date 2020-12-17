@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/whiteDefault}">
+<th:block layout:fragment="customCss">
+<style type="text/css">
+.disableMetter {
+	display: none
+}
+</style>
+<!-- datepicker css파일 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</th:block>
+
+<th:block layout:fragment="customContent">
+<th:block layout:fagment="customJs">
+<!-- datepicker js파일 -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</th:block>
+	<fieldset>
+		<h4>예약 날짜</h4>
+		<div class="col-md-3 xdisplay_inputx form-group row has-feedback">
+			<form id="formDate" action="/rsv" method="post" autocomplete="off">
+				<!-- 달력 인폿박스 시작 -->
+				<input type="text" name="rsvDate" class="form-control has-feedback-left" id="datepicker" > 
+				<!-- 달력 아이콘 -->
+				<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+				<!-- 달력 인폿박스 끝 -->
+				<input type="hidden" id="startTime" name="startTime" />
+				<input type="hidden" id="endTime" name="endTime" />
+			</form>
+				<!-- 시간 선택 버튼 시작 -->
+				<div class="btn-group disableMetter">
+					<label class="btn btn-secondary timeCheck"> <input
+						type="checkbox" class="disableMetter" value="0">0
+					</label> <label class="btn btn-secondary timeCheck"> <input
+						type="checkbox" class="disableMetter" value="1">1
+					</label> <label class="btn btn-secondary timeCheck"> <input
+						type="checkbox" class="disableMetter" value="2" >2
+					</label> <label class="btn btn-secondary timeCheck"> <input
+						type="checkbox" class="disableMetter" value="3" >3
+					</label> <label class="btn btn-secondary timeCheck"> <input
+						type="checkbox" class="disableMetter" value="4" >4
+					</label> <label class="btn btn-secondary timeCheck"> <input
+						type="checkbox" class="disableMetter" value="5" >5
+					</label> <label class="btn btn-secondary timeCheck"> <input
+						type="checkbox" class="disableMetter" value="6" >6
+					</label> <label class="btn btn-secondary timeCheck"> <input
+						type="checkbox" class="disableMetter" value="7" >7
+					</label> <label class="btn btn-secondary timeCheck"> <input
+						type="checkbox" class="disableMetter" value="8" >8
+					</label>
+				</div>
+				
+
+				<button id="submitBtn" type="submit">예약하기</button>
+		</div>
+	</fieldset>
+
+
+
+
+
+	<script type="text/javascript">
+		var num1 = 0;
+		var num2 = 0;
+		
+		$('#submitBtn').click(function(){
+			$('#formDate').submit();
+		});
+		
+		$('#datepicker').datepicker({
+			singleDatePicker : true,
+			singleClasses : "picker_5",
+			minDate : 0,
+			maxDate : '+3m',
+			dateFormat: "yy-mm-dd"
+		}).on("change", function(e) {
+			$('.btn-group').removeClass('disableMetter');
+			console.log(e.data);
+		});
+	
+		$('.timeCheck input').click(function() {
+			var checkedTime = null;
+			$('.timeCheck input').each(function(i) {
+				var result = $(this).prop('checked');
+				checkedTime = $('.timeCheck input:checked');
+				//체크된 대상 가져오기
+				console.log(checkedTime.length, '체크된 대상 크기확인')
+			})
+	
+			//체크버튼을 3개 클릭했을경우 모두 체크 해제
+			if (checkedTime.length > 2) {
+				$('.timeCheck input').prop('checked', false);
+	
+				//체크 버튼을 2개 클릭했을경우 두개 사이 모두 체크
+			} else if (checkedTime.length == 2) {
+	
+				//체크된 두개 찾기
+				checkedTime.each(function(i, d) {
+					num1 = checkedTime[0].value
+					num2 = checkedTime[1].value
+				})
+				console.log(num1, num2, '체크된 번호 2개');
+	
+				//두개사이 모두 체크하기
+				$('.timeCheck input').each(function(i, d) {
+					if (num1 < i && i < num2) {
+						console.log(this, '체크');
+						$(this).prop('checked', true);
+					}
+				})
+				
+				$('#startTime').val(num1);
+				$('#endTime').val(num2);
+			}
+			
+			//체크된거 색바꾸기 
+			$('.timeCheck input').each(function(){
+				$(this).parent().removeClass('btn-primary');
+				$(this).parent().addClass('btn-secondary');
+			})
+			
+			checkedTime = $('.timeCheck input:checked');
+			checkedTime.each(function() {
+				console.log($(this));
+					$(this).parent().removeClass('btn-secondary');
+					$(this).parent().addClass('btn-primary');
+			})
+			
+			
+		})
+		
+		
+				
+		//(아직 미구현) single_cal5 인풋박스의 값이 변경되었을대  밑에있는 시간 선택창 디스플레이를 block으로 바꾸고  ajax를 호출해서 유효한 선택창만 표시
+	</script>
+</th:block>
+</html>

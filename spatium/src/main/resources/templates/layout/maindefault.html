@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout">
+<head th:replace="fragments/main/head :: headFragment"></head>
+<!-- th:replace = "파일이 위차한 곳 :: fragment이름> -->
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div th:replace="fragments/main/header :: headerFragment"></div>
+			<!-- start customContent -->
+			<div th:replace="fragments/main/mainContainer :: mainContainerFragment"></div> 
+			<!-- end customContent -->
+			<div th:replace="fragments/main/footer :: footerFragment"></div>
+			<div th:replace="fragments/main/js :: jsFragment"></div>
+		</div>
+	</div>
+</body>
+</html>
