@@ -1,5 +1,7 @@
 package com.urban.spatium.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +17,12 @@ public class RsvController {
 	@Autowired 
 	private RsvService rsvService; 
 	
-	@GetMapping("/rsvInsert")
+	@GetMapping("/rsvInsertByAdmin")
 	public String index() {
-		return "rsv/rsvInsert";
+		return "rsv/rsvInsertByAdmin";
 	}
 	
-	@PostMapping("/rsvInsert")
+	@PostMapping("/rsvInsertByAdmin")
 	public String index2(Rsv rsv, Model model) {
 		System.out.println(rsv.getRsvDate() + " <-- 예약날짜");
 		System.out.println(rsv.getStartTime() + " <-- 시작시간");
@@ -36,19 +38,19 @@ public class RsvController {
 		rsvService.insertTbRsv(rsv);
 		
 		
-		return "rsv/rsvInsert";
+		return "rsv/rsvInsertByAdmin";
 	}
 	
-	@GetMapping("/rsvList")
+	@GetMapping("/rsvListByAdmin")
 	public String rsvList(Model model) {
-		
-		
-		return "rsv/rsvList";
+		List<Rsv> rsvList = rsvService.rsvList();
+		model.addAttribute("rsvList", rsvList);
+		return "rsv/rsvListByAdmin";
 	}
 	
-	@GetMapping("/rsvCancelList")
+	@GetMapping("/rsvCancelListByAdmin")
 	public String rsvCancelList() {
-		return "rsv/rsvCancelList";
+		return "rsv/rsvCancelListByAdmin";
 	}
 	
 }

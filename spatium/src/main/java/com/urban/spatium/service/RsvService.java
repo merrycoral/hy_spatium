@@ -18,7 +18,7 @@ public class RsvService {
 	// DI
 	@Autowired 
 	private RsvMapper rsvMapper;
-
+	
 	public void insertTbRsv(Rsv rsv) {
 		String rsvStartDateTime = rsv.getRsvDate() + " " +rsv.getStartTime();
 		String rsvEndDateTime = rsv.getRsvDate() + " " +rsv.getEndTime();
@@ -30,8 +30,9 @@ public class RsvService {
 		rsvMapper.insertTbRsv(rsv);
 	}
 
-	public void rsvList() {
-		Rsv rsv = rsvMapper.rsvList();
+	public List<Rsv> rsvList() {
+		List<Rsv> rsv = rsvMapper.rsvList();
+		return rsv;
 	}
 	
 	

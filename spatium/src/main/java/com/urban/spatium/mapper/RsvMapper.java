@@ -13,7 +13,7 @@ public interface RsvMapper {
 	
 	public void insertTbRsv(Rsv rsv);
 
-	public Rsv rsvList();
+	public List<Rsv> rsvList();
 	
 	
 }
