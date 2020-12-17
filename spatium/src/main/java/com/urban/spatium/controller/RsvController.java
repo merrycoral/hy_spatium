@@ -17,13 +17,13 @@ public class RsvController {
 	@Autowired 
 	private RsvService rsvService; 
 	
-	@GetMapping("/rsvInsertByAdmin")
-	public String index() {
-		return "rsv/rsvInsertByAdmin";
+	@GetMapping("/rsvDetailInsertByAdmin")
+	public String rsvDetailInsertByAdmin() {
+		return "rsv/rsvDetailInsertByAdmin";
 	}
 	
 	@PostMapping("/rsvInsertByAdmin")
-	public String index2(Rsv rsv, Model model) {
+	public String rsvInsertByAdmin(Rsv rsv, Model model) {
 		System.out.println(rsv.getRsvDate() + " <-- 예약날짜");
 		System.out.println(rsv.getStartTime() + " <-- 시작시간");
 		System.out.println(rsv.getEndTime() + " <-- 종료시간");
@@ -42,14 +42,21 @@ public class RsvController {
 	}
 	
 	@GetMapping("/rsvListByAdmin")
-	public String rsvList(Model model) {
+	public String rsvListByAdmin(Model model) {
 		List<Rsv> rsvList = rsvService.rsvList();
 		model.addAttribute("rsvList", rsvList);
 		return "rsv/rsvListByAdmin";
 	}
 	
+	@GetMapping("/rsvDetailListByAdmin")
+	public String rsvDetailListByAdmin(Model model) {
+		List<Rsv> rsvList = rsvService.rsvList();
+		model.addAttribute("rsvList", rsvList);
+		return "rsv/rsvDetailListByAdmin";
+	}
+	
 	@GetMapping("/rsvCancelListByAdmin")
-	public String rsvCancelList() {
+	public String rsvCancelListByAdmin() {
 		return "rsv/rsvCancelListByAdmin";
 	}
 	
