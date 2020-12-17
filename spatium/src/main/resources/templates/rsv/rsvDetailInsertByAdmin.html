@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/Default}">
+<th:block layout:fragment="customCss">
+<style type="text/css">
+.spaceRadio label{
+margin: 0;
+font-size: 20px;
+margin-right: 20px;
+}
+</style>
+
+</th:block>
+<th:block layout:fragment="customContent">
+
+
+	<div class="x_panel">
+		<div class="x_title">
+			<h2>예약 화면</h2>
+			<div class="clearfix"></div>
+		</div>
+		<div class="x_content">
+			<br>
+			<form id="formRsv" class="form-horizontal form-label-left"
+				action="/rsvInsert" method="post">
+				<div class="item form-group">
+					<label class="col-form-label col-md-3 col-sm-3 label-align"
+						for="rsvUserName">예약 종류 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 spaceRadio">
+						<label ><input  type="radio" id="rsvUserName" required="required"
+							name="rsvUserName"  class=" ">공간</label>
+						<label ><input  type="radio" id="rsvUserName" required="required"
+							name="rsvUserName" class=" ">좌석 </label>
+						<label ><input  type="radio" id="rsvUserName" required="required"
+							name="rsvUserName" class=" ">장비 </label>
+					</div>
+				</div>
+				<div class="item form-group">
+					<label class="col-form-label col-md-3 col-sm-3 label-align"
+						for="rsvUserName">예약 물품 코드 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="text" id="rsvUserName" required="required"
+							name="rsvUserName" class="form-control ">
+					</div>
+				</div>
+				<div class="item form-group">
+					<label class="col-form-label col-md-3 col-sm-3 label-align"
+						for="rsvUserPhone">예약 가격 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="number" id="rsvUserPhone" name="rsvUserPhone"
+							required="required" class="form-control">
+					</div>
+				</div>
+				<div class="item form-group">
+					<label for="rsvUserEmail"
+						class="col-form-label col-md-3 col-sm-3 label-align">예약 개수</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input id="rsvUserEmail" class="form-control" type="number"
+							name="rsvUserEmail" value="0">
+					</div>
+				</div>
+
+				<div class="item form-group" style="margin-top: 9px">
+					<label for="rsvUserRequest"
+						class="col-form-label col-md-3 col-sm-3 label-align">총 가격</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input id="rsvUserRequest" class="form-control" type="number"
+							name="rsvUserRequest" value="0"></input>
+					</div>
+				</div>
+				
+				
+
+				<div class="ln_solid"></div>
+				<div class="item form-group">
+					<div class="col-md-6 col-sm-6 offset-md-3">
+						<button id="submitBtn" type="button" class="btn btn-success">예약하기</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<th:block layout:fagment="customJs">
+		<script type="text/javascript">
+		$('#submitBtn').click(function(){
+			$('#formRsv').submit();
+		});
+	</script>
+	</th:block>
+
+</th:block>
+</html>
