@@ -2,43 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- Begin header -->
 <header id="header" th:fragment="headerFragment">
-	
-	<div class="navbar navbar-fixed-top nav_tab nav_alpa">
-		<div class="nav_container ">
 
+	<nav class="navbar navbar-fixed-top">
 
-			<div class="nav_bar">
+		<div class="container">
+			<div class="  col-md-3">
 				<img src="imges/B-logo.gif" alt="logo" class="logo " />
-				
-				
-				
-				<div class="serch ">
-					<input class="form-control serch_bar " placeholder="검색">
-						<button class="serch_btn">검색</button>
-					</input>
-					
-				</div>
-				
-				<div class="nav_contents ">
+			</div>
 
-					<a th:href="@{/login}" th:if="${session.SID == null}">06로그인</a> <a
-						th:href="@{/logout}" th:unless="${session.SID == null}">07로그아웃</a>
 
-					<br>
-					<br>
-					<div style="text-align: right;">
-						<label th:unless="${session.SID == null}"
-							th:text="${'id: ' + session.SID + ' ' + session.SNAME + '님이  로그인하셨습니다.'}"></label>
-					</div>
+			<div class="col-md-6 navbar-form serch">
+				<input class="serch_bar" placeholder="검색"></input>
+				<button class="serch_btn">검색</button>
+
+
+			</div>
+
+			<div class="menu col-md-1 nav-item navbar-right">
+
+				<a th:href="@{/login}" th:if="${session.SID == null}">로그인</a> <a
+					th:href="@{/logout}" th:unless="${session.SID == null}">07로그아웃</a>
+
+				<br> <br>
+				<div style="text-align: right;">
+					<label th:unless="${session.SID == null}"
+						th:text="${'id: ' + session.SID + ' ' + session.SNAME + '님이  로그인하셨습니다.'}"></label>
 				</div>
 			</div>
 		</div>
-	</div>
+	</nav>
 
 </header>
 <!-- end header -->
-<th:block layout:fragment="customJs">
-	<script type="text/javascript">
+<script type="text/javascript">
 	$(function(){
 		  var navbar = $('navbar'); //헤더를 변수에 넣기
 		  var page = $('.nav_alpa'); //색상이 변할 부분
@@ -56,5 +52,4 @@
 		  });
 		});
 	</script>
-</th:block>
 </html>
