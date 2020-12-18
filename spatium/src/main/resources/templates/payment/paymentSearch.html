@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
-	layout:decorate="@{layout/default}">
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
 
-
-
-<th:block layout:fragment="customJs"></th:block>  
-
 <th:block layout:fragment="customContent">
 <h1>결제내역조회임..</h1>
-
+<table border="1">
+	<thead>
+		<tr>
+			<th>결제코드</th>
+			<th>예약코드</th>
+			<th>결제금액</th>
+			<th>사용한 포인트</th>
+			<th>실결제금액</th>
+			<th>적립포인트</th>
+			<th>결제일시</th>
+			<th>결제IP</th>
+			<th>결제방식</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="p : ${paymentList}">
+			<td th:text="${p.paymentCode}"></td>
+			<td th:text="${p.paymentRsvCode}"></td>
+			<td th:text="${p.paymentPrice}"></td>
+			<td th:text="${p.paymentUsePoint}"></td>
+			<td th:text="${p.paymentUseMoney}"></td>
+			<td th:text="${p.paymentAddPoint}"></td>
+			<td th:text="${p.paymentRegDate}"></td>
+			<td th:text="${p.paymentIP}"></td>
+			<td th:text="${p.paymentMethod}"></td>
+		</tr>
+	</tbody>
+</table>
 </th:block>
 </html>
