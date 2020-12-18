@@ -2686,7 +2686,7 @@
 		}
 
 		#header .logo {
-			margin-top: 4px;
+			margin-top: 15px;
 			display: inline-block;
 			height: 60px;
 		}
@@ -2795,12 +2795,19 @@
 		}
 
 		#header {
+					text-align: center;
+		
 			line-height: 44px;
 			height: 15em;
 		}
 
 			#header .logo {
 				margin-top: 2em;
+			}
+			
+			#header nav .serch {
+				margin: 10px;
+				max-width: 650px;
 			}
 			
 			
@@ -2830,135 +2837,183 @@
 			margin-top: 2em;
 		}
 		
+		#header nav .serch {
+				margin: 10px;
+				max-width: 300px;
+			}
+		
 
 
 	}
 
-/* Menu */
+/* login */
 
 	.login {
-	    overflow: hidden;
-	    position: relative;
-	    transform: translateX(-300px);
-	    height: 100%;
-	    width: 400px;
-	    transition: all 800ms cubic-bezier(.8, 0, .33, 1);
-	    border-radius: 0% 0% 100% 50%;
+	   width: 20%;
+	   position: absolute;
+	   right: 0;
+	   padding: 30px 0px 0px 50px;
 	}
 	
-	.login .login-open{
-		transform: translateX(0px);
-    	border-radius: 0% 0% 0% 0%;
-	 	background: rgba(255, 255, 255, 0.6);
+	.login-open{
+		position:fixed;
+		height:100%;
+    	background: rgba(255, 255, 255, 0.6);
+	}
+	
+	.login-btn {
+	    cursor: pointer;
+	}
+	
+	.login-btn .line {
+	    padding: 0;
+	    width: 30px;
+	    background: #4f4f4f;
+	    height: 2px;
+	    margin: 5px 0;
+	    transition: all 700ms cubic-bezier(.9, 0, .33, 1);
+	}
+	
+	.login-btn .line.line--1 {
+	    width: 30px;
+	    transform: rotate(0) translateY(0);
+	}
+	
+	.login-btn .line.line--1.line-cross {
+	    width: 30px;
+	    transform: rotate(45deg) translateY(10px);
+		background: rgba(0,0,0,0.6);
+	}
+	
+	.login-btn .line.line--2 {
+	    width: 30px;
+	    transform: translateX(0);
+	}
+	
+	.login-btn .line.line--2.line-fade-out {
+	    width: 28px;
+	    transform: translate(30px);
+	    opacity: 0;
+	}
+	
+	.login-btn .line.line--3 {
+	    width: 30px;
+	    transform: rotate(0) translateY(0);
+	}
+	
+	.login-btn .line.line--3.line-cross {
+	    width: 30px;
+	    transform: rotate(-45deg) translateY(-10px);
+		 background: rgba(0,0,0,0.6);
+	}
+	
+	.login-links {
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 100%;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    justify-content: center;
+	    transform: translateX(-100px);
+	    opacity: 0;
+	    transition: all 900ms cubic-bezier(.9, 0, .33, 1);
+	}
+	
+	.fade-in {
+	    opacity: 1;
+	    transform: translateX(0px);
+	}
+	
+	.login-links .link {
+	    margin: 20px 0;
+	    text-decoration: none;
+	    font-family: sans-serif;
+	    color: rgba(0,0,0,0.9);
+	    font-weight: 700;
+	    text-transform: uppercase;
+	    font-size: 1.2rem;
+	    transition: all 300ms cubic-bezier(.9, 0, .33, 1);
+	}
+	
+	.login-links .link:hover {
+	    color: rgba(0, 0, 0, .5);
+	}
+	
+	/* @media screen and (max-width: 1680px) {
+			
+			.login {
+				position: relative;
+			    transform: translateX(-300px);
+			    top: -20px;
+			    right: -320px;
+			}
+			
+			.login-open{
+		    	width: 30%;
+		    	position: fixed;
+			}
+
+		}
+
+		@media screen and (max-width: 1280px) {
+		
+			.login {
+				position: relative;
+			    transform: translateX(-300px);
+			    top: -20px;
+			    right: -320px;
+			}
+
+			.login-open{
+				width: 40%;
+    			position: fixed;
+			}
+
+		}
+
+	@media screen and (max-width: 980px) {
+			.login {
+				position: relative;
+			    transform: translateX(-300px);
+			    top: -30px;
+			    right: -340px;
+			    height: 100%;
+			    border-radius: 0% 0% 100% 50%;
+			}
+			
+			.login-open{
+				right: -20px;
+		    	width: 100%;
+				transform: translateX(0px);
+		    	border-radius: 0% 0% 0% 0%;
+		    	
+			 	background: rgba(255, 255, 255, 0.6);
+			}
+		
 	}
 
-		#menu > ul {
-			margin: 0 0 1em 0;
-		}
-
-			#menu > ul.links {
-				list-style: none;
-				padding: 0;
+	@media screen and (max-width: 480px) {
+			.login {
+				position: relative;
+			    transform: translateX(-300px);
+			    top: -40px;
+			    right: -320px;
+			    height: 100%;
+			    border-radius: 0% 0% 100% 50%;
 			}
-
-				#menu > ul.links > li {
-					padding: 0;
-				}
-
-					#menu > ul.links > li > a:not(.button) {
-						border: 0;
-						border-top: solid 1px rgba(255, 255, 255, 0.25);
-						color: inherit;
-						display: block;
-						line-height: 3.5em;
-						text-decoration: none;
-					}
-
-					#menu > ul.links > li > .button {
-						display: block;
-						margin: 0.5em 0 0 0;
-					}
-
-					#menu > ul.links > li:first-child > a:not(.button) {
-						border-top: 0 !important;
-					}
-
-			#menu > ul.actions {
-				display: none;
+			
+			.login-open{
+				right: -10px;
+		    	width: 100%;
+				transform: translateX(0px);
+		    	border-radius: 0% 0% 0% 0%;
+		    	background: red;
+			 	background: rgba(255, 255, 255, 0.6);
 			}
-
-		#menu .close {
-			text-decoration: none;
-			-moz-transition: color 0.2s ease-in-out;
-			-webkit-transition: color 0.2s ease-in-out;
-			-ms-transition: color 0.2s ease-in-out;
-			transition: color 0.2s ease-in-out;
-			-webkit-tap-highlight-color: transparent;
-			border: 0;
-			color: #a7d9e7;
-			cursor: pointer;
-			display: block;
-			height: 3.25em;
-			line-height: 3.25em;
-			padding-right: 1.25em;
-			position: absolute;
-			right: 0;
-			text-align: right;
-			top: 0;
-			vertical-align: middle;
-			width: 7em;
-		}
-
-			#menu .close:before {
-				content: "";
-				-moz-osx-font-smoothing: grayscale;
-				-webkit-font-smoothing: antialiased;
-				font-family: FontAwesome;
-				font-style: normal;
-				font-weight: normal;
-				text-transform: none !important;
-			}
-
-			#menu .close:before {
-				font-size: 1.25em;
-			}
-
-			#menu .close:hover {
-				color: #ffffff;
-			}
-
-			@media screen and (max-width: 736px) {
-
-				#menu .close {
-					height: 4em;
-					line-height: 4em;
-				}
-
-			}
-
-		#menu.visible {
-			-moz-transform: translateX(0);
-			-webkit-transform: translateX(0);
-			-ms-transform: translateX(0);
-			transform: translateX(0);
-			visibility: visible;
-		}
-
-		@media screen and (max-width: 980px) {
-
-			#menu ul.actions {
-				display: block;
-			}
-
-		}
-
-		@media screen and (max-width: 736px) {
-
-			#menu {
-				padding: 2.5em 1.75em;
-			}
-
-		}
+		
+	} */
 
 /* Banner */
 
