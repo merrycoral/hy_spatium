@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
-	layout:decorate="@{layout/Default}">
+	layout:decorate="@{layout/whiteDefault}">
 <th:block layout:fragment="customCss">
 <style type="text/css">
 .disableMetter {
 	display: none
 }
 </style>
-<!-- datepicker css파일 -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </th:block>
 <th:block layout:fragment="customContent">
 
@@ -142,7 +141,6 @@
 				</form>
 			</div>
 		</div>
-
 <th:block layout:fagment="customJs">
 <!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript">
@@ -218,9 +216,7 @@
 			
 		})
 		
-		
 				
-		//(아직 미구현) single_cal5 인풋박스의 값이 변경되었을대  밑에있는 시간 선택창 디스플레이를 block으로 바꾸고  ajax를 호출해서 유효한 선택창만 표시
 	</script>
 </th:block>
 
