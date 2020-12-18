@@ -3,13 +3,14 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="@{layout/default}">
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	  
 <th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 </th:block>
 <th:block layout:fragment="customContent">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
-	<div id="wizard" class="form_wizard wizard_horizontal">
+
+			<div id="wizard" class="form_wizard wizard_horizontal">
                       <ul class="wizard_steps anchor">
                         <li>
                           <a href="#step-1" class="selected" isdone="1" rel="1">
@@ -57,14 +58,14 @@
                         <form class="form-horizontal form-label-left">
 
                           <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*</span>
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> 공간 이름 <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
                               <input type="text" id="first-name" required="required" class="form-control  ">
                             </div>
                           </div>
                           <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Last Name <span class="required">*</span>
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name"> 공간 유형 <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
                               <input type="text" id="last-name" name="last-name" required="required" class="form-control ">
@@ -132,7 +133,7 @@
                           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
                           in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </p>
-                      </div></div><div class="actionBar"><div class="msgBox"><div class="content"></div><a href="#" class="close">X</a></div><div class="loader">Loading</div><a href="#" class="buttonFinish buttonDisabled btn btn-default">Finish</a><a href="#" class="buttonNext btn btn-success">Next</a><a href="#" class="buttonPrevious buttonDisabled btn btn-primary">Previous</a></div></div>
+                      </div></div></div>
 					
 </th:block>
 
