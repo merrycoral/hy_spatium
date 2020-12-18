@@ -15,6 +15,57 @@ public class Rsv {
 	private String endTime;
 	private String rsvStartDateTime;
 	private String rsvEndDateTime;
+	
+	private int rsvDetailCode;
+	private int rsvDetailSpace;
+	private int rsvDetailSeat;
+	private int rsvDetailItem;
+	private int rsvDetailNum;
+	private int rsvDetailOnePrice;
+	private int rsvDetailTotalPrice;
+	
+	public int getRsvDetailCode() {
+		return rsvDetailCode;
+	}
+	public void setRsvDetailCode(int rsvDetailCode) {
+		this.rsvDetailCode = rsvDetailCode;
+	}
+	public int getRsvDetailSpace() {
+		return rsvDetailSpace;
+	}
+	public void setRsvDetailSpace(int rsvDetailSpace) {
+		this.rsvDetailSpace = rsvDetailSpace;
+	}
+	public int getRsvDetailSeat() {
+		return rsvDetailSeat;
+	}
+	public void setRsvDetailSeat(int rsvDetailSeat) {
+		this.rsvDetailSeat = rsvDetailSeat;
+	}
+	public int getRsvDetailItem() {
+		return rsvDetailItem;
+	}
+	public void setRsvDetailItem(int rsvDetailItem) {
+		this.rsvDetailItem = rsvDetailItem;
+	}
+	public int getRsvDetailNum() {
+		return rsvDetailNum;
+	}
+	public void setRsvDetailNum(int rsvDetailNum) {
+		this.rsvDetailNum = rsvDetailNum;
+	}
+	public int getRsvDetailOnePrice() {
+		return rsvDetailOnePrice;
+	}
+	public void setRsvDetailOnePrice(int rsvDetailOnePrice) {
+		this.rsvDetailOnePrice = rsvDetailOnePrice;
+	}
+	public int getRsvDetailTotalPrice() {
+		return rsvDetailTotalPrice;
+	}
+	public void setRsvDetailTotalPrice(int rsvDetailTotalPrice) {
+		this.rsvDetailTotalPrice = rsvDetailTotalPrice;
+	}
 	public String getRsvUserName() {
 		return rsvUserName;
 	}
@@ -101,37 +152,14 @@ public class Rsv {
 	}
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Rsv [rsvCode=");
-		builder.append(rsvCode);
-		builder.append(", rsvUserId=");
-		builder.append(rsvUserId);
-		builder.append(", rsvUserName=");
-		builder.append(rsvUserName);
-		builder.append(", rsvUserPhone=");
-		builder.append(rsvUserPhone);
-		builder.append(", rsvUserEmail=");
-		builder.append(rsvUserEmail);
-		builder.append(", rsvUserRequest=");
-		builder.append(rsvUserRequest);
-		builder.append(", rsvTotalPrice=");
-		builder.append(rsvTotalPrice);
-		builder.append(", rsvRegDate=");
-		builder.append(rsvRegDate);
-		builder.append(", rsvState=");
-		builder.append(rsvState);
-		builder.append(", rsvDate=");
-		builder.append(rsvDate);
-		builder.append(", startTime=");
-		builder.append(startTime);
-		builder.append(", endTime=");
-		builder.append(endTime);
-		builder.append(", rsvStartDateTime=");
-		builder.append(rsvStartDateTime);
-		builder.append(", rsvEndDateTime=");
-		builder.append(rsvEndDateTime);
-		builder.append("]");
-		return builder.toString();
+		return "Rsv [rsvCode=" + rsvCode + ", rsvUserId=" + rsvUserId + ", rsvUserName=" + rsvUserName
+				+ ", rsvUserPhone=" + rsvUserPhone + ", rsvUserEmail=" + rsvUserEmail + ", rsvUserRequest="
+				+ rsvUserRequest + ", rsvTotalPrice=" + rsvTotalPrice + ", rsvRegDate=" + rsvRegDate + ", rsvState="
+				+ rsvState + ", rsvDate=" + rsvDate + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", rsvStartDateTime=" + rsvStartDateTime + ", rsvEndDateTime=" + rsvEndDateTime + ", rsvDetailCode="
+				+ rsvDetailCode + ", rsvDetailSpace=" + rsvDetailSpace + ", rsvDetailSeat=" + rsvDetailSeat
+				+ ", rsvDetailItem=" + rsvDetailItem + ", rsvDetailNum=" + rsvDetailNum + ", rsvDetailOnePrice="
+				+ rsvDetailOnePrice + ", rsvDetailTotalPrice=" + rsvDetailTotalPrice + "]";
 	}
 	
 	

@@ -23,10 +23,6 @@
 						<th class="column-title">예약자 이메일</th>
 						<th class="column-title">총 가격</th>
 						<th class="column-title">예약 시작 일시</th>
-						<th class="column-title">예약 종료 일시</th>
-						<th class="column-title">예약 등록 일시</th>
-						<th class="column-title">예약 상태</th>
-						<th class="column-title">세부 예약 정보</th>
 						<th class="bulk-actions" colspan="11" style="display: none;">
 							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
 								class="fa fa-chevron-down"></i>
@@ -36,24 +32,20 @@
 				</thead>
 
 				<tbody>
-					<tr class="even pointer" th:if="${#lists.size(rsvList) > 0}" th:each = "r : ${rsvList}">
+					<tr class="even pointer" th:if="${#lists.size(rsvDetailList) > 0}" th:each = "r : ${rsvDetailList}">
 						<td class="a-center ">
 							<div class="icheckbox_flat-green" style="position: relative;">
 								<input type="checkbox" class="flat" name="table_records"
 									style="position: absolute; opacity: 0;">
 							</div>
 						</td>
-						<td th:text="${r.rsvCode}" class=" "></td>
-						<td th:text="${r.rsvUserId}" class=" "></td>
-						<td th:text="${r.rsvUserName}" class=" "></td>
-						<td th:text="${r.rsvUserPhone}" class=" "></td>
-						<td th:text="${r.rsvUserEmail}" class=" "></td>
-						<td th:text="${r.rsvTotalPrice}" class=" "></td>
-						<td th:text="${r.rsvStartDateTime}" class=" "></td>
-						<td th:text="${r.rsvEndDateTime}" class=" "></td>
-						<td th:text="${r.rsvRegDate}" class=" "></td>
-						<td th:text="${r.rsvState}" class=" "></td>
-						<td class=" "><a href="#">View</a></td>
+						<td th:text="${r.rsvDetailCode}" class=" "></td>
+						<td th:text="${r.rsvDetailSpace}" class=" "></td>
+						<td th:text="${r.rsvDetailSeat}" class=" "></td>
+						<td th:text="${r.rsvDetailItem}" class=" "></td>
+						<td th:text="${r.rsvDetailOnePrice}" class=" "></td>
+						<td th:text="${r.rsvDetailNum}" class=" "></td>
+						<td th:text="${r.rsvDetailTotalPrice}" class=" "></td>
 					</tr>
 				</tbody>
 			</table>
