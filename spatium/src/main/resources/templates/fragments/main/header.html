@@ -17,15 +17,20 @@
 
 			</div>
 
-			<div class="menu col-md-1 nav-item navbar-right">
-				<a th:href="@{/admin}" >관리자 화면(임시)</a>
-				<a th:href="@{/login}" th:if="${session.SID == null}">로그인</a> <a
-					th:href="@{/logout}" th:unless="${session.SID == null}">07로그아웃</a>
 
-				<br> <br>
-				<div style="text-align: right;">
-					<label th:unless="${session.SID == null}"
-						th:text="${'id: ' + session.SID + ' ' + session.SNAME + '님이  로그인하셨습니다.'}"></label>
+			<div class="login col-md-1 navbar-right">
+				<div class="login-btn">
+					<a th:href="@{/admin}" >관리자 화면(임시)</a>
+					<a th:href="@{/login}" th:if="${session.SID == null}" class="link">로그인</a> 
+					<a th:href="@{/logout}" th:unless="${session.SID == null}" class="link">07로그아웃</a>
+					<a th:href="@{/addUser}" th:if="${session.SID == null}" class="link">회원가입</a> 
+					
+					<br> <br>
+					<div style="text-align: right;">
+						<label th:unless="${session.SID == null}"
+							th:text="${'id: ' + session.SID + ' ' + session.SNAME + '님이  로그인하셨습니다.'}"></label>
+					</div>
+
 				</div>
 			</div>
 		</div>
