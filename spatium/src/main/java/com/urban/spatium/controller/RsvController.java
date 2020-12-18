@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.urban.spatium.dto.Rsv;
+import com.urban.spatium.dto.Item;
+import com.urban.spatium.dto.OKSpace;
 import com.urban.spatium.service.RsvService;
 
 @Controller
@@ -17,19 +19,26 @@ public class RsvController {
 	@Autowired 
 	private RsvService rsvService; 
 	
+	/**
+	 * 예약 등록 메서드
+	 */
 	@GetMapping("/rsvDetailInsertByAdmin")
 	public String rsvDetailInsertByAdmin(Model model) {
 		model.addAttribute("storeCode", 5);
 		//넘어온 업체 코드가 5라고 가정
 		
-		rsvService.getSpaceByStore();//업체에 소속된 공간 가져오기
-		rsvService.getItemByStore();//업체에 소속된 장비 가져오기
-		
+		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore();//업체에 소속된 공간 가져오기
+		List<Item> getItemByStore = rsvService.getItemByStore();//업체에 소속된 장비 가져오기
+		model.addAttribute("getSpaceByStore", getSpaceByStore);
+		model.addAttribute("getItemByStore", getItemByStore);
 		
 		
 		return "rsv/rsvDetailInsertByAdmin";
 	}
 	
+	/**
+	 * 예약 등록 버튼 눌렀을때 작동하는 메서드
+	 */
 	@PostMapping("/rsvInsertByAdmin")
 	public String rsvInsertByAdmin(Rsv rsv, Model model) {
 		System.out.println(rsv.getRsvDate() + " <-- 예약날짜");
@@ -49,6 +58,9 @@ public class RsvController {
 		return "rsv/rsvInsertByAdmin";
 	}
 	
+	/**
+	 * 관리자페이지 예약 목록 조회
+	 */
 	@GetMapping("/rsvListByAdmin")
 	public String rsvListByAdmin(Model model) {
 		List<Rsv> rsvList = rsvService.rsvList();
@@ -56,6 +68,9 @@ public class RsvController {
 		return "rsv/rsvListByAdmin";
 	}
 	
+	/**
+	 * 관리자페이지 예약 세부 목록 조회
+	 */
 	@GetMapping("/rsvDetailListByAdmin")
 	public String rsvDetailListByAdmin(Model model) {
 		List<Rsv> rsvDetailList = rsvService.rsvDetailList();
@@ -63,6 +78,9 @@ public class RsvController {
 		return "rsv/rsvDetailListByAdmin";
 	}
 	
+	/**
+	 * 관리자페이지 예약 취소 목록 조회
+	 */
 	@GetMapping("/rsvCancelListByAdmin")
 	public String rsvCancelListByAdmin() {
 		return "rsv/rsvCancelListByAdmin";

@@ -1,6 +1,6 @@
 package com.urban.spatium.dto;
 
-public class item {
+public class Item {
 	private int itemCode;
 	private int storeTotalCode;
 	private String itemTotalName;

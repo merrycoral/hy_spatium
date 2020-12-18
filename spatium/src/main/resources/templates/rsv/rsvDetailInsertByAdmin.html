@@ -13,8 +13,105 @@ margin-right: 20px;
 
 </th:block>
 <th:block layout:fragment="customContent">
+		<!-- 공간 예약 테이블 -->
+	<div class="table-responsive">
+			<table class="table table-striped jambo_table bulk_action" border="1">
 
+				<thead>
+					<tr class="headings">
+						<th>
+							<div class="icheckbox_flat-green" style="position: relative;">
+								<input type="checkbox" id="check-all" class="flat"
+									style="position: absolute; opacity: 0;"> 
+							</div>
+						</th>
+						<th class="column-title">공간 이름</th>
+						<th class="column-title">공간 유형</th>
+						<th class="column-title">공간 최대 인원수</th>
+						<th class="column-title">공간 간략 소개</th>
+						<th class="column-title">공간 태그</th>
+						<th class="column-title">영업 시작 시간</th>
+						<th class="column-title">영업 종료 시간</th>
+						<th class="column-title">보유 옵션</th>
+						<th class="column-title">공간 대여 가격</th>
+						<th class="bulk-actions" colspan="11" style="display: none;">
+							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
+								class="fa fa-chevron-down"></i>
+						</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="even pointer" th:if="${#lists.size(getSpaceByStore) > 0}" th:each = "s : ${getSpaceByStore}">
+						<td class="a-center ">
+							<div class="icheckbox_flat-green" style="position: relative;">
+								<input type="checkbox" class="flat" name="table_records"
+									style="position: absolute; opacity: 0;">
+							</div>
+						</td>
+						<td th:text="${s.okaySpaceName}" class=" "></td>
+						<td th:text="${s.spaceCateName}" class=" "></td>
+						<td th:text="${s.okayPeopleNumber}" class=" "></td>
+						<td th:text="${s.okayBriefSpace}" class=" "></td>
+						<td th:text="${s.okaySpaceTag}" class=" "></td>
+						<td th:text="${s.okayStartTime}" class=" "></td>
+						<td th:text="${s.okayCloseTime}" class=" "></td>
+						<td th:text="${s.okaySpaceBasicOption}" class=" "></td>
+						<td th:text="${s.okaySpaceRentalPrice}" class=" "></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+	
+	<!-- 장비 예약 테이블 -->
+		<div class="table-responsive">
+			<table class="table table-striped jambo_table bulk_action" border="1">
 
+				<thead>
+					<tr class="headings">
+						<th>
+							<div class="icheckbox_flat-green" style="position: relative;">
+								<input type="checkbox" id="check-all" class="flat"
+									style="position: absolute; opacity: 0;"> 
+							</div>
+						</th>
+						<th class="column-title">장비 사진</th>
+						<th class="column-title">장비 이름</th>
+						<th class="column-title">대여 가능한 수량</th>
+						<th class="column-title">대여 가격</th>
+						<th class="column-title">대여 보증금</th>
+						<th class="column-title">대여 수량</th>
+						<th class="bulk-actions" colspan="11" style="display: none;">
+							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
+								class="fa fa-chevron-down"></i>
+						</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="even pointer" th:if="${#lists.size(getItemByStore) > 0}" th:each = "i : ${getItemByStore}">
+						<td class="a-center ">
+							<div class="icheckbox_flat-green" style="position: relative;">
+								<input type="checkbox" class="flat" name="table_records"
+									style="position: absolute; opacity: 0;">
+							</div>
+						</td>
+						<td th:text="${i.itemImg}" class=" "></td>
+						<td th:text="${i.itemTotalName}" class=" "></td>
+						<td th:text="${i.itemRentalAmount}" class=" "></td>
+						<td th:text="${i.itemRentalPrice}" id="eachRsvItemPrice"></td>
+						<td th:text="${i.itemRentalDeposit}" id="rsvItemDepositPrice"></td>
+						<td style="padding: 0;"><input style="width: 100%; height: 45px; margin: 0; " type="number" id="rsvItemNum" value="0"></td>
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+		
+	
+	<!-- 예약 화면 폼 -->
 	<div class="x_panel">
 		<div class="x_title">
 			<h2>예약 화면</h2>
@@ -90,6 +187,14 @@ margin-right: 20px;
 		$('#submitBtn').click(function(){
 			$('#formRsv').submit();
 		});
+		
+		$('#rsvItemNum').change(function(){
+			var eachRsvItemPriceVal = $('eachRsvItemPrice').val();
+			var rsvItemNumVal = $('#rsvItemNum').val();
+			var rsvItemDepositPriceVal = $('#rsvItemDepositPrice').val();
+			$('#totalRsvItemPrice').attr('th:text=${i.itemRentalPrice}+${i.itemRentalDeposit}')
+		})
+		
 	</script>
 	</th:block>
 

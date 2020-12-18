@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.urban.spatium.dto.item;
+import com.urban.spatium.dto.Item;
 import com.urban.spatium.dto.Rsv;
-import com.urban.spatium.dto.okaySpace;
+import com.urban.spatium.dto.OKSpace;
 import com.urban.spatium.mapper.RsvMapper;
 
 
@@ -41,13 +41,14 @@ public class RsvService {
 		return rsvDetailList;
 	}
 
-	public List<okaySpace> getSpaceByStore() {
-		List<okaySpace> getSpaceByStore = rsvMapper.getSpaceByStore();
+	public List<OKSpace> getSpaceByStore() {
+		List<OKSpace> getSpaceByStore = rsvMapper.getSpaceByStore();
+		
 		return getSpaceByStore;
 	}
 
-	public List<item> getItemByStore() {
-		List<item> getItemByStore = rsvMapper.getItemByStore();
+	public List<Item> getItemByStore() {
+		List<Item> getItemByStore = rsvMapper.getItemByStore();
 		return getItemByStore;
 	}
 	

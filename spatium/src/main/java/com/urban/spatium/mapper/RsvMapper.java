@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.urban.spatium.dto.item;
+import com.urban.spatium.dto.Item;
 import com.urban.spatium.dto.Rsv;
-import com.urban.spatium.dto.okaySpace;
+import com.urban.spatium.dto.OKSpace;
 
 
 @Mapper
@@ -19,9 +19,9 @@ public interface RsvMapper {
 	
 	public List<Rsv> rsvDetailList();
 	
-	public List<okaySpace> getSpaceByStore();
+	public List<OKSpace> getSpaceByStore();
 	
-	public List<item> getItemByStore();
+	public List<Item> getItemByStore();
 	
 	
 }

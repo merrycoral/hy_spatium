@@ -5,25 +5,62 @@
 <mapper namespace="com.urban.spatium.mapper.RsvMapper">
 		
 	
-	<select id="getItemByStore" resultType="item">
-	
+	<select id="getItemByStore" resultType="Item">
+		SELECT 
+			  itemCode
+			, storeTotalCode
+			, itemTotalName
+			, itemTotalAmount
+			, itemRentalAmount
+			, itemRentalPrice
+			, itemRentalDeposit
+			, itemImg, itemRegDate
+			, itemChangeRegDate
+			, itemTotalUserId
+		FROM 
+			tbItemTotalAmount
 	</select>
 		
-	<select id="getSpaceByStore" resultType="okaySpace">
-	
+	<select id="getSpaceByStore" resultType="OKSpace">
+		SELECT 
+			  okaySpaceCode
+			, okayStoreCode
+			, okaySpaceName
+			, okaySpaceType
+			, okayPeopleNumber
+			, okayDetailSpace
+			, okayBriefSpace
+			, okaySpaceTag
+			, okaySpaceRentalPrice
+			, okayStartTime
+			, okayCloseTime
+			, okaySpaceRsvType
+			, okayExceptionStartDate
+			, okayExceptionEndDate
+			, okayCompletedDate
+			, okaySpaceBasicOption
+			, okaySpaceId
+			, okayRefundPolicyCode
+			, spaceCateName
+		FROM 
+			tbOkaySpace AS s
+		INNER JOIN
+			tbSpaceCate AS c
+		ON
+			s.okaySpaceType = c.spaceCateCode
 	</select>
 	
 	<select id="rsvDetailList" resultType="Rsv">
-	SELECT 
-		rsvDetailCode
-		, rsvDetailSpace
-		, rsvDetailSeat
-		, rsvDetailItem
-		, rsvDetailNum
-		, rsvDetailOnePrice
-		, rsvDetailTotalPrice
-	FROM 
-		tbRsvDetail
+		SELECT 
+			rsvDetailCode
+			, rsvDetailSpace
+			, rsvDetailSeat
+			, rsvDetailItem
+			, rsvDetailNum
+			, rsvDetailOnePrice
+			, rsvDetailTotalPrice
+		FROM 
+			tbRsvDetail
 	</select>
 		
 	<select id="rsvList" resultType="Rsv">
