@@ -18,7 +18,7 @@
 			</div>
 
 			<div class="menu col-md-1 nav-item navbar-right">
-
+				<a th:href="@{/admin}" >관리자 화면(임시)</a>
 				<a th:href="@{/login}" th:if="${session.SID == null}">로그인</a> <a
 					th:href="@{/logout}" th:unless="${session.SID == null}">07로그아웃</a>
 

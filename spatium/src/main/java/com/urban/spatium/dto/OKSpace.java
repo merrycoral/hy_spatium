@@ -1,6 +1,6 @@
 package com.urban.spatium.dto;
 
-public class okaySpace {
+public class OKSpace {
 	private int okaySpaceCode;
 	private int okayStoreCode;
 	private String okaySpaceName;
@@ -19,6 +19,13 @@ public class okaySpace {
 	private String okaySpaceBasicOption;
 	private String okaySpaceId;
 	private String okayRefundPolicyCode;
+	private String spaceCateName;
+	public String getSpaceCateName() {
+		return spaceCateName;
+	}
+	public void setSpaceCateName(String spaceCateName) {
+		this.spaceCateName = spaceCateName;
+	}
 	public int getOkaySpaceCode() {
 		return okaySpaceCode;
 	}
@@ -166,6 +173,8 @@ public class okaySpace {
 		builder.append(okaySpaceId);
 		builder.append(", okayRefundPolicyCode=");
 		builder.append(okayRefundPolicyCode);
+		builder.append(", spaceCateName=");
+		builder.append(spaceCateName);
 		builder.append("]");
 		return builder.toString();
 	}
