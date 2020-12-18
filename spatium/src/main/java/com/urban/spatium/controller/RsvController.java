@@ -18,7 +18,15 @@ public class RsvController {
 	private RsvService rsvService; 
 	
 	@GetMapping("/rsvDetailInsertByAdmin")
-	public String rsvDetailInsertByAdmin() {
+	public String rsvDetailInsertByAdmin(Model model) {
+		model.addAttribute("storeCode", 5);
+		//넘어온 업체 코드가 5라고 가정
+		
+		rsvService.getSpaceByStore();//업체에 소속된 공간 가져오기
+		rsvService.getItemByStore();//업체에 소속된 장비 가져오기
+		
+		
+		
 		return "rsv/rsvDetailInsertByAdmin";
 	}
 	
@@ -50,8 +58,8 @@ public class RsvController {
 	
 	@GetMapping("/rsvDetailListByAdmin")
 	public String rsvDetailListByAdmin(Model model) {
-		List<Rsv> rsvList = rsvService.rsvList();
-		model.addAttribute("rsvList", rsvList);
+		List<Rsv> rsvDetailList = rsvService.rsvDetailList();
+		model.addAttribute("rsvDetailList", rsvDetailList);
 		return "rsv/rsvDetailListByAdmin";
 	}
 	
