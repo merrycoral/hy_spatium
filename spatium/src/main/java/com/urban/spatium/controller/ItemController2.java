@@ -18,7 +18,7 @@ import com.urban.spatium.dto.User;
 import com.urban.spatium.service.UserService;
 
 @Controller
-public class ItemController {
+public class ItemController2 {
 
 	@Autowired
 	private UserService userService;
