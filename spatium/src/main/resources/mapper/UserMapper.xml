@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.UserMapper">
+	<resultMap type="user" id="resultMapuser">
+		<result column="u_id" property="userId" />
+		<result column="u_pw" property="userPw" />
+		<result column="u_name" property="userName" />
+		<result column="u_birth" property="userBirth" />
+		<result column="u_gender" property="userGender" />
+		<result column="u_phone" property="userPhone" />
+		<result column="u_Job" property="userJob" />
+		<result column="u_grade" property="userGrade" />
+		<result column="u_level" property="userLevel" />
+		<result column="u_email" property="userEmail" />
+		<result column="u_regdate" property="userRegDate" />
+		<result column="u_point" property="userPoint" />
+	</resultMap>
+
+	<!--회원수정  -->
+	<update id="modifyuser" parameterType="user">
+		UPDATE tbUser
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="userPw != null and userPw neq ''.toString()">
+				u_pw	= #{userPw},
+			</if>
+			<if test="userName != null and userName neq ''.toString()">
+				u_name	= #{userName},
+			</if>
+			<if test="userPhone != null and userPhone neq ''.toString()">
+				u_phone= #{userPhone},
+			</if>
+			<if test="userJob != null and userJob neq ''.toString()">
+				u_Job= #{userJob},
+			</if>
+			<if test="userGrade != null and userGrade neq ''.toString()">
+				u_grade= #{userGrade},
+			</if>
+			<if test="userLevel != null and userLevel neq ''.toString()">
+				u_level= #{userLevel},
+			</if>
+			<if test="userEmail != null and userEmail neq ''.toString()">
+				u_email= #{userEmail},
+			</if>
+			<if test="userPoint != null and userPoint neq ''.toString()">
+				u_point	= #{userPoint},
+			</if>
+		</trim>
+		WHERE
+			u_id = #{userId}
+	</update>
+
+	<!--회원리스트 -->
+	<select id="getuserList" resultMap="resultMapuser">
+		<include refid="selectuserColumn" />
+		SELECT
+		userId
+		, userPw
+		, userName
+		, userBirth
+		, userGender
+		, userPhone
+		, userJob
+		, userEmail
+		, userRegDate
+		, userPoint
+		, userGrade
+		FROM
+		tbUser AS u
+		INNER JOIN
+		tbUserLevel AS l
+		ON
+		u.userLevel=l.userLevelCode;
+</select>
+		<!--로그인 -->
+		<select id="getUserById" parameterType="String"
+			resultMap="resultMapuser">
+			<include refid="selectuserColumn" />
+			FROM
+			tbUser
+			WHERE
+			u_id = #{userId};
+		</select>
+
+		<!--회원가입 -->
+		<insert id="addUser" parameterType="user">
+			INSERT INTO tbUser
+			(u_id, u_pw, u_name, u_birth, u_gender, u_phone, u_job, u_grade, u_level,
+			u_email, u_reg_date, u_point)
+			VALUES (
+			#{userId}
+			,#{userPw}
+			,#{userName}
+			,#{userBirth}
+			,#{userGender}
+			,#{userPhone}
+			,#{userJob}
+			,#{userGrade}
+			,#{userLevel}
+			,#{userEmail}
+			,#{userRegDate}
+			,#{userPoint};
+		</insert>
+</mapper>
