@@ -1,19 +1,120 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
-	layout:decorate="@{layout/Default}">
+	layout:decorate="@{layout/default}">
 <th:block layout:fragment="customCss">
 <style type="text/css">
+.spaceRadio label{
+margin: 0;
+font-size: 20px;
+margin-right: 20px;
+}
 .disableMetter {
 	display: none
 }
 </style>
-<!-- datepicker css파일 -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </th:block>
 <th:block layout:fragment="customContent">
+		<!-- 공간 예약 테이블 -->
+	<div class="table-responsive">
+			<table class="table table-striped jambo_table bulk_action" border="1">
 
+				<thead>
+					<tr class="headings">
+						<th>
+							<div class="icheckbox_flat-green" style="position: relative;">
+								<input type="checkbox" id="check-all" class="flat"
+									style="position: absolute; opacity: 0;"> 
+							</div>
+						</th>
+						<th class="column-title">공간 이름</th>
+						<th class="column-title">공간 유형</th>
+						<th class="column-title">공간 최대 인원수</th>
+						<th class="column-title">공간 간략 소개</th>
+						<th class="column-title">공간 태그</th>
+						<th class="column-title">영업 시작 시간</th>
+						<th class="column-title">영업 종료 시간</th>
+						<th class="column-title">보유 옵션</th>
+						<th class="column-title">공간 대여 가격</th>
+						<th class="bulk-actions" colspan="11" style="display: none;">
+							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
+								class="fa fa-chevron-down"></i>
+						</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="even pointer" th:if="${#lists.size(getSpaceByStore) > 0}" th:each = "s : ${getSpaceByStore}">
+						<td class="a-center ">
+							<div class="icheckbox_flat-green" style="position: relative;">
+								<input type="checkbox" class="flat" name="table_records"
+									style="position: absolute; opacity: 0;">
+							</div>
+						</td>
+						<td th:text="${s.okaySpaceName}" class=" "></td>
+						<td th:text="${s.spaceCateName}" class=" "></td>
+						<td th:text="${s.okayPeopleNumber}" class=" "></td>
+						<td th:text="${s.okayBriefSpace}" class=" "></td>
+						<td th:text="${s.okaySpaceTag}" class=" "></td>
+						<td th:text="${s.okayStartTime}" class=" "></td>
+						<td th:text="${s.okayCloseTime}" class=" "></td>
+						<td th:text="${s.okaySpaceBasicOption}" class=" "></td>
+						<td th:text="${s.okaySpaceRentalPrice}" class=" "></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+	
+	<!-- 장비 예약 테이블 -->
+		<div class="table-responsive">
+			<table class="table table-striped jambo_table bulk_action" border="1">
 
+				<thead>
+					<tr class="headings">
+						<th>
+							<div class="icheckbox_flat-green" style="position: relative;">
+								<input type="checkbox" id="check-all" class="flat"
+									style="position: absolute; opacity: 0;"> 
+							</div>
+						</th>
+						<th class="column-title">장비 사진</th>
+						<th class="column-title">장비 이름</th>
+						<th class="column-title">대여 가능한 수량</th>
+						<th class="column-title">대여 가격</th>
+						<th class="column-title">대여 보증금</th>
+						<th class="column-title">대여 수량</th>
+						<th class="bulk-actions" colspan="11" style="display: none;">
+							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
+								class="fa fa-chevron-down"></i>
+						</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="even pointer" th:if="${#lists.size(getItemByStore) > 0}" th:each = "i : ${getItemByStore}">
+						<td class="a-center ">
+							<div class="icheckbox_flat-green" style="position: relative;">
+								<input type="checkbox" class="flat" name="table_records"
+									style="position: absolute; opacity: 0;">
+							</div>
+						</td>
+						<td ><img style="height: 100px; " th:src="${i.itemImg}" alt="My Image"></td>
+						<td th:text="${i.itemTotalName}" class=" "></td>
+						<td th:text="${i.itemRentalAmount}" class=" "></td>
+						<td th:text="${i.itemRentalPrice}" id="eachRsvItemPrice"></td>
+						<td th:text="${i.itemRentalDeposit}" id="rsvItemDepositPrice"></td>
+						<td style="padding: 0;"><input style="width: 100%; height: 45px; margin: 0; " type="number" id="rsvItemNum" value="0"></td>
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+		
+	
+	<!-- 예약 화면 폼 -->
 	<div class="x_panel">
 			<div class="x_title">
 				<h2>
@@ -23,7 +124,7 @@
 			</div>
 			<div class="x_content">
 				<br>
-				<form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsert" method="post">
+				<form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsertAdmin" method="post">
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 label-align"
 							for="rsvUserName">예약자명 <span class="required">*</span>
@@ -143,9 +244,17 @@
 			</div>
 		</div>
 
-<th:block layout:fagment="customJs">
-<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script type="text/javascript">
+
+</th:block>
+	<th:block layout:fragment="customJs">
+	<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript">
+		$('#submitBtn').click(function(){
+			$('#formRsv').submit();
+		});
+		
+//예약 폼 스크립트
+		
 		var num1 = 0;
 		var num2 = 0;
 		
@@ -219,10 +328,7 @@
 		})
 		
 		
-				
-		//(아직 미구현) single_cal5 인풋박스의 값이 변경되었을대  밑에있는 시간 선택창 디스플레이를 block으로 바꾸고  ajax를 호출해서 유효한 선택창만 표시
+		
 	</script>
-</th:block>
-
-</th:block>
+	</th:block>
 </html>
