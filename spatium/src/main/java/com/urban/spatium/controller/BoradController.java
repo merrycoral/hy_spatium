@@ -27,6 +27,10 @@ public class BoradController {
 		return "borad/faqList";
 	}
 	
+	@GetMapping("/boardWrite")
+	public String boardWrite() {
+		return "borad/boardWrite";
+	}
 
 	
 	

@@ -1786,27 +1786,27 @@
 /* login */
 
 	.login {
-	   width: 20%;
+	   
 	   position: absolute;
 	   right: 0;
-	   
-	   padding: 30px 0px 0px 50px;
+
 	}
 	
 	.login-open{
 		position:fixed;
 		height:100%;
+		width: 25%;
     	background: rgba(255, 255, 255, 0.6);
 	}
 	
 	.login-btn {
 	    cursor: pointer;
-	    margin-left: 70%;
+		padding: 30px 0px 0px 50px;
 	}
 	
 	.login-open .login-btn{
 		
-		margin-left: 85%;
+		margin-left: 75%;
 	}
 	
 	.login-btn .line {
@@ -1862,7 +1862,7 @@
 	    flex-direction: column;
 	    align-items: center;
 	    justify-content: center;
-	    transform: translateX(-100px);
+	    transform: translateX(300px);
 	    opacity: 0;
 	}
 	
@@ -1984,7 +1984,8 @@
 
 		#footer ul li {
 			font-size: 0.8em;
-			padding: 0 2em;
+			padding: 0em 2em;
+			margin-bottom: 10px; 
 		}
 
 		#footer .copyright {
@@ -2052,3 +2053,69 @@
 				}
 
 		}
+		
+		
+		
+/*main slide*/
+
+	.carousel-top {
+		margin-top: -100px;
+    	margin-bottom: 30px;
+
+	}
+	.carousel_height{
+		max-height:600px;
+	}
+	
+	.carousel_height img{
+		height: 100%;
+	}
+	
+	
+	@media screen and (max-width: 980px) {
+
+			.carousel-top {
+				margin-top: 220px;
+		    	
+		
+			}
+
+		}
+
+		@media screen and (max-width: 736px) {
+			.carousel-top {
+				margin-top: 220px;
+		    	
+		
+			}
+			
+
+		}
+
+		@media screen and (max-width: 480px) {
+				.carousel-top {
+				margin-top: 220px;
+		    	
+		
+			}
+			
+
+		}
+	
+
+/*main space*/
+	.main_space{
+		margin-bottom: 100px;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
