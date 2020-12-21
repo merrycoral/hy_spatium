@@ -22,8 +22,8 @@ public class RsvController {
 	/**
 	 * 예약 등록 메서드
 	 */
-	@GetMapping("/rsvDetailInsertByAdmin")
-	public String rsvDetailInsertByAdmin(Model model) {
+	@GetMapping("/rsvInsertAdmin")
+	public String rsvInsertAdmin(Model model) {
 		model.addAttribute("storeCode", 5);
 		//넘어온 업체 코드가 5라고 가정
 		
@@ -33,13 +33,13 @@ public class RsvController {
 		model.addAttribute("getItemByStore", getItemByStore);
 		
 		
-		return "rsv/rsvDetailInsertByAdmin";
+		return "rsv/rsvInsertAdmin";
 	}
 	
 	/**
 	 * 예약 등록 버튼 눌렀을때 작동하는 메서드
 	 */
-	@PostMapping("/rsvInsertByAdmin")
+	@PostMapping("/rsvInsertAdmin")
 	public String rsvInsertByAdmin(Rsv rsv, Model model) {
 		System.out.println(rsv.getRsvDate() + " <-- 예약날짜");
 		System.out.println(rsv.getStartTime() + " <-- 시작시간");
@@ -55,35 +55,35 @@ public class RsvController {
 		rsvService.insertTbRsv(rsv);
 		
 		
-		return "rsv/rsvInsertByAdmin";
+		return "rsv/rsvInsertAdmin";
 	}
 	
 	/**
 	 * 관리자페이지 예약 목록 조회
 	 */
-	@GetMapping("/rsvListByAdmin")
+	@GetMapping("/rsvListAdmin")
 	public String rsvListByAdmin(Model model) {
 		List<Rsv> rsvList = rsvService.rsvList();
 		model.addAttribute("rsvList", rsvList);
-		return "rsv/rsvListByAdmin";
+		return "rsv/rsvListAdmin";
 	}
 	
 	/**
 	 * 관리자페이지 예약 세부 목록 조회
 	 */
-	@GetMapping("/rsvDetailListByAdmin")
+	@GetMapping("/rsvDetailListAdmin")
 	public String rsvDetailListByAdmin(Model model) {
 		List<Rsv> rsvDetailList = rsvService.rsvDetailList();
 		model.addAttribute("rsvDetailList", rsvDetailList);
-		return "rsv/rsvDetailListByAdmin";
+		return "rsv/rsvDetailListAdmin";
 	}
 	
 	/**
 	 * 관리자페이지 예약 취소 목록 조회
 	 */
-	@GetMapping("/rsvCancelListByAdmin")
+	@GetMapping("/rsvCancelListAdmin")
 	public String rsvCancelListByAdmin() {
-		return "rsv/rsvCancelListByAdmin";
+		return "rsv/rsvCancelListAdmin";
 	}
 	
 }
