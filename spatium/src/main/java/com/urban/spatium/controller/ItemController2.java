@@ -24,9 +24,6 @@ public class ItemController2 {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/adddItem")
-	public String addUser(Model model) {
-		return "item/buy";
-	}
+	
 
 }
