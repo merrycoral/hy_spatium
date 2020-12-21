@@ -16,7 +16,7 @@ public class AccessService {
 		@Autowired
 		private AccessMapper accessMapper;
 
-		public void getBrowserTop4(){
+		public List<Browser4> getBrowserTop4(){
 			List<Browser4> browser4 = accessMapper.getBrowserTop4();
 			System.out.println(browser4);
 			String btop1 = browser4.get(0).getBrowserName();
@@ -25,11 +25,16 @@ public class AccessService {
 			String btop4 = browser4.get(3).getBrowserName();
 			int etcBroswer = accessMapper.getEtcAccess(btop1, btop2, btop3, btop4);
 			//browser4.add()
+			Browser4 betc = new Browser4();
+			betc.setBrowserCount(etcBroswer);
+			betc.setBrowserName("기타");
+			browser4.add(4, betc);
+			System.out.println(browser4);
+			return browser4;
 		}
 		
-		public int[] getAccessCount() {
-			int[] accessCount = new int[2];
-			accessCount[0] = accessMapper.getTotalAccess();
+		public int getAccessCount() {
+			int accessCount = accessMapper.getTotalAccess();
 			return accessCount;
 		}
 		
