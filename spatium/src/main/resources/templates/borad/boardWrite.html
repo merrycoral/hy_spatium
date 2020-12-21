@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/maindefault}">
+	
+<th:block layout:fragment="customJs">
+<script src="js/bootstrap.js"></script>
+
+</th:block>
+	
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>	
+
+	
+	
+<th:block layout:fragment="customContent">
+	<div class="container ">
+	
+	<h1>게시글 작성</h1>
+	
+	<form th:action="@{/addBoardPost}" method="post">
+		<table class="table table-striped">
+			<tr>
+				<td>작성자</td>
+				<td>
+					<input type="text" name="userId" th:unless="${session.SID == null}" th:value="${session.SID}" readonly="readonly" class="form-control"/>
+				</td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td>
+					<input type="text" name="boardTitle" id="boardTitle" placeholder="제목을 입력해주세요" class="form-control"/>
+				</td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>
+					<textarea name="boardContents" rows="10" id="boardContents" placeholder="내용을 입력해주세요" class="form-control" /></textarea>
+				</td>
+			</tr>
+		</table>
+			<div class="text-center">
+					<button id="insertBtn" class="btn btn-success">등록</button>
+					<button type="reset" id="cencelBtn" class="btn btn-warning">취소</button>
+					<button type="button"  class="btn btn-primary" th:formaction="@{/boardList}">전체 게시글보기</button>
+					
+			</div>
+	</form>
+</div>
+	<script type="text/javascript">
+	
+	$(document).ready(function() {
+		  $('#insertBtn').click(function(){
+			  var title = $("#boardTitle").val();
+			  var content = $("#boardContents").val();
+			  if(title == ""){
+				  alert("제목을 입력하세요");
+				  document.form1.title.focus();
+				  return ;
+			  }
+			  if(content == ""){
+				  alert("내용을 입력하세요");
+				  document.form1.content.focus();
+				  return ;
+			  }
+			  document.form1.submit();
+		  });
+		});
+	</script>
+</th:block>
+
+</html>
