@@ -5,80 +5,54 @@
 <mapper namespace="com.urban.spatium.mapper.UserMapper">
 
 
-	<!--회원수정 -->
-	<update id="modifyuser" parameterType="User">
-		UPDATE tbUser
-		<trim prefix="SET" suffixOverrides=",">
-			<if test="userPw != null and userPw neq ''.toString()">
-				u_pw = #{userPw},
-			</if>
-			<if test="userName != null and userName neq ''.toString()">
-				u_name = #{userName},
-			</if>
-			<if test="userPhone != null and userPhone neq ''.toString()">
-				u_phone= #{userPhone},
-			</if>
-			<if test="userJob != null and userJob neq ''.toString()">
-				u_Job= #{userJob},
-			</if>
-			<if test="userGrade != null and userGrade neq ''.toString()">
-				u_grade= #{userGrade},
-			</if>
-			<if test="userLevel != null and userLevel neq ''.toString()">
-				u_level= #{userLevel},
-			</if>
-			<if test="userEmail != null and userEmail neq ''.toString()">
-				u_email= #{userEmail},
-			</if>
-			<if test="userPoint != null and userPoint neq ''.toString()">
-				u_point = #{userPoint},
-			</if>
-		</trim>
-		WHERE
-		u_id = #{userId}
-	</update>
+	
 
 	<!--회원리스트 -->
 	<select id="getuserList" resultType="User">
 		SELECT
 		userId
 		, userPw
-		,
-		userName
+		, userName
 		, userBirth
 		, userGender
 		, userPhone
 		, userJob
 		, userEmail
-		,
-		userRegDate
+		, userRegDate
 		, userPoint
-		, userGrade
+		
 		FROM
 		tbUser AS u
 		INNER JOIN
-		tbUserLevel
-		AS l
+		tbUserLevel	AS l
 		ON
 		u.userLevel=l.userLevelCode;
 	</select>
+	
 	<!--로그인 -->
 	<select id="getUserById" parameterType="String"
 		resultType="User">
-		select 
-		*
-		
+		SELECT
+		 #{userName}
+		,#{userBirth}
+		,#{userGender}
+		,#{userPhone}
+		,#{userJob}
+		,#{userLevel}
+		,#{userEmail}
+		,#{userRegDate}
+		,#{userPoint};						
 		FROM
 		tbUser
 		WHERE
-		u_id = #{userId};
+		#{userId} AND #{userPw} ;
 	</select>
 
 	<!--회원가입 -->
 	<insert id="addUser" parameterType="User">
 		INSERT INTO tbUser
-		(u_id, u_pw, u_name, u_birth, u_gender, u_phone, u_job, u_grade, u_level,
-		u_email, u_reg_date, u_point)
+		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userEmail,
+		userRegDate, userPoint)
 		VALUES (
 		#{userId}
 		,#{userPw}
@@ -87,7 +61,6 @@
 		,#{userGender}
 		,#{userPhone}
 		,#{userJob}
-		,#{userGrade}
 		,#{userLevel}
 		,#{userEmail}
 		,#{userRegDate}

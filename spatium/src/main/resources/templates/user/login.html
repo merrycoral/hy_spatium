@@ -3,78 +3,72 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="@{layout/default}">
 
-<body>
+
 <th:block layout:fragment="customContent">
 	<form th:action="@{/login}" method="post">
-	<div class="container">
-		<h2>로그인</h2>
 
-		<ul class="nav nav-pills">
-			<li class="active"><a data-toggle="pill" href="#user">일반회원</a></li>
-			<li><a data-toggle="pill" href="#store">판매자</a></li>
-
-		</ul>
-
-		<div class="tab-content">
-			<div id="user" class="tab-pane fade in active">
-				<h3>일반회원</h3>
-				
-				<div>
-					<input type="text" class="input-field" placeholder="아이디"
-						maxlength="15" required>
+		<div _ngcontent-tom-c112="" class="col-lg-5">
+			<div _ngcontent-tom-c112=""
+				class="card shadow-lg border-0 rounded-lg mt-5">
+				<div _ngcontent-tom-c112=""
+					class="card-header justify-content-center">
+					<h3 _ngcontent-tom-c112="" class="font-weight-light my-4">로그인</h3>
 				</div>
-				<div>
-					<input type="password" class="input-field" placeholder="비밀번호"
-						maxlength="8" required>
+				<div _ngcontent-tom-c112="" class="card-body">
+					<form _ngcontent-tom-c112="" novalidate=""
+						class="ng-untouched ng-pristine ng-invalid">
+						<div _ngcontent-tom-c112="" class="form-group">
+							<label _ngcontent-tom-c112="" for="inputEmailAddress"
+								class="small mb-1"></label><input _ngcontent-tom-c112=""
+								id="inputUserid" data-cy="useridInput" type="userid"
+								placeholder="아이디"  {aria-describedby="useridHelp"
+								formcontrolname="userid"
+								class="form-control py-4 ng-untouched ng-pristine ng-invalid">
+							<div _ngcontent-tom-c112="" class="invalid-feedback">
+								required.</div>
+							<!---->
+							<!---->
+						</div>
+						<div _ngcontent-tom-c112="" class="form-group">
+							<label _ngcontent-tom-c112="" for="inputPassword"
+								class="small mb-1"></label><input _ngcontent-tom-c112=""
+								id="inputPassword" data-cy="passwordInput" type="password"
+								placeholder="비밀번호" formcontrolname="password"
+								class="form-control py-4 ng-untouched ng-pristine ng-invalid">
+							<div _ngcontent-tom-c112="" class="invalid-feedback">
+								required.</div>
+							<!---->
+							<!---->
+						</div>
+						<div _ngcontent-tom-c112="" class="form-group">
+							<div _ngcontent-tom-c112=""
+								class="custom-control custom-checkbox">
+								<input _ngcontent-tom-c112="" id="rememberPasswordCheck"
+									data-cy="rememberPasswordCheck" type="checkbox"
+									formcontrolname="checkbox"
+									class="custom-control-input ng-untouched ng-pristine ng-valid"><label
+									_ngcontent-tom-c112="" for="rememberPasswordCheck"
+									class="custom-control-label">비밀번호 기억하기</label>
+							</div>
+						</div>
+						<div _ngcontent-tom-c112=""
+							class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+							<a _ngcontent-tom-c112="" routerlink="/auth/forgot-password"
+								class="middle" href="/auth/forgot-password">비밀번호 찾기</a>
+							<button _ngcontent-tom-c112="" data-cy="loginButton"
+								type="submit" class="btn btn-primary">로그인</button>
+						</div>
+					</form>
 				</div>
-				<div>
-					<input type="checkbox" class="checkbox"><span>비밀번호
-						기억하기</span> <span><a href="#">아이디/비밀번호찾기</a></span>
-
-				</div>
-				<div class="submit">로그인</div>
-				<div style="text-align: center">
-					<span>아직 스페이스 회원이 아니신가요?</span> <span><a th:href="@{/addUser}">회원가입</a></span>
+				<div _ngcontent-tom-c112="" class="card-footer text-center">
+					<div _ngcontent-tom-c112="" class="middle">
+						<a _ngcontent-tom-c112="" routerlink="/auth/register"
+							href="/addUser">회원가입</a>
+					</div>
 				</div>
 			</div>
-			<div id="store" class="tab-pane fade">
-				<h3>판매자</h3>
-				<div>
-					<input type="text" class="input-field" placeholder="아이디"
-						maxlength="15" required>
-				</div>
-				<div>
-					<input type="password" class="input-field" placeholder="비밀번호"
-						maxlength="8" required>
-				</div>
-				<div>
-					<input type="checkbox" class="checkbox"><span>비밀번호
-						기억하기</span> <span><a href="#">아이디/비밀번호찾기</a></span>
-
-				</div>
-				<div class="submit">로그인</div>
-				<div style="text-align: center">
-					<span>아직 스페이스 회원이 아니신가요?</span> <span><a th:href="@{/addUser}">회원가입</a></span>
-				</div>
-			</div>
-
-
 		</div>
-	</div>
 	</form>
+</th:block>
 
-	
-	<script type="text/javascript" src="resource/js/jquery-3.5.1.min.js"></script>
-	<script type="text/javascript"
-		src="resource/bootstrap-3.3.2/js/bootstrap.min.js"></script>
-</body>
 </html>
-
-
-
-
-
-
-
-
-
