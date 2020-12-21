@@ -26,13 +26,9 @@ public class UserController {
 	//회원수정
 	@PostMapping("/modifyUser")
 	public String modifyUser(User user) {
-		//화면에서 입력받은 값
 		System.out.println("회원 수정 폼에서 입력받은 값" + user);
-		
-		// update 처리
+				
 		String result = userService.modifyUser(user);
-		
-		//update 결과
 		System.out.println(result);
 		
 		return "redirect:/userList";
@@ -48,12 +44,24 @@ public class UserController {
 		System.out.println("db에서 검색한 회원정보-->" + user);
 		
 		model.addAttribute("title", "회원 수정화면");
-		// db에서 검색한 회원정보
 		model.addAttribute("user", user);
 		
 		return "user/uUpdate";
 	}	
 	
+	//나의 정보
+	@GetMapping("/myInfo")
+	public String myInfo(Model model) {
+	
+		return "user/myInfo";
+	}
+	
+	//휴면,불량,탈퇴회원 리스트
+	@GetMapping("/userInfo")
+	public String userInfo(Model model) {
+	return "user/userInfo";
+	}
+		
 	//회원리스트
 	@PostMapping("/userList")
 	public String userList(@RequestParam(name = "sk", required = false)String searchKey
@@ -133,10 +141,10 @@ public class UserController {
 		}else {
 			rAttr.addAttribute("result", "입력하신 정보는 없습니다.");
 			System.out.println(UserId + " : 로그인 실패");
-			return "redirect:/login";
+			return "user/uList";
 		}
 
-		return "redirect:/";
+		return "user/login";
 	}
 	
 	@GetMapping("/login")
@@ -156,7 +164,7 @@ public class UserController {
 		System.out.println("회원가입화면에서 입력받은 값--->" + user);
 		String result = userService.addUser(user);
 		System.out.println(result);
-		return "redirect:/myinfo";
+		return "redirect:/userList";
 	}
 	
 	@GetMapping("/addUser")

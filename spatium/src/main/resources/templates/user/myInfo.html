@@ -8,48 +8,46 @@
 
 
 
-	<form th:action="@{/addUser}" class="" action="" method="post"
+	<form th:action="@{/myInfo}" class="" action="" method="post"
 		novalidate="">
 
-		<span class="section">회원 등록</span>
-		<div class="field item form-group">
+		<span class="section">나의 정보</span>
+		<div class="field item form-group bad">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
 				class="required">*</span></label>
 			<div class="col-md-6 col-sm-6">
-				<input class="form-control" data-validate-length-range="6"
-					data-validate-words="2" name="userId" placeholder="아이디"
-					required="required">
+				<div class="userId1" th:value="${user.userId}" readonly="readonly" />
 			</div>
 
 		</div>
-		<div class="field item form-group">
+		<div class="field item form-group bad">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호<span
 				class="required">*</span></label>
 			<div class="col-md-6 col-sm-6">
 				<input type="password" class="form-control"
 					data-validate-length-range="6" data-validate-words="2"
-					name="password" placeholder="4~12자의 대소문자와 숫자" required="required">
+					name="password" th:value="${user.userPw}">
 			</div>
 
 		</div>
-		<div class="field item form-group">
+		<div class="field item form-group bad">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호
 				확인<span class="required">*</span>
 			</label>
 			<div class="col-md-6 col-sm-6">
 				<input type="password" class="form-control"
 					data-validate-length-range="6" data-validate-words="2"
-					name="passwordCh" placeholder="다시 한번 입력해주세요" required="required">
+					name="passwordCh" th:value="${user.userPw}" required="required">
 			</div>
+
 		</div>
-		
-		<div class="field item form-group">
+		<div class="field item form-group bad">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">이름
 				<span class="required">*</span>
 			</label>
 			<div class="col-md-6 col-sm-6">
 				<input class="form-control" type="text" name="name"
-					data-validate-minmax="10,100" required="required">
+					data-validate-minmax="10,100" th:value="${user.userName}" required="required">
 			</div>
 		</div>
 		
@@ -59,11 +57,11 @@
 			</label>
 			<div class="col-md-6 col-sm-6">
 				<input class="form-control" type="number" name="birth"
-					data-validate-minmax="10,100" required="required">
+					data-validate-minmax="10,100" th:value="${user.userBirth}" required="required">
 			</div>
 		</div>
 		
-		<div class="field item form-group">
+		<div class="field item form-group bad">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">성별
 				<span class="required">*</span>
 			</label>
@@ -83,20 +81,20 @@
 			</div>
 
 		</div>
-		<div class="field item form-group">
+		<div class="field item form-group bad">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화
 				<span class="required">*</span>
 			</label>
 			<div class="col-md-6 col-sm-6">
 				<input class="form-control" type="number" name="phone"
-					data-validate-minmax="10,100" required="required">
+					data-validate-minmax="10,100" th:value="${user.userPhone}" required="required">
 			</div>
 		</div>
-		<div class="field item form-group">
+		<div class="field item form-group bad">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">직업<span
 				class="required">*</span></label>
 			<div class="col-md-3 col-sm-3">
-				<select class="form-control">
+				<select class="form-control" th:value="${user.userJob}">
 					<option></option>
 					<option value="학생">학생</option>
 					<option value="회사원">회사원</option>
@@ -106,12 +104,12 @@
 				</select>
 			</div>
 		</div>
-		<div class="field item form-group">
+		<div class="field item form-group bad">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">이메일<span
 				class="required">*</span></label>
 			<div class="col-md-6 col-sm-6">
 				<input class="form-control" name="email" required="required"
-					type="email">
+					type="email" th:value="${user.userEmail}">
 			</div>
 		</div>
 
@@ -119,7 +117,7 @@
 		<div class="ln_solid">
 			<div class="form-group" align="center">
 				<div class="col-md-6 offset-md-3">
-					<button type="submit" class="btn btn-primary">회원가입</button>
+					<button type="submit" class="btn btn-primary">저장</button>
 					<button type="cancel" class="btn btn-success">취소</button>
 				</div>
 			</div>
@@ -127,14 +125,5 @@
 	</form>
 
 
-	<script>
-		//체크박스 전체선택,해제
-		function allCheck(allCheck)  {
- 		const checkboxes = document.getElementsByName('checkCh');
-  			checkboxes.forEach((checkbox) => {
-   			checkbox.checked = allCheck.checked;
- 			 })
-		}
-
-	</script>
+	
 </html>
