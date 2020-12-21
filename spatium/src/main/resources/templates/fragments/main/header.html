@@ -31,7 +31,7 @@
 					<a th:href="@{/addUser}" th:if="${session.SID == null}" class="link">회원가입</a> 
 					
 					<br> <br>
-					<div style="text-align: right;">
+					<div style="text-align: right">
 						<label th:unless="${session.SID == null}"
 							th:text="${'id: ' + session.SID + ' ' + session.SNAME + '님이  로그인하셨습니다.'}"></label>
 					</div>
