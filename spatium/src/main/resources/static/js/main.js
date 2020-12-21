@@ -14,16 +14,16 @@
 		
 		$( document ).ready( function() {
 			var loginBtn = document.querySelector('.login-btn');
-			var login = document.querySelector('login');
-			var lineOne = document.querySelector('login .login-btn .line--1');
-			var lineTwo = document.querySelector('login .login-btn .line--2');
-			var lineThree = document.querySelector('login .login-btn .line--3');
-			var link = document.querySelector('login .login-links');
-			menuBtn.addEventListener('click', () => {
+			var login = document.querySelector('.login');
+			var lineOne = document.querySelector('.login-btn .line--1');
+			var lineTwo = document.querySelector('.login-btn .line--2');
+			var lineThree = document.querySelector('.login-btn .line--3');
+			var link = document.querySelector('.login .login-links');
+			loginBtn.addEventListener('click', () => {
 				login.classList.toggle('login-open');
 			    lineOne.classList.toggle('line-cross');
 			    lineTwo.classList.toggle('line-fade-out');
 			    lineThree.classList.toggle('line-cross');
 			    link.classList.toggle('fade-in');
-			    
+			});
 		});
