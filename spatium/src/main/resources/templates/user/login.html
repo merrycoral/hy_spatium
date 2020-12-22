@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+
+<th:block layout:fragment="customContent">
+	<form th:action="@{/login}" method="post">
+
+		<div _ngcontent-tom-c112="" class="col-lg-5">
+			<div _ngcontent-tom-c112=""
+				class="card shadow-lg border-0 rounded-lg mt-5">
+				<div _ngcontent-tom-c112=""
+					class="card-header justify-content-center">
+					<h3 _ngcontent-tom-c112="" class="font-weight-light my-4">로그인</h3>
+				</div>
+				<div _ngcontent-tom-c112="" class="card-body">
+					<form _ngcontent-tom-c112="" novalidate=""
+						class="ng-untouched ng-pristine ng-invalid">
+						<div _ngcontent-tom-c112="" class="form-group">
+							<label _ngcontent-tom-c112="" for="inputEmailAddress"
+								class="small mb-1"></label><input _ngcontent-tom-c112=""
+								id="inputUserid" data-cy="useridInput" type="userid" name ="UserId"
+								placeholder="아이디"  {aria-describedby="useridHelp"
+								formcontrolname="userid"
+								class="form-control py-4 ng-untouched ng-pristine ng-invalid">
+							<div _ngcontent-tom-c112="" class="invalid-feedback">
+								required.</div>
+							<!---->
+							<!---->
+						</div>
+						<div _ngcontent-tom-c112="" class="form-group">
+							<label _ngcontent-tom-c112="" for="inputPassword"
+								class="small mb-1"></label><input _ngcontent-tom-c112=""
+								id="inputPassword" data-cy="passwordInput" type="password" name = "UserPw"
+								placeholder="비밀번호" formcontrolname="password"
+								class="form-control py-4 ng-untouched ng-pristine ng-invalid">
+							<div _ngcontent-tom-c112="" class="invalid-feedback">
+								required.</div>
+							<!---->
+							<!---->
+						</div>
+						<div _ngcontent-tom-c112="" class="form-group">
+							<div _ngcontent-tom-c112=""
+								class="custom-control custom-checkbox">
+								<input _ngcontent-tom-c112="" id="rememberPasswordCheck"
+									data-cy="rememberPasswordCheck" type="checkbox"
+									formcontrolname="checkbox"
+									class="custom-control-input ng-untouched ng-pristine ng-valid"><label
+									_ngcontent-tom-c112="" for="rememberPasswordCheck"
+									class="custom-control-label">비밀번호 기억하기</label>
+							</div>
+						</div>
+						<div _ngcontent-tom-c112=""
+							class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+							<a _ngcontent-tom-c112="" routerlink="/auth/forgot-password"
+								class="middle" href="/findPw">비밀번호 찾기</a>
+							<button _ngcontent-tom-c112="" data-cy="loginButton"
+								type="submit" class="btn btn-primary">로그인</button>
+						</div>
+					</form>
+				</div>
+				<div _ngcontent-tom-c112="" class="card-footer text-center">
+					<div _ngcontent-tom-c112="" class="middle">
+						<a _ngcontent-tom-c112="" routerlink="/auth/register"
+							href="/addUser">회원가입</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</th:block>
+
+</html>

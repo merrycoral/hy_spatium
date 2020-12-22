@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.UserMapper">
+
+
+	
+
+	<!--회원리스트 -->
+	<select id="getuserList" resultType="User">
+		SELECT
+		userId
+		, userPw
+		, userName
+		, userBirth
+		, userGender
+		, userPhone
+		, userJob
+		, userEmail
+		, userRegDate
+		, userPoint
+		
+		FROM
+		tbUser AS u
+		INNER JOIN
+		tbUserLevel	AS l
+		ON
+		u.userLevel=l.userLevelCode;
+	</select>
+	
+	<!--비밀번호 변경  -->
+	<update id = "passChange" parameterType="hashMap">
+    update user
+    set
+    	userPw=#{userPw}
+    where 
+    	userEmail=#{userEmail};
+    </update>
+	
+	
+	<!--로그인 -->
+	<select id="login" parameterType="String"
+		resultType="User">
+		SELECT
+		 *						
+		FROM
+		tbUser
+		WHERE
+		userId = #{userId};
+	</select>
+
+	<!--회원가입 -->
+	<insert id="addUser" parameterType="String">
+		INSERT INTO tbUser
+		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userEmail,
+		userRegDate, userPoint)
+		VALUES (
+		 #{userId}
+		,#{userPw}
+		,#{userName}
+		,#{userBirth}
+		,#{userGender}
+		,#{userPhone}
+		,#{userJob}
+		,#{userLevel}
+		,#{userEmail}
+		,#{userRegDate}
+		,#{userPoint});
+	</insert>
+</mapper>

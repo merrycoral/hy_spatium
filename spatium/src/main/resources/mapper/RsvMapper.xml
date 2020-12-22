@@ -3,7 +3,79 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.RsvMapper">
+
+	<insert id="insertRsvItemDetail" parameterType="Rsv">
+		INSERT INTO tbRsvDetail
+			(rsvDetailItem
+			, rsvDetailNum
+			, rsvDetailOnePrice
+			, rsvDetailTotalPrice)
+		VALUES 
+		<foreach collection="itemList" item="i" separator=",">		
+			(#{i.itemCode}
+			, #{i.itemCount}
+			, #{i.itemRentalPrice}
+			, 0)
+		</foreach>
+	</insert>
 		
+	<insert id="insertRsvSpaceDetail" parameterType="OKSpace">
+		INSERT INTO tbRsvDetail
+			(rsvDetailSpace
+			, rsvDetailNum
+			, rsvDetailOnePrice
+			, rsvDetailTotalPrice)
+		VALUES 
+			(#{okaySpaceCode}
+			, 0
+			, #{okaySpaceRentalPrice}
+			, 0)
+	</insert>	
+		
+	<select id="getItemByCode" parameterType="int" resultType="Item">
+		SELECT 
+			  itemCode
+			, storeTotalCode
+			, itemTotalName
+			, itemTotalAmount
+			, itemRentalAmount
+			, itemRentalPrice
+			, itemRentalDeposit
+			, itemImg
+			, itemRegDate
+			, itemChangeRegDate
+			, itemTotalUserId
+		FROM 
+			tbItemTotalAmount
+		WHERE
+			itemCode = #{tbRecord}
+	</select>
+		
+	<select id="getSpaceByCode" parameterType="int" resultType="OKSpace">
+		SELECT 
+			okaySpaceCode
+			, okayStoreCode
+			, okaySpaceName
+			, okaySpaceType
+			, okayPeopleNumber
+			, okayDetailSpace
+			, okayBriefSpace
+			, okaySpaceTag
+			, okaySpaceRentalPrice
+			, okayStartTime
+			, okayCloseTime
+			, okaySpaceRsvType
+			, okayExceptionStartDate
+			, okayExceptionEndDate
+			, okayCompletedDate
+			, okaySpaceBasicOption
+			, okaySpaceId
+			, okayRefundPolicyCode
+		FROM 
+			tbOkaySpace
+		WHERE
+			okaySpaceCode = #{tbRecord}
+	</select>
 	
 	<select id="getItemByStore" resultType="Item">
 		SELECT 
@@ -14,7 +86,8 @@
 			, itemRentalAmount
 			, itemRentalPrice
 			, itemRentalDeposit
-			, itemImg, itemRegDate
+			, itemImg
+			, itemRegDate
 			, itemChangeRegDate
 			, itemTotalUserId
 		FROM 
