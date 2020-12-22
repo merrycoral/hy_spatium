@@ -17,7 +17,7 @@
 				class="required">*</span></label>
 			<div class="col-md-6 col-sm-6">
 				<input class="form-control" data-validate-length-range="6"
-					data-validate-words="2" name="userId" placeholder="아이디"
+					data-validate-words="2" id="userId"  name="userId" placeholder="아이디"
 					required="required">
 			</div>
 
@@ -27,20 +27,10 @@
 				class="required">*</span></label>
 			<div class="col-md-6 col-sm-6">
 				<input type="password" class="form-control"
-					data-validate-length-range="6" data-validate-words="2"
+					data-validate-length-range="6" data-validate-words="2" id=""password""
 					name="password" placeholder="4~12자의 대소문자와 숫자" required="required">
 			</div>
 
-		</div>
-		<div class="field item form-group">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호
-				확인<span class="required">*</span>
-			</label>
-			<div class="col-md-6 col-sm-6">
-				<input type="password" class="form-control"
-					data-validate-length-range="6" data-validate-words="2"
-					name="passwordCh" placeholder="다시 한번 입력해주세요" required="required">
-			</div>
 		</div>
 		
 		<div class="field item form-group">
@@ -48,7 +38,7 @@
 				<span class="required">*</span>
 			</label>
 			<div class="col-md-6 col-sm-6">
-				<input class="form-control" type="text" name="name"
+				<input class="form-control" type="text" id="name" name="name"
 					data-validate-minmax="10,100" required="required">
 			</div>
 		</div>
@@ -58,7 +48,7 @@
 				<span class="required">*</span>
 			</label>
 			<div class="col-md-6 col-sm-6">
-				<input class="form-control" type="number" name="birth"
+				<input class="form-control" type="number" id="birth" name="birth"
 					data-validate-minmax="10,100" required="required">
 			</div>
 		</div>
@@ -72,11 +62,11 @@
 					<label class="btn btn-secondary active"
 						data-toggle-class="btn-primary"
 						data-toggle-passive-class="btn-secondary"> <input
-						type="radio" name="gender" value="male" class="join-btn">
+						type="radio" id="gender" name="gender" value="male" class="join-btn">
 						&nbsp; 남성 &nbsp;
 					</label> <label class="btn btn-primary" data-toggle-class="btn-primary"
 						data-toggle-passive-class="btn-secondary"> <input
-						type="radio" name="gender" value="female" class="join-btn">
+						type="radio" id="gender" name="gender" value="female" class="join-btn">
 						여성
 					</label>
 				</div>
@@ -88,7 +78,7 @@
 				<span class="required">*</span>
 			</label>
 			<div class="col-md-6 col-sm-6">
-				<input class="form-control" type="number" name="phone"
+				<input class="form-control" type="number" id="phone" name="phone"
 					data-validate-minmax="10,100" required="required">
 			</div>
 		</div>
@@ -96,7 +86,7 @@
 			<label class="col-form-label col-md-3 col-sm-3  label-align">직업<span
 				class="required">*</span></label>
 			<div class="col-md-3 col-sm-3">
-				<select class="form-control">
+				<select class="form-control" id="job">
 					<option></option>
 					<option value="학생">학생</option>
 					<option value="회사원">회사원</option>
@@ -110,7 +100,7 @@
 			<label class="col-form-label col-md-3 col-sm-3  label-align">이메일<span
 				class="required">*</span></label>
 			<div class="col-md-6 col-sm-6">
-				<input class="form-control" name="email" required="required"
+				<input class="form-control" id="email" name="email" required="required"
 					type="email">
 			</div>
 		</div>
@@ -119,8 +109,8 @@
 		<div class="ln_solid">
 			<div class="form-group" align="center">
 				<div class="col-md-6 offset-md-3">
-					<button type="submit" class="btn btn-primary">회원가입</button>
-					<button type="cancel" class="btn btn-success">취소</button>
+					<button type="submit" id="submit" class="btn btn-primary">회원가입</button>
+					<button type="cancel" id="cancel" class="btn btn-success">취소</button>
 				</div>
 			</div>
 		</div>
@@ -134,7 +124,60 @@
   			checkboxes.forEach((checkbox) => {
    			checkbox.checked = allCheck.checked;
  			 })
-		}
+		};
 
+		
+			$("#cencle").on("click", function(){
+				
+				location.href = "/login";
+						    
+			})
+		
+			$("#submit").on("click", function(){
+				if($("#userId").val()==""){
+					alert("아이디를 입력해주세요.");
+					$("#userId").focus();
+					return false;
+				}
+				if($("#password").val()==""){
+					alert("비밀번호를 입력해주세요.");
+					$("#userPass").focus();
+					return false;
+				}
+				if($("#name").val()==""){
+					alert("성명을 입력해주세요.");
+					$("#userName").focus();
+					return false;
+				}
+				if($("#birth").val()==""){
+					alert("생년월일을 입력해주세요.");
+					$("#birth").focus();
+					return false;
+				}
+				if($("#gender").val()==""){
+					alert("성별을 선택해주세요.");
+					$("#gender").focus();
+					return false;
+				}
+				if($("#phone").val()==""){
+					alert("휴대전화번호를 입력해주세요.");
+					$("#phone").focus();
+					return false;
+				}
+				if($("#job").val()==""){
+					alert("직업을 입력해주세요.");
+					$("#job").focus();
+					return false;
+				}
+				if($("#email").val()==""){
+					alert("이메일을 입력해주세요.");
+					$("#email").focus();
+					return false;
+				}
+			});
+			
+				
+			
+		
 	</script>
 </html>

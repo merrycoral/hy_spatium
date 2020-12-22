@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+
+<th:block layout:fragment="customContent">
+	<div _ngcontent-vym-c117=""
+		class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
+		<div _ngcontent-vym-c117="" class="card my-5 ">
+			<div _ngcontent-vym-c117="" class="card-body p-5 text-center">
+				<div _ngcontent-vym-c117="" class="h3 font-weight-light mb-0">비밀번호 찾기
+					</div>
+			</div>
+			<hr _ngcontent-vym-c117="" class="my-0">
+			<div _ngcontent-vym-c117="" class="card-body p-5">
+				<div _ngcontent-vym-c117=""
+					class="text-center text-muted mb-4">가입 당시 입력한 이메일로 비밀번호를 발송합니다.</div>
+				<form _ngcontent-vym-c117="" novalidate=""
+					class="ng-untouched ng-pristine ng-invalid">
+					<div _ngcontent-vym-c117="" class="form-group">
+						<label _ngcontent-vym-c117="" for="inputEmailAddress"
+							class="text-gray-600 small"></label><input
+							_ngcontent-vym-c117="" id="inputEmailAddress"
+							data-cy="emailInput" type="email" aria-describedby="emailHelp"
+							name="email" value="${user.userEmail}" placeholder="이메일"
+							class="form-control form-control-solid py-4 ng-untouched ng-pristine ng-invalid">
+						<div _ngcontent-vym-c117="" class="invalid-feedback">이메일</div>
+						<!---->
+						<!---->
+					</div>
+					<div _ngcontent-vym-c117="" class="form-group mb-0 text-center" >
+						<button _ngcontent-vym-c117="" data-cy="resetPasswordButton"
+							type="submit" id="submit" class="btn btn-primary" >확인</button>
+					</div>
+				</form>
+			</div>
+			<hr _ngcontent-vym-c117="" class="my-0">
+			<div _ngcontent-vym-c117="" class="card-body px-5 py-4">
+				<div _ngcontent-vym-c117="" class="text-center">
+					<a _ngcontent-vym-c117=""
+						href="/addUser">회원가입</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</html>

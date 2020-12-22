@@ -17,8 +17,9 @@ public interface UserMapper {
 	//회원리스트
 	public List<User> getUserList();
 	
+	
 	//로그인
-	public User getUserById(String userId);
+	public User login(String userId);
 	
 	//회원가입
 	public int addUser(User user);
