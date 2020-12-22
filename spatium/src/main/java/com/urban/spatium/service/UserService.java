@@ -50,10 +50,11 @@ public class UserService {
 		
 		return userList;
 	}
-	
-	public User getUserById(String userId) {
 		
-		User user = userMapper.getUserById(userId);
+	//로그인
+	public User login(String userId) {
+		
+		User user = userMapper.login(userId);
 		
 		return user;
 	}

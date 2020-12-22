@@ -29,32 +29,34 @@
 		u.userLevel=l.userLevelCode;
 	</select>
 	
+	<!--비밀번호 변경  -->
+	<update id = "passChange" parameterType="hashMap">
+    update user
+    set
+    	userPw=#{userPw}
+    where 
+    	userEmail=#{userEmail};
+    </update>
+	
+	
 	<!--로그인 -->
-	<select id="getUserById" parameterType="String"
+	<select id="login" parameterType="String"
 		resultType="User">
 		SELECT
-		 #{userName}
-		,#{userBirth}
-		,#{userGender}
-		,#{userPhone}
-		,#{userJob}
-		,#{userLevel}
-		,#{userEmail}
-		,#{userRegDate}
-		,#{userPoint};						
+		 *						
 		FROM
 		tbUser
 		WHERE
-		#{userId} AND #{userPw} ;
+		userId = #{userId};
 	</select>
 
 	<!--회원가입 -->
-	<insert id="addUser" parameterType="User">
+	<insert id="addUser" parameterType="String">
 		INSERT INTO tbUser
 		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userEmail,
 		userRegDate, userPoint)
 		VALUES (
-		#{userId}
+		 #{userId}
 		,#{userPw}
 		,#{userName}
 		,#{userBirth}
@@ -64,6 +66,6 @@
 		,#{userLevel}
 		,#{userEmail}
 		,#{userRegDate}
-		,#{userPoint};
+		,#{userPoint});
 	</insert>
 </mapper>
