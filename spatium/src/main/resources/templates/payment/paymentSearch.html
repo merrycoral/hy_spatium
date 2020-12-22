@@ -23,7 +23,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr th:each="p : ${paymentList}">
+		<tr th:if="${#lists.size(paymentList) > 0}" th:each="p : ${paymentList}">
 			<td th:text="${p.paymentCode}"></td>
 			<td th:text="${p.paymentRsvCode}"></td>
 			<td th:text="${p.paymentPrice}"></td>

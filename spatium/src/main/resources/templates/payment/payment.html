@@ -22,26 +22,17 @@
 			var check_ip = ip(); 
 			 $('#getIp').val(check_ip);// 접속한 기기의 IP를 가져온다
 			console.log(check_ip + "<<<<IIIIIIPPPPPPPPPPPP");
-			function minus(){
+			
+			 function minus(){
 				var paymentPrice = $('.paymentPrice').val();//결제가격
 				var paymentUsePoint = $('.paymentUsePoint').val();//사용할 포인트
 				return  $('.paymentUseMoney').val(paymentPrice-paymentUsePoint); //결제가격-사용할포인트 = 결제해야할 금액에 담는다.
 				
 			}
 			
+		
+			minus();//결제해야하는금액 
 			
-	
-			$('.paymentPrice').change(function(){		
-				var abc = ($(this).val()*0.01); //결제금액의 1%포인트적립금
-				
-				console.log(($(this).val()*0.01));	//결제 금액 1%
-				console.log($('.paymentUsePoint').val());	//사용하는 포인트 값
-				
-				$('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값
-				
-				minus();//결제해야하는금액 
-				
-			})
 			
 			$('.paymentUsePoint').change(function(){
 				var paymentUsePoint =	$(this).val();//사용할 포인트
@@ -58,8 +49,8 @@
 					
 					minus();//결제해야하는금액 
 				}
-				
-					
+				var abc = Math.floor($('.paymentUseMoney').val()*0.01); //결제금액의 1%포인트적립금
+				 $('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값	
 					
 			})
 			
@@ -173,25 +164,27 @@
 <input type="hidden" value="결재적립" name="pointAddList"> <br>
 <input type="hidden" value="적립" name="pointSellList"> <br>
 <input type="hidden" value="사용" name="pointSellList"> <br>
-<input type="hidden" value="1" name="paymentCode"> <br>
+
+<input type="hidden" th:value="${rsv.rsvState}" name="rsvState">
 <input type="hidden" id="getIp" name="PaymentIP">
-총마일리지:<input type="text" th:value="${totalPoint}" class="totalPoint" readonly="readonly"><br>
+<div>총마일리지:<input type="text" th:value="${totalPoint}" class="totalPoint" readonly="readonly"></div>
 
-예약번호  : <input type="text" name="rsvNum"><br>
+<div>예약코드  : <input type="text" th:value="${rsv.rsvCode}" name="paymentRsvCode"></div>
+<div>예약자아이디  : <input type="text" th:value = "${rsv.rsvUserId}" name="pointID" readonly="readonly"></div>
 
-
-결재금액 : <input type="text" name="paymentPrice" class="paymentPrice">  <br>
-사용할마일리지 : <input type="text" name="paymentUsePoint" class="paymentUsePoint">  <br>
+<div>결재금액 : <input type="text" th:value="${rsv.rsvTotalPrice}" name="paymentPrice" class="paymentPrice" >  </div>
+<div>사용할마일리지 : <input type="text" name="paymentUsePoint" class="paymentUsePoint">  </div>
 <!-- 사용할 마일리지  : --> <input type="hidden" name="usePoint" class="usePoint" >
-최종결재금액 : <input type="text" name="paymentUseMoney" class="paymentUseMoney" readonly="readonly">  <br>
-적립포인트 : <input type="text" name="addPoint" class="paymentAddPoint" readonly="readonly">  <br>
+<div>최종결재금액 : <input type="text" name="paymentUseMoney" class="paymentUseMoney" readonly="readonly">  </div>
+<div>적립포인트 : <input type="text" name="addPoint" class="paymentAddPoint" readonly="readonly">  </div>
 
 
-<input type="hidden" value="걸제완료" name="payEnd">
+<input type="hidden" value="결제완료" name="payEnd">
 
-  <button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao">결 제 하 기</button>
+  <button type="button" id="charge_kakao">결 제 하 기</button>
            
 </form>
+
 
  </th:block>
  
