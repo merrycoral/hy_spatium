@@ -22,6 +22,14 @@ public interface RsvMapper {
 	public List<OKSpace> getSpaceByStore();
 	
 	public List<Item> getItemByStore();
+
+	public void insertRsvItemDetail(Rsv rsv);
+
+	public void insertRsvSpaceDetail(OKSpace space);
+
+	public Item getItemByCode(int tbRecord);
+
+	public OKSpace getSpaceByCode(int tbRecord);
 	
 	
 }
