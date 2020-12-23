@@ -7,6 +7,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ItemController {
 	
+	
+	@GetMapping("/itemBuyList")
+	public String itemBuyList(Model model) {
+		
+		model.addAttribute("title", "장비 구입");
+		
+		return "item/itemBuyList";
+	}
+	
+	@GetMapping("/itemRepairList")
+	public String itemRepairList(Model model) {
+		
+		model.addAttribute("title", "장비 수리");
+		
+		return "item/itemRepairList";
+	}
+	
+	@GetMapping("/itemDeleteList")
+	public String itemDeleteList(Model model) {
+		
+		model.addAttribute("title", "장비 파기");
+		
+		return "item/itemDeleteList";
+	}
+	
 	@GetMapping("/itemCountList")
 	public String itemCountList(Model model) {
 		

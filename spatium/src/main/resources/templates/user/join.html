@@ -6,8 +6,6 @@
 
 <th:block layout:fragment="customContent">
 
-
-
 	<form th:action="@{/addUser}" class="" action="" method="post"
 		novalidate="">
 
@@ -115,7 +113,8 @@
 			</div>
 		</div>
 	</form>
-
+</th:block>
+<th:block layout:fragment="customJs">
 
 	<script>
 		//체크박스 전체선택,해제
@@ -180,4 +179,5 @@
 			
 		
 	</script>
+	</th:block>  
 </html>
