@@ -26,8 +26,9 @@
 						<th class="column-title">예약 종료 일시</th>
 						<th class="column-title">예약 등록 일시</th>
 						<th class="column-title">예약 상태</th>
-						<th class="column-title">세부 예약 정보</th>
-						<th class="bulk-actions" colspan="11" style="display: none;">
+						<th class="column-title">세부 예약</th>
+						<th class="column-title">결제</th>
+						<th class="bulk-actions" colspan="12" style="display: none;">
 							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
 								class="fa fa-chevron-down"></i>
 						</a>
@@ -54,10 +55,8 @@
 						<td th:text="${r.rsvEndDateTime}" class=" "></td>
 						<td th:text="${r.rsvRegDate}" class=" "></td>
 						<td th:text="${r.rsvState}" class=" "></td>
-						<td class=" "><a href="#">View</a></td>
-						<td>
-							<a th:href="@{/paymentTest(rsvCode=${r.rsvCode})}">결제</a>
-						</td>
+						<td class=" "><a href="#">확장</a></td>
+						<td class=" "><a  th:href="@{/paymentTest(rsvCode=${r.rsvCode})}">결제</a></td>
 					</tr>
 				</tbody>
 			</table>
