@@ -57,12 +57,24 @@ public class UserController {
 		return "user/myInfo";
 	}
 	
-	//휴면,불량,탈퇴회원 리스트
-	@GetMapping("/userInfo")
-	public String userInfo(Model model) {
-	return "user/userInfo";
+	//탈퇴회원 리스트
+	@GetMapping("/deleteUser")
+	public String deleteUser(Model model) {
+		return "user/deleteUser";
 	}
-		
+	
+	//불량회원 리스트
+	@GetMapping("/blackUser")
+	public String blackUser(Model model) {
+		return "user/blackUser";
+	}
+	
+	//휴면회원 리스트
+	@GetMapping("/restUser")
+	public String restUser(Model model) {
+		return "user/restUser";
+	}
+	
 	//회원리스트
 	@PostMapping("/userList")
 	public String userList(@RequestParam(name = "sk", required = false)String searchKey
@@ -99,7 +111,7 @@ public class UserController {
 		model.addAttribute("title", "회원 목록");
 		/*List<User> userList = userService.getSearchUserList(searchKey,searchValue);*/
 		
-		return "user/uList";
+		return "user/userList";
 	}
 	
 	@GetMapping("/userList")
@@ -110,7 +122,7 @@ public class UserController {
 		model.addAttribute("userList", UserList);
 		if(result != null) model.addAttribute("result", result);
 
-		return "user/uList";
+		return "user/userList";
 	}
 	
 	//비밀번호찾기
@@ -154,7 +166,7 @@ public class UserController {
 			return "redirect:/login";
 		}
 
-		return "user/uList";
+		return "user/userList";
 	}
 	
 	@GetMapping("/login")
