@@ -139,16 +139,37 @@
 	
 	<select id="rsvDetailList" resultType="Rsv">
 		SELECT 
-			rsvDetailCode
-			, rsvDetailSpace
-			, rsvDetailSeat
-			, rsvDetailItem
+			rsvCode
 			, rsvDetailNum
 			, rsvDetailOnePrice
 			, rsvDetailTotalPrice
+			, okaySpaceName
+			, itemTotalName
+			, rsvUserName
+			, rsvTime
+			, rsvTimePrice
+			, rsvDetailCode
 		FROM 
-			tbRsvDetail
+			viewRsv
 	</select>
+		
+	<select id="rsvListExtend" resultType="Rsv">
+		SELECT 
+			rsvDetailCode
+			, rsvDetailNum
+			, rsvDetailOnePrice
+			, rsvDetailTotalPrice
+			, okaySpaceName
+			, itemTotalName
+			, rsvTime
+			, rsvUserName
+			, rsvTimePrice
+			, rsvDetailCode
+		FROM 
+			viewRsv
+		WHERE 
+			rsvCode = #{rsvCode};
+	</select>	
 		
 	<select id="rsvList" resultType="Rsv">
 		SELECT 

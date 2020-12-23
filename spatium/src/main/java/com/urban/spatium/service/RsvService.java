@@ -1,6 +1,5 @@
 package com.urban.spatium.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +35,20 @@ public class RsvService {
 		int totalPrice = 0;
 		int rsvCode = rsv.getRsvCode();
 		
+		for(int i=0; i<rsv.getSpaceList().size();i++) {	//공간 예약
+			Map<String, Object> spaceRsv = rsv.getSpaceList().get(i);
+			//가격 추가
+			int spacePrice = Integer.valueOf(spaceRsv.get("spaceRentalPrice").toString());
+			totalPrice = totalPrice + spacePrice;
+			
+			//세부 공간 예약 등록
+			rsvMapper.insertRsvSpaceDetail(spaceRsv);
+			Object itemRsvCode = spaceRsv.get("rsvDetailCode");
+			
+			//릴레이션 등록
+			rsvMapper.insertTbRsvRelation(rsvCode,itemRsvCode);
+		}
+		
 		for(int i=0; i<rsv.getItemList().size();i++) {	//장비 예약
 			Map<String, Object> itemRsv = rsv.getItemList().get(i);
 			//가격 추가
@@ -51,19 +64,7 @@ public class RsvService {
 			
 			
 		}
-		for(int i=0; i<rsv.getSpaceList().size();i++) {	//공간 예약
-			Map<String, Object> spaceRsv = rsv.getSpaceList().get(i);
-			//가격 추가
-			int spacePrice = Integer.valueOf(spaceRsv.get("spaceRentalPrice").toString());
-			totalPrice = totalPrice + spacePrice;
-			
-			//세부 공간 예약 등록
-			rsvMapper.insertRsvSpaceDetail(spaceRsv);
-			Object itemRsvCode = spaceRsv.get("rsvDetailCode");
-			
-			//릴레이션 등록
-			rsvMapper.insertTbRsvRelation(rsvCode,itemRsvCode);
-		}
+		
 		rsv.setRsvTotalPrice(totalPrice);
 		System.out.println("총 시간당 예약 가격 --> "+totalPrice);
 		
@@ -93,6 +94,11 @@ public class RsvService {
 	public List<Item> getItemByStore() {
 		List<Item> getItemByStore = rsvMapper.getItemByStore();
 		return getItemByStore;
+	}
+
+	public List<Rsv> rsvListExtend(String rsvCode) {
+		List<Rsv> rsvListExtend = rsvMapper.rsvListExtend(rsvCode);
+		return rsvListExtend;
 	}
 	
 	

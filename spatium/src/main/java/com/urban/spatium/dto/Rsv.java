@@ -29,6 +29,35 @@ public class Rsv {
 	private int rsvDetailOnePrice;
 	private int rsvDetailTotalPrice;
 	
+	private String okaySpaceName;
+	private String itemTotalName;
+	private int rsvTime;
+	private int rsvTimePrice;
+	
+	public int getRsvTimePrice() {
+		return rsvTimePrice;
+	}
+	public void setRsvTimePrice(int rsvTimePrice) {
+		this.rsvTimePrice = rsvTimePrice;
+	}
+	public int getRsvTime() {
+		return rsvTime;
+	}
+	public void setRsvTime(int rsvTime) {
+		this.rsvTime = rsvTime;
+	}
+	public String getOkaySpaceName() {
+		return okaySpaceName;
+	}
+	public void setOkaySpaceName(String okaySpaceName) {
+		this.okaySpaceName = okaySpaceName;
+	}
+	public String getItemTotalName() {
+		return itemTotalName;
+	}
+	public void setItemTotalName(String itemTotalName) {
+		this.itemTotalName = itemTotalName;
+	}
 	public List<Map<String, Object>> getSpaceList() {
 		return spaceList;
 	}
@@ -216,6 +245,14 @@ public class Rsv {
 		builder.append(rsvDetailOnePrice);
 		builder.append(", rsvDetailTotalPrice=");
 		builder.append(rsvDetailTotalPrice);
+		builder.append(", okaySpaceName=");
+		builder.append(okaySpaceName);
+		builder.append(", itemTotalName=");
+		builder.append(itemTotalName);
+		builder.append(", rsvTime=");
+		builder.append(rsvTime);
+		builder.append(", rsvTimePrice=");
+		builder.append(rsvTimePrice);
 		builder.append("]");
 		return builder.toString();
 	}

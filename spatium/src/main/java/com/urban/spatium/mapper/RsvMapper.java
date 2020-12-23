@@ -34,6 +34,8 @@ public interface RsvMapper {
 	public void insertTbRsvRelation(int rsvCode, Object itemRsvCode);
 
 	public void updateRsvPrice(int rsvCode, int totalPrice);
+
+	public List<Rsv> rsvListExtend(String rsvCode);
 	
 	
 }
