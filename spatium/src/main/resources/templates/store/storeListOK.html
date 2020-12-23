@@ -45,20 +45,20 @@
             <tbody>
 			<th:block th:each = "s : ${storeList}">
 				<tr>
-					<td th:text = "${s.storeCode}">
-					<td th:text = "${s.storeId}">
-					<td th:text = "${s.storeName}">
-					<td th:text = "${s.storeRepresentative}">
-					<td th:text = "${s.storeNumber}">
-					<td th:text = "${s.storeBusinessType}">
-					<td th:text = "${s.storeAddress}">
-					<td th:text = "${s.storeIntroduction}">
-					<td th:text = "${s.storeEmail}">
-					<td th:text = "${s.storePhone}">
-					<td th:text = "${s.storeAccountNumber}">
-					<td th:text = "${s.storePaymentMethod}">
-					<td th:text = "${s.storeImage}">
-					<td th:text = "${s.storeLevel}">
+					<td th:text = "${s.storeCode}"></td>
+					<td th:text = "${s.storeId}"></td>
+					<td th:text = "${s.storeName}"></td>
+					<td th:text = "${s.storeRepresentative}"></td>
+					<td th:text = "${s.storeNumber}"></td>
+					<td th:text = "${s.storeBusinessType}"></td>
+					<td th:text = "${s.storeAddress}"></td>
+					<td th:text = "${s.storeIntroduction}"></td>
+					<td th:text = "${s.storeEmail}"></td>
+					<td th:text = "${s.storePhone}"></td>
+					<td th:text = "${s.storeAccountNumber}"></td>
+					<td th:text = "${s.storePaymentMethod}"></td>
+					<td><img style="height: 180px;" alt = "상점 이미지" th:src="${s.storeImage}"></td>
+					<td th:text = "${s.storeLevel}"></td>
 				</tr>
 			</th:block>
 		</tbody>
