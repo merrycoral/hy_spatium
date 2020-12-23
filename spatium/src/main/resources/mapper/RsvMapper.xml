@@ -15,21 +15,21 @@
 			(#{i.itemCode}
 			, #{i.itemCount}
 			, #{i.itemRentalPrice}
-			, 0)
+			, #{i.itemTotalPrice})
 		</foreach>
 	</insert>
 		
-	<insert id="insertRsvSpaceDetail" parameterType="OKSpace">
+	<insert id="insertRsvSpaceDetail" parameterType="Rsv">
 		INSERT INTO tbRsvDetail
 			(rsvDetailSpace
-			, rsvDetailNum
 			, rsvDetailOnePrice
 			, rsvDetailTotalPrice)
 		VALUES 
-			(#{okaySpaceCode}
-			, 0
-			, #{okaySpaceRentalPrice}
-			, 0)
+		<foreach collection="spaceList" item="s" separator=",">		
+			(#{s.spaceCode}
+			, #{s.spaceRentalPrice}
+			, #{s.spaceRentalPrice})
+		</foreach>
 	</insert>	
 		
 	<select id="getItemByCode" parameterType="int" resultType="Item">

@@ -25,7 +25,7 @@ public interface RsvMapper {
 
 	public void insertRsvItemDetail(Rsv rsv);
 
-	public void insertRsvSpaceDetail(OKSpace space);
+	public void insertRsvSpaceDetail(Rsv rsv);
 
 	public Item getItemByCode(int tbRecord);
 

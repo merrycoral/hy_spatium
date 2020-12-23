@@ -33,8 +33,9 @@ public class RsvService {
 		
 		
 		rsvMapper.insertRsvItemDetail(rsv);
-		//rsvMapper.insertRsvSpaceDetail(rsv);
+		rsvMapper.insertRsvSpaceDetail(rsv);
 		rsvMapper.insertTbRsv(rsv);
+		
 	}
 
 	public List<Rsv> rsvList() {
