@@ -12,7 +12,7 @@
 					<tr class="headings">
 						<th>
 							<div class="icheckbox_flat-green" style="position: relative;">
-								<input type="checkbox" id="check-all" class="flat"
+								<input type="checkbox" id="check-all" class="flat" 
 									style="position: absolute; opacity: 0;"> 
 							</div>
 						</th>
@@ -33,7 +33,6 @@
 								class="fa fa-chevron-down"></i>
 						</a>
 						</th>
-						<th class="column-title">결제</th>
 					</tr>
 				</thead>
 
@@ -41,7 +40,7 @@
 					<tr class="even pointer" th:if="${#lists.size(rsvList) > 0}" th:each = "r : ${rsvList}">
 						<td class="a-center ">
 							<div class="icheckbox_flat-green" style="position: relative;">
-								<input type="checkbox" class="flat" name="table_records"
+								<input type="checkbox" class="flat" name="table_records" th:value="${r.rsvCode}"
 									style="position: absolute; opacity: 0;">
 							</div>
 						</td>
@@ -55,7 +54,7 @@
 						<td th:text="${r.rsvEndDateTime}" class=" "></td>
 						<td th:text="${r.rsvRegDate}" class=" "></td>
 						<td th:text="${r.rsvState}" class=" "></td>
-						<td class=" "><a href="#">확장</a></td>
+						<td class=" "><a th:href="@{/rsvListExtend(rsvCode=${r.rsvCode})}">확장</a></td>
 						<td class=" "><a  th:href="@{/paymentTest(rsvCode=${r.rsvCode})}">결제</a></td>
 					</tr>
 				</tbody>

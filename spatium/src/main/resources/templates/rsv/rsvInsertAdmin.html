@@ -9,6 +9,11 @@ margin: 0;
 font-size: 20px;
 margin-right: 20px;
 }
+.btn-group{
+ 	max-width: 520px;
+    display: table;
+    margin-left: 10px;
+}
 .disableMetter {
 	display: none
 }
@@ -165,8 +170,10 @@ margin-right: 20px;
 					</div>
 					
 					<!-- 시간 선택 버튼 시작 -->
-					<div style="margin : 0 auto" align="center">
-					<div class="btn-group disableMetter" >
+					<div class="item form-group disableMetter">
+					<label class="col-form-label col-md-3 col-sm-3 label-align">예약 시간 선택 <span class="required">*</span>
+						</label>
+					<div class="btn-group" >
 						<label class="btn btn-secondary timeCheck"> <input
 							type="checkbox" class="disableMetter" value="0">0
 						</label> <label class="btn btn-secondary timeCheck"> <input
@@ -329,8 +336,8 @@ margin-right: 20px;
 			minDate : 0,
 			maxDate : '+3m',
 			dateFormat: "yy-mm-dd"
-		}).on("change", function(e) {
-			$('.btn-group').removeClass('disableMetter');
+		}).on("change", function(e) {//시간선택 보이게
+			$('.btn-group').parent().removeClass('disableMetter');
 			console.log(e.data);
 		});
 //데이터 피커 종료

@@ -2,6 +2,7 @@ package com.urban.spatium.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.urban.spatium.dto.Rsv;
@@ -22,9 +24,15 @@ public class RsvController {
 	@Autowired 
 	private RsvService rsvService; 
 	
+	@GetMapping("/rsvListExtend")
+	public String rsvListExtend(Model model, @RequestParam(name = "", required =false)String rsvCode) {
+		List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
+		model.addAttribute("rsvListExtend", rsvListExtend);
+		return "rsv/rsvListExtend";
+	}
 	
 	@RequestMapping(value = "/rsvInsertAjax", produces="application/json"  ,method = RequestMethod.POST ) 
-	public @ResponseBody String addInOutPut(@RequestBody Rsv rsv) {
+	public @ResponseBody String addInOutPut(@RequestBody Rsv rsv, HttpSession session) {
 		System.out.println("예약날짜 --> "+rsv.getRsvDate());
 		System.out.println("시작시간 --> "+rsv.getStartTime());
 		System.out.println("종료시간 --> "+rsv.getEndTime());
@@ -34,10 +42,10 @@ public class RsvController {
 		System.out.println("요청사항 --> "+rsv.getRsvUserRequest());
 		System.out.println("공간 리스트 --> "+rsv.getSpaceList());
 		System.out.println("장비 리스트 --> "+rsv.getItemList());
-
-		rsv.setRsvUserId("sessionId"); // 임시 아이디 부여
+		
+		String sessionId = (String) session.getAttribute("SID");
+		rsv.setRsvUserId(sessionId); // 임시 아이디 부여
 		rsvService.insertTbRsv(rsv);
-		//가격 찾아서 넣은다음 해야됨!!!
 	    
 	    return "/admin";    
 	}
