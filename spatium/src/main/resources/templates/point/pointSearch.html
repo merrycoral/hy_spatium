@@ -21,7 +21,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr th:each="pt : ${pointList}">
+		<tr th:if="${#lists.size(pointList) > 0}" th:each="pt : ${pointList}">
 			<td th:text="${pt.PointCode}"></td>
 			<td th:text="${pt.pointID}"></td>
 			<td th:text="${pt.pointAddList}"></td>

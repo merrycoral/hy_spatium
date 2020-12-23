@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.urban.spatium.dto.Payment;
 import com.urban.spatium.dto.Point;
+import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.service.PaymentService;
-
 
 
 @Controller
@@ -38,26 +38,26 @@ public class paymentController {
 	
 	@PostMapping("/test3")
 	public  String test3(Model model,Payment payment
+						,@RequestParam(name = "pointID",required = false)String pointID
 						,@RequestParam(name = "usePoint",required = false)int usePoint
-						,@RequestParam(name = "addPoint",required = false)int addPoint) {
+						,@RequestParam(name = "addPoint",required = false)int addPoint
+						,@RequestParam(name = "paymentRsvCode",required = false)int PaymentRsvCode) {
 		System.out.println("===여기부터====");
 		
-		System.out.println(payment.getPaymentPrice());
-		System.out.println(payment.getPaymentUsePoint());
-		System.out.println(payment.getPaymentUseMoney());
-		System.out.println(payment.getPaymentAddPoint());
-		System.out.println(payment.getPaymentIP());
-		System.out.println(payment.getPaymentCode() +"페이먼트 코드");
+		System.out.println(payment.getPaymentPrice()+"getPaymentPrice");
+		System.out.println(payment.getPaymentRsvCode()+"getPaymentRsvCode");
+		System.out.println(payment.getPaymentUsePoint()+"getPaymentUsePoint");
+		System.out.println(payment.getPaymentUseMoney()+"getPaymentUseMoney");
+		System.out.println(payment.getPaymentAddPoint()+"getPaymentAddPoint");
+		System.out.println(payment.getPaymentIP()+"getPaymentIP");
+		System.out.println(PaymentRsvCode +"PaymentRsvCode의 값");
 		System.out.println("유즈포인트"+(usePoint*-1));
 		System.out.println("에드포인트"+addPoint);
 		
 		
-		
-		payment.getPaymentCode();// seq 추출 가능
-		
-		
-		
 		payment.setPaymentPrice(payment.getPaymentPrice());
+		
+		payment.setPaymentRsvCode(PaymentRsvCode);
 		payment.setPaymentUsePoint(usePoint);
 		payment.setPaymentUseMoney(payment.getPaymentUseMoney());
 		payment.setPaymentAddPoint(addPoint);
@@ -66,10 +66,11 @@ public class paymentController {
 		int pay = paymentService.paymentSystem(payment);
 		System.out.println(pay + "pay의 값");
 		
+		payment.getPaymentCode();// seq 추출 가능
 		Point point = new Point();
-		
+		Rsv rsv = new Rsv();
 		point.setPointAddList("결제 완료");
-		point.setPointID("id001");
+		point.setPointID(pointID);
 		point.setPointSellList("마일리지 적립");
 		point.setPointList(addPoint);
 		point.setPointPaymentCode(payment.getPaymentCode());
@@ -77,12 +78,15 @@ public class paymentController {
 		System.out.println(result1 +"result1값");
 		
 		
+		rsv.setRsvState("결제 완료");
+		rsv.setRsvCode(PaymentRsvCode);
+		int setstate = paymentService.updateState(rsv);
 		
 		if(usePoint!=0) {
 			point = new Point();
 			
 			point.setPointAddList("결제 사용");
-			point.setPointID("id001");
+			point.setPointID(pointID);
 			point.setPointSellList("마일리지 사용");
 			point.setPointList(usePoint*-1);
 			point.setPointPaymentCode(payment.getPaymentCode());
@@ -103,22 +107,32 @@ public class paymentController {
 	    }
 
 	
-	@GetMapping("/test")
-	public  String test(Model model) {
+	@GetMapping("/paymentTest")
+	public  String test(Model model
+					,@RequestParam(name="rsvCode", required = false) String rsvCode) {
 		System.out.println("hiihi");
-		String asd = "id001"; //원래는 세션영역 아이디
+		System.out.println(rsvCode);
 		
 		//memberService.onelist(member.getMemberId());
 		
+		Rsv rsv = paymentService.rsvState(rsvCode);
 		
-		
-		int totalPoint =paymentService.totalPoint();
+		model.addAttribute("rsv", rsv);
+		System.out.println(rsv.getRsvUserId());
+		System.out.println(rsv.getRsvCode());
+		String totalPoint =paymentService.totalPoint(rsv.getRsvUserId());
+		System.out.println("포인트"+totalPoint);
 		model.addAttribute("totalPoint", totalPoint);
+		
+		
+		
 		//마일리지 총값
 		//한개예약리스트
 		return "payment/payment";
 		
 	}
+	
+	
 	
 	@GetMapping("/paymentSearch")
 	public String paymentSearch(Model model) {

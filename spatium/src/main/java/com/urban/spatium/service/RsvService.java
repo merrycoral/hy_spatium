@@ -22,6 +22,8 @@ public class RsvService {
 	private RsvMapper rsvMapper;
 	
 	public void insertTbRsv(Rsv rsv) {
+		
+		
 		String rsvStartDateTime = rsv.getRsvDate() + " " +rsv.getStartTime();
 		String rsvEndDateTime = rsv.getRsvDate() + " " +rsv.getEndTime();
 		rsv.setRsvStartDateTime(rsvStartDateTime);
@@ -29,6 +31,9 @@ public class RsvService {
 		System.out.println(rsvStartDateTime + " <-- 예약 시작 일시");
 		System.out.println(rsvEndDateTime + " <-- 예약 종료 일시");
 		
+		
+		rsvMapper.insertRsvItemDetail(rsv);
+		//rsvMapper.insertRsvSpaceDetail(rsv);
 		rsvMapper.insertTbRsv(rsv);
 	}
 

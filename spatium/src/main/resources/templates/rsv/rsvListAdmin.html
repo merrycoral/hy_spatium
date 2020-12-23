@@ -32,6 +32,7 @@
 								class="fa fa-chevron-down"></i>
 						</a>
 						</th>
+						<th class="column-title">결제</th>
 					</tr>
 				</thead>
 
@@ -54,6 +55,9 @@
 						<td th:text="${r.rsvRegDate}" class=" "></td>
 						<td th:text="${r.rsvState}" class=" "></td>
 						<td class=" "><a href="#">View</a></td>
+						<td>
+							<a th:href="@{/paymentTest(rsvCode=${r.rsvCode})}">결제</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

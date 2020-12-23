@@ -1,5 +1,8 @@
 package com.urban.spatium.dto;
 
+import java.util.List;
+import java.util.Map;
+
 public class Rsv {
 	private int rsvCode;
 	private String rsvUserId;
@@ -15,6 +18,8 @@ public class Rsv {
 	private String endTime;
 	private String rsvStartDateTime;
 	private String rsvEndDateTime;
+	private List<Map<String,Object>> itemList;
+	private List<Map<String,Object>> spaceList;
 	
 	private int rsvDetailCode;
 	private int rsvDetailSpace;
@@ -24,6 +29,18 @@ public class Rsv {
 	private int rsvDetailOnePrice;
 	private int rsvDetailTotalPrice;
 	
+	public List<Map<String, Object>> getSpaceList() {
+		return spaceList;
+	}
+	public void setSpaceList(List<Map<String, Object>> spaceList) {
+		this.spaceList = spaceList;
+	}
+	public List<Map<String, Object>> getItemList() {
+		return itemList;
+	}
+	public void setItemList(List<Map<String, Object>> itemList) {
+		this.itemList = itemList;
+	}
 	public int getRsvDetailCode() {
 		return rsvDetailCode;
 	}
@@ -152,14 +169,55 @@ public class Rsv {
 	}
 	@Override
 	public String toString() {
-		return "Rsv [rsvCode=" + rsvCode + ", rsvUserId=" + rsvUserId + ", rsvUserName=" + rsvUserName
-				+ ", rsvUserPhone=" + rsvUserPhone + ", rsvUserEmail=" + rsvUserEmail + ", rsvUserRequest="
-				+ rsvUserRequest + ", rsvTotalPrice=" + rsvTotalPrice + ", rsvRegDate=" + rsvRegDate + ", rsvState="
-				+ rsvState + ", rsvDate=" + rsvDate + ", startTime=" + startTime + ", endTime=" + endTime
-				+ ", rsvStartDateTime=" + rsvStartDateTime + ", rsvEndDateTime=" + rsvEndDateTime + ", rsvDetailCode="
-				+ rsvDetailCode + ", rsvDetailSpace=" + rsvDetailSpace + ", rsvDetailSeat=" + rsvDetailSeat
-				+ ", rsvDetailItem=" + rsvDetailItem + ", rsvDetailNum=" + rsvDetailNum + ", rsvDetailOnePrice="
-				+ rsvDetailOnePrice + ", rsvDetailTotalPrice=" + rsvDetailTotalPrice + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Rsv [rsvCode=");
+		builder.append(rsvCode);
+		builder.append(", rsvUserId=");
+		builder.append(rsvUserId);
+		builder.append(", rsvUserName=");
+		builder.append(rsvUserName);
+		builder.append(", rsvUserPhone=");
+		builder.append(rsvUserPhone);
+		builder.append(", rsvUserEmail=");
+		builder.append(rsvUserEmail);
+		builder.append(", rsvUserRequest=");
+		builder.append(rsvUserRequest);
+		builder.append(", rsvTotalPrice=");
+		builder.append(rsvTotalPrice);
+		builder.append(", rsvRegDate=");
+		builder.append(rsvRegDate);
+		builder.append(", rsvState=");
+		builder.append(rsvState);
+		builder.append(", rsvDate=");
+		builder.append(rsvDate);
+		builder.append(", startTime=");
+		builder.append(startTime);
+		builder.append(", endTime=");
+		builder.append(endTime);
+		builder.append(", rsvStartDateTime=");
+		builder.append(rsvStartDateTime);
+		builder.append(", rsvEndDateTime=");
+		builder.append(rsvEndDateTime);
+		builder.append(", itemList=");
+		builder.append(itemList);
+		builder.append(", spaceList=");
+		builder.append(spaceList);
+		builder.append(", rsvDetailCode=");
+		builder.append(rsvDetailCode);
+		builder.append(", rsvDetailSpace=");
+		builder.append(rsvDetailSpace);
+		builder.append(", rsvDetailSeat=");
+		builder.append(rsvDetailSeat);
+		builder.append(", rsvDetailItem=");
+		builder.append(rsvDetailItem);
+		builder.append(", rsvDetailNum=");
+		builder.append(rsvDetailNum);
+		builder.append(", rsvDetailOnePrice=");
+		builder.append(rsvDetailOnePrice);
+		builder.append(", rsvDetailTotalPrice=");
+		builder.append(rsvDetailTotalPrice);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 	

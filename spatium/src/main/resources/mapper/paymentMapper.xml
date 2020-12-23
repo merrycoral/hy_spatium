@@ -26,7 +26,39 @@
 		<result column="pointModyfiDate" 		property="pointModyfiDate"/>
 	</resultMap>
 	
-	<select id="pointSelect" resultMap="resultMapPoint">
+	
+	<update id="updateState" parameterType="Rsv">
+		UPDATE tbRsv
+		SET
+			rsvState=#{rsvState}
+		WHERE 
+		 rsvCode = #{rsvCode}
+	</update>
+	
+	
+	
+	
+	<select id="rsvState" parameterType="String"  resultType="Rsv" >
+	SELECT 
+		rsvCode
+		, rsvUserId
+		, rsvUserName
+		, rsvUserPhone
+		, rsvUserEmail
+		, rsvUserRequest
+		, rsvTotalPrice
+		, rsvStartDateTime
+		, rsvEndDateTime
+		, rsvRegDate
+		, rsvState		
+	FROM 
+		tbRsv		
+	WHERE 
+		rsvCode = #{rsvCode};
+	</select>
+	
+	
+	<select id="pointSelect" resultMap="resultMapPoint" >
 	SELECT 
 		pointCode
 		, pointID
@@ -62,6 +94,7 @@
 	(
 	
 	 paymentPrice
+	, paymentRsvCode
 	, paymentUsePoint
 	, paymentUseMoney
 	, paymentAddPoint
@@ -72,6 +105,7 @@
 	VALUES (
 	
 	#{paymentPrice}
+	, #{paymentRsvCode}
 	, #{paymentUsePoint}
 	, #{paymentUseMoney}
 	, #{paymentAddPoint}
@@ -106,10 +140,13 @@
 	</insert>
 	
 	
-	<select id="totalPoint" resultType="int">
+	<select id="totalPoint" parameterType="String" resultType="String">
 		SELECT
-		SUM(pointList)
-		FROM tbPointList
+			SUM(pointList)
+		FROM 
+			tbPointList
+		WHERE
+			pointID = #{pointID}
 	</select>
 	
 

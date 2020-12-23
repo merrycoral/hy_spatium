@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.urban.spatium.dto.Payment;
 import com.urban.spatium.dto.Point;
+import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.mapper.PaymentMapper;
 
 
@@ -23,6 +24,17 @@ public class PaymentService {
 	@Autowired 
 	private PaymentMapper paymentMapper;
 	
+	public int updateState(Rsv rsv) {
+		
+		return paymentMapper.updateState(rsv);
+	}
+	
+	
+	public Rsv rsvState(String rsvCode){
+		Rsv rsv = paymentMapper.rsvState(rsvCode);
+		
+		return rsv;
+	}
 	
 	public List<Point> pointSelect(){
 		
@@ -50,8 +62,9 @@ public class PaymentService {
 		
 	}
 	
-	public int totalPoint() {
-		int totalPoint =  paymentMapper.totalPoint();
+	public String totalPoint(String pointID) {
+		String totalPoint =  paymentMapper.totalPoint(pointID);
+		System.out.println("서비스에서>>>"+pointID);
 		return totalPoint;
 		
 	}
