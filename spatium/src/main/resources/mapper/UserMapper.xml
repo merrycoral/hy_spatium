@@ -9,9 +9,7 @@
 
 	<!--회원리스트 -->
 	<select id="getuserList" resultType="User">
-		FROM 
-			tbUser;
-		<!-- SELECT
+		SELECT
 		userId
 		, userPw
 		, userName
@@ -28,7 +26,7 @@
 		INNER JOIN
 		tbUserLevel	AS l
 		ON
-		u.userLevel=l.userLevelCode; -->
+		u.userLevel=l.userLevelCode;
 	</select>
 	
 	<!--비밀번호 변경  -->
