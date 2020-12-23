@@ -19,12 +19,24 @@
 	
 	<h1>게시글 작성</h1>
 	
-	<form th:action="@{/addBoardPost}" method="post">
+	<form th:action="@{/addPost}" onsubmit="return valCheck(this)" method="post">
 		<table class="table table-striped" >
+			<tr>
+				<td>카테고리</td>
+				<td>
+					<select id="board_cate" name="boardCateCode">
+						<option value="">카테고리선택</option>
+						<option th:if="${#lists.size(boardCate) > 0} and ${b.boardCateCode} <= 99" 
+						th:each="b : ${boardCate}" th:text="${b.boardCateName}" th:value="${b.boardCateCode}">
+						</option>
+
+					</select>
+				</td>
+			</tr>
 			<tr>
 				<td>작성자</td>
 				<td>
-					<input type="text" name="userId" th:unless="${session.SID == null}" th:value="${session.SID}" readonly="readonly" class="form-control"/>
+					<input type="text" name="boardAddId" th:unless="${session.SID == null}" th:value="${session.SID}" readonly="readonly" class="form-control"/>
 				</td>
 			</tr>
 			<tr>
@@ -41,31 +53,33 @@
 			</tr>
 		</table>
 			<div class="text-center">
-					<button id="insertBtn" class="btn btn-success">등록</button>
-					<button type="reset" id="cencelBtn" class="btn btn-warning">취소</button>
-					<button type="button"  class="btn btn-primary" th:formaction="@{/boardList}">전체 게시글보기</button>
+					<button id="insertBtn" type="submit" class="btn btn-success">등록</button>
+					<button type="reset" class="btn btn-warning">다시쓰기</button>
+					<a th:href="@{/boardList}"><button type="button"  class="btn btn-primary">게시글보기</button></a>
 					
 			</div>
 	</form>
 </div>
 	<script type="text/javascript">
-	
-	$(document).ready(function() {
-		  $('#insertBtn').click(function(){
-			  var title = $("#boardTitle").val();
-			  var content = $("#boardContents").val();
-			  if(title == ""){
-				  alert("제목을 입력하세요");
-				  document.form1.title.focus();
-				  return ;
-			  }
-			  if(content == ""){
-				  alert("내용을 입력하세요");
-				  document.form1.content.focus();
-				  return ;
-			  }
-			  document.form1.submit();
-		  });
+		$(function() {
+			$('#insertBtn').click(function() {
+				var boardcate = $('#board_cate').val();
+				var boardTitle = $('#boardTitle').val();
+				var boardContents = $('#boardContents').val();
+				if (boardcate == 0) {
+					alert('카테고리를 선택해주세요');
+					return false;
+				}
+				if (boardTitle == '') {
+					alert('제목을 입력해주세요');
+					return false;
+				}
+				if (boardContents == '') {
+					alert('내용을 입력해주세요');
+					return false;
+				}
+			});
+			return true;
 		});
 	</script>
 </th:block>
