@@ -48,7 +48,7 @@ public class ItemController {
 		return "item/itemDetail";
 	}
 	
-	@GetMapping("/adddItem")
+	@GetMapping("/addItem")
 	public String addItem(Model model) {
 		
 		model.addAttribute("title", "장비 등록");
