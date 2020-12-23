@@ -161,7 +161,6 @@ public class UserController {
 			session.setAttribute("SNAME", User.getUserName());
 			System.out.println(UserId + " : 로그인 성공");
 		}else {
-			rAttr.addAttribute("result", "입력하신 정보는 없습니다.");
 			System.out.println(UserId + " : 로그인 실패");
 			return "redirect:/login";
 		}
@@ -184,11 +183,13 @@ public class UserController {
 	  String addUser(User user ,@RequestParam(name = "userId", required = false)
 	  String userId) { System.out.println("회원가입화면에서 입력받은 값--->" + user); String
 	  result = userService.addUser(user); System.out.println(result); return
-	  "redirect:/userList"; }
+	  "redirect:/userList"; 
+	  }
 	  
 	  @GetMapping("/addUser") public String addUser(Model model) {
 	  model.addAttribute("title", "회원 가입");
-	  return "user/join"; }
+	  return "user/join";
+	  }
 } 
 	
 
