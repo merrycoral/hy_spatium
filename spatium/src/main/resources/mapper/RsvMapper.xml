@@ -3,33 +3,47 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.RsvMapper">
-
-	<insert id="insertRsvItemDetail" parameterType="Rsv">
+	
+	<update id="updateRsvPrice">
+		UPDATE tbRsv
+		SET
+			rsvTotalPrice=#{totalPrice}
+		WHERE 
+			rsvCode=#{rsvCode}
+	</update>
+	
+	<insert id="insertTbRsvRelation">	
+		INSERT INTO tbRsvRelation
+			(rsvRelationRsvCode
+			, rsvRelationRsvDetailCode)
+		VALUES 
+			( #{rsvCode}
+			, #{itemRsvCode})
+	</insert>
+	
+	
+	<insert id="insertRsvItemDetail" parameterType="Map" useGeneratedKeys="true" keyProperty="rsvDetailCode">	
 		INSERT INTO tbRsvDetail
 			(rsvDetailItem
 			, rsvDetailNum
 			, rsvDetailOnePrice
 			, rsvDetailTotalPrice)
 		VALUES 
-		<foreach collection="itemList" item="i" separator=",">		
-			(#{i.itemCode}
-			, #{i.itemCount}
-			, #{i.itemRentalPrice}
-			, #{i.itemTotalPrice})
-		</foreach>
+			(#{itemCode}
+			, #{itemCount}
+			, #{itemRentalPrice}
+			, #{itemTotalPrice})
 	</insert>
 		
-	<insert id="insertRsvSpaceDetail" parameterType="Rsv">
+	<insert id="insertRsvSpaceDetail" parameterType="Map" useGeneratedKeys="true" keyProperty="rsvDetailCode">
 		INSERT INTO tbRsvDetail
 			(rsvDetailSpace
 			, rsvDetailOnePrice
 			, rsvDetailTotalPrice)
 		VALUES 
-		<foreach collection="spaceList" item="s" separator=",">		
-			(#{s.spaceCode}
-			, #{s.spaceRentalPrice}
-			, #{s.spaceRentalPrice})
-		</foreach>
+			(#{spaceCode}
+			, #{spaceRentalPrice}
+			, #{spaceRentalPrice})
 	</insert>	
 		
 	<select id="getItemByCode" parameterType="int" resultType="Item">
@@ -153,7 +167,7 @@
 			tbRsv
 	</select>
 	
-	<insert id="insertTbRsv" parameterType="Rsv">
+	<insert id="insertTbRsv" parameterType="Rsv" useGeneratedKeys="true" keyProperty="rsvCode">
 		INSERT INTO tbRsv(
 			  rsvUserId
 			, rsvUserName
