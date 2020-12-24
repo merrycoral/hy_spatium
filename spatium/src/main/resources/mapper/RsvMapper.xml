@@ -4,6 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.RsvMapper">
 	
+	<select id="getExRsv" parameterType="Rsv" resultType="Rsv">
+		SELECT rsvCode, rsvDetailCode, okaySpaceName, itemTotalName, rsvStartDateTime, rsvEndDateTime
+		FROM viewRsv
+	</select>	
+	
 	<update id="updateRsvPrice">
 		UPDATE tbRsv
 		SET

@@ -24,6 +24,13 @@ public class RsvController {
 	@Autowired 
 	private RsvService rsvService; 
 	
+	@RequestMapping(value = "/getExRsv", produces="application/json"  ,method = RequestMethod.POST ) 
+	public @ResponseBody List<Rsv> getExRsv(@RequestBody Rsv rsv) {
+		List<Rsv> getExRsv = rsvService.getExRsv(rsv);
+		
+		return getExRsv;
+	}
+	
 	@GetMapping("/rsvListExtend")
 	public String rsvListExtend(Model model, @RequestParam(name = "", required =false)String rsvCode) {
 		List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);

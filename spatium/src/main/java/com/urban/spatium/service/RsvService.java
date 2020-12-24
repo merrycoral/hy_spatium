@@ -100,6 +100,12 @@ public class RsvService {
 		List<Rsv> rsvListExtend = rsvMapper.rsvListExtend(rsvCode);
 		return rsvListExtend;
 	}
+
+	public List<Rsv> getExRsv(Rsv rsv) {
+		List<Rsv> getExRsv = rsvMapper.getExRsv(rsv);
+		
+		return getExRsv;
+	}
 	
 	
 	
