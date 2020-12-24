@@ -21,7 +21,6 @@ SELECT
 	, readyExceptionEndDate
 	, readySpaceBasicOption
 	, readyRequestDate
-	, readyRefunRule
 FROM 
 	tbReadySpace
 	
@@ -47,7 +46,6 @@ SELECT
 	, okayCompletedDate
 	, okaySpaceBasicOption
 	, okaySpaceId
-	, okayRefundPolicyCode
 FROM 
 	tbOkaySpace
 	

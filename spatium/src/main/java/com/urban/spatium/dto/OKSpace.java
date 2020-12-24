@@ -18,7 +18,6 @@ public class OKSpace {
 	private String okayCompletedDate;
 	private String okaySpaceBasicOption;
 	private String okaySpaceId;
-	private String okayRefundPolicyCode;
 	private String spaceCateName;
 	public String getSpaceCateName() {
 		return spaceCateName;
@@ -128,12 +127,6 @@ public class OKSpace {
 	public void setOkaySpaceId(String okaySpaceId) {
 		this.okaySpaceId = okaySpaceId;
 	}
-	public String getOkayRefundPolicyCode() {
-		return okayRefundPolicyCode;
-	}
-	public void setOkayRefundPolicyCode(String okayRefundPolicyCode) {
-		this.okayRefundPolicyCode = okayRefundPolicyCode;
-	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -171,8 +164,6 @@ public class OKSpace {
 		builder.append(okaySpaceBasicOption);
 		builder.append(", okaySpaceId=");
 		builder.append(okaySpaceId);
-		builder.append(", okayRefundPolicyCode=");
-		builder.append(okayRefundPolicyCode);
 		builder.append(", spaceCateName=");
 		builder.append(spaceCateName);
 		builder.append("]");

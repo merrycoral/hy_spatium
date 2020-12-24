@@ -1,5 +1,8 @@
 package com.urban.spatium.dto;
 
+import java.util.List;
+import java.util.Map;
+
 public class ReadySpace {
 	
 	private String readySpace;
@@ -18,7 +21,11 @@ public class ReadySpace {
 	private String readyExceptionEndDate;
 	private String readySpaceBasicOption;
 	private String readyRequestDate;
-	private String readyRefunRule;
+	
+	private int storeCode;
+	private int spaceCateCode;
+	
+	private List<Map<String, Object>> storeBusinessTypeList;
 	
 	public String getReadySpace() {
 		return readySpace;
@@ -116,23 +123,38 @@ public class ReadySpace {
 	public void setReadyRequestDate(String readyRequestDate) {
 		this.readyRequestDate = readyRequestDate;
 	}
-	public String getReadyRefunRule() {
-		return readyRefunRule;
+	
+	public List<Map<String, Object>> getStoreBusinessTypeList() {
+		return storeBusinessTypeList;
 	}
-	public void setReadyRefunRule(String readyRefunRule) {
-		this.readyRefunRule = readyRefunRule;
+	public void setStoreBusinessTypeList(List<Map<String, Object>> storeBusinessTypeList) {
+		this.storeBusinessTypeList = storeBusinessTypeList;
+	}
+	
+	public int getStoreCode() {
+		return storeCode;
+	}
+	public void setStoreCode(int storeCode) {
+		this.storeCode = storeCode;
+	}
+	public int getSpaceCateCode() {
+		return spaceCateCode;
+	}
+	public void setSpaceCateCode(int spaceCateCode) {
+		this.spaceCateCode = spaceCateCode;
 	}
 	
 	@Override
 	public String toString() {
-		return "Space [readySpace=" + readySpace + ", readyStoreCode=" + readyStoreCode + ", readySpaceName="
+		return "ReadySpace [readySpace=" + readySpace + ", readyStoreCode=" + readyStoreCode + ", readySpaceName="
 				+ readySpaceName + ", readySpaceType=" + readySpaceType + ", readyPeopleNumber=" + readyPeopleNumber
 				+ ", readyBriefSpace=" + readyBriefSpace + ", readyDetailSpace=" + readyDetailSpace + ", readySpaceTag="
 				+ readySpaceTag + ", readyRentalPrice=" + readyRentalPrice + ", readyStartTime=" + readyStartTime
 				+ ", readyCloseTime=" + readyCloseTime + ", readySpaceRsvType=" + readySpaceRsvType
 				+ ", readyExceptionStartDate=" + readyExceptionStartDate + ", readyExceptionEndDate="
 				+ readyExceptionEndDate + ", readySpaceBasicOption=" + readySpaceBasicOption + ", readyRequestDate="
-				+ readyRequestDate + ", readyRefunRule=" + readyRefunRule + "]";
+				+ readyRequestDate + ", storeCode=" + storeCode
+				+ ", spaceCateCode=" + spaceCateCode + ", storeBusinessTypeList=" + storeBusinessTypeList + "]";
 	}
 	
 }

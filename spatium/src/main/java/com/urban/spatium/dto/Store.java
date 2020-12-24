@@ -13,10 +13,20 @@ public class Store {
 	private String storeEmail;
 	private String storePhone;
 	private String storeAccountNumber;
-	private String storePaymentMethod;
+	private String storeRefundRull;
 	private String storeImage;
 	private int storeLevel;
+	private int spaceRelationStoreCode;
 	
+	private int spaceCateCode;
+	
+	public String getStoreRefundRull() {
+		return storeRefundRull;
+	}
+	public void setStoreRefundRull(String storeRefundRull) {
+		this.storeRefundRull = storeRefundRull;
+	}
+
 	public int getStoreCode() {
 		return storeCode;
 	}
@@ -83,12 +93,6 @@ public class Store {
 	public void setStoreAccountNumber(String storeAccountNumber) {
 		this.storeAccountNumber = storeAccountNumber;
 	}
-	public String getStorePaymentMethod() {
-		return storePaymentMethod;
-	}
-	public void setStorePaymentMethod(String storePaymentMethod) {
-		this.storePaymentMethod = storePaymentMethod;
-	}
 	public String getStoreImage() {
 		return storeImage;
 	}
@@ -102,14 +106,28 @@ public class Store {
 		this.storeLevel = storeLevel;
 	}
 	
+	public int getSpaceCateCode() {
+		return spaceCateCode;
+	}
+	public void setSpaceCateCode(int spaceCateCode) {
+		this.spaceCateCode = spaceCateCode;
+	}	
+	
+	public int getSpaceRelationStoreCode() {
+		return spaceRelationStoreCode;
+	}
+	public void setSpaceRelationStoreCode(int spaceRelationStoreCode) {
+		this.spaceRelationStoreCode = spaceRelationStoreCode;
+	}
 	@Override
 	public String toString() {
 		return "Store [storeCode=" + storeCode + ", storeId=" + storeId + ", storeName=" + storeName
 				+ ", storeRepresentative=" + storeRepresentative + ", storeNumber=" + storeNumber
 				+ ", storeBusinessType=" + storeBusinessType + ", storeAddress=" + storeAddress + ", storeIntroduction="
 				+ storeIntroduction + ", storeEmail=" + storeEmail + ", storePhone=" + storePhone
-				+ ", storeAccountNumber=" + storeAccountNumber + ", storePaymentMethod=" + storePaymentMethod
-				+ ", storeImage=" + storeImage + ", storeLevel=" + storeLevel + "]";
+				+ ", storeAccountNumber=" + storeAccountNumber + ", storeRefundRull=" + storeRefundRull
+				+ ", storeImage=" + storeImage + ", storeLevel=" + storeLevel + ", spaceRelationStoreCode="
+				+ spaceRelationStoreCode + ", spaceCateCode=" + spaceCateCode + "]";
 	}
 	
 	

@@ -9,6 +9,8 @@ import com.urban.spatium.dto.Store;
 @Mapper
 public interface StoreMapper {
 	
+	public int addStoreRelation(int storeCode);
+	
 	public int addStore(Store store);
 	
 	public List<Store> storeList();

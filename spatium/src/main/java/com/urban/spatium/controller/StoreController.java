@@ -20,21 +20,16 @@ public class StoreController {
 	
 	@Autowired
 	private StoreService storeService;
-	
-	@GetMapping("/addSpace")
-	public String addSpace(Model model) {
-		model.addAttribute("title", "공간 등록");
-		return "space/addSpace";
-	}
-	
+
 	@PostMapping("/addStore")
 	public String addStore(@RequestParam(name = "storeBusinessType", required = false) String storeBusinessType
 							,Model model, Store store) {
 		
+		store.getStoreCode();
 		System.out.println(storeBusinessType);
 		String result = storeService.addStore(store);
 		System.out.println(result);
-		
+		store.setSpaceRelationStoreCode(store.getStoreCode());
 		return "redirect:/storeListOK";
 	}
 	

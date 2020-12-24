@@ -2,7 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.StoreMapper">
 
-<insert id="addStore" parameterType="Store">
+<insert id="addStoreRelation" parameterType="int">
+	
+	INSERT INTO tbSpaceRelation
+		(spaceRelationCode
+		, spaceRelationStoreCode
+		, spaceRelationCateCode)
+	VALUES
+		 ( null
+		 , ${spaceRelationStoreCode}
+		 , 4);
+	
+</insert>
+
+<insert id="addStore" parameterType="Store" useGeneratedKeys="true" keyProperty="storeCode">
 	INSERT INTO tbStore
 		(storeCode
 		, storeId
@@ -15,7 +28,7 @@
 		, storeEmail
 		, storePhone
 		, storeAccountNumber
-		, storePaymentMethod
+		, storeRefundRull
 		, storeImage
 		, storeLevel
 		, storeRegDate)
@@ -31,30 +44,30 @@
 		, #{storeEmail}
 		, #{storePhone}
 		, #{storeAccountNumber}
-		, #{storePaymentMethod}
+		, #{storeRefundRull}
 		, #{storeImage}
 		, 1
 		, NOW())
 </insert>
 
 <select id = "storeList" resultType="Store">
-SELECT 
-	storeCode
-	, storeId
-	, storeName
-	, storeRepresentative
-	, storeNumber
-	, storeBusinessType
-	, storeAddress
-	, storeIntroduction
-	, storeEmail
-	, storePhone
-	, storeAccountNumber
-	, storePaymentMethod
-	, storeImage
-	, storeLevel
-FROM
-	tbStore;
+	SELECT 
+		storeCode
+		, storeId
+		, storeName
+		, storeRepresentative
+		, storeNumber
+		, storeBusinessType
+		, storeAddress
+		, storeIntroduction
+		, storeEmail
+		, storePhone
+		, storeAccountNumber
+		, storeRefundRull
+		, storeImage
+		, storeLevel
+	FROM
+		tbStore;
 </select>
 
 </mapper>
