@@ -53,4 +53,16 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	public String removePost(int boardIdx, String boardAddId) {
+		String result = "게시글 삭제 실패";
+		
+		int insertCheck = boardMapper.removePost(boardIdx);
+		
+		if(insertCheck > 0) result = "삭제 완료";
+		
+		return result;
+		
+	}
+	
 }

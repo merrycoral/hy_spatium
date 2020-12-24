@@ -18,5 +18,7 @@ public interface BoardMapper {
 
 	public int modifyPost(Board board);
 	
+	public int removePost(int boardIdx);
+	
 	
 }

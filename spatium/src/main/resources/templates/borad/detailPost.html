@@ -49,7 +49,7 @@
 			<a th:href="@{/modifyPost(boardIdx=${Board.boardIdx}, boardTitle=${Board.boardTitle})}">
 				<button id="insertBtn" type="submit" class="btn btn-warning">수정</button>
 			</a>
-			<a th:href="@{/removePost(boardIdx=${Board.boardIdx}, boardTitle=${Board.boardTitle})}">
+			<a th:href="@{/removePost(boardIdx=${Board.boardIdx})}">
 				<button id="insertBtn" type="submit" class="btn btn-danger">삭제</button>
 			</a>
 			<a th:href="@{/boardList}"><button type="button" class="btn btn-primary" >게시글보기</button></a>

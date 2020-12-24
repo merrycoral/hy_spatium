@@ -78,5 +78,12 @@
 		WHERE 
 			boardIdx = #{boardIdx};		
 	</update>
+	<delete id="removePost" parameterType="String">
+		DELETE
+		FROM
+			tbBoard
+		WHERE
+			boardIdx = #{boardIdx};
+	</delete>
 
 </mapper>
