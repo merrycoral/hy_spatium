@@ -23,13 +23,19 @@ public interface RsvMapper {
 	
 	public List<Item> getItemByStore();
 
-	public void insertRsvItemDetail(Rsv rsv);
+	public void insertRsvItemDetail(Map<String, Object> itemRsv);
 
-	public void insertRsvSpaceDetail(OKSpace space);
+	public void insertRsvSpaceDetail(Map<String, Object> spaceRsv);
 
 	public Item getItemByCode(int tbRecord);
 
 	public OKSpace getSpaceByCode(int tbRecord);
+
+	public void insertTbRsvRelation(int rsvCode, Object itemRsvCode);
+
+	public void updateRsvPrice(int rsvCode, int totalPrice);
+
+	public List<Rsv> rsvListExtend(String rsvCode);
 	
 	
 }

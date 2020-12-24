@@ -16,7 +16,6 @@
 									style="position: absolute; opacity: 0;"> 
 							</div>
 						</th>
-						<th class="column-title">예약 코드</th>
 						<th class="column-title">예약자</th>
 						<th class="column-title">예약 공간</th>
 						<th class="column-title">예약 장비</th>
@@ -34,14 +33,13 @@
 				</thead>
 
 				<tbody>
-					<tr class="even pointer" th:if="${#lists.size(rsvDetailList) > 0}" th:each = "r : ${rsvDetailList}">
+					<tr class="even pointer" th:if="${#lists.size(rsvListExtend) > 0}" th:each = "r : ${rsvListExtend}">
 						<td class="a-center ">
 							<div class="icheckbox_flat-green" style="position: relative;">
 								<input type="checkbox" class="flat" name="table_records" th:value="${r.rsvDetailCode}"
 									style="position: absolute; opacity: 0;">
 							</div>
 						</td>
-						<td th:text="${r.rsvCode}" class=" "></td>
 						<td th:text="${r.rsvUserName}" class=" "></td>
 						<td th:text="${r.okaySpaceName}" class=" "></td>
 						<td th:text="${r.itemTotalName}" class=" "></td>
@@ -55,10 +53,6 @@
 			</table>
 		</div>
 	</div>
-
-
-
-
 
 </th:block>
 </html>
