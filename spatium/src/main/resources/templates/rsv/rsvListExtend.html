@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customContent">
+	<div class="x_content">
+		<p>예약 리스트</p>
+		<div class="table-responsive">
+			<table class="table table-striped jambo_table bulk_action" border="1">
+
+				<thead>
+					<tr class="headings">
+						<th>
+							<div class="icheckbox_flat-green" style="position: relative;">
+								<input type="checkbox" id="check-all" class="flat"
+									style="position: absolute; opacity: 0;"> 
+							</div>
+						</th>
+						<th class="column-title">예약자</th>
+						<th class="column-title">예약 공간</th>
+						<th class="column-title">예약 장비</th>
+						<th class="column-title">예약 가격</th>
+						<th class="column-title">예약 개수</th>
+						<th class="column-title">시간당 가격</th>
+						<th class="column-title">시간</th>
+						<th class="column-title">총가격</th>
+						<th class="bulk-actions" colspan="11" style="display: none;">
+							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
+								class="fa fa-chevron-down"></i>
+						</a>
+						</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr class="even pointer" th:if="${#lists.size(rsvListExtend) > 0}" th:each = "r : ${rsvListExtend}">
+						<td class="a-center ">
+							<div class="icheckbox_flat-green" style="position: relative;">
+								<input type="checkbox" class="flat" name="table_records" th:value="${r.rsvDetailCode}"
+									style="position: absolute; opacity: 0;">
+							</div>
+						</td>
+						<td th:text="${r.rsvUserName}" class=" "></td>
+						<td th:text="${r.okaySpaceName}" class=" "></td>
+						<td th:text="${r.itemTotalName}" class=" "></td>
+						<td th:text="${r.rsvDetailOnePrice}" class=" "></td>
+						<td th:text="${r.rsvDetailNum}" class=" "></td>
+						<td th:text="${r.rsvDetailTotalPrice}" class=" "></td>
+						<td th:text="${r.rsvTime}" class=" "></td>
+						<td th:text="${r.rsvTimePrice}" class=" "></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</th:block>
+</html>

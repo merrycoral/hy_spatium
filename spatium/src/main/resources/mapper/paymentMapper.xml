@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.PaymentMapper">
+	
+	<resultMap type="Payment" id="resultMapPayment">
+		<result column="paymentCode" 		property="paymentCode"/>
+		<result column="paymentRsvCode" 	property="paymentRsvCode"/>
+		<result column="paymentPrice" 		property="paymentPrice"/>
+		<result column="paymentUsePoint" 	property="paymentUsePoint"/>
+		<result column="paymentUseMoney" 	property="paymentUseMoney"/>
+		<result column="paymentAddPoint" 	property="paymentAddPoint"/>
+		<result column="paymentRegDate" 	property="paymentRegDate"/>
+		<result column="paymentMethod" 		property="paymentMethod"/>
+		<result column="paymentIP" 			property="paymentIP"/>
+	</resultMap>
+	<resultMap type="Point" id="resultMapPoint">
+		<result column="pointCode" 		property="pointCode"/>
+		<result column="pointID" 	property="pointID"/>
+		<result column="pointAddList" 		property="pointAddList"/>
+		<result column="pointSellList" 	property="pointSellList"/>
+		<result column="pointList" 	property="pointList"/>
+		<result column="pointPaymentCode" 	property="pointPaymentCode"/>
+		<result column="reviewCodepointReviewCode" 	property="reviewCodepointReviewCode"/>
+		<result column="pointModyfiDate" 		property="pointModyfiDate"/>
+	</resultMap>
+	
+	
+	<update id="updateState" parameterType="Rsv">
+		UPDATE tbRsv
+		SET
+			rsvState=#{rsvState}
+		WHERE 
+		 rsvCode = #{rsvCode}
+	</update>
+	
+	
+	
+	
+	<select id="rsvState" parameterType="String"  resultType="Rsv" >
+	SELECT 
+		rsvCode
+		, rsvUserId
+		, rsvUserName
+		, rsvUserPhone
+		, rsvUserEmail
+		, rsvUserRequest
+		, rsvTotalPrice
+		, rsvStartDateTime
+		, rsvEndDateTime
+		, rsvRegDate
+		, rsvState		
+	FROM 
+		tbRsv		
+	WHERE 
+		rsvCode = #{rsvCode};
+	</select>
+	
+	
+	<select id="pointSelect" resultMap="resultMapPoint" >
+	SELECT 
+		pointCode
+		, pointID
+		, pointAddList
+		, pointSellList
+		, pointList
+		, pointPaymentCode
+		, reviewCodepointReviewCode
+		, pointModyfiDate
+	FROM tbPointList
+	</select>
+	
+	
+	<select id="paymentSelect" resultMap="resultMapPayment">
+	SELECT 
+		
+		paymentCode
+		,paymentRsvCode
+		,paymentPrice
+		, paymentUsePoint
+		, paymentUseMoney
+		, paymentAddPoint
+		, paymentMethod
+		, paymentIP
+		, paymentRegDate
+		
+	FROM tbPayment
+	</select>
+	
+	
+	<insert id="paymentSystem" parameterType="Payment" useGeneratedKeys="true" keyProperty="paymentCode">
+	INSERT INTO tbPayment
+	(
+	
+	 paymentPrice
+	, paymentRsvCode
+	, paymentUsePoint
+	, paymentUseMoney
+	, paymentAddPoint
+	, paymentMethod
+	, paymentIP
+	, paymentRegDate
+	)
+	VALUES (
+	
+	#{paymentPrice}
+	, #{paymentRsvCode}
+	, #{paymentUsePoint}
+	, #{paymentUseMoney}
+	, #{paymentAddPoint}
+	, #{paymentMethod}
+	, #{paymentIP}
+	, NOW()
+	)
+	
+	</insert>
+	
+	
+	<insert id="addPoint" parameterType="Point">
+		INSERT INTO tbPointList
+			(
+			 pointID
+			, pointAddList
+			, pointSellList
+			, pointList
+			, pointModyfiDate
+			, pointPaymentCode)
+		VALUES 
+			( 
+			
+			 #{pointID}
+			, #{pointAddList}
+			, #{pointSellList}
+			, #{pointList}
+			, NOW()
+			, #{pointPaymentCode}
+			
+			)
+	</insert>
+	
+	
+	<select id="totalPoint" parameterType="String" resultType="String">
+		SELECT
+			SUM(pointList)
+		FROM 
+			tbPointList
+		WHERE
+			pointID = #{pointID}
+	</select>
+	
+
+</mapper>

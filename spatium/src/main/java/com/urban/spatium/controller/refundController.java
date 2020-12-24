@@ -6,6 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class refundController {
+	
+	@GetMapping("/cancelTest")
+	public String cancelTest(Model model) {
+		return "refund/cancelPage";
+	}
+	
+	
 	@GetMapping("/refundSearch")
 	public String refundSearch(Model model) {
 		

@@ -9,6 +9,11 @@ margin: 0;
 font-size: 20px;
 margin-right: 20px;
 }
+.btn-group{
+ 	max-width: 520px;
+    display: table;
+    margin-left: 10px;
+}
 .disableMetter {
 	display: none
 }
@@ -16,10 +21,11 @@ margin-right: 20px;
 <!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </th:block>
 <th:block layout:fragment="customContent">
-		<!-- 공간 예약 테이블 -->
+
+<!-- 공간 예약 테이블 -->
+	<form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsertAdmin" method="post">
 	<div class="table-responsive">
 			<table class="table table-striped jambo_table bulk_action" border="1">
-
 				<thead>
 					<tr class="headings">
 						<th>
@@ -48,7 +54,7 @@ margin-right: 20px;
 					<tr class="even pointer" th:if="${#lists.size(getSpaceByStore) > 0}" th:each = "s : ${getSpaceByStore}">
 						<td class="a-center ">
 							<div class="icheckbox_flat-green" style="position: relative;">
-								<input type="checkbox" class="flat" name="table_records"
+								<input type="checkbox" class="flat SpaceRsvCheck" name="table_records" th:value="${s.okaySpaceCode}"
 									style="position: absolute; opacity: 0;">
 							</div>
 						</td>
@@ -67,10 +73,9 @@ margin-right: 20px;
 		</div>
 	
 	
-	<!-- 장비 예약 테이블 -->
+<!-- 장비 예약 테이블 -->
 		<div class="table-responsive">
 			<table class="table table-striped jambo_table bulk_action" border="1">
-
 				<thead>
 					<tr class="headings">
 						<th>
@@ -83,7 +88,6 @@ margin-right: 20px;
 						<th class="column-title">장비 이름</th>
 						<th class="column-title">대여 가능한 수량</th>
 						<th class="column-title">대여 가격</th>
-						<th class="column-title">대여 보증금</th>
 						<th class="column-title">대여 수량</th>
 						<th class="bulk-actions" colspan="11" style="display: none;">
 							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
@@ -96,7 +100,7 @@ margin-right: 20px;
 					<tr class="even pointer" th:if="${#lists.size(getItemByStore) > 0}" th:each = "i : ${getItemByStore}">
 						<td class="a-center ">
 							<div class="icheckbox_flat-green" style="position: relative;">
-								<input type="checkbox" class="flat" name="table_records"
+								<input type="checkbox" class="flat ItemRsvCheck" name="table_records"  th:value="${i.itemCode}"
 									style="position: absolute; opacity: 0;">
 							</div>
 						</td>
@@ -104,8 +108,7 @@ margin-right: 20px;
 						<td th:text="${i.itemTotalName}" class=" "></td>
 						<td th:text="${i.itemRentalAmount}" class=" "></td>
 						<td th:text="${i.itemRentalPrice}" id="eachRsvItemPrice"></td>
-						<td th:text="${i.itemRentalDeposit}" id="rsvItemDepositPrice"></td>
-						<td style="padding: 0;"><input style="width: 100%; height: 45px; margin: 0; " type="number" id="rsvItemNum" value="0"></td>
+						<td style="padding: 0;"><input style="width: 100%; height: 45px; margin: 0; " type="number" id="rsvItemNum" value="1"></td>
 						
 					</tr>
 				</tbody>
@@ -124,9 +127,9 @@ margin-right: 20px;
 			</div>
 			<div class="x_content">
 				<br>
-				<form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsertAdmin" method="post">
+			<!-- <form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsertAdmin" method="post"> -->
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 label-align"
+						<label class="col-form-label col-md-3 col-sm-3 label-align" 
 							for="rsvUserName">예약자명 <span class="required">*</span>
 						</label>
 						<div class="col-md-6 col-sm-6 ">
@@ -167,8 +170,10 @@ margin-right: 20px;
 					</div>
 					
 					<!-- 시간 선택 버튼 시작 -->
-					<div style="margin : 0 auto" align="center">
-					<div class="btn-group disableMetter" >
+					<div class="item form-group disableMetter">
+					<label class="col-form-label col-md-3 col-sm-3 label-align">예약 시간 선택 <span class="required">*</span>
+						</label>
+					<div class="btn-group" >
 						<label class="btn btn-secondary timeCheck"> <input
 							type="checkbox" class="disableMetter" value="0">0
 						</label> <label class="btn btn-secondary timeCheck"> <input
@@ -235,47 +240,109 @@ margin-right: 20px;
 					<div class="ln_solid"></div>
 					<div class="item form-group">
 						<div class="col-md-6 col-sm-6 offset-md-3">
-							<button id="bringBtn" class="btn btn-primary" type="button">로그인 정보와 동일</button>
-							<button id="resetBtn" class="btn btn-primary" type="reset">리셋</button>
+							<button id="bringBtn" class="btn btn-primary testBtn" type="button">로그인 정보와 동일</button>
 							<button id="submitBtn" type="button" class="btn btn-success">예약하기</button>
 						</div>
 					</div>
-				</form>
 			</div>
 		</div>
+	</form>
 
 
 </th:block>
 	<th:block layout:fragment="customJs">
 	<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script type="text/javascript">
-		$('#submitBtn').click(function(){
-			$('#formRsv').submit();
-		});
 		
 //예약 폼 스크립트
 		
 		var num1 = 0;
 		var num2 = 0;
-		
+//버튼 클릭시 폼넘기기
 		$('#submitBtn').click(function(){
-			$('#formRsv').submit();
+			var paramData = {};
+			var itemList = [];
+			var spaceList = [];
+			var ItemRsvChecked = $('.ItemRsvCheck:checked')
+			var SpaceRsvCheck = $('.SpaceRsvCheck:checked')
+
+			// 체크된 아이탬 체크박스 값을 가져온다
+			ItemRsvChecked.each(function(i) {
+				var itemJson = {}
+				var tr = ItemRsvChecked.parent().parent().parent().parent().eq(i);
+				var td = tr.children();
+				// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+				var itemCode = td.eq(0).children().children().children().val();
+				var itemRentalPrice = td.eq(4).text();
+				var itemCount = td.eq(5).children().val();
+				
+				itemJson["itemCode"] = itemCode;
+				itemJson["itemRentalPrice"] = itemRentalPrice;
+				itemJson["itemCount"] = itemCount;
+				itemJson["itemTotalPrice"] = itemRentalPrice*itemCount;
+				itemList.push(itemJson);
+				
+			});
+			
+			// 체크된 공간 체크박스 값을 가져온다.
+			SpaceRsvCheck.each(function(i) {
+				var spaceJson = {}
+				var tr = SpaceRsvCheck.parent().parent().parent().parent().eq(i);
+				var td = tr.children();
+				
+				var spaceCode = td.eq(0).children().children().children().val();
+				var spaceRentalPrice = td.eq(9).text();
+				
+				spaceJson["spaceCode"] = spaceCode;
+				spaceJson["spaceRentalPrice"] = spaceRentalPrice;
+				spaceList.push(spaceJson);
+			});
+			
+			paramData["rsvUserName"] = $('#rsvUserName').val();
+			paramData["rsvUserPhone"] = $('#rsvUserPhone').val();
+			paramData["rsvUserEmail"] = $('#rsvUserEmail').val();
+			paramData["rsvDate"] = $('#datepicker').val();
+			paramData["startTime"] = $('#startTime').val();
+			paramData["endTime"] = $('#endTime').val();
+			paramData["rsvUserRequest"] = $('#rsvUserRequest').val();
+			paramData["spaceList"] = spaceList;
+			paramData["itemList"] = itemList;
+			
+			console.log("paramData : " + JSON.stringify(paramData));
+			
+			//ajax시작!!
+			var request = $.ajax({
+				url: '/rsvInsertAjax', 
+				method: 'POST',
+				data : JSON.stringify(paramData),
+				dataType: 'text' ,
+				contentType : "application/json"
+			});
+			request.done(function( data ) {
+				console.log(data);	
+				//location.href = data;	
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+			
 		});
-		$('#resetBtn').click(function(){
-			$('.btn-group').addClass('disableMetter');
-		});
-		
+//버튼 클릭시 폼넘기기 종료
+
+//데이터 피커
 		$('#datepicker').datepicker({
 			singleDatePicker : true,
 			singleClasses : "picker_5",
 			minDate : 0,
 			maxDate : '+3m',
 			dateFormat: "yy-mm-dd"
-		}).on("change", function(e) {
-			$('.btn-group').removeClass('disableMetter');
+		}).on("change", function(e) {//시간선택 보이게
+			$('.btn-group').parent().removeClass('disableMetter');
 			console.log(e.data);
 		});
-	
+//데이터 피커 종료
+
+//시간 체크 하기
 		$('.timeCheck input').click(function() {
 			var checkedTime = null;
 			$('.timeCheck input').each(function(i) {
@@ -324,8 +391,15 @@ margin-right: 20px;
 					$(this).parent().addClass('btn-primary');
 			})
 			
-			
 		})
+//시간 체크 하기 종료
+		
+//로그인 정보와 동일 버튼
+		$('.testBtn').click(function() {
+			var SpaceRsvChecked = $('.SpaceRsvCheck:checked')
+			console.log(SpaceRsvChecked, '공간 선택');
+		});
+//로그인 정보와 동일 버튼 종료
 		
 		
 		

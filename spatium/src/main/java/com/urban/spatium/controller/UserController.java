@@ -23,16 +23,13 @@ public class UserController {
 	@Autowired 
 	private UserService userService; 
 	
+		
 	//회원수정
 	@PostMapping("/modifyUser")
 	public String modifyUser(User user) {
-		//화면에서 입력받은 값
 		System.out.println("회원 수정 폼에서 입력받은 값" + user);
-		
-		// update 처리
+				
 		String result = userService.modifyUser(user);
-		
-		//update 결과
 		System.out.println(result);
 		
 		return "redirect:/userList";
@@ -43,16 +40,40 @@ public class UserController {
 							   ,@RequestParam(name="userId", required = false) String userId) {
 		System.out.println("회원 수정 폼에 보여질 회원아이디" + userId);
 		
-		User user = userService.getUserById(userId);		
+		User user = userService.login(userId);		
 		
 		System.out.println("db에서 검색한 회원정보-->" + user);
 		
 		model.addAttribute("title", "회원 수정화면");
-		// db에서 검색한 회원정보
 		model.addAttribute("user", user);
 		
 		return "user/uUpdate";
 	}	
+	
+	//나의 정보
+	@GetMapping("/myInfo")
+	public String myInfo(Model model) {
+	
+		return "user/myInfo";
+	}
+	
+	//탈퇴회원 리스트
+	@GetMapping("/deleteUser")
+	public String deleteUser(Model model) {
+		return "user/deleteUser";
+	}
+	
+	//불량회원 리스트
+	@GetMapping("/blackUser")
+	public String blackUser(Model model) {
+		return "user/blackUser";
+	}
+	
+	//휴면회원 리스트
+	@GetMapping("/restUser")
+	public String restUser(Model model) {
+		return "user/restUser";
+	}
 	
 	//회원리스트
 	@PostMapping("/userList")
@@ -90,7 +111,7 @@ public class UserController {
 		model.addAttribute("title", "회원 목록");
 		/*List<User> userList = userService.getSearchUserList(searchKey,searchValue);*/
 		
-		return "user/uList";
+		return "user/userList";
 	}
 	
 	@GetMapping("/userList")
@@ -101,8 +122,17 @@ public class UserController {
 		model.addAttribute("userList", UserList);
 		if(result != null) model.addAttribute("result", result);
 
-		return "user/uList";
+		return "user/userList";
 	}
+	
+	//비밀번호찾기
+	
+	  @GetMapping("/findPw") 
+	  public String findPw(Model model) {
+		  model.addAttribute("title", "비밀번호찾기");
+		  return "user/findPw"; 
+	  } 
+	
 	
 	//로그아웃
 	@GetMapping("/logout")
@@ -123,7 +153,7 @@ public class UserController {
 		System.out.println("로그인 화면에서 입력받은 값->" + UserId);
 		System.out.println("로그인 화면에서 입력받은 값->" + UserPw);
 
-		User User = userService.getUserById(UserId);
+		User User = userService.login(UserId);
 
 		if(UserId != null && UserPw != null && User != null && User.getUserPw() != null && UserPw.equals(User.getUserPw())) {
 			session.setAttribute("SID", UserId);
@@ -131,12 +161,11 @@ public class UserController {
 			session.setAttribute("SNAME", User.getUserName());
 			System.out.println(UserId + " : 로그인 성공");
 		}else {
-			rAttr.addAttribute("result", "입력하신 정보는 없습니다.");
 			System.out.println(UserId + " : 로그인 실패");
 			return "redirect:/login";
 		}
 
-		return "redirect:/";
+		return "user/userList";
 	}
 	
 	@GetMapping("/login")
@@ -150,18 +179,17 @@ public class UserController {
 	}
 	
 	//회원가입
-	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addUser(User user
-			,@RequestParam(name = "userId", required = false) String userId) {
-		System.out.println("회원가입화면에서 입력받은 값--->" + user);
-		String result = userService.addUser(user);
-		System.out.println(result);
-		return "redirect:/myinfo";
-	}
+	  @RequestMapping(value = "/addUser", method = RequestMethod.POST) public
+	  String addUser(User user ,@RequestParam(name = "userId", required = false)
+	  String userId) { System.out.println("회원가입화면에서 입력받은 값--->" + user); String
+	  result = userService.addUser(user); System.out.println(result); return
+	  "redirect:/userList"; 
+	  }
+	  
+	  @GetMapping("/addUser") public String addUser(Model model) {
+	  model.addAttribute("title", "회원 가입");
+	  return "user/join";
+	  }
+} 
 	
-	@GetMapping("/addUser")
-	public String addUser(Model model) {
-	return "user/join";
-}
-	
-}
+

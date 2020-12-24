@@ -1,5 +1,7 @@
 package com.urban.spatium.dto;
 
+import java.util.List;
+
 public class Item {
 	private int itemCode;
 	private int storeTotalCode;
@@ -103,7 +105,7 @@ public class Item {
 		builder.append(itemChangeRegDate);
 		builder.append(", itemTotalUserId=");
 		builder.append(itemTotalUserId);
-		builder.append("]");
+		builder.append(", itemCount=");
 		return builder.toString();
 	}
 	

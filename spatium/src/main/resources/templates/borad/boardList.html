@@ -4,7 +4,38 @@
 	layout:decorate="@{layout/default}">
 <th:block layout:fragment="customContent">
 
-보드 리스트
+	<div class="container " style="margin-top: 50px;">
+	
+	<h1>게시물 리스트</h1>
+	
+	<table class="table">
+		<thead>
+			<tr>
+				<th>게시물 번호</th>
+				<th>회원아이디</th>
+				<th>카테고리</th>
+				<th>제목</th>
+				<th>조회수</th>
+				<th>추천수</th>
+				<th>작성날짜</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${#lists.size(boardsList) > 0}" th:each="b : ${boardsList}">
+				<td th:text="${b.boardIdx}"></td>
+				<td th:text="${b.boardAddId}"></td>
+				<td th:text="${b.boardCateName}"></td>
+				<td th:text="${b.boardTitle}"></td>
+				<td th:text="${b.boardLikeCnt}"></td>
+				<td th:text="${b.boardHitCnt}"></td>
+				<td th:text="${b.boardAddDate}"></td>
 
+
+			</tr>	
+	</table>
+	<div class="text-center">
+		<a th:href="@{/boardWrite}"><button type="button" class="btn btn-success">게시글 작성</button></a>		
+	</div>
+	</div>
 </th:block>
 </html>

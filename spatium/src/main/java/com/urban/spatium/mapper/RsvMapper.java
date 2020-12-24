@@ -19,9 +19,23 @@ public interface RsvMapper {
 	
 	public List<Rsv> rsvDetailList();
 	
-	public List<OKSpace> getSpaceByStore();
+	public List<OKSpace> getSpaceByStore(int storeCode);
 	
-	public List<Item> getItemByStore();
+	public List<Item> getItemByStore(int storeCode);
+
+	public void insertRsvItemDetail(Map<String, Object> itemRsv);
+
+	public void insertRsvSpaceDetail(Map<String, Object> spaceRsv);
+
+	public Item getItemByCode(int tbRecord);
+
+	public OKSpace getSpaceByCode(int tbRecord);
+
+	public void insertTbRsvRelation(int rsvCode, Object itemRsvCode);
+
+	public void updateRsvPrice(int rsvCode, int totalPrice);
+
+	public List<Rsv> rsvListExtend(String rsvCode);
 	
 	
 }
