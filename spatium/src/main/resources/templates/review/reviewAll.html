@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customCss">
+<style type="text/css">
+	/* details {width: 500px;} */
+	details > summary {padding: 3px 10px;}
+	details > summary::-webkit-details-marker {display: none}
+	details > summary::marker {display: none}
+	
+	#reviewTable th {padding : 5px;}
+	#reviewTable td {padding : 5px;}
+	
+</style>
+</th:block>
+
+<th:block layout:fragment="customContent">
+	<div class="col-md-12 col-sm-12  ">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					리뷰 전체 목록 <small>관리자 페이지</small>
+				</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<form action="/searchReview" method="post">
+					<select name="sk">
+						<option value="작성자">작성자</option>
+						<option value="리뷰제목">리뷰제목</option>
+						<option value="리뷰코드">리뷰코드</option>
+						<option value="예약코드">예약코드</option>
+						<option value="방코드">방 코드</option>
+					</select>
+					<input type="text" name="sv" placeholder="검색어를 입력해주세요"/>
+					<button type="submit">검색</button>
+				</form>
+			
+				<div class="table-responsive">
+					<table class="table table-striped jambo_table bulk_action" id="reviewTable" style="padding: 0px;">
+						<thead>
+							<tr class="headings">
+								<th><input type="checkbox" id="check-all" class="flat">
+								</th>
+								<th class="column-title">리뷰 코드</th>
+								<th class="column-title">예약 코드</th>
+								<th class="column-title">방 코드</th>
+								<th class="column-title">리뷰 제목</th>
+								<th class="column-title">작성자</th>
+								<th class="column-title">등록일</th>
+								<th class="column-title">수정일</th>
+								<th class="column-title">추천수</th>
+								<th class="column-title">리뷰<br>타입
+								</th>
+								<th class="column-title">적립<br>포인트
+								</th>
+								<th class="column-title">전시상태</th>
+								<th class="column-title">청결도</th>
+								<th class="column-title">서비스</th>
+								<th class="column-title">화장실</th>
+								<th class="column-title">시설</th>
+								<th class="column-title">분위기</th>
+								<th class="column-title">종합</th>
+								<th class="column-title no-link last"><span class="nobr">삭제</span></th>
+								<th class="bulk-actions" colspan="18"><a class="antoo"
+									style="color: #fff; font-weight: 500;">Bulk Actions ( <span
+										class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+								</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr class="even pointer" th:if="${#lists.size(allReview) > 0}"
+								th:each="ar : ${allReview}">
+								<td class="a-center "><input type="checkbox" class="flat"
+									name="table_records"></td>
+								<td class=" " th:text="${ar.reviewCode}"></td>
+								<td class=" " th:text="${ar.reviewSpaceRsv}"></td>
+								<td class=" " th:text="${ar.reviewSpaceCode}"></td>
+								<td class=" "><details>
+										<summary th:text="${ar.reviewTitle}"></summary>
+										<span th:text="${ar.reviewContents}"> </span>
+									</details></td>
+								<td class=" " th:text="${ar.reviewAddId}"></td>
+								<td class=" " th:text="${ar.reviewAddDate}"></td>
+								<td class=" " th:text="${ar.reviewUpDate}"></td>
+								<td class=" " th:text="${ar.reviewLikeCnt}"></td>
+								<td class=" " th:text="${ar.reviewType}"></td>
+								<td class=" " th:text="${ar.reviewPoint}"></td>
+								<td class=" " th:text="${ar.reviewDisplay}"></td>
+								<td class=" " th:text="${ar.reviewClean}"></td>
+								<td class=" " th:text="${ar.reviewService}"></td>
+								<td class=" " th:text="${ar.reviewRestroom}"></td>
+								<td class=" " th:text="${ar.reviewFacility}"></td>
+								<td class=" " th:text="${ar.reviewAmbience}"></td>
+								<td class=" " th:text="${ar.reviewScore}"></td>
+								<td class=" last">
+									<!--ex : /removeMember?memberId=id001&memberLevel=관리자  --> <a
+									th:href="@{#}"><i class="fa fa-close"></i></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+</th:block>
+</html>

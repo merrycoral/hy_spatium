@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.ReviewMapper">
+
+	<sql id="seletReviewColumn">
+		SELECT 
+			reviewCode, 
+			reviewSpaceRsv, 
+			reviewSpaceCode, 
+			reviewTitle, 
+			reviewContents, 
+			reviewAddId, 
+			reviewAddDate, 
+			reviewUpDate, 
+			reviewLikeCnt, 
+			reviewType, 
+			reviewPoint,
+			reviewDisplay, 
+			reviewClean, 
+			reviewService, 
+			reviewRestroom, 
+			reviewFacility, 
+			reviewAmbience, 
+			reviewScore
+	</sql>
+
+	<select id="searchReview" parameterType="String" resultType="Review">
+		<include refid="seletReviewColumn" />	
+		FROM 
+			tbReview
+		WHERE
+			<if test="searchKey != null and searchKey neq ''.toString()">
+				${searchKey} LIKE CONCAT('%', #{searchValue} , '%');
+			</if>
+	</select>
+	
+	<select id="getAllReview" resultType="Review">
+		<include refid="seletReviewColumn" />
+		FROM 
+			tbReview
+	</select>
+	
+	
+	<!-- <select id="asdf" >
+		SELECT
+			COUNT(a.accessCode) AS EtcBrowser
+		FROM
+			tbAccessRecord AS a
+		WHERE 
+			a.AccessBrowser != #{btop1}
+		AND
+			a.AccessBrowser != #{btop2}
+		AND
+			a.AccessBrowser != #{btop3}
+		AND
+			a.AccessBrowser != #{btop4}	
+	</select> -->
+	
+</mapper>
