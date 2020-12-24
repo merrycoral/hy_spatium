@@ -17,6 +17,14 @@ public class SpaceController {
 	@Autowired
 	private SpaceService spaceService;
 	
+	
+	
+	@GetMapping("/addSpace")
+	public String addSpace(Model model) {
+		model.addAttribute("title", "공간 등록");
+		return "space/addSpace";
+	}
+	
 	@GetMapping("/spaceListReady")
 	public String readySpaceList(Model model) {
 		List<ReadySpace> readySpaceList = spaceService.readySpaceList();

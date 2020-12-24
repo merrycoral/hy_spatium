@@ -10,32 +10,55 @@
 	<title th:text="${title}"></title>
 </th:block>
 <th:block layout:fragment="customContent">
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<div class="row">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div class="row">
 
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>
-					Form validation <small>sub title</small>
-				</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false"><i
-							class="fa fa-wrench"></i></a>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">Settings 1</a> <a
-								class="dropdown-item" href="#">Settings 2</a>
-						</div></li>
-					<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
-				 <form class="form-horizontal form-label-left" action="/">
-                        <div style="padding-left:1020px; color: red"> * 표시는 필수 입력 사항입니다. </div>
+              <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2> 공간 <small> 등록하기 </small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+
+                    <!-- Smart Wizard -->
+                    <p> 해당되는 공간의 정보를 입력해주세요. </p>
+                    <div id="wizard" class="form_wizard wizard_horizontal">
+                      <ul class="wizard_steps">
+                        <li>
+                          <a href="#step-1">
+                            <span class="step_no"> 1 </span>
+                            <span class="step_descr">
+                                              간략 정보 <br />
+                                              <small> 1 단계 </small>
+                                          </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#step-2">
+                            <span class="step_no"> 2 </span>
+                            <span class="step_descr">
+                                              세부 정보 <br />
+                                              <small> 2 단계 </small>
+                                          </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#step-3">
+                            <span class="step_no">3</span>
+                            <span class="step_descr">
+                                              기타 정보 <br />
+                                              <small> 3 단계 </small>
+                                          </span>
+                          </a>
+                        </li>
+                      </ul>
+                      <div id="step-1">
+                        <form class="form-horizontal form-label-left" action="/">
+                        <div style="padding-left:1000px; color: red"> * 표시는 필수 입력 사항입니다. </div>
 						<br>
                           <div class="form-group row">
                             <label class="col-form-label col-md-3 col-sm-3 label-align"> 공간 이름 <span class="required">*</span>
@@ -91,23 +114,28 @@
                             <label class="col-form-label col-md-3 col-sm-3 label-align" style="padding-top: 20px;"> 공간 간략 소개 <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                            <span style="color:#aaa; padding-left: 690px" id="counter">(0 / 최대 20자)</span>
-                              <input id="readyBriefSpace" class="date-picker form-control" type="text" name="readyBriefSpace">
+                            <span style="color:#aaa; padding-left: 683px" id="counter">(0 / 최대 20자)</span>
+                              <input id="readyBriefSpace" class="date-picker form-control" required="required" type="text" name="readyBriefSpace">
                             </div>
                           </div>
 
-	
+                        </form>
+
+                      </div>
+                      <div id="step-2">
+                       <form class="form-horizontal form-label-left">
+                        <div style="padding-left:1000px; color: red"> * 표시는 필수 입력 사항입니다. </div>
 						<br>
                           <div class="form-group row">
                           	
                             <label class="col-form-label col-md-3 col-sm-3 label-align" style="padding-top: 20px;"> 공간 세부 소개 <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                            <span style="color:#aaa; padding-left: 680px" id="counter2">(0 / 최대 500자)</span>
+                            <span style="color:#aaa; padding-left: 660px" id="counter2">(0 / 최대 500자)</span>
                               <textarea id="readyDetailSpace" name = "readyDetailSpace" class="form-control" style="resize: none;" cols="100" rows="10"></textarea>
                             </div>
                           </div>
-                          	<span style="color:#aaa; padding-left: 640px"> 태그는 최대 5개까지입니다. </span>
+                          	<span style="color:#aaa; padding-left: 620px"> 태그는 최대 5개까지입니다. </span>
                             <label class="col-form-label col-md-3 col-sm-3 label-align" style="padding-top: 25px;"> 공간 태그 </label>
 									<table>
 										<tbody>
@@ -139,6 +167,11 @@
                               <input id="readyCloseTime" class="form-control col" type="time" name="readyCloseTime">
                             </div>
                           </div>                          
+                        </form>
+                      </div>
+                      <div id="step-3">
+ 					<form class="form-horizontal form-label-left">
+                        <div style="padding-left:1000px; color: red"> * 표시는 필수 입력 사항입니다. </div>
 						<br>
 								<div class="item form-group">
 									<label for="middle-name"
@@ -185,7 +218,7 @@
 					                        <input type="checkbox" class="join-btn" name = "readySpaceBasicOption" value = "음향/마이크"> 음향/마이크
 					                      </label>
 					                      </div>
-					                      <div class="btn-group form-check" data-toggle="buttons" style="padding-left:412px; width: 1192px;">
+					                      <div class="btn-group form-check" data-toggle="buttons" style="padding-left:405px; width: 1185px;">
 					                      <label class="btn btn-secondary">
 					                        <input type="checkbox" class="join-btn" name = "readySpaceBasicOption" value = "취사시설"> 취사시설
 					                      </label>
@@ -202,7 +235,7 @@
 					                        <input type="checkbox" class="join-btn" name = "readySpaceBasicOption" value = "주차"> 주차
 					                      </label>
 					                      </div>
-					                      <div class="btn-group form-check" data-toggle="buttons" style="padding-left:412px; width: 1192px;">
+					                      <div class="btn-group form-check" data-toggle="buttons" style="padding-left:405px; width: 1185px;">
 					                      <label class="btn btn-secondary">
 					                        <input type="checkbox" class="join-btn" name = "readySpaceBasicOption" value = "금연"> 금연
 					                      </label>
@@ -219,7 +252,7 @@
 					                        <input type="checkbox" class="join-btn" name = "readySpaceBasicOption" value = "내부화장실"> 내부화장실
 					                      </label>
 					                      </div>
-					                      <div class="btn-group form-check" data-toggle="buttons" style="padding-left:412px; width: 1192px;">
+					                      <div class="btn-group form-check" data-toggle="buttons" style="padding-left:405px; width: 1185px;">
 					                      <label class="btn btn-secondary">
 					                        <input type="checkbox" class="join-btn" name = "readySpaceBasicOption" value = "탈의실"> 탈의실
 					                      </label>
@@ -237,61 +270,63 @@
 					                      </label>
 					                    
 					                    </div>
-					                  
+					                   
                           </div>
-                           <input type = "submit" class = "btn btn-primary" value = "방 등록하기" style="margin-left: 410px; margin-top: 30px; width: 785px; height: 70px;">
 							</form>
-							
-							</div>
-		</div>
-	</div>
-
+						</div>
+						
+                    </div>
+                    </div></div></div></div>
+	
 	<script type="text/javascript">
-		$(function() {
-
-			$('#readyBriefSpace').keyup(function() {
-				var content = $(this).val();
-				$('#counter').html("(" + content.length + " / 최대 20자)");
-
-				if (content.length > 20) {
-					alert("최대 20자까지 입력 가능합니다.");
-					$(this).val(content.substring(0, 20));
-					$('#counter').html("(20 / 최대 20자)");
-				}
-			});
-			$('#readyDetailSpace').keyup(function() {
-				var content2 = $(this).val();
-				$('#counter2').html("(" + content2.length + " / 최대 500자)");
-
-				if (content2.length > 500) {
-					alert("최대 500자까지 입력 가능합니다.");
-					$(this).val(content2.substring(0, 500));
-					$('#counter2').html("(500 / 최대 500자)");
-				}
-			});
-
-			$(document).on('click', '.addBtn', function() {
-				var len = $(this).parents('tbody').find('tr').length;
-				var clone = $(this).parents('tr').clone();
-				clone.find('input').val('');
-				if (len >= 5) {
-					alert('더 이상 생성하실 수 없습니다.');
-				} else {
-					$(this).parents('tbody').append(clone);
-				}
-			});
-			$(document).on('click', '.removeBtn', function() {
-				var len = $(this).parents('tbody').find('tr').length;
-				if (len > 1) {
-					$(this).parents('tr').remove();
-				} else {
-					alert('더 이상 삭제 하실 수 없습니다.');
-				}
-			});
-
-		});
+			
+			$(function(){
+				
+				$('#readyBriefSpace').keyup(function(){
+					var content = $(this).val();
+					$('#counter').html("(" + content.length + " / 최대 20자)");
+					
+					if (content.length > 20){
+				        alert("최대 20자까지 입력 가능합니다.");
+				        $(this).val(content.substring(0, 20));
+				        $('#counter').html("(20 / 최대 20자)");
+				    }
+				});
+				$('#readyDetailSpace').keyup(function(){
+					var content2 = $(this).val();
+					$('#counter2').html("(" + content2.length + " / 최대 500자)");
+					
+					if(content2.length > 500){
+						alert("최대 500자까지 입력 가능합니다.");
+						$(this).val(content2.substring(0, 500));
+						$('#counter2').html("(500 / 최대 500자)");
+					}
+				});
+				
+				$(document).on('click', '.addBtn', function(){
+					var len = $(this).parents('tbody').find('tr').length;
+					var clone = $(this).parents('tr').clones();
+					clone.find('input').val('');
+					if(len >= 5){
+						alert('더 이상 생성하실 수 없습니다.');
+					}else{
+						$(this).parents('tbody').append(clone);
+					}
+				});
+				$(document).on('click', '.removeBtn', function(){
+					var len = $(this).parents('tbody').find('tr').length;
+					if(len > 1){
+						$(this).parents('tr').remove();
+					}else{
+						alert('더 이상 삭제 하실 수 없습니다.');
+					}
+				});
+				
+				});
+				
+			
 	</script>
-
+	
 </th:block>
 
 </html>

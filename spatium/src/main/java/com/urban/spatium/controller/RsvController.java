@@ -63,7 +63,6 @@ public class RsvController {
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
 		model.addAttribute("getItemByStore", getItemByStore);
 		
-		
 		return "rsv/rsvInsertAdmin";
 	}
 	
