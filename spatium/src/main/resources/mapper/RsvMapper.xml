@@ -130,7 +130,6 @@
 			, okayCompletedDate
 			, okaySpaceBasicOption
 			, okaySpaceId
-			, okayRefundPolicyCode
 			, spaceCateName
 		FROM 
 			tbOkaySpace AS s

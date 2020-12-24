@@ -136,6 +136,7 @@ margin-right: 20px;
 							<input type="text" id="rsvUserName" required="required" name="rsvUserName"
 								class="form-control ">
 						</div>
+						<div class="alert disableMetter">필수 입력요소 입니다</div>
 					</div>
 					<div class="item form-group">
 						<label class="col-form-label col-md-3 col-sm-3 label-align"
@@ -145,6 +146,7 @@ margin-right: 20px;
 							<input type="text" id="rsvUserPhone" name="rsvUserPhone"
 								required="required" class="form-control">
 						</div>
+						<div class="alert disableMetter">필수 입력요소 입니다</div>
 					</div>
 					<div class="item form-group">
 						<label for="rsvUserEmail"
@@ -167,6 +169,7 @@ margin-right: 20px;
 							<input type="hidden" id="startTime" name="startTime" />
 							<input type="hidden" id="endTime" name="endTime" />
 						</div>
+						<div class="alert disableMetter">필수 입력요소 입니다</div>
 					</div>
 					
 					<!-- 시간 선택 버튼 시작 -->
@@ -254,78 +257,114 @@ margin-right: 20px;
 	<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script type="text/javascript">
 		
-//예약 폼 스크립트
-		
+//예약 폼 스크립트 시작~
 		var num1 = 0;
 		var num2 = 0;
+//미입력되서 경고 뜬거 입력시 지우기
+		$('#rsvUserName').change(function(){
+			$('#rsvUserName').parent().parent().removeClass('bad');
+			$('#rsvUserName').parent().parent().find('.alert').addClass('disableMetter');
+		})
+		$('#rsvUserPhone').change(function(){
+			$('#rsvUserPhone').parent().parent().removeClass('bad');
+			$('#rsvUserPhone').parent().parent().find('.alert').addClass('disableMetter');
+		})
+		$('#datepicker').change(function(){
+			$('#datepicker').parent().parent().removeClass('bad');
+			$('#datepicker').parent().parent().find('.alert').addClass('disableMetter');
+		})
+		
 //버튼 클릭시 폼넘기기
 		$('#submitBtn').click(function(){
 			var paramData = {};
 			var itemList = [];
 			var spaceList = [];
+			var inputCheck = 0;
 			var ItemRsvChecked = $('.ItemRsvCheck:checked')
 			var SpaceRsvCheck = $('.SpaceRsvCheck:checked')
-
-			// 체크된 아이탬 체크박스 값을 가져온다
-			ItemRsvChecked.each(function(i) {
-				var itemJson = {}
-				var tr = ItemRsvChecked.parent().parent().parent().parent().eq(i);
-				var td = tr.children();
-				// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
-				var itemCode = td.eq(0).children().children().children().val();
-				var itemRentalPrice = td.eq(4).text();
-				var itemCount = td.eq(5).children().val();
-				
-				itemJson["itemCode"] = itemCode;
-				itemJson["itemRentalPrice"] = itemRentalPrice;
-				itemJson["itemCount"] = itemCount;
-				itemJson["itemTotalPrice"] = itemRentalPrice*itemCount;
-				itemList.push(itemJson);
-				
-			});
 			
-			// 체크된 공간 체크박스 값을 가져온다.
-			SpaceRsvCheck.each(function(i) {
-				var spaceJson = {}
-				var tr = SpaceRsvCheck.parent().parent().parent().parent().eq(i);
-				var td = tr.children();
-				
-				var spaceCode = td.eq(0).children().children().children().val();
-				var spaceRentalPrice = td.eq(9).text();
-				
-				spaceJson["spaceCode"] = spaceCode;
-				spaceJson["spaceRentalPrice"] = spaceRentalPrice;
-				spaceList.push(spaceJson);
-			});
-			
-			paramData["rsvUserName"] = $('#rsvUserName').val();
-			paramData["rsvUserPhone"] = $('#rsvUserPhone').val();
-			paramData["rsvUserEmail"] = $('#rsvUserEmail').val();
-			paramData["rsvDate"] = $('#datepicker').val();
-			paramData["startTime"] = $('#startTime').val();
-			paramData["endTime"] = $('#endTime').val();
-			paramData["rsvUserRequest"] = $('#rsvUserRequest').val();
-			paramData["spaceList"] = spaceList;
-			paramData["itemList"] = itemList;
-			
-			console.log("paramData : " + JSON.stringify(paramData));
-			
-			//ajax시작!!
-			var request = $.ajax({
-				url: '/rsvInsertAjax', 
-				method: 'POST',
-				data : JSON.stringify(paramData),
-				dataType: 'text' ,
-				contentType : "application/json"
-			});
-			request.done(function( data ) {
-				console.log(data);	
-				//location.href = data;	
-			});
-			request.fail(function( jqXHR, textStatus ) {
-				alert( "Request failed: " + textStatus );
-			});
-			
+//필수 입력요소가 입력이 안됬을때 경고
+			if($('#rsvUserName').val()==null || $('#rsvUserName').val()==""){
+				$('#rsvUserName').parent().parent().addClass('bad');
+				$('#rsvUserName').parent().parent().find('.alert').removeClass('disableMetter');
+			}
+			if ($('#rsvUserPhone').val()==null || $('#rsvUserPhone').val()==""){
+				$('#rsvUserPhone').parent().parent().addClass('bad');
+				$('#rsvUserPhone').parent().parent().find('.alert').removeClass('disableMetter');
+			}
+			if ($('#datepicker').val()==null || $('#datepicker').val()==""){
+				$('#datepicker').parent().parent().addClass('bad');
+				$('#datepicker').parent().parent().find('.alert').removeClass('disableMetter');
+			}
+//위의 3개가 다 입력되었다면
+			if($('#rsvUserName').val()!=null && $('#rsvUserName').val()!="" && $('#rsvUserPhone').val()!=null && $('#rsvUserPhone').val()!="" && $('#datepicker').val()!=null && $('#datepicker').val()!=""){
+				if ($('#startTime').val()==null || $('#startTime').val()=="" || $('#endTime').val()==null || $('#endTime').val()==""){
+					alert("예약시작시간과 끝시간을 선택해주세요");
+				}else if ((ItemRsvChecked.length+SpaceRsvCheck.length)<=0){
+					alert("하나 이상의 예약 대상을 체크해 주세요");
+				}else{
+					//모든 입력이 완료되었다면 쿼리 실행
+					// 체크된 아이탬 체크박스 값을 가져온다
+					ItemRsvChecked.each(function(i) {
+						var itemJson = {}
+						var tr = ItemRsvChecked.parent().parent().parent().parent().eq(i);
+						var td = tr.children();
+						// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+						var itemCode = td.eq(0).children().children().children().val();
+						var itemRentalPrice = td.eq(4).text();
+						var itemCount = td.eq(5).children().val();
+						
+						itemJson["itemCode"] = itemCode;
+						itemJson["itemRentalPrice"] = itemRentalPrice;
+						itemJson["itemCount"] = itemCount;
+						itemJson["itemTotalPrice"] = itemRentalPrice*itemCount;
+						itemList.push(itemJson);
+						
+					});
+					
+					// 체크된 공간 체크박스 값을 가져온다.
+					SpaceRsvCheck.each(function(i) {
+						var spaceJson = {}
+						var tr = SpaceRsvCheck.parent().parent().parent().parent().eq(i);
+						var td = tr.children();
+						
+						var spaceCode = td.eq(0).children().children().children().val();
+						var spaceRentalPrice = td.eq(9).text();
+						
+						spaceJson["spaceCode"] = spaceCode;
+						spaceJson["spaceRentalPrice"] = spaceRentalPrice;
+						spaceList.push(spaceJson);
+					});
+					
+					paramData["rsvUserName"] = $('#rsvUserName').val();
+					paramData["rsvUserPhone"] = $('#rsvUserPhone').val();
+					paramData["rsvUserEmail"] = $('#rsvUserEmail').val();
+					paramData["rsvDate"] = $('#datepicker').val();
+					paramData["startTime"] = $('#startTime').val();
+					paramData["endTime"] = $('#endTime').val();
+					paramData["rsvUserRequest"] = $('#rsvUserRequest').val();
+					paramData["spaceList"] = spaceList;
+					paramData["itemList"] = itemList;
+					
+					console.log("paramData : " + JSON.stringify(paramData));
+					
+					//ajax시작!!
+					var request = $.ajax({
+						url: '/rsvInsertAjax', 
+						method: 'POST',
+						data : JSON.stringify(paramData),
+						dataType: 'text' ,
+						contentType : "application/json"
+					});
+					request.done(function( data ) {
+						console.log(data);	
+						//location.href = data;	
+					});
+					request.fail(function( jqXHR, textStatus ) {
+						alert( "Request failed: " + textStatus );
+					});
+				}
+			}
 		});
 //버튼 클릭시 폼넘기기 종료
 

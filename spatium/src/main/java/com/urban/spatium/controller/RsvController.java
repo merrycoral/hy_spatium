@@ -47,7 +47,7 @@ public class RsvController {
 		rsv.setRsvUserId(sessionId); // 임시 아이디 부여
 		rsvService.insertTbRsv(rsv);
 	    
-	    return "/admin";    
+	    return "/admin";
 	}
 	
 	
