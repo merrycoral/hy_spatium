@@ -61,7 +61,7 @@ public class paymentController {
 		payment.setPaymentUsePoint(usePoint);
 		payment.setPaymentUseMoney(payment.getPaymentUseMoney());
 		payment.setPaymentAddPoint(addPoint);
-		payment.setPaymentMethod("예약결제");
+		
 		payment.setPaymentIP(payment.getPaymentIP());
 		int pay = paymentService.paymentSystem(payment);
 		System.out.println(pay + "pay의 값");

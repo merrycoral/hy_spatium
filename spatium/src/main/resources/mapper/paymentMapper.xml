@@ -81,7 +81,7 @@
 		, paymentUsePoint
 		, paymentUseMoney
 		, paymentAddPoint
-		, paymentMethod
+	
 		, paymentIP
 		, paymentRegDate
 		
@@ -98,7 +98,7 @@
 	, paymentUsePoint
 	, paymentUseMoney
 	, paymentAddPoint
-	, paymentMethod
+	
 	, paymentIP
 	, paymentRegDate
 	)
@@ -109,7 +109,7 @@
 	, #{paymentUsePoint}
 	, #{paymentUseMoney}
 	, #{paymentAddPoint}
-	, #{paymentMethod}
+	
 	, #{paymentIP}
 	, NOW()
 	)
