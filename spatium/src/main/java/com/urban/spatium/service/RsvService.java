@@ -85,14 +85,14 @@ public class RsvService {
 		return rsvDetailList;
 	}
 
-	public List<OKSpace> getSpaceByStore() {
-		List<OKSpace> getSpaceByStore = rsvMapper.getSpaceByStore();
+	public List<OKSpace> getSpaceByStore(int storeCode) {
+		List<OKSpace> getSpaceByStore = rsvMapper.getSpaceByStore(storeCode);
 		
 		return getSpaceByStore;
 	}
 
-	public List<Item> getItemByStore() {
-		List<Item> getItemByStore = rsvMapper.getItemByStore();
+	public List<Item> getItemByStore(int storeCode) {
+		List<Item> getItemByStore = rsvMapper.getItemByStore(storeCode);
 		return getItemByStore;
 	}
 

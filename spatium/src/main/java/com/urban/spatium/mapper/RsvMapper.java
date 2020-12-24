@@ -19,9 +19,9 @@ public interface RsvMapper {
 	
 	public List<Rsv> rsvDetailList();
 	
-	public List<OKSpace> getSpaceByStore();
+	public List<OKSpace> getSpaceByStore(int storeCode);
 	
-	public List<Item> getItemByStore();
+	public List<Item> getItemByStore(int storeCode);
 
 	public void insertRsvItemDetail(Map<String, Object> itemRsv);
 

@@ -56,11 +56,10 @@ public class RsvController {
 	 */
 	@GetMapping("/rsvInsertAdmin")
 	public String rsvInsertAdmin(Model model) {
-		model.addAttribute("storeCode", 5);
-		//넘어온 업체 코드가 5라고 가정
+		int storeCode = 5; //넘어온 업체코드가 5라고 가정
 		
-		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore();//업체에 소속된 공간 가져오기
-		List<Item> getItemByStore = rsvService.getItemByStore();//업체에 소속된 장비 가져오기
+		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
+		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
 		model.addAttribute("getItemByStore", getItemByStore);
 		

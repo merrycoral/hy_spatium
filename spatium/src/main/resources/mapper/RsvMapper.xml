@@ -91,7 +91,7 @@
 			okaySpaceCode = #{tbRecord}
 	</select>
 	
-	<select id="getItemByStore" resultType="Item">
+	<select id="getItemByStore" parameterType="int" resultType="Item">
 		SELECT 
 			  itemCode
 			, storeTotalCode
@@ -106,9 +106,12 @@
 			, itemTotalUserId
 		FROM 
 			tbItemTotalAmount
+		WHERE 
+			storeTotalCode = #{storeCode}
+		
 	</select>
 		
-	<select id="getSpaceByStore" resultType="OKSpace">
+	<select id="getSpaceByStore" parameterType="int" resultType="OKSpace">
 		SELECT 
 			  okaySpaceCode
 			, okayStoreCode
@@ -135,6 +138,8 @@
 			tbSpaceCate AS c
 		ON
 			s.okaySpaceType = c.spaceCateCode
+		WHERE
+			okayStoreCode = #{storeCode}
 	</select>
 	
 	<select id="rsvDetailList" resultType="Rsv">
