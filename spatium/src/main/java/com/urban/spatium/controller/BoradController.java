@@ -1,11 +1,16 @@
 package com.urban.spatium.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,13 +38,55 @@ public class BoradController {
 	}
 
 	
-	 @RequestMapping(value = "/addPost", method = RequestMethod.POST) 
-	 public String addPost(Board board ,@RequestParam(name = "userId", required = false)
-	 String userId) { System.out.println("회원가입화면에서 입력받은 값--->" + userId); String
-	 result = boardService.addPost(board); System.out.println(result); return
-	 "redirect:/boardList"; 
+	 @RequestMapping("/addPost") 
+	 public String addPost(Board board 
+			 			   ,@RequestParam(name = "boardAddId", required = false) String boardAddId) {
+
+		 if(boardAddId == null) {
+			 
+			 return "redirect:/login";
+		 }else {
+			 String result = boardService.addPost(board); 
+			 System.out.println(result); 
+			 return "redirect:/boardList"; 
+		 }
 	 }
 	 
+	 @GetMapping("/detailPost")
+		public String detailPost(@RequestParam(name="boardIdx", required = false) int boardIdx
+								 ,@RequestParam(name="boardTitle", required = false) String boardTitle
+								 ,Model model) {
+
+		Board board = boardService.getBoardsByCode(boardIdx);
+		
+		model.addAttribute("title", boardTitle);
+		model.addAttribute("Board", board);
+		
+		return "borad/detailPost";
+		}
+	 
+	 @GetMapping("/modifyPost")
+	 public String modifyPost(@RequestParam(name="boardIdx", required = false) int boardIdx
+							 ,@RequestParam(name="boardTitle", required = false) String boardTitle
+							 ,Model model) {
+		 
+		 Board board = boardService.getBoardsByCode(boardIdx);
+		 List<Board> boardCate = boardService.getBoardCate();
+		 model.addAttribute("boardCate", boardCate);
+		 model.addAttribute("title", boardTitle);
+		 model.addAttribute("Board", board);
+		 
+		 return "borad/modifyPost";
+	 }
+	 
+		@PostMapping("/modifyPost")
+		public String modifyGoods(Board board) {
+			
+			String result = boardService.modifyPost(board);
+			System.out.println(result);
+				
+			return "redirect:/boardList";
+		}
 
 	@GetMapping("/boardArticleList")
 	public String boardArticleList() {
@@ -52,11 +99,27 @@ public class BoradController {
 	}
 
 	@GetMapping("/boardWrite")
-	public String boardWrite(Model model) {
-		model.addAttribute("title", "소모임 계시판");
-		List<Board> boardCate = boardService.getBoardCate();
-		model.addAttribute("boardCate", boardCate);
-		return "borad/boardWrite";
+	public String boardWrite(Model model
+							,@RequestParam(name = "userId", required = false) String userId
+							,HttpServletResponse response) throws IOException {
+		model.addAttribute("title", "소모임 게시판");
+		if(userId.equals("")) {
+			 response.setContentType("text/html; charset=UTF-8");
+             PrintWriter out = response.getWriter();
+             out.println("<script>alert('로그인 후 이용해주세요'); location.href='/login';</script>");
+             out.flush();
+			return "redirect:/login";
+		}
+		else {
+			
+			List<Board> boardCate = boardService.getBoardCate();
+			model.addAttribute("boardCate", boardCate);
+			return "borad/boardWrite";
+		}
+
+		
+		
+		
 	}
 
 }

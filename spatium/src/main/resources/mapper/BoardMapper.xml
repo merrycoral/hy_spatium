@@ -10,31 +10,50 @@
 	</select>
 	
 	<select id="getBoardsList" resultType="Board">
-				SELECT
-		boardIdx
-		,boardAddId
-		,boardCateName
-		,boardTitle
-		,boardLikeCnt
-		,boardHitCnt
-		,boardAddDate
-		,boardUpDate
-		,boardDeclaration
-		,boardBlind
+		SELECT
+			boardIdx
+			,boardAddId
+			,boardCateName
+			,boardTitle
+			,boardLikeCnt
+			,boardHitCnt
+			,boardAddDate
+			,boardUpDate
+			,boardDeclaration
+			,boardBlind
 		FROM
 			tbBoard
 				INNER JOIN 
 			tbBoardCete
 				on
 			boardCateCode = boardCate
-				INNER JOIN 
-			tbUser
-				ON 
-			boardAddId = userId
 		ORDER BY boardIdx DESC;
 	</select>
+	<select id="getBoardsByCode" parameterType="int" resultType="Board">
+		SELECT
+			boardIdx
+			,boardAddId
+			,boardCateName
+			,boardTitle
+			,boardContents
+			,boardLikeCnt
+			,boardHitCnt
+			,boardAddDate
+			,boardUpDate
+			,boardDeclaration
+			,boardBlind
+			,boardCate
+		FROM
+			tbBoard
+				INNER JOIN 
+			tbBoardCete
+				on
+			boardCateCode = boardCate
+		WHERE
+			boardIdx = #{boardIdx};	
+	</select>
 	
-		<insert id="addPost" parameterType="Board">
+	<insert id="addPost" parameterType="Board">
 		INSERT INTO tbBoard
 		( boardAddId
 		 ,boardCate
@@ -48,5 +67,16 @@
 		 ,#{boardContents}
 		 ,NOW());
 	</insert>
+	<update id="modifyPost" parameterType="Board">
+		UPDATE 
+			tbBoard
+		SET
+			boardCate = #{boardCateCode}
+			,boardTitle = #{boardTitle}
+			,boardContents = #{boardContents}
+			,boardUpDate = NOW()
+		WHERE 
+			boardIdx = #{boardIdx};		
+	</update>
 
 </mapper>

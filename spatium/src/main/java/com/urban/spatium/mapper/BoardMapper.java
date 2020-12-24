@@ -13,6 +13,10 @@ public interface BoardMapper {
 	public int addPost(Board board);
 
 	public List<Board> getBoardCate();
+
+	public Board getBoardsByCode(int boardIdx);
+
+	public int modifyPost(Board board);
 	
 	
 }

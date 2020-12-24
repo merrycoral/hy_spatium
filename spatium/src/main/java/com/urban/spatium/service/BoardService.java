@@ -23,11 +23,11 @@ public class BoardService {
 	}
 	
 	public String addPost(Board board) {
-		String result = "상품 등록 실패";
+		String result = "게시글 등록 실패";
 		
 		int insertCheck = boardMapper.addPost(board);
 		
-		if(insertCheck > 0) result = "상품 등록 완료";
+		if(insertCheck > 0) result = "게시글 등록 완료";
 		
 		return result;
 	}
@@ -35,5 +35,22 @@ public class BoardService {
 	public List<Board> getBoardCate() {
 		List<Board> getBoardCate = boardMapper.getBoardCate();
 		return getBoardCate;
+	}
+	
+	public Board getBoardsByCode(int boardIdx) {
+		
+		Board board = boardMapper.getBoardsByCode(boardIdx);
+		System.out.println(board);
+		return board;
+	}
+
+	public String modifyPost(Board board) {
+		String result = "게시글 등록 실패";
+		
+		int insertCheck = boardMapper.modifyPost(board);
+		
+		if(insertCheck > 0) result = "등록 완료";
+		
+		return result;
 	}
 }
