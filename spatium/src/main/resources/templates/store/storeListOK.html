@@ -36,6 +36,8 @@
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 업체 연락처 </th>
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 사업자 계좌번호 </th>
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 환불 정책 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 환불 일자 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 환불 퍼센트 </th>
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 업체 이미지 </th>
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 업체 레벨 </th>
                         </tr>
@@ -57,6 +59,8 @@
 					<td th:text = "${s.storePhone}"></td>
 					<td th:text = "${s.storeAccountNumber}"></td>
 					<td th:text = "${s.storeRefundRull}"></td>
+					<td th:text = "${s.storeRemainingDay}"></td>
+					<td th:text = "${s.storeRefundPercent}"></td>
 					<td><img style="height: 180px;" alt = "상점 이미지" th:src="${s.storeImage}"></td>
 					<td th:text = "${s.storeLevel}"></td>
 				</tr>

@@ -22,14 +22,15 @@ public class StoreController {
 	private StoreService storeService;
 
 	@PostMapping("/addStore")
-	public String addStore(@RequestParam(name = "storeBusinessType", required = false) String storeBusinessType
-							,Model model, Store store) {
+	public String addStore(Model model, Store store) {
 		
 		store.getStoreCode();
-		System.out.println(storeBusinessType);
+		store.getSpaceRelationCateCode();
 		String result = storeService.addStore(store);
 		System.out.println(result);
 		store.setSpaceRelationStoreCode(store.getStoreCode());
+		store.setSpaceRelationCateCode(store.getSpaceRelationCateCode());
+		
 		return "redirect:/storeListOK";
 	}
 	

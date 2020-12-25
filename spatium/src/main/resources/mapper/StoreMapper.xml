@@ -28,7 +28,8 @@
 		, storeEmail
 		, storePhone
 		, storeAccountNumber
-		, storeRefundRull
+		, storeRemainingDay
+		, storeRefundPercent
 		, storeImage
 		, storeLevel
 		, storeRegDate)
@@ -44,7 +45,8 @@
 		, #{storeEmail}
 		, #{storePhone}
 		, #{storeAccountNumber}
-		, #{storeRefundRull}
+		, #{storeRemainingDay}
+		, #{storeRefundPercent}
 		, #{storeImage}
 		, 1
 		, NOW())
@@ -64,6 +66,8 @@
 		, storePhone
 		, storeAccountNumber
 		, storeRefundRull
+		, storeRemainingDay
+		, storeRefundPercent
 		, storeImage
 		, storeLevel
 	FROM

@@ -14,10 +14,12 @@ public class Store {
 	private String storePhone;
 	private String storeAccountNumber;
 	private String storeRefundRull;
+	private int storeRemainingDay;
+	private int storeRefundPercent;
 	private String storeImage;
 	private int storeLevel;
 	private int spaceRelationStoreCode;
-	
+	private int spaceRelationCateCode;
 	private int spaceCateCode;
 	
 	public String getStoreRefundRull() {
@@ -119,6 +121,27 @@ public class Store {
 	public void setSpaceRelationStoreCode(int spaceRelationStoreCode) {
 		this.spaceRelationStoreCode = spaceRelationStoreCode;
 	}
+	
+	public int getSpaceRelationCateCode() {
+		return spaceRelationCateCode;
+	}
+	public void setSpaceRelationCateCode(int spaceRelationCateCode) {
+		this.spaceRelationCateCode = spaceRelationCateCode;
+	}
+	
+	public int getStoreRemainingDay() {
+		return storeRemainingDay;
+	}
+	public void setStoreRemainingDay(int storeRemainingDay) {
+		this.storeRemainingDay = storeRemainingDay;
+	}
+	public int getStoreRefundPercent() {
+		return storeRefundPercent;
+	}
+	public void setStoreRefundPercent(int storeRefundPercent) {
+		this.storeRefundPercent = storeRefundPercent;
+	}
+	
 	@Override
 	public String toString() {
 		return "Store [storeCode=" + storeCode + ", storeId=" + storeId + ", storeName=" + storeName
@@ -126,8 +149,10 @@ public class Store {
 				+ ", storeBusinessType=" + storeBusinessType + ", storeAddress=" + storeAddress + ", storeIntroduction="
 				+ storeIntroduction + ", storeEmail=" + storeEmail + ", storePhone=" + storePhone
 				+ ", storeAccountNumber=" + storeAccountNumber + ", storeRefundRull=" + storeRefundRull
+				+ ", storeRemainingDay=" + storeRemainingDay + ", storeRefundPercent=" + storeRefundPercent
 				+ ", storeImage=" + storeImage + ", storeLevel=" + storeLevel + ", spaceRelationStoreCode="
-				+ spaceRelationStoreCode + ", spaceCateCode=" + spaceCateCode + "]";
+				+ spaceRelationStoreCode + ", spaceRelationCateCode=" + spaceRelationCateCode + ", spaceCateCode="
+				+ spaceCateCode + "]";
 	}
 	
 	
