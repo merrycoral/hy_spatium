@@ -7,9 +7,39 @@
 	<title th:text="${title}"></title>
 </th:block>
 <th:block layout:fragment="customContent">
-<div>취소하는 방 예약코드: <input type="text"></div>
-<div>취소자 아이디: <input type="text"></div>
-<div>취소사유: <input type="text"></div>
-<a href="cancelTest2"><button type="button">취소신청</button></a>
-
+	<!--예약테이블 결제상태 환불로변경? --><input type="hidden" name="rsvState" >
+	<!-- 적립된 포인트 마이너스 추가 --><input type="hidden" name="pointList">
+	<!-- 포인트 적립내역 환불완료로 수정 --><input type="hidden" name="pointAddList">
+	<!-- 아이디 --><input type="hidden" name="pointID">
+<table border="1">
+	<tbody>
+		<tr>
+			<td>취소하는 방 예약코드</td>
+			<td><input type="text" name="paymentCode" th:value="${payment.paymentRsvCode}"></td>
+		</tr>
+		<tr>
+			<td>취소자 아이디</td>
+			<td><input type="text" name="rsvUserId"></td>
+		</tr>
+		<tr>
+			<td>실제 결제한 금액</td>
+			<td><input type="text" name="rsvTotalPrice" th:value="${payment.paymentUseMoney}"></td>
+		</tr>
+		<tr>
+			<td>환불 퍼센트</td>
+			<td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>환불하는 금액</td>
+			<td><input type="text" ></td>
+		</tr>
+		<tr>
+			<td>취소사유</td>
+			<td><input type="text" name="rsvRequest"></td>
+		</tr>
+		<tr>
+			<td colspan="2"><a href="cancelTest2"><button type="button">취소신청</button></a></td>
+		</tr>
+	</tbody>
+</table>
 </th:block>

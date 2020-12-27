@@ -27,6 +27,23 @@
 	</resultMap>
 	
 	
+	<select id="getPaymentCode" parameterType="String" resultMap="resultMapPayment">
+		SELECT 
+			paymentCode
+			, paymentRsvCode
+			, paymentPrice
+			, paymentUsePoint
+			, paymentUseMoney
+			, paymentAddPoint
+			, paymentRegDate
+			, paymentIP
+		FROM
+			 tbPayment
+		WHERE
+			paymentCode = #{paymentCode};
+	</select>
+	
+	
 	<update id="updateState" parameterType="Rsv">
 		UPDATE tbRsv
 		SET

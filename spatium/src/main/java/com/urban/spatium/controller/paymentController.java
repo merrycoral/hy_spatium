@@ -22,6 +22,8 @@ import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.service.PaymentService;
 
 
+
+
 @Controller
 public class paymentController {
 	@Autowired 
@@ -132,7 +134,14 @@ public class paymentController {
 		
 	}
 	
-	
+	@GetMapping("/rsvList")
+	public String rsvList(Model model) {
+		List<Rsv> rsv = paymentService.rsvSelect();
+		
+		model.addAttribute("rsv", rsv);
+		
+		return "payment/rsvList";
+	}
 	
 	@GetMapping("/paymentSearch")
 	public String paymentSearch(Model model) {

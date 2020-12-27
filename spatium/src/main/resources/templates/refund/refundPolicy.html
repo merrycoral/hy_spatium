@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customJs">
+	
+
+	<script>
+	$(function(){
+		
+		
+		$('.refundBtn').click(function(){
+			var dataStore={};
+			var refundList = [];
+			console.log($('.a').eq(0).val());
+			console.log($('.a').length + "랭스값");
+			for(var i=0; i<$('.a').length; i++){
+				console.log($('.a').eq(i).val());
+				console.log($('.b').eq(i).val()); 
+				console.log($('.c').eq(i).val());
+				console.log($('.d').eq(i).val());
+				$('.a').eq(i).val();
+				$('.b').eq(i).val();
+				$('.c').eq(i).val();
+				$('.d').eq(i).val();
+				dataStore['refundPolicyStoreCode'] = $('.a').eq(i).val();
+				dataStore['refundPolicyUserId'] = $('.b').eq(i).val();
+				dataStore['remainingDay'] = $('.c').eq(i).val();
+				dataStore['refundPercent'] = $('.d').eq(i).val();
+			}
+			console.log("dataStore : " + JSON.stringify(dataStore));
+			
+			var request = $.ajax({
+				url: '/testAjax', 
+				method: 'POST',
+				data : JSON.stringify(dataStore),
+				dataType: 'text' ,
+				contentType : "application/json"
+			});
+			request.done(function( data ) {
+				console.log(data);	
+				//location.href = data;	
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+		})
+			
+			$(document).on('click', '.addBtn', function() {
+				var clone = $(this).parents('tr').clone();
+				//복제된 대상의 input 박스를 찾아 값을 초기화
+				clone.find('input').val('');
+				//복제된 대상을 tbody에 삽입하기
+				$(this).parents('tbody').append(clone);
+
+			});
+
+			$(document).on('click', '.removeBtn', function() {
+				var len = $(this).parents('tbody').find('tr').length;
+				if (len > 1) {
+					$(this).parents('tr').remove();
+				} else {
+					alert('더이상 삭제 하실 수 없습니다');
+				}
+			});
+			
+			
+			
+		});
+	</script>
+</th:block>
+
+<th:block layout:fragment="customContent">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+<form action="/refundTest" method="post" id="form">
+			<!-- 업체코드 -->
+			<!-- 등록한사람아이디 -->
+			<!-- 환불단가코드  -->
+<table border="1">
+	<thead>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>예약까지남은일수</th>
+			<th>환불퍼센트</th>
+			<th>생성 및 제거</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><input type="hidden" name="refundPolicyStoreCode" class="a"></td>
+			<td><input type="hidden" name="refundPolicyUserId" class="b"></td>
+			<td><input type="text" 	 name="remainingDay" class="c"></td>
+			<td><input type="text"	 name="refundPercent" class="d"></td>
+			<td>
+				<button type="button" class="addBtn">추가</button>
+				<button type="button" class="removeBtn">삭제</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+	<button type="submit" class="refundBtn" style="width: 30%; margin-left: 28%; margin-top: 15px;">등록</button>
+	<button type="button" id="testB" >테스트</button>			
+</form>
+</th:block>

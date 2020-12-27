@@ -24,11 +24,20 @@ public class PaymentService {
 	@Autowired 
 	private PaymentMapper paymentMapper;
 	
+	public Payment getPaymentCode(String paymentCode) {
+		
+		return paymentMapper.getPaymentCode(paymentCode);
+	}
+	
 	public int updateState(Rsv rsv) {
 		
 		return paymentMapper.updateState(rsv);
 	}
 	
+	public List<Rsv> rsvSelect(){
+		List<Rsv> rsv = paymentMapper.rsvSelect();
+		return rsv;
+	}
 	
 	public Rsv rsvState(String rsvCode){
 		Rsv rsv = paymentMapper.rsvState(rsvCode);
