@@ -17,20 +17,8 @@
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>
-					Form validation <small>sub title</small>
+					공간 <small> 등록하기 </small>
 				</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false"><i
-							class="fa fa-wrench"></i></a>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">Settings 1</a> <a
-								class="dropdown-item" href="#">Settings 2</a>
-						</div></li>
-					<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-				</ul>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -49,34 +37,15 @@
                             </label>
 										<div class="btn-group form-check" data-toggle="buttons" style="margin-left: -10px; width: 795px;">
 					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "readySpaceType" value = "촬영 스튜디오"> <span style="font-size: 12px;">촬영 스튜디오</span>
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "readySpaceType" value = "엠티장소"> 엠티장소
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "readySpaceType" value = "스터디룸"> 스터디룸
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "readySpaceType" value = "연습실"> 연습실
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "readySpaceType" value = "파티룸"> 파티룸
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "readySpaceType" value = "회의실"> 회의실
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "readySpaceType" value = "카페"> 카페
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "readySpaceType" value = "다목적홀"> 다목적홀
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "readySpaceType" value = "공연장"> 공연장
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "readySpaceType" value = "한옥"> 한옥
+					                      <th:block th:each="s : ${store}" >
+					                      <table>
+					                      	<tr>
+					                      		<td>
+					                      <input type = "checkbox" class="join-btn" th:value = "${s}">
+					                      		</td>
+					                      	</tr>
+					                      </table>
+					                        </th:block>
 					                      </label>
 					                    </div>
                           </div>
@@ -247,6 +216,9 @@
 	</div>
 
 	<script type="text/javascript">
+	
+	
+	
 		$(function() {
 
 			$('#readyBriefSpace').keyup(function() {

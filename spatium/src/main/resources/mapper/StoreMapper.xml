@@ -16,7 +16,8 @@
 </insert>
 
 <insert id="addStore" parameterType="Store" useGeneratedKeys="true" keyProperty="storeCode">
-	INSERT INTO tbStore
+
+	INSERT INTO tbStore 
 		(storeCode
 		, storeId
 		, storeName
@@ -50,9 +51,33 @@
 		, #{storeImage}
 		, 1
 		, NOW())
+		
 </insert>
 
+<select id= "getByStoreCateCode" parameterType= "int" resultType= "Store">
+	
+	SELECT
+			s.storeCode
+		,	r.spaceRelationCode
+		, 	c.spaceCateCode
+		,	c.spaceCateName
+	FROM
+		tbSpaceRelation AS r
+	INNER JOIN
+		tbSpaceCate AS c
+	ON
+		r.spaceRelationCateCode = c.spaceCateCode
+	INNER JOIN
+		tbStore AS s
+	ON
+		s.storeCode = r.spaceRelationStoreCode
+	WHERE
+		s.storeCode = #{storeCode};
+		
+</select>
+
 <select id = "storeList" resultType="Store">
+
 	SELECT 
 		storeCode
 		, storeId
@@ -72,6 +97,7 @@
 		, storeLevel
 	FROM
 		tbStore;
+		
 </select>
 
 </mapper>

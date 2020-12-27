@@ -24,14 +24,25 @@ public class StoreController {
 	@PostMapping("/addStore")
 	public String addStore(Model model, Store store) {
 		
+		System.out.println(store);
 		store.getStoreCode();
 		store.getSpaceRelationCateCode();
+		System.out.println("===============start store================");
+		String storeCate = store.getStoreBusinessType();
+		String[] array = storeCate.split(",");
+		for(int i=0; i<array.length; i++) {
+			System.out.println(array[i]);
+		}
+		model.addAttribute("store", array);
+		System.out.println("===============end store================");
 		String result = storeService.addStore(store);
+		System.out.println("================start result===============");
 		System.out.println(result);
+		System.out.println("================end result===============");
 		store.setSpaceRelationStoreCode(store.getStoreCode());
 		store.setSpaceRelationCateCode(store.getSpaceRelationCateCode());
 		
-		return "redirect:/storeListOK";
+		return "space/addSpace";
 	}
 	
 	@GetMapping("/addStore")

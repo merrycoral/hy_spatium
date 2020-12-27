@@ -18,9 +18,10 @@ public class Store {
 	private int storeRefundPercent;
 	private String storeImage;
 	private int storeLevel;
+	
 	private int spaceRelationStoreCode;
 	private int spaceRelationCateCode;
-	private int spaceCateCode;
+	private int spaceRelationCode;
 	
 	public String getStoreRefundRull() {
 		return storeRefundRull;
@@ -108,13 +109,12 @@ public class Store {
 		this.storeLevel = storeLevel;
 	}
 	
-	public int getSpaceCateCode() {
-		return spaceCateCode;
+	public int getSpaceRelationCode() {
+		return spaceRelationCode;
 	}
-	public void setSpaceCateCode(int spaceCateCode) {
-		this.spaceCateCode = spaceCateCode;
-	}	
-	
+	public void setSpaceRelationCode(int spaceRelationCode) {
+		this.spaceRelationCode = spaceRelationCode;
+	}
 	public int getSpaceRelationStoreCode() {
 		return spaceRelationStoreCode;
 	}
@@ -151,8 +151,8 @@ public class Store {
 				+ ", storeAccountNumber=" + storeAccountNumber + ", storeRefundRull=" + storeRefundRull
 				+ ", storeRemainingDay=" + storeRemainingDay + ", storeRefundPercent=" + storeRefundPercent
 				+ ", storeImage=" + storeImage + ", storeLevel=" + storeLevel + ", spaceRelationStoreCode="
-				+ spaceRelationStoreCode + ", spaceRelationCateCode=" + spaceRelationCateCode + ", spaceCateCode="
-				+ spaceCateCode + "]";
+				+ spaceRelationStoreCode + ", spaceRelationCateCode=" + spaceRelationCateCode + ", spaceRelationCode="
+				+ spaceRelationCode + "]";
 	}
 	
 	
