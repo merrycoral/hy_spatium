@@ -1,5 +1,7 @@
 package com.urban.spatium.dto;
 
+import java.util.List;
+
 public class Payment {
 	private int paymentCode;
 	private int paymentRsvCode;
@@ -10,8 +12,14 @@ public class Payment {
 	private String paymentRegDate;
 	private String paymentMethod;
 	private String paymentIP;
+	private List<Rsv> RsvList;
 	
-	
+	public List<Rsv> getRsvList() {
+		return RsvList;
+	}
+	public void setRsvList(List<Rsv> rsvList) {
+		RsvList = rsvList;
+	}
 	public String getPaymentRegDate() {
 		return paymentRegDate;
 	}
@@ -71,7 +79,7 @@ public class Payment {
 		return "Payment [paymentCode=" + paymentCode + ", paymentRsvCode=" + paymentRsvCode + ", paymentPrice="
 				+ paymentPrice + ", paymentUsePoint=" + paymentUsePoint + ", paymentUseMoney=" + paymentUseMoney
 				+ ", paymentAddPoint=" + paymentAddPoint + ", paymentRegDate=" + paymentRegDate + ", paymentMethod="
-				+ paymentMethod + ", paymentIP=" + paymentIP + "]";
+				+ paymentMethod + ", paymentIP=" + paymentIP + ", RsvList=" + RsvList + "]";
 	}
 	
 }

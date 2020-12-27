@@ -38,6 +38,6 @@
 		FROM 
 			tbStore
 		WHERE 
-			storeCode = #{storeCode}; -->
-	</select>
+			storeCode = #{storeCode}; 
+	</select>-->
 </mapper>

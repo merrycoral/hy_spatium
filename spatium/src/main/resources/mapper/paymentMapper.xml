@@ -14,6 +14,14 @@
 		<result column="paymentRegDate" 	property="paymentRegDate"/>
 		<result column="paymentMethod" 		property="paymentMethod"/>
 		<result column="paymentIP" 			property="paymentIP"/>
+		<collection property="RsvList" javaType="java.util.ArrayList" ofType="Rsv">
+			<id column="rsvCode" property="rsvCode"/>
+			<result column="rsvUserId" property="rsvUserId"/>
+			<result column="rsvUserName" property="rsvUserName"/>
+			<result column="rsvState" property="rsvState"/>
+			<result column="rsvUserPhone" property="rsvUserPhone"/>
+		</collection>
+		
 	</resultMap>
 	<resultMap type="Point" id="resultMapPoint">
 		<result column="pointCode" 		property="pointCode"/>
@@ -29,16 +37,19 @@
 	
 	<select id="getPaymentCode" parameterType="String" resultMap="resultMapPayment">
 		SELECT 
-			paymentCode
-			, paymentRsvCode
-			, paymentPrice
-			, paymentUsePoint
-			, paymentUseMoney
-			, paymentAddPoint
-			, paymentRegDate
-			, paymentIP
+			p.paymentCode
+			,p.paymentRsvCode
+			,p.paymentPrice
+			,r.rsvUserId
+			,r.rsvUserName
+			,r.rsvState
+			,r.rsvUserPhone
 		FROM
-			 tbPayment
+			 tbPayment AS p
+		INNER join
+			tbRsv AS r
+		on
+			p.paymentRsvCode = r.rsvCode
 		WHERE
 			paymentCode = #{paymentCode};
 	</select>

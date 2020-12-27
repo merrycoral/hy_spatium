@@ -24,7 +24,7 @@ public class PaymentService {
 	@Autowired 
 	private PaymentMapper paymentMapper;
 	
-	public Payment getPaymentCode(String paymentCode) {
+	public List<Payment> getPaymentCode(String paymentCode) {
 		
 		return paymentMapper.getPaymentCode(paymentCode);
 	}

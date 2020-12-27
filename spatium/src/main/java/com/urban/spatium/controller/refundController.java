@@ -2,6 +2,8 @@ package com.urban.spatium.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.urban.spatium.dto.Payment;
 import com.urban.spatium.dto.RefundPolicy;
+import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.service.PaymentService;
 import com.urban.spatium.service.RefundService;
 
@@ -65,7 +68,8 @@ public class refundController {
 	@GetMapping("/cancelTest")
 	public String cancelTest(Model model
 							,@RequestParam(name="paymentCode", required = false) String paymentCode) {
-		Payment payment = paymentService.getPaymentCode(paymentCode);
+		List<Payment>  payment = paymentService.getPaymentCode(paymentCode);
+		 
 		
 		model.addAttribute("payment", payment);
 		
