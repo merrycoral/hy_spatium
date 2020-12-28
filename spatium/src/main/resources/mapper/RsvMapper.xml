@@ -8,11 +8,11 @@
 		SELECT rsvCode, rsvDetailCode, okaySpaceName, itemTotalName, rsvStartDateTime, rsvEndDateTime
 		FROM viewRsv
 		WHERE
-		<foreach item="s" index="index" collection="spaceList"
-      open="(" separator=" or " close=")">
+		<foreach item="s" index="index" collection="spaceList" open="(" separator=" or " close=")">
         okaySpaceCode = #{s.spaceCode}
-  	</foreach>
-		
+	  	</foreach>
+		and
+        date(rsvStartDateTime) = #{rsvDate}
 	</select>	
 	
 	<update id="updateRsvPrice">

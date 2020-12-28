@@ -107,6 +107,15 @@ public class RsvService {
 
 	public List<Rsv> getExRsv(Rsv rsv) {
 		List<Rsv> getExRsv = rsvMapper.getExRsv(rsv);
+		for(int i=0; i<getExRsv.size(); i++) {
+			String startDT=getExRsv.get(i).getRsvStartDateTime();
+			String endDt=getExRsv.get(i).getRsvEndDateTime();
+			
+			String startT = startDT.substring(10, 13);
+			String endT = endDt.substring(10, 13);
+			getExRsv.get(i).setStartTime(startT);
+			getExRsv.get(i).setEndTime(endT);
+		}
 		
 		return getExRsv;
 	}

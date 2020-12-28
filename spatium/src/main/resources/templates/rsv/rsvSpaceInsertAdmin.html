@@ -234,6 +234,8 @@ margin-right: 20px;
 		var num1 = 0;
 		var num2 = 0;
 		$('#submitBtn').click(function(){
+			
+			
 			var paramData = {};
 			var itemList = [];
 			var spaceList = [];
@@ -349,20 +351,47 @@ margin-right: 20px;
 		paramData2["rsvDate"] = $('#datepicker').val();
 		console.log("paramData2 : " + JSON.stringify(paramData2));
 		
+		var tc = $('.timeCheck');
+		var tci = $('.timeCheck input');
+		for(var i=0; i<tc.length; i++){
+			$(tc[i]).removeClass('btn-danger');
+			$(tc[i]).removeClass('btn-danger');
+			$(tci[i]).removeAttr('disabled');
+		}
+		
+		
+		
+		
 		//이미 예약되잇는 날짜 가져오는 ajax시작!!
 			var request2 = $.ajax({
 				url: '/getExRsv', 
 				method: 'POST',
 				data : JSON.stringify(paramData2),
-				dataType: 'text' ,
+				dataType: 'json' ,
 				contentType : "application/json"
 			});
 			request2.done(function( data2 ) {
 				console.log(data2);	
+				for (var i=0; i<data2.length; i++){
+					var startT = Number(data2[i].startTime);
+					var endT = Number(data2[i].endTime);
+					var timeCheck = $('.timeCheck input')
+					console.log(startT);
+					console.log(endT);
+					//예약 된 시간 색 바꾸기
+					for(var j=0; j<timeCheck.length; j++){
+						var rsvt = timeCheck[j].value;
+						if(rsvt > startT && rsvt <= endT){
+							$(timeCheck[j]).attr('disabled','disabled');
+							$(timeCheck[j]).parent().addClass('btn-danger');
+						}
+					}
+					
+				}
 			});
 			request2.fail(function( jqXHR, textStatus ) {
 				alert( "Request failed: " + textStatus );
-			}); 
+			});
 			
 		});
 //데이터 피커 종료
@@ -386,11 +415,19 @@ margin-right: 20px;
 
 				//체크된 두개 찾기
 				checkedTime.each(function(i, d) {
-					num1 = checkedTime[0].value
-					num2 = checkedTime[1].value
+					num1 = Number(checkedTime[0].value);
+					num2 = Number(checkedTime[1].value);
 				})
 				console.log(num1, num2, '체크된 번호 2개');
-	
+				for(var i = num1; i<num2; i++){
+					if($($('.timeCheck input')[i]).attr('disabled')=='disabled'){
+						$('.timeCheck input').prop('checked', false);
+						num1=null;
+						num2=null;
+						alert('빨간 부분은 예약 불가능한 시간 입니다.\n 빨간 부분이 포함되지 않도록 예약하여 주십시오.');
+					}
+				}
+				
 				//두개사이 모두 체크하기
 				$('.timeCheck input').each(function(i, d) {
 					if (num1 < i && i < num2) {
