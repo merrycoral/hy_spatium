@@ -75,15 +75,15 @@
 	</select>
 	
 	
-	<select id="getPaymentCode" parameterType="String" resultMap="resultMapPayment">
+	<select id="getPaymentCode" parameterType="String" resultType="Payment">
 		SELECT 
-			p.paymentCode
-			,p.paymentRsvCode
-			,p.paymentPrice
-			,r.rsvUserId
-			,r.rsvUserName
-			,r.rsvState
-			,r.rsvUserPhone
+			paymentCode
+			,paymentRsvCode
+			,paymentPrice
+			,rsvUserId
+			,rsvUserName
+			,rsvState
+			,rsvUserPhone
 		FROM
 			 tbPayment AS p
 		INNER join
@@ -91,7 +91,7 @@
 		on
 			p.paymentRsvCode = r.rsvCode
 		WHERE
-			paymentCode = #{paymentCode};
+			p.paymentCode = #{paymentCode};
 	</select>
 	
 	
