@@ -26,6 +26,8 @@ public class RsvController {
 	
 	@RequestMapping(value = "/getExRsv", produces="application/json"  ,method = RequestMethod.POST ) 
 	public @ResponseBody List<Rsv> getExRsv(@RequestBody Rsv rsv) {
+		System.out.println("가져오기 -->  "+rsv.getSpaceList());
+		System.out.println("가져오기 -->  "+rsv.getRsvDate());
 		List<Rsv> getExRsv = rsvService.getExRsv(rsv);
 		
 		return getExRsv;
@@ -59,19 +61,31 @@ public class RsvController {
 	
 	
 	/**
-	 * 예약 등록 메서드
+	 * 공간 예약 등록으로 이동
 	 */
-	@GetMapping("/rsvInsertAdmin")
-	public String rsvInsertAdmin(Model model) {
+	@GetMapping("/rsvSpaceInsertAdmin")
+	public String rsvSpaceInsertAdmin(Model model) {
 		int storeCode = 5; //넘어온 업체코드가 5라고 가정
 		
 		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
-		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
+		
+		
+		return "rsv/rsvSpaceInsertAdmin";
+	}
+	
+	/**
+	 * 장비 예약 등록 으로 이동
+	 */
+	@GetMapping("/rsvItemInsertAdmin")
+	public String rsvItemInsertAdmin(Model model) {
+		int storeCode = 5; //넘어온 업체코드가 5라고 가정
+		
+		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("getItemByStore", getItemByStore);
 		
 		
-		return "rsv/rsvInsertAdmin";
+		return "rsv/rsvItemInsertAdmin";
 	}
 	
 	
