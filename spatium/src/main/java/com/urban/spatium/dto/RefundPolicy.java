@@ -1,5 +1,7 @@
 package com.urban.spatium.dto;
 
+import java.util.List;
+
 public class RefundPolicy {
 	private int refundPolicyCode;
 	private int refundPolicyStoreCode;
@@ -7,8 +9,20 @@ public class RefundPolicy {
 	private int refundPercent;
 	private String refundPolicyUserId;
 	private int refundPolicyRegDate;
-	
 	private String storeName;
+	
+	private List<RefundPolicy> refundPolicyList;
+	
+	
+	
+
+	public List<RefundPolicy> getRefundPolicyList() {
+		return refundPolicyList;
+	}
+
+	public void setRefundPolicyList(List<RefundPolicy> refundPolicyList) {
+		this.refundPolicyList = refundPolicyList;
+	}
 
 	public int getRefundPolicyCode() {
 		return refundPolicyCode;
@@ -68,10 +82,25 @@ public class RefundPolicy {
 
 	@Override
 	public String toString() {
-		return "refundPolicy [refundPolicyCode=" + refundPolicyCode + ", refundPolicyStoreCode=" + refundPolicyStoreCode
-				+ ", remainingDay=" + remainingDay + ", refundPercent=" + refundPercent + ", refundPolicyUserId="
-				+ refundPolicyUserId + ", refundPolicyRegDate=" + refundPolicyRegDate + ", storeName=" + storeName
-				+ "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("RefundPolicy [refundPolicyCode=");
+		builder.append(refundPolicyCode);
+		builder.append(", refundPolicyStoreCode=");
+		builder.append(refundPolicyStoreCode);
+		builder.append(", remainingDay=");
+		builder.append(remainingDay);
+		builder.append(", refundPercent=");
+		builder.append(refundPercent);
+		builder.append(", refundPolicyUserId=");
+		builder.append(refundPolicyUserId);
+		builder.append(", refundPolicyRegDate=");
+		builder.append(refundPolicyRegDate);
+		builder.append(", storeName=");
+		builder.append(storeName);
+		builder.append(", refundPolicyList=");
+		builder.append(refundPolicyList);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 }
