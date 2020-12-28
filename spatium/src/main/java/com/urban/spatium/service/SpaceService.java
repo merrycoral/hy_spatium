@@ -17,6 +17,17 @@ public class SpaceService {
 	@Autowired
 	private SpaceMapper spaceMapper;
 	
+	public String addReadySpace(ReadySpace readySpace) {
+		int result = spaceMapper.addReadySpace(readySpace);
+		String insertCheck = "공간 등록 실패";
+		
+		if(result > 0) {
+			insertCheck = "공간 등록 성공";
+		}
+		
+		return insertCheck;
+	}
+	
 	public List<ReadySpace> readySpaceList(){
 		
 		List<ReadySpace> readySpaceList = spaceMapper.readySpaceList();

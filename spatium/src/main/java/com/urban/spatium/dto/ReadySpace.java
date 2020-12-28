@@ -1,11 +1,8 @@
 package com.urban.spatium.dto;
 
-import java.util.List;
-import java.util.Map;
-
 public class ReadySpace {
 	
-	private String readySpace;
+	private int readySpace;
 	private int readyStoreCode;
 	private String readySpaceName;
 	private int readySpaceType;
@@ -22,15 +19,15 @@ public class ReadySpace {
 	private String readySpaceBasicOption;
 	private String readyRequestDate;
 	
+	private String readyStoreBusinessType;
+	
 	private int storeCode;
 	private int spaceCateCode;
 	
-	private List<Map<String, Object>> storeBusinessTypeList;
-	
-	public String getReadySpace() {
+	public int getReadySpace() {
 		return readySpace;
 	}
-	public void setReadySpace(String readySpace) {
+	public void setReadySpace(int readySpace) {
 		this.readySpace = readySpace;
 	}
 	public int getReadyStoreCode() {
@@ -124,13 +121,6 @@ public class ReadySpace {
 		this.readyRequestDate = readyRequestDate;
 	}
 	
-	public List<Map<String, Object>> getStoreBusinessTypeList() {
-		return storeBusinessTypeList;
-	}
-	public void setStoreBusinessTypeList(List<Map<String, Object>> storeBusinessTypeList) {
-		this.storeBusinessTypeList = storeBusinessTypeList;
-	}
-	
 	public int getStoreCode() {
 		return storeCode;
 	}
@@ -144,6 +134,13 @@ public class ReadySpace {
 		this.spaceCateCode = spaceCateCode;
 	}
 	
+	public String getReadyStoreBusinessType() {
+		return readyStoreBusinessType;
+	}
+	public void setReadyStoreBusinessType(String readyStoreBusinessType) {
+		this.readyStoreBusinessType = readyStoreBusinessType;
+	}
+	
 	@Override
 	public String toString() {
 		return "ReadySpace [readySpace=" + readySpace + ", readyStoreCode=" + readyStoreCode + ", readySpaceName="
@@ -153,8 +150,8 @@ public class ReadySpace {
 				+ ", readyCloseTime=" + readyCloseTime + ", readySpaceRsvType=" + readySpaceRsvType
 				+ ", readyExceptionStartDate=" + readyExceptionStartDate + ", readyExceptionEndDate="
 				+ readyExceptionEndDate + ", readySpaceBasicOption=" + readySpaceBasicOption + ", readyRequestDate="
-				+ readyRequestDate + ", storeCode=" + storeCode
-				+ ", spaceCateCode=" + spaceCateCode + ", storeBusinessTypeList=" + storeBusinessTypeList + "]";
+				+ readyRequestDate + ", readyStoreBusinessType=" + readyStoreBusinessType + ", storeCode=" + storeCode
+				+ ", spaceCateCode=" + spaceCateCode + "]";
 	}
 	
 }
