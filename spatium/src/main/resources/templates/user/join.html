@@ -9,157 +9,145 @@
 
 <th:block layout:fragment="customContent">
 
-	<form th:action="@{/addUser}" class="" action="" method="post">
+	<form th:action="@{/addUser}" id="joinform" method="post">
 
 		<span class="section">회원 등록</span>
 
-		<div id="wizard" class="form_wizard wizard_horizontal">
 
-			<ul class="wizard_steps anchor">
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">회원구분
+				<span class="required">*</span>
+			</label>
+			<div class="form-check">
 
-				<li><a href="#step-1" class="selected" isdone="1" rel="1">
-						<span class="step_no">1</span> <span class="step_descr">
-							Step 1<br> <small>Step 1 description</small>
-					</span>
-				</a></li>
-				<li><a href="#step-2" class="disabled" isdone="0" rel="2">
-						<span class="step_no">2</span> <span class="step_descr">
-							Step 2<br> <small>Step 2 description</small>
-					</span>
-				</a></li>
-				<li><a href="#step-3" class="disabled" isdone="0" rel="3">
-						<span class="step_no">3</span> <span class="step_descr">
-							Step 3<br> <small>Step 3 description</small>
-					</span>
-				</a></li>
-				<li><a href="#step-4" class="disabled" isdone="0" rel="4">
-						<span class="step_no">4</span> <span class="step_descr">
-							Step 4<br> <small>Step 4 description</small>
-					</span>
-				</a></li>
-			</ul>
-
-			<div class="field item form-group">
-				<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
-					class="required">*</span></label>
-				<div class="col-md-6 col-sm-6">
-					<input class="form-control" data-validate-length-range="6"
-						data-validate-words="2" id="userId" name="userId"
-						placeholder="아이디" required="required">
-				</div>
-
-			</div>
-			<div class="field item form-group">
-				<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호<span
-					class="required">*</span></label>
-				<div class="col-md-6 col-sm-6">
-					<input type="password" class="form-control"
-						data-validate-length-range="6" data-validate-words="2" id=""
-						password""
-					name="password" placeholder="4~12자의 대소문자와 숫자"
-						required="required">
-				</div>
-
-			</div>
-
-			<div class="field item form-group">
-				<label class="col-form-label col-md-3 col-sm-3  label-align">이름
-					<span class="required">*</span>
+				<label class="form-radio-label"> <input
+					class="form-radio-input" type="radio" name="userGrade" value="구매자"
+					checked="checked"> <span class="form-radio-sign">개인</span>
+				</label> <label class="form-radio-label ml-3"> <input
+					class="form-radio-input" type="radio" name="userGrade" value="판매자">
+					<span class="form-radio-sign">판매자</span>
 				</label>
-				<div class="col-md-6 col-sm-6">
-					<input class="form-control" type="text" id="name" name="name"
-						data-validate-minmax="10,100" required="required">
-				</div>
+			</div>
+		</div>
+		
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" data-validate-length-range="6"
+					data-validate-words="2" id="userId" name="userId"
+					required="required">
+				<button type="submit" id="idchk" class="btn btn-primary"
+					onclick="idChk();" value="N">중복확인</button>
 			</div>
 
-			<div class="field item form-group">
-				<label class="col-form-label col-md-3 col-sm-3  label-align">생년월일
-					<span class="required">*</span>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input type="password" class="form-control"
+					data-validate-length-range="6" data-validate-words="2"
+					id="password" name="userPw" placeholder="4~12자의 대소문자와 숫자를 입력하세요"
+					required="required">
+			</div>
+
+		</div>
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">이름
+				<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="text" id="name" name="userName"
+					data-validate-minmax="10,100" required="required">
+			</div>
+		</div>
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">생년월일
+				<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="number" id="birth" name="userBirth"
+					data-validate-minmax="10,100" placeholder="ex)20001212"
+					required="required">
+			</div>
+		</div>
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">성별
+				<span class="required">*</span>
+			</label>
+			<div class="form-check">
+
+				<label class="form-radio-label"> <input
+					class="form-radio-input1" type="radio" name="userGender" value="남"
+					checked="checked"> <span class="form-radio-sign1">남성</span>
+				</label> <label class="form-radio-label ml-3"> <input
+					class="form-radio-input1" type="radio" name="userGender" value="여" >
+					<span class="form-radio-sign1">여성</span>
 				</label>
-				<div class="col-md-6 col-sm-6">
-					<input class="form-control" type="number" id="birth" name="birth"
-						data-validate-minmax="10,100" required="required">
-				</div>
 			</div>
+		</div>
 
-			<div class="field item form-group">
-				<label class="col-form-label col-md-3 col-sm-3  label-align">성별
-					<span class="required">*</span>
-				</label>
-				<div class="col-md-6 col-sm-6 ">
-					<div id="gender" class="btn-group" data-toggle="buttons">
-						<label class="btn btn-secondary active"
-							data-toggle-class="btn-primary"
-							data-toggle-passive-class="btn-secondary"> <input
-							type="radio" id="gender" name="gender" value="male"
-							class="join-btn"> &nbsp; 남성 &nbsp;
-						</label> <label class="btn btn-primary" data-toggle-class="btn-primary"
-							data-toggle-passive-class="btn-secondary"> <input
-							type="radio" id="gender" name="gender" value="female"
-							class="join-btn"> 여성
-						</label>
-					</div>
-				</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화
+				<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="number" id="phone" name="userPhone"
+					data-validate-minmax="10,100" placeholder="ex)01012345678"
+					required="required">
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">직업<span
+				class="required">*</span></label>
+			<div class="col-md-3 col-sm-3">
+				<select class="form-control" id="job" name="userJob">
+					<option></option>
+					<option value="학생">학생</option>
+					<option value="회사원">회사원</option>
+					<option value="자영업">자영업</option>
+					<option value="무직">무직</option>
+					<option value="기타">기타</option>
+				</select>
+			</div>
+		</div>
+		<!-- <div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">이메일<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="email" name="userEmail"
+					required="required" type="email">
+			</div>
+		</div> -->
+<div class="field item form-group">
+            <label class="col-form-label col-md-3 col-sm-3  label-align">이메일<span
+				class="required">*</span></label>
+		<div class="col-md-3 col-sm-3">
+            <input type="text" id="email" name="userEmail" >
+         
+   </div> 
+ </div>
 
-			</div>
-			<div class="field item form-group">
-				<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화
-					<span class="required">*</span>
-				</label>
-				<div class="col-md-6 col-sm-6">
-					<input class="form-control" type="number" id="phone" name="phone"
-						data-validate-minmax="10,100" required="required">
-				</div>
-			</div>
-			<div class="field item form-group">
-				<label class="col-form-label col-md-3 col-sm-3  label-align">직업<span
-					class="required">*</span></label>
-				<div class="col-md-3 col-sm-3">
-					<select class="form-control" id="job">
-						<option></option>
-						<option value="학생">학생</option>
-						<option value="회사원">회사원</option>
-						<option value="자영업">자영업</option>
-						<option value="무직">무직</option>
-						<option value="기타">기타</option>
-					</select>
-				</div>
-			</div>
-			<div class="field item form-group">
-				<label class="col-form-label col-md-3 col-sm-3  label-align">이메일<span
-					class="required">*</span></label>
-				<div class="col-md-6 col-sm-6">
-					<input class="form-control" id="email" name="email"
-						required="required" type="email">
-				</div>
-			</div>
 
-			<div class="form-group" align="center">
-				<div class="col-md-6 offset-md-3">
-					<button type="submit" id="submit" class="btn btn-primary">회원가입</button>
-					<button type="cancel" id="cancel" class="btn btn-success">취소</button>
-				</div>
+		<div class="form-group" align="center">
+			<div class="col-md-6 offset-md-3">
+				<button type="submit" id="submit" class="btn btn-primary ">회원가입</button>
+				<button type="cancel" id="cancel" class="btn btn-success">취소</button>
 			</div>
+		</div>
 	</form>
 
 </th:block>
-
 <th:block layout:fragment="customJs">
-	<script src="build/js/custom.min.js">
-
-		/* 체크박스 전체선택,해제 */
-		function allCheck(allCheck)  {
- 		const checkboxes = document.getElementsByName('checkCh');
-  			checkboxes.forEach((checkbox) => {
-   			checkbox.checked = allCheck.checked;
- 			 })
-		};
-
-		
-			$("#cencle").on("click", function(){
-				
+  
+  <script >
+	
+	 		$("#cancel").on("click", function(){
 				location.href = "/login";
-						    
 			})
 		
 			$("#submit").on("click", function(){
@@ -203,9 +191,34 @@
 					$("#email").focus();
 					return false;
 				}
+				var idChk = $("#idChk").val();
+				if(idChk == "N"){
+					alert("중복확인 버튼을 눌러주세요.");
+				}else if(idChk == "Y"){
+					$("#joinform").submit();
+				}
 			});
+		})
+				
+			});
+		
+		function idChk(){
+			$.ajax({
+				url : "/idChk",
+				type : "post",
+				dataType : "json",
+				data : {"userId" : $("#userId").val()},
+				success : function(data){
+					if(data == 1){
+						alert("이미 존재하는 아이디입니다.");
+					}else if(data == 0){
+						$("#idChk").attr("value", "Y");
+						alert("사용가능한 아이디입니다.");
+					}
+				}
+			})
+		};
 			
-			
-			</script>
+	</script>
 </th:block>
 </html>

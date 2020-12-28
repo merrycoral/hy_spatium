@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.BoardMapper">
+
+	<select id="getBoardCate" resultType="Board">
+		SELECT boardCateCode, boardCateName
+		FROM tbBoardCete
+	</select>
+	
+	<select id="getBoardsList" resultType="Board">
+				SELECT
+		boardIdx
+		,boardAddId
+		,boardCateName
+		,boardTitle
+		,boardLikeCnt
+		,boardHitCnt
+		,boardAddDate
+		,boardUpDate
+		,boardDeclaration
+		,boardBlind
+		FROM
+			tbBoard
+				INNER JOIN 
+			tbBoardCete
+				on
+			boardCateCode = boardCate
+				INNER JOIN 
+			tbUser
+				ON 
+			boardAddId = userId
+		ORDER BY boardIdx DESC;
+	</select>
+	
+		<insert id="addPost" parameterType="Board">
+		INSERT INTO tbBoard
+		( boardAddId
+		 ,boardCate
+		 ,boardTitle
+		 ,boardContents
+		 ,boardAddDate
+		) VALUES(
+		  #{boardAddId}
+		 ,#{boardCateCode}
+		 ,#{boardTitle}
+		 ,#{boardContents}
+		 ,NOW());
+	</insert>
+
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.SpaceMapper">
+
+<select id = "readySpaceList" resultType="ReadySpace">
+
+SELECT
+	readySpace
+	, readyStoreCode
+	, readySpaceName
+	, readySpaceType
+	, readyPeopleNumber
+	, readyBriefSpace
+	, readyDetailSpace
+	, readySpaceTag
+	, readyRentalPrice
+	, readyStartTime
+	, readyCloseTime
+	, readySpaceRsvType
+	, readyExceptionStartDate
+	, readyExceptionEndDate
+	, readySpaceBasicOption
+	, readyRequestDate
+FROM 
+	tbReadySpace
+	
+</select>
+
+<select id = "OKSpaceList" resultType="OKSpace">
+
+SELECT
+	okaySpaceCode
+	, okayStoreCode
+	, okaySpaceName
+	, okaySpaceType
+	, okayPeopleNumber
+	, okayDetailSpace
+	, okayBriefSpace
+	, okaySpaceTag
+	, okaySpaceRentalPrice
+	, okayStartTime
+	, okayCloseTime
+	, okaySpaceRsvType
+	, okayExceptionStartDate
+	, okayExceptionEndDate
+	, okayCompletedDate
+	, okaySpaceBasicOption
+	, okaySpaceId
+FROM 
+	tbOkaySpace
+	
+</select>
+
+</mapper>

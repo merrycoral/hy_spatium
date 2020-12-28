@@ -145,23 +145,23 @@ public class UserController {
 	
 	//로그인
 	@PostMapping("/login")
-	public String login( @RequestParam(name="UserId", required = false) String UserId
-			,@RequestParam(name="UserPw", required = false) String UserPw
+	public String login( @RequestParam(name="userId", required = false) String userId
+			,@RequestParam(name="userPw", required = false) String userPw
 			,HttpSession session
 			,RedirectAttributes rAttr) {
 
-		System.out.println("로그인 화면에서 입력받은 값->" + UserId);
-		System.out.println("로그인 화면에서 입력받은 값->" + UserPw);
+		System.out.println("로그인 화면에서 입력받은 값->" + userId);
+		System.out.println("로그인 화면에서 입력받은 값->" + userPw);
 
-		User User = userService.login(UserId);
+		User User = userService.login(userId);
 
-		if(UserId != null && UserPw != null && User != null && User.getUserPw() != null && UserPw.equals(User.getUserPw())) {
-			session.setAttribute("SID", UserId);
+		if(userId != null && userPw != null && User != null && User.getUserPw() != null && userPw.equals(User.getUserPw())) {
+			session.setAttribute("SID", userId);
 			session.setAttribute("SLEVEL", User.getUserLevel());
 			session.setAttribute("SNAME", User.getUserName());
-			System.out.println(UserId + " : 로그인 성공");
+			System.out.println(userId + " : 로그인 성공");
 		}else {
-			System.out.println(UserId + " : 로그인 실패");
+			System.out.println(userId + " : 로그인 실패");
 			return "redirect:/login";
 		}
 
