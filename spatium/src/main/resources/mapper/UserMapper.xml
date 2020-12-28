@@ -6,7 +6,7 @@
 
 
 	<!--회원삭제 -->
-	<delete id="delete">
+	<delete id="removeUser">
 		DELETE
 		FROM
 		tbUser
@@ -15,7 +15,7 @@
 	</delete>
 
 	<!--회원수정 -->
-	<update id="update">
+	<update id="modifyUser" >
 		UPDATE
 		tbUser
 		SET 

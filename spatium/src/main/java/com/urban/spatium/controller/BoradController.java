@@ -35,9 +35,11 @@ public class BoradController {
 	
 	 @RequestMapping(value = "/addPost", method = RequestMethod.POST) 
 	 public String addPost(Board board ,@RequestParam(name = "userId", required = false)
-	 String userId) { System.out.println("회원가입화면에서 입력받은 값--->" + userId); String
-	 result = boardService.addPost(board); System.out.println(result); return
-	 "redirect:/boardList"; 
+	 String userId) { 
+		 System.out.println("회원가입화면에서 입력받은 값--->" + userId); 
+		 String result = boardService.addPost(board); 
+		 System.out.println(result); 
+		 return "redirect:/boardList"; 
 	 }
 	 
 

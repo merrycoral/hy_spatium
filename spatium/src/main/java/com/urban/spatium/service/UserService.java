@@ -16,6 +16,19 @@ public class UserService {
 	@Autowired 
 	private UserMapper userMapper;
 	
+	//회원삭제
+	public String removeUser(String userId, String userPw, String userLevel) {
+		String result = "회원 삭제 실패";
+
+		User user = userMapper.login(userId);
+		
+		if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
+			int removeCheck = userMapper.removeUser(userId, userLevel);
+			if(removeCheck > 0) result = "회원 삭제 성공";
+		}
+		return result;
+	}
+	
 	//회원수정
 	public String modifyUser(User user) {
 		String result = "회원 수정 실패";

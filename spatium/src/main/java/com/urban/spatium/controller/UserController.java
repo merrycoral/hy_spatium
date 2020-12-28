@@ -23,6 +23,35 @@ public class UserController {
 	@Autowired 
 	private UserService userService; 
 	
+	//회원삭제
+	@PostMapping("/removeUser")
+	public String removeUser(@RequestParam(name="userId", required = false) String userId  
+							  ,@RequestParam(name="userPw", required = false) String userPw
+							  ,@RequestParam(name="userLevel", required = false) String userLevel
+							  ,RedirectAttributes redirectAttr) { 
+		System.out.println("회원탈퇴화면에서 입력받은 값(id)--->"	+ userId);
+		System.out.println("회원탈퇴화면에서 입력받은 값(pw)--->"	+ userPw);
+		System.out.println("회원탈퇴화면에서 입력받은 값(level)--->"+ userLevel);
+		
+		
+		String result = userService.removeUser(userId, userPw, userLevel);
+		
+		System.out.println(result);
+		redirectAttr.addAttribute("result", result);
+		
+		return "redirect:/memberList";
+	}
+	
+	@GetMapping("/removeUser")
+	public String removeUser( Model model
+								,@RequestParam(name="userId", required = false) String userId
+								,@RequestParam(name="userLevel", required = false) String userLevel) {
+		model.addAttribute("title", "회원 탈퇴");
+		model.addAttribute("userId", userId);
+		model.addAttribute("userLevel", userLevel);
+		return "user/uDelete";
+	}
+	
 		
 	//회원수정
 	@PostMapping("/modifyUser")
