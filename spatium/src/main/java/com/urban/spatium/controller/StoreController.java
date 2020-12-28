@@ -17,14 +17,14 @@ import com.urban.spatium.service.StoreService;
 
 @Controller
 public class StoreController {
-	
+
 	@Autowired
 	private StoreService storeService;
 
-	@PostMapping("/addStore")
+	@PostMapping("/addSpace")
 	public String addStore(Model model, Store store) {
-		
-		System.out.println(store);
+
+		System.out.println("스토어 받은값 --> "+store);
 		store.getStoreCode();
 		store.getSpaceRelationCateCode();
 		System.out.println("===============start store================");
@@ -33,7 +33,7 @@ public class StoreController {
 		for(int i=0; i<array.length; i++) {
 			System.out.println(array[i]);
 		}
-		model.addAttribute("store", array);
+		model.addAttribute("storeBusiness", array);
 		System.out.println("===============end store================");
 		String result = storeService.addStore(store);
 		System.out.println("================start result===============");
@@ -41,16 +41,16 @@ public class StoreController {
 		System.out.println("================end result===============");
 		store.setSpaceRelationStoreCode(store.getStoreCode());
 		store.setSpaceRelationCateCode(store.getSpaceRelationCateCode());
-		
+
 		return "space/addSpace";
 	}
-	
+
 	@GetMapping("/addStore")
 	public String addStore(Model model) {
 		model.addAttribute("title", "업체 등록");
 		return "store/addStore";
 	}
-	
+
 	@GetMapping("/storeListOK")
 	public String storeList(Model model) {
 		List<Store> storeList = storeService.storeList();
