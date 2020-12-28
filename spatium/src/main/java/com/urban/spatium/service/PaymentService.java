@@ -25,7 +25,8 @@ public class PaymentService {
 	private PaymentMapper paymentMapper;
 	
 	public List<Payment> rsvDetail(String payCode){	
-		return paymentMapper.rsvDetail(payCode);
+		List<Payment> list = paymentMapper.rsvDetail(payCode);
+		return list;
 		
 	}
 	

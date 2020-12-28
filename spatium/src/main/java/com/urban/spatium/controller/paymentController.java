@@ -3,10 +3,11 @@ package com.urban.spatium.controller;
 
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,14 +33,16 @@ public class paymentController {
 	
 	
 	@GetMapping("/rsvDetail")
-	public String rsvDetail(Model model,
+	public @ResponseBody Map<String, Object> rsvDetail(Model model,
 						@RequestParam String payCode) {
 		System.out.println("여기왔다.");
 		System.out.println(payCode);
 		paymentService.rsvDetail(payCode);
 		System.out.println(paymentService.rsvDetail(payCode));
+	    Map<String, Object> rsvDetailMap = new HashMap<String, Object>();
+	    rsvDetailMap.put("rsvDetail",paymentService.rsvDetail(payCode));
 		
-		return null;		
+		return rsvDetailMap;		
 	}
 	@GetMapping("/paymentSSilpae")
 	public String paymentSSilpae(Model model) {

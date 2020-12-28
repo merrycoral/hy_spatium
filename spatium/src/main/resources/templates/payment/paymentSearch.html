@@ -8,16 +8,25 @@
 
 <th:block layout:fragment="customCss">
 <style>
-
+.hid{display: none; position: absolute; top: 20px; background-color: white; width: 80%; height: 60%;}
+.Active{display: block;}
+#removeBtn{margin-left:96%; margin-top: 2%;}
+#teble2{display: inline-block}
 </style>
 </th:block>
 
 <th:block layout:fragment="customJs">
 <script>
 	$(function(){
+		
 		$('.payCode').click(function(){
+			$('#hidTable').addClass('Active');
 			console.log($(this).text());
 			var payCode =$(this).text();
+			$('#removeBtn').click(function(){
+				$('#hidTable').removeClass('Active');
+				$('#tbody').find('tr').remove();
+			});
 		
 			  $.ajax({
 	               type : "GET",
@@ -26,7 +35,27 @@
 	               contentType : "application/json",
 	               data : {"payCode": payCode},
 	               success : function(data) {
-              	   	 console.log(data);    
+              	   	 console.log(data.rsvDetail.length);  
+             	   	 var innerHtml = "";
+              	   	 for(var i =0; i<data.rsvDetail.length;i++){
+              	   	 	console.log(data.rsvDetail[i]);
+	              	   	innerHtml += "<tr>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailCode+"</td>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailSpace+"</td>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].okayStoreCode+"</td>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].okaySpaceType+"</td>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].okaySpaceName+"</td>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailItem+"</td>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].itemTotalName+"</td>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailNum+"</td>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailOnePrice+"</td>"
+	              	   	innerHtml += "<td>"+(data.rsvDetail[i].rsvDetailOnePrice)*(data.rsvDetail[i].rsvDetailNum)+"</td>"
+	              		innerHtml += "</tr>"
+              	   	 }
+              	   	 
+              		
+               		$('#tbody').append(innerHtml);
+
 	               },
 	               error : function() {
 	                  alert('실패');
@@ -78,5 +107,34 @@
 		</tr>
 	</tbody>
 </table>
+<div class="hid" id="hidTable">
+<button type="button" id="removeBtn">X</button>
+<table border="1" >
+
+	<thead>
+		<tr>
+			<th>세부예약코드</th>
+			<th>예약공간코드</th>
+			<th>업체코드</th>
+			<th>예약공간유형</th>
+			<th>예약공간명</th>
+			<th>예약장비코드</th>
+			<th>예약장비명</th>
+			<th>예약개수</th>
+			<th>개별가격</th>
+			<th>결재금액</th>
+		</tr>
+	</thead>
+	<tbody id="tbody">
+	
+	</tbody>
+</table>
+
+
+
+</div>
+
+
+
 </th:block>
 </html>

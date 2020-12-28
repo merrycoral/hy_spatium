@@ -34,7 +34,7 @@
 		<result column="pointModyfiDate" 		property="pointModyfiDate"/>
 	</resultMap>
 	
-	<select id="rsvDetail" parameterType="String">
+	<select id="rsvDetail" parameterType="String" resultType="Payment">
 	SELECT 
 	     rsvDetailCode
 		,rsvDetailSpace	
@@ -71,8 +71,7 @@
 	WHERE
 	p.paymentCode = #{payCode};	
 		
-		
-	
+
 	</select>
 	
 	
