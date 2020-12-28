@@ -36,7 +36,7 @@
 			<tr>
 				<td>작성자</td>
 				<td>
-					<input type="text" name="boardAddId" th:unless="${session.SID == null}" th:value="${session.SID}" readonly="readonly" class="form-control"/>
+					<input type="text" name="boardAddId" id="boardAddId" th:unless="${session.SID == null}" th:value="${session.SID}" readonly="readonly" class="form-control"/>
 				</td>
 			</tr>
 			<tr>
@@ -63,6 +63,7 @@
 	<script type="text/javascript">
 		$(function() {
 			$('#insertBtn').click(function() {
+				var boardAddId = $('#boardAddId').text();
 				var boardcate = $('#board_cate').val();
 				var boardTitle = $('#boardTitle').val();
 				var boardContents = $('#boardContents').val();
@@ -78,6 +79,12 @@
 					alert('내용을 입력해주세요');
 					return false;
 				}
+/* 				if (boardAddId == '') {
+					alert('로그인 후 작성해주세요');
+					location.replace('/login');
+					return false;
+				} */
+
 			});
 			return true;
 		});
