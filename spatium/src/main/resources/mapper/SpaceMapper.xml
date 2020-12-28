@@ -2,6 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.SpaceMapper">
 
+<insert id = "addReadySpace">
+
+	INSERT INTO tbReadySpace
+	(readySpace
+	, readyStoreCode
+	, readySpaceName
+	, readySpaceType
+	, readyPeopleNumber
+	, readyBriefSpace
+	, readyDetailSpace
+	, readySpaceTag
+	, readyRentalPrice
+	, readyStartTime
+	, readyCloseTime
+	, readySpaceRsvType
+	, readyExceptionStartDate
+	, readyExceptionEndDate
+	, readySpaceBasicOption
+	, readyRequestDate)
+VALUES 
+	(NULL
+	, 5
+	, #{readySpaceName}
+	, 1
+	, #{readyPeopleNumber}
+	, #{readyBriefSpace}
+	, #{readyDetailSpace}
+	, #{readySpaceTag}
+	, #{readyRentalPrice}
+	, #{readyStartTime}
+	, #{readyCloseTime}
+	, #{readySpaceRsvType}
+	, #{readyExceptionStartDate}
+	, #{readyExceptionEndDate}
+	, #{readySpaceBasicOption}
+	, NOW())
+	
+</insert>
+
 <select id = "readySpaceList" resultType="ReadySpace">
 
 SELECT
@@ -21,7 +60,6 @@ SELECT
 	, readyExceptionEndDate
 	, readySpaceBasicOption
 	, readyRequestDate
-	, readyRefunRule
 FROM 
 	tbReadySpace
 	
@@ -47,7 +85,6 @@ SELECT
 	, okayCompletedDate
 	, okaySpaceBasicOption
 	, okaySpaceId
-	, okayRefundPolicyCode
 FROM 
 	tbOkaySpace
 	

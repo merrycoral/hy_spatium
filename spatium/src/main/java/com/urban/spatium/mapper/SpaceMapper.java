@@ -10,6 +10,8 @@ import com.urban.spatium.dto.ReadySpace;
 @Mapper
 public interface SpaceMapper {
 	
+	public int addReadySpace(ReadySpace readySpace);
+	
 	public List<ReadySpace> readySpaceList();
 	
 	public List<OKSpace> OKSpaceList();

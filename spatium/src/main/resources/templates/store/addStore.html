@@ -1,159 +1,217 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="@{layout/default}">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <th:block layout:fragment="customTitle">
-		<title th:text="${title}"></title>
+	<title th:text="${title}"></title>
 </th:block>
 <th:block layout:fragment="customContent">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<div class="x_panel">
-								<div class="x_title">
-									<h2> 어떤 공간을 공유하세요? </h2>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<form id= "addStoreForm" class="form-horizontal form-label-left" th:action="@{/addStore}" method="post">
-										<div style="padding-left:1000px; color: red"> * 표시는 필수 입력 사항입니다. </div>
-										<br>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align"> 사업자 아이디 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="storeId" class="form-control" name = "storeId">
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align"> 상호명 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="storeName" class="form-control" name = "storeName">
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align"> 대표자명 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="storeRepresentative" class="form-control" name = "storeRepresentative">
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align"> 사업자 번호 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="storeNumber" class="form-control" name = "storeNumber" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-												<span> 숫자만 입력해주시기 바랍니다. </span>
-											</div>
-										</div>
-										<div class="item form-group">
-											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align"> 업체 유형 <span class="required">*</span>
-											</label>
-										<div class="btn-group form-check" data-toggle="buttons" style="margin-left: -10px; width: 795px;">
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "storeBusinessType" value = "촬영 스튜디오"> <span style="font-size: 12px;">촬영 스튜디오</span>
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "storeBusinessType" value = "엠티장소"> 엠티장소
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "storeBusinessType" value = "스터디룸"> 스터디룸
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "storeBusinessType" value = "연습실"> 연습실
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "storeBusinessType" value = "파티룸"> 파티룸
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "storeBusinessType" value = "회의실"> 회의실
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "storeBusinessType" value = "카페"> 카페
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "storeBusinessType" value = "다목적홀"> 다목적홀
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "storeBusinessType" value = "공연장"> 공연장
-					                      </label>
-					                      <label class="btn btn-secondary">
-					                        <input type="checkbox" class="join-btn" name = "storeBusinessType" value = "한옥"> 한옥
-					                      </label>
-					                    </div>
-										</div>
-										<div class="item form-group">
-											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align"> 업체 주소 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="storeAddress" class="form-control" name = "storeAddress">
-											</div>
-										</div>
-										<div class="item form-group">
-											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align"> 업체 소개 </label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="storeIntroduction" class="form-control" name = "storeIntroduction">
-											</div>
-										</div>
-										<div class="item form-group">
-											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align"> 업체 이메일 </label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="storeEmail" class="form-control" name = "storeEmail">
-											</div>
-										</div>
-										<div class="item form-group">
-											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align"> 업체 연락처 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="storePhone" class="form-control" name = "storePhone" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-												<span> 숫자만 입력해주시기 바랍니다. </span>
-											</div>
-										</div>
-										<div class="item form-group">
-											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align"> 사업자 계좌번호 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="storeAccountNumber" name = "storeAccountNumber" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-												<span> 숫자만 입력해주시기 바랍니다. </span>
-											</div>
-										</div>
-										<div class="item form-group">
-											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align"> 결제 방식 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<select style="width: 775px; height: 40px;" id = "storePaymentMethod" name = "storePaymentMethod">
-													<option value = "0"> :: 결제 방식 선택 :: </option>
-													<option value = "승인 전 결제"> 승인 전 결제 </option>													
-													<option value = "승인 후 결제"> 승인 후 결제 </option>													
-												</select>
-											</div>
-										</div>
-										<div class="item form-group">
-											<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align"> 업체 이미지 <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="file" id="storeImage" class="form-control" name = "storeImage">
-											</div>
-										</div>
-										<div class="ln_solid"></div>
-										<div class="item form-group">
-											<div class="col-md-6 col-sm-6 offset-md-7">
-											<input type="submit" class="btn btn-success" value="업체 등록 하기" id="addStore" style="width: 250px; height: 50px;">
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-							
-		<script type="text/javascript">
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<div class="x_panel">
+		<div class="x_title">
+			<h2>어떤 공간을 공유하세요?</h2>
+			<div class="clearfix"></div>
+		</div>
+		<div class="x_content">
+			<form id="addStoreForm" class="form-horizontal form-label-left"
+				th:action="@{/addSpace}" method="post">
+				<div style="padding-left: 1000px; color: red">* 표시는 필수 입력
+					사항입니다.</div>
+				<br>
+				<div class="item form-group">
+
+					<label class="col-form-label col-md-3 col-sm-3 label-align">
+						사업자 아이디 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+
+						<input type="text" id="storeId" class="form-control"
+							name="storeId">
+					</div>
+				</div>
+				<div class="item form-group">
+					<label class="col-form-label col-md-3 col-sm-3 label-align">
+						상호명 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="text" id="storeName" class="form-control"
+							name="storeName" placeholder="상호명을 입력해주시기 바랍니다.">
+					</div>
+				</div>
+				<div class="item form-group">
+					<label class="col-form-label col-md-3 col-sm-3 label-align">
+						대표자명 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="text" id="storeRepresentative" class="form-control"
+							name="storeRepresentative" placeholder="대표자명을 입력해주시기 바랍니다.">
+					</div>
+				</div>
+				<div class="item form-group">
+					<label class="col-form-label col-md-3 col-sm-3 label-align">
+						사업자 번호 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="text" placeholder="사업자 번호를 입력해주시기 바랍니다."
+							id="storeNumber" class="form-control" name="storeNumber"
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+						<span> 숫자만 입력해주시기 바랍니다. </span>
+					</div>
+				</div>
+				<span style="padding-left: 870px;"> 업체 유형은 최소 1개에서 5개까지 선택할 수
+					있습니다. </span>
+				<div class="item form-group">
+					<label for="middle-name"
+						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
+						유형 <span class="required">*</span>
+					</label>
+					<div class="btn-group form-check" data-toggle="buttons"
+						style="margin-left: -10px; width: 795px;">
+						<label class="btn btn-secondary"> <input type="checkbox"
+							class="join-btn" name="storeBusinessType" value="촬영 스튜디오">
+							<span style="font-size: 12px;">촬영 스튜디오</span>
+						</label> <label class="btn btn-secondary"> <input type="checkbox"
+							class="join-btn" name="storeBusinessType" value="엠티장소">
+							엠티장소
+						</label> <label class="btn btn-secondary"> <input type="checkbox"
+							class="join-btn" name="storeBusinessType" value="스터디룸">
+							스터디룸
+						</label> <label class="btn btn-secondary"> <input type="checkbox"
+							class="join-btn" name="storeBusinessType" value="연습실">
+							연습실
+						</label> <label class="btn btn-secondary"> <input type="checkbox"
+							class="join-btn" name="storeBusinessType" value="파티룸">
+							파티룸
+						</label> <label class="btn btn-secondary"> <input type="checkbox"
+							class="join-btn" name="storeBusinessType" value="회의실">
+							회의실
+						</label> <label class="btn btn-secondary"> <input type="checkbox"
+							class="join-btn" name="storeBusinessType" value="카페"> 카페
+						</label> <label class="btn btn-secondary"> <input type="checkbox"
+							class="join-btn" name="storeBusinessType" value="다목적홀">
+							다목적홀
+						</label> <label class="btn btn-secondary"> <input type="checkbox"
+							class="join-btn" name="storeBusinessType" value="공연장">
+							공연장
+						</label> <label class="btn btn-secondary"> <input type="checkbox"
+							class="join-btn" name="storeBusinessType" value="한옥"> 한옥
+						</label>
+					</div>
+				</div>
+
+				<div class="item form-group">
+					<label for="middle-name"
+						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
+						주소 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="text" id="storeAddress" class="form-control"
+							name="storeAddress" placeholder="업체 주소를 입력해주시기 바랍니다.">
+					</div>
+				</div>
+				<div class="item form-group">
+					<label for="middle-name"
+						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
+						소개 </label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="text" id="storeIntroduction" class="form-control"
+							name="storeIntroduction" placeholder="업체 소개를 입력해주시기 바랍니다.">
+					</div>
+				</div>
+				<div class="item form-group">
+					<label for="middle-name"
+						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
+						이메일 </label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="text" id="storeEmail" class="form-control"
+							name="storeEmail" placeholder="업체 이메일을 입력해주시기 바랍니다.">
+					</div>
+				</div>
+				<div class="item form-group">
+					<label for="middle-name"
+						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
+						연락처 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="text" id="storePhone" class="form-control"
+							placeholder="업체 연락처를 입력해주시기 바랍니다." name="storePhone"
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+						<span> 숫자만 입력해주시기 바랍니다. </span>
+					</div>
+				</div>
+				<div class="item form-group">
+					<label for="middle-name"
+						class="col-form-label col-md-3 col-sm-3 label-align"> 사업자
+						계좌번호 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="text" id="storeAccountNumber"
+							placeholder="사업자 계좌번호를 입력해주시기 바랍니다." name="storeAccountNumber"
+							class="form-control"
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+						<span> 숫자만 입력해주시기 바랍니다. </span>
+					</div>
+				</div>
+				<div class="item form-group">
+					<label for="middle-name"
+						class="col-form-label col-md-3 col-sm-3 label-align"> 환불
+						정책 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+						<table>
+							<tbody>
+								<tr>
+									<td><input type="text"
+										name="storeRemainingDay" placeholder="예) 15일전"
+										style="width: 280px;"
+										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
+									<td style="padding-left: 10px; padding-right: 10px;">일전</td>
+									<td><input type="text"
+										name="storeRefundPercent" placeholder="예) 15%"
+										style="width: 290px;"
+										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
+									<td style="padding-left: 10px;">%</td>
+									<td>
+										<button type="button" class="addBtn"
+											style="margin-left: 23px;">추가</button>
+										<button type="button" class="removeBtn">삭제</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<span> 숫자만 입력해주시기 바랍니다. </span>
+					</div>
+				</div>
+				<div class="item form-group">
+					<label for="middle-name"
+						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
+						이미지 <span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 ">
+						<input type="file" id="storeImage" class="form-control"
+							name="storeImage">
+					</div>
+				</div>
+				<div class="ln_solid"></div>
+				<div class="item form-group">
+					<div class="col-md-6 col-sm-6 offset-md-7">
+						<input type="submit" class="btn btn-success" value="업체 등록 하기"
+							id="addStore" style="width: 250px; height: 50px;">
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+	<script type="text/javascript">
 			
 			$(function(){
 				$('#addStore').click(function(){
-					if($('#storeId').val() == ""){
-						alert("사업자 아이디를 입력해주시길 바랍니다.");
-						$('#storeId').focus();
-						return false;
-					}else if($('#storeName').val() == ""){
+					if($('#storeName').val() == ""){
 						alert("상호명을 입력해주시길 바랍니다.");
 						$('#storeName').focus();
 						return false;
@@ -165,8 +223,8 @@
 						alert("사업자 번호를 입력해주시길 바랍니다.");
 						$('#storeNumber').focus();
 						return false;
-					}else if($('input:checkbox[name="storeBusinessType"]:checked').length == "0"){
-						alert("업체 유형을 하나 이상 선택해주시길 바랍니다.");
+					}else if($('input:checkbox[name="storeBusinessType"]:checked').length == "0" || $('input:checkbox[name="storeBusinessType"]:checked').length > "5"){
+						alert("업체 유형의 갯수를 제대로 확인하시고 선택해주시기 바랍니다.");
 						return false;
 					}else if($('#storeAddress').val() == ""){
 						alert("업체 주소를 입력해주시길 바랍니다.");
@@ -180,28 +238,50 @@
 						alert("사업자 계좌번호를 입력해주시길 바랍니다.");
 						$('#storeAccountNumber').focus();
 						return false;
-					}else if($('#storePaymentMethod > option:selected').val() == "0"){
-						alert("결제 방식을 선택해주시길 바랍니다.");
+					}else if($('.storeRemainingDay').val() == ""){
+						alert("환불 일자를 입력해주시기 바랍니다.");
+						$('.storeRemainingDay').focus();
+						return false;
+					}else if($('.storeRefundPercent').val() == ""){
+						alert("환불 퍼센트를 입력해주시기 바랍니다.");
+						$('.storeRefundPercent').focus();
 						return false;
 					}else if($('#storeImage').val() == ""){
 						alert("업체 이미지를 등록해주시길 바랍니다.");
 						return false;
 					}else{
-						var delchk = [];
-						$('.join-btn:checked').each(function(){
-							delchk.push($(this).val());
-						});
 						alert("업체 등록에 성공하셨습니다.");
 						return true;
 					}
 				});
+				
+				$(document).on('click', '.addBtn', function() {
+					var len = $(this).parents('tbody').find('tr').length;
+					var clone = $(this).parents('tr').clone();
+					clone.find('input').val('');
+					if (len >= 5) {
+						alert('더 이상 생성하실 수 없습니다.');
+					} else {
+						$(this).parents('tbody').append(clone);
+					}
+				});
+				
+				$(document).on('click', '.removeBtn', function() {
+					var len = $(this).parents('tbody').find('tr').length;
+					if (len > 1) {
+						$(this).parents('tr').remove();
+					} else {
+						alert('더 이상 삭제 하실 수 없습니다.');
+					}
+				});
+				
 			});
 		
-		</script>		
+		</script>
 
-							
+
 </th:block>
 
 
-		
+
 </html>

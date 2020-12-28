@@ -2,7 +2,7 @@ package com.urban.spatium.dto;
 
 public class ReadySpace {
 	
-	private String readySpace;
+	private int readySpace;
 	private int readyStoreCode;
 	private String readySpaceName;
 	private int readySpaceType;
@@ -18,12 +18,16 @@ public class ReadySpace {
 	private String readyExceptionEndDate;
 	private String readySpaceBasicOption;
 	private String readyRequestDate;
-	private String readyRefunRule;
 	
-	public String getReadySpace() {
+	private String readyStoreBusinessType;
+	
+	private int storeCode;
+	private int spaceCateCode;
+	
+	public int getReadySpace() {
 		return readySpace;
 	}
-	public void setReadySpace(String readySpace) {
+	public void setReadySpace(int readySpace) {
 		this.readySpace = readySpace;
 	}
 	public int getReadyStoreCode() {
@@ -116,23 +120,38 @@ public class ReadySpace {
 	public void setReadyRequestDate(String readyRequestDate) {
 		this.readyRequestDate = readyRequestDate;
 	}
-	public String getReadyRefunRule() {
-		return readyRefunRule;
+	
+	public int getStoreCode() {
+		return storeCode;
 	}
-	public void setReadyRefunRule(String readyRefunRule) {
-		this.readyRefunRule = readyRefunRule;
+	public void setStoreCode(int storeCode) {
+		this.storeCode = storeCode;
+	}
+	public int getSpaceCateCode() {
+		return spaceCateCode;
+	}
+	public void setSpaceCateCode(int spaceCateCode) {
+		this.spaceCateCode = spaceCateCode;
+	}
+	
+	public String getReadyStoreBusinessType() {
+		return readyStoreBusinessType;
+	}
+	public void setReadyStoreBusinessType(String readyStoreBusinessType) {
+		this.readyStoreBusinessType = readyStoreBusinessType;
 	}
 	
 	@Override
 	public String toString() {
-		return "Space [readySpace=" + readySpace + ", readyStoreCode=" + readyStoreCode + ", readySpaceName="
+		return "ReadySpace [readySpace=" + readySpace + ", readyStoreCode=" + readyStoreCode + ", readySpaceName="
 				+ readySpaceName + ", readySpaceType=" + readySpaceType + ", readyPeopleNumber=" + readyPeopleNumber
 				+ ", readyBriefSpace=" + readyBriefSpace + ", readyDetailSpace=" + readyDetailSpace + ", readySpaceTag="
 				+ readySpaceTag + ", readyRentalPrice=" + readyRentalPrice + ", readyStartTime=" + readyStartTime
 				+ ", readyCloseTime=" + readyCloseTime + ", readySpaceRsvType=" + readySpaceRsvType
 				+ ", readyExceptionStartDate=" + readyExceptionStartDate + ", readyExceptionEndDate="
 				+ readyExceptionEndDate + ", readySpaceBasicOption=" + readySpaceBasicOption + ", readyRequestDate="
-				+ readyRequestDate + ", readyRefunRule=" + readyRefunRule + "]";
+				+ readyRequestDate + ", readyStoreBusinessType=" + readyStoreBusinessType + ", storeCode=" + storeCode
+				+ ", spaceCateCode=" + spaceCateCode + "]";
 	}
 	
 }

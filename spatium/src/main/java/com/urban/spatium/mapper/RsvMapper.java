@@ -36,6 +36,8 @@ public interface RsvMapper {
 	public void updateRsvPrice(int rsvCode, int totalPrice);
 
 	public List<Rsv> rsvListExtend(String rsvCode);
+
+	public List<Rsv> getExRsv(Rsv rsv);
 	
 	
 }
