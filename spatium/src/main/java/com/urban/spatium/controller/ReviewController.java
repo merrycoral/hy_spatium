@@ -1,6 +1,7 @@
 package com.urban.spatium.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.urban.spatium.dto.Review;
 import com.urban.spatium.service.ReviewService;
@@ -21,15 +23,45 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
-
+	
+								
+		
+		@PostMapping("/deleteReview")
+		public String deleteReview(@RequestParam(name="table_records", required = false) String reviewCode
+							  ,RedirectAttributes redirectAttr) {
+		System.out.println("입력받은 값(reviewCode)--->"	+ reviewCode);
+		
+		//서비스계층에서 권한 별 삭제 처리 후 결과 
+		int result = reviewService.deleteReview(reviewCode);
+		System.out.println(result);
+		redirectAttr.addAttribute("result", result);
+		// /memberList?result=회원삭제성공
+		return "redirect:/reviewAll";
+	}
+	
 		@GetMapping("/reviewAll")
-		public String reviewAll(Model model, @RequestParam(name="result", required = false) String result) {
-			List<Review> allReview = reviewService.getAllReview();
-			model.addAttribute("allReview", allReview);
+		public String reviewAll(Model model, @RequestParam(name="result", required = false) String result
+					, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
+			//List<Review> allReview = reviewService.getAllReview();
+			
+			Map<String, Object> resultMap = reviewService.getAllReview(currentPage);
+			
+			model.addAttribute("title", "리뷰전체조회");
+			model.addAttribute("allReview", resultMap.get("allReview"));
+			model.addAttribute("lastPage", resultMap.get("lastPage"));
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
+			
+			System.out.println(resultMap.get("startPageNum"));
+			System.out.println(resultMap.get("endPageNum"));
+			
+				//return "redirect:/";
+			
 			return "review/reviewAll";
 		}
 		
-		@PostMapping("/searchReview")
+		@PostMapping("/reviewAll")
 		public String searchReview(@RequestParam(name = "sk", required = false) String searchKey
 								,@RequestParam(name = "sv", required = false) String searchValue
 								,Model model) {
@@ -52,8 +84,8 @@ public class ReviewController {
 			
 			log.info("searchKey 변환한 값 ::: {}", searchKey);
 			
-			model.addAttribute("title", "회원목록");
-			model.addAttribute("searchReview", reviewService.searchReview(searchKey, searchValue));
+			model.addAttribute("title", "검색된 리뷰");
+			model.addAttribute("allReview", reviewService.searchReview(searchKey, searchValue));
 			
 			return "review/reviewAll";
 		}

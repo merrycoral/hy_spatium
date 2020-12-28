@@ -25,6 +25,21 @@
 			reviewAmbience, 
 			reviewScore
 	</sql>
+	
+	<select id="getAllReviewCount" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			tbReview;
+	</select>
+	
+	<delete id="deleteReview" parameterType="String">
+		DELETE
+		FROM
+			tbReview
+		WHERE
+			reviewCode = #{reviewCode};
+	</delete>
 
 	<select id="searchReview" parameterType="String" resultType="Review">
 		<include refid="seletReviewColumn" />	
@@ -32,30 +47,18 @@
 			tbReview
 		WHERE
 			<if test="searchKey != null and searchKey neq ''.toString()">
-				${searchKey} LIKE CONCAT('%', #{searchValue} , '%');
+				${searchKey} LIKE CONCAT('%', #{searchValue} , '%')
 			</if>
+		ORDER BY reviewCode DESC;
 	</select>
 	
-	<select id="getAllReview" resultType="Review">
+	<select id="getAllReview" resultType="map">
 		<include refid="seletReviewColumn" />
 		FROM 
 			tbReview
+		ORDER BY reviewCode DESC
+		LIMIT #{startRow}, #{rowPerPage};
 	</select>
 	
-	
-	<!-- <select id="asdf" >
-		SELECT
-			COUNT(a.accessCode) AS EtcBrowser
-		FROM
-			tbAccessRecord AS a
-		WHERE 
-			a.AccessBrowser != #{btop1}
-		AND
-			a.AccessBrowser != #{btop2}
-		AND
-			a.AccessBrowser != #{btop3}
-		AND
-			a.AccessBrowser != #{btop4}	
-	</select> -->
 	
 </mapper>

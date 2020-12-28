@@ -1,6 +1,8 @@
 package com.urban.spatium.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,24 +17,66 @@ public class ReviewService {
 		@Autowired
 		private ReviewMapper reviewMapper;
 		
-		public List<Review> getAllReview() {
-			List<Review> allReview = reviewMapper.getAllReview();
-			int listSize = allReview.size();
-			for(int i=0; i<listSize; i++) {
-				if("1".equals(allReview.get(i).getReviewType())) {
-					allReview.get(i).setReviewType("동영상");
-				}else if("2".equals(allReview.get(i).getReviewType())) {
-					allReview.get(i).setReviewType("포토");
-				}if("3".equals(allReview.get(i).getReviewType())) {
-					allReview.get(i).setReviewType("텍스트");	
+		public Map<String, Object> getAllReview(int currentPage){
+			int startRow = 0;
+			int rowPerPage = 10;
+			int startPageNum = 1;
+			int endPageNum = 10;
+					
+			//last 페이지 구하기
+			double count = reviewMapper.getAllReviewCount();
+			System.out.println(count + "<--- count");
+			int lastPage = (int) Math.ceil(count/rowPerPage);
+			System.out.println(lastPage + "<--- lastPage");
+			
+			//페이지 알고리즘
+			startRow = (currentPage - 1) * rowPerPage;
+			
+			List<Map<String, Object>> allReview = reviewMapper.getAllReview(startRow, rowPerPage);
+			
+			if(currentPage > 6 && lastPage < 10) {
+				startPageNum = currentPage - 5;
+				endPageNum  = currentPage + 4;
+				
+				if(endPageNum >= lastPage) {
+					startPageNum = (lastPage - 9);
+					endPageNum = lastPage;
 				}
+			}else {
+				endPageNum = lastPage;
 			}
-			return allReview;
+			
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap.put("lastPage", lastPage);
+			resultMap.put("allReview", allReview);
+			resultMap.put("startPageNum", startPageNum);
+			resultMap.put("endPageNum", endPageNum);
+			System.out.println(resultMap.get("startPageNum"));
+			System.out.println(resultMap.get("endPageNum"));
+			
+			return resultMap;
 		}
-
-		public Object searchReview(String searchKey, String searchValue) {
+		
+		public List<Review> searchReview(String searchKey, String searchValue) {
 			List<Review> searchedReview = reviewMapper.searchReview(searchKey, searchValue);
 			return searchedReview;
+		}
+
+		public int deleteReview(String reviewCode) {
+			String[] array = reviewCode.split(",");
+				//for(String cha : array){ 
+				//query += (query.equals("")) ? "'"+cha+"'" : ",'"+cha+"'"; 
+				//}
+			String result = "리뷰 삭제 실패";
+			int delcnt = 0;
+			if(reviewCode != null) {
+				for(int i=0 ; i < array.length ; i++) {
+					int removeCheck = reviewMapper.deleteReview(array[i]);
+					if(removeCheck > 0) delcnt ++;
+				}
+			}
+			result = "리뷰" + delcnt + "개 삭제에 성공";
+			return delcnt;
 		}
 
 }
