@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.RefundMapper">
+	<insert id="addRefundPolicy" parameterType="java.util.Map">
+     INSERT INTO tbRefundPolicy
+		( refundPolicyStoreCode
+		, remainingDay
+		, refundPercent
+		, refundPolicyUserId
+		, refundPolicyRegDate)
+      VALUES
+       <foreach collection="list" item="i" separator=" , "> 
+       (
+        #{i.refundPolicyStoreCode}
+      , #{i.remainingDay}
+      , #{i.refundPercent}
+      , #{i.refundPolicyUserId}
+      , NOW()
+      )
+      </foreach>
+   </insert>	
+	
+</mapper>

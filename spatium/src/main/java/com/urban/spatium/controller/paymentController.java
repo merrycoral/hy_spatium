@@ -6,6 +6,7 @@ package com.urban.spatium.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +31,16 @@ public class paymentController {
 	private PaymentService paymentService; 
 	
 	
-	
-	
+	@GetMapping("/rsvDetail")
+	public String rsvDetail(Model model,
+						@RequestParam String payCode) {
+		System.out.println("여기왔다.");
+		System.out.println(payCode);
+		paymentService.rsvDetail(payCode);
+		System.out.println(paymentService.rsvDetail(payCode));
+		
+		return null;		
+	}
 	@GetMapping("/paymentSSilpae")
 	public String paymentSSilpae(Model model) {
 		model.addAttribute("title", "결제실패화면");

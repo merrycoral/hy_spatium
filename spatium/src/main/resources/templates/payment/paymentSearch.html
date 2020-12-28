@@ -6,6 +6,44 @@
 	<title th:text="${title}"></title>
 </th:block>
 
+<th:block layout:fragment="customCss">
+<style>
+
+</style>
+</th:block>
+
+<th:block layout:fragment="customJs">
+<script>
+	$(function(){
+		$('.payCode').click(function(){
+			console.log($(this).text());
+			var payCode =$(this).text();
+		
+			  $.ajax({
+	               type : "GET",
+	               url : '/rsvDetail', 
+	               dataType : "json",  //리턴받았을때 타입
+	               contentType : "application/json",
+	               data : {"payCode": payCode},
+	               success : function(data) {
+              	   	 console.log(data);    
+	               },
+	               error : function() {
+	                  alert('실패');
+	               }
+	            });    
+
+			
+			
+		});
+		
+		
+	})
+
+</script>
+ 
+</th:block>
+
 <th:block layout:fragment="customContent">
 <h1>결제내역조회임..</h1>
 <table border="1">
@@ -24,7 +62,7 @@
 	</thead>
 	<tbody>
 		<tr th:each="p : ${paymentList}">
-			<td th:text="${p.paymentCode}"></td>
+			<td><span th:text="${p.paymentCode}" class="payCode" style="text-decoration: underline; cursor:pointer;"></span></td>
 			<td th:text="${p.paymentRsvCode}"></td>
 			<td th:text="${p.paymentPrice}"></td>
 			<td th:text="${p.paymentUsePoint}"></td>
@@ -34,6 +72,7 @@
 			<td th:text="${p.paymentIP}"></td>
 			
 			<td>
+				<button	type="button">환불</button>
 				<a  th:href="@{/cancelTest(paymentCode=${p.paymentCode})}">환불</a>
 			</td>
 		</tr>

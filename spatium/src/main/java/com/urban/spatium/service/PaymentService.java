@@ -24,6 +24,11 @@ public class PaymentService {
 	@Autowired 
 	private PaymentMapper paymentMapper;
 	
+	public List<Payment> rsvDetail(String payCode){	
+		return paymentMapper.rsvDetail(payCode);
+		
+	}
+	
 	public List<Payment> getPaymentCode(String paymentCode) {
 		
 		return paymentMapper.getPaymentCode(paymentCode);
