@@ -1,5 +1,8 @@
 package com.urban.spatium.dto;
 
+import java.util.List;
+import java.util.Map;
+
 public class Store {
 	
 	private int storeCode;
@@ -13,10 +16,25 @@ public class Store {
 	private String storeEmail;
 	private String storePhone;
 	private String storeAccountNumber;
-	private String storePaymentMethod;
+	private String storeRefundRull;
+	private String storeRemainingDay;
+	private String storeRefundPercent;
 	private String storeImage;
 	private int storeLevel;
 	
+	private int spaceRelationStoreCode;
+	private int spaceRelationCateCode;
+	private int spaceRelationCode;
+	
+	private List<Map<String,Object>> storeRefundRullList;
+	
+	public String getStoreRefundRull() {
+		return storeRefundRull;
+	}
+	public void setStoreRefundRull(String storeRefundRull) {
+		this.storeRefundRull = storeRefundRull;
+	}
+
 	public int getStoreCode() {
 		return storeCode;
 	}
@@ -83,12 +101,6 @@ public class Store {
 	public void setStoreAccountNumber(String storeAccountNumber) {
 		this.storeAccountNumber = storeAccountNumber;
 	}
-	public String getStorePaymentMethod() {
-		return storePaymentMethod;
-	}
-	public void setStorePaymentMethod(String storePaymentMethod) {
-		this.storePaymentMethod = storePaymentMethod;
-	}
 	public String getStoreImage() {
 		return storeImage;
 	}
@@ -102,14 +114,57 @@ public class Store {
 		this.storeLevel = storeLevel;
 	}
 	
+	public int getSpaceRelationCode() {
+		return spaceRelationCode;
+	}
+	public void setSpaceRelationCode(int spaceRelationCode) {
+		this.spaceRelationCode = spaceRelationCode;
+	}
+	public int getSpaceRelationStoreCode() {
+		return spaceRelationStoreCode;
+	}
+	public void setSpaceRelationStoreCode(int spaceRelationStoreCode) {
+		this.spaceRelationStoreCode = spaceRelationStoreCode;
+	}
+	
+	public int getSpaceRelationCateCode() {
+		return spaceRelationCateCode;
+	}
+	public void setSpaceRelationCateCode(int spaceRelationCateCode) {
+		this.spaceRelationCateCode = spaceRelationCateCode;
+	}
+	
+	public String getStoreRemainingDay() {
+		return storeRemainingDay;
+	}
+	public void setStoreRemainingDay(String storeRemainingDay) {
+		this.storeRemainingDay = storeRemainingDay;
+	}
+	public String getStoreRefundPercent() {
+		return storeRefundPercent;
+	}
+	public void setStoreRefundPercent(String storeRefundPercent) {
+		this.storeRefundPercent = storeRefundPercent;
+	}
+	
+	public List<Map<String, Object>> getStoreRefundRullList() {
+		return storeRefundRullList;
+	}
+	public void setStoreRefundRullList(List<Map<String, Object>> storeRefundRullList) {
+		this.storeRefundRullList = storeRefundRullList;
+	}
+	
 	@Override
 	public String toString() {
 		return "Store [storeCode=" + storeCode + ", storeId=" + storeId + ", storeName=" + storeName
 				+ ", storeRepresentative=" + storeRepresentative + ", storeNumber=" + storeNumber
 				+ ", storeBusinessType=" + storeBusinessType + ", storeAddress=" + storeAddress + ", storeIntroduction="
 				+ storeIntroduction + ", storeEmail=" + storeEmail + ", storePhone=" + storePhone
-				+ ", storeAccountNumber=" + storeAccountNumber + ", storePaymentMethod=" + storePaymentMethod
-				+ ", storeImage=" + storeImage + ", storeLevel=" + storeLevel + "]";
+				+ ", storeAccountNumber=" + storeAccountNumber + ", storeRefundRull=" + storeRefundRull
+				+ ", storeRemainingDay=" + storeRemainingDay + ", storeRefundPercent=" + storeRefundPercent
+				+ ", storeImage=" + storeImage + ", storeLevel=" + storeLevel + ", spaceRelationStoreCode="
+				+ spaceRelationStoreCode + ", spaceRelationCateCode=" + spaceRelationCateCode + ", spaceRelationCode="
+				+ spaceRelationCode + ", storeRefundRullList=" + storeRefundRullList + "]";
 	}
 	
 	

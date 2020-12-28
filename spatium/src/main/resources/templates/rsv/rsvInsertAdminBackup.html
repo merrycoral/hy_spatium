@@ -24,7 +24,7 @@ margin-right: 20px;
 
 <!-- 공간 예약 테이블 -->
 	<form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsertAdmin" method="post">
-	<div class="table-responsive">
+	<div class="table-responsive" id="spaceInfo">
 			<table class="table table-striped jambo_table bulk_action" border="1">
 				<thead>
 					<tr class="headings">
@@ -74,7 +74,7 @@ margin-right: 20px;
 	
 	
 <!-- 장비 예약 테이블 -->
-		<div class="table-responsive">
+		<div class="table-responsive"  id="itemInfo">
 			<table class="table table-striped jambo_table bulk_action" border="1">
 				<thead>
 					<tr class="headings">
@@ -113,12 +113,13 @@ margin-right: 20px;
 					</tr>
 				</tbody>
 			</table>
+			<button id="nextBtn" type="button" class="btn btn-success">예약 정보 입력</button>
 		</div>
 	
 		
 	
 	<!-- 예약 화면 폼 -->
-	<div class="x_panel">
+	<div class="x_panel disableMetter" id="rsvInfo">
 			<div class="x_title">
 				<h2>
 					예약 화면 
@@ -157,7 +158,7 @@ margin-right: 20px;
 						</div>
 					</div>
 					
-					<div class="item form-group">
+					<div class="item form-group datepickerGroup">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">예약 날짜 선택 <span class="required">*</span>
 						</label>
 						<div class="col-md-6 col-sm-6 ">
@@ -235,7 +236,7 @@ margin-right: 20px;
 						<label for="rsvUserRequest"
 							class="col-form-label col-md-3 col-sm-3 label-align">요청 사항</label>
 						<div class="col-md-6 col-sm-6 ">
-							<textarea id="rsvUserRequest" class="form-control" type="text"
+							<textarea id="rsvUserRequest" class="form-control"
 								name="rsvUserRequest"></textarea>
 						</div>
 					</div>
@@ -243,7 +244,7 @@ margin-right: 20px;
 					<div class="ln_solid"></div>
 					<div class="item form-group">
 						<div class="col-md-6 col-sm-6 offset-md-3">
-							<button id="bringBtn" class="btn btn-primary testBtn" type="button">로그인 정보와 동일</button>
+							<button id="prevBtn" class="btn btn-primary testBtn" type="button">이전 화면</button>
 							<button id="submitBtn" type="button" class="btn btn-success">예약하기</button>
 						</div>
 					</div>
@@ -257,24 +258,73 @@ margin-right: 20px;
 	<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script type="text/javascript">
 		
-//예약 폼 스크립트 시작~
-		var num1 = 0;
-		var num2 = 0;
-//미입력되서 경고 뜬거 입력시 지우기
-		$('#rsvUserName').change(function(){
-			$('#rsvUserName').parent().parent().removeClass('bad');
-			$('#rsvUserName').parent().parent().find('.alert').addClass('disableMetter');
+//예약 폼 스
+		
+//다음, 이전버튼으로 예약폼 이동		
+		$('#prevBtn').click(function(){
+			$('#rsvInfo').addClass('disableMetter');
+			$('#spaceInfo').removeClass('disableMetter');
+			$('#itemInfo').removeClass('disableMetter');
 		})
-		$('#rsvUserPhone').change(function(){
-			$('#rsvUserPhone').parent().parent().removeClass('bad');
-			$('#rsvUserPhone').parent().parent().find('.alert').addClass('disableMetter');
-		})
-		$('#datepicker').change(function(){
-			$('#datepicker').parent().parent().removeClass('bad');
-			$('#datepicker').parent().parent().find('.alert').addClass('disableMetter');
+		$('#nextBtn').click(function(){
+			$('#rsvInfo').removeClass('disableMetter');
+			$('#spaceInfo').addClass('disableMetter');
+			$('#itemInfo').addClass('disableMetter');
+			
+			var ItemRsvChecked2 = $('.ItemRsvCheck:checked')
+			var SpaceRsvCheck2 = $('.SpaceRsvCheck:checked')
+			
+			var paramData2 = {};
+			var itemList2 = [];
+			var spaceList2 = [];
+			var inputCheck2 = 0;
+			
+			// 체크된 아이탬 체크박스 값을 가져온다
+			ItemRsvChecked2.each(function(i) {
+				var itemJson2 = {}
+				var tr2 = ItemRsvChecked2.parent().parent().parent().parent().eq(i);
+				var td2 = tr2.children();
+				// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+				var itemCode2 = td2.eq(0).children().children().children().val();
+				itemJson2["itemCode"] = itemCode2;
+				itemList2.push(itemJson2);
+			});
+			
+			// 체크된 공간 체크박스 값을 가져온다.
+			SpaceRsvCheck2.each(function(i) {
+				var spaceJson2 = {}
+				var tr2 = SpaceRsvCheck2.parent().parent().parent().parent().eq(i);
+				var td2 = tr2.children();
+				var spaceCode2 = td2.eq(0).children().children().children().val();
+				spaceJson2["spaceCode"] = spaceCode2;
+				spaceList2.push(spaceJson2);
+			});
+			paramData2["spaceList"] = spaceList2;
+			paramData2["itemList"] = itemList2;
+			console.log("paramData2 : " + JSON.stringify(paramData2));
+			
+			//이미 예약되잇는 날짜 가져오는 ajax시작!!
+			 var request2 = $.ajax({
+				url: '/getExRsv', 
+				method: 'POST',
+				data : JSON.stringify(paramData2),
+				dataType: 'text' ,
+				contentType : "application/json"
+			});
+			request2.done(function( data2 ) {
+				console.log(data2);	
+			});
+			request2.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			}); 
+			
 		})
 		
-//버튼 클릭시 폼넘기기
+		
+		
+//버튼 클릭시 폼넘기기크립트 시작~
+		var num1 = 0;
+		var num2 = 0;
 		$('#submitBtn').click(function(){
 			var paramData = {};
 			var itemList = [];
@@ -292,16 +342,22 @@ margin-right: 20px;
 				$('#rsvUserPhone').parent().parent().addClass('bad');
 				$('#rsvUserPhone').parent().parent().find('.alert').removeClass('disableMetter');
 			}
-			if ($('#datepicker').val()==null || $('#datepicker').val()==""){
-				$('#datepicker').parent().parent().addClass('bad');
-				$('#datepicker').parent().parent().find('.alert').removeClass('disableMetter');
-			}
-//위의 3개가 다 입력되었다면
+//미입력되서 경고 뜬거 입력시 지우기
+		$('#rsvUserName').change(function(){
+			$('#rsvUserName').parent().parent().removeClass('bad');
+			$('#rsvUserName').parent().parent().find('.alert').addClass('disableMetter');
+		})
+		$('#rsvUserPhone').change(function(){
+			$('#rsvUserPhone').parent().parent().removeClass('bad');
+			$('#rsvUserPhone').parent().parent().find('.alert').addClass('disableMetter');
+		})
+		
+//위의 2개가 다 입력되었다면
 			if($('#rsvUserName').val()!=null && $('#rsvUserName').val()!="" && $('#rsvUserPhone').val()!=null && $('#rsvUserPhone').val()!="" && $('#datepicker').val()!=null && $('#datepicker').val()!=""){
-				if ($('#startTime').val()==null || $('#startTime').val()=="" || $('#endTime').val()==null || $('#endTime').val()==""){
-					alert("예약시작시간과 끝시간을 선택해주세요");
-				}else if ((ItemRsvChecked.length+SpaceRsvCheck.length)<=0){
+				if ((ItemRsvChecked.length+SpaceRsvCheck.length)<=0){
 					alert("하나 이상의 예약 대상을 체크해 주세요");
+				}else if ($('#startTime').val()==null || $('#startTime').val()=="" || $('#endTime').val()==null || $('#endTime').val()==""){
+					alert("예약시작시간과 끝시간을 선택해주세요");
 				}else{
 					//모든 입력이 완료되었다면 쿼리 실행
 					// 체크된 아이탬 체크박스 값을 가져온다
@@ -397,7 +453,7 @@ margin-right: 20px;
 	
 				//체크 버튼을 2개 클릭했을경우 두개 사이 모두 체크
 			} else if (checkedTime.length == 2) {
-	
+
 				//체크된 두개 찾기
 				checkedTime.each(function(i, d) {
 					num1 = checkedTime[0].value
@@ -433,11 +489,6 @@ margin-right: 20px;
 		})
 //시간 체크 하기 종료
 		
-//로그인 정보와 동일 버튼
-		$('.testBtn').click(function() {
-			var SpaceRsvChecked = $('.SpaceRsvCheck:checked')
-			console.log(SpaceRsvChecked, '공간 선택');
-		});
 //로그인 정보와 동일 버튼 종료
 		
 		

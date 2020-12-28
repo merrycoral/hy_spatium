@@ -34,35 +34,39 @@ public class RsvService {
 		rsvMapper.insertTbRsv(rsv);
 		int totalPrice = 0;
 		int rsvCode = rsv.getRsvCode();
-		
-		for(int i=0; i<rsv.getSpaceList().size();i++) {	//공간 예약
-			Map<String, Object> spaceRsv = rsv.getSpaceList().get(i);
-			//가격 추가
-			int spacePrice = Integer.valueOf(spaceRsv.get("spaceRentalPrice").toString());
-			totalPrice = totalPrice + spacePrice;
-			
-			//세부 공간 예약 등록
-			rsvMapper.insertRsvSpaceDetail(spaceRsv);
-			Object itemRsvCode = spaceRsv.get("rsvDetailCode");
-			
-			//릴레이션 등록
-			rsvMapper.insertTbRsvRelation(rsvCode,itemRsvCode);
+		if(rsv.getSpaceList() !=null) {
+			for(int i=0; i<rsv.getSpaceList().size();i++) {	//공간 예약
+				Map<String, Object> spaceRsv = rsv.getSpaceList().get(i);
+				//가격 추가
+				int spacePrice = Integer.valueOf(spaceRsv.get("spaceRentalPrice").toString());
+				totalPrice = totalPrice + spacePrice;
+	
+				//공간 중복 체크
+				
+				
+				//세부 공간 예약 등록
+				rsvMapper.insertRsvSpaceDetail(spaceRsv);
+				Object itemRsvCode = spaceRsv.get("rsvDetailCode");
+				
+				//릴레이션 등록
+				rsvMapper.insertTbRsvRelation(rsvCode,itemRsvCode);
+			}
 		}
-		
-		for(int i=0; i<rsv.getItemList().size();i++) {	//장비 예약
-			Map<String, Object> itemRsv = rsv.getItemList().get(i);
-			//가격 추가
-			int itemPrice = Integer.valueOf(itemRsv.get("itemTotalPrice").toString());
-			totalPrice = totalPrice + itemPrice;
-			
-			//세부 장비 예약 등록
-			rsvMapper.insertRsvItemDetail(itemRsv);
-			Object itemRsvCode = itemRsv.get("rsvDetailCode");
-			
-			//릴레이션 등록
-			rsvMapper.insertTbRsvRelation(rsvCode,itemRsvCode);
-			
-			
+		if(rsv.getItemList() != null) {
+			for(int i=0; i<rsv.getItemList().size();i++) {	//장비 예약
+				Map<String, Object> itemRsv = rsv.getItemList().get(i);
+				//가격 추가
+				int itemPrice = Integer.valueOf(itemRsv.get("itemTotalPrice").toString());
+				totalPrice = totalPrice + itemPrice;
+				
+				//세부 장비 예약 등록
+				rsvMapper.insertRsvItemDetail(itemRsv);
+				Object itemRsvCode = itemRsv.get("rsvDetailCode");
+				
+				//릴레이션 등록
+				rsvMapper.insertTbRsvRelation(rsvCode,itemRsvCode);
+				
+			}
 		}
 		
 		rsv.setRsvTotalPrice(totalPrice);
@@ -99,6 +103,21 @@ public class RsvService {
 	public List<Rsv> rsvListExtend(String rsvCode) {
 		List<Rsv> rsvListExtend = rsvMapper.rsvListExtend(rsvCode);
 		return rsvListExtend;
+	}
+
+	public List<Rsv> getExRsv(Rsv rsv) {
+		List<Rsv> getExRsv = rsvMapper.getExRsv(rsv);
+		for(int i=0; i<getExRsv.size(); i++) {
+			String startDT=getExRsv.get(i).getRsvStartDateTime();
+			String endDt=getExRsv.get(i).getRsvEndDateTime();
+			
+			String startT = startDT.substring(10, 13);
+			String endT = endDt.substring(10, 13);
+			getExRsv.get(i).setStartTime(startT);
+			getExRsv.get(i).setEndTime(endT);
+		}
+		
+		return getExRsv;
 	}
 	
 	
