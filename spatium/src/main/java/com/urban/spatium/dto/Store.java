@@ -1,5 +1,8 @@
 package com.urban.spatium.dto;
 
+import java.util.List;
+import java.util.Map;
+
 public class Store {
 	
 	private int storeCode;
@@ -14,14 +17,16 @@ public class Store {
 	private String storePhone;
 	private String storeAccountNumber;
 	private String storeRefundRull;
-	private int storeRemainingDay;
-	private int storeRefundPercent;
+	private String storeRemainingDay;
+	private String storeRefundPercent;
 	private String storeImage;
 	private int storeLevel;
 	
 	private int spaceRelationStoreCode;
 	private int spaceRelationCateCode;
 	private int spaceRelationCode;
+	
+	private List<Map<String,Object>> storeRefundRullList;
 	
 	public String getStoreRefundRull() {
 		return storeRefundRull;
@@ -129,17 +134,24 @@ public class Store {
 		this.spaceRelationCateCode = spaceRelationCateCode;
 	}
 	
-	public int getStoreRemainingDay() {
+	public String getStoreRemainingDay() {
 		return storeRemainingDay;
 	}
-	public void setStoreRemainingDay(int storeRemainingDay) {
+	public void setStoreRemainingDay(String storeRemainingDay) {
 		this.storeRemainingDay = storeRemainingDay;
 	}
-	public int getStoreRefundPercent() {
+	public String getStoreRefundPercent() {
 		return storeRefundPercent;
 	}
-	public void setStoreRefundPercent(int storeRefundPercent) {
+	public void setStoreRefundPercent(String storeRefundPercent) {
 		this.storeRefundPercent = storeRefundPercent;
+	}
+	
+	public List<Map<String, Object>> getStoreRefundRullList() {
+		return storeRefundRullList;
+	}
+	public void setStoreRefundRullList(List<Map<String, Object>> storeRefundRullList) {
+		this.storeRefundRullList = storeRefundRullList;
 	}
 	
 	@Override
@@ -152,7 +164,7 @@ public class Store {
 				+ ", storeRemainingDay=" + storeRemainingDay + ", storeRefundPercent=" + storeRefundPercent
 				+ ", storeImage=" + storeImage + ", storeLevel=" + storeLevel + ", spaceRelationStoreCode="
 				+ spaceRelationStoreCode + ", spaceRelationCateCode=" + spaceRelationCateCode + ", spaceRelationCode="
-				+ spaceRelationCode + "]";
+				+ spaceRelationCode + ", storeRefundRullList=" + storeRefundRullList + "]";
 	}
 	
 	

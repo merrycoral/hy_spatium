@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.urban.spatium.dto.OKSpace;
 import com.urban.spatium.dto.ReadySpace;
@@ -17,7 +18,14 @@ public class SpaceController {
 	@Autowired
 	private SpaceService spaceService;
 	
-	
+	@PostMapping("/spaceListReady")
+	public String addSpace(Model model, ReadySpace readySpace) {
+			System.out.println(readySpace);
+			System.out.println("sexy");
+			String result = spaceService.addReadySpace(readySpace);
+			System.out.println(result);
+		return "redirect:/spaceListReady";
+	}
 	
 	@GetMapping("/addSpace")
 	public String addSpace(Model model) {
@@ -30,7 +38,6 @@ public class SpaceController {
 		List<ReadySpace> readySpaceList = spaceService.readySpaceList();
 			model.addAttribute("title", "공간 승인 대기 리스트");
 			model.addAttribute("readySpaceList", readySpaceList);
-			
 		return "space/readySpaceList";
 	}
 	
