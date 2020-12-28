@@ -27,7 +27,7 @@
 					<select id="board_cate" name="boardCateCode">
 					<option 
 					th:text="${Board.boardCateName}" 
-					th:selected="${Board.boardCate eq param?.selectboardCate?.toString()}"
+					th:selected="${Board.boardCateCode eq param?.selectboardCateCode?.toString()}"
 					>
 					</option>
 
