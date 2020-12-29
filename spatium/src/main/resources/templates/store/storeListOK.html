@@ -38,6 +38,7 @@
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 환불 정책 </th>
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 업체 이미지 </th>
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 업체 레벨 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 업체 수정 </th>
                         </tr>
                       </thead>
 
@@ -59,6 +60,7 @@
 					<td th:text = "${s.storeRefundRull}"></td>
 					<td><img style="height: 180px;" alt = "상점 이미지" th:src="${s.storeImage}"></td>
 					<td th:text = "${s.storeLevel}"></td>
+					<td> <a th:href = "@{/storeUpdate(storeCode=${s.storeCode})}"> 업체 수정 </a> </td>
 				</tr>
 			</th:block>
 		</tbody>
