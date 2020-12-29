@@ -4,11 +4,39 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.RsvMapper">
 	
+	
+	<select id="getExItemRsv" parameterType="Rsv" resultType="Rsv">
+		<![CDATA[
+		SELECT sum(rsvDetailNum) as rsvDetailNum
+			, itemCode, rsvStartDateTime
+			, rsvEndDateTime 
+		FROM
+				(SELECT  
+				  sum(rsvDetailNum) as rsvDetailNum
+				, itemCode, rsvStartDateTime
+				, rsvEndDateTime 
+			FROM 
+				viewRsv
+			GROUP by
+				itemCode, rsvStartDateTime, rsvEndDateTime 
+			having 
+				rsvEndDateTime > #{rsvStartDateTime} 
+				AND
+				rsvStartDateTime < #{rsvEndDateTime} ) as t
+		GROUP BY 
+			itemCode
+		HAVING 
+			itemCode
+		ORDER BY 
+			itemCode;
+		]]>
+	</select>
+		
 	<select id="getExRsv" parameterType="Rsv" resultType="Rsv">
 		SELECT rsvCode, rsvDetailCode, okaySpaceName, itemTotalName, rsvStartDateTime, rsvEndDateTime
 		FROM viewRsv
-		WHERE
-		<foreach item="s" index="index" collection="spaceList" open="(" separator=" or " close=")">
+		WHERE 1=0
+		<foreach item="s" index="index" collection="spaceList" open="or (" separator=" or " close=")">
         okaySpaceCode = #{s.spaceCode}
 	  	</foreach>
 		and
@@ -63,7 +91,6 @@
 			, storeTotalCode
 			, itemTotalName
 			, itemTotalAmount
-			, itemRentalAmount
 			, itemRentalPrice
 			, itemRentalDeposit
 			, itemImg
@@ -108,7 +135,6 @@
 			, storeTotalCode
 			, itemTotalName
 			, itemTotalAmount
-			, itemRentalAmount
 			, itemRentalPrice
 			, itemRentalDeposit
 			, itemImg

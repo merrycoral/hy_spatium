@@ -38,6 +38,8 @@ public interface RsvMapper {
 	public List<Rsv> rsvListExtend(String rsvCode);
 
 	public List<Rsv> getExRsv(Rsv rsv);
+
+	public List<Rsv> getExItemRsv(Rsv rsv);
 	
 	
 }

@@ -1,5 +1,9 @@
 package com.urban.spatium.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,15 +25,30 @@ public class RsvService {
 	private RsvMapper rsvMapper;
 	
 	public void insertTbRsv(Rsv rsv) {
+		//총 예약 시간 구하기
 		
-		String startTime = rsv.getStartTime();
-		String endTime = rsv.getEndTime();
+		int rsvTime = 0;
+		String startTime = rsv.getStartTime()+":00:00";
+		@SuppressWarnings("unused")
+		String endTime = null;
+		if(rsv.getEndTime()==null || rsv.getEndTime()=="") {
+			rsvTime = 1;
+			endTime=rsv.getStartTime()+":59:59";
+		}else {
+			endTime = rsv.getEndTime()+":59:59";
+			int stime = Integer.parseInt(rsv.getStartTime());
+			int etime = Integer.parseInt(rsv.getEndTime());
+			rsvTime = etime-stime;
+		}
 		String rsvStartDateTime = rsv.getRsvDate() + " " +startTime;
 		String rsvEndDateTime = rsv.getRsvDate() + " " +endTime;
+		
 		rsv.setRsvStartDateTime(rsvStartDateTime);
 		rsv.setRsvEndDateTime(rsvEndDateTime);
 		System.out.println(rsvStartDateTime + " <-- 예약 시작 일시");
 		System.out.println(rsvEndDateTime + " <-- 예약 종료 일시");
+		
+		
 		//예약 등록
 		rsvMapper.insertTbRsv(rsv);
 		int totalPrice = 0;
@@ -40,14 +59,11 @@ public class RsvService {
 				//가격 추가
 				int spacePrice = Integer.valueOf(spaceRsv.get("spaceRentalPrice").toString());
 				totalPrice = totalPrice + spacePrice;
-	
+				
 				//공간 중복 체크
-				
-				
 				//세부 공간 예약 등록
 				rsvMapper.insertRsvSpaceDetail(spaceRsv);
 				Object itemRsvCode = spaceRsv.get("rsvDetailCode");
-				
 				//릴레이션 등록
 				rsvMapper.insertTbRsvRelation(rsvCode,itemRsvCode);
 			}
@@ -72,11 +88,8 @@ public class RsvService {
 		rsv.setRsvTotalPrice(totalPrice);
 		System.out.println("총 시간당 예약 가격 --> "+totalPrice);
 		
-		//총 예약 가격 업데이트
-		int startT = Integer.parseInt(startTime);
-		int endT = Integer.parseInt(endTime);
 		//총 예약 가격은 시간당 예약가격 x 예약 시간
-		totalPrice = totalPrice*(endT-startT);
+		totalPrice = totalPrice*(rsvTime);
 		rsvMapper.updateRsvPrice(rsvCode, totalPrice);
 	}
 
@@ -110,14 +123,28 @@ public class RsvService {
 		for(int i=0; i<getExRsv.size(); i++) {
 			String startDT=getExRsv.get(i).getRsvStartDateTime();
 			String endDt=getExRsv.get(i).getRsvEndDateTime();
-			
-			String startT = startDT.substring(10, 13);
-			String endT = endDt.substring(10, 13);
+			String startT = startDT.substring(11, 13);
+			String endT = endDt.substring(11, 13);
 			getExRsv.get(i).setStartTime(startT);
 			getExRsv.get(i).setEndTime(endT);
 		}
 		
 		return getExRsv;
+	}
+	
+	/**
+	 * 그 시간대 장비 현황 파악 메서드
+	 */
+	public List<Rsv> getExItemRsv(Rsv rsv) {
+		rsv.getRsvDate();
+		rsv.getStartTime();
+		rsv.getEndTime();
+		
+		rsv.setRsvStartDateTime(rsv.getRsvDate() +" "+ rsv.getStartTime() + ":00:00");
+		rsv.setRsvEndDateTime(rsv.getRsvDate() +" "+ rsv.getEndTime() + ":00:00");
+		
+		List<Rsv> getExItemRsv = rsvMapper.getExItemRsv(rsv);
+		return getExItemRsv;
 	}
 	
 	
