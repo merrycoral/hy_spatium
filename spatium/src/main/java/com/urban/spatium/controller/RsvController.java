@@ -24,12 +24,20 @@ public class RsvController {
 	@Autowired 
 	private RsvService rsvService; 
 	
+	@RequestMapping(value = "/getExItemRsv", produces="application/json"  ,method = RequestMethod.POST ) 
+	public @ResponseBody List<Rsv> getExItemRsv(@RequestBody Rsv rsv) {
+		System.out.println("에이작스"+rsv);
+		List<Rsv> getExItemRsv = rsvService.getExItemRsv(rsv);
+		
+		return getExItemRsv;
+	}
+	
 	@RequestMapping(value = "/getExRsv", produces="application/json"  ,method = RequestMethod.POST ) 
 	public @ResponseBody List<Rsv> getExRsv(@RequestBody Rsv rsv) {
 		System.out.println("가져오기 -->  "+rsv.getSpaceList());
 		System.out.println("가져오기 -->  "+rsv.getRsvDate());
-		List<Rsv> getExRsv = rsvService.getExRsv(rsv);
-		
+		List<Rsv> getExRsv = null;
+		getExRsv = rsvService.getExRsv(rsv);
 		return getExRsv;
 	}
 	
@@ -54,6 +62,7 @@ public class RsvController {
 		
 		String sessionId = (String) session.getAttribute("SID");
 		rsv.setRsvUserId(sessionId); // 임시 아이디 부여
+		rsv.setRsvStoreCode(5); 	//임시 스토어 코드 부여(세션에 존재하는거 받아올것!)
 		rsvService.insertTbRsv(rsv);
 	    
 	    return "/admin";
@@ -68,7 +77,9 @@ public class RsvController {
 		int storeCode = 5; //넘어온 업체코드가 5라고 가정
 		
 		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
+		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
+		model.addAttribute("getItemByStore", getItemByStore);
 		
 		
 		return "rsv/rsvSpaceInsertAdmin";
