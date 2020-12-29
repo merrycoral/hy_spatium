@@ -16,6 +16,30 @@ public class UserService {
 	@Autowired 
 	private UserMapper userMapper;
 	
+	//회원탈퇴
+		public String removeMyinfo(String userId, String userPw, String userLevel) {
+			String result = "회원 삭제 실패";
+
+			User user = userMapper.login(userId);
+			
+			if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
+				int removeCheck = userMapper.removeMyinfo(userId, userLevel);
+				if(removeCheck > 0) result = "회원 삭제 성공";
+			}
+			return result;
+		}
+	
+	//회원정보수정
+		public String myInfo(User user) {
+			String result = "회원정보수정 실패";
+			
+			int myInfoCheck = userMapper.myInfo(user);
+			
+			if(myInfoCheck > 0) result = "회원정보수정 성공";
+			
+			return result;
+		}
+	
 	//회원삭제
 	public String removeUser(String userId, String userPw, String userLevel) {
 		String result = "회원 삭제 실패";
@@ -45,22 +69,7 @@ public class UserService {
 		
 		List<User> userList = userMapper.getUserList();
 		int listSize = userList.size();
-		for(int i=0; i<listSize; i++) {
-			if("1".equals(userList.get(i).getUserGrade())) {
-				userList.get(i).setUserGrade("관리자");
-			}else if("2".equals(userList.get(i).getUserGrade())) {
-				userList.get(i).setUserGrade("판매자");
-			}else if("3".equals(userList.get(i).getUserGrade())) {
-				userList.get(i).setUserGrade("구매자");	
-			}else if("4".equals(userList.get(i).getUserGrade())) {
-				userList.get(i).setUserGrade("불량");	
-			}else if("5".equals(userList.get(i).getUserGrade())) {
-				userList.get(i).setUserGrade("휴면");	
-			}else {
-				userList.get(i).setUserGrade("탈퇴");
-			}
-		}
-		
+				
 		return userList;
 	}
 		
@@ -70,6 +79,12 @@ public class UserService {
 		User user = userMapper.login(userId);
 		
 		return user;
+	}
+	
+	//아이디 중복체크
+	public int idChk(User user) {
+		int result = userMapper.idChk(user);
+		return result;
 	}
 	
 	//회원가입	

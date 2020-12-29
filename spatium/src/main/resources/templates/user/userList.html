@@ -64,10 +64,10 @@
 				<td th:text="${l.userRegDate}"></td>
 				<td th:text="${l.userPoint}"></td>
 				<td>
-					<a  th:href="@{/modifyUser(userId=${l.userId})}">수정</a>
+					<button type="submit"><a  th:href="@{/modifyUser(userId=${l.userId})}">수정</a></button>
 				</td>
 				<td>
-					<a th:href="@{/removeUser(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a>
+					<button type="submit"><a th:href="@{/removeUser(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a></button>
 				</td>
 
 			</tbody>

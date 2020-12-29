@@ -39,9 +39,10 @@
 					<td th:text="${l.restUserLevel}"></td>
 					<td th:text="${l.restUserEmail}"></td>
 					<td th:text="${l.restUserPoint}"></td>
-					<td><a th:href="@{/modifyUser(restUserId=${l.restUserId})}">수정</a></td>
-					<td><a
-						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a>
+					<td>
+						<button type="submit"><a th:href="@{/modifyUser(restUserId=${l.restUserId})}">수정</a></td>
+					<td>
+						<button type="submit"><a th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a>
 					</td>
 				</tr>
 			</tbody>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.urban.spatium.dto.User;
@@ -21,7 +22,53 @@ import com.urban.spatium.service.UserService;
 public class UserController {
 	
 	@Autowired 
-	private UserService userService; 
+	private UserService userService;
+	
+	//회원탈퇴
+	@PostMapping("/removeMyinfo")
+	public String removeMyinfo(@RequestParam(name="userId", required = false) String userId  
+							  ,@RequestParam(name="userPw", required = false) String userPw
+							  ,@RequestParam(name="userLevel", required = false) String userLevel
+							  ,RedirectAttributes redirectAttr) { 
+		System.out.println("회원탈퇴화면에서 입력받은 값(id)--->"	+ userId);
+		System.out.println("회원탈퇴화면에서 입력받은 값(pw)--->"	+ userPw);
+		System.out.println("회원탈퇴화면에서 입력받은 값(level)--->"+ userLevel);
+		
+		
+		String result = userService.removeMyinfo(userId, userPw, userLevel);
+		
+		System.out.println(result);
+		redirectAttr.addAttribute("result", result);
+		
+		return "redirect:/";
+	}
+	
+	@GetMapping("/removeMyinfo")
+	public String removeMyinfo( Model model
+								,@RequestParam(name="userId", required = false) String userId
+								,@RequestParam(name="userLevel", required = false) String userLevel) {
+		model.addAttribute("title", "회원 탈퇴");
+		model.addAttribute("userId", userId);
+		model.addAttribute("userLevel", userLevel);
+		return "user/userDelete";
+	}
+		
+	//회원정보수정
+	@PostMapping("/myInfo")
+	public String myInfo(User user) {
+		System.out.println("회원 수정 폼에서 입력받은 값" + user);
+				
+		String result = userService.myInfo(user);
+		System.out.println(result);
+		
+		return "redirect:/myInfo";
+	}
+	
+	@GetMapping("/myInfo")
+	public String myInfo(Model model) {
+	
+			return "user/myInfo";
+		}
 	
 	//회원삭제
 	@PostMapping("/removeUser")
@@ -39,7 +86,7 @@ public class UserController {
 		System.out.println(result);
 		redirectAttr.addAttribute("result", result);
 		
-		return "redirect:/memberList";
+		return "redirect:/userList";
 	}
 	
 	@GetMapping("/removeUser")
@@ -78,13 +125,6 @@ public class UserController {
 		
 		return "user/uUpdate";
 	}	
-	
-	//나의 정보
-	@GetMapping("/myInfo")
-	public String myInfo(Model model) {
-	
-		return "user/myInfo";
-	}
 	
 	//탈퇴회원 리스트
 	@GetMapping("/deleteUser")
@@ -207,18 +247,29 @@ public class UserController {
 		return "user/login";
 	}
 	
+	//아이디 중복체크
+	@ResponseBody
+	@RequestMapping(value="/idChk", method = RequestMethod.POST)
+	public int idChk(User user) throws Exception {
+		int result = userService.idChk(user);
+		return result;
+	}
+	
 	//회원가입
-	  @RequestMapping(value = "/addUser", method = RequestMethod.POST) public
-	  String addUser(User user ,@RequestParam(name = "userId", required = false)
-	  String userId) { System.out.println("회원가입화면에서 입력받은 값--->" + user); String
-	  result = userService.addUser(user); System.out.println(result); return
-	  "redirect:/userList"; 
+	@PostMapping("/addUser") 
+	public String addUser(User user ,@RequestParam(name = "userId", required = false)
+	  					String userId) {
+	  System.out.println("회원가입화면에서 입력받은 값--->" + user); 
+	  String result = userService.addUser(user); 
+	  System.out.println(result);
+	  	return "redirect:/userList"; 
 	  }
-	  
-	  @GetMapping("/addUser") public String addUser(Model model) {
-	  model.addAttribute("title", "회원 가입");
-	  return "user/join";
-	  }
-} 
+	
+	@GetMapping("/addUser") public String addUser(Model model) {
+		  model.addAttribute("title", "회원 가입");
+		  return "user/join";
+		  }
+	} 
+
 	
 
