@@ -3,8 +3,61 @@
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/maindefault}">
 
+<th:block layout:fragment="customCss">
+	<link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+</th:block>
+
 <th:block layout:fragment="customJs">
-	<script src="js/bootstrap.js"></script>
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#deviceTable").DataTable({
+		 language: {
+			 
+             "info": "보여지는 page _PAGE_ of _PAGES_",
+             "sFirst": "First",
+             "sLast": "Last",
+             "sNext": "Next",
+             "sPrevious": "Previous",
+             "sEmptyTable": "No data available in table",
+             "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+             "sInfoFiltered": "(filtered from _MAX_ total entries)",
+             "sInfoPostFix": "",
+             "sLengthMenu": "Show _MENU_ entries",
+             "sSearch": "검색:",
+             "sSearchPlaceholder": "",
+             "sZeroRecords": "No matching records found"
+             }
+			
+		});
+
+		
+	})
+</script>
+<!--
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    $("#deviceTable").DataTable({
+	        "pageLength": 10,
+	        ajax:{
+	        	url:"./boardsList",
+	        	type:"GET",
+	        	dataSrc :''
+	        },
+	        columns:[
+	        	{data:"boardIdx"},
+	        	{data:"boardAddId"},
+	        	{data:"boardCateName"},
+	        	{data:"boardTitle"},
+	        	{data:"boardLikeCnt"}
+	        	{data:"boardHitCnt"}
+	        	{data:"boardAddDate"}
+	        	
+	        ]
+	        
+	    });
+	</script>
+	-->
 
 </th:block>
 
@@ -18,21 +71,21 @@
 
 	<h1>게시물 리스트</h1>
 
-	<table class="table table-hover">
-		<thead>
+	<table class="table table-striped dataTable mt-0" id="deviceTable">
+		<thead class="bg-secondary">
 			<tr>
-				<th>게시물 번호</th>
-				<th>회원아이디</th>
-				<th>카테고리</th>
-				<th>제목</th>
-				<th>조회수</th>
-				<th>추천수</th>
-				<th>작성날짜</th>
+				<th class="text-white">게시물 번호</th>
+				<th class="text-white">회원아이디</th>
+				<th class="text-white">카테고리</th>
+				<th class="text-white">제목</th>
+				<th class="text-white">조회수</th>
+				<th class="text-white">추천수</th>
+				<th class="text-white">작성날짜</th>
 			</tr>
 		</thead>
 		<tbody>
 
-			<tr th:if="${#lists.size(boardList) > 0}"
+ 			<tr th:if="${#lists.size(boardList) > 0}"
 				th:each="b : ${boardList}">
 
 				<td><p th:text="${b.boardIdx}"></p></td>
@@ -45,7 +98,7 @@
 				<td><p th:text="${b.boardHitCnt}"></p></td>
 				<td><p th:text="${b.boardAddDate}"></p></td>
 
-			</tr>
+			</tr> 
 
 		</tbody>
 	</table>
@@ -55,7 +108,7 @@
 		</a>
 	</div>
 
-	<div class="pagination">
+<!-- 	<div class="pagination">
 		<a th:href="@{/boardList}">[맨처음]</a>
 		<a th:if="${currentPage > 1}" th:href="@{/boardList(currentPage = ${currentPage - 1 })}">[이전]</a>
 		<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
@@ -64,7 +117,7 @@
 		</th:block>
 		<a th:if="${currentPage < lastPage}"th:href="@{/boardList(currentPage = ${currentPage + 1 })}">[다음]</a>
 		<a th:href="@{/boardList(currentPage = ${lastPage})}">[맨마지막]</a>
-	</div> 
+	</div>  -->
 	
 
 

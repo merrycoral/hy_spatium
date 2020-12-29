@@ -17,14 +17,15 @@ public class BoardService {
 	@Autowired 
 	private BoardMapper boardMapper;
 	
+	public List<Board> getBoardsList(){
+		return boardMapper.getBoardsList(); 
+		
+	}
+	
 
 	
-	/*
-	 * public List<Board> getBoardsList(){
-	 * 
-	 * return boardMapper.getBoardsList(); }
-	 */
 	
+	/*
 	public Map<String, Object> getBoardsList(int currentPage){
 		int startRow = 0;
 		int rowPerPage = 10;
@@ -58,6 +59,8 @@ public class BoardService {
 		
 		return resultMap;
 	}
+	
+	*/
 	
 	public String addPost(Board board) {
 		String result = "게시글 등록 실패";

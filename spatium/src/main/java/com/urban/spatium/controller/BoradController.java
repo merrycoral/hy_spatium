@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.urban.spatium.dto.Board;
 import com.urban.spatium.mapper.BoardMapper;
@@ -39,6 +40,24 @@ public class BoradController {
 		return "borad/faqList";
 	}
 	
+	
+
+	@GetMapping("/boardList")
+	public String boardList(Model model) {
+		List<Board> boardList = boardService.getBoardsList();
+	
+		
+		model.addAttribute("title", "소모임 게시판");
+		model.addAttribute("boardList", boardMapper.getBoardsList());
+		return "borad/boardList";
+	}
+
+		
+
+		
+
+	
+	/*
 	//소모임 게시판 리스트
 	@GetMapping("/boardList")
 	public String getboardList(Model model
@@ -47,7 +66,7 @@ public class BoradController {
 		/*
 		 * List<Board> boardsList = boardService.getBoardsList();
 		 * model.addAttribute("boardsList", boardMapper.getBoardsList());
-		 */
+		
 		
 		Map<String, Object> resultMap = boardService.getBoardsList(currentPage);
 
@@ -59,6 +78,8 @@ public class BoradController {
 
 		return "borad/boardList";
 	}
+	
+	*/
 
 	//게시글 검색
 

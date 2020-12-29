@@ -9,7 +9,7 @@
 		FROM tbBoardCete
 	</select>
 	
-<!-- 	<select id="getBoardsList" resultType="Board">
+ 	<select id="getBoardsList" resultType="Board">
 		SELECT
 			boardIdx
 			,boardAddId
@@ -28,7 +28,9 @@
 				on
 			boardCateCode = boardCate
 		ORDER BY boardIdx DESC;
-	</select> -->
+	</select> 
+	
+	
 	<select id="getBoardsByCode" parameterType="int" resultType="Board">
 		SELECT
 			boardIdx
@@ -53,6 +55,8 @@
 			boardIdx = #{boardIdx};	
 	</select>
 	
+	
+	<!-- 
 	<select id="getBoardsListCount" resultType="int">
 		SELECT
 			count(*)
@@ -82,7 +86,7 @@
 		LIMIT #{startRow}, #{rowPerPage};
 
 	</select>
-	
+	 -->
 	<insert id="addPost" parameterType="Board">
 		INSERT INTO tbBoard
 		( boardAddId
