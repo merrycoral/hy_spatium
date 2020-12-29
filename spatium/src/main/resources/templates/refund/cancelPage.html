@@ -14,27 +14,27 @@
 <table border="1">
 	<tbody >
 		
-		<th:block th:if="${#lists.size(payment) > 0}" th:each = "p : ${payment}">
+		<th:block th:if="${#lists.size(cacelData) > 0}" th:each = "p : ${cacelData}">
 		<th:block th:each = "pr : ${p.RsvList}">
 		<tr>
 			<td>취소하는 방 예약코드</td>
-			<td><input type="text" name="paymentCode" th:value="${payment.paymentRsvCode}"></td>
+			<td><input type="text" name="paymentCode" th:value="${p.paymentRsvCode}"></td>
 		</tr>
 		<tr>
 			<td>취소자 아이디</td>
-			<td><input type="text" name="rsvUserId" th:text = "${pr.rsvUserId}"></td>
+			<td><input type="text" name="rsvUserId" th:value = "${pr.rsvUserId}"></td>
 		</tr>
 		<tr>
 			<td>취소자 이름</td>
-			<td><input type="text" name="rsvUserName" th:text = "${pr.rsvUserName}"></td>
+			<td><input type="text" name="rsvUserName" th:value = "${pr.rsvUserName}"></td>
 		</tr>
 		<tr>
 			<td>취소자 휴대폰</td>
-			<td><input type="text" name="rsvUserPhone" th:text = "${pr.rsvUserPhone}"></td>
+			<td><input type="text" name="rsvUserPhone" th:value = "${pr.rsvUserPhone}"></td>
 		</tr>
 		<tr>
 			<td>실제 결제한 금액</td>
-			<td><input type="text" name="rsvTotalPrice" th:value="${payment.paymentUseMoney}"></td>
+			<td><input type="text" name="rsvTotalPrice" th:value="${p.paymentUseMoney}"></td>
 		</tr>
 		<tr>
 			<td>환불 퍼센트</td>

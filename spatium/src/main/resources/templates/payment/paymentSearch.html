@@ -40,6 +40,7 @@
               	   	 for(var i =0; i<data.rsvDetail.length;i++){
               	   	 	console.log(data.rsvDetail[i]);
 	              	   	innerHtml += "<tr>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvCode+"</td>"
 	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailCode+"</td>"
 	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailSpace+"</td>"
 	              	   	innerHtml += "<td>"+data.rsvDetail[i].okayStoreCode+"</td>"
@@ -50,7 +51,9 @@
 	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailNum+"</td>"
 	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailOnePrice+"</td>"
 	              	   	innerHtml += "<td>"+(data.rsvDetail[i].rsvDetailOnePrice)*(data.rsvDetail[i].rsvDetailNum)+"</td>"
-	              		innerHtml += "</tr>"
+	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvState+"</td>"
+	              		
+	              	   	innerHtml += "</tr>"
               	   	 }
               	   	 
               		
@@ -101,8 +104,7 @@
 			<td th:text="${p.paymentIP}"></td>
 			
 			<td>
-				<button	type="button">환불</button>
-				<a  th:href="@{/cancelTest(paymentCode=${p.paymentCode})}">환불</a>
+				<a th:href="@{/cancelTest(paymentCode=${p.paymentCode})}"><button	type="button">환불</button></a>
 			</td>
 		</tr>
 	</tbody>
@@ -113,6 +115,7 @@
 
 	<thead>
 		<tr>
+			<th>예약코드</th>
 			<th>세부예약코드</th>
 			<th>예약공간코드</th>
 			<th>업체코드</th>
@@ -123,6 +126,7 @@
 			<th>예약개수</th>
 			<th>개별가격</th>
 			<th>결재금액</th>
+			<th>예약상태</th>
 		</tr>
 	</thead>
 	<tbody id="tbody">

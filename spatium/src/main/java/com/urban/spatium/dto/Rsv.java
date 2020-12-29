@@ -34,6 +34,15 @@ public class Rsv {
 	private int rsvTime;
 	private int rsvTimePrice;
 	
+	private Payment payment;
+	
+	
+	public Payment getPayment() {
+		return payment;
+	}
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
 	public int getRsvTimePrice() {
 		return rsvTimePrice;
 	}
@@ -196,6 +205,7 @@ public class Rsv {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -253,6 +263,8 @@ public class Rsv {
 		builder.append(rsvTime);
 		builder.append(", rsvTimePrice=");
 		builder.append(rsvTimePrice);
+		builder.append(", payment=");
+		builder.append(payment);
 		builder.append("]");
 		return builder.toString();
 	}

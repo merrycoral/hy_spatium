@@ -60,10 +60,15 @@ public class refundController {
 		
 		
 		List<Payment> cacelData = paymentService.getPaymentCode(paymentCode);
-		 
-		
+		List<Payment> payList = paymentService.rsvDetail(paymentCode);
+		int storeCode =payList.get(0).getOkayStoreCode();
+		System.out.println("스토어코드>>"+storeCode);
+		List<RefundPolicy> refundPolicy =refundService.getRefundPolicy(storeCode);
+		System.out.println("cacelData 여기>>>>" + cacelData);
+		System.out.println("refundPolicy 여기2>>>>" + refundPolicy);
 		model.addAttribute("cacelData", cacelData);
-		System.out.println("cacelData" + cacelData);
+		model.addAttribute("refundPolicy", refundPolicy);
+		
 		return "refund/cancelPage";
 	}
 	
