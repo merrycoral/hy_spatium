@@ -18,5 +18,11 @@ public interface ReviewMapper {
 
 	public int getAllReviewCount();
 
+	public int blindReview(String reviewCode, String blindValue);
+
+	public int getStoreReviewCount();
+
+	public List<Map<String, Object>> getStoreReview(String sessionId, int startRow, int rowPerPage);
+
 
 }

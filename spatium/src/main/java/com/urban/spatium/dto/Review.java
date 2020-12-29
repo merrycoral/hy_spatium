@@ -4,6 +4,7 @@ public class Review {
 	private int reviewCode;
 	private int reviewSpaceRsv;
 	private int reviewSpaceCode;
+	private String reviewStoreId;
 	private String reviewTitle;
 	private String reviewContents;
 	private String reviewAddId;
@@ -22,15 +23,21 @@ public class Review {
 	
 	@Override
 	public String toString() {
-		return "Review [reviewCode=" + reviewCode + ", reviewSpaceRsv=" + reviewSpaceRsv
-				+ ", reviewSpaceCode=" + reviewSpaceCode + ", reviewTitle=" + reviewTitle + ", reviewContents="
-				+ reviewContents + ", reviewAddId=" + reviewAddId + ", reviewAddDate=" + reviewAddDate
-				+ ", reviewUpDate=" + reviewUpDate + ", reviewLikeCnt=" + reviewLikeCnt + ", reviewType=" + reviewType
-				+ ", reviewPoint=" + reviewPoint + ", reviewDisplay=" + reviewDisplay + ", reviewClean=" + reviewClean
-				+ ", reviewService=" + reviewService + ", reviewRestroom=" + reviewRestroom + ", reviewFacility="
-				+ reviewFacility + ", reviewAmbience=" + reviewAmbience + ", reviewScore=" + reviewScore + "]";
+		return "Review [reviewCode=" + reviewCode + ", reviewSpaceRsv=" + reviewSpaceRsv + ", reviewSpaceCode="
+				+ reviewSpaceCode + ", reviewStoreId=" + reviewStoreId + ", reviewTitle=" + reviewTitle
+				+ ", reviewContents=" + reviewContents + ", reviewAddId=" + reviewAddId + ", reviewAddDate="
+				+ reviewAddDate + ", reviewUpDate=" + reviewUpDate + ", reviewLikeCnt=" + reviewLikeCnt
+				+ ", reviewType=" + reviewType + ", reviewPoint=" + reviewPoint + ", reviewDisplay=" + reviewDisplay
+				+ ", reviewClean=" + reviewClean + ", reviewService=" + reviewService + ", reviewRestroom="
+				+ reviewRestroom + ", reviewFacility=" + reviewFacility + ", reviewAmbience=" + reviewAmbience
+				+ ", reviewScore=" + reviewScore + "]";
 	}
-	
+	public String getReviewStoreId() {
+		return reviewStoreId;
+	}
+	public void setReviewStoreId(String reviewStoreId) {
+		this.reviewStoreId = reviewStoreId;
+	}
 	public int getReviewCode() {
 		return reviewCode;
 	}
