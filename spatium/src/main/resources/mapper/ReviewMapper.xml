@@ -9,6 +9,7 @@
 			reviewCode, 
 			reviewSpaceRsv, 
 			reviewSpaceCode, 
+			reviewStoreId,
 			reviewTitle, 
 			reviewContents, 
 			reviewAddId, 
@@ -26,12 +27,37 @@
 			reviewScore
 	</sql>
 	
+	<select id="getStoreReview" resultType="map">
+		<include refid="seletReviewColumn" />
+		FROM 
+			tbReview
+		ORDER BY reviewCode DESC
+		LIMIT #{startRow}, #{rowPerPage};
+	</select>
+	
+	<select id="getStoreReviewCount" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			viewStore
+		WHERE
+		 storeId = #{sessionId}	;
+	</select>
+	
 	<select id="getAllReviewCount" resultType="int">
 		SELECT
 			count(*)
 		FROM
 			tbReview;
 	</select>
+	
+	<update id="blindReview" parameterType="String">
+		UPDATE tbReview
+		SET
+			reviewDisplay = #{blindValue}
+		WHERE
+			reviewCode = #{reviewCode};
+	</update>
 	
 	<delete id="deleteReview" parameterType="String">
 		DELETE
