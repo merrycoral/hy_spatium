@@ -240,6 +240,7 @@
 			, rsvStartDateTime
 			, rsvEndDateTime
 			, rsvRegDate
+			, rsvStoreCode
 		)VALUES(
 			  #{rsvUserId}
 			, #{rsvUserName}
@@ -250,6 +251,7 @@
 			, #{rsvStartDateTime}
 			, #{rsvEndDateTime}
 			, NOW()
+			, #{rsvStoreCode}
 		);
 	</insert>
 	
