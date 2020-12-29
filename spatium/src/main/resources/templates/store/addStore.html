@@ -2,14 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="@{layout/default}">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
 <th:block layout:fragment="customContent">
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<div class="row">
+
 	<div class="x_panel">
 		<div class="x_title">
 			<h2>어떤 공간을 공유하세요?</h2>
@@ -21,7 +25,7 @@
 				<div style="padding-left: 1000px; color: red">* 표시는 필수 입력
 					사항입니다.</div>
 				<br>
-				<div class="item form-group">
+				<div class="form-group row">
 
 					<label class="col-form-label col-md-3 col-sm-3 label-align">
 						사업자 아이디 <span class="required">*</span>
@@ -32,7 +36,7 @@
 							name="storeId">
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align">
 						상호명 <span class="required">*</span>
 					</label>
@@ -41,7 +45,7 @@
 							name="storeName" placeholder="상호명을 입력해주시기 바랍니다.">
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align">
 						대표자명 <span class="required">*</span>
 					</label>
@@ -50,7 +54,7 @@
 							name="storeRepresentative" placeholder="대표자명을 입력해주시기 바랍니다.">
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align">
 						사업자 번호 <span class="required">*</span>
 					</label>
@@ -63,7 +67,7 @@
 				</div>
 				<span style="padding-left: 870px;"> 업체 유형은 최소 1개에서 5개까지 선택할 수
 					있습니다. </span>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						유형 <span class="required">*</span>
@@ -102,7 +106,7 @@
 					</div>
 				</div>
 
-				<div class="item form-group">
+				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						주소 <span class="required">*</span>
@@ -112,8 +116,8 @@
 							name="storeAddress" placeholder="업체 주소를 입력해주시기 바랍니다.">
 					</div>
 				</div>
-				<div class="item form-group">
-					<label for="middle-name"
+				<div class="form-group row">
+					<label
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						소개 </label>
 					<div class="col-md-6 col-sm-6 ">
@@ -121,7 +125,7 @@
 							name="storeIntroduction" placeholder="업체 소개를 입력해주시기 바랍니다.">
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						이메일 </label>
@@ -130,7 +134,7 @@
 							name="storeEmail" placeholder="업체 이메일을 입력해주시기 바랍니다.">
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						연락처 <span class="required">*</span>
@@ -142,8 +146,8 @@
 						<span> 숫자만 입력해주시기 바랍니다. </span>
 					</div>
 				</div>
-				<div class="item form-group">
-					<label for="middle-name"
+				<div class="form-group row">
+					<label
 						class="col-form-label col-md-3 col-sm-3 label-align"> 사업자
 						계좌번호 <span class="required">*</span>
 					</label>
@@ -155,7 +159,7 @@
 						<span> 숫자만 입력해주시기 바랍니다. </span>
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 환불
 						정책 <span class="required">*</span>
@@ -185,7 +189,7 @@
 						<span> 숫자만 입력해주시기 바랍니다. </span>
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						이미지 <span class="required">*</span>
@@ -196,15 +200,16 @@
 					</div>
 				</div>
 				<div class="ln_solid"></div>
-				<div class="item form-group">
-					<div class="col-md-6 col-sm-6 offset-md-7">
+				<div class="form-group row">
+					<div class="col-md-6 col-sm-6">
 						<input type="submit" class="btn btn-success" value="업체 등록 하기"
-							id="addStore" style="width: 250px; height: 50px;">
+							id="addStore" style="width: 250px; height: 50px; margin-left: 650px;">
 					</div>
 				</div>
 
 			</form>
 		</div>
+	</div>
 	</div>
 
 	<script type="text/javascript">
@@ -279,9 +284,6 @@
 		
 		</script>
 
-
 </th:block>
-
-
 
 </html>

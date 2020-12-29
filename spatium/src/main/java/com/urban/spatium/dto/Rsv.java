@@ -6,6 +6,7 @@ import java.util.Map;
 public class Rsv {
 	private int rsvCode;
 	private String rsvUserId;
+	private int rsvStoreCode;
 	private String rsvUserName;
 	private String rsvUserPhone;
 	private String rsvUserEmail;
@@ -33,7 +34,20 @@ public class Rsv {
 	private String itemTotalName;
 	private int rsvTime;
 	private int rsvTimePrice;
+	private int itemCode;
 	
+	public int getRsvStoreCode() {
+		return rsvStoreCode;
+	}
+	public void setRsvStoreCode(int rsvStoreCode) {
+		this.rsvStoreCode = rsvStoreCode;
+	}
+	public int getItemCode() {
+		return itemCode;
+	}
+	public void setItemCode(int itemCode) {
+		this.itemCode = itemCode;
+	}
 	public int getRsvTimePrice() {
 		return rsvTimePrice;
 	}
@@ -203,6 +217,8 @@ public class Rsv {
 		builder.append(rsvCode);
 		builder.append(", rsvUserId=");
 		builder.append(rsvUserId);
+		builder.append(", rsvStoreCode=");
+		builder.append(rsvStoreCode);
 		builder.append(", rsvUserName=");
 		builder.append(rsvUserName);
 		builder.append(", rsvUserPhone=");
@@ -253,6 +269,8 @@ public class Rsv {
 		builder.append(rsvTime);
 		builder.append(", rsvTimePrice=");
 		builder.append(rsvTimePrice);
+		builder.append(", itemCode=");
+		builder.append(itemCode);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
-	layout:decorate="@{layout/default}">
+	layout:decorate="@{layout/maindefault}">
+
+<th:block layout:fragment="customJs">
+	<script src="js/bootstrap.js"></script>
+
+</th:block>
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+
+
 <th:block layout:fragment="customContent">
 
-	<div class="container " style="margin-top: 50px;">
-	
 	<h1>게시물 리스트</h1>
-	
-	<table class="table">
+
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>게시물 번호</th>
@@ -21,21 +31,43 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:if="${#lists.size(boardsList) > 0}" th:each="b : ${boardsList}">
-				<td th:text="${b.boardIdx}"></td>
-				<td th:text="${b.boardAddId}"></td>
-				<td th:text="${b.boardCateName}"></td>
-				<td th:text="${b.boardTitle}"></td>
-				<td th:text="${b.boardLikeCnt}"></td>
-				<td th:text="${b.boardHitCnt}"></td>
-				<td th:text="${b.boardAddDate}"></td>
 
+			<tr th:if="${#lists.size(boardList) > 0}"
+				th:each="b : ${boardList}">
 
-			</tr>	
+				<td><p th:text="${b.boardIdx}"></p></td>
+				<td><p th:text="${b.boardAddId}"></p></td>
+				<td><p th:text="${b.boardCateName}"></p></td>
+				<td><a
+					th:href="@{/detailPost(boardIdx=${b.boardIdx}, boardTitle=${b.boardTitle})}"
+					th:text="${b.boardTitle}"></a></td>
+				<td><p th:text="${b.boardLikeCnt}"></p></td>
+				<td><p th:text="${b.boardHitCnt}"></p></td>
+				<td><p th:text="${b.boardAddDate}"></p></td>
+
+			</tr>
+
+		</tbody>
 	</table>
 	<div class="text-center">
-		<a th:href="@{/boardWrite}"><button type="button" class="btn btn-success">게시글 작성</button></a>		
+		<a th:href="@{/boardWrite(userId=${session.SID})}">
+			<button type="button" id="addPost" class="btn btn-success">게시글 작성</button>
+		</a>
 	</div>
-	</div>
+
+	<div class="pagination">
+		<a th:href="@{/boardList}">[맨처음]</a>
+		<a th:if="${currentPage > 1}" th:href="@{/boardList(currentPage = ${currentPage - 1 })}">[이전]</a>
+		<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
+			<a th:unless="${currentPage == num}" th:href="@{/boardList(currentPage = ${num})}" th:text="${'[' + num + ']'}"></a>
+			<span th:if="${currentPage == num}" th:text="${'[' + num + ']'}"></span>
+		</th:block>
+		<a th:if="${currentPage < lastPage}"th:href="@{/boardList(currentPage = ${currentPage + 1 })}">[다음]</a>
+		<a th:href="@{/boardList(currentPage = ${lastPage})}">[맨마지막]</a>
+	</div> 
+	
+
+
+
 </th:block>
 </html>

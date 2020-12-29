@@ -14,8 +14,14 @@ import com.urban.spatium.dto.Rsv;
 
 @Mapper
 public interface PaymentMapper {
+
+	public List<Payment> rsvDetail(String payCode);
+	
+	public List<Payment> getPaymentCode(String paymentCode);
 	
 	public int updateState(Rsv rsv);
+	
+	public List<Rsv> rsvSelect();
 	
 	public Rsv rsvState(String rsvCode);
 	

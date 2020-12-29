@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/maindefault}">
+	
+	<th:block layout:fragment="customJs">
+<script src="js/bootstrap.js"></script>
+
+</th:block>
+	
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>	
+	
+<th:block layout:fragment="customContent">
+
+	<div class="container " style="margin-top: 50px;">
+
+		<h1 th:text="${Board.boardTitle}"></h1>
+
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>게시물 번호</th>
+					<td th:text="${Board.boardIdx}"></td>
+					<th>카테고리</th>
+					<td th:value="${Board.boardCate}" th:text="${Board.boardCateName}"></td>
+					<th>조회수</th>
+					<td th:text="${Board.boardLikeCnt}"></td>
+					<th>추천수</th>
+					<td th:text="${Board.boardHitCnt}"></td>
+				</tr>
+				<tr>
+					<th>회원아이디</th>
+					<td id="addId" th:text="${Board.boardAddId}"></td>
+					<th colspan="2">제목</th>
+					<td colspan="2" th:text="${Board.boardTitle}"></td>
+					<th>작성날짜</th>
+					<td th:text="${Board.boardAddDate}"></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${Board.boardContents}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-center">
+			<a th:href="@{/modifyPost(boardIdx=${Board.boardIdx}, boardTitle=${Board.boardTitle})}">
+				<button id="insertBtn" type="submit" class="btn btn-warning">수정</button>
+			</a>
+			<a th:href="@{/removePost(boardIdx=${Board.boardIdx})}">
+				<button id="insertBtn" type="submit" class="btn btn-danger">삭제</button>
+			</a>
+			<a th:href="@{/boardList}"><button type="button" class="btn btn-primary" >게시글보기</button></a>
+		</div>
+	</div>
+	
+	<script type="text/javascript" th:inline="javascript">
+		$(function() {
+			$('#addPost').click(function() {
+				var userId = [[${session.SID}]]
+				var addId = $('#addId')
+				if (userId != addId) {
+					alert('로그인을 해주세요');
+					return false;
+				}
+				
+			});
+			return true;
+		});
+
+
+	</script>
+</th:block>
+</html>

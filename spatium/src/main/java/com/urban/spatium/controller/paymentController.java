@@ -3,7 +3,9 @@ package com.urban.spatium.controller;
 
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,14 +24,26 @@ import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.service.PaymentService;
 
 
+
+
 @Controller
 public class paymentController {
 	@Autowired 
 	private PaymentService paymentService; 
 	
 	
-	
-	
+	@GetMapping("/rsvDetail")
+	public @ResponseBody Map<String, Object> rsvDetail(Model model,
+						@RequestParam String payCode) {
+		System.out.println("여기왔다.");
+		System.out.println(payCode);
+		paymentService.rsvDetail(payCode);
+		System.out.println(paymentService.rsvDetail(payCode));
+	    Map<String, Object> rsvDetailMap = new HashMap<String, Object>();
+	    rsvDetailMap.put("rsvDetail",paymentService.rsvDetail(payCode));
+		
+		return rsvDetailMap;		
+	}
 	@GetMapping("/paymentSSilpae")
 	public String paymentSSilpae(Model model) {
 		model.addAttribute("title", "결제실패화면");
@@ -132,7 +146,14 @@ public class paymentController {
 		
 	}
 	
-	
+	@GetMapping("/rsvList")
+	public String rsvList(Model model) {
+		List<Rsv> rsv = paymentService.rsvSelect();
+		
+		model.addAttribute("rsv", rsv);
+		
+		return "payment/rsvList";
+	}
 	
 	@GetMapping("/paymentSearch")
 	public String paymentSearch(Model model) {

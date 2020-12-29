@@ -2,6 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.StoreMapper">
 
+<select id = "updateStore" resultType="Store">
+
+	SELECT 
+		storeCode
+		, storeId
+		, storeName
+		, storeRepresentative
+		, storeNumber
+		, storeBusinessType
+		, storeAddress
+		, storeIntroduction
+		, storeEmail
+		, storePhone
+		, storeAccountNumber
+		, storeRefundRull
+		, storeImage
+		, storeLevel
+		, storeRegDate
+	FROM 
+		tbStore
+	WHERE
+		storeCode = #{storeCode};
+
+</select>
+
 <insert id="addStoreRelation" parameterType="int">
 	
 	INSERT INTO tbSpaceRelation

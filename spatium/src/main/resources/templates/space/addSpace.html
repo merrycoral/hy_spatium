@@ -22,7 +22,8 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<form class="form-horizontal form-label-left" th:action="@{/spaceListReady}" method="post">
+				<form class="form-horizontal form-label-left"
+					th:action="@{/spaceListReady}" method="post">
 					<div style="padding-left: 1020px; color: red">* 표시는 필수 입력
 						사항입니다.</div>
 					<br>
@@ -45,7 +46,8 @@
 							style="margin-left: -10px; width: 795px;">
 							<th:block th:each="s : ${storeBusiness}">
 								<label class="btn btn-secondary"> <input type="checkbox"
-									class="join-btn" th:value="${s}" th:text="${s}" name="readyStoreBusinessType">
+									class="join-btn" th:value="${s}" th:text="${s}"
+									name="readyStoreBusinessType">
 								</label>
 							</th:block>
 						</div>
@@ -58,8 +60,9 @@
 						<div class="col-md-6 col-sm-6 ">
 							<input id="readyPeopleNumber" class="form-control col"
 								type="text" name="readyPeopleNumber"
-								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="공간 허용 인원수를 입력해주시기 바랍니다.">
-							<span> 숫자만 입력해주시기 바랍니다. </span>
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+								placeholder="공간 허용 인원수를 입력해주시기 바랍니다."> <span> 숫자만
+								입력해주시기 바랍니다. </span>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -87,7 +90,8 @@
 							<span style="color: #aaa; padding-left: 680px" id="counter2">(0
 								/ 최대 500자)</span>
 							<textarea id="readyDetailSpace" name="readyDetailSpace"
-								class="form-control" style="resize: none;" cols="100" rows="10" placeholder="공간 세부 소개를 입력해주시기 바랍니다."></textarea>
+								class="form-control" style="resize: none;" cols="100" rows="10"
+								placeholder="공간 세부 소개를 입력해주시기 바랍니다."></textarea>
 						</div>
 					</div>
 					<span style="color: #aaa; padding-left: 640px"> 태그는 최대
@@ -114,8 +118,9 @@
 						<div class="col-md-6 col-sm-6 ">
 							<input id="readyRentalPrice" class="form-control col" type="text"
 								name="readyRentalPrice"
-								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="공간 대여 가격을 입력해주시기 바랍니다.">
-							<span> 숫자만 입력해주시기 바랍니다. </span>
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+								placeholder="공간 대여 가격을 입력해주시기 바랍니다."> <span> 숫자만
+								입력해주시기 바랍니다. </span>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -156,8 +161,8 @@
 							예약 불가 시작 날짜 <span class="required">*</span>
 						</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input id="readyExceptionStartDate" class="form-control col" type="date"
-								name="readyExceptionStartDate">
+							<input id="readyExceptionStartDate" class="form-control col"
+								type="date" name="readyExceptionStartDate">
 						</div>
 					</div>
 					<div class="form-group row">
@@ -165,14 +170,13 @@
 							예약 불가 종료 날짜 <span class="required">*</span>
 						</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input id="readyExceptionEndDate" class="form-control col" type="date"
-								name="readyExceptionEndDate">
+							<input id="readyExceptionEndDate" class="form-control col"
+								type="date" name="readyExceptionEndDate">
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">
-							공간 기본 옵션
-						</label>
+							공간 기본 옵션 </label>
 						<div class="btn-group form-check" data-toggle="buttons"
 							style="margin-left: -10px; width: 800px;">
 							<label class="btn btn-secondary"> <input type="checkbox"
@@ -253,7 +257,8 @@
 
 					</div>
 					<input type="submit" class="btn btn-primary" value="방 등록하기"
-						style="margin-left: 410px; margin-top: 30px; width: 785px; height: 70px;" id ="addSpace">
+						style="margin-left: 410px; margin-top: 30px; width: 785px; height: 70px;"
+						id="addSpace">
 				</form>
 
 			</div>
@@ -261,82 +266,92 @@
 	</div>
 
 	<script type="text/javascript">
-	
 		$(function() {
-			
-			$('#readyExceptionStartDate, #readyExceptionEndDate').change(function(){
-				var startDate = $('#readyExceptionStartDate').val();
-				var endDate = $('#readyExceptionEndDate').val();
-				var startDateArr = startDate.split('-');
-				var endDateArr = endDate.split('-');
-				var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
-				var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
-				console.log(startDateCompare);
-				console.log(endDateCompare);
-				
-				if(startDateCompare.getTime() > endDateCompare.getTime()){
-					alert("예약 날짜 종료 시간보다 예약 날짜 시작시간이 더 클 수 없습니다.");
-					dateStatus = "예약 불가"
-				}else{
-					dateStatus = "예약 가능"
-					return dateStatus;
-				}
-				
-			});
-			
-			$('#addSpace').click(function(){
-				if($('#readySpaceName').val() == ""){
-					alert("공간 이름을 입력해주시길 바랍니다.");
-					$('#readySpaceName').focus();
-					return false;
-				}else if($('input:checkbox[name="readyStoreBusinessType"]:checked').length == "0"){
-					alert("공간 유형을 선택해주시길 바랍니다.");
-					return false;
-				}else if($('#readyPeopleNumber').val() == ""){
-					alert("공간 허용 인원수를 입력해주시기 바랍니다.");
-					$('#readyPeopleNumber').focus();
-					return false;
-				}else if($('#readyBriefSpace').val() == ""){
-					alert("공간 간략소개를 입력해주시기 바랍니다.");
-					$('#readyBriefSpace').focus();
-					return false;
-				}else if($('#readyDetailSpace').val() == ""){
-					alert("공간 세부소개를 입력해주시기 바랍니다.");
-					$('#readyDetailSpace').focus();
-					return false;
-				}else if($('#readyRentalPrice').val() == ""){
-					alert("공간 대여가격을 입력해주시기 바랍니다.");
-					$('#readyRentalPrice').focus();
-					return false;
-				}else if($('#readyStartTime').val() == ""){
-					alert("공간 영업 시작 시간을 입력해주시기 바랍니다.");
-					$('#readyStartTime').focus();
-					return false;
-				}else if($('#readyCloseTime').val() == ""){
-					alert("공간 영업 종료 시간을 입력해주시기 바랍니다.");
-					$('#readyCloseTime').focus();
-					return false;
-				}else if($('#readySpaceRsvType').val() == "0"){
-					alert("공간 예약 타입을 선택해주시기 바랍니다.");
-					return false;
-				}else if($('#readyExceptionStartDate').val() == ""){
-					alert("공간 예약 불가 시작 날짜를 입력해주시기 바랍니다.");
-					$('#readyExceptionStartDate').focus();
-					return false;
-				}else if($('#readyExceptionEndDate').val() == ""){
-					alert("공간 예약 불가 종료 날짜를 입력해주시기 바랍니다.");
-					$('#readyExceptionEndDate').focus();
-					return false;
-				}else if(dateStatus == "예약 불가"){
-					alert("예약 불가 날짜를 확인해주시기 바랍니다.");
-					$('#readyExceptionEndDate').focus();
-					return false;
-				}else{
-					alert("공간 등록에 성공하셨습니다.");
-					return true;
-				}
-			});
-					
+
+			$('#readyExceptionStartDate, #readyExceptionEndDate')
+					.change(
+							function() {
+								var startDate = $('#readyExceptionStartDate')
+										.val();
+								var endDate = $('#readyExceptionEndDate').val();
+								var startDateArr = startDate.split('-');
+								var endDateArr = endDate.split('-');
+								var startDateCompare = new Date(
+										startDateArr[0],
+										parseInt(startDateArr[1]) - 1,
+										startDateArr[2]);
+								var endDateCompare = new Date(endDateArr[0],
+										parseInt(endDateArr[1]) - 1,
+										endDateArr[2]);
+								console.log(startDateCompare);
+								console.log(endDateCompare);
+
+								if (startDateCompare.getTime() > endDateCompare
+										.getTime()) {
+									alert("예약 날짜 종료 시간보다 예약 날짜 시작시간이 더 클 수 없습니다.");
+									dateStatus = "예약 불가"
+								} else {
+									dateStatus = "예약 가능"
+									return dateStatus;
+								}
+
+							});
+
+			$('#addSpace')
+					.click(
+							function() {
+								if ($('#readySpaceName').val() == "") {
+									alert("공간 이름을 입력해주시길 바랍니다.");
+									$('#readySpaceName').focus();
+									return false;
+								} else if ($('input:checkbox[name="readyStoreBusinessType"]:checked').length == "0") {
+									alert("공간 유형을 선택해주시길 바랍니다.");
+									return false;
+								} else if ($('#readyPeopleNumber').val() == "") {
+									alert("공간 허용 인원수를 입력해주시기 바랍니다.");
+									$('#readyPeopleNumber').focus();
+									return false;
+								} else if ($('#readyBriefSpace').val() == "") {
+									alert("공간 간략소개를 입력해주시기 바랍니다.");
+									$('#readyBriefSpace').focus();
+									return false;
+								} else if ($('#readyDetailSpace').val() == "") {
+									alert("공간 세부소개를 입력해주시기 바랍니다.");
+									$('#readyDetailSpace').focus();
+									return false;
+								} else if ($('#readyRentalPrice').val() == "") {
+									alert("공간 대여가격을 입력해주시기 바랍니다.");
+									$('#readyRentalPrice').focus();
+									return false;
+								} else if ($('#readyStartTime').val() == "") {
+									alert("공간 영업 시작 시간을 입력해주시기 바랍니다.");
+									$('#readyStartTime').focus();
+									return false;
+								} else if ($('#readyCloseTime').val() == "") {
+									alert("공간 영업 종료 시간을 입력해주시기 바랍니다.");
+									$('#readyCloseTime').focus();
+									return false;
+								} else if ($('#readySpaceRsvType').val() == "0") {
+									alert("공간 예약 타입을 선택해주시기 바랍니다.");
+									return false;
+								} else if ($('#readyExceptionStartDate').val() == "") {
+									alert("공간 예약 불가 시작 날짜를 입력해주시기 바랍니다.");
+									$('#readyExceptionStartDate').focus();
+									return false;
+								} else if ($('#readyExceptionEndDate').val() == "") {
+									alert("공간 예약 불가 종료 날짜를 입력해주시기 바랍니다.");
+									$('#readyExceptionEndDate').focus();
+									return false;
+								} else if (dateStatus == "예약 불가") {
+									alert("예약 불가 날짜를 확인해주시기 바랍니다.");
+									$('#readyExceptionEndDate').focus();
+									return false;
+								} else {
+									alert("공간 등록에 성공하셨습니다.");
+									return true;
+								}
+							});
+
 			$('#readyBriefSpace').keyup(function() {
 				var content = $(this).val();
 				$('#counter').html("(" + content.length + " / 최대 20자)");
@@ -347,7 +362,7 @@
 					$('#counter').html("(20 / 최대 20자)");
 				}
 			});
-			
+
 			$('#readyDetailSpace').keyup(function() {
 				var content2 = $(this).val();
 				$('#counter2').html("(" + content2.length + " / 최대 500자)");
@@ -369,7 +384,7 @@
 					$(this).parents('tbody').append(clone);
 				}
 			});
-			
+
 			$(document).on('click', '.removeBtn', function() {
 				var len = $(this).parents('tbody').find('tr').length;
 				if (len > 1) {

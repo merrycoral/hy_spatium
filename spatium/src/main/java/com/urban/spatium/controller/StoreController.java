@@ -20,7 +20,17 @@ public class StoreController {
 
 	@Autowired
 	private StoreService storeService;
-
+	
+	@GetMapping("/storeUpdate")
+	public String updateStore(Model model, Store store
+							, @RequestParam(name = "storeCode", required = false) int storeCode) {
+			List<Store> result = storeService.updateStore(store);
+		System.out.println(storeCode + "==== 업체 수정에서 가져온 스토어 코드 ====");
+			model.addAttribute("title", "업체 수정");
+			model.addAttribute("result", result);
+		return "store/updateStore";
+	}
+	
 	@PostMapping("/addSpace")
 	public String addStore(Model model, Store store) {
 

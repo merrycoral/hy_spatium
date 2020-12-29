@@ -9,7 +9,58 @@
 
 <th:block layout:fragment="customContent">
 
-itemTotalAmount
+<div class="x_panel">
+                  <div class="x_title">
+                    <h2> 장비 수량 목록 </h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                    <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
+                    <div class="row">
+                    </div>
+                    <div class="row"><div class="col-sm-12"><table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
+                      <thead>
+                        <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 80px;"> 장비 코드 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 100px;"> 사업장 코드 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 85px;"> 장비 이름 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 50px;"> 장비 총 보유수량 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 79px;"> 장비 대여 가격 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 장비 대여 보증금 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 장비 사진 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 재고 등록 날짜 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 재고 변동 날짜 </th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 재고 입력한 아이디 </th>
+                        </tr>
+                      </thead>
+
+
+            <tbody>
+			<th:block th:each = "i : ${itemTotalLi}">
+				<tr>
+					<td th:text = "${i.itemCode}"></td>
+					<td th:text = "${i.storeTotalCode}"></td>
+					<td th:text = "${i.itemTotalName}"></td>
+					<td th:text = "${i.itemTotalAmount}"></td>
+					<td th:text = "${i.itemRentalPrice}"></td>
+					<td th:text = "${i.itemRentalDeposit}"></td>
+					<td th:text = "${i.itemImg}"></td>
+					<td th:text = "${i.itemRegDate}"></td>
+					<td th:text = "${i.itemChangeRegDate}"></td>
+					<td th:text = "${i.itemTotalUserId}"></td>
+				</tr>
+			</th:block>
+		</tbody>
+                    </table>
+                    </div></div></div>
+                  </div>
+                  </div>
+              </div>
+            </div>
+                </div>
 
 </th:block>
 
