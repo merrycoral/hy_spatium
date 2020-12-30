@@ -40,6 +40,14 @@ public interface RsvMapper {
 	public List<Rsv> getExRsv(Rsv rsv);
 
 	public List<Rsv> getExItemRsv(Rsv rsv);
+
+	public List<String> getRsvDetailCodeByRsvCode(int rsvCode);
+
+	public void cancelRsvRelation(int rsvCode);
+
+	public void cancelRsv(int rsvCode);
+
+	public void cancelRsvDetail(List<String> rsvDetailList);
 	
 	
 }
