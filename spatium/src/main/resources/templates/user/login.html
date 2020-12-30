@@ -66,6 +66,16 @@
 
 <th:block layout:fragment="customJs">
 <script>
+//number 길이제산
+function maxLengthCheck(object){
+	   if (object.value.length > object.maxLength){
+	    object.value = object.value.slice(0, object.maxLength);
+	   }   
+	  }
+
+</script>
+
+<script>
 function login(){
 	
 	var userId = $("#userId").val();

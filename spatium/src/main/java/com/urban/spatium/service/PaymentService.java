@@ -31,8 +31,10 @@ public class PaymentService {
 	}
 	
 	public List<Payment> getPaymentCode(String paymentCode) {
+		List<Payment> list =paymentMapper.getPaymentCode(paymentCode);
+		System.out.println(list);
 		
-		return paymentMapper.getPaymentCode(paymentCode);
+		return list;
 	}
 	
 	public int updateState(Rsv rsv) {
@@ -56,10 +58,10 @@ public class PaymentService {
 		return paymentMapper.pointSelect();
 	}
 	
-	public List<Payment> paymentSelect(){
+	public List<Payment> paymentSelect(String SID){
 		
 		
-		return paymentMapper.paymentSelect();
+		return paymentMapper.paymentSelect(SID);
 	}
 	
 	public int paymentSystem(Payment payment) {

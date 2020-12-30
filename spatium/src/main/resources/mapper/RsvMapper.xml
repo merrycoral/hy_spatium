@@ -4,6 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.RsvMapper">
 	
+	<delete id="cancelRsvDetail" parameterType="int">
+		DELETE
+		FROM tbRsvDetail
+		WHERE 
+		<foreach item="rsvDList" index="index" collection="rsvDetailList" open="(" separator=" or " close=")">
+		rsvDetailCode = #{rsvDList}
+	  	</foreach>
+	</delete>
+	
+	<delete id="cancelRsv" parameterType="int">
+		DELETE
+		FROM tbRsv
+		WHERE rsvCode = #{rsvCode}
+	</delete>
+	
+	<delete id="cancelRsvRelation" parameterType="int">
+		DELETE
+		FROM tbRsvRelation
+		WHERE rsvRelationRsvCode = #{rsvCode}
+	</delete>
+	
+	<select id="getRsvDetailCodeByRsvCode" parameterType="int" resultType="String">
+		SELECT rsvRelationRsvDetailCode
+		FROM tbRsvRelation
+		WHERE rsvRelationRsvCode = #{rsvCode}
+	</select>
 	
 	<select id="getExItemRsv" parameterType="Rsv" resultType="Rsv">
 		<![CDATA[
@@ -190,8 +216,12 @@
 			, rsvTime
 			, rsvTimePrice
 			, rsvDetailCode
+			, rsvStartDateTime
+			, rsvEndDateTime
 		FROM 
 			viewRsv
+		ORDER BY
+			rsvCode DESC
 	</select>
 		
 	<select id="rsvListExtend" resultType="Rsv">
@@ -227,6 +257,8 @@
 			, rsvState
 		FROM 
 			tbRsv
+		ORDER BY
+			rsvCode DESC
 	</select>
 	
 	<insert id="insertTbRsv" parameterType="Rsv" useGeneratedKeys="true" keyProperty="rsvCode">

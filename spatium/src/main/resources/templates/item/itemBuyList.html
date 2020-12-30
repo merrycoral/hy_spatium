@@ -8,15 +8,13 @@
 </th:block>
 
 <th:block layout:fragment="customContent">
-	<label>Show <select name="datatable_length"
-		aria-controls="datatable" class="form-control input-sm"><option
-				value="10">10</option>
-			<option value="25">25</option>
-			<option value="50">50</option>
-			<option value="100">100</option></select>
-	</label>
-	<label><input type="search" class="form-control input-sm"
-		placeholder="Search" aria-controls="datatable"></label>
+	<form action="/itemBuyList" method="post">
+		<select name="sk">
+			<option value="아이디">아이디</option>
+		</select>
+		<input type="text" name = "sv" placeholder="검색어를 입력해주세요"/>
+		<button type="submit">검색</button>
+	</form>
 
 
 	<div class="col-sm-12">

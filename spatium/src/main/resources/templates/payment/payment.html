@@ -48,11 +48,11 @@
 					
 					minus();//결제해야하는금액 
 				}
-				var abc = Math.floor($('.paymentUseMoney').val()*0.01); //결제금액의 1%포인트적립금
-				 $('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값	
 					
 			})
 			
+				var abc = Math.floor($('.paymentUseMoney').val()*0.01); //결제금액의 1%포인트적립금
+				 $('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값	
 			
 			$("#charge_kakao").click(function() {
 				var IMP = window.IMP; // 생략가능
@@ -175,7 +175,7 @@
 <div>예약자아이디  : <input type="text" th:value = "${rsv.rsvUserId}" name="pointID" readonly="readonly"></div>
 
 <div>결재금액 : <input type="text" th:value="${rsv.rsvTotalPrice}" name="paymentPrice" class="paymentPrice" >  </div>
-<div>사용할마일리지 : <input type="text" name="paymentUsePoint" class="paymentUsePoint">  </div>
+<div>사용할마일리지 : <input type="text" name="paymentUsePoint" class="paymentUsePoint" value="0">  </div>
 <!-- 사용할 마일리지  : --> <input type="hidden" name="usePoint" class="usePoint" >
 <div>최종결재금액 : <input type="text" name="paymentUseMoney" class="paymentUseMoney" readonly="readonly">  </div>
 <div>적립포인트 : <input type="text" name="addPoint" class="paymentAddPoint" readonly="readonly">  </div>

@@ -427,7 +427,7 @@ margin-right: 20px;
 					});
 					request.done(function( data ) {
 						console.log(data);	
-						//location.href = data;	
+						location.href = data;	
 					});
 					request.fail(function( jqXHR, textStatus ) {
 						alert( "Request failed: " + textStatus );
@@ -450,7 +450,6 @@ margin-right: 20px;
 		
 		//이미 체크되있는 시간 다 지우기
 			checkedTime = $('.timeCheck input:checked');
-			console.log(checkedTime);
 			checkedTime.each(function() {
 				console.log($(this));
 					$(this).parent().removeClass('btn-primary');
@@ -459,6 +458,14 @@ margin-right: 20px;
 			$('.timeCheck input').each(function() {
 				$(this).prop('checked', false);
 			})
+		//이미 체크되있는 장비 다 지우기
+			checkedItem = $('.ItemRsvCheck:checked');
+			checkedItem.each(function() {
+				$(this).prop('checked', false);
+				$(this).parent().removeClass('checked');
+			})
+		//장비예약버튼을 다시 누르게끔 떠있는 장비창 다시 숨기기
+			$('#itemInfo').addClass('disableMetter');
 				
 		//날짜 클릭시 이미 예약되있는거 가져오기!!
 		var SpaceRsvCheck2 = $('.SpaceRsvCheck:checked');
