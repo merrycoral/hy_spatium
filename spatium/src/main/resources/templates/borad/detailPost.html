@@ -10,8 +10,8 @@
 			$('#insertBtn').click(function() {
 				var userId = [[${session.SID}]]
 				var addId = $('#addId')
-				if (userId != addId) {
-					alert('아이디가 일치하지 않습니다.');
+				if (userId == null) {
+					alert('로그인 해주세요');
 					return false;
 				}
 				
@@ -19,7 +19,29 @@
 			return true;
 		});
 
+		function removePost(boardIdx, queryString) {
 
+			if (confirm(boardIdx + "번 게시글을 삭제할까요?")) {
+				var uri = /*[[ @{/board/removePost} ]]*/;
+				var html = "";
+
+				html += '<form name="dataForm" action="'+uri+'" method="post">';
+				html += '<input type="hidden" name="boardIdx" value="'+boardIdx+'" />';
+
+				/*[- 쿼리 스트링을 오브젝트 형태로 변환 -]*/
+				queryString = new URLSearchParams(queryString);
+				queryString.forEach(function(value, key) {
+					if (isEmpty(value) == false) {
+						html += '<input type="hidden" name="' + key + '" value="' + value + '" />';
+					}
+				});
+
+				html += '</form>';
+
+				$("body").append(html);
+				document.dataForm.submit();
+			}
+		}
 	</script>
 </th:block>
 	
@@ -60,14 +82,16 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="text-center">
-			<a th:href="@{/modifyPost(boardIdx=${Board.boardIdx}, boardTitle=${Board.boardTitle})}">
+		<div class="text-center" th:object="${params}">
+			<a th:href="|@{/modifyPost}*{makeQueryString(currentPageNo)}&boardIdx=${Board.boardIdx}|">
 				<button id="insertBtn" type="submit" class="btn btn-warning">수정</button>
 			</a>
-			<a th:href="@{/removePost(boardIdx=${Board.boardIdx})}">
-				<button id="insertBtn" type="submit" class="btn btn-danger">삭제</button>
-			</a>
-			<a th:href="@{/boardList}"><button type="button" class="btn btn-primary" >게시글보기</button></a>
+			
+				<button id="insertBtn" type="submit" class="btn btn-danger"
+				th:onclick="removePost([[ ${Board.boardIdx} ]], [[ *{makeQueryString(currentPageNo)} ]])">삭제</button>
+
+			<a th:href="|@{/boardList}*{makeQueryString(currentPageNo)}|">
+			<button type="button" class="btn btn-primary" >게시글보기</button></a>
 		</div>
 	</div>
 	

@@ -146,6 +146,7 @@
 			boardIdx = #{boardIdx};		
 	</update>
 	
+	<!-- 
 	<delete id="removePost" parameterType="int">
 		DELETE
 		FROM
@@ -153,5 +154,14 @@
 		WHERE
 			boardIdx = #{boardIdx};
 	</delete>
+	 -->
+	 
+	 <update id="blindPost" parameterType="int">
+		UPDATE tbBoard
+		SET
+			  boardBlind = 'Y'
+		WHERE
+			boardIdx = #{boardIdx};
+	</update>
 
 </mapper>

@@ -126,31 +126,31 @@ public class BoradController {
 	 }
 	 
 	 //소모임 게시글 상세조회
-	 @GetMapping("/detailPost")
-		public String detailPost(@RequestParam(name="boardIdx", required = false) int boardIdx
-								 ,@RequestParam(name="boardTitle", required = false) String boardTitle
+	 @GetMapping(value = "/detailPost")
+		public String detailPost(@ModelAttribute("params") Board params
+								 ,@RequestParam(name="boardIdx", required = false) int boardIdx
 								 ,Model model) {
-
+		
 		Board board = boardService.getBoardsByCode(boardIdx);
 		
-		model.addAttribute("title", boardTitle);
+		model.addAttribute("title", "게시글 상세보기");
 		model.addAttribute("Board", board);
-		
-		
+
 		
 		return "borad/detailPost";
 		}
 	 
 	 //소모임 게시글 수정(view)
-	 @GetMapping("/modifyPost")
-	 public String modifyPost(@RequestParam(name="boardIdx", required = false) int boardIdx
-							 ,@RequestParam(name="boardTitle", required = false) String boardTitle
+	 @GetMapping(value ="/modifyPost")
+	 public String modifyPost(@ModelAttribute("params") Board params
+			 				 ,@RequestParam(name="boardIdx", required = false) int boardIdx
 							 ,Model model) {
 		 
 		 Board board = boardService.getBoardsByCode(boardIdx);
 		 List<Board> boardCate = boardService.getBoardCate();
+		 Map<String, Object> pagingParams = boardService.getPagingParams(params);
 		 model.addAttribute("boardCate", boardCate);
-		 model.addAttribute("title", boardTitle);
+		 model.addAttribute("title", "게시글 수정");
 		 model.addAttribute("Board", board);
 		 
 		 
@@ -158,10 +158,15 @@ public class BoradController {
 	 }
 	 
 	 //소모임 게시글 수정(Action)
-		@PostMapping("/modifyPost")
-		public String modifyGoods(Board board) {
+		@PostMapping(value ="/modifyPost")
+		public String modifyGoods(@ModelAttribute("params") Board params
+								  ,Board board) {
 			
 			String result = boardService.modifyPost(board);
+			Map<String, Object> pagingParams = boardService.getPagingParams(params);
+
+			
+			
 			System.out.println(result);
 				
 			return "redirect:/boardList";

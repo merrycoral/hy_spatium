@@ -135,13 +135,13 @@
 		<tbody>
 
  			<tr th:if="${#lists.size(boardList) > 0}"
-				th:each="b : ${boardList}">
+				th:each="b : ${boardList}" th:object="${params}">
 
 				<td>[[${b.boardIdx}]]</td>
 				<td>[[${b.boardAddId}]]</td>
 				<td>[[${b.boardCateName}]]</td>
 				<td>
-					<a th:href="@{/detailPost(boardIdx=${b.boardIdx}, boardTitle=${b.boardTitle})}" style="text-overflow: ellipsis;">
+					<a th:href="|@{/detailPost}*{makeQueryString(currentPageNo)}&boardIdx=${b.boardIdx}|" style="text-overflow: ellipsis;">
 						[[${b.boardTitle}]]
 					</a>
 				</td>

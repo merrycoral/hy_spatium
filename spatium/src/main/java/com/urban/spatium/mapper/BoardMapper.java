@@ -16,13 +16,16 @@ public interface BoardMapper {
 
 	/* public List<Board> getBoardsList(); */
 
-	public int addPost(Board board);
-
+	public int registerBoard(Board params);
+	
 	public List<Board> getBoardCate();
 
 	public Board getBoardsByCode(int boardIdx);
 
-	public int modifyPost(Board board);
+	/*
+	public int modifyPost(Board params);
+	public int addPost(Board params);
+	*/
 	
 	public int removePost(int boardIdx);
 	

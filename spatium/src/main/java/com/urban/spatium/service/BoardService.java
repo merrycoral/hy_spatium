@@ -2,6 +2,7 @@ package com.urban.spatium.service;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,13 +52,35 @@ public class BoardService {
 	public String addPost(Board board) {
 		String result = "게시글 등록 실패";
 		
-		int insertCheck = boardMapper.addPost(board);
+		int insertCheck = boardMapper.registerBoard(board);
 		
 		if(insertCheck > 0) result = "게시글 등록 완료";
 		
 		return result;
 	}
 
+	public String modifyPost(Board board) {
+		String result = "게시글 수정 실패";
+		
+		int insertCheck = boardMapper.registerBoard(board);
+		
+		if(insertCheck > 0) result = "수정 완료";
+		
+		return result;
+	}
+	
+	public Map<String, Object> getPagingParams(Criteria criteria) {
+
+		Map<String, Object> params = new LinkedHashMap<>();
+		params.put("currentPageNo", criteria.getCurrentPageNo());
+		params.put("recordsPerPage", criteria.getRecordsPerPage());
+		params.put("pageSize", criteria.getPageSize());
+		params.put("searchType", criteria.getSearchType());
+		params.put("searchKeyword", criteria.getSearchKeyword());
+
+		return params;
+	}
+	
 	public List<Board> getBoardCate() {
 		List<Board> getBoardCate = boardMapper.getBoardCate();
 		return getBoardCate;
@@ -70,15 +93,6 @@ public class BoardService {
 		return board;
 	}
 
-	public String modifyPost(Board board) {
-		String result = "게시글 등록 실패";
-		
-		int insertCheck = boardMapper.modifyPost(board);
-		
-		if(insertCheck > 0) result = "등록 완료";
-		
-		return result;
-	}
 	
 	public String removePost(int boardIdx) {
 		String result = "게시글 삭제 실패";

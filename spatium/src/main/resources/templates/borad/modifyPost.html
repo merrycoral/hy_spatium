@@ -60,10 +60,10 @@
 				</td>
 			</tr>
 		</table>
-			<div class="text-center">
+			<div class="text-center"  th:object="${params}">
 					<button id="insertBtn" type="submit" class="btn btn-success">게시글 수정하기</button>
 					<button type="reset" class="btn btn-warning">다시쓰기</button>
-					<a th:href="@{/boardList}"><button type="button"  class="btn btn-primary">게시글보기</button></a>
+					<a th:href="|@{/boardList}*{makeQueryString(currentPageNo)}|"><button type="button"  class="btn btn-primary">게시글보기</button></a>
 					
 			</div>
 	</form>
