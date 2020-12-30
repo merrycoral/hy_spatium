@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/default}">
+	
+<th:block layout:fragment="customContent">
+    <section class="content-header">
+      <h1>
+        게시판 페이징 적용
+        <small>advanced tables</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Tables</a></li>
+        <li class="active">Data tables</li>
+      </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box-header with-border">
+              <h3 class="box-title">게시판 + 페이징</h3>
+              
+              <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form id="selectReview" method="post">
+				<div class="table-responsive">
+					<table class="table table-striped jambo_table bulk_action" id="reviewTable" style="padding: 0px;">
+						<thead>
+							<tr class="headings">
+								<th><input type="checkbox" id="check-all" class="flat">
+								</th>
+								<th class="column-title">리뷰 코드</th>
+								<th class="column-title">예약 코드</th>
+								<th class="column-title">방 코드</th>
+								<th class="column-title">리뷰 제목</th>
+								<th class="column-title">작성자</th>
+								<th class="column-title">등록일</th>
+								<th class="column-title">수정일</th>
+								<th class="column-title">추천수</th>
+								<th class="column-title">리뷰<br>타입
+								</th>
+								<th class="column-title">적립<br>포인트
+								</th>
+								<th class="column-title">전시<br>상태</th>
+								<th class="column-title">청결도</th>
+								<th class="column-title">서비스</th>
+								<th class="column-title">화장실</th>
+								<th class="column-title">시설</th>
+								<th class="column-title">분위기</th>
+								<th class="column-title no-link last">종합</th>
+								<th class="column-title bulk-actions" colspan="18" style="height: 50px;"> 선택된 리뷰  ( <span
+										class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="even pointer" th:if="${#lists.size(list) > 0}"
+								th:each="ar : ${list}">
+								<td class="a-center "><input type="checkbox" class="flat"
+									name="table_records" th:value="${ar.reviewCode}"></td>
+		<td class=" " th:text="${ar.reviewCode}"></td>
+		<td class=" " th:text="${ar.reviewSpaceRsv}"></td>
+		<td class=" " th:text="${ar.reviewSpaceCode}"></td>
+		<td class=" "><details style="width:200px;">
+				<summary th:text="${ar.reviewTitle}"></summary>
+				<span th:text="${ar.reviewContents}"> </span>
+			</details></td>
+		<td class=" " th:text="${ar.reviewAddId}"></td>
+		<td class=" " th:text="${ar.reviewAddDate}"></td>
+		<td class=" " th:text="${ar.reviewUpDate}"></td>
+		<td class=" " th:text="${ar.reviewLikeCnt}"></td>
+		<td class=" " th:text="${ar.reviewType}"></td>
+		<td class=" " th:text="${ar.reviewPoint}"></td>
+		<td class=" " th:text="${ar.reviewDisplay}"></td>
+		<td class=" " th:text="${ar.reviewClean}"></td>
+		<td class=" " th:text="${ar.reviewService}"></td>
+		<td class=" " th:text="${ar.reviewRestroom}"></td>
+		<td class=" " th:text="${ar.reviewFacility}"></td>
+		<td class=" " th:text="${ar.reviewAmbience}"></td>
+		<td class=" last" th:text="${ar.reviewScore}"></td>
+
+							</tr>
+						</tbody>
+					</table>
+					<input type="hidden" id="hiddenBox" name="blindValue">
+				</div>
+			</form>
+                
+	             
+
+            <!-- /.box-body -->
+            
+            <!-- 게시판 하단의 페이징 버튼 -->
+            <div class="box-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+              
+              <li th:if="${pageMaker.prev} == true">
+              	<a th:href="@{listPage(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
+              </li>
+              
+              <li th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
+                <a th:href="@{listPage(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
+              </li>
+                
+              <li th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
+              	<a th:href="@{listPage(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
+              </li>
+              
+              </ul>
+              
+            </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  <!-- /.content-wrapper -->
+
+
+</th:block>
+<th:block layout:fragment="customJs">
+<script th:inline="javascript">
+
+$(function () {
+	
+	var result =/*[[${msg}]]*/ 'default';
+	
+	if(result == 'success'){
+		alert("처리가 완료되었습니다. result:" + result);
+	}
+	
+  });
+
+</script>
+</th:block>
+</html>

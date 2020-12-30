@@ -27,10 +27,20 @@
 			reviewScore
 	</sql>
 	
+	<select id="exallReview" resultType="Review">
+		<include refid="seletReviewColumn" />
+		FROM 
+			tbReview
+		ORDER BY reviewCode DESC
+		LIMIT #{startRow}, #{rowPerPage};
+	</select>
+	
 	<select id="getStoreReview" resultType="map">
 		<include refid="seletReviewColumn" />
 		FROM 
 			tbReview
+		WHERE
+			reviewStoreId = #{sessionId}
 		ORDER BY reviewCode DESC
 		LIMIT #{startRow}, #{rowPerPage};
 	</select>
@@ -39,9 +49,9 @@
 		SELECT
 			count(*)
 		FROM
-			viewStore
+			tbReview
 		WHERE
-		 storeId = #{sessionId}	;
+		 reviewStoreId = #{sessionId}	;
 	</select>
 	
 	<select id="getAllReviewCount" resultType="int">
@@ -67,7 +77,19 @@
 			reviewCode = #{reviewCode};
 	</delete>
 
-	<select id="searchReview" parameterType="String" resultType="Review">
+	<select id="searchReview" parameterType="String" resultType="map">
+		<include refid="seletReviewColumn" />
+		FROM 
+			tbReview
+		WHERE
+			<if test="searchKey != null and searchKey neq ''.toString()">
+				${searchKey} LIKE CONCAT('%', #{searchValue} , '%')
+			</if>
+		ORDER BY reviewCode DESC
+		LIMIT #{startRow}, 1000;
+	</select>
+	
+	<select id="searchReviewUnit" parameterType="String" resultType="Review">
 		<include refid="seletReviewColumn" />	
 		FROM 
 			tbReview
@@ -75,7 +97,8 @@
 			<if test="searchKey != null and searchKey neq ''.toString()">
 				${searchKey} LIKE CONCAT('%', #{searchValue} , '%')
 			</if>
-		ORDER BY reviewCode DESC;
+		ORDER BY reviewCode DESC
+		LIMIT #{startRow}, 1000;
 	</select>
 	
 	<select id="getAllReview" resultType="map">
