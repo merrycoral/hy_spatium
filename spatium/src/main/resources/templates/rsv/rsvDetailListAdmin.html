@@ -6,21 +6,16 @@
 	<div class="x_content">
 		<p>예약 리스트</p>
 		<div class="table-responsive">
-			<table class="table table-striped jambo_table bulk_action" border="1">
+			<table class="table table-striped jambo_table bulk_action" id="rsvDetailListTb" border="1">
 
 				<thead>
 					<tr class="headings">
-						<th>
-							<div class="icheckbox_flat-green" style="position: relative;">
-								<input type="checkbox" id="check-all" class="flat"
-									style="position: absolute; opacity: 0;"> 
-							</div>
-						</th>
 						<th class="column-title">예약 코드</th>
 						<th class="column-title">예약자</th>
 						<th class="column-title">예약 공간</th>
 						<th class="column-title">예약 장비</th>
-						<th class="column-title">예약 가격</th>
+						<th class="column-title">예약 시작 일시</th>
+						<th class="column-title">예약 종료 일시</th>
 						<th class="column-title">예약 개수</th>
 						<th class="column-title">시간당 가격</th>
 						<th class="column-title">시간</th>
@@ -35,17 +30,12 @@
 
 				<tbody>
 					<tr class="even pointer" th:if="${#lists.size(rsvDetailList) > 0}" th:each = "r : ${rsvDetailList}">
-						<td class="a-center ">
-							<div class="icheckbox_flat-green" style="position: relative;">
-								<input type="checkbox" class="flat" name="table_records" th:value="${r.rsvDetailCode}"
-									style="position: absolute; opacity: 0;">
-							</div>
-						</td>
 						<td th:text="${r.rsvCode}" class=" "></td>
 						<td th:text="${r.rsvUserName}" class=" "></td>
 						<td th:text="${r.okaySpaceName}" class=" "></td>
 						<td th:text="${r.itemTotalName}" class=" "></td>
-						<td th:text="${r.rsvDetailOnePrice}" class=" "></td>
+						<td th:text="${r.rsvStartDateTime}" class=" "></td>
+						<td th:text="${r.rsvEndDateTime}" class=" "></td>
 						<td th:text="${r.rsvDetailNum}" class=" "></td>
 						<td th:text="${r.rsvDetailTotalPrice}" class=" "></td>
 						<td th:text="${r.rsvTime}" class=" "></td>
@@ -60,5 +50,36 @@
 
 
 
+</th:block>
+<th:block layout:fragment="customJs">
+	<script>
+		$(function(){
+			$("#rsvDetailListTb").DataTable({
+				order: [ [ 1, "desc" ] ],
+				ordering: true,
+				lengthChange: false,
+				"dom": '<"myCustomClass"f>rt<"bottom"lp><"clear">',
+				"language": {
+					         "info": "페이지 _PAGE_ of _PAGES_",
+				        	 "paginate": {
+								        	 "first": "첫페이지",
+								        	 "last": "마지막",
+								             "previous": "이전",
+								             "next":"다음"
+								           },
+				        	 "sEmptyTable": "No data available in table",
+				        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+				        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+				        	 "sInfoPostFix": "",
+				        	 "sLengthMenu": "Show _MENU_ 개씩",
+				        	 "sSearch": "검색:",
+				        	 "sSearchPlaceholder": "",
+				        	 "sZeroRecords": "No matching records found"
+					         }
+			});
+		});
+	
+		
+	</script>
 </th:block>
 </html>

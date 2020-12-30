@@ -146,6 +146,15 @@ public class RsvService {
 		List<Rsv> getExItemRsv = rsvMapper.getExItemRsv(rsv);
 		return getExItemRsv;
 	}
+
+	public void cancelRsv(int rsvCode) {
+		List<String> rsvDetailList = rsvMapper.getRsvDetailCodeByRsvCode(rsvCode);
+		rsvMapper.cancelRsvRelation(rsvCode);
+		rsvMapper.cancelRsv(rsvCode);
+		rsvMapper.cancelRsvDetail(rsvDetailList);
+		System.out.println("삭제완료");
+		
+	}
 	
 	
 	
