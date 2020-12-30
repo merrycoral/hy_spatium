@@ -20,6 +20,7 @@
 			<result column="rsvUserName" property="rsvUserName"/>
 			<result column="rsvState" property="rsvState"/>
 			<result column="rsvUserPhone" property="rsvUserPhone"/>
+			<result column="rsvStartDateTime" property="rsvStartDateTime"/>
 		</collection>
 		
 	</resultMap>

@@ -19,13 +19,52 @@ table{float: left; margin-right: 200px;}
 <th:block layout:fragment="customJs">
 	<script>
 		$(function(){
-			var day = $('.day').val();
-			var pay = $('.pay').val();
-			var paydate = $('paydate').val();
-				console.log(day.length);
-			for(i=0; i<day.length; i++){
-				day.val(i);
+			
+			function dateCal(){
+				var rsvdate = $('.rsvdate').val();
+				var rsvdateYear = rsvdate.substring(0,4);
+				var rsvdateMonth = rsvdate.substring(5,7);
+				var rsvdateDay = rsvdate.substring(8,10);
+				console.log(rsvdateYear+"-"+rsvdateMonth+"-"+rsvdateDay);
+				var rsvDay = new Date(rsvdateYear,rsvdateMonth,rsvdateDay);
+				var toDay = new Date();
+				var toDayYear = toDay.getFullYear();
+				var toDayMonth = toDay.getMonth();
+				toDay.setMonth(toDayMonth+1);
+				toDayMonth = toDay.getMonth();
+				if(toDayMonth==0){
+					toDayMonth=12;
+				}
+				var toDayDay = toDay.getDate();
+				console.log(toDayYear+"-"+toDayMonth+"-"+toDayDay);
+				var elapsedMSec = rsvDay.getTime() - toDay.getTime();
+				var elapsedDay = Math.ceil(elapsedMSec/1000/60/60/24);
+				console.log("계산>>>"+elapsedDay);
+				console.log($('.day').length);	
+				var result;
+				for(var i=0;i<$('.day').length;i++){
+					if(elapsedDay>=$('.day').eq(0).val()){
+						result = $('.Pay').eq(0).val()
+					}else if(elapsedDay<$('.day').eq(i-1).val() && elapsedDay>=$('.day').eq(i).val()){
+						result = $('.Pay').eq(i).val();
+					}
+				}
+				
+				var reCal = (result/100)*$('.rsvTotalPrice').val();
+				$('.rePercent').val(result+"%");
+				$('.rePrice').val((result/100)*$('.rsvTotalPrice').val());
+				
+				return reCal;
+				
 			}
+			
+			dateCal();
+			console.log(dateCal());
+			
+			
+
+		
+			
 		})
 	</script>
 </th:block>
@@ -60,15 +99,15 @@ table{float: left; margin-right: 200px;}
 		</tr>
 		<tr>
 			<td>실제 결제한 금액</td>
-			<td><input type="text" name="rsvTotalPrice" th:value="${p.paymentUseMoney}" readonly="readonly"></td>
+			<td><input type="text" class="rsvTotalPrice" name="rsvTotalPrice" th:value="${p.paymentUseMoney}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>환불 퍼센트</td>
-			<td><input type="text"></td>
+			<td><input type="text" class="rePercent"></td>
 		</tr>
 		<tr>
 			<td>환불하는 금액</td>
-			<td><input type="text" ></td>
+			<td><input type="text" class="rePrice"></td>
 		</tr>
 		
 		<tr>
@@ -78,6 +117,10 @@ table{float: left; margin-right: 200px;}
 		<tr>
 			<td>결제 날짜</td>
 			<td><input type="text" class="paydate" th:value="${p.paymentRegDate}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>예약 날짜</td>
+			<td><input type="text" class="rsvdate" th:value="${pr.rsvStartDateTime}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td colspan="2"><a href="cancelTest2"><button type="button">취소신청</button></a></td>
