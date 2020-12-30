@@ -2,34 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customCss">
+</th:block>
 
 <th:block layout:fragment="customJs">
-
-<script>
-	$(function(){
-		//결재 완료된건 a링크 삭제 후 텍스트로 표현
-		for(var i=0;i<$('.rsvState').length;i++){
-			if($('.rsvState').eq(i).text()=="결제 완료"){
-				$('.rsvState').eq(i).parent().find('.paymentTest').remove();
-				$('.rsvState').eq(i).parent().find('.paymentTestTd').text('결재');
+	<script>
+		$(function(){
+			//결재 완료된건 a링크 삭제 후 텍스트로 표현
+			for(var i=0;i<$('.rsvState').length;i++){
+				if($('.rsvState').eq(i).text()=="결제 완료"){
+					$('.rsvState').eq(i).parent().find('.paymentTest').remove();
+					$('.rsvState').eq(i).parent().find('.paymentTestTd').text('결재완');
+				}
 			}
-		}
+			$("#rsvListTb").DataTable({
+				lengthChange: false,
+				"dom": '<"myCustomClass"f>rt<"bottom"lp><"clear">',
+				"language": {
+					         "info": "페이지 _PAGE_ of _PAGES_",
+				        	 "paginate": {
+								        	 "first": "첫페이지",
+								        	 "last": "마지막",
+								             "previous": "이전",
+								             "next":"다음"
+								           },
+				        	 "sEmptyTable": "No data available in table",
+				        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+				        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+				        	 "sInfoPostFix": "",
+				        	 "sLengthMenu": "Show _MENU_ 개씩",
+				        	 "sSearch": "검색:",
+				        	 "sSearchPlaceholder": "",
+				        	 "sZeroRecords": "No matching records found"
+					         }
+			});
+		});
+	
+	
 		
-	});
-
-
-</script>
-
-
+	</script>
 </th:block>
 	
 	
 <th:block layout:fragment="customContent">
-	<button type="button" id="testB">테스트</button>
 	<div class="x_content">
 		<p>예약 리스트</p>
 		<div class="table-responsive">
-			<table class="table table-striped jambo_table bulk_action" border="1">
+			<table class="table table-striped jambo_table bulk_action" id="rsvListTb" border="1">
 
 				<thead>
 					<tr class="headings">
