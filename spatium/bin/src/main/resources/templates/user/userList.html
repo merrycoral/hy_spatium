@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customJs">
+	<script type="text/javascript" th:inline="javascript">
+		$(function(){
+			/*<![CDATA[*/
+		    var result = [[${result}]];
+			
+		    /*]]>*/	    
+		});
+	</script>
+	
+</th:block>
+
+
+<th:block layout:fragment="customContent">
+	<form action="/userList" method="post">
+		<select name="sk">
+			<option value="아이디">아이디</option>
+			<option value="권한">권한</option>
+			<option value="이메일">이메일</option>
+		</select>
+		<input type="text" name = "sv" placeholder="검색어를 입력해주세요"/>
+		<button type="submit">검색</button>
+	</form>
+
+<div class="table-responsive m-t-20">
+		<table class="table table-bordered table-responsive-lg">
+			<thead>
+				<tr>
+					<th scope="col">아이디</th>
+					<th scope="col">비밀번호</th>
+					<th scope="col">이름</th>
+					<th scope="col">생년월일</th>
+					<th scope="col">성별</th>
+					<th scope="col">핸드폰</th>
+					<th scope="col">직업</th>
+					<th scope="col">등급</th>
+					<th scope="col">이메일</th>
+					<th scope="col">등록일자</th>
+					<th scope="col">포인트</th>
+					<th scope="col">수정</th>
+					<th scope="col">삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${#lists.size(userList) > 0}" th:each="l : ${userList}">
+				<td th:text="${l.userId}"></td>
+				<td th:text="${l.userPw}"></td>
+				<td th:text="${l.userName}"></td>
+				<td th:text="${l.userBirth}"></td>
+				<td th:text="${l.userGender}"></td>
+				<td th:text="${l.userPhone}"></td>
+				<td th:text="${l.userJob}"></td>
+				<td th:text="${l.userLevel}"></td>
+				<td th:text="${l.userEmail}"></td>
+				<td th:text="${l.userRegDate}"></td>
+				<td th:text="${l.userPoint}"></td>
+				<td>
+					<a  th:href="@{/modifyuser(userId=${l.userId})}">수정</a>
+				</td>
+				<td>
+					<a th:href="@{/removeuser(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a>
+				</td>
+
+			</tbody>
+		</table>
+	</div>
+
+</th:block>
+</html>	

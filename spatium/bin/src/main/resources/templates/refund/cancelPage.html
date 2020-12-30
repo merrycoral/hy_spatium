@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+<th:block layout:fragment="customContent">
+<div>취소하는 방 예약코드: <input type="text"></div>
+<div>취소자 아이디: <input type="text"></div>
+<div>취소사유: <input type="text"></div>
+<a href="cancelTest2"><button type="button">취소신청</button></a>
+
+</th:block>

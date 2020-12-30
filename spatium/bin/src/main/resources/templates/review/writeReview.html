@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customContent">
+	<div class="x_panel">
+		<div class="x_title">
+			<h2>이용한 공간</h2>
+			<div class="clearfix"></div>
+        </div>
+		<div class="x_content">
+			<div class="form-group row">
+				<div class="col-md-3 col-sm-3 ">
+					<img src="../../src/img/xbox.png">
+				</div>
+				<div class="col-md-9 col-sm-9 ">
+					<h3>공간 이름</h3>
+					KS스터디카페 / 12월 11일 / 13시~15시 / 추가옵션: 없음 <br>
+					이곳에 주문했던 공간 옵션이 들어갑니다. <br>
+				</div>
+			</div> 
+		</div>
+		<div class="x_title">
+			<h2>리뷰 작성하기 </h2>
+			<div class="clearfix"></div>
+        </div>
+		<div class="x_content">
+			<div class="form-group row">
+				<label class="col-form-label col-md-3 col-sm-3 ">별점</label>
+				<!-- 종합 점수  -->
+				<div class="col-md-9 col-sm-9 ">
+					<input type="text" class="form-control" placeholder="Default Input">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-form-label col-md-3 col-sm-3 ">후기 제목</label>
+				<div class="col-md-9 col-sm-9 ">
+					<input type="text" class="form-control" placeholder="후기 제목을 입력하세요.">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-form-label col-md-3 col-sm-3 ">구매 후기</label>
+				<div class="col-md-9 col-sm-9 ">
+					<textarea id="message"
+					required="required" class="form-control" name="message" data-parsley-trigger="keyup"
+					data-parsley-minlength="20" data-parsley-maxlength="100"
+					data-parsley-minlength-message="Come on! You need to enter at least a 20 characters long comment.."
+					data-parsley-validation-threshold="10">
+					</textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-form-label col-md-3 col-sm-3 ">사진 첨부</label>
+				<div class="col-md-9 col-sm-9 ">
+					<div class="form-group">
+					    <label for="exampleInputFile">파일 업로드</label>
+					    <input type="file" id="exampleInputFile">
+					    <p class="help-block">후기 사진을 등록해주세요.</p>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-form-label col-md-3 col-sm-3 ">평가</label>
+				<div class="col-md-9 col-sm-9 ">
+					<b>서비스</b> - 서비스는 친절했나요? <br>
+					<label><input type="radio" name="service" value="5"> 5 </label>
+					<label><input type="radio" name="service" value="4"> 4 </label>
+					<label><input type="radio" name="service" value="3"> 3 </label>
+					<label><input type="radio" name="service" value="2"> 2 </label>
+					<label><input type="radio" name="service" value="1"> 1 </label>
+					<br><b>청결도</b> - 매장은 깨끗했나요?<br>
+					<label><input type="radio" name="cleanliness" value="5"> 5 </label>
+					<label><input type="radio" name="cleanliness" value="4"> 4 </label>
+					<label><input type="radio" name="cleanliness" value="3"> 3 </label>
+					<label><input type="radio" name="cleanliness" value="2"> 2 </label>
+					<label><input type="radio" name="cleanliness" value="1"> 1 </label>
+					<br><b>화장실</b> - 화장실이 깔끔하고 이용이 편리했나요?<br>
+					<label><input type="radio" name="toilet" value="5"> 5 </label>
+					<label><input type="radio" name="toilet" value="4"> 4 </label>
+					<label><input type="radio" name="toilet" value="3"> 3 </label>
+					<label><input type="radio" name="toilet" value="2"> 2 </label>
+					<label><input type="radio" name="toilet" value="1"> 1 </label>
+					<br><b>시설 상태</b> - 시설을 문제없이 이용하셨나요?<br>
+					<label><input type="radio" name="facility" value="5"> 5 </label>
+					<label><input type="radio" name="facility" value="4"> 4 </label>
+					<label><input type="radio" name="facility" value="3"> 3 </label>
+					<label><input type="radio" name="facility" value="2"> 2 </label>
+					<label><input type="radio" name="facility" value="1"> 1 </label>
+					<br><b>분위기</b> - 인테리어, 주변 소음 등 분위기는 만족하셨나요?<br>
+					<label><input type="radio" name="mood" value="5"> 5 </label>
+					<label><input type="radio" name="mood" value="4"> 4 </label>
+					<label><input type="radio" name="mood" value="3"> 3 </label>
+					<label><input type="radio" name="mood" value="2"> 2 </label>
+					<label><input type="radio" name="mood" value="1"> 1 </label>
+				</div>
+			</div>
+		</div>
+		<div style="text-align:center">
+			<button type="submit" class="btn btn-success">리뷰 등록하기</button>
+		</div>
+	</div>
+	
+</th:block>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.ItemMapper">
+
+	<select id = "itemCountList" resultType="Item">
+	
+	SELECT
+		 itemCode
+		 , storeTotalCode
+		 , itemTotalName
+		 , itemTotalAmount
+		 , itemRentalPrice
+		 , itemRentalDeposit
+		 , itemImg
+		 , itemRegDate
+		 , itemChangeRegDate
+		 , itemTotalUserId
+	FROM 
+		tbItemTotalAmount
+	
+	</select>
+
+	<select id = "itemList" resultType="Item">
+		
+		SELECT 
+			storeItemCode
+			, itemDetailCode
+			, storeDetailCode
+			, itemName
+			, itemDetail
+			, itemRentalPrice
+			, itemStatus
+			, itemRentalStatus
+			, itemImg
+			, itemRegDate
+			, itemChangeRegDate
+			, itemDetailUserId
+		FROM
+			tbItemDetail
+		
+	</select>
+
+	<insert id = "addItem" parameterType="Item">
+		
+		INSERT INTO tbItemDetail
+			(storeItemCode
+			, itemDetailCode
+			, storeDetailCode
+			, itemName
+			, itemDetail
+			, itemRentalPrice
+			, itemStatus
+			, itemRentalStatus
+			, itemImg
+			, itemRegDate
+			, itemChangeRegDate
+			, itemDetailUserId)
+		VALUES 
+			(NULL
+			, 200000001
+			, 5
+			, #{itemName}
+			, #{itemDetail}
+			, #{itemRentalPrice}
+			, #{itemStatus}
+			, #{itemRentalStatus}
+			, #{itemImg}
+			, NOW()
+			, NOW()
+			, 'id001')
+		
+	</insert>
+
+</mapper>

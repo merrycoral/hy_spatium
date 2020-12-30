@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+
+<th:block layout:fragment="customContent">
+
+
+
+	<form th:action="@{/myInfo}" class="" action="" method="post">
+
+		<span class="section">나의 정보</span>
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<div class="userId" th:value="${user.userId}" readonly="readonly" ></div>
+			</div>
+
+		</div>
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input type="password" class="form-control"
+					data-validate-length-range="6" data-validate-words="2"
+					name="password" th:value="${user.userPw}">
+			</div>
+
+		</div>
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호
+				확인<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input type="password" class="form-control"
+					data-validate-length-range="6" data-validate-words="2"
+					name="passwordCh" th:value="${user.userPw}" required="required">
+			</div>
+
+		</div>
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">이름
+				<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="text" name="name"
+					data-validate-minmax="10,100" th:value="${user.userName}" required="required">
+			</div>
+		</div>
+		
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">생년월일
+				<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="number" name="birth"
+					data-validate-minmax="10,100" th:value="${user.userBirth}" required="required">
+			</div>
+		</div>
+		
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">성별
+				<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6 ">
+				<div id="gender" class="btn-group" data-toggle="buttons">
+					<label class="btn btn-secondary active"
+						data-toggle-class="btn-primary"
+						data-toggle-passive-class="btn-secondary"> <input
+						type="radio" name="gender" value="male" class="join-btn">
+						&nbsp; 남성 &nbsp;
+					</label> <label class="btn btn-primary" data-toggle-class="btn-primary"
+						data-toggle-passive-class="btn-secondary"> <input
+						type="radio" name="gender" value="female" class="join-btn">
+						여성
+					</label>
+				</div>
+			</div>
+
+		</div>
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화
+				<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="number" name="phone"
+					data-validate-minmax="10,100" th:value="${user.userPhone}" required="required">
+			</div>
+		</div>
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">직업<span
+				class="required">*</span></label>
+			<div class="col-md-3 col-sm-3">
+				<select class="form-control" th:value="${user.userJob}">
+					<option></option>
+					<option value="학생">학생</option>
+					<option value="회사원">회사원</option>
+					<option value="자영업">자영업</option>
+					<option value="무직">무직</option>
+					<option value="기타">기타</option>
+				</select>
+			</div>
+		</div>
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">이메일<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" name="email" required="required"
+					type="email" th:value="${user.userEmail}">
+			</div>
+		</div>
+
+
+		<div class="ln_solid">
+			<div class="form-group" align="center">
+				<div class="col-md-6 offset-md-3">
+					<button type="submit" class="btn btn-primary">저장</button>
+					<button type="cancel" class="btn btn-success">취소</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+	
+</html>
