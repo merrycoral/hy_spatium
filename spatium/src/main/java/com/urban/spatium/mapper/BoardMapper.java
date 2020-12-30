@@ -6,22 +6,26 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.urban.spatium.dto.Board;
+import com.urban.spatium.dto.Criteria;
 
 @Mapper
 public interface BoardMapper {
-	/* public List<Board> getBoardsList(); */
+	public List<Board> getBoardsList(Board params); 
 	
-	public int getBoardsListCount();
-	
-	public List<Map<String, Object>> getBoardsList(int startRow, int rowPerPage);
-	
-	public int addPost(Board board);
+	public int getBoardTotalCount(Board params);
 
+	/* public List<Board> getBoardsList(); */
+
+	public int registerBoard(Board params);
+	
 	public List<Board> getBoardCate();
 
 	public Board getBoardsByCode(int boardIdx);
 
-	public int modifyPost(Board board);
+	/*
+	public int modifyPost(Board params);
+	public int addPost(Board params);
+	*/
 	
 	public int removePost(int boardIdx);
 	

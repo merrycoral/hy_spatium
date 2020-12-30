@@ -3,8 +3,106 @@
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/maindefault}">
 
+<th:block layout:fragment="customCss">
+	<link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+	
+	<style>
+<!--
+.dropdown.dropdown-lg .dropdown-menu {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+.input-group-btn .btn-group {
+    display: flex !important;
+}
+.btn-group .btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+.btn-group .btn:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn-group .form-horizontal .btn[type="submit"] {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.form-group .form-control:last-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+@media screen and (min-width: 768px) {
+    #adv-search {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+    .dropdown.dropdown-lg .dropdown-menu {
+        min-width: 500px;
+    }
+}
+-->
+</style>
+</th:block>
+
 <th:block layout:fragment="customJs">
-	<script src="js/bootstrap.js"></script>
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<script type="text/javascript">
+/* 	$(function(){
+		$("#deviceTable").DataTable({
+		 language: {
+			 
+             "info": "보여지는 page _PAGE_ of _PAGES_",
+             "sFirst": "First",
+             "sLast": "Last",
+             "sNext": "Next",
+             "sPrevious": "Previous",
+             "sEmptyTable": "No data available in table",
+             "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+             "sInfoFiltered": "(filtered from _MAX_ total entries)",
+             "sInfoPostFix": "",
+             "sLengthMenu": "Show _MENU_ entries",
+             "sSearch": "검색:",
+             "sSearchPlaceholder": "",
+             "sZeroRecords": "No matching records found"
+             }
+		
+		});
+
+		
+	}) */
+</script>
+<!--
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    $("#deviceTable").DataTable({
+	        "pageLength": 10,
+	        ajax:{
+	        	url:"./boardsList",
+	        	type:"GET",
+	        	dataSrc :''
+	        },
+	        columns:[
+	        	{data:"boardIdx"},
+	        	{data:"boardAddId"},
+	        	{data:"boardCateName"},
+	        	{data:"boardTitle"},
+	        	{data:"boardLikeCnt"}
+	        	{data:"boardHitCnt"}
+	        	{data:"boardAddDate"}
+	        	
+	        ]
+	        
+	    });
+	</script>
+	-->
 
 </th:block>
 
@@ -17,36 +115,44 @@
 <th:block layout:fragment="customContent">
 
 	<h1>게시물 리스트</h1>
+	
+	<th:block layout:fragment="search">
+		<div th:replace="borad/common :: search"></div>
+	</th:block>
 
-	<table class="table table-hover">
-		<thead>
+	<table class="table table-striped dataTable mt-0" id="deviceTable">
+		<thead class="bg-secondary">
 			<tr>
-				<th>게시물 번호</th>
-				<th>회원아이디</th>
-				<th>카테고리</th>
-				<th>제목</th>
-				<th>조회수</th>
-				<th>추천수</th>
-				<th>작성날짜</th>
+				<th class="text-white">게시물 번호</th>
+				<th class="text-white">회원아이디</th>
+				<th class="text-white">카테고리</th>
+				<th class="text-white">제목</th>
+				<th class="text-white">조회수</th>
+				<th class="text-white">추천수</th>
+				<th class="text-white">작성날짜</th>
 			</tr>
 		</thead>
 		<tbody>
 
-			<tr th:if="${#lists.size(boardList) > 0}"
-				th:each="b : ${boardList}">
+ 			<tr th:if="${#lists.size(boardList) > 0}"
+				th:each="b : ${boardList}" th:object="${params}">
 
-				<td><p th:text="${b.boardIdx}"></p></td>
-				<td><p th:text="${b.boardAddId}"></p></td>
-				<td><p th:text="${b.boardCateName}"></p></td>
-				<td><a
-					th:href="@{/detailPost(boardIdx=${b.boardIdx}, boardTitle=${b.boardTitle})}"
-					th:text="${b.boardTitle}"></a></td>
-				<td><p th:text="${b.boardLikeCnt}"></p></td>
-				<td><p th:text="${b.boardHitCnt}"></p></td>
-				<td><p th:text="${b.boardAddDate}"></p></td>
+				<td>[[${b.boardIdx}]]</td>
+				<td>[[${b.boardAddId}]]</td>
+				<td>[[${b.boardCateName}]]</td>
+				<td>
+					<a th:href="|@{/detailPost}*{makeQueryString(currentPageNo)}&boardIdx=${b.boardIdx}|" style="text-overflow: ellipsis;">
+						[[${b.boardTitle}]]
+					</a>
+				</td>
+				<td>[[${b.boardLikeCnt}]]</td>
+				<td>[[${b.boardHitCnt}]]</td>
+				<td>[[${b.boardAddDate}]]</td>
 
+			</tr> 
+			<tr th:unless="${not #lists.isEmpty( boardList )}">
+				<td colspan="5">조회된 결과가 없습니다.</td>
 			</tr>
-
 		</tbody>
 	</table>
 	<div class="text-center">
@@ -55,17 +161,44 @@
 		</a>
 	</div>
 
-	<div class="pagination">
-		<a th:href="@{/boardList}">[맨처음]</a>
-		<a th:if="${currentPage > 1}" th:href="@{/boardList(currentPage = ${currentPage - 1 })}">[이전]</a>
-		<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
-			<a th:unless="${currentPage == num}" th:href="@{/boardList(currentPage = ${num})}" th:text="${'[' + num + ']'}"></a>
-			<span th:if="${currentPage == num}" th:text="${'[' + num + ']'}"></span>
-		</th:block>
-		<a th:if="${currentPage < lastPage}"th:href="@{/boardList(currentPage = ${currentPage + 1 })}">[다음]</a>
-		<a th:href="@{/boardList(currentPage = ${lastPage})}">[맨마지막]</a>
-	</div> 
-	
+			<th:block layout:fragment="paging">
+				<nav th:replace="borad/common :: pagination">
+				</nav>
+			</th:block>
+		<th:block layout:fragment="script">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+
+			function movePage(uri, queryString) {
+				location.href = uri + queryString;
+			}
+
+			function searchBoard(form) {
+				/*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+				if (isEmpty(form) == true) {
+					var searchKeyword = document.getElementById("mainSearchKeyword");
+					if (isEmpty(searchKeyword.value) == true) {
+						alert("키워드를 입력해 주세요.");
+						searchKeyword.focus();
+						return false;
+					}
+
+					form = document.getElementById("searchForm");
+					form.searchKeyword.value = searchKeyword.value;
+					form.submit();
+				}
+
+				if (isEmpty(form.searchKeyword.value) == true) {
+					alert("키워드를 입력해 주세요.");
+					form.searchKeyword.focus();
+					return false;
+				}
+			}
+			/*[- end of function -]*/
+			
+			/*]]>*/
+		</script>
+	</th:block>
 
 
 
