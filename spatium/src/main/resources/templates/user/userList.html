@@ -59,15 +59,15 @@
 				<td th:text="${l.userGender}"></td>
 				<td th:text="${l.userPhone}"></td>
 				<td th:text="${l.userJob}"></td>
-				<td th:text="${l.userLevel}"></td>
+				<td th:text="${l.userGrade}"></td>
 				<td th:text="${l.userEmail}"></td>
 				<td th:text="${l.userRegDate}"></td>
 				<td th:text="${l.userPoint}"></td>
 				<td>
-					<a  th:href="@{/modifyuser(userId=${l.userId})}">수정</a>
+					<a  th:href="@{/modifyUser(userId=${l.userId})}">수정</a>
 				</td>
 				<td>
-					<a th:href="@{/removeuser(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a>
+					<a th:href="@{/removeUser(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a>
 				</td>
 
 			</tbody>

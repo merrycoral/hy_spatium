@@ -29,6 +29,7 @@ public class BoradController {
 	@Autowired
 	private BoardMapper boardMapper;
 
+
 	@GetMapping("/boardArticleList")
 	public String boardArticleList() {
 		return "borad/boardArticleList";

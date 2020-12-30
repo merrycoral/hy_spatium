@@ -5,12 +5,35 @@
 <mapper namespace="com.urban.spatium.mapper.UserMapper">
 
 
-	
+	<!--회원삭제 -->
+	<delete id="removeUser">
+		DELETE
+		FROM
+		tbUser
+		WHERE
+		userId=#{userId}; 
+	</delete>
+
+	<!--회원수정 -->
+	<update id="modifyUser" >
+		UPDATE
+		tbUser
+		SET 
+		  userPw = #{userPw}
+		, userName = #{userName}
+		, userBirth	= #{userBirth}
+		, userGender = #{userGender}
+		, userPhone = #{userPhone}
+		, userJob = #{userJob}
+		, userEmail = #{userEmail}
+		WHERE
+			userId = #{userId};     
+	</update>
 
 	<!--회원리스트 -->
-	<select id="getuserList" resultType="User">
+	<select id="getUserList" resultType="User">
 		SELECT
-		userId
+		  userId
 		, userPw
 		, userName
 		, userBirth
@@ -20,30 +43,39 @@
 		, userEmail
 		, userRegDate
 		, userPoint
-		
+		, userGrade
 		FROM
-		tbUser AS u
-		INNER JOIN
-		tbUserLevel	AS l
-		ON
-		u.userLevel=l.userLevelCode;
+			viewUser;
 	</select>
-	
-	<!--비밀번호 변경  -->
-	<update id = "passChange" parameterType="String">
-    update user
-    set
-    	userPw=#{userPw}
-    where 
-    	userEmail=#{userEmail};
-    </update>
-	
-	
+	<!-- SELECT userId , userPw , userName , userBirth , userGender , userPhone 
+		, userJob , userEmail , userRegDate , userPoint FROM tbUser AS u INNER JOIN 
+		tbUserLevel AS l ON u.userLevel=l.userLevelCode; -->
+
+
+	<!--비밀번호 변경 -->
+	<update id="passChange" parameterType="String">
+		UPDATE user
+		SET
+			userPw=#{userPw}
+		WHERE
+			userEmail=#{userEmail};
+	</update>
+
+
 	<!--로그인 -->
-	<select id="login" parameterType="String"
-		resultType="User">
+	<select id="login" parameterType="String" resultType="User">
 		SELECT
-		 *						
+		*
+		FROM
+		tbUser
+		WHERE
+		userId = #{userId};
+	</select>
+
+	<!-- 아이디 중복 체크 -->
+	<select id="idChk" resultType="int">
+		SELECT
+		COUNT(*)
 		FROM
 		tbUser
 		WHERE
@@ -51,12 +83,11 @@
 	</select>
 
 	<!--회원가입 -->
-	<insert id="addUser" parameterType="String">
+	<insert id="addUser">
 		INSERT INTO tbUser
-		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userEmail,
-		userRegDate, userPoint)
+		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userEmail,	userRegDate)
 		VALUES (
-		 #{userId}
+		#{userId}
 		,#{userPw}
 		,#{userName}
 		,#{userBirth}
@@ -65,7 +96,6 @@
 		,#{userJob}
 		,#{userLevel}
 		,#{userEmail}
-		,#{userRegDate}
-		,#{userPoint});
+		,NOW());
 	</insert>
 </mapper>
