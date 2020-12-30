@@ -20,6 +20,17 @@
       , NOW()	
       )	
       </foreach>	
-   </insert>		
+   </insert>	
+   <select id="getRefundPolicy" parameterType="int" resultType="RefundPolicy">
+   		SELECT 
+			refundPolicyCode
+			, refundPolicyStoreCode
+			, remainingDay
+			, refundPercent
+			, refundPolicyUserId
+		FROM tbRefundPolicy
+			WHERE refundPolicyStoreCode = #{storeCode}
+		ORDER BY remainingDay DESC;
+   </select>	
 
 </mapper> 

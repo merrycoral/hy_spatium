@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/maindefault}">
+	
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>	
+	
+	
+<th:block layout:fragment="customContent">
+스토어코드 : 
+<div th:text = "${storeCode}"></div>
+코드를 가진 스토어 인포입니다.
+
+	
+</th:block>
+</html>

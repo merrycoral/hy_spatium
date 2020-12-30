@@ -41,7 +41,7 @@ public class refundController {
 	      rePolicyMap.put("list", refundPolicy.getRefundPolicyList());
 	      System.out.println("리스트체크>>"+refundPolicy.getRefundPolicyList());
 	      refundService.addRefundPolicy(rePolicyMap);
-	
+	      
 	      
 	      return "refundPolicy"; 
 	   }
@@ -57,10 +57,17 @@ public class refundController {
 	@GetMapping("/cancelTest")
 	public String cancelTest(Model model
 							,@RequestParam(name="paymentCode", required = false) String paymentCode) {
-		List<Payment>  payment = paymentService.getPaymentCode(paymentCode);
-		 
 		
-		model.addAttribute("payment", payment);
+		
+		List<Payment> cacelData = paymentService.getPaymentCode(paymentCode);
+		List<Payment> payList = paymentService.rsvDetail(paymentCode);
+		int storeCode =payList.get(0).getOkayStoreCode();
+		System.out.println("스토어코드>>"+storeCode);
+		List<RefundPolicy> refundPolicy =refundService.getRefundPolicy(storeCode);
+		System.out.println("cacelData 여기>>>>" + cacelData);
+		System.out.println("refundPolicy 여기2>>>>" + refundPolicy);
+		model.addAttribute("cacelData", cacelData);
+		model.addAttribute("refundPolicy", refundPolicy);
 		
 		return "refund/cancelPage";
 	}

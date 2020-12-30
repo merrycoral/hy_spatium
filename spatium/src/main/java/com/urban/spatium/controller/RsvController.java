@@ -1,7 +1,10 @@
 package com.urban.spatium.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,25 @@ import com.urban.spatium.service.RsvService;
 public class RsvController {
 	@Autowired 
 	private RsvService rsvService; 
+	
+	@GetMapping("/rsvCancel")
+	public String rsvCancel(int rsvCode, String rsvState, HttpServletResponse response) throws IOException {
+		System.out.println("예약 상태 --> " + rsvState);
+		//결제가 완료된 예약일시 환불하도록 유도
+		if("결제 완료".equals(rsvState)) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('이미 결제가 완료되었습니다. 결제 페이지에서 환불해주세요'); location.href=\"paymentSearch\";</script>");
+			out.flush();
+			System.out.println("여기 안도나");
+			return "index";
+		}
+		
+		//미결제된 예약일시 바로 취소 및 DB에서 삭제(릴레이션, 예약, 세부예약 삭제)
+		System.out.println("삭제할 예약 코드 --> " + rsvCode);
+		rsvService.cancelRsv(rsvCode);
+		return "redirect:rsvListAdmin";
+	}
 	
 	@RequestMapping(value = "/getExItemRsv", produces="application/json"  ,method = RequestMethod.POST ) 
 	public @ResponseBody List<Rsv> getExItemRsv(@RequestBody Rsv rsv) {
@@ -65,7 +87,7 @@ public class RsvController {
 		rsv.setRsvStoreCode(5); 	//임시 스토어 코드 부여(세션에 존재하는거 받아올것!)
 		rsvService.insertTbRsv(rsv);
 	    
-	    return "/admin";
+	    return "/rsvListAdmin";
 	}
 	
 	
