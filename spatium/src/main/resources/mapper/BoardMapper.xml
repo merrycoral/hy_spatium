@@ -9,6 +9,70 @@
 		FROM tbBoardCete
 	</select>
 	
+	<sql id="searchColumn">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'boardTitle'.equals(searchType)">
+							AND boardTitle LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'boardContent'.equals(searchType)">
+							AND boardContent LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'boardAddId'.equals(searchType)">
+							AND boardAddId LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+					</choose>
+				</when>
+				<!-- 검색 유형이 없을 때 -->
+				<otherwise>
+					AND
+						(
+							   boardTitle LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR boardContent LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR boardAddId LIKE CONCAT('%', #{searchKeyword}, '%')
+						)
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+	
+	 <select id="getBoardsList" resultType="Board" parameterType="Board">
+		SELECT
+			boardIdx
+			,boardAddId
+			,boardCateName
+			,boardTitle
+			,boardLikeCnt
+			,boardHitCnt
+			,boardAddDate
+			,boardUpDate
+			,boardDeclaration
+			,boardBlind
+		FROM
+			tbBoard
+				INNER JOIN 
+			tbBoardCete
+				on
+			boardCateCode = boardCate
+
+		ORDER BY boardIdx DESC
+		LIMIT
+			#{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+	</select> 
+	
+	<select id="getBoardTotalCount" parameterType="Board" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			tbBoard
+	
+	</select>
+	
+	<!-- 
  	<select id="getBoardsList" resultType="Board">
 		SELECT
 			boardIdx
@@ -29,7 +93,7 @@
 			boardCateCode = boardCate
 		ORDER BY boardIdx DESC;
 	</select> 
-	
+	 -->
 	
 	<select id="getBoardsByCode" parameterType="int" resultType="Board">
 		SELECT
@@ -55,38 +119,6 @@
 			boardIdx = #{boardIdx};	
 	</select>
 	
-	
-	<!-- 
-	<select id="getBoardsListCount" resultType="int">
-		SELECT
-			count(*)
-		FROM
-			tbBoard;
-	</select>
-	
-	<select id="getBoardsList" parameterType="int" resultType="map">
-		SELECT
-			boardIdx
-			,boardAddId
-			,boardCateName
-			,boardTitle
-			,boardLikeCnt
-			,boardHitCnt
-			,boardAddDate
-			,boardUpDate
-			,boardDeclaration
-			,boardBlind
-		FROM
-			tbBoard
-				INNER JOIN 
-			tbBoardCete
-				on
-			boardCateCode = boardCate
-		ORDER BY boardIdx DESC
-		LIMIT #{startRow}, #{rowPerPage};
-
-	</select>
-	 -->
 	<insert id="addPost" parameterType="Board">
 		INSERT INTO tbBoard
 		( boardAddId
@@ -101,6 +133,7 @@
 		 ,#{boardContents}
 		 ,NOW());
 	</insert>
+	
 	<update id="modifyPost" parameterType="Board">
 		UPDATE 
 			tbBoard
@@ -112,6 +145,7 @@
 		WHERE 
 			boardIdx = #{boardIdx};		
 	</update>
+	
 	<delete id="removePost" parameterType="int">
 		DELETE
 		FROM

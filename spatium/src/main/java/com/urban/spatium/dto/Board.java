@@ -1,6 +1,6 @@
 package com.urban.spatium.dto;
 
-public class Board {
+public class Board extends Common{
 	private int boardIdx;
 	private String boardAddId;
 	private int boardCate;

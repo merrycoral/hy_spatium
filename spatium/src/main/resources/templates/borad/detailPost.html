@@ -5,7 +5,22 @@
 	
 	<th:block layout:fragment="customJs">
 <script src="js/bootstrap.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+		$(function() {
+			$('#insertBtn').click(function() {
+				var userId = [[${session.SID}]]
+				var addId = $('#addId')
+				if (userId != addId) {
+					alert('아이디가 일치하지 않습니다.');
+					return false;
+				}
+				
+			});
+			return true;
+		});
 
+
+	</script>
 </th:block>
 	
 <th:block layout:fragment="customTitle">
@@ -56,21 +71,41 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript" th:inline="javascript">
-		$(function() {
-			$('#addPost').click(function() {
-				var userId = [[${session.SID}]]
-				var addId = $('#addId')
-				if (userId != addId) {
-					alert('로그인을 해주세요');
-					return false;
-				}
-				
-			});
-			return true;
-		});
-
-
-	</script>
+	
 </th:block>
+		<th:block layout:fragment="add-content">
+		<div class="box-content">
+			<div class="card-content">
+				<div class="clearfix">
+					<h4 class="box-title pull-left">Comment</h4>
+					<!-- /.box-title -->
+				</div>
+
+				<form class="form-horizontal form-view">
+					<div class="input-group margin-bottom-20">
+						<input type="email" class="form-control" placeholder="">
+						<div class="input-group-btn"><button type="button" class="btn waves-effect waves-light"><i class="fa fa-commenting" aria-hidden="true"></i></button></div>
+						<!-- /.input-group-btn -->
+					</div>
+					<ul class="notice-list">
+						<li>
+							<span class="name">Betty Simmons</span>
+							<span class="desc">There are new settings available</span>
+							<span class="time">2019.03.26</span>
+							<button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button>
+						</li>
+						<li>
+							<span class="name">Betty Kim</span>
+							<span class="desc">There are new settings available</span>
+							<span class="time">2019.03.15</span>
+							<button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button>
+						</li>
+					</ul>
+				</form>
+			</div>
+			<!-- /.card-content -->
+		</div>
+		<!-- /.box-content -->
+	</th:block>
+
 </html>

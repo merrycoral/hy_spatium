@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.urban.spatium.dto.Board;
+import com.urban.spatium.dto.Criteria;
+import com.urban.spatium.dto.PaginationInfo;
 import com.urban.spatium.mapper.BoardMapper;
 import com.urban.spatium.service.BoardService;
 
@@ -42,13 +45,13 @@ public class BoradController {
 	
 	
 
-	@GetMapping("/boardList")
-	public String boardList(Model model) {
-		List<Board> boardList = boardService.getBoardsList();
+	@GetMapping(value = "/boardList")
+	public String boardList(@ModelAttribute("params") Board board, Model model) {
+		List<Board> boardList = boardService.getBoardsList(board);
 	
-		
+
 		model.addAttribute("title", "소모임 게시판");
-		model.addAttribute("boardList", boardMapper.getBoardsList());
+		model.addAttribute("boardList",boardList);
 		return "borad/boardList";
 	}
 
