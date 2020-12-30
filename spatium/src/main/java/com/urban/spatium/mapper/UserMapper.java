@@ -25,7 +25,7 @@ public interface UserMapper {
 	int modifyUser(User user);
 	
 	//회원리스트
-	public List<User> getUserList();
+	 public List<User> getUserList(); 
 		
 	//로그인
 	public User login(String userId);
