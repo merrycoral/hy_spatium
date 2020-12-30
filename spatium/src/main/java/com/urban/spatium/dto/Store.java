@@ -22,6 +22,7 @@ public class Store {
 	private String storeRefundPercent;
 	private String storeImage;
 	private int storeLevel;
+	private String storeRegDate;
 	
 	private int spaceRelationStoreCode;
 	private int spaceRelationCateCode;
@@ -114,7 +115,12 @@ public class Store {
 	public void setStoreLevel(int storeLevel) {
 		this.storeLevel = storeLevel;
 	}
-	
+	public String getStoreRegDate() {
+		return storeRegDate;
+	}
+	public void setStoreRegDate(String storeRegDate) {
+		this.storeRegDate = storeRegDate;
+	}
 	public int getSpaceRelationCode() {
 		return spaceRelationCode;
 	}
@@ -155,17 +161,54 @@ public class Store {
 		this.storeRefundRullList = storeRefundRullList;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return "Store [storeCode=" + storeCode + ", storeId=" + storeId + ", storeName=" + storeName
-				+ ", storeRepresentative=" + storeRepresentative + ", storeNumber=" + storeNumber
-				+ ", storeBusinessType=" + storeBusinessType + ", storeAddress=" + storeAddress + ", storeIntroduction="
-				+ storeIntroduction + ", storeEmail=" + storeEmail + ", storePhone=" + storePhone
-				+ ", storeAccountNumber=" + storeAccountNumber + ", storeRefundRull=" + storeRefundRull
-				+ ", storeRemainingDay=" + storeRemainingDay + ", storeRefundPercent=" + storeRefundPercent
-				+ ", storeImage=" + storeImage + ", storeLevel=" + storeLevel + ", spaceRelationStoreCode="
-				+ spaceRelationStoreCode + ", spaceRelationCateCode=" + spaceRelationCateCode + ", spaceRelationCode="
-				+ spaceRelationCode + ", storeRefundRullList=" + storeRefundRullList + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Store [storeCode=");
+		builder.append(storeCode);
+		builder.append(", storeId=");
+		builder.append(storeId);
+		builder.append(", storeName=");
+		builder.append(storeName);
+		builder.append(", storeRepresentative=");
+		builder.append(storeRepresentative);
+		builder.append(", storeNumber=");
+		builder.append(storeNumber);
+		builder.append(", storeBusinessType=");
+		builder.append(storeBusinessType);
+		builder.append(", storeAddress=");
+		builder.append(storeAddress);
+		builder.append(", storeIntroduction=");
+		builder.append(storeIntroduction);
+		builder.append(", storeEmail=");
+		builder.append(storeEmail);
+		builder.append(", storePhone=");
+		builder.append(storePhone);
+		builder.append(", storeAccountNumber=");
+		builder.append(storeAccountNumber);
+		builder.append(", storeRefundRull=");
+		builder.append(storeRefundRull);
+		builder.append(", storeRemainingDay=");
+		builder.append(storeRemainingDay);
+		builder.append(", storeRefundPercent=");
+		builder.append(storeRefundPercent);
+		builder.append(", storeImage=");
+		builder.append(storeImage);
+		builder.append(", storeLevel=");
+		builder.append(storeLevel);
+		builder.append(", storeRegDate=");
+		builder.append(storeRegDate);
+		builder.append(", spaceRelationStoreCode=");
+		builder.append(spaceRelationStoreCode);
+		builder.append(", spaceRelationCateCode=");
+		builder.append(spaceRelationCateCode);
+		builder.append(", spaceRelationCode=");
+		builder.append(spaceRelationCode);
+		builder.append(", storeRefundRullList=");
+		builder.append(storeRefundRullList);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 	

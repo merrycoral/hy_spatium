@@ -18,18 +18,24 @@
 		</div>
 		<div class="x_content">
 			<form id="addStoreForm" class="form-horizontal form-label-left"
-				th:action="@{/}" method="post">
+				th:action="@{/storeUpdate}" method="post">
 				<div style="padding-left: 1000px; color: red">* 표시는 필수 입력
 					사항입니다.</div>
 				<br>
 				<div class="item form-group">
 
 					<label class="col-form-label col-md-3 col-sm-3 label-align">
-						사업자 아이디 <span class="required">*</span>
+						사업자 아이디
 					</label>
 					<div class="col-md-6 col-sm-6 ">
 						<input type="text" id="storeId" class="form-control"
-							name="storeId">
+							name="storeId" th:value = "${result.storeId}" readonly="readonly">
+						<input type="hidden" id="storeCode" class="form-control"
+							name="storeCode" th:value = "${result.storeCode}">
+						<input type="hidden" id="storeLevel" class="form-control"
+							name="storeLevel" th:value = "${result.storeLevel}">
+						<input type="hidden" id="storeRegDate" class="form-control"
+							name="storeRegDate" th:value = "${result.storeRegDate}">
 					</div>
 				</div>
 				<div class="item form-group">
@@ -38,7 +44,7 @@
 					</label>
 					<div class="col-md-6 col-sm-6 ">
 						<input type="text" id="storeName" class="form-control"
-							name="storeName" placeholder="상호명을 입력해주시기 바랍니다.">
+							name="storeName" placeholder="상호명을 입력해주시기 바랍니다." th:value = "${result.storeName}">
 					</div>
 				</div>
 				<div class="item form-group">
@@ -47,7 +53,7 @@
 					</label>
 					<div class="col-md-6 col-sm-6 ">
 						<input type="text" id="storeRepresentative" class="form-control"
-							name="storeRepresentative" placeholder="대표자명을 입력해주시기 바랍니다.">
+							name="storeRepresentative" placeholder="대표자명을 입력해주시기 바랍니다." th:value = "${result.storeRepresentative}">
 					</div>
 				</div>
 				<div class="item form-group">
@@ -57,49 +63,20 @@
 					<div class="col-md-6 col-sm-6 ">
 						<input type="text" placeholder="사업자 번호를 입력해주시기 바랍니다."
 							id="storeNumber" class="form-control" name="storeNumber"
-							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${result.storeNumber}">
 						<span> 숫자만 입력해주시기 바랍니다. </span>
 					</div>
 				</div>
-				<span style="padding-left: 870px;"> 업체 유형은 최소 1개에서 5개까지 선택할 수
-					있습니다. </span>
 				<div class="item form-group">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						유형 <span class="required">*</span>
 					</label>
-					<div class="btn-group form-check" data-toggle="buttons"
-						style="margin-left: -10px; width: 795px;">
-						<label class="btn btn-secondary"> <input type="checkbox"
-							class="join-btn" name="storeBusinessType" value="촬영 스튜디오">
-							<span style="font-size: 12px;">촬영 스튜디오</span>
-						</label> <label class="btn btn-secondary"> <input type="checkbox"
-							class="join-btn" name="storeBusinessType" value="엠티장소">
-							엠티장소
-						</label> <label class="btn btn-secondary"> <input type="checkbox"
-							class="join-btn" name="storeBusinessType" value="스터디룸">
-							스터디룸
-						</label> <label class="btn btn-secondary"> <input type="checkbox"
-							class="join-btn" name="storeBusinessType" value="연습실">
-							연습실
-						</label> <label class="btn btn-secondary"> <input type="checkbox"
-							class="join-btn" name="storeBusinessType" value="파티룸">
-							파티룸
-						</label> <label class="btn btn-secondary"> <input type="checkbox"
-							class="join-btn" name="storeBusinessType" value="회의실">
-							회의실
-						</label> <label class="btn btn-secondary"> <input type="checkbox"
-							class="join-btn" name="storeBusinessType" value="카페"> 카페
-						</label> <label class="btn btn-secondary"> <input type="checkbox"
-							class="join-btn" name="storeBusinessType" value="다목적홀">
-							다목적홀
-						</label> <label class="btn btn-secondary"> <input type="checkbox"
-							class="join-btn" name="storeBusinessType" value="공연장">
-							공연장
-						</label> <label class="btn btn-secondary"> <input type="checkbox"
-							class="join-btn" name="storeBusinessType" value="한옥"> 한옥
-						</label>
-					</div>
+					<div class="col-md-6 col-sm-6 ">
+					<input type="text" placeholder="사업자 번호를 입력해주시기 바랍니다."
+							id="storeBusinessType" class="form-control" name="storeBusinessType"
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${result.storeBusinessType}" readonly>
+							</div>
 				</div>
 
 				<div class="item form-group">
@@ -109,7 +86,7 @@
 					</label>
 					<div class="col-md-6 col-sm-6 ">
 						<input type="text" id="storeAddress" class="form-control"
-							name="storeAddress" placeholder="업체 주소를 입력해주시기 바랍니다.">
+							name="storeAddress" placeholder="업체 주소를 입력해주시기 바랍니다." th:value = "${result.storeAddress}">
 					</div>
 				</div>
 				<div class="item form-group">
@@ -118,7 +95,7 @@
 						소개 </label>
 					<div class="col-md-6 col-sm-6 ">
 						<input type="text" id="storeIntroduction" class="form-control"
-							name="storeIntroduction" placeholder="업체 소개를 입력해주시기 바랍니다.">
+							name="storeIntroduction" placeholder="업체 소개를 입력해주시기 바랍니다." th:value = "${result.storeIntroduction}">
 					</div>
 				</div>
 				<div class="item form-group">
@@ -127,7 +104,7 @@
 						이메일 </label>
 					<div class="col-md-6 col-sm-6 ">
 						<input type="text" id="storeEmail" class="form-control"
-							name="storeEmail" placeholder="업체 이메일을 입력해주시기 바랍니다.">
+							name="storeEmail" placeholder="업체 이메일을 입력해주시기 바랍니다." th:value = "${result.storeEmail}">
 					</div>
 				</div>
 				<div class="item form-group">
@@ -138,7 +115,7 @@
 					<div class="col-md-6 col-sm-6 ">
 						<input type="text" id="storePhone" class="form-control"
 							placeholder="업체 연락처를 입력해주시기 바랍니다." name="storePhone"
-							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${result.storePhone}">
 						<span> 숫자만 입력해주시기 바랍니다. </span>
 					</div>
 				</div>
@@ -151,7 +128,7 @@
 						<input type="text" id="storeAccountNumber"
 							placeholder="사업자 계좌번호를 입력해주시기 바랍니다." name="storeAccountNumber"
 							class="form-control"
-							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${result.storeAccountNumber}">
 						<span> 숫자만 입력해주시기 바랍니다. </span>
 					</div>
 				</div>
@@ -166,11 +143,11 @@
 								<tr>
 									<td><input type="text" name="storeRemainingDay"
 										placeholder="예) 15일전" style="width: 280px;"
-										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
+										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${result.storeRemainingDay}"></td>
 									<td style="padding-left: 10px; padding-right: 10px;">일전</td>
 									<td><input type="text" name="storeRefundPercent"
 										placeholder="예) 15%" style="width: 290px;"
-										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
+										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${result.storeRefundPercent}"></td>
 									<td style="padding-left: 10px;">%</td>
 									<td>
 										<button type="button" class="addBtn"
@@ -190,7 +167,7 @@
 					</label>
 					<div class="col-md-6 col-sm-6 ">
 						<input type="file" id="storeImage" class="form-control"
-							name="storeImage">
+							name="storeImage" th:value = "${result.storeImage}">
 					</div>
 				</div>
 				<div class="ln_solid"></div>
@@ -221,9 +198,6 @@
 					}else if($('#storeNumber').val() == ""){
 						alert("사업자 번호를 입력해주시길 바랍니다.");
 						$('#storeNumber').focus();
-						return false;
-					}else if($('input:checkbox[name="storeBusinessType"]:checked').length == "0" || $('input:checkbox[name="storeBusinessType"]:checked').length > "5"){
-						alert("업체 유형의 갯수를 제대로 확인하시고 선택해주시기 바랍니다.");
 						return false;
 					}else if($('#storeAddress').val() == ""){
 						alert("업체 주소를 입력해주시길 바랍니다.");

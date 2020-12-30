@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.StoreMapper">
 
+<update id="updateStoreSet" parameterType="Store">
+
+	UPDATE tbStore
+	SET
+		storeId=#{storeId},
+		storeName=#{storeName},
+		storeRepresentative=#{storeRepresentative},
+		storeNumber=#{storeNumber},
+		storeBusinessType=#{storeBusinessType},
+		storeAddress=#{storeAddress},
+		storeIntroduction=#{storeIntroduction},
+		storeEmail=#{storeEmail},
+		storePhone=#{storePhone},
+		storeAccountNumber=#{storeAccountNumber},
+		storeRefundRull=#{storeRefundRull},
+		storeImage=#{storeImage},
+		storeLevel=#{storeLevel},
+		storeRegDate=#{storeRegDate}
+	WHERE 
+		storeCode=#{storeCode};
+	
+</update>
+
 <select id = "updateStore" resultType="Store">
 
 	SELECT 
@@ -34,10 +57,11 @@
 		, spaceRelationStoreCode
 		, spaceRelationCateCode)
 	VALUES
-		 ( null
-		 , ${spaceRelationStoreCode}
-		 , 4);
-	
+		<foreach collection="array" item = "array" separator=",">
+		
+		(null, #{spaceRelationStoreCode}, #{array.})
+		
+		</foreach>
 </insert>
 
 <insert id="addStore" parameterType="Store" useGeneratedKeys="true" keyProperty="storeCode">

@@ -21,7 +21,6 @@ public class SpaceController {
 	@PostMapping("/spaceListReady")
 	public String addSpace(Model model, ReadySpace readySpace) {
 			System.out.println(readySpace);
-			System.out.println("sexy");
 			String result = spaceService.addReadySpace(readySpace);
 			System.out.println(result);
 		return "redirect:/spaceListReady";

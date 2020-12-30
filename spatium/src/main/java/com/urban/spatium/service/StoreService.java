@@ -16,9 +16,21 @@ public class StoreService {
 	@Autowired
 	private StoreMapper storeMapper;
 	
-	public List<Store> updateStore(Store store) {
+	public String updateStoreSet(Store store) {
 		
-			List<Store> updateStore = storeMapper.updateStore();
+		String updateCheck = "업체 수정 실패";
+		
+		if(store != null) {
+			updateCheck = "업체 수정 성공";
+			storeMapper.updateStoreSet(store);
+		}
+			
+		return updateCheck;
+	}
+	
+	public Store updateStore(int storeCode) {
+		
+			Store updateStore = storeMapper.updateStore(storeCode);
 			
 		return updateStore;
 	}
@@ -33,8 +45,8 @@ public class StoreService {
 			int spaceRelationCateCode = store.getSpaceRelationCateCode();
 			List<Store> checkStore = storeMapper.getByStoreCateCode(storeCode);
 			
-			int result2 = storeMapper.addStoreRelation(storeCode);
-			if(result > 0 && result2 > 0) {
+			List<Store> result2 = storeMapper.addStoreRelation(storeCode);
+			if(result > 0) {
 				insertCheck = "업체 등록 성공";
 				for(int i=0; i< checkStore.size(); i++) {
 					
