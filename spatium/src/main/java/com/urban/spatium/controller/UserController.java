@@ -256,15 +256,12 @@ public class UserController {
 	}
 	
 	//회원가입
-	  @RequestMapping(value = "/addUser", method = RequestMethod.POST) public
-	  String addUser(User user ,@RequestParam(name = "userId", required = false)
-	  String userId) { System.out.println("회원가입화면에서 입력받은 값--->" + user); String
-	  result = userService.addUser(user); System.out.println(result); return
-	  "redirect:/userList"; 
+	@PostMapping("/addUser") 
+	public String addUser(User user ,@RequestParam(name = "userId", required = false)
+	  					String userId) {
+	  System.out.println("회원가입화면에서 입력받은 값--->" + user); 
+	  String result = userService.addUser(user); 
+	  System.out.println(result);
+	  	return "redirect:/userList"; 
 	  }
-
-	@GetMapping("/addUser") public String addUser(Model model) {
-		  model.addAttribute("title", "회원 가입");
-		  return "user/join";
-		  }
-	} 
+}
