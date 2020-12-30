@@ -24,6 +24,8 @@ public class UserController {
 	@Autowired 
 	private UserService userService;
 	
+	
+	
 	//회원탈퇴
 	@PostMapping("/removeMyinfo")
 	public String removeMyinfo(@RequestParam(name="userId", required = false) String userId  
@@ -264,4 +266,10 @@ public class UserController {
 	  System.out.println(result);
 	  	return "redirect:/userList"; 
 	  }
-}
+	
+	@GetMapping("/addUser") 
+	public String addUser(Model model) {
+		  model.addAttribute("title", "회원 가입");
+		  return "user/join";
+		  }
+	} 

@@ -49,7 +49,7 @@
 			</label>
 			<div class="col-md-6 col-sm-6">
 				<input class="form-control" type="number" name="userBirth"
-					data-validate-minmax="10,100" required="required"
+					required="required" 
 					th:value="${userBirth}">
 			</div>
 		</div>
@@ -73,8 +73,8 @@
 			<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화
 			</label>
 			<div class="col-md-6 col-sm-6">
-				<input class="form-control" type="number" name="userPhone"
-					data-validate-minmax="10,100" required="required"
+				<input class="form-control" type="tel" name="userPhone"
+					 required="required"
 					th:value="${userPhone}">
 			</div>
 		</div>
@@ -99,24 +99,23 @@
 					type="email" th:value="${userEmail}">
 			</div>
 		</div>
+		
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디</label>
+			<div class="col-md-6 col-sm-6">
+				<div id="userPoint" name="userPoint" th:text="${userPoint}"
+					></div>
+			</div>
+		</div>
 
 		<div class="form-group" align="center">
 			<div class="col-md-6 offset-md-3">
-<<<<<<< HEAD
+			<div>
 				<button type="submit" class="btn btn-primary">
-					<a th:href="@{/myInfo(userId=${l.userId})}">수정</a>
-				</button>
-				<button type="submit" class="btn btn-primary">
-					<a
-						th:href="@{/removeMyinfo(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a>
-				</button>
-
-=======
-				<button type="submit"  class="btn btn-primary"><a th:href="@{/myInfo(userId=${l.userId})}">수정</a></button>
-					<button type="submit" class="btn btn-primary"><a th:href="@{/removeMyinfo(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a></button>
-				
->>>>>>> refs/remotes/origin/KAY
+					<a th:href="@{/myInfo(userId=${l.userId})}">수정</a></button></div>
+				<div><button type="submit" class="btn btn-primary">
+					<a	th:href="@{/removeMyinfo(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a>	</button></div>
 			</div>
-		</div>
+			</div>
 	</form>
 </html>

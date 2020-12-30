@@ -44,19 +44,12 @@
 					<td th:text="${l.deleteUserEmail}"></td>
 					<td th:text="${l.deleteUserRegDate}"></td>
 					<td th:text="${l.deleteUserPoint}"></td>
-<<<<<<< HEAD
+
 					<td><button type="submit"><a
 						th:href="@{/modifyUser(deleteUserId=${l.deleteUserId})}">수정</a></button></td>
 					<td><button type="submit"><a
-						th:href="@{/removeUser(deleteUserId=${l.deleteUserId}, deleteUserLevel=${l.deleteUserLevel})}">삭제</a></button>
-=======
-					<td>
-						<button type="submit"><a th:href="@{/modifyUser(deleteUserId=${l.deleteUserId})}">수정</a></td>
-					<td>
-						<button type="submit"><a th:href="@{/removeUser(deleteUserId=${l.deleteUserId}, deleteUserLevel=${l.deleteUserLevel})}">삭제</a>
->>>>>>> refs/remotes/origin/KAY
-					</td>
-				</tr>
+						th:href="@{/removeUser(deleteUserId=${l.deleteUserId}, deleteUserLevel=${l.deleteUserLevel})}">삭제</a></button></td>
+					</tr>
 			</tbody>
 		</table>
 

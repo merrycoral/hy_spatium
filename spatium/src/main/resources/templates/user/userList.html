@@ -25,7 +25,6 @@
 		<select name="sk">
 			<option value="아이디">아이디</option>
 			<option value="권한">권한</option>
-			<option value="이메일">이메일</option>
 		</select>
 		<input type="text" name = "sv" placeholder="검색어를 입력해주세요"/>
 		<button type="submit">검색</button>
@@ -64,16 +63,11 @@
 				<td th:text="${l.userRegDate}"></td>
 				<td th:text="${l.userPoint}"></td>
 				<td>
-<<<<<<< HEAD
-					<button type="submit"><a th:href="@{/modifyUser(userId=${l.userId})}">수정</a></button>
-=======
 					<button type="submit"><a  th:href="@{/modifyUser(userId=${l.userId})}">수정</a></button>
->>>>>>> refs/remotes/origin/KAY
 				</td>
 				<td>
 					<button type="submit"><a th:href="@{/removeUser(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a></button>
 				</td>
-
 			</tbody>
 		</table>
 	</div>

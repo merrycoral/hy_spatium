@@ -1,6 +1,7 @@
 package com.urban.spatium.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.urban.spatium.dto.User;
@@ -8,6 +9,8 @@ import com.urban.spatium.dto.User;
 
 @Mapper
 public interface UserMapper {
+	
+	
 	
 	//회원탈퇴
 	int removeMyinfo(String userId, String userLevel);

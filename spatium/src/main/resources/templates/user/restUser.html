@@ -39,17 +39,10 @@
 					<td th:text="${l.restUserLevel}"></td>
 					<td th:text="${l.restUserEmail}"></td>
 					<td th:text="${l.restUserPoint}"></td>
-<<<<<<< HEAD
+
 					<td><button type="submit"><a th:href="@{/modifyUser(restUserId=${l.restUserId})}">수정</a></button></td>
 					<td><button type="submit"><a
-						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a></button>
-=======
-					<td>
-						<button type="submit"><a th:href="@{/modifyUser(restUserId=${l.restUserId})}">수정</a></td>
-					<td>
-						<button type="submit"><a th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a>
->>>>>>> refs/remotes/origin/KAY
-					</td>
+						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a></button></td>
 				</tr>
 			</tbody>
 		</table>

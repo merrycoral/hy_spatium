@@ -34,8 +34,8 @@
 			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
 				class="required">*</span></label>
 			<div class="col-md-6 col-sm-6">
-				<input class="form-control" data-validate-length-range="6"
-					data-validate-words="2" id="userId" name="userId"
+				<input type="text" class="form-control" maxlength="12"
+					 id="userId" name="userId"
 					required="required">
 				<button type="submit" id="idchk" class="btn btn-primary"
 					onclick="idChk();" value="N">중복확인</button>
@@ -49,7 +49,7 @@
 				<input type="password" class="form-control"
 					data-validate-length-range="6" data-validate-words="2"
 					id="password" name="userPw" placeholder="4~12자의 대소문자와 숫자를 입력하세요"
-					required="required">
+					maxlength="12" required="required">
 			</div>
 
 		</div>
@@ -60,7 +60,7 @@
 			</label>
 			<div class="col-md-6 col-sm-6">
 				<input class="form-control" type="text" id="name" name="userName"
-					data-validate-minmax="10,100" required="required">
+					 required="required">
 			</div>
 		</div>
 
@@ -70,8 +70,8 @@
 			</label>
 			<div class="col-md-6 col-sm-6">
 				<input class="form-control" type="number" id="birth" name="userBirth"
-					data-validate-minmax="10,100" placeholder="ex)20001212"
-					required="required">
+					maxlength="8" oninput="maxLengthCheck(this)" placeholder="ex)20001212"
+					required="required"/>
 			</div>
 		</div>
 
@@ -97,8 +97,8 @@
 			</label>
 			<div class="col-md-6 col-sm-6">
 				<input class="form-control" type="number" id="phone" name="userPhone"
-					data-validate-minmax="10,100" placeholder="ex)01012345678"
-					required="required">
+					 maxlength="11" oninput="maxLengthCheck(this)" placeholder="ex)01012345678"
+					required="required"/>
 			</div>
 		</div>
 		<div class="field item form-group">
@@ -134,8 +134,19 @@
 
 </th:block>
 <th:block layout:fragment="customJs">
-  
-  <script >
+<script> 
+
+	//number 제한길이
+	function maxLengthCheck(object){
+    	if (object.value.length > object.maxLength){
+     		 object.value = object.value.slice(0, object.maxLength);
+    	}    
+  }
+</script>
+
+<script>
+
+  	//유효성검사
  	 $(document).ready(function(){
 	 		$("#cancel").on("click", function(){
 				location.href = "/";
@@ -192,7 +203,10 @@
 		})
 				
 			});
+			</script>
+			<script>
 		
+		//아이디 중복체크
 		function idChk(){
 			$.ajax({
 				url : "/idChk",
@@ -209,7 +223,7 @@
 				}
 			})
 		};
-			
+		
 	</script>
 </th:block>
 </html>

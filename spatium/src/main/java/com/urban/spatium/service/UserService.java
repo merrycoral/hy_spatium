@@ -16,6 +16,9 @@ public class UserService {
 	@Autowired 
 	private UserMapper userMapper;
 	
+	
+		
+	
 	//회원탈퇴
 		public String removeMyinfo(String userId, String userPw, String userLevel) {
 			String result = "회원 삭제 실패";
