@@ -34,7 +34,7 @@ public class RsvController {
 		if("결제 완료".equals(rsvState)) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('결제가 완료되었습니다. 결제 페이지에서 환불해주세요'); location.href=\"paymentSearch\";</script>");
+			out.println("<script>alert('이미 결제가 완료되었습니다. 결제 페이지에서 환불해주세요'); location.href=\"paymentSearch\";</script>");
 			out.flush();
 			System.out.println("여기 안도나");
 			return "index";
