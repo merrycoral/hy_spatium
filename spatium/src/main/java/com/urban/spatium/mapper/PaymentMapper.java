@@ -27,7 +27,7 @@ public interface PaymentMapper {
 	
 	public List<Point> pointSelect();
 	
-	public List<Payment> paymentSelect();
+	public List<Payment> paymentSelect(String SID);
 	
 	public int paymentSystem(Payment payment);
 	

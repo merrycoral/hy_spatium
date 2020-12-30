@@ -36,7 +36,8 @@
 	
 	<select id="rsvDetail" parameterType="String" resultType="Payment">
 	SELECT 
-	     rsvDetailCode
+	     rsvCode
+	    ,rsvDetailCode
 		,rsvDetailSpace	
 	    ,okayStoreCode	
 		,okaySpaceType	
@@ -45,6 +46,7 @@
 		,itemTotalName	
 		,rsvDetailNum	
 		,rsvDetailOnePrice
+		,rsvState
 
 	FROM
 		tbPayment AS p
@@ -77,13 +79,7 @@
 	
 	<select id="getPaymentCode" parameterType="String" resultMap="resultMapPayment">
 		SELECT 
-			p.paymentCode
-			,p.paymentRsvCode
-			,p.paymentPrice
-			,r.rsvUserId
-			,r.rsvUserName
-			,r.rsvState
-			,r.rsvUserPhone
+			*
 		FROM
 			 tbPayment AS p
 		INNER join
@@ -91,7 +87,7 @@
 		on
 			p.paymentRsvCode = r.rsvCode
 		WHERE
-			paymentCode = #{paymentCode};
+			p.paymentCode = #{paymentCode};
 	</select>
 	
 	
@@ -142,10 +138,9 @@
 	</select>
 	
 	
-	<select id="paymentSelect" resultMap="resultMapPayment">
-	SELECT 
-		
-		paymentCode
+	<select id="paymentSelect" parameterType="String" resultMap="resultMapPayment">
+	SELECT 	
+	   paymentCode
 		,paymentRsvCode
 		,paymentPrice
 		, paymentUsePoint
@@ -153,8 +148,16 @@
 		, paymentAddPoint
 		, paymentIP
 		, paymentRegDate
-		
-	FROM tbPayment
+		, rsvUserId
+	FROM
+		tbPayment AS p
+	INNER JOIN
+		tbRsv AS r
+	on
+		p.paymentRsvCode = r.rsvCode		
+	WHERE
+		r.rsvUserId = #{SID};
+	
 	</select>
 	
 	

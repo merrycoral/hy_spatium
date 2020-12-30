@@ -6,35 +6,61 @@
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
+
+<th:block layout:fragment="customCss">
+<style>
+table{float: left; margin-right: 200px;}
+#table2{float: none;}
+#Explanation{margin-left: 510px; margin-top: 5px;}
+
+</style>
+</th:block>
+
+<th:block layout:fragment="customJs">
+	<script>
+		$(function(){
+			var day = $('.day').val();
+			var pay = $('.pay').val();
+			var paydate = $('paydate').val();
+				console.log(day.length);
+			for(i=0; i<day.length; i++){
+				day.val(i);
+			}
+		})
+	</script>
+</th:block>
+
+
+
 <th:block layout:fragment="customContent">
 	<!--예약테이블 결제상태 환불로변경? --><input type="hidden" name="rsvState" >
 	<!-- 적립된 포인트 마이너스 추가 --><input type="hidden" name="pointList">
 	<!-- 포인트 적립내역 환불완료로 수정 --><input type="hidden" name="pointAddList">
 	<!-- 아이디 --><input type="hidden" name="pointID">
-<table border="1">
+<table border="1" id="table1">
 	<tbody >
 		
-		<th:block th:if="${#lists.size(payment) > 0}" th:each = "p : ${payment}">
-		<th:block th:if="${#lists.size(payment) > 0}" th:each = "pr : ${p.RsvList}">
+		<th:block th:if="${#lists.size(cacelData) > 0}" th:each = "p : ${cacelData}">
+		<th:block th:each = "pr : ${p.RsvList}">
 		<tr>
 			<td>취소하는 방 예약코드</td>
-			<td><input type="text" name="paymentCode" th:value="${payment.paymentRsvCode}"></td>
+			<td><input type="text" name="paymentCode" th:value="${p.paymentRsvCode}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>취소자 아이디</td>
-			<td><input type="text" name="rsvUserId" th:text = "${pr.rsvUserId}"></td>
+			<td><input type="text" name="rsvUserId" th:value = "${pr.rsvUserId}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>취소자 이름</td>
-			<td><input type="text" name="rsvUserId" th:text = "${pr.rsvUserName}"></td>
+			<td><input type="text" name="rsvUserName" th:value = "${pr.rsvUserName}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>취소자 휴대폰</td>
-			<td><input type="text" name="rsvUserId" th:text = "${pr.rsvUserPhone}"></td>
+			<td><input type="text" name="rsvUserPhone" th:value = "${pr.rsvUserPhone}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>실제 결제한 금액</td>
-			<td><input type="text" name="rsvTotalPrice" th:value="${payment.paymentUseMoney}"></td>
+			<td><input type="text" name="rsvTotalPrice" th:value="${p.paymentUseMoney}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>환불 퍼센트</td>
@@ -44,9 +70,14 @@
 			<td>환불하는 금액</td>
 			<td><input type="text" ></td>
 		</tr>
+		
 		<tr>
 			<td>취소사유</td>
 			<td><input type="text" name="rsvRequest"></td>
+		</tr>
+		<tr>
+			<td>결제 날짜</td>
+			<td><input type="text" class="paydate" th:value="${p.paymentRegDate}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td colspan="2"><a href="cancelTest2"><button type="button">취소신청</button></a></td>
@@ -56,4 +87,33 @@
 		</th:block>
 	</tbody>
 </table>
+
+	
+	<div id="totaltable">
+			<table border="1" id="table2">
+				<thead>
+					<tr>
+						<th>예약까지남은일수</th>
+						<th>환불퍼센트</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="re : ${refundPolicy}">
+						<td>이용<input type="text" name="remainingDay"
+							style="width: 60px;" class="day" th:value="${re.remainingDay}"
+							readonly="readonly">일전
+						</td>
+						<td>총금액의<input type="text" name="refundPercent"
+							style="width: 60px;" class="Pay"
+							th:value="${re.refundPercent}" readonly="readonly">%
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		
+		
+		<p id="Explanation">※해당업체의 환불정책</p>
+	</div>
+
+
 </th:block>

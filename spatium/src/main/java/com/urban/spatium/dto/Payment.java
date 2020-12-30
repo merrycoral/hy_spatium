@@ -14,6 +14,7 @@ public class Payment {
 	private String paymentIP;
 	private List<Rsv> RsvList;
 	
+	private int rsvCode;
 	private int rsvDetailCode;
 	private String rsvDetailSpace;
 	private int okayStoreCode;
@@ -23,9 +24,21 @@ public class Payment {
 	private String itemTotalName;
 	private int rsvDetailNum;
 	private int rsvDetailOnePrice;
-
+	private String rsvState;
 
 	
+	public int getRsvCode() {
+		return rsvCode;
+	}
+	public void setRsvCode(int rsvCode) {
+		this.rsvCode = rsvCode;
+	}
+	public String getRsvState() {
+		return rsvState;
+	}
+	public void setRsvState(String rsvState) {
+		this.rsvState = rsvState;
+	}
 	public int getRsvDetailCode() {
 		return rsvDetailCode;
 	}
@@ -164,6 +177,8 @@ public class Payment {
 		builder.append(paymentIP);
 		builder.append(", RsvList=");
 		builder.append(RsvList);
+		builder.append(", rsvCode=");
+		builder.append(rsvCode);
 		builder.append(", rsvDetailCode=");
 		builder.append(rsvDetailCode);
 		builder.append(", rsvDetailSpace=");
@@ -182,6 +197,8 @@ public class Payment {
 		builder.append(rsvDetailNum);
 		builder.append(", rsvDetailOnePrice=");
 		builder.append(rsvDetailOnePrice);
+		builder.append(", rsvState=");
+		builder.append(rsvState);
 		builder.append("]");
 		return builder.toString();
 	}
