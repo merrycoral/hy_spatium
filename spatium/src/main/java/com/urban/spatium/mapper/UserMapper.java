@@ -9,6 +9,12 @@ import com.urban.spatium.dto.User;
 @Mapper
 public interface UserMapper {
 	
+	//회원탈퇴
+	int removeMyinfo(String userId, String userLevel);
+	
+	//회원정보수정
+	int myInfo(User user);
+	
 	//회원삭제
 	int removeUser(String userId, String userLevel);
 	
@@ -20,6 +26,9 @@ public interface UserMapper {
 		
 	//로그인
 	public User login(String userId);
+	
+	//아이디 중복체크
+	public int idChk(User user);
 	
 	//회원가입
 	public int addUser(User user);

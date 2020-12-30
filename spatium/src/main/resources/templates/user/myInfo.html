@@ -3,97 +3,86 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="@{layout/default}">
 
-
 <th:block layout:fragment="customContent">
 
-
-
-	<form th:action="@{/myInfo}" class="" action="" method="post">
+	<form th:action="@{/myInfo}" method="post">
 
 		<span class="section">나의 정보</span>
-		<div class="field item form-group bad">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
-				class="required">*</span></label>
-			<div class="col-md-6 col-sm-6">
-				<div class="userId" th:value="${user.userId}" readonly="readonly" ></div>
-			</div>
 
-		</div>
 		<div class="field item form-group bad">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호<span
-				class="required">*</span></label>
+			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디</label>
 			<div class="col-md-6 col-sm-6">
-				<input type="password" class="form-control"
-					data-validate-length-range="6" data-validate-words="2"
-					name="password" th:value="${user.userPw}">
+				<div id="userId" name="userId" th:text="${userId}"
+					readonly="readonly"></div>
 			</div>
+		</div>
 
-		</div>
 		<div class="field item form-group bad">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호
-				확인<span class="required">*</span>
-			</label>
+			<label class="col-form-label col-md-3 col-sm-3  label-align">등급</label>
 			<div class="col-md-6 col-sm-6">
-				<input type="password" class="form-control"
-					data-validate-length-range="6" data-validate-words="2"
-					name="passwordCh" th:value="${user.userPw}" required="required">
-			</div>
-
-		</div>
-		<div class="field item form-group bad">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">이름
-				<span class="required">*</span>
-			</label>
-			<div class="col-md-6 col-sm-6">
-				<input class="form-control" type="text" name="name"
-					data-validate-minmax="10,100" th:value="${user.userName}" required="required">
-			</div>
-		</div>
-		
-		<div class="field item form-group">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">생년월일
-				<span class="required">*</span>
-			</label>
-			<div class="col-md-6 col-sm-6">
-				<input class="form-control" type="number" name="birth"
-					data-validate-minmax="10,100" th:value="${user.userBirth}" required="required">
-			</div>
-		</div>
-		
-		<div class="field item form-group bad">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">성별
-				<span class="required">*</span>
-			</label>
-			<div class="col-md-6 col-sm-6 ">
-				<div id="gender" class="btn-group" data-toggle="buttons">
-					<label class="btn btn-secondary active"
-						data-toggle-class="btn-primary"
-						data-toggle-passive-class="btn-secondary"> <input
-						type="radio" name="gender" value="male" class="join-btn">
-						&nbsp; 남성 &nbsp;
-					</label> <label class="btn btn-primary" data-toggle-class="btn-primary"
-						data-toggle-passive-class="btn-secondary"> <input
-						type="radio" name="gender" value="female" class="join-btn">
-						여성
-					</label>
+				<div id="userGrade" name="userGrade" th:value="${userGrade}">
 				</div>
 			</div>
-
 		</div>
+
 		<div class="field item form-group bad">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화
-				<span class="required">*</span>
+			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호</label>
+			<div class="col-md-6 col-sm-6">
+				<input type="password" class="form-control"
+					data-validate-length-range="6" data-validate-words="2"
+					name="userPw" th:value="${userPw}">
+			</div>
+		</div>
+
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">이름
 			</label>
 			<div class="col-md-6 col-sm-6">
-				<input class="form-control" type="number" name="phone"
-					data-validate-minmax="10,100" th:value="${user.userPhone}" required="required">
+				<input class="form-control" type="text" name="userName"
+					data-validate-minmax="10,100" required="required"
+					th:value="${userName}">
+			</div>
+		</div>
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">생년월일
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="number" name="userBirth"
+					data-validate-minmax="10,100" required="required"
+					th:value="${userBirth}">
+			</div>
+		</div>
+
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">성별
+			</label>
+			<div class="form-check">
+
+				<label class="form-radio-label" th:value="${userGender}"> <input
+					class="form-radio-input1" type="radio" name="userGender" value="남">
+					<span class="form-radio-sign1">남성</span>
+				</label> <label class="form-radio-label ml-3"> <input
+					class="form-radio-input1" type="radio" name="userGender" value="여">
+					<span class="form-radio-sign1">여성</span>
+				</label>
+			</div>
+		</div>
+
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="number" name="userPhone"
+					data-validate-minmax="10,100" required="required"
+					th:value="${userPhone}">
 			</div>
 		</div>
 		<div class="field item form-group bad">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">직업<span
-				class="required">*</span></label>
+			<label class="col-form-label col-md-3 col-sm-3  label-align">직업</label>
 			<div class="col-md-3 col-sm-3">
-				<select class="form-control" th:value="${user.userJob}">
+				<select class="form-control" id="job" name="userJob"
+					th:value="${userJob}">
 					<option></option>
 					<option value="학생">학생</option>
 					<option value="회사원">회사원</option>
@@ -104,25 +93,24 @@
 			</div>
 		</div>
 		<div class="field item form-group bad">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">이메일<span
-				class="required">*</span></label>
+			<label class="col-form-label col-md-3 col-sm-3  label-align">이메일</label>
 			<div class="col-md-6 col-sm-6">
-				<input class="form-control" name="email" required="required"
-					type="email" th:value="${user.userEmail}">
+				<input class="form-control" name="userEmail" required="required"
+					type="email" th:value="${userEmail}">
 			</div>
 		</div>
 
+		<div class="form-group" align="center">
+			<div class="col-md-6 offset-md-3">
+				<button type="submit" class="btn btn-primary">
+					<a th:href="@{/myInfo(userId=${l.userId})}">수정</a>
+				</button>
+				<button type="submit" class="btn btn-primary">
+					<a
+						th:href="@{/removeMyinfo(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a>
+				</button>
 
-		<div class="ln_solid">
-			<div class="form-group" align="center">
-				<div class="col-md-6 offset-md-3">
-					<button type="submit" class="btn btn-primary">저장</button>
-					<button type="cancel" class="btn btn-success">취소</button>
-				</div>
 			</div>
 		</div>
 	</form>
-
-
-	
 </html>
