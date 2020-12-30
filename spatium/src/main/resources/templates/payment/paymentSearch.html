@@ -18,6 +18,9 @@
 <th:block layout:fragment="customJs">
 <script>
 	$(function(){
+		$('#paymentListTb').DataTable({
+			
+		});
 		
 		$('.payCode').click(function(){
 			$('#hidTable').addClass('Active');
@@ -78,7 +81,7 @@
 
 <th:block layout:fragment="customContent">
 <h1>결제내역조회임..</h1>
-<table border="1">
+<table border="1" id="paymentListTb">
 	<thead>
 		<tr>
 			<th>결제코드</th>
