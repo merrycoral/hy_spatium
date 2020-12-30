@@ -1,6 +1,7 @@
 package com.urban.spatium.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +25,7 @@ public class UserController {
 	@Autowired 
 	private UserService userService;
 	
+		
 	//회원탈퇴
 	@PostMapping("/removeMyinfo")
 	public String removeMyinfo(@RequestParam(name="userId", required = false) String userId  
@@ -167,10 +169,7 @@ public class UserController {
 				searchValue="5";
 			}else if("불량회원".equals(searchValue)) {
 				searchValue="6";
-
-			}else if("이메일".equals(searchKey)) {
-				searchKey="u_email";
-		}
+			}			
 
 	/*
 	 * log.info("변경한 파라미터값 sv :::::::  {}",searchKey);
@@ -264,4 +263,8 @@ public class UserController {
 	  System.out.println(result);
 	  	return "redirect:/userList"; 
 	  }
-}
+	@GetMapping("/addUser") public String addUser(Model model) {
+		  model.addAttribute("title", "회원 가입");
+		  return "user/join";
+		  }
+	}  

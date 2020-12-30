@@ -23,12 +23,11 @@
 <th:block layout:fragment="customContent">
 	<form action="/userList" method="post">
 		<select name="sk">
-			<option value="아이디">아이디</option>
-			<option value="권한">권한</option>
-			<option value="이메일">이메일</option>
-		</select>
+			<option th:value="${userId}">아이디</option>
+			<option th:value="${userGrade}">권한</option>
+			</select>
 		<input type="text" name = "sv" placeholder="검색어를 입력해주세요"/>
-		<button type="submit">검색</button>
+		<button type="submit"  onclick="searchUserList">검색</button>
 	</form>
 
 <div class="table-responsive m-t-20">
@@ -64,17 +63,24 @@
 				<td th:text="${l.userRegDate}"></td>
 				<td th:text="${l.userPoint}"></td>
 				<td>
-<<<<<<< HEAD
 					<button type="submit"><a th:href="@{/modifyUser(userId=${l.userId})}">수정</a></button>
-=======
 					<button type="submit"><a  th:href="@{/modifyUser(userId=${l.userId})}">수정</a></button>
->>>>>>> refs/remotes/origin/KAY
 				</td>
-				<td>
-					<button type="submit"><a th:href="@{/removeUser(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a></button>
-				</td>
-
 			</tbody>
+			<tfoot>
+			<tr>
+				<td colspan="4">
+					<a th:if='${currentPage>1}' th:href='@{/userList}'>맨처음</a>
+					<a th:if='${currentPage>1}' th:href='@{/userList(currentPage = ${currentPage-1})}'>이전</a>
+					<th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+						<a th:unless="${currentPage == num}" th:href="@{/userList(currentPage = ${num})}" th:text="${'['+ num +']'}"></a>
+						<span th:if="${currentPage == num}" th:text="${'['+ num +']'}"></span>
+					</th:block>
+					<a th:if='${currentPage<lastPage}' th:href='@{/userList(currentPage = ${currentPage+1})}'>다음</a>
+					<a th:if='${currentPage<lastPage}' th:href='@{/userList(currentPage = ${lastPage})}'>맨마지막</a>
+				</td>
+			</tr>
+		</tfoot>
 		</table>
 	</div>
 
