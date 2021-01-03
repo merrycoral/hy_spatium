@@ -1,6 +1,9 @@
 package com.urban.spatium.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,13 +44,18 @@ public class StoreController {
 	@PostMapping("/addSpace")
 	public String addStore(Model model, Store store) {
 
-		System.out.println("스토어 받은값 --> "+store);
+		System.out.println("스토어 받은값 --> " + store);
 		store.getStoreCode();
 		System.out.println("===============start store================");
 		String storeCate = store.getStoreBusinessType();
+		Map<String, Object> fMap = new HashMap<String, Object>();
+		
+		Map<String, Object> tMap;
+		
+		List<Map<String, Object>> cMap = new ArrayList<Map<String, Object>>();
 		
 		String[] array = storeCate.split(",");
-		int[] i_array = new int[10];
+		int[] i_array = new int[5];
 		int arrayCheck = 0;
 		for(int i=0; i<array.length; i++) {
 			System.out.println(array[i]);
@@ -55,51 +63,46 @@ public class StoreController {
 			if(array[i].equals("촬영 스튜디오")) {
 				arrayCheck = 1;
 				i_array[i]=arrayCheck;
-			}
-			if(array[i].equals("엠티장소")) {
+			}else if(array[i].equals("엠티장소")) {
 				arrayCheck = 2;
 				i_array[i]=arrayCheck;
-			}
-			if(array[i].equals("스터디룸")) {
+			}else if(array[i].equals("스터디룸")) {
 				arrayCheck = 3;
 				i_array[i]=arrayCheck;
-			}
-			if(array[i].equals("연습실")) {
+			}else if(array[i].equals("연습실")) {
 				arrayCheck = 4;
 				i_array[i]=arrayCheck;
-			}
-			if(array[i].equals("파티룸")) {
+			}else if(array[i].equals("파티룸")) {
 				arrayCheck = 5;
 				i_array[i]=arrayCheck;
-			}
-			if(array[i].equals("회의실")) {
+			}else if(array[i].equals("회의실")) {
 				arrayCheck = 6;
 				i_array[i]=arrayCheck;
-			}
-			if(array[i].equals("카페")) {
+			}else if(array[i].equals("카페")) {
 				arrayCheck = 7;
 				i_array[i]=arrayCheck;
-			}
-			if(array[i].equals("다목적홀")) {
+			}else if(array[i].equals("다목적홀")) {
 				arrayCheck = 8;
 				i_array[i]=arrayCheck;
-			}
-			if(array[i].equals("공연장")) {
+			}else if(array[i].equals("공연장")) {
 				arrayCheck = 9;
 				i_array[i]=arrayCheck;
-			}
-			if(array[i].equals("한옥")) {
+			}else if(array[i].equals("한옥")) {
 				arrayCheck = 10;
 				i_array[i]=arrayCheck;
 			}
-			
 			System.out.println(arrayCheck + "arrayCheck 숫자");
-			System.out.println("######################");
-			
+
+			tMap = new HashMap<String, Object>();
+			tMap.put(String.valueOf(i), i_array[i]);
+			cMap.add(tMap);
 		}
-		for(int j=0; j<array.length; j++) {
-			System.out.println(i_array[j]);
-		}
+		fMap.put("cMap", cMap);
+		
+		System.out.println("============map start============");
+		System.out.println(cMap);
+		System.out.println(fMap);
+		System.out.println("============map end============");
 		
 		model.addAttribute("storeBusiness", array);
 		System.out.println("===============end store================");
@@ -108,7 +111,6 @@ public class StoreController {
 		System.out.println(result);
 		System.out.println("================end result===============");
 		store.setSpaceRelationStoreCode(store.getStoreCode());
-
 		return "space/addSpace";
 	}
 

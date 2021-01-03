@@ -1,6 +1,7 @@
 package com.urban.spatium.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,16 +43,11 @@ public class StoreService {
 		if(store != null) {
 			int result = storeMapper.addStore(store);
 			int storeCode = store.getStoreCode();
-			int spaceRelationCateCode = store.getSpaceRelationCateCode();
-			List<Store> checkStore = storeMapper.getByStoreCateCode(storeCode);
+			Map<String, Object> spaceRelationCateCodeMap = store.getSpaceRelationCateCodeMap();
 			
-			List<Store> result2 = storeMapper.addStoreRelation(storeCode);
+			storeMapper.addStoreRelation(storeCode);
 			if(result > 0) {
 				insertCheck = "업체 등록 성공";
-				for(int i=0; i< checkStore.size(); i++) {
-					
-					storeMapper.getByStoreCateCode(storeCode);
-				}
 			}
 		}
 		

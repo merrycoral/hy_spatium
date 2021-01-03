@@ -13,9 +13,7 @@ public interface StoreMapper {
 	
 	public Store updateStore(int storeCode);
 	
-	public List<Store> getByStoreCateCode(int storeCode);
-	
-	public List<Store> addStoreRelation(int storeCode);
+	public int addStoreRelation(int storeCode);
 	
 	public int addStore(Store store);
 	

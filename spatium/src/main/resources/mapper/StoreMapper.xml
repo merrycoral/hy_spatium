@@ -57,10 +57,8 @@
 		, spaceRelationStoreCode
 		, spaceRelationCateCode)
 	VALUES
-		<foreach collection="array" item = "array" separator=",">
-		
-		(null, #{spaceRelationStoreCode}, #{array.})
-		
+		<foreach collection= "fMap" item = "array" separator=",">
+		(null, #{spaceRelationStoreCode}, #{array})
 		</foreach>
 </insert>
 
@@ -100,28 +98,6 @@
 		, NOW())
 		
 </insert>
-
-<select id= "getByStoreCateCode" parameterType= "int" resultType= "Store">
-	
-	SELECT
-			s.storeCode
-		,	r.spaceRelationCode
-		, 	c.spaceCateCode
-		,	c.spaceCateName
-	FROM
-		tbSpaceRelation AS r
-	INNER JOIN
-		tbSpaceCate AS c
-	ON
-		r.spaceRelationCateCode = c.spaceCateCode
-	INNER JOIN
-		tbStore AS s
-	ON
-		s.storeCode = r.spaceRelationStoreCode
-	WHERE
-		s.storeCode = #{storeCode};
-		
-</select>
 
 <select id = "storeList" resultType="Store">
 

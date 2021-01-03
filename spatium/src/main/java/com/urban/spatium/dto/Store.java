@@ -1,7 +1,5 @@
 package com.urban.spatium.dto;
 
-import java.util.List;
-
 import java.util.Map;
 
 public class Store {
@@ -24,11 +22,11 @@ public class Store {
 	private int storeLevel;
 	private String storeRegDate;
 	
+	private Map<String, Object> spaceRelationCateCodeMap;
+	
 	private int spaceRelationStoreCode;
 	private int spaceRelationCateCode;
 	private int spaceRelationCode;
-	
-	private List<Map<String,Object>> storeRefundRullList;
 	
 	public String getStoreRefundRull() {
 		return storeRefundRull;
@@ -36,7 +34,6 @@ public class Store {
 	public void setStoreRefundRull(String storeRefundRull) {
 		this.storeRefundRull = storeRefundRull;
 	}
-
 	public int getStoreCode() {
 		return storeCode;
 	}
@@ -133,7 +130,6 @@ public class Store {
 	public void setSpaceRelationStoreCode(int spaceRelationStoreCode) {
 		this.spaceRelationStoreCode = spaceRelationStoreCode;
 	}
-	
 	public int getSpaceRelationCateCode() {
 		return spaceRelationCateCode;
 	}
@@ -153,14 +149,12 @@ public class Store {
 	public void setStoreRefundPercent(String storeRefundPercent) {
 		this.storeRefundPercent = storeRefundPercent;
 	}
-	
-	public List<Map<String, Object>> getStoreRefundRullList() {
-		return storeRefundRullList;
+	public Map<String, Object> getSpaceRelationCateCodeMap() {
+		return spaceRelationCateCodeMap;
 	}
-	public void setStoreRefundRullList(List<Map<String, Object>> storeRefundRullList) {
-		this.storeRefundRullList = storeRefundRullList;
+	public void setSpaceRelationCateCodeMap(Map<String, Object> spaceRelationCateCodeMap) {
+		this.spaceRelationCateCodeMap = spaceRelationCateCodeMap;
 	}
-	
 	
 	@Override
 	public String toString() {
@@ -199,14 +193,14 @@ public class Store {
 		builder.append(storeLevel);
 		builder.append(", storeRegDate=");
 		builder.append(storeRegDate);
+		builder.append(", spaceRelationCateCodeMap=");
+		builder.append(spaceRelationCateCodeMap);
 		builder.append(", spaceRelationStoreCode=");
 		builder.append(spaceRelationStoreCode);
 		builder.append(", spaceRelationCateCode=");
 		builder.append(spaceRelationCateCode);
 		builder.append(", spaceRelationCode=");
 		builder.append(spaceRelationCode);
-		builder.append(", storeRefundRullList=");
-		builder.append(storeRefundRullList);
 		builder.append("]");
 		return builder.toString();
 	}
