@@ -17,9 +17,10 @@ table{float: left; margin-right: 200px;}
 </th:block>
 
 <th:block layout:fragment="customJs">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
+		
 		$(function(){
-			
 			function dateCal(){
 				var rsvdate = $('.rsvdate').val();
 				var rsvdateYear = rsvdate.substring(0,4);
@@ -42,6 +43,7 @@ table{float: left; margin-right: 200px;}
 				console.log("계산>>>"+elapsedDay);
 				console.log($('.day').length);	
 				var result;
+				
 				for(var i=0;i<$('.day').length;i++){
 					if(elapsedDay>=$('.day').eq(0).val()){
 						result = $('.Pay').eq(0).val()
@@ -51,9 +53,11 @@ table{float: left; margin-right: 200px;}
 				}
 				
 				var reCal = (result/100)*$('.rsvTotalPrice').val();
-				$('.rePercent').val(result+"%");
-				$('.rePrice').val((result/100)*$('.rsvTotalPrice').val());
 				
+				$('.rePercent').val(result+"%");//환불할 퍼센트
+				$('.rePrice').val((result/100)*$('.paymentUseMoney').val());//환불퍼센트 * 실결제금액 = 환불할 금액
+				$('.paymentRefund').val($('.paymentUseMoney').val()-$('.rePrice').val((result/100));//환불하고 남은금액
+				console.log($('.paymentRefund').val());
 				return reCal;
 				
 			}
@@ -62,57 +66,70 @@ table{float: left; margin-right: 200px;}
 			console.log(dateCal());
 			
 			
-
+			$('.cancelTest').click(function(){
+				if(dateCal() != $('input').val()){
+					alert('데이터 오류');
+					$('input').val();
+					dataCal()
+				}else{
+					$('form').submit();
+				}
+				
+				return dataCal()
+			})
 		
-			
 		})
 	</script>
+	
 </th:block>
 
 
 
 <th:block layout:fragment="customContent">
+
+<form action="/refundBtn" method="post">
+
 	<!--예약테이블 결제상태 환불로변경? --><input type="hidden" name="rsvState" >
 	<!-- 적립된 포인트 마이너스 추가 --><input type="hidden" name="pointList">
 	<!-- 포인트 적립내역 환불완료로 수정 --><input type="hidden" name="pointAddList">
-	<!-- 아이디 --><input type="hidden" name="pointID">
+	<!-- 포인트에 환불 적립 될 (아이디 아래꺼 쓰면됨)--><input type="hidden" name="pointID">
+	<!-- 환불하고 남는금액 --><input type="hidden" name="paymentRefund" class="paymentRefund">
 <table border="1" id="table1">
 	<tbody >
-		
 		<th:block th:if="${#lists.size(cacelData) > 0}" th:each = "p : ${cacelData}">
 		<th:block th:each = "pr : ${p.RsvList}">
 		<tr>
 			<td>취소하는 방 예약코드</td>
-			<td><input type="text" name="paymentCode" th:value="${p.paymentRsvCode}" readonly="readonly"></td>
+			<td><input type="text" name="cancelRsvCode" th:value="${p.paymentRsvCode}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>취소자 아이디</td>
-			<td><input type="text" name="rsvUserId" th:value = "${pr.rsvUserId}" readonly="readonly"></td>
+			<td><input type="text" name="cancelUserId" th:value = "${pr.rsvUserId}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>취소자 이름</td>
-			<td><input type="text" name="rsvUserName" th:value = "${pr.rsvUserName}" readonly="readonly"></td>
+			<td><input type="text" th:value = "${pr.rsvUserName}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>취소자 휴대폰</td>
-			<td><input type="text" name="rsvUserPhone" th:value = "${pr.rsvUserPhone}" readonly="readonly"></td>
+			<td><input type="text" th:value = "${pr.rsvUserPhone}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>실제 결제한 금액</td>
-			<td><input type="text" class="rsvTotalPrice" name="rsvTotalPrice" th:value="${p.paymentUseMoney}" readonly="readonly"></td>
+			<td><input type="text" class="paymentUseMoney" th:value="${p.paymentUseMoney}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>환불 퍼센트</td>
-			<td><input type="text" class="rePercent"></td>
+			<td><input type="text" class="rePercent" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>환불하는 금액</td>
-			<td><input type="text" class="rePrice"></td>
+			<td><input type="text" class="rePrice" name="cancelPrice" readonly="readonly"></td>
 		</tr>
 		
 		<tr>
 			<td>취소사유</td>
-			<td><input type="text" name="rsvRequest"></td>
+			<td><input type="text" name="cancelReason"></td>
 		</tr>
 		<tr>
 			<td>결제 날짜</td>
@@ -123,17 +140,15 @@ table{float: left; margin-right: 200px;}
 			<td><input type="text" class="rsvdate" th:value="${pr.rsvStartDateTime}" readonly="readonly"></td>
 		</tr>
 		<tr>
-			<td colspan="2"><a href="cancelTest2"><button type="button">취소신청</button></a></td>
+			<td colspan="2"><a href="cancelTest"><button type="submit">취소신청</button></a></td>
 		</tr>
 		
 		</th:block>
 		</th:block>
 	</tbody>
 </table>
-
 	
-	<div id="totaltable">
-			<table border="1" id="table2">
+	<table border="1" id="table2">
 				<thead>
 					<tr>
 						<th>예약까지남은일수</th>
@@ -152,11 +167,11 @@ table{float: left; margin-right: 200px;}
 						</td>
 					</tr>
 				</tbody>
-			</table>
-		
+	</table>
+			
 		
 		<p id="Explanation">※해당업체의 환불정책</p>
-	</div>
-
-
+	
+	<!-- 환불정책 코드값 --><input type="hidden" name="refundPolicyCode" th:value="${re.refundPolicyCode}">
+</form>
 </th:block>

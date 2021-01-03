@@ -3,6 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"	
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">	
 <mapper namespace="com.urban.spatium.mapper.RefundMapper">	
+	
+	<insert id="cancelRefund" parameterType="CancelRsv" >
+	INSERT INTO tbCancelRsv
+		(cancelRsvCode
+		, cancelUserId
+		, cancelRegDate
+		, cancelState
+		, cancelConfirmDate
+		, cancelReason
+		, cancelPrice
+		, refundPolicyCode)
+	VALUES 
+	(	
+		#{cancelRsvCode}
+		,#{cancelUserId}
+		, NOW()
+		,#{cancelState}
+		, NOW()
+		, #{cancelReason}
+		, #{cancelPrice}
+		, #{refundPolicyCode}
+	)
+	</insert>
+	
+	
 	<insert id="addRefundPolicy" parameterType="java.util.Map">	
      INSERT INTO tbRefundPolicy	
 		( refundPolicyStoreCode	

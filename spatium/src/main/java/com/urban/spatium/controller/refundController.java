@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.urban.spatium.dto.CancelRsv;
 import com.urban.spatium.dto.Payment;
 import com.urban.spatium.dto.RefundPolicy;
 import com.urban.spatium.service.PaymentService;
@@ -32,6 +34,19 @@ public class refundController {
 	@Autowired 
 	private RefundService refundService;
 	
+	
+	@PostMapping("/refundBtn")
+	public String refundBtn(CancelRsv cancelrsv) {
+		System.out.println(cancelrsv.getCancelRsvCode());
+		cancelrsv.setCancelReason(cancelrsv.getCancelReason());
+		cancelrsv.setCancelrefundPolicyCode(cancelrsv.getCancelrefundPolicyCode());
+		cancelrsv.setCancelRsvCode(cancelrsv.getCancelRsvCode());
+		cancelrsv.setCancelUserId(cancelrsv.getCancelUserId());
+		cancelrsv.setCancelState("환불완료");
+		int refund = refundService.cancelRefund(cancelrsv);
+		
+		return "main";
+	}
 	
 	
 	@RequestMapping(value = "/refundPolicy", produces="application/json"  ,method = RequestMethod.POST ) 

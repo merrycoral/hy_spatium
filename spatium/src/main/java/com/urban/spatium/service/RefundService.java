@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.urban.spatium.dto.CancelRsv;
 import com.urban.spatium.dto.RefundPolicy;
 import com.urban.spatium.mapper.PaymentMapper;
 import com.urban.spatium.mapper.RefundMapper;
@@ -18,6 +19,10 @@ public class RefundService {
 	@Autowired 
 	private RefundMapper refundMapper;
 	
+	public int cancelRefund(CancelRsv cancelrsv) {
+		int refund = refundMapper.cancelRefund(cancelrsv);
+		return refund;
+	}
 	
 	public List<RefundPolicy> getRefundPolicy(int storeCode){
 		

@@ -18,10 +18,11 @@
 <th:block layout:fragment="customJs">
 <script>
 	$(function(){
+		
+		
 		$('#paymentListTb').DataTable({
 			
 		});
-		
 		$('.payCode').click(function(){
 			$('#hidTable').addClass('Active');
 			console.log($(this).text());
@@ -69,7 +70,7 @@
 	            });    
 
 			
-			
+		
 		});
 		
 		
@@ -103,11 +104,11 @@
 			<td th:text="${p.paymentUsePoint}"></td>
 			<td th:text="${p.paymentUseMoney}"></td>
 			<td th:text="${p.paymentAddPoint}"></td>
-			<td th:text="${p.paymentRegDate}"></td>
+			<td class="paymentRegDate" th:text="${p.paymentRegDate}"></td>
 			<td th:text="${p.paymentIP}"></td>
 			
-			<td>
-				<a th:href="@{/cancelTest(paymentCode=${p.paymentCode})}"><button	type="button">환불</button></a>
+			<td class="cancelTestTd">
+				<a class="cancelTest" th:href="@{/cancelTest(paymentCode=${p.paymentCode})}"><button	type="button">환불</button></a>
 			</td>
 		</tr>
 	</tbody>
