@@ -11,7 +11,7 @@ public class PageMaker {
 	private boolean prev;       // 페이징 이전 버튼 활성화 여부
 	private boolean next;       // 페이징 다음 버튼 활서화 여부
 	
-	private Criteria cri;       // 앞서 생성한 Criteria를 주입받는다.
+	private Criteria2 cri;       // 앞서 생성한 Criteria를 주입받는다.
 
 	public int getTotalCount() {
 		return totalCount;
@@ -79,11 +79,11 @@ public class PageMaker {
 		this.displayPageNum = displayPageNum;
 	}
 
-	public Criteria getCri() {
+	public Criteria2 getCri() {
 		return cri;
 	}
 
-	public void setCri(Criteria cri) {
+	public void setCri(Criteria2 cri) {
 		this.cri = cri;
 	}
 

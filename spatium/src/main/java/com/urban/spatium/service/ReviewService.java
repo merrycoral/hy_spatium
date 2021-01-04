@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.urban.spatium.Criteria;
+import com.urban.spatium.Criteria2;
 import com.urban.spatium.dto.Review;
 import com.urban.spatium.mapper.ReviewMapper;
 
@@ -18,12 +18,17 @@ public class ReviewService {
 		@Autowired
 		private ReviewMapper reviewMapper;
 		
-		public int exallReviewcnt(Criteria cri) {
+		public List<Review> getReviewByStoreCode(int storeCode) {
+			List<Review> reviewList = reviewMapper.getReviewByStoreCode(storeCode);
+			return reviewList;
+		}
+		
+		public int exallReviewcnt(Criteria2 cri) {
 			int count = reviewMapper.getAllReviewCount();
 			return count;
 		}
 		
-		public List<Review> exallReview(Criteria cri) {
+		public List<Review> exallReview(Criteria2 cri) {
 			int rowPerPage = cri.getPerPageNum();
 			int startRow = cri.getPageStart();
 			List<Review> exallReview = reviewMapper.exallReview(startRow, rowPerPage);
@@ -196,7 +201,7 @@ public class ReviewService {
 			return resultMap;
 		}
 
-		public Object listCriteria(Criteria cri) {
+		public Object listCriteria(Criteria2 cri) {
 			// TODO Auto-generated method stub
 			return null;
 		}

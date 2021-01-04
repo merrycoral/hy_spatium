@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.urban.spatium.Criteria;
+import com.urban.spatium.Criteria2;
 import com.urban.spatium.dto.Review;
 
 @Mapper
@@ -27,6 +27,8 @@ public interface ReviewMapper {
 	public List<Map<String, Object>> searchReview(int startRow, String searchKey, String searchValue);
 
 	public List<Review> exallReview(int startRow, int rowPerPage);
+
+	public List<Review> getReviewByStoreCode(int storeCode);
 
 
 

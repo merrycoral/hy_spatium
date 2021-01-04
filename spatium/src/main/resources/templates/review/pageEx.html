@@ -2,23 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customCss">
+<style type="text/css">
+	
+	#reviewTable th {padding : 5px;}
+	#reviewTable td {padding : 5px;}
+	#pageNum { text-align: center; }
+	#pageNum > li {display:inline-block;}
+</style>
+</th:block>
 	
 <th:block layout:fragment="customContent">
-    <section class="content-header">
-      <h1>
-        게시판 페이징 적용
-        <small>advanced tables</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
-      </ol>
-    </section>
-    <!-- Main content -->
-    <section class="content">
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-12 col-xs-12">
 
             <div class="box-header with-border">
               <h3 class="box-title">게시판 + 페이징</h3>
@@ -105,20 +102,20 @@
             <!-- /.box-body -->
             
             <!-- 게시판 하단의 페이징 버튼 -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
+            <div class="box-footer clearfix" >
+              <ul id="pageNum" class="pagination pagination-sm no-margin" >
               
               <li th:if="${pageMaker.prev} == true">
               	<a th:href="@{listPage(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
-              </li>
+              </li> 
               
               <li th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
-                <a th:href="@{listPage(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
-              </li>
+                <a th:href="@{listPage(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="| [${idx}] |"></a> 
+              </li> 
                 
               <li th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
               	<a th:href="@{listPage(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
-              </li>
+              </li> 
               
               </ul>
               
@@ -127,8 +124,8 @@
         </div>
         <!-- /.col -->
       </div>
+      </div>
       <!-- /.row -->
-    </section>
     <!-- /.content -->
   <!-- /.content-wrapper -->
 

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.urban.spatium.Criteria;
+import com.urban.spatium.Criteria2;
 import com.urban.spatium.PageMaker;
 import com.urban.spatium.service.ReviewService;
 
@@ -29,8 +29,8 @@ public class ReviewController {
 	
 	private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
 	
-		@RequestMapping(value = "/listPage", method = RequestMethod.GET)
-		public String listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		@RequestMapping(value = "/rvpageEx", method = RequestMethod.GET)
+		public String listPage(@ModelAttribute("cri") Criteria2 cri, Model model) throws Exception {
 			
 			log.info(cri.toString());
 			

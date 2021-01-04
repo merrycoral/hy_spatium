@@ -27,6 +27,15 @@
 			reviewScore
 	</sql>
 	
+	<select id="getReviewByStoreCode" parameterType="int" resultType="Review">
+		<include refid="seletReviewColumn" />
+		FROM
+			tbReview
+		WHERE reviewStoreCode = #{storeCode}
+		ORDER BY reviewCode DESC
+			
+	</select>
+	
 	<select id="exallReview" resultType="Review">
 		<include refid="seletReviewColumn" />
 		FROM 
