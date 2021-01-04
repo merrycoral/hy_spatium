@@ -6,7 +6,7 @@
 <th:block layout:fragment="customContent">
 
 	<div class="table-responsive m-t-20">
-		<table class="table table-bordered table-responsive-lg">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
 			<thead>
 				<tr>
 					<th scope="col">No.</th>
@@ -16,7 +16,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:if="${#bists.size(bookMarkList) > 0}" th:each="b : ${bookMarkList}">
+				<tr th:if="${#lists.size(bookMarkList) > 0}" th:each="b : ${bookMarkList}">
 					<td th:text="${b.bookMarkCode}"></td>
 					<td th:text="${b.userId}"></td>
 					<td th:text="${b.storeCode}"></td>

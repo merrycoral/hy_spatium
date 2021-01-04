@@ -23,7 +23,6 @@ public class BookmarkController {
 	public String bookMarkList(Model model) {
 		
 		model.addAttribute("title", "찜한공간");
-				
 		return "bookMark/bookMarkList";
 	}
 	
@@ -38,15 +37,5 @@ public class BookmarkController {
 	
 	
 	
-	/*public String bookMarkList(Bookmark bookmark, @RequestParam(name="result", required = false) String result) {
-		
-		
-		 * //로그인하지 않은 상태이면 로그인 화면으로 이동 if(result != null) model.addAttribute("result", result);
-		 *  return "user/login"; }
-		 
-		int result1 = bookmarkService.addBookmark(bookmark);//장바구니 테이블에 저장됨
-       System.out.println(result1);
-       		return "redirect:/bookMarklist"; //장바구니 목록으로 이동
-    }*/
-
+	
 }
