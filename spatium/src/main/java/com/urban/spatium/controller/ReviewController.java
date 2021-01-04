@@ -1,6 +1,5 @@
 package com.urban.spatium.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -11,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.urban.spatium.dto.Review;
+import com.urban.spatium.Criteria2;
+import com.urban.spatium.PageMaker;
 import com.urban.spatium.service.ReviewService;
 
 
@@ -25,21 +28,39 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
+	
+		@RequestMapping(value = "/rvpageEx", method = RequestMethod.GET)
+		public String listPage(@ModelAttribute("cri") Criteria2 cri, Model model) throws Exception {
+			
+			log.info(cri.toString());
+			
+			model.addAttribute("list", reviewService.exallReview(cri));  // 게시판의 글 리스트
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(reviewService.exallReviewcnt(cri));
+			
+			model.addAttribute("pageMaker", pageMaker);  // 게시판 하단의 페이징 관련, 이전페이지, 페이지 링크 , 다음 페이지
+			
+			System.out.println(pageMaker);
+			return "review/pageEx";
+		}
 		
 		@GetMapping("/reviewStore")
 		public String reviewStore(HttpSession session, Model model, @RequestParam(name="result", required = false) String result
 					, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
 			//List<Review> allReview = reviewService.getAllReview();
 			String sessionId = (String) session.getAttribute("SID");
+			System.out.println(sessionId);
 			
 			Map<String, Object> resultMap = reviewService.getStoreReview(currentPage, sessionId);
 			
 			model.addAttribute("title", "내 매장 리뷰 조회");
-			model.addAttribute("allReview", resultMap.get("allReview"));
+			model.addAttribute("allReview", resultMap.get("storeReview"));
 			model.addAttribute("lastPage", resultMap.get("lastPage"));
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
+			model.addAttribute("sessionId", sessionId);
 			
 			System.out.println(resultMap.get("startPageNum"));
 			System.out.println(resultMap.get("endPageNum"));
@@ -86,18 +107,12 @@ public class ReviewController {
 			
 			Map<String, Object> resultMap = reviewService.getAllReview(currentPage);
 			
-			model.addAttribute("title", "리뷰전체조회");
+			model.addAttribute("title", "리뷰 전체 조회");
 			model.addAttribute("allReview", resultMap.get("allReview"));
 			model.addAttribute("lastPage", resultMap.get("lastPage"));
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
-			
-			System.out.println(resultMap.get("startPageNum"));
-			System.out.println(resultMap.get("endPageNum"));
-			
-				//return "redirect:/";
-			
 			return "review/reviewAll";
 		}
 		
@@ -124,22 +139,23 @@ public class ReviewController {
 			
 			log.info("searchKey 변환한 값 ::: {}", searchKey);
 			
-			model.addAttribute("title", "검색된 리뷰");
-			model.addAttribute("allReview", reviewService.searchReview(searchKey, searchValue));
+			model.addAttribute("title", searchValue + "- 리뷰 검색 결과");
+			//model.addAttribute("allReview", reviewService.searchReview(searchKey, searchValue, currentPage));
 			
+			Map<String, Object> resultMap = reviewService.searchReview(searchKey, searchValue, currentPage);
 			
-			Map<String, Object> resultMap = reviewService.getAllReview(currentPage);
-			
-			model.addAttribute("allReview", resultMap.get("allReview"));
+			model.addAttribute("allReview", resultMap.get("searchedReview"));
 			model.addAttribute("lastPage", resultMap.get("lastPage"));
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
+			model.addAttribute("searchKey", searchKey);
+			model.addAttribute("searchValue", searchValue);
 			
 			System.out.println(resultMap.get("startPageNum"));
 			System.out.println(resultMap.get("endPageNum"));
 			
-			return "review/reviewAll";
+			return "review/reviewSearch";
 		}
 		
 		@GetMapping("/writeReview")
