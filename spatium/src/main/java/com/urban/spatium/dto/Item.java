@@ -16,6 +16,7 @@ public class Item {
 	private int itemDetailCode;
 	private int storeDetailCode;
 	private String itemName;
+	private String itemCategory;
 	private String itemDetail;
 	private String itemStatus;
 	private String itemRentalStatus;
@@ -105,6 +106,12 @@ public class Item {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
+	public String getItemCategory() {
+		return itemCategory;
+	}
+	public void setItemCategory(String itemCategory) {
+		this.itemCategory = itemCategory;
+	}
 	public String getItemDetail() {
 		return itemDetail;
 	}
@@ -161,6 +168,8 @@ public class Item {
 		builder.append(storeDetailCode);
 		builder.append(", itemName=");
 		builder.append(itemName);
+		builder.append(", itemCategory=");
+		builder.append(itemCategory);
 		builder.append(", itemDetail=");
 		builder.append(itemDetail);
 		builder.append(", itemStatus=");

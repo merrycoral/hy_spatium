@@ -94,10 +94,10 @@ public class StoreController {
 			System.out.println(arrayCheck + "arrayCheck 숫자");
 
 			tMap = new HashMap<String, Object>();
-			tMap.put(String.valueOf(i), i_array[i]);
+			tMap.put("cateNumber", i_array[i]);
 			cMap.add(tMap);
 		}
-		fMap.put("cMap", cMap);
+		fMap.put("list", cMap);
 		
 		System.out.println("============map start============");
 		System.out.println(cMap);
@@ -106,7 +106,7 @@ public class StoreController {
 		
 		model.addAttribute("storeBusiness", array);
 		System.out.println("===============end store================");
-		String result = storeService.addStore(store);
+		String result = storeService.addStore(store, fMap);
 		System.out.println("================start result===============");
 		System.out.println(result);
 		System.out.println("================end result===============");

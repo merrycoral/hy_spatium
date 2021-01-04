@@ -4,6 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.ItemMapper">
 
+	<select id = "itemCountListByStoreCode" parameterType="int" resultType="Item">
+	
+	SELECT
+		 itemCode
+		 , storeTotalCode
+		 , itemTotalName
+		 , itemTotalAmount
+		 , itemRentalPrice
+		 , itemImg
+		 , itemRegDate
+		 , itemChangeRegDate
+		 , itemTotalUserId
+	FROM 
+		tbItemTotalAmount
+	WHERE
+		storeTotalCode = #{storeCode}
+	
+	</select>
+	
 	<select id = "itemCountList" resultType="Item">
 	
 	SELECT
@@ -12,7 +31,6 @@
 		 , itemTotalName
 		 , itemTotalAmount
 		 , itemRentalPrice
-		 , itemRentalDeposit
 		 , itemImg
 		 , itemRegDate
 		 , itemChangeRegDate
@@ -30,7 +48,6 @@
 			, storeDetailCode
 			, itemName
 			, itemDetail
-			, itemRentalPrice
 			, itemStatus
 			, itemRentalStatus
 			, itemImg
@@ -49,8 +66,8 @@
 			, itemDetailCode
 			, storeDetailCode
 			, itemName
+			, itemCategory
 			, itemDetail
-			, itemRentalPrice
 			, itemStatus
 			, itemRentalStatus
 			, itemImg
@@ -59,11 +76,11 @@
 			, itemDetailUserId)
 		VALUES 
 			(NULL
-			, 200000001
+			, #{itemDetailCode}
 			, 5
 			, #{itemName}
+			, #{itemCategory}
 			, #{itemDetail}
-			, #{itemRentalPrice}
 			, #{itemStatus}
 			, #{itemRentalStatus}
 			, #{itemImg}

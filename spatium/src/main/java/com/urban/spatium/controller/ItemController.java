@@ -2,11 +2,13 @@ package com.urban.spatium.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.urban.spatium.dto.Item;
 import com.urban.spatium.service.ItemService;
@@ -16,6 +18,16 @@ public class ItemController {
 	
 	@Autowired
 	private ItemService itemService;
+	
+	@GetMapping("/itemInfo")
+	public String itemInfo(Model model, Item item
+							,@RequestParam(name = "storeItemCode", required = false) int storeItemCode) {
+		
+			model.addAttribute("title", "장비 상세 정보");
+			model.addAttribute("item", item);
+			
+		return "item/itemInfo";
+	}
 	
 	@GetMapping("/itemBuyList")
 	public String itemBuyList(Model model) {
@@ -67,6 +79,8 @@ public class ItemController {
 	public String addItem(Model model, Item item) {
 			System.out.println(item + "=========== 장비 넘어온 값 ============");
 			String result = itemService.addItem(item);
+			item.getItemDetailCode();
+			item.setItemDetailCode(item.getItemCode());
 			System.out.println(result);
 			
 		return "redirect:/addItem";

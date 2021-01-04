@@ -26,7 +26,6 @@
                         <tr role="row">
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 85px; text-align: center;"> 사업장 코드 </th>
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 50px; text-align: center;"> 장비 이름 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px; text-align: center;"> 장비 대여 가격 </th>
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px; text-align: center;"> 장비 상태 </th>
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px; text-align: center;"> 대여 상태 </th>
                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px; text-align: center;"> 장비 등록 날짜 </th>
@@ -40,8 +39,7 @@
 			<th:block th:each = "i : ${itemLi}">
 				<tr>
 					<td style = "text-align: center;" th:text = "${i.storeDetailCode}"></td>
-					<td style = "text-align: center;" th:text = "${i.itemName}"></td>
-					<td style = "text-align: center;" th:text = "${i.itemRentalPrice}"></td>
+					<td style = "text-align: center;"> <a th:href = "@{/itemInfo(storeItemCode=${i.storeItemCode})}" th:text = "${i.itemName}" style="color: blue"></a></td>
 					<td style = "text-align: center;" th:text = "${i.itemStatus}"></td>
 					<td style = "text-align: center;" th:text = "${i.itemRentalStatus}"></td>
 					<td style = "text-align: center;" th:text = "${i.itemRegDate}"></td>

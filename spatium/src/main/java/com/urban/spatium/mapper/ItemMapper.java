@@ -14,5 +14,7 @@ public interface ItemMapper {
 	public List<Item> itemList();
 	
 	public int addItem(Item item);
+
+	public List<Item> itemCountListByStoreCode(int storeCode);
 	
 }

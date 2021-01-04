@@ -21,6 +21,11 @@ public class ItemService {
 		return itemTotalLi;
 	}
 	
+	public List<Item> itemCountListByStoreCode(int storeCode){
+		List<Item> itemCountListByStoreCode = itemMapper.itemCountListByStoreCode(storeCode);
+		return itemCountListByStoreCode;
+	}
+	
 	public List<Item> itemList(){
 		List<Item> itemLi = itemMapper.itemList();
 		return itemLi;

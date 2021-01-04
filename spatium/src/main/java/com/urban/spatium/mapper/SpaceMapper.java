@@ -15,5 +15,7 @@ public interface SpaceMapper {
 	public List<ReadySpace> readySpaceList();
 	
 	public List<OKSpace> OKSpaceList();
+
+	public List<OKSpace> OKSpaceListByStoreCode(int storeCode);
 	
 }

@@ -118,7 +118,6 @@
 			, itemTotalName
 			, itemTotalAmount
 			, itemRentalPrice
-			, itemRentalDeposit
 			, itemImg
 			, itemRegDate
 			, itemChangeRegDate
@@ -162,7 +161,6 @@
 			, itemTotalName
 			, itemTotalAmount
 			, itemRentalPrice
-			, itemRentalDeposit
 			, itemImg
 			, itemRegDate
 			, itemChangeRegDate

@@ -43,7 +43,7 @@
 			<th:block th:each = "s : ${storeList}">
 				<tr>
 					<td style="text-align: center;" th:text = "${s.storeId}"></td>
-					<td style="text-align: center;" th:text = "${s.storeName}"></td>
+					<td style="text-align: center;"> <a th:href = "@{/storeSeeMore(storeCode=${s.storeCode})}" th:text = "${s.storeName}" style="color: blue"> </a></td>
 					<td style="text-align: center;" th:text = "${s.storeRepresentative}"></td>
 					<td style="text-align: center;" th:text = "${s.storeNumber}"></td>
 					<td style="text-align: center;" th:text = "${s.storeAddress}"></td>

@@ -90,4 +90,32 @@ FROM
 	
 </select>
 
+
+<select id = "OKSpaceListByStoreCode" resultType="OKSpace">
+
+SELECT
+	okaySpaceCode
+	, okayStoreCode
+	, okaySpaceName
+	, okaySpaceType
+	, okayPeopleNumber
+	, okayDetailSpace
+	, okayBriefSpace
+	, okaySpaceTag
+	, okaySpaceRentalPrice
+	, okayStartTime
+	, okayCloseTime
+	, okaySpaceRsvType
+	, okayExceptionStartDate
+	, okayExceptionEndDate
+	, okayCompletedDate
+	, okaySpaceBasicOption
+	, okaySpaceId
+FROM 
+	tbOkaySpace
+WHERE
+	okayStoreCode = #{storeCode}
+	
+</select>
+
 </mapper>
