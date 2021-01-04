@@ -62,15 +62,15 @@
 
 </select>
 
-<insert id="addStoreRelation" parameterType="int">
+<insert id="addStoreRelation" parameterType="java.util.Map">
 	
 	INSERT INTO tbSpaceRelation
 		(spaceRelationCode
 		, spaceRelationStoreCode
 		, spaceRelationCateCode)
 	VALUES
-		<foreach collection= "fMap" item = "array" separator=",">
-		(null, #{spaceRelationStoreCode}, #{array})
+		<foreach collection= "list" item = "i" separator=",">
+		(null, 5, #{i.cateNumber})
 		</foreach>
 </insert>
 
