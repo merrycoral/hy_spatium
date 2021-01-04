@@ -48,7 +48,6 @@
 			, storeDetailCode
 			, itemName
 			, itemDetail
-			, itemRentalPrice
 			, itemStatus
 			, itemRentalStatus
 			, itemImg

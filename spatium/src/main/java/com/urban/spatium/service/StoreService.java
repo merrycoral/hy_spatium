@@ -40,16 +40,15 @@ public class StoreService {
 		return getStoreInfoByStoreCode;
 	}
 	
-	public String addStore(Store store) {
+	public String addStore(Store store, Map<String, Object> storeMap) {
 		String insertCheck = "업체 등록 실패";
 		
 		
 		if(store != null) {
 			int result = storeMapper.addStore(store);
 			int storeCode = store.getStoreCode();
-			Map<String, Object> spaceRelationCateCodeMap = store.getSpaceRelationCateCodeMap();
 			
-			storeMapper.addStoreRelation(storeCode);
+			storeMapper.addStoreRelation(storeMap);
 			if(result > 0) {
 				insertCheck = "업체 등록 성공";
 			}
