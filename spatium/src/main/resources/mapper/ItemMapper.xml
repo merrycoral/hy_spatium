@@ -49,8 +49,8 @@
 			, itemDetailCode
 			, storeDetailCode
 			, itemName
+			, itemCategory
 			, itemDetail
-			, itemRentalPrice
 			, itemStatus
 			, itemRentalStatus
 			, itemImg
@@ -59,11 +59,11 @@
 			, itemDetailUserId)
 		VALUES 
 			(NULL
-			, 200000001
+			, #{itemDetailCode}
 			, 5
 			, #{itemName}
+			, #{itemCategory}
 			, #{itemDetail}
-			, #{itemRentalPrice}
 			, #{itemStatus}
 			, #{itemRentalStatus}
 			, #{itemImg}
