@@ -4,26 +4,49 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">	
 <mapper namespace="com.urban.spatium.mapper.RefundMapper">	
 	
+	<insert id="refundAddPoint" parameterType="Point">
+	INSERT INTO tbPointList
+		(
+		 pointID
+		, pointAddList
+		, pointSellList
+		, pointList
+		, pointPaymentCode
+		, pointModyfiDate
+		)
+		VALUES 
+		(
+		#{pointID}
+		, #{pointAddList}
+		, #{pointSellList}
+		, #{pointList}
+		, #{pointPaymentCode}
+		, NOW()
+		)
+	</insert>
+	
 	<insert id="cancelRefund" parameterType="CancelRsv" >
 	INSERT INTO tbCancelRsv
-		(cancelRsvCode
+		(
+		cancelRsvCode
 		, cancelUserId
-		, cancelRegDate
 		, cancelState
-		, cancelConfirmDate
 		, cancelReason
 		, cancelPrice
-		, refundPolicyCode)
+		, refundPolicyCode
+		, cancelRegDate
+		, cancelConfirmDate
+		)
 	VALUES 
 	(	
 		#{cancelRsvCode}
-		,#{cancelUserId}
-		, NOW()
-		,#{cancelState}
-		, NOW()
+		, #{cancelUserId}
+		, #{cancelState}
 		, #{cancelReason}
 		, #{cancelPrice}
 		, #{refundPolicyCode}
+		, NOW()
+		, NOW()
 	)
 	</insert>
 	

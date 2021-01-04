@@ -22,6 +22,7 @@
 		
 		$('#paymentListTb').DataTable({
 			
+			
 		});
 		$('.payCode').click(function(){
 			$('#hidTable').addClass('Active');
@@ -74,7 +75,7 @@
 		});
 		
 		
-	})
+	});
 
 </script>
  
@@ -108,7 +109,7 @@
 			<td th:text="${p.paymentIP}"></td>
 			
 			<td class="cancelTestTd">
-				<a class="cancelTest" th:href="@{/cancelTest(paymentCode=${p.paymentCode})}"><button	type="button">환불</button></a>
+				<a class="cancelTest" th:href="@{/cancelTest(paymentCode=${p.paymentCode})}"><button type="button">환불</button></a>
 			</td>
 		</tr>
 	</tbody>
