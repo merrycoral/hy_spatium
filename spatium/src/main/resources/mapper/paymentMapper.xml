@@ -35,6 +35,48 @@
 		<result column="pointModyfiDate" 		property="pointModyfiDate"/>
 	</resultMap>
 	
+	<select id="rsvStoreCode" parameterType="String" resultType="Payment">
+	SELECT 
+	     rsvCode
+	    ,rsvDetailCode
+		,rsvDetailSpace	
+	    ,okayStoreCode	
+		,okaySpaceType	
+		,okaySpaceName	
+		,rsvDetailItem	
+		,itemTotalName	
+		,rsvDetailNum	
+		,rsvDetailOnePrice
+		,rsvState
+
+	FROM
+		tbPayment AS p
+	INNER join
+		tbRsv AS r
+	ON
+		p.paymentRsvCode = r.rsvCode
+	INNER join
+		tbRsvRelation AS l
+	ON
+		r.rsvCode = l.rsvRelationRsvCode
+	INNER join
+		tbRsvDetail AS d
+	ON
+		l.rsvRelationRsvDetailCode = d.rsvDetailCode
+	INNER join
+		tbOkaySpace AS o
+	ON	
+		d.rsvDetailSpace = o.okaySpaceCode
+	Left join
+		tbItemTotalAmount AS t
+	ON	
+		d.rsvDetailItem = t.itemCode
+	WHERE
+	rsvCode = #{rsvCode};	
+	</select>
+	
+	
+	
 	<select id="rsvDetail" parameterType="String" resultType="Payment">
 	SELECT 
 	     rsvCode
@@ -73,8 +115,6 @@
 		d.rsvDetailItem = t.itemCode
 	WHERE
 	p.paymentCode = #{payCode};	
-		
-
 	</select>
 	
 	
@@ -171,7 +211,7 @@
 	, paymentUsePoint
 	, paymentUseMoney
 	, paymentAddPoint
-	
+	, paymentStoreCode
 	, paymentIP
 	, paymentRegDate
 	)
@@ -182,7 +222,7 @@
 	, #{paymentUsePoint}
 	, #{paymentUseMoney}
 	, #{paymentAddPoint}
-	
+	, #{paymentStoreCode}
 	, #{paymentIP}
 	, NOW()
 	)

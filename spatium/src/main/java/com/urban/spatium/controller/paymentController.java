@@ -66,19 +66,19 @@ public class paymentController {
 		System.out.println(payment.getPaymentUseMoney()+"getPaymentUseMoney");
 		System.out.println(payment.getPaymentAddPoint()+"getPaymentAddPoint");
 		System.out.println(payment.getPaymentIP()+"getPaymentIP");
+		System.out.println(payment.getPaymentStoreCode()+"getPaymentStoreCode");
 		System.out.println(PaymentRsvCode +"PaymentRsvCode의 값");
 		System.out.println("유즈포인트"+(usePoint*-1));
 		System.out.println("에드포인트"+addPoint);
 		
 		
 		payment.setPaymentPrice(payment.getPaymentPrice());
-		
 		payment.setPaymentRsvCode(PaymentRsvCode);
 		payment.setPaymentUsePoint(usePoint);
 		payment.setPaymentUseMoney(payment.getPaymentUseMoney());
 		payment.setPaymentAddPoint(addPoint);
-		
 		payment.setPaymentIP(payment.getPaymentIP());
+		payment.setPaymentStoreCode(payment.getPaymentStoreCode());
 		int pay = paymentService.paymentSystem(payment);
 		System.out.println(pay + "pay의 값");
 		
@@ -125,14 +125,20 @@ public class paymentController {
 	
 	@GetMapping("/paymentTest")
 	public  String test(Model model
-					,@RequestParam(name="rsvCode", required = false) String rsvCode) {
+					,@RequestParam(name="rsvCode", required = false) String rsvCode
+					) {
 		System.out.println("hiihi");
 		System.out.println(rsvCode);
 		
 		//memberService.onelist(member.getMemberId());
 		
 		Rsv rsv = paymentService.rsvState(rsvCode);
+		List<Payment> rsvStorecode = paymentService.rsvStoreCode(rsvCode);
+		int storeCode =rsvStorecode.get(0).getOkayStoreCode();
+		System.out.println("스토어코드>>>>>>>"+storeCode);
 		
+		
+		model.addAttribute("rsvStorecode", rsvStorecode);
 		model.addAttribute("rsv", rsv);
 		System.out.println(rsv.getRsvUserId());
 		System.out.println(rsv.getRsvCode());

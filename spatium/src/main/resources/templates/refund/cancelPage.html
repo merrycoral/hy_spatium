@@ -70,25 +70,28 @@ table{float: left; margin-right: 200px;}
 				console.log($('.pointList').val());
 			$('.cancelTest').click(function(){
 				
-			        
-			       
-				if(dateCal() != $('input').val()){
+			    if(dateCal() != $('input').val()){
 					alert('데이터 오류');
 					$('input').val(dataCal());
 					
 				}else{
-					$('form').submit();
+					var hi = confirm("환불 하시겠습니까 ?");
+					if(hi){
+						$('form').submit();
+					}else{
+						 location.href="/refund/cancelPage"
+					}
 				}
 				
 				return dataCal()
 			});
 			
 			 $('.hey').click(function(){
-				 var result = confirm("실행하시겠어요 ?");
+				 var result = confirm("환불할랑가 ?");
 			        
 			        if(result)
 			        {
-			            document.write($('form').submit())
+			           
 			        }
 			        else
 			        {
