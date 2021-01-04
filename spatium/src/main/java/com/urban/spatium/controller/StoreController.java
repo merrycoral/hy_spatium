@@ -45,9 +45,11 @@ public class StoreController {
 	public String addStore(Model model, Store store) {
 
 		System.out.println("스토어 받은값 --> " + store);
-		store.getStoreCode();
+		System.out.println(store.getStoreCode() + "**********************************************");
 		System.out.println("===============start store================");
 		String storeCate = store.getStoreBusinessType();
+		
+		store.setSpaceRelationStoreCode(store.getStoreCode());
 		Map<String, Object> fMap = new HashMap<String, Object>();
 		
 		Map<String, Object> tMap;
@@ -95,22 +97,18 @@ public class StoreController {
 
 			tMap = new HashMap<String, Object>();
 			tMap.put("cateNumber", i_array[i]);
+			tMap.put("code", store.getSpaceRelationStoreCode());
 			cMap.add(tMap);
 		}
 		fMap.put("list", cMap);
 		
-		System.out.println("============map start============");
-		System.out.println(cMap);
-		System.out.println(fMap);
-		System.out.println("============map end============");
-		
 		model.addAttribute("storeBusiness", array);
 		System.out.println("===============end store================");
-		String result = storeService.addStore(store, fMap);
+		int result = storeService.addStore(store, fMap);
 		System.out.println("================start result===============");
 		System.out.println(result);
 		System.out.println("================end result===============");
-		store.setSpaceRelationStoreCode(store.getStoreCode());
+		
 		return "space/addSpace";
 	}
 
