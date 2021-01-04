@@ -29,6 +29,9 @@
 		<input type="text" name = "sv" placeholder="검색어를 입력해주세요"/>
 		<button type="submit"  onclick="searchUserList">검색</button>
 	</form>
+<div>
+<button type="submit"  class="btn btn-primary" ><a th:href="@{/bookMarkList}"></a></button>
+</div>
 
 <div class="table-responsive m-t-20">
 		<table class="table table-bordered table-responsive-lg">
@@ -64,23 +67,9 @@
 				<td th:text="${l.userPoint}"></td>
 				<td>
 					<button type="submit"><a th:href="@{/modifyUser(userId=${l.userId})}">수정</a></button>
-					<button type="submit"><a  th:href="@{/modifyUser(userId=${l.userId})}">수정</a></button>
+					<button type="submit"><a  th:href="@{/removeUser(userId=${l.userId})}">삭제</a></button>
 				</td>
 			</tbody>
-			<tfoot>
-			<tr>
-				<td colspan="4">
-					<a th:if='${currentPage>1}' th:href='@{/userList}'>맨처음</a>
-					<a th:if='${currentPage>1}' th:href='@{/userList(currentPage = ${currentPage-1})}'>이전</a>
-					<th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
-						<a th:unless="${currentPage == num}" th:href="@{/userList(currentPage = ${num})}" th:text="${'['+ num +']'}"></a>
-						<span th:if="${currentPage == num}" th:text="${'['+ num +']'}"></span>
-					</th:block>
-					<a th:if='${currentPage<lastPage}' th:href='@{/userList(currentPage = ${currentPage+1})}'>다음</a>
-					<a th:if='${currentPage<lastPage}' th:href='@{/userList(currentPage = ${lastPage})}'>맨마지막</a>
-				</td>
-			</tr>
-		</tfoot>
 		</table>
 	</div>
 

@@ -92,6 +92,7 @@
 				</select>
 			</div>
 		</div>
+		
 		<div class="field item form-group bad">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">이메일</label>
 			<div class="col-md-6 col-sm-6">
@@ -99,24 +100,18 @@
 					type="email" th:value="${userEmail}">
 			</div>
 		</div>
+		
+		<div class="field item form-group bad">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">찜한 공간</label>
+			<div class="col-md-6 col-sm-6">
+				<button type="submit"  class="btn btn-primary" ><a th:href="@{/bookMarkList}"></a></button>
+		</div>
+		</div>
 
 		<div class="form-group" align="center">
-			<div class="col-md-6 offset-md-3">
-<<<<<<< HEAD
-				<button type="submit" class="btn btn-primary">
-					<a th:href="@{/myInfo(userId=${l.userId})}">수정</a>
-				</button>
-				<button type="submit" class="btn btn-primary">
-					<a
-						th:href="@{/removeMyinfo(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a>
-				</button>
-
-=======
-				<button type="submit"  class="btn btn-primary"><a th:href="@{/myInfo(userId=${l.userId})}">수정</a></button>
+					<button type="submit" class="btn btn-primary"><a th:href="@{/myInfo(userId=${l.userId})}">수정</a></button>
 					<button type="submit" class="btn btn-primary"><a th:href="@{/removeMyinfo(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a></button>
-				
->>>>>>> refs/remotes/origin/KAY
-			</div>
+
 		</div>
 	</form>
 </html>
