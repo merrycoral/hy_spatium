@@ -18,6 +18,11 @@ public class StatisticController {
 	@Autowired
 	private AccessService accessService;
 	
+	@GetMapping("/buyStat")
+	public String buyStat(Model model, @RequestParam(name="result", required = false) String result) {
+		return "statistic/buyStatistic";
+	}
+	
 	@GetMapping("/chartEx")
 	public String chartEx(Model model, @RequestParam(name="result", required = false) String result) {
 		return "statistic/chartEx";
