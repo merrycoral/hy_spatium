@@ -16,6 +16,13 @@
 		border: solid 1px;
 		padding: 5px;
 	}
+	#rsvBtn{
+		float:right;
+		text-align: center;
+		padding: 0;
+		height: 50px;
+		width: 150px;
+	}
 </style>
 </th:block>
 
@@ -36,6 +43,9 @@
 			</div>
 		</div>
 		<div class="row ">
+			<a  th:href="@{/rsvInsert(storeCode=${storeCode})}">
+				<button id="rsvBtn">예약하기</button>
+				</a>
 			<div class="x_content">
 				<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 					<li class="nav-item active">
@@ -62,7 +72,7 @@
 					<!-- 업체소개 시작-->
 					<div class="tab-pane fade active show in" id="info">
 						<div th:utext ="${storeInfo.storeIntroduction}" style="margin: 20px;"></div>
-						
+						<div id="map" style="width:100%;height:400px;"></div>
 					</div>
 					
 					<!-- 업체소개 끝-->
@@ -96,9 +106,9 @@
 					<!-- 환불정책 시작 -->
 					<div class="tab-pane fade" id="refundRule">
 						<table id="refundTb">
-							<tr th:each="r : ${refundRule}">
-								<td th:text="${r.get('remainingDay')}+일전"></td>
-								<td th:text="${r.get('refundPercent')}+'%'"></td>
+							<tr th:each="ref : ${refundRule}">
+								<td th:text="${ref.get('remainingDay')}+일전"></td>
+								<td th:text="${ref.get('refundPercent')}+'%'"></td>
 							</tr>
 						</table>
 					</div>
@@ -107,7 +117,15 @@
 					<div class="tab-pane fade" id="QnA"></div>
 					<!-- QnA 끝 -->
 					<!-- 리뷰 시작 -->
-					<div class="tab-pane fade" id="review"></div>
+					<div class="tab-pane fade" id="review">
+						<th:block th:each="rev : ${reviewList}">
+							<div th:text="${rev.reviewAddId}"></div>
+							<div><span>평점 : [[${rev.reviewScore}]]</span></div>
+							<div style="font-weight: bold;" th:text="${rev.reviewTitle}"></div>
+							<div th:text="${rev.reviewContents}"></div>
+							<div>------------------------------------------------------------------------------------------------------</div>
+						</th:block>
+					</div>
 					<!-- 리뷰 끝 -->
 				</div>
 			</div>
@@ -115,4 +133,42 @@
 	</div>
 	<!-- 공간 진열 end -->
 </th:block>
+<th:block layout:fragment="customJs">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rt37xgq4ur"></script>
+    <script type="text/javascript">
+    
+    	$(function() {
+			var mapOptions = {
+			    	    center: new naver.maps.LatLng(37.3595704, 127.105399),
+			    	    zoom: 15
+			    	};
+	    	var map = new naver.maps.Map('map', mapOptions);
+	    	var marker = new naver.maps.Marker({
+	    		position: new naver.maps.LatLng(37.3595704, 127.105399),
+	    		map: map
+	    		});
+			
+		})
+    
+    
+  	 
+    	
+    </script>
+</th:block>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

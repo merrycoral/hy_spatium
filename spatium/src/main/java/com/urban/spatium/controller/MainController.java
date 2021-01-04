@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.urban.spatium.dto.Item;
 import com.urban.spatium.dto.OKSpace;
+import com.urban.spatium.dto.Review;
 import com.urban.spatium.dto.Store;
 import com.urban.spatium.service.ItemService;
+import com.urban.spatium.service.ReviewService;
 import com.urban.spatium.service.SpaceService;
 import com.urban.spatium.service.StoreService;
 
@@ -24,6 +26,8 @@ public class MainController {
 	private SpaceService spaceService;
 	@Autowired 
 	private ItemService itemService;
+	@Autowired 
+	private ReviewService reviewService;
 	
 	
 	@GetMapping("/admin")
@@ -44,11 +48,13 @@ public class MainController {
 		List<OKSpace> spaceList = spaceService.OKSpaceListByStoreCode(storeCode);
 		List<Item> itemCountListByStoreCode = itemService.itemCountListByStoreCode(storeCode);
 		List<Map<String,Object>> refundRule = storeService.getRefundRuleByStoreCode(storeCode); 
+		List<Review> reviewList = reviewService.getReviewByStoreCode(storeCode);
 		model.addAttribute("title", "업체 정보");
 		model.addAttribute("storeInfo", storeInfo);
 		model.addAttribute("itemCountListByStoreCode", itemCountListByStoreCode);
 		model.addAttribute("spaceList", spaceList);
 		model.addAttribute("refundRule", refundRule);
+		model.addAttribute("reviewList", reviewList);
 		return "store/storeInfo";
 	}
 	
