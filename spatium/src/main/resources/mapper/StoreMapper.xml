@@ -70,7 +70,7 @@
 		, spaceRelationCateCode)
 	VALUES
 		<foreach collection= "list" item = "i" separator=",">
-		(null, 5, #{i.cateNumber})
+		(null, #{i.code}, #{i.cateNumber})
 		</foreach>
 </insert>
 

@@ -40,21 +40,21 @@ public class StoreService {
 		return getStoreInfoByStoreCode;
 	}
 	
-	public String addStore(Store store, Map<String, Object> storeMap) {
+	public int addStore(Store store, Map<String, Object> storeMap) {
 		String insertCheck = "업체 등록 실패";
-		
+		int storeCode = store.getStoreCode();
 		
 		if(store != null) {
 			int result = storeMapper.addStore(store);
-			int storeCode = store.getStoreCode();
 			
+			System.out.println(storeCode + "1111111111111 service 부분 1111111111111111111");
 			storeMapper.addStoreRelation(storeMap);
 			if(result > 0) {
 				insertCheck = "업체 등록 성공";
 			}
 		}
 		
-		return insertCheck;
+		return storeCode;
 	}
 	
 	public List<Store> storeList(){
