@@ -1,6 +1,6 @@
 package com.urban.spatium.dto;
 
-import java.util.Map;
+import java.util.List;
 
 public class Store {
 	
@@ -22,7 +22,7 @@ public class Store {
 	private int storeLevel;
 	private String storeRegDate;
 	
-	private Map<String, Object> spaceRelationCateCodeMap;
+	private List<Store> storeCategoryList;
 	
 	private int spaceRelationStoreCode;
 	private int spaceRelationCateCode;
@@ -149,12 +149,13 @@ public class Store {
 	public void setStoreRefundPercent(String storeRefundPercent) {
 		this.storeRefundPercent = storeRefundPercent;
 	}
-	public Map<String, Object> getSpaceRelationCateCodeMap() {
-		return spaceRelationCateCodeMap;
+	public List<Store> getStoreCategoryList() {
+		return storeCategoryList;
 	}
-	public void setSpaceRelationCateCodeMap(Map<String, Object> spaceRelationCateCodeMap) {
-		this.spaceRelationCateCodeMap = spaceRelationCateCodeMap;
+	public void setStoreCategoryList(List<Store> storeCategoryList) {
+		this.storeCategoryList = storeCategoryList;
 	}
+	
 	
 	@Override
 	public String toString() {
@@ -193,8 +194,8 @@ public class Store {
 		builder.append(storeLevel);
 		builder.append(", storeRegDate=");
 		builder.append(storeRegDate);
-		builder.append(", spaceRelationCateCodeMap=");
-		builder.append(spaceRelationCateCodeMap);
+		builder.append(", storeCategoryList=");
+		builder.append(storeCategoryList);
 		builder.append(", spaceRelationStoreCode=");
 		builder.append(spaceRelationStoreCode);
 		builder.append(", spaceRelationCateCode=");
