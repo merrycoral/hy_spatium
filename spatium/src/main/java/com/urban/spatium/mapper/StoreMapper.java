@@ -1,6 +1,7 @@
 package com.urban.spatium.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,12 +12,14 @@ public interface StoreMapper {
 	
 	public int updateStoreSet(Store store);
 	
-	public Store updateStore(int storeCode);
+	public Store getStoreInfoByStoreCode(int storeCode);
 	
 	public int addStoreRelation(int storeCode);
 	
 	public int addStore(Store store);
 	
 	public List<Store> storeList();
+
+	public List<Map<String, Object>> getRefundRuleByStoreCode(int storeCode);
 	
 }

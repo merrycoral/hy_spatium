@@ -2,17 +2,117 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/maindefault}">
-	
+
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
-</th:block>	
-	
-	
-<th:block layout:fragment="customContent">
-스토어코드 : 
-<div th:text = "${storeCode}"></div>
-코드를 가진 스토어 인포입니다.
+</th:block>
+<th:block layout:fragment="customCss">
+<style type="text/css">
+	.spaceInfo{
+		margin-top: 15px;
+		font-weight: bold;
+	}
+	#refundTb, #refundTb tr, #refundTb tr td{
+		border: solid 1px;
+		padding: 5px;
+	}
+</style>
+</th:block>
 
-	
+
+<th:block layout:fragment="customContent">
+	<!-- 공간 진열 start -->
+	<div class="container main_space"
+		data-example-id="thumbnails-with-custom-content">
+		<div th:text="${storeInfo.storeName}" style="font-size: 50px; font-weight: bold; margin-bottom: 10px;"></div>		
+		<div th:text="'#'+${storeInfo.storeBusinessType}" style="margin-bottom: 10px;"></div>
+		<div class="row ">
+			<div class="col-lg-12 col-sm-12">
+				<div class="thumbnail">
+					<img data-src="holder.js/100%x200" alt="100%x500"
+						th:src="${storeInfo.storeImage}" data-holder-rendered="true"
+						style="height: 500px; width: 100%; display: block;">
+				</div>
+			</div>
+		</div>
+		<div class="row ">
+			<div class="x_content">
+				<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+					<li class="nav-item active">
+						<a data-toggle="tab" href="#info">업체 소개</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#space">보유 공간</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#item">보유 장비</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#refundRule">환불 정책</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#QnA">Q&A</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#review">이용 후기</a>
+					</li>
+				</ul>
+				
+				<div class="tab-content" id="myTabContent">
+					<!-- 업체소개 시작-->
+					<div class="tab-pane fade active show in" id="info">
+						<div th:utext ="${storeInfo.storeIntroduction}" style="margin: 20px;"></div>
+						
+					</div>
+					
+					<!-- 업체소개 끝-->
+					<!-- 공간소개 시작 -->
+					<div class="tab-pane fade" id="space">
+						<th:block th:each="s : ${spaceList}">
+							<div class="spaceInfo" th:text="${s.okaySpaceName}" style="font-size: 20px; font-weight: bold; margin-bottom: 10px;"></div>
+							<div class="spaceInfo"></div><div><span th:text="${s.okayBriefSpace}"></span></div>
+							<div class="spaceInfo">공간 설명 </div><div><span th:utext = "${s.okayDetailSpace}"></span></div>
+							<div class="spaceInfo">최대 인원 </div><div><span th:text = "${s.okayPeopleNumber}+명"></span></div>
+							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${s.okaySpaceRsvType}"></span>당 <span th:text = "${s.okaySpaceRentalPrice}"></span>원</div>
+							<div class="spaceInfo">영업 시간 </div><div><span th:text = "${s.okayStartTime}"></span> ~ <span th:text = "${s.okayCloseTime}"></span></div>
+							<div class="spaceInfo">기본 옵션 </div><div><span th:text = "${s.okaySpaceBasicOption}"></span></div>
+							<div class="spaceInfo">------------------------------------------------------------------------------------------------------</div>
+						</th:block>
+					</div>
+					<!-- 공간소개 끝 -->
+					<!-- 장비소개 시작 -->
+					<div class="tab-pane fade" id="item">
+						<th:block th:each="i : ${itemCountListByStoreCode}">
+							<div class="spaceInfo" th:text="${i.itemTotalName}" style="font-size: 20px; font-weight: bold; margin-bottom: 10px;"></div>
+							<div class="spaceInfo"></div><div><img data-src="holder.js/100%x200" alt="100%x500"
+																th:src="${i.itemImg}" data-holder-rendered="true"
+																style="height: 200px; width: 300px; display: block;"></div>
+							<div class="spaceInfo">보유 개수 </div><div><span th:text = "${i.itemTotalAmount}+개"></span></div>
+							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${i.itemRentalPrice}"></span>원</div>
+							<div class="spaceInfo">------------------------------------------------------------------------------------------------------</div>
+						</th:block>
+					</div>
+					<!-- 장비소개 끝 -->
+					<!-- 환불정책 시작 -->
+					<div class="tab-pane fade" id="refundRule">
+						<table id="refundTb">
+							<tr th:each="r : ${refundRule}">
+								<td th:text="${r.get('remainingDay')}+일전"></td>
+								<td th:text="${r.get('refundPercent')}+'%'"></td>
+							</tr>
+						</table>
+					</div>
+					<!-- 환불정책 끝 -->
+					<!-- QnA 시작 -->
+					<div class="tab-pane fade" id="QnA"></div>
+					<!-- QnA 끝 -->
+					<!-- 리뷰 시작 -->
+					<div class="tab-pane fade" id="review"></div>
+					<!-- 리뷰 끝 -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 공간 진열 end -->
 </th:block>
 </html>

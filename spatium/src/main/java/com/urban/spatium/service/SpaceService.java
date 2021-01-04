@@ -41,4 +41,15 @@ public class SpaceService {
 		
 		return OKSpaceList;
 	}
+	
+	public List<OKSpace> OKSpaceListByStoreCode(int storeCode){
+		
+		List<OKSpace> OKSpaceListByStoreCode = spaceMapper.OKSpaceListByStoreCode(storeCode);
+		//업체 세부 소개의 띄어쓰기 <br>로 변환
+		for(int i=0; i<OKSpaceListByStoreCode.size(); i++) {
+			OKSpaceListByStoreCode.get(i).setOkayDetailSpace(OKSpaceListByStoreCode.get(i).getOkayDetailSpace().replaceAll("\r\n", "<br>"));
+		}
+		return OKSpaceListByStoreCode;
+	}
+	
 }

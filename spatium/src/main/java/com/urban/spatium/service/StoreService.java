@@ -30,10 +30,14 @@ public class StoreService {
 	}
 	
 	public Store updateStore(int storeCode) {
-		
-			Store updateStore = storeMapper.updateStore(storeCode);
-			
+		Store updateStore = storeMapper.getStoreInfoByStoreCode(storeCode);
 		return updateStore;
+	}
+	
+	public Store getStoreInfoByStoreCode(int storeCode) {
+			Store getStoreInfoByStoreCode = storeMapper.getStoreInfoByStoreCode(storeCode);
+			getStoreInfoByStoreCode.setStoreIntroduction(getStoreInfoByStoreCode.getStoreIntroduction().replaceAll("\r\n", "<br>"));
+		return getStoreInfoByStoreCode;
 	}
 	
 	public String addStore(Store store) {
@@ -60,4 +64,10 @@ public class StoreService {
 		
 		return storeList;
 	}
+
+	public List<Map<String, Object>> getRefundRuleByStoreCode(int storeCode) {
+		List<Map<String, Object>> refundRule = storeMapper.getRefundRuleByStoreCode(storeCode);
+		return refundRule;
+	}
+
 }
