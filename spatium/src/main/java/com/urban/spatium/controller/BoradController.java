@@ -149,7 +149,16 @@ public class BoradController {
 		 
 		 Board board = boardService.getBoardsByCode(boardIdx);
 		 List<Board> boardCate = boardService.getBoardCate();
+		 
 		 Map<String, Object> pagingParams = boardService.getPagingParams(params);
+		 
+		 model.addAttribute("currentPageNo", pagingParams.get("currentPageNo"));
+		 model.addAttribute("recordsPerPage", pagingParams.get("recordsPerPage"));
+		 model.addAttribute("pageSize", pagingParams.get("pageSize"));
+		 model.addAttribute("searchType", pagingParams.get("searchType"));
+		 model.addAttribute("searchKeyword", pagingParams.get("searchKeyword"));
+		 
+ 
 		 model.addAttribute("boardCate", boardCate);
 		 model.addAttribute("title", "게시글 수정");
 		 model.addAttribute("Board", board);
@@ -158,26 +167,32 @@ public class BoradController {
 		 return "borad/modifyPost";
 	 }
 	 
+	 
+	 
 	 //소모임 게시글 수정(Action)
 		@PostMapping(value ="/modifyPost")
-		public String modifyGoods(@ModelAttribute("params") Board params
-								  ,Board board) {
+		public String modifyPost(@ModelAttribute("params") Board params
+								  ,Model model) {
 			
-			String result = boardService.modifyPost(board);
-			Map<String, Object> pagingParams = boardService.getPagingParams(params);
+			String result = boardService.modifyPost(params);
+			 Map<String, Object> pagingParams = boardService.getPagingParams(params);
 
-			
+
+			System.out.println("params -- >>" + params);
 			
 			System.out.println(result);
 				
-			return "redirect:/boardList";
+			return "redirect:/detailPost?boardIdx="+params.getBoardIdx();
 		}
 
 	//소모임 게시판 삭제(Action)
 		@RequestMapping(value = "/removePost", method = RequestMethod.GET)
-		public String removeGoods(@RequestParam(name="boardIdx", required = false) int boardIdx) {
+		public String removePost(@ModelAttribute("params") Board params
+				,Board board
+				,@RequestParam(name="boardIdx", required = false) int boardIdx) {
 			
 			String result = boardService.removePost(boardIdx);
+			
 
 			return "redirect:/boardList";
 		}

@@ -42,7 +42,7 @@ public class BoardService {
 		if (boardTotalCount > 0) {
 			boardList = boardMapper.getBoardsList(params);
 		}
-
+		
 		return boardList;
 		
 	}
@@ -52,7 +52,7 @@ public class BoardService {
 	public String addPost(Board board) {
 		String result = "게시글 등록 실패";
 		
-		int insertCheck = boardMapper.registerBoard(board);
+		int insertCheck = boardMapper.addPost(board);
 		
 		if(insertCheck > 0) result = "게시글 등록 완료";
 		
@@ -62,7 +62,7 @@ public class BoardService {
 	public String modifyPost(Board board) {
 		String result = "게시글 수정 실패";
 		
-		int insertCheck = boardMapper.registerBoard(board);
+		int insertCheck = boardMapper.modifyPost(board);
 		
 		if(insertCheck > 0) result = "수정 완료";
 		
@@ -80,6 +80,8 @@ public class BoardService {
 
 		return params;
 	}
+	
+	
 	
 	public List<Board> getBoardCate() {
 		List<Board> getBoardCate = boardMapper.getBoardCate();

@@ -72,28 +72,7 @@
 	
 	</select>
 	
-	<!-- 
- 	<select id="getBoardsList" resultType="Board">
-		SELECT
-			boardIdx
-			,boardAddId
-			,boardCateName
-			,boardTitle
-			,boardLikeCnt
-			,boardHitCnt
-			,boardAddDate
-			,boardUpDate
-			,boardDeclaration
-			,boardBlind
-		FROM
-			tbBoard
-				INNER JOIN 
-			tbBoardCete
-				on
-			boardCateCode = boardCate
-		ORDER BY boardIdx DESC;
-	</select> 
-	 -->
+
 	
 	<select id="getBoardsByCode" parameterType="int" resultType="Board">
 		SELECT
@@ -146,7 +125,7 @@
 			boardIdx = #{boardIdx};		
 	</update>
 	
-	<!-- 
+
 	<delete id="removePost" parameterType="int">
 		DELETE
 		FROM
@@ -154,7 +133,7 @@
 		WHERE
 			boardIdx = #{boardIdx};
 	</delete>
-	 -->
+
 	 
 	 <update id="blindPost" parameterType="int">
 		UPDATE tbBoard
@@ -163,5 +142,28 @@
 		WHERE
 			boardIdx = #{boardIdx};
 	</update>
+
+	 	<!-- 
+ 	<select id="getBoardsList" resultType="Board">
+		SELECT
+			boardIdx
+			,boardAddId
+			,boardCateName
+			,boardTitle
+			,boardLikeCnt
+			,boardHitCnt
+			,boardAddDate
+			,boardUpDate
+			,boardDeclaration
+			,boardBlind
+		FROM
+			tbBoard
+				INNER JOIN 
+			tbBoardCete
+				on
+			boardCateCode = boardCate
+		ORDER BY boardIdx DESC;
+	</select> 
+	 -->
 
 </mapper>

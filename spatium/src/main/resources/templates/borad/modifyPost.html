@@ -19,7 +19,7 @@
 	
 	<h1 th:value="${Board.boardIdx}">게시글 수정</h1>
 	
-	<form th:action="@{/modifyPost}" method="post">
+	<form th:object="${params}" th:action="|@{/modifyPost}*{makeQueryString(currentPageNo)}&boardIdx=${Board.boardIdx}|" method="post">
 		<table class="table table-striped" >
 			<tr>
 				<td>카테고리</td>
