@@ -40,8 +40,8 @@ public class RsvService {
 			int etime = Integer.parseInt(rsv.getEndTime());
 			rsvTime = etime-stime;
 		}
-		String rsvStartDateTime = rsv.getRsvDate() + " " +startTime;
-		String rsvEndDateTime = rsv.getRsvDate() + " " +endTime;
+		String rsvStartDateTime = rsv.getRsvDate().substring(0,10) + " " +startTime;
+		String rsvEndDateTime = rsv.getRsvDate().substring(rsv.getRsvDate().length()-10,rsv.getRsvDate().length()) + " " +endTime;
 		
 		rsv.setRsvStartDateTime(rsvStartDateTime);
 		rsv.setRsvEndDateTime(rsvEndDateTime);

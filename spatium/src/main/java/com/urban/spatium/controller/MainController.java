@@ -28,7 +28,7 @@ public class MainController {
 	private ItemService itemService;
 	@Autowired 
 	private ReviewService reviewService;
-	
+
 	@GetMapping("/mainSpaceOrder")
 	public String mainSpaceOrder() {
 		return "promotion/mainSpaceOrder";

@@ -27,6 +27,9 @@ public class RsvController {
 	@Autowired 
 	private RsvService rsvService; 
 	
+	/**
+	 * 예약 취소
+	 */
 	@GetMapping("/rsvCancel")
 	public String rsvCancel(int rsvCode, String rsvState, HttpServletResponse response) throws IOException {
 		System.out.println("예약 상태 --> " + rsvState);
@@ -46,6 +49,9 @@ public class RsvController {
 		return "redirect:rsvListAdmin";
 	}
 	
+	/**
+	 * 기 예약된 장비 가져오는 ajax
+	 */
 	@RequestMapping(value = "/getExItemRsv", produces="application/json"  ,method = RequestMethod.POST ) 
 	public @ResponseBody List<Rsv> getExItemRsv(@RequestBody Rsv rsv) {
 		System.out.println("에이작스"+rsv);
@@ -54,6 +60,9 @@ public class RsvController {
 		return getExItemRsv;
 	}
 	
+	/**
+	 * 기 예약된 공간 가져오는 ajax
+	 */
 	@RequestMapping(value = "/getExRsv", produces="application/json"  ,method = RequestMethod.POST ) 
 	public @ResponseBody List<Rsv> getExRsv(@RequestBody Rsv rsv) {
 		System.out.println("가져오기 -->  "+rsv.getSpaceList());
@@ -63,6 +72,9 @@ public class RsvController {
 		return getExRsv;
 	}
 	
+	/**
+	 * 예약 리스트
+	 */
 	@GetMapping("/rsvListExtend")
 	public String rsvListExtend(Model model, @RequestParam(name = "", required =false)String rsvCode) {
 		List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
@@ -70,6 +82,9 @@ public class RsvController {
 		return "rsv/rsvListExtend";
 	}
 	
+	/**
+	 * 예약 하는 ajax
+	 */
 	@RequestMapping(value = "/rsvInsertAjax", produces="application/json"  ,method = RequestMethod.POST ) 
 	public @ResponseBody String addInOutPut(@RequestBody Rsv rsv, HttpSession session) {
 		System.out.println("예약날짜 --> "+rsv.getRsvDate());
