@@ -9,10 +9,13 @@ public class Payment {
 	private int paymentUsePoint;
 	private int paymentUseMoney;
 	private int paymentAddPoint;
+	private int paymentStoreCode;
+	private int paymentRefund;
 	private String paymentRegDate;
 	private String paymentMethod;
 	private String paymentIP;
 	private List<Rsv> RsvList;
+	
 	
 	private int rsvCode;
 	private int rsvDetailCode;
@@ -27,6 +30,18 @@ public class Payment {
 	private String rsvState;
 
 	
+	public int getPaymentRefund() {
+		return paymentRefund;
+	}
+	public void setPaymentRefund(int paymentRefund) {
+		this.paymentRefund = paymentRefund;
+	}
+	public int getPaymentStoreCode() {
+		return paymentStoreCode;
+	}
+	public void setPaymentStoreCode(int paymentStoreCode) {
+		this.paymentStoreCode = paymentStoreCode;
+	}
 	public int getRsvCode() {
 		return rsvCode;
 	}
@@ -169,6 +184,10 @@ public class Payment {
 		builder.append(paymentUseMoney);
 		builder.append(", paymentAddPoint=");
 		builder.append(paymentAddPoint);
+		builder.append(", paymentStoreCode=");
+		builder.append(paymentStoreCode);
+		builder.append(", paymentRefund=");
+		builder.append(paymentRefund);
 		builder.append(", paymentRegDate=");
 		builder.append(paymentRegDate);
 		builder.append(", paymentMethod=");

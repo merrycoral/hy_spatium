@@ -91,12 +91,15 @@
 				</div>
 				<div class="item form-group">
 					<label for="middle-name"
-						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
+						class="col-form-label col-md-3 col-sm-3 label-align" style="margin-top: 20px;"> 업체
 						소개 </label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" id="storeIntroduction" class="form-control"
-							name="storeIntroduction" placeholder="업체 소개를 입력해주시기 바랍니다." th:value = "${result.storeIntroduction}">
-					</div>
+						<div class="col-md-6 col-sm-6 ">
+							<span style="color: #aaa; padding-left: 680px" id="counter2">(0
+								/ 최대 500자)</span>
+							<textarea id="storeIntroduction" name="storeIntroduction"
+								class="form-control" style="resize: none;" cols="100" rows="10"
+								placeholder= "업체 소개를 입력해주시기 바랍니다." th:text= "${result.storeIntroduction}"></textarea>
+						</div>
 				</div>
 				<div class="item form-group">
 					<label for="middle-name"
@@ -245,6 +248,17 @@
 						$(this).parents('tr').remove();
 					} else {
 						alert('더 이상 삭제 하실 수 없습니다.');
+					}
+				});
+				
+				$('#storeIntroduction').keyup(function() {
+					var content2 = $(this).val();
+					$('#counter2').html("(" + content2.length + " / 최대 500자)");
+
+					if (content2.length > 500) {
+						alert("최대 500자까지 입력 가능합니다.");
+						$(this).val(content2.substring(0, 500));
+						$('#counter2').html("(500 / 최대 500자)");
 					}
 				});
 				

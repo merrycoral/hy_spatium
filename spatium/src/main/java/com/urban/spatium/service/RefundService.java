@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.urban.spatium.dto.CancelRsv;
+import com.urban.spatium.dto.Payment;
+import com.urban.spatium.dto.Point;
 import com.urban.spatium.dto.RefundPolicy;
+import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.mapper.PaymentMapper;
 import com.urban.spatium.mapper.RefundMapper;
 
@@ -18,6 +21,21 @@ public class RefundService {
 	// DI
 	@Autowired 
 	private RefundMapper refundMapper;
+	
+	public int refundRsv(Rsv rsv) {
+		
+		return refundMapper.refundRsv(rsv);
+	}
+	
+	public int refundPayment(Payment paymnet) {
+		
+		return refundMapper.refundPayment(paymnet);
+	}
+	
+	public int refundAddPoint(Point point) {
+		
+		return refundMapper.refundAddPoint(point);
+	}
 	
 	public int cancelRefund(CancelRsv cancelrsv) {
 		int refund = refundMapper.cancelRefund(cancelrsv);

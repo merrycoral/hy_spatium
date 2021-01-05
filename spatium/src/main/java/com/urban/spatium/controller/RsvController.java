@@ -92,7 +92,7 @@ public class RsvController {
 	
 	
 	/**
-	 * 공간 예약 등록으로 이동(관리자화면)
+	 * 공간 예약 등록으로 이동(관리자화면)시간
 	 */
 	@GetMapping("/rsvInsertAdmin")
 	public String rsvInsertAdmin(Model model) {
@@ -107,7 +107,22 @@ public class RsvController {
 	}
 	
 	/**
-	 * 공간 예약 등록으로 이동(구매자화면)
+	 * 공간 예약 등록으로 이동(관리자화면)일
+	 */
+	@GetMapping("/rsvInsertDayAdmin")
+	public String rsvInsertDayAdmin(Model model) {
+		int storeCode = 6; //넘어온 스토어코드가 5라고 가정
+		
+		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
+		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
+		model.addAttribute("getSpaceByStore", getSpaceByStore);
+		model.addAttribute("getItemByStore", getItemByStore);
+		
+		return "rsv/rsvInsertDayAdmin";
+	}
+	
+	/**
+	 * 공간 예약 등록으로 이동(구매자화면)시간
 	 */
 	@GetMapping("/rsvInsert")
 	public String rsvInsert(Model model) {

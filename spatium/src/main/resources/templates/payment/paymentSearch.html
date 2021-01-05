@@ -22,6 +22,7 @@
 		
 		$('#paymentListTb').DataTable({
 			
+			
 		});
 		$('.payCode').click(function(){
 			$('#hidTable').addClass('Active');
@@ -56,8 +57,7 @@
 	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailOnePrice+"</td>"
 	              	   	innerHtml += "<td>"+(data.rsvDetail[i].rsvDetailOnePrice)*(data.rsvDetail[i].rsvDetailNum)+"</td>"
 	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvState+"</td>"
-	              		
-	              	   	innerHtml += "</tr>"
+	              		innerHtml += "</tr>"
               	   	 }
               	   	 
               		
@@ -74,7 +74,7 @@
 		});
 		
 		
-	})
+	});
 
 </script>
  
@@ -82,7 +82,7 @@
 
 <th:block layout:fragment="customContent">
 <h1>결제내역조회임..</h1>
-<table border="1" id="paymentListTb">
+<table border="1" id="paymentListTb" class="table table-striped jambo_table bulk_action dataTable no-footer">
 	<thead>
 		<tr>
 			<th>결제코드</th>
@@ -108,7 +108,7 @@
 			<td th:text="${p.paymentIP}"></td>
 			
 			<td class="cancelTestTd">
-				<a class="cancelTest" th:href="@{/cancelTest(paymentCode=${p.paymentCode})}"><button	type="button">환불</button></a>
+				<a class="cancelTest" th:href="@{/cancelTest(paymentCode=${p.paymentCode})}"><button type="button">환불</button></a>
 			</td>
 		</tr>
 	</tbody>

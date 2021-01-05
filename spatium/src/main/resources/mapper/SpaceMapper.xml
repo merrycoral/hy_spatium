@@ -5,8 +5,7 @@
 <insert id = "addReadySpace">
 
 	INSERT INTO tbReadySpace
-	(readySpace
-	, readyStoreCode
+	( readyStoreCode
 	, readySpaceName
 	, readySpaceType
 	, readyPeopleNumber
@@ -16,14 +15,12 @@
 	, readyRentalPrice
 	, readyStartTime
 	, readyCloseTime
-	, readySpaceRsvType
 	, readyExceptionStartDate
 	, readyExceptionEndDate
 	, readySpaceBasicOption
 	, readyRequestDate)
 VALUES 
-	(NULL
-	, 5
+	( 5
 	, #{readySpaceName}
 	, 1
 	, #{readyPeopleNumber}
@@ -33,7 +30,6 @@ VALUES
 	, #{readyRentalPrice}
 	, #{readyStartTime}
 	, #{readyCloseTime}
-	, #{readySpaceRsvType}
 	, #{readyExceptionStartDate}
 	, #{readyExceptionEndDate}
 	, #{readySpaceBasicOption}
@@ -55,7 +51,6 @@ SELECT
 	, readyRentalPrice
 	, readyStartTime
 	, readyCloseTime
-	, readySpaceRsvType
 	, readyExceptionStartDate
 	, readyExceptionEndDate
 	, readySpaceBasicOption
@@ -79,7 +74,6 @@ SELECT
 	, okaySpaceRentalPrice
 	, okayStartTime
 	, okayCloseTime
-	, okaySpaceRsvType
 	, okayExceptionStartDate
 	, okayExceptionEndDate
 	, okayCompletedDate
@@ -105,7 +99,6 @@ SELECT
 	, okaySpaceRentalPrice
 	, okayStartTime
 	, okayCloseTime
-	, okaySpaceRsvType
 	, okayExceptionStartDate
 	, okayExceptionEndDate
 	, okayCompletedDate

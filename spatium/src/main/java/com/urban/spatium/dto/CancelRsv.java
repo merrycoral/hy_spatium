@@ -8,7 +8,16 @@ public class CancelRsv {
 	private String cancelState;
 	private String cancelConfirmDate;
 	private String cancelReason;
-	private int cancelrefundPolicyCode;
+	private int refundPolicyCode;
+	private int cancelPrice;
+	
+	
+	public int getCancelPrice() {
+		return cancelPrice;
+	}
+	public void setCancelPrice(int cancelPrice) {
+		this.cancelPrice = cancelPrice;
+	}
 	public int getCancelCode() {
 		return cancelCode;
 	}
@@ -51,18 +60,35 @@ public class CancelRsv {
 	public void setCancelReason(String cancelReason) {
 		this.cancelReason = cancelReason;
 	}
-	public int getCancelrefundPolicyCode() {
-		return cancelrefundPolicyCode;
+	public int getrefundPolicyCode() {
+		return refundPolicyCode;
 	}
-	public void setCancelrefundPolicyCode(int cancelrefundPolicyCode) {
-		this.cancelrefundPolicyCode = cancelrefundPolicyCode;
+	public void setrefundPolicyCode(int refundPolicyCode) {
+		this.refundPolicyCode = refundPolicyCode;
 	}
 	@Override
 	public String toString() {
-		return "CancelRsv [cancelCode=" + cancelCode + ", cancelRsvCode=" + cancelRsvCode + ", cancelUserId="
-				+ cancelUserId + ", cancelRegDate=" + cancelRegDate + ", cancelState=" + cancelState
-				+ ", cancelConfirmDate=" + cancelConfirmDate + ", cancelReason=" + cancelReason
-				+ ", cancelrefundPolicyCode=" + cancelrefundPolicyCode + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("CancelRsv [cancelCode=");
+		builder.append(cancelCode);
+		builder.append(", cancelRsvCode=");
+		builder.append(cancelRsvCode);
+		builder.append(", cancelUserId=");
+		builder.append(cancelUserId);
+		builder.append(", cancelRegDate=");
+		builder.append(cancelRegDate);
+		builder.append(", cancelState=");
+		builder.append(cancelState);
+		builder.append(", cancelConfirmDate=");
+		builder.append(cancelConfirmDate);
+		builder.append(", cancelReason=");
+		builder.append(cancelReason);
+		builder.append(", refundPolicyCode=");
+		builder.append(refundPolicyCode);
+		builder.append(", cancelPrice=");
+		builder.append(cancelPrice);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

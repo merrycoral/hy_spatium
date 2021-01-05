@@ -35,6 +35,10 @@
 		<result column="pointModyfiDate" 		property="pointModyfiDate"/>
 	</resultMap>
 	
+	
+	
+	
+	
 	<select id="rsvDetail" parameterType="String" resultType="Payment">
 	SELECT 
 	     rsvCode
@@ -73,8 +77,6 @@
 		d.rsvDetailItem = t.itemCode
 	WHERE
 	p.paymentCode = #{payCode};	
-		
-
 	</select>
 	
 	
@@ -109,6 +111,7 @@
 	SELECT 
 		rsvCode
 		, rsvUserId
+		, rsvStoreCode
 		, rsvUserName
 		, rsvUserPhone
 		, rsvUserEmail
@@ -171,7 +174,7 @@
 	, paymentUsePoint
 	, paymentUseMoney
 	, paymentAddPoint
-	
+	, paymentStoreCode
 	, paymentIP
 	, paymentRegDate
 	)
@@ -182,7 +185,7 @@
 	, #{paymentUsePoint}
 	, #{paymentUseMoney}
 	, #{paymentAddPoint}
-	
+	, #{paymentStoreCode}
 	, #{paymentIP}
 	, NOW()
 	)

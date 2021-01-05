@@ -43,74 +43,63 @@ public class StoreController {
 	
 	@PostMapping("/addSpace")
 	public String addStore(Model model, Store store) {
-
+		int checkStore = store.getStoreCode();
+		System.out.println(checkStore);
 		System.out.println("스토어 받은값 --> " + store);
-		store.getStoreCode();
 		System.out.println("===============start store================");
 		String storeCate = store.getStoreBusinessType();
-		Map<String, Object> fMap = new HashMap<String, Object>();
-		
-		Map<String, Object> tMap;
-		
-		List<Map<String, Object>> cMap = new ArrayList<Map<String, Object>>();
+		System.out.println("========== controller storeCode ============");
+		List<String> tMap = new ArrayList<>();
 		
 		String[] array = storeCate.split(",");
-		int[] i_array = new int[5];
-		int arrayCheck = 0;
+		String[] i_array = new String[5];
+		String arrayCheck = "0";
 		for(int i=0; i<array.length; i++) {
 			System.out.println(array[i]);
 			
 			if(array[i].equals("촬영 스튜디오")) {
-				arrayCheck = 1;
+				arrayCheck = "1";
 				i_array[i]=arrayCheck;
 			}else if(array[i].equals("엠티장소")) {
-				arrayCheck = 2;
+				arrayCheck = "2";
 				i_array[i]=arrayCheck;
 			}else if(array[i].equals("스터디룸")) {
-				arrayCheck = 3;
+				arrayCheck = "3";
 				i_array[i]=arrayCheck;
 			}else if(array[i].equals("연습실")) {
-				arrayCheck = 4;
+				arrayCheck = "4";
 				i_array[i]=arrayCheck;
 			}else if(array[i].equals("파티룸")) {
-				arrayCheck = 5;
+				arrayCheck = "5";
 				i_array[i]=arrayCheck;
 			}else if(array[i].equals("회의실")) {
-				arrayCheck = 6;
+				arrayCheck = "6";	
 				i_array[i]=arrayCheck;
 			}else if(array[i].equals("카페")) {
-				arrayCheck = 7;
+				arrayCheck = "7";
 				i_array[i]=arrayCheck;
 			}else if(array[i].equals("다목적홀")) {
-				arrayCheck = 8;
+				arrayCheck = "8";
 				i_array[i]=arrayCheck;
 			}else if(array[i].equals("공연장")) {
-				arrayCheck = 9;
+				arrayCheck = "9";
 				i_array[i]=arrayCheck;
 			}else if(array[i].equals("한옥")) {
-				arrayCheck = 10;
+				arrayCheck = "10";
 				i_array[i]=arrayCheck;
 			}
 			System.out.println(arrayCheck + "arrayCheck 숫자");
-
-			tMap = new HashMap<String, Object>();
-			tMap.put("cateNumber", i_array[i]);
-			cMap.add(tMap);
+			System.out.println(i_array[i] + "넣을 카테고리");
+			tMap.add(i, i_array[i]);
 		}
-		fMap.put("list", cMap);
-		
-		System.out.println("============map start============");
-		System.out.println(cMap);
-		System.out.println(fMap);
-		System.out.println("============map end============");
 		
 		model.addAttribute("storeBusiness", array);
 		System.out.println("===============end store================");
-		String result = storeService.addStore(store, fMap);
+		String result = storeService.addStore(store, tMap);
 		System.out.println("================start result===============");
 		System.out.println(result);
 		System.out.println("================end result===============");
-		store.setSpaceRelationStoreCode(store.getStoreCode());
+		
 		return "space/addSpace";
 	}
 

@@ -158,15 +158,20 @@
 
 
 <th:block layout:fragment="customContent">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
+
+
 <form action="/test3" method="post" id="form">
+
+
 <input type="hidden" value="결재적립" name="pointAddList"> <br>
 <input type="hidden" value="적립" name="pointSellList"> <br>
 <input type="hidden" value="사용" name="pointSellList"> <br>
-
+<input type="hidden" th:value="${rsv.rsvStoreCode}" name="PaymentStoreCode">
 <input type="hidden" th:value="${rsv.rsvState}" name="rsvState">
 <input type="hidden" id="getIp" name="PaymentIP">
 <div>총마일리지:<input type="text" th:value="${totalPoint}" class="totalPoint" readonly="readonly"></div>

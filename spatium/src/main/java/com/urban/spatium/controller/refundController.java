@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.urban.spatium.dto.CancelRsv;
 import com.urban.spatium.dto.Payment;
+import com.urban.spatium.dto.Point;
 import com.urban.spatium.dto.RefundPolicy;
+import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.service.PaymentService;
 import com.urban.spatium.service.RefundService;
 
@@ -36,14 +38,45 @@ public class refundController {
 	
 	
 	@PostMapping("/refundBtn")
-	public String refundBtn(CancelRsv cancelrsv) {
+	public String refundBtn(CancelRsv cancelrsv, Point point, Payment payment,Rsv rsv
+							,@RequestParam(name = "cancelRsvCode" , required = false)int cancelRsvCode) {
 		System.out.println(cancelrsv.getCancelRsvCode());
+		System.out.println(cancelrsv.getrefundPolicyCode());
+		System.out.println(cancelrsv.getCancelReason());
+		
+		System.out.println(cancelrsv.getCancelUserId());
+		System.out.println(cancelrsv.getCancelPrice());
+		
 		cancelrsv.setCancelReason(cancelrsv.getCancelReason());
-		cancelrsv.setCancelrefundPolicyCode(cancelrsv.getCancelrefundPolicyCode());
+		cancelrsv.setrefundPolicyCode(cancelrsv.getrefundPolicyCode());
 		cancelrsv.setCancelRsvCode(cancelrsv.getCancelRsvCode());
 		cancelrsv.setCancelUserId(cancelrsv.getCancelUserId());
+		cancelrsv.setCancelPrice(cancelrsv.getCancelPrice());
 		cancelrsv.setCancelState("환불완료");
-		int refund = refundService.cancelRefund(cancelrsv);
+		int cancel = refundService.cancelRefund(cancelrsv);
+		
+		
+		
+		
+		System.out.println(point.getPointList()*-1 + "-<<<<<<<<<<환불되는 포인트");
+		System.out.println(cancelrsv.getCancelUserId()+"-<<<<<<<<<<환불하는 아이디");
+		System.out.println(point.getPointPaymentCode()+"-<<<<<<<<<<환불되는 결제코드");
+		point.setPointID(cancelrsv.getCancelUserId());
+		point.setPointAddList("환불 완료");
+		point.setPointSellList("반환 적립");
+		point.setPointList(point.getPointList()*-1);
+		point.setPointPaymentCode(point.getPointPaymentCode());
+		int reAddpoint = refundService.refundAddPoint(point);
+		
+		System.out.println(payment.getPaymentRefund()+"-<<<<<<<<<<환불되고 남은금액");
+		payment.setPaymentRefund(payment.getPaymentRefund());
+		payment.setPaymentRsvCode(cancelRsvCode);
+		int addRePayment = refundService.refundPayment(payment);
+		
+		
+		rsv.setRsvState("환불 완료"); 
+		rsv.setRsvCode(cancelRsvCode);
+		int addRsvState = refundService.refundRsv(rsv);
 		
 		return "main";
 	}
