@@ -230,8 +230,8 @@ public class UserController {
 			System.out.println(userId + " : 로그인 실패");
 			return "redirect:/login";
 		}
-
-		return "user/userList";
+		System.out.println("여기까진 왓냐?");
+		return "redirect:/userList";
 	}
 	
 	@GetMapping("/login")
