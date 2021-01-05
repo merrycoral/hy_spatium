@@ -5,7 +5,7 @@
 <mapper namespace="com.urban.spatium.mapper.ItemMapper">
 
 	<!--장비구입내역 -->
-	<select id = "itembuyList" resultType="Item">
+	<select id = "getItemBuyList" resultType="Item">
 		SELECT 
 			itemBuyCode
 			, storeBuyCode

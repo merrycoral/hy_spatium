@@ -16,12 +16,14 @@ public class ItemService {
 	@Autowired
 	private ItemMapper itemMapper;
 	
+	//장비구입내역 삭제
+
+	
+	//장비구입내역 수정
+
 	
 	//장비구입내역
-	public List<Item> itembuyList(){
-		  List<Item> iBuyList = itemMapper.itembuyList(); 
-		  return iBuyList; 
-		  }
+	
 	
 	
 	public List<Item> itemCountList(){

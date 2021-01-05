@@ -3,26 +3,13 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="@{layout/default}">
 
-<th:block layout:fragment="customTitle">
-	<title th:text="${title}"></title>
-</th:block>
-
 <th:block layout:fragment="customContent">
-	<form action="/itemBuyList" method="post">
-		<select name="sk">
-			<option value="아이디">아이디</option>
-		</select>
-		<input type="text" name = "sv" placeholder="검색어를 입력해주세요"/>
-		<button type="submit">검색</button>
-	</form>
+<form action="/itemBuyList" method="post">
 
-
-	<div class="col-sm-12">
-		<table id="datatable"
-			class="table table-striped jambo_table bulk_action dataTable no-footer"
-			style="width: 100%;" role="grid" aria-describedby="datatable_info">
+	<div class="table-responsive m-t-20">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
 			<thead>
-				<tr role="row">
+				<tr>
 					<th scope="col">장비 구입 코드</th>
 					<th scope="col">업체 코드</th>
 					<th scope="col">세부 장비 코드</th>
@@ -33,7 +20,6 @@
 					<th scope="col">구입 일자</th>
 				</tr>
 			</thead>
-
 			<tbody>
 				<tr th:if="${#lists.size(itemBuyList) > 0}" th:each="i : ${itemBuyList}">
 				<td th:text="${i.itemBuyCode}"></td>
@@ -50,8 +36,19 @@
 					<button type="submit"><!-- <a th:href="@{/removeUser(userId=${l.userId}, userLevel=${l.userLevel})}"> -->삭제</button>
 				</td>
 				</tr>
+
 			</tbody>
 		</table>
 	</div>
+</form>
 </th:block>
+
+<th:block layout:fragment="customJs">
+<script>
+$(document).ready(function(){
+    $("#addBtn").click(function(){
+        location.href="${path}/item/itemBuyForm";
+    });
+});
+</script>
 </html>
