@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -104,8 +106,13 @@ public class StoreController {
 	}
 
 	@GetMapping("/addStore")
-	public String addStore(Model model) {
+	public String addStore(Model model, HttpSession session, Store store) {
 		model.addAttribute("title", "업체 등록");
+		String sessionId = (String) session.getAttribute("SID");
+		System.out.println(sessionId);
+		store.setStoreId(sessionId);
+		String storeId = store.getStoreId();
+		model.addAttribute("storeId", storeId);
 		return "store/addStore";
 	}
 
