@@ -22,6 +22,7 @@ margin-right: 20px;
 	height: 45px;
 	margin: 0;
 }
+
 </style>
 <!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </th:block>
@@ -48,9 +49,9 @@ margin-right: 20px;
 				<tbody>
 					<tr class="even pointer" th:if="${#lists.size(getSpaceByStore) > 0}" th:each = "s : ${getSpaceByStore}">
 						<td class="a-center ">
-							<div class="icheckbox_flat-green" style="position: relative;">
-								<input type="checkbox" class="flat SpaceRsvCheck" name="table_records" th:value="${s.okaySpaceCode}"
-									style="position: absolute; opacity: 0;">
+							<div class="icheckbox_flats-green" style="position: relative;">
+								<input type="checkbox" class="flats SpaceRsvCheck" name="table_records" th:value="${s.okaySpaceCode}"
+									style="position: absolute; opacity: 1;">
 							</div>
 						</td>
 						<td th:text="${s.okaySpaceName}" class=" "></td>
@@ -219,9 +220,9 @@ margin-right: 20px;
 				<tbody>
 					<tr class="even pointer" th:if="${#lists.size(getItemByStore) > 0}" th:each = "i : ${getItemByStore}">
 						<td class="a-center ">
-							<div class="icheckbox_flat-green" style="position: relative;">
-								<input type="checkbox" class="flat ItemRsvCheck" name="table_records"  th:value="${i.itemCode}"
-									style="position: absolute; opacity: 0;">
+							<div class="icheckbox_flats-green" style="position: relative;">
+								<input type="checkbox" class="flats ItemRsvCheck" name="table_records"  th:value="${i.itemCode}"
+									style="position: absolute; opacity: 1;">
 							</div>
 						</td>
 						<td ><img style="height: 100px; " th:src="${i.itemImg}" alt="My Image"></td>
@@ -252,7 +253,7 @@ margin-right: 20px;
 		
 //다음, 이전버튼으로 예약폼 이동		
 		$('#prevBtn').click(function(){
-			location.href="/rsvInsertAdmin";
+			location.href="/rsvInsert";
 		})
 		$('#nextBtn').click(function(){
 			$('#rsvInfo').removeClass('disableMetter');
