@@ -23,6 +23,7 @@ import com.urban.spatium.dto.CancelRsv;
 import com.urban.spatium.dto.Payment;
 import com.urban.spatium.dto.Point;
 import com.urban.spatium.dto.RefundPolicy;
+import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.service.PaymentService;
 import com.urban.spatium.service.RefundService;
 
@@ -37,7 +38,8 @@ public class refundController {
 	
 	
 	@PostMapping("/refundBtn")
-	public String refundBtn(CancelRsv cancelrsv, Point point) {
+	public String refundBtn(CancelRsv cancelrsv, Point point, Payment payment,Rsv rsv
+							,@RequestParam(name = "cancelRsvCode" , required = false)int cancelRsvCode) {
 		System.out.println(cancelrsv.getCancelRsvCode());
 		System.out.println(cancelrsv.getrefundPolicyCode());
 		System.out.println(cancelrsv.getCancelReason());
@@ -66,6 +68,15 @@ public class refundController {
 		point.setPointPaymentCode(point.getPointPaymentCode());
 		int reAddpoint = refundService.refundAddPoint(point);
 		
+		System.out.println(payment.getPaymentRefund()+"-<<<<<<<<<<환불되고 남은금액");
+		payment.setPaymentRefund(payment.getPaymentRefund());
+		payment.setPaymentRsvCode(cancelRsvCode);
+		int addRePayment = refundService.refundPayment(payment);
+		
+		
+		rsv.setRsvState("환불 완료"); 
+		rsv.setRsvCode(cancelRsvCode);
+		int addRsvState = refundService.refundRsv(rsv);
 		
 		return "main";
 	}

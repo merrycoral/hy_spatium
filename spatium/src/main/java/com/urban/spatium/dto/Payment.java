@@ -10,6 +10,7 @@ public class Payment {
 	private int paymentUseMoney;
 	private int paymentAddPoint;
 	private int paymentStoreCode;
+	private int paymentRefund;
 	private String paymentRegDate;
 	private String paymentMethod;
 	private String paymentIP;
@@ -29,6 +30,12 @@ public class Payment {
 	private String rsvState;
 
 	
+	public int getPaymentRefund() {
+		return paymentRefund;
+	}
+	public void setPaymentRefund(int paymentRefund) {
+		this.paymentRefund = paymentRefund;
+	}
 	public int getPaymentStoreCode() {
 		return paymentStoreCode;
 	}
@@ -164,15 +171,55 @@ public class Payment {
 	
 	@Override
 	public String toString() {
-		return "Payment [paymentCode=" + paymentCode + ", paymentRsvCode=" + paymentRsvCode + ", paymentPrice="
-				+ paymentPrice + ", paymentUsePoint=" + paymentUsePoint + ", paymentUseMoney=" + paymentUseMoney
-				+ ", paymentAddPoint=" + paymentAddPoint + ", paymentStoreCode=" + paymentStoreCode
-				+ ", paymentRegDate=" + paymentRegDate + ", paymentMethod=" + paymentMethod + ", paymentIP=" + paymentIP
-				+ ", RsvList=" + RsvList + ", rsvCode=" + rsvCode + ", rsvDetailCode=" + rsvDetailCode
-				+ ", rsvDetailSpace=" + rsvDetailSpace + ", okayStoreCode=" + okayStoreCode + ", okaySpaceType="
-				+ okaySpaceType + ", okaySpaceName=" + okaySpaceName + ", rsvDetailItem=" + rsvDetailItem
-				+ ", itemTotalName=" + itemTotalName + ", rsvDetailNum=" + rsvDetailNum + ", rsvDetailOnePrice="
-				+ rsvDetailOnePrice + ", rsvState=" + rsvState + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Payment [paymentCode=");
+		builder.append(paymentCode);
+		builder.append(", paymentRsvCode=");
+		builder.append(paymentRsvCode);
+		builder.append(", paymentPrice=");
+		builder.append(paymentPrice);
+		builder.append(", paymentUsePoint=");
+		builder.append(paymentUsePoint);
+		builder.append(", paymentUseMoney=");
+		builder.append(paymentUseMoney);
+		builder.append(", paymentAddPoint=");
+		builder.append(paymentAddPoint);
+		builder.append(", paymentStoreCode=");
+		builder.append(paymentStoreCode);
+		builder.append(", paymentRefund=");
+		builder.append(paymentRefund);
+		builder.append(", paymentRegDate=");
+		builder.append(paymentRegDate);
+		builder.append(", paymentMethod=");
+		builder.append(paymentMethod);
+		builder.append(", paymentIP=");
+		builder.append(paymentIP);
+		builder.append(", RsvList=");
+		builder.append(RsvList);
+		builder.append(", rsvCode=");
+		builder.append(rsvCode);
+		builder.append(", rsvDetailCode=");
+		builder.append(rsvDetailCode);
+		builder.append(", rsvDetailSpace=");
+		builder.append(rsvDetailSpace);
+		builder.append(", okayStoreCode=");
+		builder.append(okayStoreCode);
+		builder.append(", okaySpaceType=");
+		builder.append(okaySpaceType);
+		builder.append(", okaySpaceName=");
+		builder.append(okaySpaceName);
+		builder.append(", rsvDetailItem=");
+		builder.append(rsvDetailItem);
+		builder.append(", itemTotalName=");
+		builder.append(itemTotalName);
+		builder.append(", rsvDetailNum=");
+		builder.append(rsvDetailNum);
+		builder.append(", rsvDetailOnePrice=");
+		builder.append(rsvDetailOnePrice);
+		builder.append(", rsvState=");
+		builder.append(rsvState);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 }

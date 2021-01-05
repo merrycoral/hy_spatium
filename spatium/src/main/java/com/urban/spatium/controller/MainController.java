@@ -29,6 +29,15 @@ public class MainController {
 	@Autowired 
 	private ReviewService reviewService;
 	
+	@GetMapping("/mainSpaceOrder")
+	public String mainSpaceOrder() {
+		return "promotion/mainSpaceOrder";
+	}
+	
+	@GetMapping("/bestSpaceOrder")
+	public String bestSpaceOrder() {
+		return "promotion/bestSpaceOrder";
+	}
 	
 	@GetMapping("/admin")
 	public String admin() {

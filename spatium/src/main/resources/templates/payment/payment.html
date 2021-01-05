@@ -167,14 +167,11 @@
 
 <form action="/test3" method="post" id="form">
 
-<th:block th:each="p : ${rsvStorecode}">
-<input type="hidden" name="paymentStoreCode" th:value="${p.okayStoreCode}">
-</th:block>
 
 <input type="hidden" value="결재적립" name="pointAddList"> <br>
 <input type="hidden" value="적립" name="pointSellList"> <br>
 <input type="hidden" value="사용" name="pointSellList"> <br>
-
+<input type="hidden" th:value="${rsv.rsvStoreCode}" name="PaymentStoreCode">
 <input type="hidden" th:value="${rsv.rsvState}" name="rsvState">
 <input type="hidden" id="getIp" name="PaymentIP">
 <div>총마일리지:<input type="text" th:value="${totalPoint}" class="totalPoint" readonly="readonly"></div>

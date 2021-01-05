@@ -137,6 +137,20 @@
 							name="storeEmail" placeholder="업체 이메일을 입력해주시기 바랍니다.">
 					</div>
 				</div>
+					<div class="item form-group">
+						<label for="middle-name"
+							class="col-form-label col-md-3 col-sm-3 label-align"> 결제
+							방식 <span class="required">*</span>
+						</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select style="width: 775px; height: 40px; margin-top: -5px;"
+								id="storeRsvType" name="storeRsvType">
+								<option value="0">:: 결제 방식 선택 ::</option>
+								<option value="일 결제">일 결제</option>
+								<option value="시간 결제">시간 결제</option>
+							</select>
+						</div>
+					</div>				
 				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
@@ -237,6 +251,9 @@
 					}else if($('#storeAddress').val() == ""){
 						alert("업체 주소를 입력해주시길 바랍니다.");
 						$('#storeAddress').focus();
+						return false;
+					} else if ($('#storeRsvType').val() == "0") {
+						alert("결제 방식을 선택해주시기 바랍니다.");
 						return false;
 					}else if($('#storePhone').val() == ""){
 						alert("업체 연락처를 입력해주시길 바랍니다.");

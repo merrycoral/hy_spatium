@@ -68,36 +68,28 @@ table{float: left; margin-right: 200px;}
 				$('.paymentRefund').val( $('.Price').val() - $('.rePrice').val() );//환불하고 남은금액
 				console.log($('.paymentRefund').val());
 				console.log($('.pointList').val());
-			$('.cancelTest').click(function(){
 				
-			    if(dateCal() != $('input').val()){
-					alert('데이터 오류');
-					$('input').val(dataCal());
-					
-				}else{
-					var hi = confirm("환불 하시겠습니까 ?");
-					if(hi){
-						$('form').submit();
-					}else{
-						 location.href="/refund/cancelPage"
-					}
-				}
-				
-				return dataCal()
+			$('#cancelTest').click(function(){	
+		
+			 var result = confirm("환불하시겠습니까 ?");			   
+			        if(result){
+			        	if(dateCal() != $('.rePrice').val()){
+							alert('환불일자 갱신으로 재신청바랍니다.');
+							 location.href="/paymentSearch" ;
+		
+							/*  alert('환불일자 갱신으로 재신청바랍니다.');
+								dateCal();
+								return false; */		 
+					}else if(dateCal() == $('.rePrice').val()){
+							$('form').submit();
+						}
+			        }else{
+			           return false;
+			        }
+
 			});
 			
-			 $('.hey').click(function(){
-				 var result = confirm("환불할랑가 ?");
-			        
-			        if(result)
-			        {
-			           
-			        }
-			        else
-			        {
-			            document.write("<h1> 실행하지 않습니다. </h1>")
-			        }
-			 })
+			 
 		});
 	</script>
 </th:block>
@@ -166,7 +158,7 @@ table{float: left; margin-right: 200px;}
 			<td><input type="text" class="rsvDate" th:value="${pr.rsvStartDateTime}" readonly="readonly"></td>
 		</tr>
 		<tr>
-			<td colspan="2"><a href="cancelTest"><button type="submit">취소신청</button></a></td>
+			<td colspan="2"><button type="button" id="cancelTest">취소신청</button></td>
 		</tr>
 		
 		</th:block>

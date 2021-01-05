@@ -13,7 +13,6 @@ public class ReadySpace {
 	private int readyRentalPrice;
 	private String readyStartTime;
 	private String readyCloseTime;
-	private String readySpaceRsvType;
 	private String readyExceptionStartDate;
 	private String readyExceptionEndDate;
 	private String readySpaceBasicOption;
@@ -90,12 +89,6 @@ public class ReadySpace {
 	public void setReadyCloseTime(String readyCloseTime) {
 		this.readyCloseTime = readyCloseTime;
 	}
-	public String getReadySpaceRsvType() {
-		return readySpaceRsvType;
-	}
-	public void setReadySpaceRsvType(String readySpaceRsvType) {
-		this.readySpaceRsvType = readySpaceRsvType;
-	}
 	public String getReadyExceptionStartDate() {
 		return readyExceptionStartDate;
 	}
@@ -147,8 +140,7 @@ public class ReadySpace {
 				+ readySpaceName + ", readySpaceType=" + readySpaceType + ", readyPeopleNumber=" + readyPeopleNumber
 				+ ", readyBriefSpace=" + readyBriefSpace + ", readyDetailSpace=" + readyDetailSpace + ", readySpaceTag="
 				+ readySpaceTag + ", readyRentalPrice=" + readyRentalPrice + ", readyStartTime=" + readyStartTime
-				+ ", readyCloseTime=" + readyCloseTime + ", readySpaceRsvType=" + readySpaceRsvType
-				+ ", readyExceptionStartDate=" + readyExceptionStartDate + ", readyExceptionEndDate="
+				+ ", readyCloseTime=" + readyCloseTime + ", readyExceptionStartDate=" + readyExceptionStartDate + ", readyExceptionEndDate="
 				+ readyExceptionEndDate + ", readySpaceBasicOption=" + readySpaceBasicOption + ", readyRequestDate="
 				+ readyRequestDate + ", readyStoreBusinessType=" + readyStoreBusinessType + ", storeCode=" + storeCode
 				+ ", spaceCateCode=" + spaceCateCode + "]";
