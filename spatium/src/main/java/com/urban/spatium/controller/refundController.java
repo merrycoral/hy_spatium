@@ -91,7 +91,7 @@ public class refundController {
 	      refundService.addRefundPolicy(rePolicyMap);
 	      
 	      
-	      return "refundPolicy"; 
+	      return "addSpace"; 
 	   }
 	
 	@GetMapping("/refundPolicy")
