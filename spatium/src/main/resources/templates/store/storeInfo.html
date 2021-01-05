@@ -83,7 +83,7 @@
 							<div class="spaceInfo"></div><div><span th:text="${s.okayBriefSpace}"></span></div>
 							<div class="spaceInfo">공간 설명 </div><div><span th:utext = "${s.okayDetailSpace}"></span></div>
 							<div class="spaceInfo">최대 인원 </div><div><span th:text = "${s.okayPeopleNumber}+명"></span></div>
-							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${s.okaySpaceRsvType}"></span>당 <span th:text = "${s.okaySpaceRentalPrice}"></span>원</div>
+							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${storeInfo.storeRsvType}"></span>당 <span th:text = "${s.okaySpaceRentalPrice}"></span>원</div>
 							<div class="spaceInfo">영업 시간 </div><div><span th:text = "${s.okayStartTime}"></span> ~ <span th:text = "${s.okayCloseTime}"></span></div>
 							<div class="spaceInfo">기본 옵션 </div><div><span th:text = "${s.okaySpaceBasicOption}"></span></div>
 							<div class="spaceInfo">------------------------------------------------------------------------------------------------------</div>
@@ -98,7 +98,7 @@
 																th:src="${i.itemImg}" data-holder-rendered="true"
 																style="height: 200px; width: 300px; display: block;"></div>
 							<div class="spaceInfo">보유 개수 </div><div><span th:text = "${i.itemTotalAmount}+개"></span></div>
-							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${i.itemRentalPrice}"></span>원</div>
+							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${storeInfo.storeRsvType}"></span>당<span th:text = "${i.itemRentalPrice}"></span>원</div>
 							<div class="spaceInfo">------------------------------------------------------------------------------------------------------</div>
 						</th:block>
 					</div>

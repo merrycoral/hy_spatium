@@ -307,8 +307,6 @@ margin-right: 20px;
 			if($('#rsvUserName').val()!=null && $('#rsvUserName').val()!="" && $('#rsvUserPhone').val()!=null && $('#rsvUserPhone').val()!="" && $('#reservationDRP').val()!=null && $('#reservationDRP').val()!=""){
 				if ((SpaceRsvCheck.length + ItemRsvChecked.length)<=0){
 					alert("하나 이상의 예약 대상을 체크해 주세요");
-				}else if ($('.timeCheck input:checked').length==0){
-					alert("예약시간을 선택해주세요");
 				}else{
 					//모든 입력이 완료되었다면 쿼리 실행
 					// 체크된 아이탬 체크박스 값을 가져온다
@@ -347,8 +345,8 @@ margin-right: 20px;
 					paramData["rsvUserPhone"] = $('#rsvUserPhone').val();
 					paramData["rsvUserEmail"] = $('#rsvUserEmail').val();
 					paramData["rsvDate"] = $('#reservationDRP').val();
-					paramData["startTime"] = $('#startTime').val();
-					paramData["endTime"] = $('#endTime').val();
+					paramData["startTime"] = 06;
+					paramData["endTime"] = 23;
 					paramData["rsvUserRequest"] = $('#rsvUserRequest').val();
 					paramData["spaceList"] = spaceList;
 					paramData["itemList"] = itemList;
@@ -376,9 +374,9 @@ margin-right: 20px;
 
 //데이터 피커
 		$('#reservationDRP').daterangepicker({
-			dateFormat: "yy-mm-dd",
 			minDate: moment(),
 			locale: {
+				format: 'YYYY-MM-DD',
 	            applyLabel: '등록',
 	            cancelLabel: '취소',
 	            fromLabel: 'From',
@@ -471,17 +469,6 @@ margin-right: 20px;
 			
 		});
 //데이터 피커 종료
-		// 특정일 선택막기
-		var disabledDays = ["2021-01-09","2021-01-24","2021-01-26"];
-		function disableAllTheseDays(date) {
-		    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
-		    for (i = 0; i < disabledDays.length; i++) {
-		        if($.inArray(y + '-' +(m+1) + '-' + d,disabledDays) != -1) {
-		            return [false];
-		        }
-		    }
-		    return [true];
-		}
 		
 	</script>
 	</th:block>
