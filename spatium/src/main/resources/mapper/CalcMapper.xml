@@ -10,7 +10,7 @@
 			,p.paymentRsvCode
 			,p.paymentRefund
 			,p.paymentUseMoney
-			,p.paymentStatus
+			,p.paymentState
 			,r.rsvEndDateTime
 			,r.rsvState
 		FROM

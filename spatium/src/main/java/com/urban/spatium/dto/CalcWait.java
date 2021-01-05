@@ -5,14 +5,14 @@ public class CalcWait {
 	private int paymentRsvCode;
 	private int paymentRefund;
 	private int paymentUseMoney;
-	private String paymentStatus;
+	private String paymentState;
 	private String rsvEndDateTime;
 	private String rsvState;
 	
 	@Override
 	public String toString() {
 		return "CalcWait [paymentCode=" + paymentCode + ", paymentRsvCode=" + paymentRsvCode + ", paymentRefund="
-				+ paymentRefund + ", paymentUseMoney=" + paymentUseMoney + ", paymentStatus=" + paymentStatus
+				+ paymentRefund + ", paymentUseMoney=" + paymentUseMoney + ", paymentState=" + paymentState
 				+ ", rsvEndDateTime=" + rsvEndDateTime + ", rsvState=" + rsvState + "]";
 	}
 	
@@ -40,11 +40,11 @@ public class CalcWait {
 	public void setPaymentUseMoney(int paymentUseMoney) {
 		this.paymentUseMoney = paymentUseMoney;
 	}
-	public String getPaymentStatus() {
-		return paymentStatus;
+	public String getPaymentState() {
+		return paymentState;
 	}
-	public void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
+	public void setPaymentState(String paymentState) {
+		this.paymentState = paymentState;
 	}
 	public String getRsvEndDateTime() {
 		return rsvEndDateTime;
