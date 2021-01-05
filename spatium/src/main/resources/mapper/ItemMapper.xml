@@ -4,6 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.ItemMapper">
 
+	<!--장비구입내역 -->
+	<select id = "itembuyList" resultType="Item">
+		SELECT 
+			itemBuyCode
+			, storeBuyCode
+			, storeBuyItemCode
+			, userBuyId
+			, itemBuyPrice
+			, itemBuyAccount
+			, itemBuyPhone
+			, itemBuyRegDate
+		FROM
+			tbItemBuyList;
+	</select>
+
+
 	<select id = "itemCountListByStoreCode" parameterType="int" resultType="Item">
 	
 	SELECT

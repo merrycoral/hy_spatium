@@ -19,6 +19,8 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 	
+	
+	
 	@GetMapping("/itemInfo")
 	public String itemInfo(Model model, Item item
 							,@RequestParam(name = "storeItemCode", required = false) int storeItemCode) {
@@ -29,6 +31,7 @@ public class ItemController {
 		return "item/itemInfo";
 	}
 	
+	//장비구입내역
 	@GetMapping("/itemBuyList")
 	public String itemBuyList(Model model) {
 		
@@ -37,6 +40,7 @@ public class ItemController {
 		return "item/itemBuyList";
 	}
 	
+	//장비수리내역
 	@GetMapping("/itemRepairList")
 	public String itemRepairList(Model model) {
 		
@@ -45,6 +49,7 @@ public class ItemController {
 		return "item/itemRepairList";
 	}
 	
+	//장비파기내역
 	@GetMapping("/itemDeleteList")
 	public String itemDeleteList(Model model) {
 		
@@ -53,6 +58,7 @@ public class ItemController {
 		return "item/itemDeleteList";
 	}
 	
+	//장비수량목록
 	@GetMapping("/itemCountList")
 	public String itemCountList(Model model) {
 		
@@ -64,6 +70,7 @@ public class ItemController {
 		return "item/itemTotalAmount";
 	}
 	
+	//장비목록
 	@GetMapping("/itemList")
 	public String itemList(Model model) {
 		
@@ -75,6 +82,7 @@ public class ItemController {
 		return "item/itemDetail";
 	}
 	
+	//장비등록
 	@PostMapping("/addItem")
 	public String addItem(Model model, Item item) {
 			System.out.println(item + "=========== 장비 넘어온 값 ============");
