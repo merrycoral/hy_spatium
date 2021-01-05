@@ -19,38 +19,17 @@
 			});
 			return true;
 		});
+		$("#btnLike").click(function(){
+		    if(confirm("해당 글을 추천하시겠습니까?")){
+		        document.form1.action="@{postLikeCntUp}";
+		        document.form1.submit();
+		        
+		        alert("해당 글을 추천하였습니다.")
+		        
+		        }
 
-		$(function(){
-			// 추천버튼 클릭시(추천 추가 또는 추천 제거)
-			$("#likeBtn").click(function(){
-				$.ajax({
-					url: "/expro/RecUpdate.do",
-	                type: "POST",
-	                data: {
-	                    no: ${content.board_no},
-	                    id: '${id}'
-	                },
-	                success: function () {
-				        recCount();
-	                },
-				})
-			})
-			
-			// 게시글 추천수
-		    function recCount() {
-				$.ajax({
-					url: "/expro/RecCount.do",
-	                type: "POST",
-	                data: {
-	                    no: ${content.board_no}
-	                },
-	                success: function (count) {
-	                	$(".rec_count").html(count);
-	                },
-				})
-		    };
-		    recCount(); // 처음 시작했을 때 실행되도록 해당 함수 호출
-		});
+		    });
+
 		/*]]>*/
 	</script>
 </th:block>
@@ -106,6 +85,8 @@
 			<a th:href="|@{/boardList}*{makeQueryString(currentPageNo)}|">
 			<button type="button" class="btn btn-primary" >게시글보기</button></a>
 			
+			
+			<button type="button" id="btnLike" class="btn btn-info" >추천하기</button>
 			
 		</div>
 	</div>

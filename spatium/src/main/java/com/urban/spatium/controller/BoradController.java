@@ -136,9 +136,7 @@ public class BoradController {
 
 		boardService.postHitCnt(boardIdx);
 		
-		/*boardService.postLikeCntUp(boardIdx);
-		
-		boardService.postLikeCntDel(boardIdx);*/
+
 		
 		
 		
@@ -148,6 +146,18 @@ public class BoradController {
 		
 		return "borad/detailPost";
 		}
+	 
+	 @RequestMapping("/postLikeCntUp")
+	 public String postLikeCntUp(@ModelAttribute("params") Board params
+			 ,@RequestParam(name="boardIdx", required = false) int boardIdx) {
+		 
+		 boardService.postLikeCntUp(boardIdx);
+				return "forward:/boardList";
+		 
+	 }
+		/*boardService.postLikeCntUp(boardIdx);
+		
+		boardService.postLikeCntDel(boardIdx);*/
 	 
 	 //소모임 게시글 수정(view)
 	 @GetMapping(value ="/modifyPost")
