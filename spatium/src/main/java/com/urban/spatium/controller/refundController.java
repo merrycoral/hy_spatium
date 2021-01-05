@@ -124,7 +124,9 @@ public class refundController {
 	@GetMapping("/refundSearch")
 	public String refundSearch(Model model) {
 		
-		
+		List<CancelRsv> refundSelect = refundService.refundSelect();
+		System.out.println("컨트롤러!!!!!!"+refundSelect);
+		model.addAttribute("refundSelect", refundSelect);
 		model.addAttribute("title", "환불내역조회");
 		return "refund/refundSearch";
 	}
