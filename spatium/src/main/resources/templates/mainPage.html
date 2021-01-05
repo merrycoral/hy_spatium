@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/maindefault}">
+	
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>	
+<th:block layout:fragment="customCss">
+	<style type="text/css">
+	
+	.moveBtn{
+		width: 30%;
+		height: 200px;
+		margin: 30px;
+		font-size: 25px;
+		font-weight: bold;
+	}
+	</style>
+	
+</th:block>	
+	
+	
+<th:block layout:fragment="customContent">
+<div style="text-align: center;">
+
+
+본 사이트는 한국스마트정보교육원 개발자 37기 Null사랑하지않아 팀에서 제작한 포트폴리오 입니다.<br>
+입사지원제안 대표번호 : 한국 스마트정보 교육원 063-717-1008(평일 오전 9시 ~ 오후 5시 30분)<br>
+온라인 : 개별 메일<br>
+
+
+
+최광현 : atomkh1@naver.com | 김채현 : panda7je@naver.com | 김아영 : 0121a-young@hanmail.net<br>
+송하영 : merrycoral@gmail.com | 이태영 : 014057@naver.com | 유 선 : dbtjsdn97@naver.com<br>
+<a href="/admin"><button class="moveBtn">관리자 화면 메인페이지로 이동</button></a>
+
+<a href="/index"><button class="moveBtn">구매자 화면 메인페이지로 이동</button></a>
+</div>
+	
+</th:block>
+</html>

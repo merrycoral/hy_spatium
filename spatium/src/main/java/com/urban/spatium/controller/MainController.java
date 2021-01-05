@@ -44,11 +44,18 @@ public class MainController {
 		return "main";
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/index")
 	public String index(Model model) {
 		List<Store> storeList = storeService.storeList();
 		model.addAttribute("storeList", storeList);
 		return "index";
+	}
+	
+	@GetMapping("/")
+	public String mainPage(Model model) {
+		
+		model.addAttribute("title", "37기 포트폴리오");
+		return "mainPage";
 	}
 	
 	@GetMapping("/storeInfo")
