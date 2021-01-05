@@ -4,6 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">	
 <mapper namespace="com.urban.spatium.mapper.RefundMapper">	
 	
+	<update id="refundRsv" parameterType="Rsv">
+	UPDATE 
+		tbRsv
+	SET
+		rsvState= #{rsvState}
+	WHERE 
+		rsvCode = #{rsvCode}
+	</update>
+	
+	<update id="refundPayment" parameterType="Payment">
+		UPDATE 
+			tbPayment
+		SET
+			paymentRefund=#{paymentRefund}
+		WHERE 
+			paymentRsvCode=#{paymentRsvCode}
+	</update>
+	
+	
 	<insert id="refundAddPoint" parameterType="Point">
 	INSERT INTO tbPointList
 		(

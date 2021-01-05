@@ -24,10 +24,6 @@ public class PaymentService {
 	@Autowired 
 	private PaymentMapper paymentMapper;
 	
-	public List<Payment> rsvStoreCode(String rsvCode){
-		List<Payment> list = paymentMapper.rsvStoreCode(rsvCode);
-		return list;
-	}
 	
 	public List<Payment> rsvDetail(String payCode){	
 		List<Payment> list = paymentMapper.rsvDetail(payCode);

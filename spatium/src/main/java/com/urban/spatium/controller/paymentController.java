@@ -133,12 +133,9 @@ public class paymentController {
 		//memberService.onelist(member.getMemberId());
 		
 		Rsv rsv = paymentService.rsvState(rsvCode);
-		List<Payment> rsvStorecode = paymentService.rsvStoreCode(rsvCode);
-		int storeCode =rsvStorecode.get(0).getOkayStoreCode();
-		System.out.println("스토어코드>>>>>>>"+storeCode);
 		
 		
-		model.addAttribute("rsvStorecode", rsvStorecode);
+		
 		model.addAttribute("rsv", rsv);
 		System.out.println(rsv.getRsvUserId());
 		System.out.println(rsv.getRsvCode());
