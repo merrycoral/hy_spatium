@@ -21,20 +21,31 @@
 			p.paymentRsvCode = r.rsvCode
 	</sql>
 	
-	<select id="getCalcWait" parameterType="int" resultType="CalcWait">
+	<select id="getCalcWait" parameterType="int" resultType="Map">
 		<include refid="CalcWaitColumn" />
 
 	</select>
 	
-	<select id="getCalcWaitByTerm" parameterType="int" resultType="CalcWait">
+	<select id="getCalcWaitCount" parameterType="int" resultType="int">
+		SELECT
+			COUNT(p.paymentRsvCode) AS paymentNumber
+		FROM
+			tbPayment as p
+		INNER JOIN
+			tbRsv AS r
+		ON
+			p.paymentRsvCode = r.rsvCode
+		WHERE
+			p.paymentState = 'N';
+	</select>
+	
+	<select id="getCalcWaitByTerm" parameterType="int" resultType="Map">
 		<include refid="CalcWaitColumn" />
 		<![CDATA[
 		WHERE
 			r.rsvEndDateTime >= '2020-12-28'
 		AND
 			r.rsvEndDateTime < '2021-01-01'
-		AND
-			p.paymentStoreCode = '5'
 		AND
 			p.paymentStatus = 'N'
 		]]>
