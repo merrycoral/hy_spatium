@@ -41,14 +41,14 @@ public class refundController {
 	public String refundBtn(CancelRsv cancelrsv, Point point, Payment payment,Rsv rsv
 							,@RequestParam(name = "cancelRsvCode" , required = false)int cancelRsvCode) {
 		System.out.println(cancelrsv.getCancelRsvCode());
-		System.out.println(cancelrsv.getrefundPolicyCode());
+		System.out.println(cancelrsv.getcancelRefundPolicyCode());
 		System.out.println(cancelrsv.getCancelReason());
 		
 		System.out.println(cancelrsv.getCancelUserId());
 		System.out.println(cancelrsv.getCancelPrice());
 		
 		cancelrsv.setCancelReason(cancelrsv.getCancelReason());
-		cancelrsv.setrefundPolicyCode(cancelrsv.getrefundPolicyCode());
+		cancelrsv.setcancelRefundPolicyCode(cancelrsv.getcancelRefundPolicyCode());
 		cancelrsv.setCancelRsvCode(cancelrsv.getCancelRsvCode());
 		cancelrsv.setCancelUserId(cancelrsv.getCancelUserId());
 		cancelrsv.setCancelPrice(cancelrsv.getCancelPrice());

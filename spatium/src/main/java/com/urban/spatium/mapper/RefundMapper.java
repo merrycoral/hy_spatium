@@ -19,7 +19,9 @@ import com.urban.spatium.dto.Rsv;
 
 @Mapper	
 public interface RefundMapper {	
-
+	
+	public List<CancelRsv> refundSelect();
+	
 	public int refundRsv(Rsv rsv);
 	
 	public int refundPayment(Payment paymnet);

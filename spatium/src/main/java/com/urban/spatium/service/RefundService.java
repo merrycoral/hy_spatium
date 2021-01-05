@@ -22,6 +22,12 @@ public class RefundService {
 	@Autowired 
 	private RefundMapper refundMapper;
 	
+	public List<CancelRsv> refundSelect(){
+		List<CancelRsv> refundselect = refundMapper.refundSelect();
+		System.out.println("서비스!!!!!!!");
+		return  refundselect;
+	}
+	
 	public int refundRsv(Rsv rsv) {
 		
 		return refundMapper.refundRsv(rsv);
