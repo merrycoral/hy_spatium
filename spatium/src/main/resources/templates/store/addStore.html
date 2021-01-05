@@ -9,6 +9,14 @@
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
+
+<th:block layout:fragment="customCss">
+<style>
+.hid{display: none;}
+td{padding-left: 10px; padding-right: 10px;}
+
+</style>
+</th:block>
 <th:block layout:fragment="customContent">
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -181,31 +189,40 @@
 						class="col-form-label col-md-3 col-sm-3 label-align"> 환불
 						정책 <span class="required">*</span>
 					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<table>
-							<tbody>
-								<tr>
-									<td><input type="text"
-										name="storeRemainingDay" placeholder="예) 15일전"
-										style="width: 280px;"
-										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
-									<td style="padding-left: 10px; padding-right: 10px;">일전</td>
-									<td><input type="text"
-										name="storeRefundPercent" placeholder="예) 15%"
-										style="width: 290px;"
-										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
-									<td style="padding-left: 10px;">%</td>
-									<td>
-										<button type="button" class="addBtn"
-											style="margin-left: 23px;">추가</button>
-										<button type="button" class="removeBtn">삭제</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<span> 숫자만 입력해주시기 바랍니다. </span>
+						<div class="col-md-6 col-sm-6 ">
+							<table border="1">
+								<thead>
+									<tr>
+										<th style="text-align: center;">예약까지남은일수</th>
+										<th style="text-align: center;">환불퍼센트</th>
+										<th style="text-align: center;">생성 및 제거</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="hid"><input type="hidden"
+											name="refundPolicyStoreCode" value="5"></td>
+										<td class="hid"><input type="hidden"
+											name="refundPolicyUserId" value="id001"></td>
+										<td>이용<input type="text" name="remainingDay"
+											style="width: 170px;" class="a"
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">일전
+										</td>
+										<td>총금액의<input type="text" name="refundPercent"
+											style="width: 170px;" class="b"
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">%
+										</td>
+										<td>
+											<button type="button" class="addBtn" style="width: 120px;">추가</button>
+											<button type="button" class="removeBtn" style="width: 120px;">삭제</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<span> 숫자만 입력해주시기 바랍니다. </span>
+							<div><span> 당일 환불과 퍼센트는 0일, 0%로 표현 </span></div>
+						</div>
 					</div>
-				</div>
 				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
@@ -275,34 +292,113 @@
 						alert("업체 이미지를 등록해주시길 바랍니다.");
 						return false;
 					}else{
-						alert("업체 등록에 성공하셨습니다.");
+						
 						
 						var checkArray = Array();
 						$("input[name=storeBusinessType]:checked").each(function(){
 							checkArray.push($(this).val());
 						});
 						
+						
+						var tableLength =  $('[name="remainingDay"]').length;
+						 var refundPolicyList = new Array(); 
+				         var datas = new Object(); 
+				         var totData = new Object();
+						
+						for(var i=0; i<tableLength;i++){
+							datas  = new Object(); 
+							datas.refundPolicyStoreCode  = $('[name="refundPolicyStoreCode"]').val();
+							datas.refundPolicyUserId  = $('[name="refundPolicyUserId"]').val();
+							datas.remainingDay  = $('[name="remainingDay"]').eq(i).val();
+							datas.refundPercent = $('[name="refundPercent"]').eq(i).val();
+							refundPolicyList.push(datas);
+						}
+							if(datas.remainingDay == ''){
+						          alert('값을 입력해주세요.');
+						          return false;
+						      }
+						    	if(datas.refundPercent == ''){
+						          alert('값을 입력해주세요.');
+						          return false;
+						      }
+						  totData["refundPolicyList"] = refundPolicyList;
+						  
+						  console.log(totData);
+						  
+						  $.ajax({
+				               type : "POST",
+				               url : '/refundPolicy', 
+				               dataType : "text",  //리턴받았을때 타입
+				               contentType : "application/json",
+				               data : JSON.stringify(totData),
+				               success : function(data) {
+			               	   //	location.href= data;         
+				               },
+				               error : function() {
+				                  alert('숫자 값만 입력해주세요.');
+				               }
+				            });    
+
+						alert("업체 등록에 성공하셨습니다.");
 						return checkArray;
 					}
 				});
 				
-				$(document).on('click', '.addBtn', function() {
-					var len = $(this).parents('tbody').find('tr').length;
-					var clone = $(this).parents('tr').clone();
-					clone.find('input').val('');
-					if (len >= 5) {
-						alert('더 이상 생성하실 수 없습니다.');
-					} else {
-						$(this).parents('tbody').append(clone);
+				$('.a').change(function(){
+					var day = $('.a').val();
+						if(day >10){
+						$(this).val(0);
+						alert('10일 전 까지만 가능합니다.');
+						
+					
 					}
+				}); 
+				$('.b').change(function(){
+					var percent = $('.b').val();
+					if(percent >100){
+					$(this).val(0);
+						alert('100까지만  입력 가능합니다.');
+					
+					}
+					
 				});
-				
+				$(document).on('click', '.addBtn', function() {
+					var clone = $(this).parents('tr').clone();
+					//복제된 대상의 input 박스를 찾아 값을 초기화
+					clone.find('input').val('');
+					//복제된 대상을 tbody에 삽입하기
+					$(this).parents('tbody').append(clone);
+					console.log($('.a').length);
+					
+					$('.a').change(function(){
+						for(var i=0;i<$('.a').length;i++){	
+							var day = $('.a').eq(i).val();
+							if(day >10){
+								$(this).val(0);
+								alert('10일 전 까지만 가능합니다.');
+								return;
+							}
+						}
+					}); 
+					$('.b').change(function(){
+						for(var i=0;i<$('.b').length;i++){	
+							var percent = $('.b').eq(i).val();
+							if(percent >100){
+								$(this).val(0);
+								alert('100까지만  입력 가능합니다.');
+								return;
+							}
+						}
+					});
+
+				});
+
 				$(document).on('click', '.removeBtn', function() {
 					var len = $(this).parents('tbody').find('tr').length;
 					if (len > 1) {
 						$(this).parents('tr').remove();
 					} else {
-						alert('더 이상 삭제 하실 수 없습니다.');
+						alert('더이상 삭제 하실 수 없습니다');
 					}
 				});
 				

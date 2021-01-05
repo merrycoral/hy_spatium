@@ -68,9 +68,7 @@
 				<span class="required">*</span>
 			</label>
 			<div class="col-md-6 col-sm-6">
-				<input class="form-control" type="number" id="birth" name="userBirth"
-					maxlength="8" oninput="maxLengthCheck(this)" placeholder="ex)20001212"
-					required="required">
+				<input class="form-control" type="date" id="birth" name="userBirth"	required="required">
 
 			</div>
 		</div>
@@ -107,7 +105,6 @@
 				class="required">*</span></label>
 			<div class="col-md-3 col-sm-3">
 				<select class="form-control" id="job" name="userJob">
-					<option></option>
 					<option value="학생">학생</option>
 					<option value="회사원">회사원</option>
 					<option value="자영업">자영업</option>
@@ -128,7 +125,7 @@
 		<div class="form-group" align="center">
 			<div class="col-md-6 offset-md-3">
 				<button type="submit" id="submit" class="btn btn-primary ">회원가입</button>
-				<button type="cancel" id="cancel" class="btn btn-success">취소</button>
+				<button type="button" id="cancel" class="btn btn-success">취소</button>
 			</div>
 		</div>
 	</form>
@@ -144,20 +141,12 @@
     	}    
   }
 </script>
-
-<script>
-
- //유효성검사
- function maxLengthCheck(object){
-	    if (object.value.length > object.maxLength){
-	      object.value = object.value.slice(0, object.maxLength);
-	    }    
-	  }
-</script>
+ 
   <script >
- 	 $(document).ready(function(){
+  //유효성검사
+ 	
 	 		$("#cancel").on("click", function(){
-				location.href = "/login";
+				location.href = "/";
 			})
 		
 			$("#submit").on("click", function(){
@@ -208,10 +197,7 @@
 					$("#joinform").submit();
 				}
 			});
-		})
-				
-			});
-
+		
 	</script >
 	< <script >		
 		
