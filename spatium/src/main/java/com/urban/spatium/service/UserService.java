@@ -1,8 +1,7 @@
 package com.urban.spatium.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,10 +70,11 @@ public class UserService {
 	
 	  public List<User> getUserList(){
 	  
-	  List<User> userList = userMapper.getUserList(); int listSize =
-	  userList.size();
+	  List<User> userList = userMapper.getUserList(); 
+	  int listSize = userList.size();
 	  
-	  return userList; }
+	  return userList; 
+	  }
 	 
 		
 	//로그인

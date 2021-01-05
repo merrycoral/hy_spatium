@@ -21,18 +21,20 @@
 		FROM
 		tbBookmark
 		WHERE
-		storeCode = #{storeCode} AND userId=#{userId}; 
+		storeCode = #{storeCode}; 
 	</delete> -->
 
 	<!--즐겨찾기 수정  -->
-	<!-- <select id="updateBoardLike">
-            UPDATE tbBookmark
-            SET
-            countBookmark = (SELECT COUNT(*)
-            FROM tbBookmark
-            WHERE storeCode = #{storeCode})
-    </select> -->
-        
+	<!-- <update id = "modifyBookmark">
+	UPDATE 
+		tbBookmark
+	SET 
+		bookmark = bookmark+1 
+	WHERE 
+		storeCode = #{storeCode} 
+ 	</update> -->
+
+ 
 	<!-- 즐겨찾기 리스트 -->
 	<select id="getBookMarkList" resultType="int">
 		SELECT
