@@ -20,30 +20,37 @@
 			return true;
 		});
 
-		function removePost(boardIdx, queryString) {
-	
-			if (confirm(boardIdx + "번 게시글을 삭제할까요?")) {
-				var uri = /*[[ @{/board/removePost} ]]*/;
-				var html = "";
-
-				html += '<form name="dataForm" action="'+uri+'" method="post">';
-				html += '<input type="hidden" name="boardIdx" value="'+boardIdx+'" />';
-
-				/*[- 쿼리 스트링을 오브젝트 형태로 변환 -]*/
-				queryString = new URLSearchParams(queryString);
-				queryString.forEach(function(value, key) {
-					if (isEmpty(value) == false) {
-						html += '<input type="hidden" name="' + key + '" value="' + value + '" />';
-					}
-				});
-
-				html += '</form>';
-
-				$("body").append(html);
-				document.dataForm.submit();
-			}
-		
-		}
+		$(function(){
+			// 추천버튼 클릭시(추천 추가 또는 추천 제거)
+			$("#likeBtn").click(function(){
+				$.ajax({
+					url: "/expro/RecUpdate.do",
+	                type: "POST",
+	                data: {
+	                    no: ${content.board_no},
+	                    id: '${id}'
+	                },
+	                success: function () {
+				        recCount();
+	                },
+				})
+			})
+			
+			// 게시글 추천수
+		    function recCount() {
+				$.ajax({
+					url: "/expro/RecCount.do",
+	                type: "POST",
+	                data: {
+	                    no: ${content.board_no}
+	                },
+	                success: function (count) {
+	                	$(".rec_count").html(count);
+	                },
+				})
+		    };
+		    recCount(); // 처음 시작했을 때 실행되도록 해당 함수 호출
+		});
 		/*]]>*/
 	</script>
 </th:block>
@@ -54,8 +61,7 @@
 	
 <th:block layout:fragment="customContent">
 
-	<div class="container " style="margin-top: 50px;">
-
+	<div class="container" style="margin-top: 70px; margin-bottom: 70px;">
 		<h1 th:text="${Board.boardTitle}"></h1>
 
 		<table class="table table-condensed">
@@ -66,9 +72,9 @@
 					<th>카테고리</th>
 					<td th:value="${Board.boardCate}" th:text="${Board.boardCateName}"></td>
 					<th>조회수</th>
-					<td th:text="${Board.boardLikeCnt}"></td>
+					<td th:text="${Board.boardHitCnt}+1"></td>
 					<th>추천수</th>
-					<td th:text="${Board.boardHitCnt}"></td>
+					<td th:text="${Board.boardLikeCnt}"></td>
 				</tr>
 				<tr>
 					<th>회원아이디</th>
@@ -86,15 +92,21 @@
 			</tbody>
 		</table>
 		<div class="text-center" th:object="${params}">
-			<a th:href="|@{/modifyPost}*{makeQueryString(currentPageNo)}&boardIdx=${Board.boardIdx}|">
+			<a th:href="|@{/modifyPost}*{makeQueryString(currentPageNo)}&boardIdx=${Board.boardIdx}|"
+			th:if="${session.SID} eq ${Board.boardAddId}">
 				<button id="insertBtn" type="submit" class="btn btn-warning">수정</button>
 			</a>
+			<a th:href="|@{/removePost}*{makeQueryString(currentPageNo)}&boardIdx=${Board.boardIdx}|"
+			th:if="${session.SID} eq ${Board.boardAddId}">
+				<button id="removeBtn" type="submit" class="btn btn-danger">삭제</button>
+			</a>
 			
-				<button id="insertBtn" type="submit" class="btn btn-danger"
-				th:onclick="removePost([[ ${Board.boardIdx} ]], [[ *{makeQueryString(currentPageNo)} ]])">삭제</button>
+
 
 			<a th:href="|@{/boardList}*{makeQueryString(currentPageNo)}|">
 			<button type="button" class="btn btn-primary" >게시글보기</button></a>
+			
+			
 		</div>
 	</div>
 	

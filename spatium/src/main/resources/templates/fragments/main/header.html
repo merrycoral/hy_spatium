@@ -27,7 +27,7 @@
 					<div class="line line--3"></div>
 				</div>
 				<div class="login-links">
-					<a th:href="@{/admin}"  th:if="${session.SID == null}" th:unless="${session.SID == null}" class="link">관리자 화면(임시)</a>
+					<a th:href="@{/admin}"  class="link">관리자 화면(임시)</a>
 					<a th:href="@{/login}" th:if="${session.SID == null}" class="link">로그인</a> 
 					<a th:href="@{/logout}" th:unless="${session.SID == null}" class="link">07로그아웃</a>
 					<a th:href="@{/addUser}" th:if="${session.SID == null}" class="link">회원가입</a> 
