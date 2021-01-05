@@ -142,20 +142,6 @@
 						</div>
 					</div>
 					<br>
-					<div class="item form-group">
-						<label for="middle-name"
-							class="col-form-label col-md-3 col-sm-3 label-align"> 결제
-							방식 <span class="required">*</span>
-						</label>
-						<div class="col-md-6 col-sm-6 ">
-							<select style="width: 775px; height: 40px; margin-top: -5px;"
-								id="readySpaceRsvType" name="readySpaceRsvType">
-								<option value="0">:: 결제 방식 선택 ::</option>
-								<option value="일 결제">일 결제</option>
-								<option value="시간 결제">시간 결제</option>
-							</select>
-						</div>
-					</div>
 					<div class="form-group row">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">
 							예약 불가 시작 날짜 <span class="required">*</span>
@@ -330,9 +316,6 @@
 								} else if ($('#readyCloseTime').val() == "") {
 									alert("공간 영업 종료 시간을 입력해주시기 바랍니다.");
 									$('#readyCloseTime').focus();
-									return false;
-								} else if ($('#readySpaceRsvType').val() == "0") {
-									alert("공간 예약 타입을 선택해주시기 바랍니다.");
 									return false;
 								} else if ($('#readyExceptionStartDate').val() == "") {
 									alert("공간 예약 불가 시작 날짜를 입력해주시기 바랍니다.");

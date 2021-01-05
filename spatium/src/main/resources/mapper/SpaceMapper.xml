@@ -5,8 +5,7 @@
 <insert id = "addReadySpace">
 
 	INSERT INTO tbReadySpace
-	(readySpace
-	, readyStoreCode
+	( readyStoreCode
 	, readySpaceName
 	, readySpaceType
 	, readyPeopleNumber
@@ -21,8 +20,7 @@
 	, readySpaceBasicOption
 	, readyRequestDate)
 VALUES 
-	(NULL
-	, 5
+	( 5
 	, #{readySpaceName}
 	, 1
 	, #{readyPeopleNumber}

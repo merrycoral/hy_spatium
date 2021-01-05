@@ -1,5 +1,7 @@
 package com.urban.spatium.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,21 +42,30 @@ public class StoreService {
 		return getStoreInfoByStoreCode;
 	}
 	
-	public int addStore(Store store, Map<String, Object> storeMap) {
+	public String addStore(Store store, List<String> tList) {
 		String insertCheck = "업체 등록 실패";
-		int storeCode = store.getStoreCode();
 		
 		if(store != null) {
 			int result = storeMapper.addStore(store);
-			
-			System.out.println(storeCode + "1111111111111 service 부분 1111111111111111111");
-			storeMapper.addStoreRelation(storeMap);
+			int StoreCode = store.getStoreCode();
+			System.out.println(tList);
+			List<Map<String, Object>> storeListMap = new ArrayList<Map<String, Object>>();;
+			for(int i=0; i<tList.size(); i++) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("code", StoreCode);
+				map.put("cateNumber", tList.get(i));
+				System.out.println(map + "리스트에 들어갈것");
+				storeListMap.add(map);
+				System.out.println(storeListMap + " 들어간후의 리스트");
+			}
+			System.out.println(storeListMap + "최종 리스트");
+			storeMapper.addStoreRelation(storeListMap);
 			if(result > 0) {
 				insertCheck = "업체 등록 성공";
 			}
 		}
 		
-		return storeCode;
+		return insertCheck;
 	}
 	
 	public List<Store> storeList(){
