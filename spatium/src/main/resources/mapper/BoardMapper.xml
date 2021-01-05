@@ -173,7 +173,7 @@
 	 <update id="postLikeCntDel" parameterType="int">
 		UPDATE tbBoard
 		SET
-			  boardLikeCnt = boardLikeCnt+1
+			  boardLikeCnt = boardLikeCnt-1
 		WHERE
 			boardIdx = #{boardIdx};
 	</update>
