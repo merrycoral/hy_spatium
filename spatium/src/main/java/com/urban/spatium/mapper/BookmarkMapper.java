@@ -16,10 +16,7 @@ public interface BookmarkMapper {
     int deleteAll(String userId);
  
     //즐겨찾기 수정
-    public int modifyBookmark(Bookmark bookmark);
-    
-    //즐겨찾기 갯수
-    public int countBookmark(String userId, int storeCode);
+    public int modifyBookmark(int storeCode);
     
     //즐겨찾기 리스트
     public List<Bookmark> getBookMarkList();
