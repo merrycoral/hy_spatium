@@ -3,9 +3,10 @@ package com.urban.spatium.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,14 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.urban.spatium.dto.Board;
-import com.urban.spatium.dto.Criteria;
-import com.urban.spatium.dto.PaginationInfo;
 import com.urban.spatium.mapper.BoardMapper;
 import com.urban.spatium.service.BoardService;
+
 
 @Controller
 public class BoradController {
@@ -134,6 +133,14 @@ public class BoradController {
 								 ,Model model) {
 		
 		Board board = boardService.getBoardsByCode(boardIdx);
+
+		boardService.postHitCnt(boardIdx);
+		
+		/*boardService.postLikeCntUp(boardIdx);
+		
+		boardService.postLikeCntDel(boardIdx);*/
+		
+		
 		
 		model.addAttribute("title", "게시글 상세보기");
 		model.addAttribute("Board", board);
@@ -150,14 +157,7 @@ public class BoradController {
 		 
 		 Board board = boardService.getBoardsByCode(boardIdx);
 		 List<Board> boardCate = boardService.getBoardCate();
-		 
-		 Map<String, Object> pagingParams = boardService.getPagingParams(params);
-		 
-		 model.addAttribute("currentPageNo", pagingParams.get("currentPageNo"));
-		 model.addAttribute("recordsPerPage", pagingParams.get("recordsPerPage"));
-		 model.addAttribute("pageSize", pagingParams.get("pageSize"));
-		 model.addAttribute("searchType", pagingParams.get("searchType"));
-		 model.addAttribute("searchKeyword", pagingParams.get("searchKeyword"));
+
 		 
  
 		 model.addAttribute("boardCate", boardCate);
@@ -173,13 +173,12 @@ public class BoradController {
 	 //소모임 게시글 수정(Action)
 		@PostMapping(value ="/modifyPost")
 		public String modifyPost(@ModelAttribute("params") Board params
-								  ,Model model) {
+								  ,RedirectAttributes rttr) {
 			
 			String result = boardService.modifyPost(params);
-			 Map<String, Object> pagingParams = boardService.getPagingParams(params);
 
-
-			System.out.println("params -- >>" + params);
+			rttr.addAttribute("CurrentPageNo", params.getCurrentPageNo());
+			rttr.addAttribute("RecordsPerPage", params.getRecordsPerPage());
 			
 			System.out.println(result);
 				
@@ -187,12 +186,17 @@ public class BoradController {
 		}
 
 	//소모임 게시판 삭제(Action)
-		@RequestMapping(value = "/removePost", method = RequestMethod.POST)
+		@RequestMapping(value = "/removePost", method = RequestMethod.GET)
 		public String removePost(@ModelAttribute("params") Board params
 				,@RequestParam(name="boardIdx", required = false) int boardIdx
 				,RedirectAttributes rttr) {
 			
+
+			
 			String result = boardService.removePost(boardIdx);
+			rttr.addAttribute("CurrentPageNo", params.getCurrentPageNo());
+			rttr.addAttribute("RecordsPerPage", params.getRecordsPerPage());
+			
 			
 
 			return "redirect:/boardList";
