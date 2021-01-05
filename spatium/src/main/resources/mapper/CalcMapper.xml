@@ -28,6 +28,7 @@
 	
 	<select id="getCalcWaitByTerm" parameterType="int" resultType="CalcWait">
 		<include refid="CalcWaitColumn" />
+		<![CDATA[
 		WHERE
 			r.rsvEndDateTime >= '2020-12-28'
 		AND
@@ -36,4 +37,7 @@
 			p.paymentStoreCode = '5'
 		AND
 			p.paymentStatus = 'N'
+		]]>
 	</select>
+	
+</mapper>
