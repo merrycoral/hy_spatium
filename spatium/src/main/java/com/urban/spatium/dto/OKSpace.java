@@ -12,7 +12,6 @@ public class OKSpace {
 	private int okaySpaceRentalPrice;
 	private String okayStartTime;
 	private String okayCloseTime;
-	private String okaySpaceRsvType;
 	private String okayExceptionStartDate;
 	private String okayExceptionEndDate;
 	private String okayCompletedDate;
@@ -91,12 +90,6 @@ public class OKSpace {
 	public void setOkayCloseTime(String okayCloseTime) {
 		this.okayCloseTime = okayCloseTime;
 	}
-	public String getOkaySpaceRsvType() {
-		return okaySpaceRsvType;
-	}
-	public void setOkaySpaceRsvType(String okaySpaceRsvType) {
-		this.okaySpaceRsvType = okaySpaceRsvType;
-	}
 	public String getOkayExceptionStartDate() {
 		return okayExceptionStartDate;
 	}
@@ -152,8 +145,6 @@ public class OKSpace {
 		builder.append(okayStartTime);
 		builder.append(", okayCloseTime=");
 		builder.append(okayCloseTime);
-		builder.append(", okaySpaceRsvType=");
-		builder.append(okaySpaceRsvType);
 		builder.append(", okayExceptionStartDate=");
 		builder.append(okayExceptionStartDate);
 		builder.append(", okayExceptionEndDate=");

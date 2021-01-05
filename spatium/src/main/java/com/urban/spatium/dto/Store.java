@@ -13,6 +13,7 @@ public class Store {
 	private String storeAddress;
 	private String storeIntroduction;
 	private String storeEmail;
+	private String storeRsvType;
 	private String storePhone;
 	private String storeAccountNumber;
 	private String storeRefundRull;
@@ -155,7 +156,12 @@ public class Store {
 	public void setStoreCategoryList(List<Store> storeCategoryList) {
 		this.storeCategoryList = storeCategoryList;
 	}
-	
+	public String getStoreRsvType() {
+		return storeRsvType;
+	}
+	public void setStoreRsvType(String storeRsvType) {
+		this.storeRsvType = storeRsvType;
+	}
 	
 	@Override
 	public String toString() {
@@ -178,6 +184,8 @@ public class Store {
 		builder.append(storeIntroduction);
 		builder.append(", storeEmail=");
 		builder.append(storeEmail);
+		builder.append(", storeRsvType=");
+		builder.append(storeRsvType);
 		builder.append(", storePhone=");
 		builder.append(storePhone);
 		builder.append(", storeAccountNumber=");

@@ -14,7 +14,7 @@ public interface StoreMapper {
 	
 	public Store getStoreInfoByStoreCode(int storeCode);
 	
-	public int addStoreRelation(Map<String, Object> storeMap);
+	public int addStoreRelation(List<Map<String, Object>> storeMap);
 	
 	public int addStore(Store store);
 	
