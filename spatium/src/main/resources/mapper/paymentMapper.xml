@@ -120,9 +120,14 @@
 		, rsvStartDateTime
 		, rsvEndDateTime
 		, rsvRegDate
-		, rsvState		
+		, rsvState
+		, storeId
 	FROM 
-		tbRsv		
+		tbRsv	
+	INNER join
+	tbStore AS s
+	on
+	rsvStoreCode = storeCode
 	WHERE 
 		rsvCode = #{rsvCode};
 	</select>
@@ -177,6 +182,7 @@
 	, paymentStoreCode
 	, paymentIP
 	, paymentRegDate
+	, paymentStoreId
 	)
 	VALUES (
 	
@@ -188,6 +194,7 @@
 	, #{paymentStoreCode}
 	, #{paymentIP}
 	, NOW()
+	, #{paymentStoreId}
 	)
 	
 	</insert>

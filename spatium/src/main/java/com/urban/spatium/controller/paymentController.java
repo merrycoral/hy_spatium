@@ -71,7 +71,7 @@ public class paymentController {
 		System.out.println("유즈포인트"+(usePoint*-1));
 		System.out.println("에드포인트"+addPoint);
 		
-		
+		payment.setPaymentStoreId(payment.getPaymentStoreId());
 		payment.setPaymentPrice(payment.getPaymentPrice());
 		payment.setPaymentRsvCode(PaymentRsvCode);
 		payment.setPaymentUsePoint(usePoint);
