@@ -151,14 +151,7 @@ public class paymentController {
 		
 	}
 	
-	@GetMapping("/rsvList")
-	public String rsvList(Model model) {
-		List<Rsv> rsv = paymentService.rsvSelect();
-		
-		model.addAttribute("rsv", rsv);
-		
-		return "payment/rsvList";
-	}
+	
 	
 	@GetMapping("/paymentSearch")
 	public String paymentSearch(Model model,HttpSession session) {
