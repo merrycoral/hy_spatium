@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.urban.spatium.dto.Board;
 import com.urban.spatium.dto.Criteria;
@@ -185,10 +186,10 @@ public class BoradController {
 		}
 
 	//소모임 게시판 삭제(Action)
-		@RequestMapping(value = "/removePost", method = RequestMethod.GET)
+		@RequestMapping(value = "/removePost", method = RequestMethod.POST)
 		public String removePost(@ModelAttribute("params") Board params
-				,Board board
-				,@RequestParam(name="boardIdx", required = false) int boardIdx) {
+				,@RequestParam(name="boardIdx", required = false) int boardIdx
+				,RedirectAttributes rttr) {
 			
 			String result = boardService.removePost(boardIdx);
 			
