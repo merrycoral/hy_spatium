@@ -3,19 +3,6 @@
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/default}">
 <th:block layout:fragment="customContent">
-		
-	<button type="button" id="loginBtn">간편 로그인</button>
-	<button type="button" id="logoutBtn">간편 로그아웃</button>
-	
-	<th:block layout:fragment="customJs">	
-	<script>
-	$("#loginBtn").click(function(){
-		session.setAttribute("SID", "id001");
-	})
-	$("#logoutBtn").click(function(){
-		session.invalidate();
-	})
-
-</script>
+	<a href="/imsilogin"><button type="button" id="loginBtn">간편 로그인</button></a>
 </th:block>
 </html>

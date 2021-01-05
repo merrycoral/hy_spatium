@@ -199,7 +199,15 @@ public class UserController {
 		  return "user/findPw"; 
 	  } 
 	
-	
+	//간편로그인
+	@GetMapping("/imsilogin")
+	public String imsilogin(HttpSession session) {
+		session.setAttribute("SID", "id001");
+		session.setAttribute("SLEVEL", "관리자");
+		session.setAttribute("SNAME", "홍01");
+		return "redirect:/userList";
+	}
+	  
 	//로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
