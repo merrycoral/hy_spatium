@@ -16,7 +16,6 @@
 	, readyRentalPrice
 	, readyStartTime
 	, readyCloseTime
-	, readySpaceRsvType
 	, readyExceptionStartDate
 	, readyExceptionEndDate
 	, readySpaceBasicOption
@@ -33,7 +32,6 @@ VALUES
 	, #{readyRentalPrice}
 	, #{readyStartTime}
 	, #{readyCloseTime}
-	, #{readySpaceRsvType}
 	, #{readyExceptionStartDate}
 	, #{readyExceptionEndDate}
 	, #{readySpaceBasicOption}
@@ -55,7 +53,6 @@ SELECT
 	, readyRentalPrice
 	, readyStartTime
 	, readyCloseTime
-	, readySpaceRsvType
 	, readyExceptionStartDate
 	, readyExceptionEndDate
 	, readySpaceBasicOption
@@ -79,7 +76,6 @@ SELECT
 	, okaySpaceRentalPrice
 	, okayStartTime
 	, okayCloseTime
-	, okaySpaceRsvType
 	, okayExceptionStartDate
 	, okayExceptionEndDate
 	, okayCompletedDate
@@ -105,7 +101,6 @@ SELECT
 	, okaySpaceRentalPrice
 	, okayStartTime
 	, okayCloseTime
-	, okaySpaceRsvType
 	, okayExceptionStartDate
 	, okayExceptionEndDate
 	, okayCompletedDate

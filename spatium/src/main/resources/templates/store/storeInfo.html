@@ -17,9 +17,9 @@
 		padding: 5px;
 	}
 	#rsvBtn{
-		float:right;
 		text-align: center;
 		padding: 0;
+		margin: 0;
 		height: 50px;
 		width: 150px;
 	}
@@ -42,10 +42,10 @@
 				</div>
 			</div>
 		</div>
+		<a style="margin: 0;" th:href="@{/rsvInsert(storeCode=${storeCode})}">
+			<button id="rsvBtn">예약하기</button>
+		</a>
 		<div class="row ">
-			<a  th:href="@{/rsvInsert(storeCode=${storeCode})}">
-				<button id="rsvBtn">예약하기</button>
-				</a>
 			<div class="x_content">
 				<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 					<li class="nav-item active">
@@ -61,7 +61,7 @@
 						<a data-toggle="tab" href="#refundRule">환불 정책</a>
 					</li>
 					<li class="nav-item">
-						<a data-toggle="tab" href="#QnA">Q&A</a>
+						<a data-toggle="tab" href="#QnA">QnA</a>
 					</li>
 					<li class="nav-item">
 						<a data-toggle="tab" href="#review">이용 후기</a>
@@ -149,9 +149,6 @@
 	    		});
 			
 		})
-    
-    
-  	 
     	
     </script>
 </th:block>
