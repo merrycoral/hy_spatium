@@ -14,6 +14,7 @@ public class Payment {
 	private String paymentRegDate;
 	private String paymentMethod;
 	private String paymentIP;
+	private String paymentStoreId;
 	private List<Rsv> RsvList;
 	
 	
@@ -28,8 +29,21 @@ public class Payment {
 	private int rsvDetailNum;
 	private int rsvDetailOnePrice;
 	private String rsvState;
-
+	private String rsvStartDateTime;
 	
+	
+	public String getRsvStartDateTime() {
+		return rsvStartDateTime;
+	}
+	public void setRsvStartDateTime(String rsvStartDateTime) {
+		this.rsvStartDateTime = rsvStartDateTime;
+	}
+	public String getPaymentStoreId() {
+		return paymentStoreId;
+	}
+	public void setPaymentStoreId(String paymentStoreId) {
+		this.paymentStoreId = paymentStoreId;
+	}
 	public int getPaymentRefund() {
 		return paymentRefund;
 	}
@@ -194,6 +208,8 @@ public class Payment {
 		builder.append(paymentMethod);
 		builder.append(", paymentIP=");
 		builder.append(paymentIP);
+		builder.append(", paymentStoreId=");
+		builder.append(paymentStoreId);
 		builder.append(", RsvList=");
 		builder.append(RsvList);
 		builder.append(", rsvCode=");
@@ -218,6 +234,8 @@ public class Payment {
 		builder.append(rsvDetailOnePrice);
 		builder.append(", rsvState=");
 		builder.append(rsvState);
+		builder.append(", rsvStartDateTime=");
+		builder.append(rsvStartDateTime);
 		builder.append("]");
 		return builder.toString();
 	}

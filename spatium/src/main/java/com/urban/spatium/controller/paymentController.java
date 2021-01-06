@@ -71,7 +71,7 @@ public class paymentController {
 		System.out.println("유즈포인트"+(usePoint*-1));
 		System.out.println("에드포인트"+addPoint);
 		
-		
+		payment.setPaymentStoreId(payment.getPaymentStoreId());
 		payment.setPaymentPrice(payment.getPaymentPrice());
 		payment.setPaymentRsvCode(PaymentRsvCode);
 		payment.setPaymentUsePoint(usePoint);
@@ -151,19 +151,13 @@ public class paymentController {
 		
 	}
 	
-	@GetMapping("/rsvList")
-	public String rsvList(Model model) {
-		List<Rsv> rsv = paymentService.rsvSelect();
-		
-		model.addAttribute("rsv", rsv);
-		
-		return "payment/rsvList";
-	}
+	
 	
 	@GetMapping("/paymentSearch")
 	public String paymentSearch(Model model,HttpSession session) {
 		String SID = (String) session.getAttribute("SID");
 		List<Payment> paymentList = paymentService.paymentSelect(SID);
+		System.out.println("컨트롤러!!!1" + paymentList);
 		model.addAttribute("title", "결제내역조회");
 		model.addAttribute("paymentList", paymentList);
 		return "payment/paymentSearch";

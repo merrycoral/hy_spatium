@@ -20,6 +20,7 @@ td{padding-left: 10px; padding-right: 10px;}
 <th:block layout:fragment="customContent">
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<div class="row">
 
 	<div class="x_panel">
@@ -41,7 +42,7 @@ td{padding-left: 10px; padding-right: 10px;}
 					<div class="col-md-6 col-sm-6 ">
 
 						<input type="text" id="storeId" class="form-control"
-							name="storeId">
+							name="storeId" th:value = ${storeId} readonly="readonly">
 					</div>
 				</div>
 				<div class="form-group row">
@@ -73,9 +74,10 @@ td{padding-left: 10px; padding-right: 10px;}
 						<span> 숫자만 입력해주시기 바랍니다. </span>
 					</div>
 				</div>
-				<span style="padding-left: 610px;"> 업체 유형은 최소 1개에서 5개까지 선택할 수
-					있으며, 후에 변경하실 수 없으니 유의하시기 바랍니다. </span>
+				<div><span> 업체 유형은 최소 1개에서 5개까지 선택할 수
+					있으며, 후에 변경하실 수 없으니 유의하시기 바랍니다. </span></div>
 				<div class="form-group row">
+				
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						유형 <span class="required">*</span>
@@ -120,8 +122,11 @@ td{padding-left: 10px; padding-right: 10px;}
 						주소 <span class="required">*</span>
 					</label>
 					<div class="col-md-6 col-sm-6 ">
-						<input type="text" id="storeAddress" class="form-control"
-							name="storeAddress" placeholder="업체 주소를 입력해주시기 바랍니다.">
+					<input type="text" id="sample6_postcode" name = "storeAddressNumber" placeholder="우편번호" readonly="readonly" class="form-control" style="margin-bottom: 10px;">
+					<input type="text" id="sample6_address" name = "storeAddress" placeholder="주소" readonly="readonly" class="form-control" style="margin-bottom: 10px;">
+					<input type="text" id="sample6_extraAddress" name = "storeAddress1" placeholder="참고항목" readonly="readonly" class="form-control" style="margin-bottom: 10px;">
+					<input type="text" id="sample6_detailAddress" name = "storeAddressDetail" placeholder="상세주소" class="form-control">
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" readonly="readonly" class="btn btn-success" style="margin-top: 20px; margin-left: 300px;">
 					</div>
 				</div>
 				<div class="form-group row">
@@ -177,6 +182,38 @@ td{padding-left: 10px; padding-right: 10px;}
 						계좌번호 <span class="required">*</span>
 					</label>
 					<div class="col-md-6 col-sm-6 ">
+						<select id = "storeAccountBankName" name = "storeAccountBankName" style="">
+							<option value = "0"> :: 은행 선택 :: </option>
+							<option value = "BNP"> BNP </option>
+							<option value = "BOA"> BOA </option>
+							<option value = "HSBC"> HSBC </option>
+							<option value = "IBK기업"> IBK기업 </option>
+							<option value = "JP모간"> JP모간 </option>
+							<option value = "SC제일"> SC제일 </option>
+							<option value = "경남"> 경남 </option>
+							<option value = "광주"> 광주 </option>
+							<option value = "국민"> 국민 </option>
+							<option value = "농협"> 농협 </option>
+							<option value = "대구"> 대구 </option>
+							<option value = "도이치"> 도이치 </option>
+							<option value = "부산"> 부산 </option>
+							<option value = "산림조합"> 산림조합 </option>
+							<option value = "산업"> 산업 </option>
+							<option value = "새마을"> 새마을 </option>
+							<option value = "수협"> 수협 </option>
+							<option value = "신한"> 신한 </option>
+							<option value = "신협"> 신협 </option>
+							<option value = "씨티"> 씨티 </option>
+							<option value = "우리"> 우리 </option>
+							<option value = "우체국"> 우체국 </option>
+							<option value = "저축은행"> 저축은행 </option>
+							<option value = "전북"> 전북 </option>
+							<option value = "제주"> 제주 </option>
+							<option value = "중국공상"> 중국공상 </option>
+							<option value = "카카오뱅크"> 카카오뱅크 </option>
+							<option value = "케이뱅크"> 케이뱅크 </option>
+							<option value = "하나은행"> 하나은행 </option>
+						</select>
 						<input type="text" id="storeAccountNumber"
 							placeholder="사업자 계좌번호를 입력해주시기 바랍니다." name="storeAccountNumber"
 							class="form-control"
@@ -265,8 +302,8 @@ td{padding-left: 10px; padding-right: 10px;}
 					}else if($('input:checkbox[name="storeBusinessType"]:checked').length == "0" || $('input:checkbox[name="storeBusinessType"]:checked').length > "5"){
 						alert("업체 유형의 갯수를 제대로 확인하시고 선택해주시기 바랍니다.");
 						return false;
-					}else if($('#storeAddress').val() == ""){
-						alert("업체 주소를 입력해주시길 바랍니다.");
+					}else if($('#sample6_postcode').val() == ""){
+						alert("주소를 입력해주시길 바랍니다.");
 						$('#storeAddress').focus();
 						return false;
 					} else if ($('#storeRsvType').val() == "0") {
@@ -275,6 +312,10 @@ td{padding-left: 10px; padding-right: 10px;}
 					}else if($('#storePhone').val() == ""){
 						alert("업체 연락처를 입력해주시길 바랍니다.");
 						$('#storePhone').focus();
+						return false;
+					}else if($('#storeAccountBankName').val() == "0"){
+						alert("은행을 선택해주시기 바랍니다.");
+						$('#storeAccountNumber').focus();
 						return false;
 					}else if($('#storeAccountNumber').val() == ""){
 						alert("사업자 계좌번호를 입력해주시길 바랍니다.");
@@ -413,7 +454,55 @@ td{padding-left: 10px; padding-right: 10px;}
 					}
 				});
 				
-			});
+		});
+			
+			function sample6_execDaumPostcode() {
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+		                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+		                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+		                var addr = ''; // 주소 변수
+		                var extraAddr = ''; // 참고항목 변수
+
+		                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+		                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+		                    addr = data.roadAddress;
+		                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+		                    addr = data.jibunAddress;
+		                }
+
+		                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+		                if(data.userSelectedType === 'R'){
+		                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                        extraAddr += data.bname;
+		                    }
+		                    // 건물명이 있고, 공동주택일 경우 추가한다.
+		                    if(data.buildingName !== '' && data.apartment === 'Y'){
+		                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		                    }
+		                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+		                    if(extraAddr !== ''){
+		                        extraAddr = ' (' + extraAddr + ')';
+		                    }
+		                    // 조합된 참고항목을 해당 필드에 넣는다.
+		                    document.getElementById("sample6_extraAddress").value = extraAddr;
+		                
+		                } else {
+		                    document.getElementById("sample6_extraAddress").value = '';
+		                }
+
+		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		                document.getElementById('sample6_postcode').value = data.zonecode;
+		                document.getElementById("sample6_address").value = addr;
+		                // 커서를 상세주소 필드로 이동한다.
+		                document.getElementById("sample6_detailAddress").focus();
+		            }
+		        }).open();
+		    }
 		
 		</script>
 

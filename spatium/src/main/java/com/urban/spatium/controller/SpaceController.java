@@ -1,6 +1,9 @@
 package com.urban.spatium.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.urban.spatium.dto.OKSpace;
 import com.urban.spatium.dto.ReadySpace;
+import com.urban.spatium.dto.Store;
 import com.urban.spatium.service.SpaceService;
 
 @Controller
@@ -27,8 +31,17 @@ public class SpaceController {
 	}
 	
 	@GetMapping("/addSpace")
-	public String addSpace(Model model) {
+	public String addSpace(Model model, HttpSession session, Store store) {
 		model.addAttribute("title", "공간 등록");
+		String storeId = (String) session.getAttribute("SID");
+		store.setStoreId(storeId);
+		String okId = store.getStoreId();
+		System.out.println(okId + "스페이스 컨트롤러에서 받은 okId");
+		String spaceCateList = spaceService.addSpace(okId);
+		System.out.println(spaceCateList);
+		String[] array = spaceCateList.split(",");
+		model.addAttribute("storeBusiness", array);
+		
 		return "space/addSpace";
 	}
 	

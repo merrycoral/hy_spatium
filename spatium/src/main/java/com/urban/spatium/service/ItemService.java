@@ -16,6 +16,14 @@ public class ItemService {
 	@Autowired
 	private ItemMapper itemMapper;
 	
+	
+	//장비구입내역
+	public List<Item> itembuyList(){
+		  List<Item> iBuyList = itemMapper.itembuyList(); 
+		  return iBuyList; 
+		  }
+	
+	
 	public List<Item> itemCountList(){
 		List<Item> itemTotalLi = itemMapper.itemCountList();
 		return itemTotalLi;

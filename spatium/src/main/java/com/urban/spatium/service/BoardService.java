@@ -21,14 +21,6 @@ public class BoardService {
 	@Autowired 
 	private BoardMapper boardMapper;
 	
-	/*
-	public List<Board> getBoardsList(){
-		return boardMapper.getBoardsList(); 
-		
-	}
-	*/
-	
-	
 	public List<Board> getBoardsList(Board params){
 		List<Board> boardList = Collections.emptyList();
 
@@ -46,9 +38,7 @@ public class BoardService {
 		return boardList;
 		
 	}
-	
 
-	
 	public String addPost(Board board) {
 		String result = "게시글 등록 실패";
 		
@@ -80,9 +70,7 @@ public class BoardService {
 
 		return params;
 	}
-	
-	
-	
+
 	public List<Board> getBoardCate() {
 		List<Board> getBoardCate = boardMapper.getBoardCate();
 		return getBoardCate;
@@ -94,7 +82,6 @@ public class BoardService {
 		System.out.println(board);
 		return board;
 	}
-
 	
 	public String removePost(int boardIdx) {
 		String result = "게시글 삭제 실패";
@@ -107,4 +94,19 @@ public class BoardService {
 		
 	}
 	
+	public int postHitCnt(int boardIdx) {
+		return boardMapper.postHitCnt(boardIdx);
+		
+	}
+	
+	public int postLikeCntUp(int boardIdx) {
+		return boardMapper.postLikeCntUp(boardIdx);
+		
+	};
+	
+	public int postLikeCntDel(int boardIdx) {
+		return boardMapper.postLikeCntDel(boardIdx);
+	};
+	
 }
+

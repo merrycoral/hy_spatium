@@ -58,7 +58,10 @@
 			tbBoardCete
 				on
 			boardCateCode = boardCate
-
+		WHERE
+			boardDeclaration = 'N'
+				AND
+			boardBlind = 'N'
 		ORDER BY boardIdx DESC
 		LIMIT
 			#{paginationInfo.firstRecordIndex}, #{recordsPerPage}
@@ -87,7 +90,6 @@
 			,boardUpDate
 			,boardDeclaration
 			,boardBlind
-			,boardCate
 		FROM
 			tbBoard
 				INNER JOIN 
@@ -95,6 +97,7 @@
 				on
 			boardCateCode = boardCate
 		WHERE
+			
 			boardIdx = #{boardIdx};	
 	</select>
 	
@@ -143,6 +146,45 @@
 			boardIdx = #{boardIdx};
 	</update>
 
+	 <update id="declarationPost" parameterType="int">
+		UPDATE tbBoard
+		SET
+			  boardDeclaration = 'Y'
+		WHERE
+			boardIdx = #{boardIdx};
+	</update>
+	
+	 <update id="postHitCnt" parameterType="int">
+		UPDATE tbBoard
+		SET
+			  boardHitCnt = boardHitCnt+1
+		WHERE
+			boardIdx = #{boardIdx};
+	</update>
+	
+	 <update id="postLikeCntUp" parameterType="int">
+		UPDATE tbBoard
+		SET
+			  boardLikeCnt = boardLikeCnt+1
+		WHERE
+			boardIdx = #{boardIdx};
+	</update>
+	
+	 <update id="postLikeCntDel" parameterType="int">
+		UPDATE tbBoard
+		SET
+			  boardLikeCnt = boardLikeCnt-1
+		WHERE
+			boardIdx = #{boardIdx};
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
 	 	<!-- 
  	<select id="getBoardsList" resultType="Board">
 		SELECT

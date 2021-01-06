@@ -8,7 +8,7 @@ public class CancelRsv {
 	private String cancelState;
 	private String cancelConfirmDate;
 	private String cancelReason;
-	private int refundPolicyCode;
+	private int cancelRefundPolicyCode;
 	private int cancelPrice;
 	
 	
@@ -60,11 +60,11 @@ public class CancelRsv {
 	public void setCancelReason(String cancelReason) {
 		this.cancelReason = cancelReason;
 	}
-	public int getrefundPolicyCode() {
-		return refundPolicyCode;
+	public int getcancelRefundPolicyCode() {
+		return cancelRefundPolicyCode;
 	}
-	public void setrefundPolicyCode(int refundPolicyCode) {
-		this.refundPolicyCode = refundPolicyCode;
+	public void setcancelRefundPolicyCode(int cancelRefundPolicyCode) {
+		this.cancelRefundPolicyCode = cancelRefundPolicyCode;
 	}
 	@Override
 	public String toString() {
@@ -84,7 +84,7 @@ public class CancelRsv {
 		builder.append(", cancelReason=");
 		builder.append(cancelReason);
 		builder.append(", refundPolicyCode=");
-		builder.append(refundPolicyCode);
+		builder.append(cancelRefundPolicyCode);
 		builder.append(", cancelPrice=");
 		builder.append(cancelPrice);
 		builder.append("]");
