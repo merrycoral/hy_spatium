@@ -2,10 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="@{layout/default}">
+
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
+
+
 <th:block layout:fragment="customContent">
 <h1>환불내역조회</h1>
+
+<table border="1" class="table table-striped jambo_table bulk_action dataTable no-footer">
+	<thead>
+		<tr>
+			<th>환불코드</th>
+			<th>환불하는 예약 코드</th>
+			<th>환불자 아이디</th>
+			<th>취소 상태</th>
+			<th>취소 사유</th>
+			<th>환불된 금액</th>
+			<th>환불신청 날짜</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="re : ${refundSelect}">
+			<td th:text="${re.cancelCode}"></td>
+			<td th:text="${re.cancelRsvCode}"></td>
+			<td th:text="${re.cancelUserId}"></td>
+			<td th:text="${re.cancelState}"></td>
+			<td th:text="${re.cancelReason}"></td>
+			<td th:text="${re.cancelPrice}"></td>
+			<td th:text="${re.cancelRegDate}"></td>
+		</tr>
+	</tbody>
+</table>
+
 </th:block>
 </html>

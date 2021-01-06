@@ -16,7 +16,7 @@
 	
 <th:block layout:fragment="customContent">
 
-	
+		<div class="container" style="margin-top: 70px; margin-bottom: 70px;">
 	<h1>게시글 작성</h1>
 	
 	<form th:action="@{/addPost}" onsubmit="return valCheck(this)" method="post">
@@ -59,6 +59,7 @@
 					
 			</div>
 	</form>
+	</div>
 
 	<script type="text/javascript">
 		$(function() {

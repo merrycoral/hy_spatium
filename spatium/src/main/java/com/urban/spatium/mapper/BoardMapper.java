@@ -14,18 +14,19 @@ public interface BoardMapper {
 	
 	public int getBoardTotalCount(Board params);
 
-	/* public List<Board> getBoardsList(); */
-
-
-	
 	public List<Board> getBoardCate();
 
 	public Board getBoardsByCode(int boardIdx);
 
-	
 	public int modifyPost(Board params);
 	public int addPost(Board params);
 	
+	public int postHitCnt(int boardIdx);
+	
+	public int postLikeCntUp(int boardIdx);
+	
+	public int postLikeCntDel(int boardIdx);
+
 	
 	public int removePost(int boardIdx);
 	
