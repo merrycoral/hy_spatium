@@ -10,7 +10,7 @@
 		$(function(){
 			//결재 완료된건 a링크 삭제 후 텍스트로 표현
 			for(var i=0;i<$('.rsvState').length;i++){
-				if($('.rsvState').eq(i).text()=="결제 완료"){
+				if($('.rsvState').eq(i).text()=="결제 완료" || $('.rsvState').eq(i).text()=="환불 완료"){
 					$('.rsvState').eq(i).parent().find('.paymentTest').remove();
 					$('.rsvState').eq(i).parent().find('.paymentTestTd').text('완료');
 				}

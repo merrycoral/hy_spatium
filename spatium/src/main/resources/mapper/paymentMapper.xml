@@ -52,6 +52,7 @@
 		,rsvDetailNum	
 		,rsvDetailOnePrice
 		,rsvState
+		,rsvStartDateTime
 
 	FROM
 		tbPayment AS p
@@ -158,6 +159,8 @@
 		, paymentIP
 		, paymentRegDate
 		, rsvUserId
+		, rsvStartDateTime
+		, rsvState
 	FROM
 		tbPayment AS p
 	INNER JOIN
