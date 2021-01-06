@@ -27,7 +27,7 @@ public interface UserMapper {
 	 public List<User> getUserList(); 
 		
 	//로그인
-	public User login(String userId);
+	public User getUserById(String userId);
 	
 	//아이디 중복체크
 	public int idChk(User user);

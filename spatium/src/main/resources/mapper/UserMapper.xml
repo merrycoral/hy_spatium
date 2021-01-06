@@ -89,7 +89,7 @@
 
 
 	<!--로그인 -->
-	<select id="login" parameterType="String" resultType="User">
+	<select id="getUserById" parameterType="String" resultType="User">
 		SELECT
 		*
 		FROM

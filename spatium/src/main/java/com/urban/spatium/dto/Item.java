@@ -49,6 +49,8 @@ public class Item {
 	private String itemBuyPhone;
 	private String itemBuyRegDate;
 	
+	private User user;
+		
 	public int getItemCode() {
 		return itemCode;
 	}
@@ -308,6 +310,13 @@ public class Item {
 	public void setItemBuyRegDate(String itemBuyRegDate) {
 		this.itemBuyRegDate = itemBuyRegDate;
 	}
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -397,10 +406,10 @@ public class Item {
 		builder.append(itemBuyPhone);
 		builder.append(", itemBuyRegDate=");
 		builder.append(itemBuyRegDate);
+		builder.append(", user=");
+		builder.append(user);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-	
+		
 }
