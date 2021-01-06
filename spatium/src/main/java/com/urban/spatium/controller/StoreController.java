@@ -23,6 +23,12 @@ public class StoreController {
 	@Autowired
 	private StoreService storeService;
 	
+	@GetMapping("/storeSeeMore")
+	public String storeSeeMore(Model model) {
+		
+		return "store/storeSeeMore";
+	}
+	
 	@PostMapping("/storeUpdate")
 	public String updateStoreSet(Model model, Store store) {
 		
