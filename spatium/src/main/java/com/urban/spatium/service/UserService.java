@@ -67,13 +67,9 @@ public class UserService {
 	}
 	
 	//회원리스트
-	
 	  public List<User> getUserList(){
-	  
 	  List<User> userList = userMapper.getUserList(); 
-	  int listSize = userList.size();
-	  
-	  return userList; 
+	  	return userList; 
 	  }
 	 
 		
