@@ -1,5 +1,7 @@
 package com.urban.spatium.dto;
 
+import java.util.List;
+
 public class OKSpace {
 	private int okaySpaceCode;
 	private int okayStoreCode;
@@ -18,6 +20,7 @@ public class OKSpace {
 	private String okaySpaceBasicOption;
 	private String okaySpaceId;
 	private String spaceCateName;
+	
 	public String getSpaceCateName() {
 		return spaceCateName;
 	}
@@ -120,10 +123,11 @@ public class OKSpace {
 	public void setOkaySpaceId(String okaySpaceId) {
 		this.okaySpaceId = okaySpaceId;
 	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("okaySpace [okaySpaceCode=");
+		builder.append("OKSpace [okaySpaceCode=");
 		builder.append(okaySpaceCode);
 		builder.append(", okayStoreCode=");
 		builder.append(okayStoreCode);

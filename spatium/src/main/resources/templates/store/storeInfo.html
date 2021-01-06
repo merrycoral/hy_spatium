@@ -135,24 +135,40 @@
 </th:block>
 <th:block layout:fragment="customJs">
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rt37xgq4ur"></script>
-    <script type="text/javascript">
-    
+    <script type="text/javascript" th:inline="javascript">
     	$(function() {
-    		
-    		
-    		
-    		
-    		
-			var mapOptions = {
-			    	    center: new naver.maps.LatLng(37.3595704, 127.105399),
+   		//주소를 좌표로 변환하고싶은 ajax
+	   		/*<![CDATA[*/
+   			var address = [[${storeInfo.storeAddress}]];
+			/*]]>*/	
+   			var xCode = 0;
+   			var yCode = 0;
+	   		var request = $.ajax({
+	   			url : '/adressAjax',
+				method: 'POST',
+				data :{address : address},
+				dataType: 'json' ,
+			});
+			request.done(function( data ) {
+				console.log(data);
+				xCode=data.xCode;
+				yCode=data.yCode;
+				console.log(address);
+				console.log(xCode);
+				console.log(yCode);
+				var mapOptions = {
+			    	    center: new naver.maps.LatLng(yCode, xCode),
 			    	    zoom: 15
 			    	};
-	    	var map = new naver.maps.Map('map', mapOptions);
-	    	var marker = new naver.maps.Marker({
-	    		position: new naver.maps.LatLng(37.3595704, 127.105399),
-	    		map: map
-	    		});
-			
+		    	var map = new naver.maps.Map('map', mapOptions);
+		    	var marker = new naver.maps.Marker({
+		    		position: new naver.maps.LatLng(yCode, xCode),
+		    		map: map
+		    		});
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
 		})
     	
     </script>

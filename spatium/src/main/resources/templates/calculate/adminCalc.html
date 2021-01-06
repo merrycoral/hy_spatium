@@ -85,12 +85,13 @@
 								</th>
 								<th class="column-title">결제 코드</th>
 								<th class="column-title">예약 코드</th>
+								<th class="column-title">업체 아이디</th>
 								<th class="column-title">환불 후 남은 금액</th>
 								<th class="column-title">실 결제 금액</th>
 								<th class="column-title">예약종료일</th>
 								<th class="column-title">결제 상태</th>
 								<th class="column-title no-link last">정산 상태</th>
-								<th class="column-title bulk-actions" colspan="7"> 선택된 결제건  ( <span
+								<th class="column-title bulk-actions" colspan="8"> 선택된 결제건  ( <span
 										class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i>
 								</th>
 							</tr>
@@ -102,6 +103,7 @@
 									name="table_records" th:value="${cwl.get('paymentCode')}"></td>
 								<td class=" " th:text="${cwl.get('paymentCode')}"></td>
 								<td class=" " th:text="${cwl.get('paymentRsvCode')}"></td>
+								<td class=" " th:text="${cwl.get('paymentStoreId')}"></td>
 								<td class=" " th:text="${cwl.get('paymentRefund')}"></td>
 								<td class=" " th:text="${cwl.get('paymentUseMoney')}"></td>
 								<td class=" " th:text="${cwl.get('rsvEndDateTime')}"></td>

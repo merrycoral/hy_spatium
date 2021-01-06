@@ -5,15 +5,44 @@ public class CalcWait {
 	private int paymentRsvCode;
 	private int paymentRefund;
 	private int paymentUseMoney;
+	private int paymentUsePoint;
 	private String paymentState;
-	private String rsvEndDateTime;
+	private String paymentStoreId;
 	private String rsvState;
+	private String rsvEndDateTime;
+	private String rsvStartDateTime;
+	
 	
 	@Override
 	public String toString() {
 		return "CalcWait [paymentCode=" + paymentCode + ", paymentRsvCode=" + paymentRsvCode + ", paymentRefund="
-				+ paymentRefund + ", paymentUseMoney=" + paymentUseMoney + ", paymentState=" + paymentState
-				+ ", rsvEndDateTime=" + rsvEndDateTime + ", rsvState=" + rsvState + "]";
+				+ paymentRefund + ", paymentUseMoney=" + paymentUseMoney + ", paymentUsePoint=" + paymentUsePoint
+				+ ", paymentState=" + paymentState + ", paymentStoreId=" + paymentStoreId + ", rsvState=" + rsvState
+				+ ", rsvEndDateTime=" + rsvEndDateTime + ", rsvStartDateTime=" + rsvStartDateTime + "]";
+	}
+
+	public int getPaymentUsePoint() {
+		return paymentUsePoint;
+	}
+	
+	public void setPaymentUsePoint(int paymentUsePoint) {
+		this.paymentUsePoint = paymentUsePoint;
+	}
+	
+	public String getRsvStartDateTime() {
+		return rsvStartDateTime;
+	}
+
+	public void setRsvStartDateTime(String rsvStartDateTime) {
+		this.rsvStartDateTime = rsvStartDateTime;
+	}
+
+	public String getPaymentStoreId() {
+		return paymentStoreId;
+	}
+
+	public void setPaymentStoreId(String paymentStoreId) {
+		this.paymentStoreId = paymentStoreId;
 	}
 	
 	public int getPaymentCode() {
