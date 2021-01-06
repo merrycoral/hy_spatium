@@ -18,14 +18,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.urban.spatium.dto.Rsv;
+import com.urban.spatium.dto.Store;
 import com.urban.spatium.dto.Item;
 import com.urban.spatium.dto.OKSpace;
 import com.urban.spatium.service.RsvService;
+import com.urban.spatium.service.StoreService;
 
 @Controller
 public class RsvController {
 	@Autowired 
 	private RsvService rsvService; 
+	@Autowired 
+	private StoreService storeService;
 	
 	/**
 	 * 예약 취소
@@ -177,6 +181,17 @@ public class RsvController {
 	@GetMapping("/rsvCancelListAdmin")
 	public String rsvCancelListByAdmin() {
 		return "rsv/rsvCancelListAdmin";
+	}
+	
+	/**
+	 * 작업중
+	 */
+	@GetMapping("/rsvStoreList")
+	public String rsvStoreList(Model model) {
+		List<Store> storeList = storeService.storeList();
+		model.addAttribute("title", "업체 리스트");
+		model.addAttribute("storeList", storeList);
+		return "rsv/rsvStoreList";
 	}
 	
 }
