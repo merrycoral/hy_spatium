@@ -24,16 +24,18 @@
 				<td>카테고리</td>
 				<td>
 					<select id="board_cate" name="boardCateCode">
-					<option 
+					<!-- <option 
 					th:text="${Board.boardCateName}" 
-					th:selected="${Board.boardCateCode eq param?.selectboardCateCode?.toString()}"
+					th:value="${boardCate}"
 					>
-					</option>
-
-						<option label="::::카테고리 수정:::::" disabled="disabled">
-						<option th:if="${#lists.size(boardCate) > 0} and ${b.boardCateCode} <= 99"  
+					</option> -->
+						<th:block th:if="${#lists.size(boardCate) > 0} and ${b.boardCateCode} <= 99" th:each="b : ${boardCate}">
+							<option th:if="${b.boardCateCode == Board.boardCateCode}" th:text="${b.boardCateName}" th:value="${b.boardCateCode}" selected></option>
+							<option th:unless="${b.boardCateCode == Board.boardCateCode}" th:text="${b.boardCateName}" th:value="${b.boardCateCode}"></option>
+						</th:block>
+						<!-- <option th:if="${#lists.size(boardCate) > 0} and ${b.boardCateCode} <= 99"  
 						th:each="b : ${boardCate}" th:text="${b.boardCateName}" th:value="${b.boardCateCode}">
-						</option> 
+						</option>  -->
 					
 
 					</select>
