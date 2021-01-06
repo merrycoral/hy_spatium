@@ -3,77 +3,51 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="@{layout/default}">
 
-<th:block layout:fragment="customTitle">
-	<title th:text="${title}"></title>
-</th:block>
-
 <th:block layout:fragment="customContent">
-	<form action="/itemDeleteList" method="post">
-		<select name="sk">
-			<option value="아이디">아이디</option>
-		</select>
-		<input type="text" name = "sv" placeholder="검색어를 입력해주세요"/>
-		<button type="submit">검색</button>
-	</form>
-	
-	<div class="col-sm-12">
-		<table id="datatable"
-			class="table table-striped jambo_table bulk_action dataTable no-footer"
-			style="width: 100%;" role="grid" aria-describedby="datatable_info">
-			<thead>
-				<tr role="row">
-					<th class="sorting_asc" tabindex="0" aria-controls="datatable"
-						rowspan="1" colspan="1"
-						aria-label=" 장비 파기 코드 : activate to sort column descending"
-						style="width: 45px;" aria-sort="ascending">장비 파기 코드</th>
-					<th class="sorting" tabindex="0" aria-controls="datatable"
-						rowspan="1" colspan="1"
-						aria-label=" 업체 코드 : activate to sort column ascending"
-						style="width: 63px;">업체 코드</th>
-					<th class="sorting" tabindex="0" aria-controls="datatable"
-						rowspan="1" colspan="1"
-						aria-label=" 세부 장비 코드 : activate to sort column ascending"
-						style="width: 50px;">세부 장비 코드</th>
-					<th class="sorting" tabindex="0" aria-controls="datatable"
-						rowspan="1" colspan="1"
-						aria-label=" 아이디: activate to sort column ascending"
-						style="width: 22px;">아이디</th>
-					<th class="sorting" tabindex="0" aria-controls="datatable"
-						rowspan="1" colspan="1"
-						aria-label=" 장비 파기 사유 : activate to sort column ascending"
-						style="width: 46px;">장비 파기 사유</th>
-					<th class="sorting" tabindex="0" aria-controls="datatable"
-						rowspan="1" colspan="1"
-						aria-label=" 장비 파기 일자 : activate to sort column ascending"
-						style="width: 34px;">장비 파기 일자</th>
+<form action="/itemDeleteList" method="post">
 
+	<div class="table-responsive m-t-20">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
+			<thead>
+				<tr>
+					<th scope="col">장비 파기 코드</th>
+					<th scope="col">업체 코드</th>
+					<th scope="col">세부 장비 코드</th>
+					<th scope="col">아이디</th>
+					<th scope="col">장비 파기 사유</th>
+					<th scope="col">장비 파기 일자</th>
+					<th scope="col">수정</th>
+					<th scope="col">삭제</th>
 				</tr>
 			</thead>
-
-
 			<tbody>
-				<!-- <tr th:if="${#lists.size(userList) > 0}" th:each="l : ${userList}">
-				<td th:text="${l.userId}"></td>
-				<td th:text="${l.userPw}"></td>
-				<td th:text="${l.userName}"></td>
-				<td th:text="${l.userBirth}"></td>
-				<td th:text="${l.userGender}"></td>
-				<td th:text="${l.userPhone}"></td>
-				<td th:text="${l.userJob}"></td>
-				<td th:text="${l.userGrade}"></td>
-				<td th:text="${l.userEmail}"></td>
-				<td th:text="${l.userRegDate}"></td>
-				<td th:text="${l.userPoint}"></td>
+				<tr th:if="${#lists.size(itemDeleteList) > 0}" th:each="d : ${itemDeleteList}">
+				<td th:text="${d.itemDeleteCode}"></td>
+				<td th:text="${d.storeDeleteCode}"></td>
+				<td th:text="${d.storeItemDeleteCode}"></td>
+				<td th:text="${d.userDeleteId}"></td>
+				<td th:text="${d.itemDeleteReason}"></td>
+				<td th:text="${d.itemDeleteRegDate}"></td>
 				<td>
-					<button type="submit"><a  th:href="@{/modifyUser(userId=${l.userId})}">수정</a></button>
+					<button type="submit"><a  th:href="@{/modifyitemBuy(itemBuyCode=${d.itemBuyCode})}">수정</button>
 				</td>
 				<td>
-					<button type="submit"><a th:href="@{/removeUser(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a></button>
-				</td> -->
+					<button type="submit"><a th:href="@{/removeitemBuy(itemBuyCode=${d.itemBuyCode})}">삭제</button>
+				</td>
+				</tr>
+
 			</tbody>
 		</table>
 	</div>
-
+</form>
 </th:block>
 
+<!-- <th:block layout:fragment="customJs">
+<script>
+$(document).ready(function(){
+    $("#addBtn").click(function(){
+        location.href="${path}/item/itemBuyForm";
+    });
+});
+</script> -->
 </html>

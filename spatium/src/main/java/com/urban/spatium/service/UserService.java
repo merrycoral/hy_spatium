@@ -22,7 +22,7 @@ public class UserService {
 		public String removeMyinfo(String userId, String userPw, String userLevel) {
 			String result = "회원 삭제 실패";
 
-			User user = userMapper.login(userId);
+			User user = userMapper.getUserById(userId);
 			
 			if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
 				int removeCheck = userMapper.removeMyinfo(userId, userLevel);
@@ -46,7 +46,7 @@ public class UserService {
 	public String removeUser(String userId, String userPw, String userLevel) {
 		String result = "회원 삭제 실패";
 
-		User user = userMapper.login(userId);
+		User user = userMapper.getUserById(userId);
 		
 		if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
 			int removeCheck = userMapper.removeUser(userId, userLevel);
@@ -76,7 +76,7 @@ public class UserService {
 	//로그인
 	public User login(String userId) {
 		
-		User user = userMapper.login(userId);
+		User user = userMapper.getUserById(userId);
 		
 		return user;
 	}
@@ -96,5 +96,12 @@ public class UserService {
 		}
 		
 		return insertCheck;
+	}
+	
+	public User getUserById(String userId) {
+		
+		User user = userMapper.getUserById(userId);
+		
+		return user;
 	}
 }

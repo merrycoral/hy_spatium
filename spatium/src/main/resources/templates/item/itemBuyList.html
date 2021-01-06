@@ -3,26 +3,13 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="@{layout/default}">
 
-<th:block layout:fragment="customTitle">
-	<title th:text="${title}"></title>
-</th:block>
-
 <th:block layout:fragment="customContent">
-	<form action="/itemBuyList" method="post">
-		<select name="sk">
-			<option value="아이디">아이디</option>
-		</select>
-		<input type="text" name = "sv" placeholder="검색어를 입력해주세요"/>
-		<button type="submit">검색</button>
-	</form>
+<form action="/itemBuyList" method="post">
 
-
-	<div class="col-sm-12">
-		<table id="datatable"
-			class="table table-striped jambo_table bulk_action dataTable no-footer"
-			style="width: 100%;" role="grid" aria-describedby="datatable_info">
+	<div class="table-responsive m-t-20">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
 			<thead>
-				<tr role="row">
+				<tr>
 					<th scope="col">장비 구입 코드</th>
 					<th scope="col">업체 코드</th>
 					<th scope="col">세부 장비 코드</th>
@@ -31,27 +18,40 @@
 					<th scope="col">구입 거래처</th>
 					<th scope="col">구입처 전화번호</th>
 					<th scope="col">구입 일자</th>
+					<th scope="col">수정</th>
+					<th scope="col">삭제</th>
 				</tr>
 			</thead>
-
 			<tbody>
 				<tr th:if="${#lists.size(itemBuyList) > 0}" th:each="i : ${itemBuyList}">
 				<td th:text="${i.itemBuyCode}"></td>
 				<td th:text="${i.storeBuyCode}"></td>
 				<td th:text="${i.storeBuyItemCode}"></td>
+				<td th:text="${i.userBuyId}"></td>
 				<td th:text="${i.itemBuyPrice}"></td>
 				<td th:text="${i.itemBuyAccount}"></td>
 				<td th:text="${i.itemBuyPhone}"></td>
 				<td th:text="${i.itemBuyRegDate}"></td>
 				<td>
-					<button type="submit"><!-- <a  th:href="@{/modifyUser(userId=${l.userId})}"> -->수정</button>
+					<button type="submit"><a  th:href="@{/modifyitemBuy(itemBuyCode=${i.itemBuyCode})}">수정</button>
 				</td>
 				<td>
-					<button type="submit"><!-- <a th:href="@{/removeUser(userId=${l.userId}, userLevel=${l.userLevel})}"> -->삭제</button>
+					<button type="submit"><a th:href="@{/removeitemBuy(itemBuyCode=${i.itemBuyCode})}">삭제</button>
 				</td>
 				</tr>
+
 			</tbody>
 		</table>
 	</div>
+</form>
 </th:block>
+
+<!-- <th:block layout:fragment="customJs">
+<script>
+$(document).ready(function(){
+    $("#addBtn").click(function(){
+        location.href="${path}/item/itemBuyForm";
+    });
+});
+</script> -->
 </html>

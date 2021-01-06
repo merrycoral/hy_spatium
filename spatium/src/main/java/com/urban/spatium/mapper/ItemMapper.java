@@ -18,13 +18,31 @@ public interface ItemMapper {
 	public List<Item> itemCountListByStoreCode(int storeCode);
 	
 	
-	  //장비구입삭제 int removeUser(String userId, String userLevel);
+	//장비파기내역 삭제
+	int removeitemDelete(int itemDeleteCode);
+			  
+	//장비파기내역 수정
+	int modifyitemDelete(Item item);
+			  
+	//장비파기내역
+	public List<Item> itemDeleteList();
+	
+	//장비수리내역 삭제
+	int removeitemRepair(int itemRepairCode);
+		  
+	//장비수리내역 수정
+	int modifyitemRepair(Item item);
+		  
+	//장비수리내역
+	public List<Item> itemRepairList();
+		
+	//장비구입내역 삭제
+	int removeitemBuy(int itemBuyCode);
 	  
-	  //장비구입수정 int modifyUser(User user);
+	//장비구입내역 수정
+	int modifyitemBuy(Item item);
 	  
-	  //장비구입내역
-		public List<Item> itembuyList();
+	//장비구입내역
+	public List<Item> itemBuyList();
 	  
-	  //장비구입등록 public int addItemRepair(Item item);
-	 
 }
