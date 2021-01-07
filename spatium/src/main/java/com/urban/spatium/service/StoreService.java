@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.urban.spatium.dto.Store;
+import com.urban.spatium.mapper.RefundMapper;
 import com.urban.spatium.mapper.StoreMapper;
 
 @Service
@@ -18,6 +19,8 @@ public class StoreService {
 	
 	@Autowired
 	private StoreMapper storeMapper;
+	@Autowired
+	private RefundMapper refundMapper;
 	
 	public String updateStoreSet(Store store) {
 		
@@ -48,7 +51,34 @@ public class StoreService {
 		if(store != null) {
 			int result = storeMapper.addStore(store);
 			int StoreCode = store.getStoreCode();
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			for(int i=0; i<store.getRemainingDay().size();i++) {
+				store.setRefundPercents(store.getRefundPercent().get(i));
+				store.setRemainingDays(store.getRemainingDay().get(i));
+				refundMapper.addRefundPolicy(store);
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			System.out.println(tList);
+			
 			List<Map<String, Object>> storeListMap = new ArrayList<Map<String, Object>>();;
 			for(int i=0; i<tList.size(); i++) {
 				Map<String, Object> map = new HashMap<String, Object>();

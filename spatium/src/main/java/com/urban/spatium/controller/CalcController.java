@@ -1,7 +1,10 @@
 package com.urban.spatium.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,42 @@ public class CalcController {
 		@Autowired
 		private CalcService calcService;
 		
+		@GetMapping("/currentCalc")
+		public String currentCalc(HttpSession session, Model model, @RequestParam(name="result", required = false) String result
+				, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
+			//String today = day.format(cal.getTime());
+			String today = "2021-01-10";
+			SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
+			String nowtime = time.format(cal.getTime());
+			System.out.println(today);
+			System.out.println(nowtime);
+			
+			String sessionId = (String) session.getAttribute("SID");
+			Map<String, Object> resultMap = calcService.getTodayList(today, sessionId);
+			
+			model.addAttribute("title", "오늘 매출 현황");
+			model.addAttribute("today", today);
+			model.addAttribute("getTodayList", resultMap.get("getTodayList"));
+			model.addAttribute("subtotal", resultMap.get("subtotal"));
+			
+			return "calculate/currentCalc";
+		}
+		
+		@GetMapping("/dailyCalc")
+		public String dailyCalc(Model model, @RequestParam(name="result", required = false) String result
+					, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
+			String today = day.format(cal.getTime());
+			SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
+			String nowtime = time.format(cal.getTime());
+			System.out.println(today);
+			System.out.println(nowtime);
+			
+			return "calculate/dailyCalc";
+		}
 		@GetMapping("/adminCalc")
 		public String adminCalc(Model model, @RequestParam(name="result", required = false) String result
 				, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {

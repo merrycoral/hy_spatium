@@ -10,7 +10,7 @@
 		$(function(){
 			//결재 완료된건 a링크 삭제 후 텍스트로 표현
 			for(var i=0;i<$('.rsvState').length;i++){
-				if($('.rsvState').eq(i).text()=="결제 완료"){
+				if($('.rsvState').eq(i).text()=="결제 완료" || $('.rsvState').eq(i).text()=="환불 완료"){
 					$('.rsvState').eq(i).parent().find('.paymentTest').remove();
 					$('.rsvState').eq(i).parent().find('.paymentTestTd').text('완료');
 				}
@@ -19,7 +19,7 @@
 				order: [ [ 0, "desc" ] ],
 				ordering: true,
 				lengthChange: false,
-				"dom": '<"myCustomClass"f>rt<"bottom"lp><"clear">',
+				"dom": 'fltip',
 				"language": {
 					         "info": "페이지 _PAGE_ of _PAGES_",
 				        	 "paginate": {

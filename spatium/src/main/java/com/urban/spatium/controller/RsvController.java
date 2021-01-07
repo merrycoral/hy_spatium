@@ -18,14 +18,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.urban.spatium.dto.Rsv;
+import com.urban.spatium.dto.Store;
 import com.urban.spatium.dto.Item;
 import com.urban.spatium.dto.OKSpace;
 import com.urban.spatium.service.RsvService;
+import com.urban.spatium.service.StoreService;
 
 @Controller
 public class RsvController {
 	@Autowired 
 	private RsvService rsvService; 
+	@Autowired 
+	private StoreService storeService;
 	
 	/**
 	 * 예약 취소
@@ -110,9 +114,7 @@ public class RsvController {
 	 * 공간 예약 등록으로 이동(관리자화면)시간
 	 */
 	@GetMapping("/rsvInsertAdmin")
-	public String rsvInsertAdmin(Model model) {
-		int storeCode = 5; //넘어온 스토어코드가 5라고 가정
-		
+	public String rsvInsertAdmin(Model model, int storeCode) {
 		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
 		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
@@ -125,9 +127,7 @@ public class RsvController {
 	 * 공간 예약 등록으로 이동(관리자화면)일
 	 */
 	@GetMapping("/rsvInsertDayAdmin")
-	public String rsvInsertDayAdmin(Model model) {
-		int storeCode = 6; //넘어온 스토어코드가 5라고 가정
-		
+	public String rsvInsertDayAdmin(Model model, int storeCode) {
 		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
 		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
@@ -140,9 +140,7 @@ public class RsvController {
 	 * 공간 예약 등록으로 이동(구매자화면)시간
 	 */
 	@GetMapping("/rsvInsert")
-	public String rsvInsert(Model model) {
-		int storeCode = 5; //넘어온 스토어코드가 5라고 가정
-		
+	public String rsvInsert(Model model,int storeCode) {
 		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
 		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
@@ -177,6 +175,17 @@ public class RsvController {
 	@GetMapping("/rsvCancelListAdmin")
 	public String rsvCancelListByAdmin() {
 		return "rsv/rsvCancelListAdmin";
+	}
+	
+	/**
+	 * 작업중
+	 */
+	@GetMapping("/rsvStoreList")
+	public String rsvStoreList(Model model) {
+		List<Store> storeList = storeService.storeList();
+		model.addAttribute("title", "업체 리스트");
+		model.addAttribute("storeList", storeList);
+		return "rsv/rsvStoreList";
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.urban.spatium.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.urban.spatium.dto.OKSpace;
 import com.urban.spatium.dto.ReadySpace;
+import com.urban.spatium.dto.Store;
 import com.urban.spatium.mapper.SpaceMapper;
 
 @Service
@@ -16,6 +18,14 @@ public class SpaceService {
 	
 	@Autowired
 	private SpaceMapper spaceMapper;
+	
+	public String addSpace(String okId){
+	
+		String okSpaceCate = spaceMapper.addSpace(okId);
+		
+		return okSpaceCate;
+		
+	}
 	
 	public String addReadySpace(ReadySpace readySpace) {
 		int result = spaceMapper.addReadySpace(readySpace);

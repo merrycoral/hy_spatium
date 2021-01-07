@@ -99,14 +99,8 @@ public class BoardService {
 		
 	}
 	
-	public int postLikeCntUp(int boardIdx) {
-		return boardMapper.postLikeCntUp(boardIdx);
-		
-	};
+
 	
-	public int postLikeCntDel(int boardIdx) {
-		return boardMapper.postLikeCntDel(boardIdx);
-	};
 	
 }
 

@@ -37,6 +37,7 @@ table{float: left; margin-right: 200px;}
 				var toDayDay = toDay.getDate();
 				console.log(toDayYear+"-"+toDayMonth+"-"+toDayDay);
 				var elapsedMSec = rsvDay.getTime() - toDay.getTime();
+				console.log("계산>>>"+elapsedMSec);
 				var elapsedDay = Math.ceil(elapsedMSec/1000/60/60/24);
 				console.log("계산>>>"+elapsedDay);
 				console.log($('.day').length);	

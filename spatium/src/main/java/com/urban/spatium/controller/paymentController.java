@@ -157,6 +157,7 @@ public class paymentController {
 	public String paymentSearch(Model model,HttpSession session) {
 		String SID = (String) session.getAttribute("SID");
 		List<Payment> paymentList = paymentService.paymentSelect(SID);
+		System.out.println("컨트롤러!!!1" + paymentList);
 		model.addAttribute("title", "결제내역조회");
 		model.addAttribute("paymentList", paymentList);
 		return "payment/paymentSearch";

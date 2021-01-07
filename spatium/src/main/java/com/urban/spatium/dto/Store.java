@@ -10,11 +10,14 @@ public class Store {
 	private String storeRepresentative;
 	private String storeNumber;
 	private String storeBusinessType;
+	private String storeAddressNumber;
 	private String storeAddress;
+	private String storeAddressDetail;
 	private String storeIntroduction;
 	private String storeEmail;
 	private String storeRsvType;
 	private String storePhone;
+	private String storeAccountBankName;
 	private String storeAccountNumber;
 	private String storeRefundRull;
 	private String storeRemainingDay;
@@ -24,7 +27,37 @@ public class Store {
 	private String storeRegDate;
 	
 	private List<Store> storeCategoryList;
+	private List<String> remainingDay;
+	private List<String> refundPercent;
+	private String remainingDays;
+	private String refundPercents;
 	
+	
+	public String getRemainingDays() {
+		return remainingDays;
+	}
+	public void setRemainingDays(String remainingDays) {
+		this.remainingDays = remainingDays;
+	}
+	public String getRefundPercents() {
+		return refundPercents;
+	}
+	public void setRefundPercents(String refundPercents) {
+		this.refundPercents = refundPercents;
+	}
+	public List<String> getRemainingDay() {
+		return remainingDay;
+	}
+	public void setRemainingDay(List<String> remainingDay) {
+		this.remainingDay = remainingDay;
+	}
+	public List<String> getRefundPercent() {
+		return refundPercent;
+	}
+	public void setRefundPercent(List<String> refundPercent) {
+		this.refundPercent = refundPercent;
+	}
+
 	private int spaceRelationStoreCode;
 	private int spaceRelationCateCode;
 	private int spaceRelationCode;
@@ -137,7 +170,6 @@ public class Store {
 	public void setSpaceRelationCateCode(int spaceRelationCateCode) {
 		this.spaceRelationCateCode = spaceRelationCateCode;
 	}
-	
 	public String getStoreRemainingDay() {
 		return storeRemainingDay;
 	}
@@ -162,6 +194,24 @@ public class Store {
 	public void setStoreRsvType(String storeRsvType) {
 		this.storeRsvType = storeRsvType;
 	}
+	public String getStoreAddressNumber() {
+		return storeAddressNumber;
+	}
+	public void setStoreAddressNumber(String storeAddressNumber) {
+		this.storeAddressNumber = storeAddressNumber;
+	}
+	public String getStoreAddressDetail() {
+		return storeAddressDetail;
+	}
+	public void setStoreAddressDetail(String storeAddressDetail) {
+		this.storeAddressDetail = storeAddressDetail;
+	}
+	public String getStoreAccountBankName() {
+		return storeAccountBankName;
+	}
+	public void setStoreAccountBankName(String storeAccountBankName) {
+		this.storeAccountBankName = storeAccountBankName;
+	}
 	
 	@Override
 	public String toString() {
@@ -178,8 +228,12 @@ public class Store {
 		builder.append(storeNumber);
 		builder.append(", storeBusinessType=");
 		builder.append(storeBusinessType);
+		builder.append(", storeAddressNumber=");
+		builder.append(storeAddressNumber);
 		builder.append(", storeAddress=");
 		builder.append(storeAddress);
+		builder.append(", storeAddressDetail=");
+		builder.append(storeAddressDetail);
 		builder.append(", storeIntroduction=");
 		builder.append(storeIntroduction);
 		builder.append(", storeEmail=");
@@ -188,6 +242,8 @@ public class Store {
 		builder.append(storeRsvType);
 		builder.append(", storePhone=");
 		builder.append(storePhone);
+		builder.append(", storeAccountBankName=");
+		builder.append(storeAccountBankName);
 		builder.append(", storeAccountNumber=");
 		builder.append(storeAccountNumber);
 		builder.append(", storeRefundRull=");
@@ -204,6 +260,10 @@ public class Store {
 		builder.append(storeRegDate);
 		builder.append(", storeCategoryList=");
 		builder.append(storeCategoryList);
+		builder.append(", remainingDay=");
+		builder.append(remainingDay);
+		builder.append(", refundPercent=");
+		builder.append(refundPercent);
 		builder.append(", spaceRelationStoreCode=");
 		builder.append(spaceRelationStoreCode);
 		builder.append(", spaceRelationCateCode=");
@@ -213,9 +273,5 @@ public class Store {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-	
-	
 	
 }

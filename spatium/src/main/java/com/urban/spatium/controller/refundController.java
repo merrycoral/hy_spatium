@@ -82,17 +82,7 @@ public class refundController {
 	}
 	
 	
-	@RequestMapping(value = "/refundPolicy", produces="application/json"  ,method = RequestMethod.POST ) 
-	   public @ResponseBody String addRefundPolicy(@RequestBody RefundPolicy refundPolicy) {
-		  System.out.println(refundPolicy);
-	      Map<String, Object> rePolicyMap = new HashMap<String, Object>();
-	      rePolicyMap.put("list", refundPolicy.getRefundPolicyList());
-	      System.out.println("리스트체크>>"+refundPolicy.getRefundPolicyList());
-	      refundService.addRefundPolicy(rePolicyMap);
-	      
-	      
-	      return "addSpace"; 
-	   }
+	
 	
 	@GetMapping("/refundPolicy")
 	public String refundPolicy(Model model,HttpSession session) {
