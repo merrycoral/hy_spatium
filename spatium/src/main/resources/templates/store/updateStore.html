@@ -130,8 +130,8 @@ td{padding-left: 10px; padding-right: 10px;}
 							<select style="width: 775px; height: 40px; margin-top: -5px;"
 								id="storeRsvType" name="storeRsvType">
 								<option value="0">:: 결제 방식 선택 ::</option>
-								<option value="일 결제">일 결제</option>
-								<option value="시간 결제">시간 결제</option>
+								<option value="일">일 결제</option>
+								<option value="시간">시간 결제</option>
 							</select>
 						</div>
 					</div>
@@ -153,6 +153,38 @@ td{padding-left: 10px; padding-right: 10px;}
 						계좌번호 <span class="required">*</span>
 					</label>
 					<div class="col-md-6 col-sm-6 ">
+					<select id = "storeAccountBankName" name = "storeAccountBankName" th:value = "${result.storeAccountBankName}">
+							<option value = "0"> :: 은행 선택 :: </option>
+							<option value = "BNP"> BNP </option>
+							<option value = "BOA"> BOA </option>
+							<option value = "HSBC"> HSBC </option>
+							<option value = "IBK기업"> IBK기업 </option>
+							<option value = "JP모간"> JP모간 </option>
+							<option value = "SC제일"> SC제일 </option>
+							<option value = "경남"> 경남 </option>
+							<option value = "광주"> 광주 </option>
+							<option value = "국민"> 국민 </option>
+							<option value = "농협"> 농협 </option>
+							<option value = "대구"> 대구 </option>
+							<option value = "도이치"> 도이치 </option>
+							<option value = "부산"> 부산 </option>
+							<option value = "산림조합"> 산림조합 </option>
+							<option value = "산업"> 산업 </option>
+							<option value = "새마을"> 새마을 </option>
+							<option value = "수협"> 수협 </option>
+							<option value = "신한"> 신한 </option>
+							<option value = "신협"> 신협 </option>
+							<option value = "씨티"> 씨티 </option>
+							<option value = "우리"> 우리 </option>
+							<option value = "우체국"> 우체국 </option>
+							<option value = "저축은행"> 저축은행 </option>
+							<option value = "전북"> 전북 </option>
+							<option value = "제주"> 제주 </option>
+							<option value = "중국공상"> 중국공상 </option>
+							<option value = "카카오뱅크"> 카카오뱅크 </option>
+							<option value = "케이뱅크"> 케이뱅크 </option>
+							<option value = "하나은행"> 하나은행 </option>
+						</select>
 						<input type="text" id="storeAccountNumber"
 							placeholder="사업자 계좌번호를 입력해주시기 바랍니다." name="storeAccountNumber"
 							class="form-control"
@@ -175,18 +207,18 @@ td{padding-left: 10px; padding-right: 10px;}
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<tr th:each="r : ${result2}">
 										<td class="hid"><input type="hidden"
 											name="refundPolicyStoreCode" value="5"></td>
 										<td class="hid"><input type="hidden"
 											name="refundPolicyUserId" value="id001"></td>
 										<td>이용<input type="text" name="remainingDay"
 											style="width: 170px;" class="a"
-											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">일전
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.remainingDay}">일전
 										</td>
 										<td>총금액의<input type="text" name="refundPercent"
 											style="width: 170px;" class="b"
-											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">%
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.refundPercent}">%
 										</td>
 										<td>
 											<button type="button" class="addBtn" style="width: 120px;">추가</button>
@@ -245,6 +277,10 @@ td{padding-left: 10px; padding-right: 10px;}
 					}else if($('#storePhone').val() == ""){
 						alert("업체 연락처를 입력해주시길 바랍니다.");
 						$('#storePhone').focus();
+						return false;
+					}else if($('#storeAccountBankName').val() == "0"){
+						alert("은행을 선택해주시기 바랍니다.");
+						$('#storeAccountNumber').focus();
 						return false;
 					}else if($('#storeAccountNumber').val() == ""){
 						alert("사업자 계좌번호를 입력해주시길 바랍니다.");
