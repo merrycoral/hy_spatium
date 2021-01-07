@@ -17,12 +17,11 @@ margin-right: 20px;
 .disableMetter {
 	display: none
 }
-#rsvItemNum{
+.rsvItemNum{
 	width: 100%;
 	height: 45px;
 	margin: 0;
 }
-
 </style>
 <!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </th:block>
@@ -72,12 +71,6 @@ margin-right: 20px;
 
 	<!-- 예약 화면 폼 -->
 	<div class="x_panel disableMetter" id="rsvInfo">
-			<div class="x_title">
-				<h2>
-					예약 화면 
-				</h2>
-				<div class="clearfix"></div>
-			</div>
 			<div class="x_content">
 				<br>
 			<!-- <form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsertAdmin" method="post"> -->
@@ -229,7 +222,7 @@ margin-right: 20px;
 						<td th:text="${i.itemTotalName}"></td>
 						<td th:text="${i.itemTotalAmount}" class="itemRentalAmount"></td>
 						<td th:text="${i.itemRentalPrice}" class="eachRsvItemPrice"></td>
-						<td style="padding: 0;"><input type="number" id="rsvItemNum" value="0"></td>
+						<td style="padding: 0;"><input type="number" class="rsvItemNum" value="0"></td>
 						<td style="display:none" th:text="${i.itemTotalAmount}" class="itemTotalAmount"></td>
 						
 					</tr>
@@ -247,7 +240,7 @@ margin-right: 20px;
 </th:block>
 	<th:block layout:fragment="customJs">
 	<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<script type="text/javascript">
+		<script type="text/javascript" th:inline="javascript">
 		
 //예약 폼 스타트
 		
@@ -378,10 +371,10 @@ margin-right: 20px;
 					// 체크된 아이탬 체크박스 값을 가져온다
 					ItemRsvChecked.each(function(i) {
 						var itemJson = {}
-						var tr = ItemRsvChecked.parent().parent().parent().parent().eq(i);
+						var tr = ItemRsvChecked.parent().parent().parent().eq(i);
 						var td = tr.children();
 						// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
-						var itemCode = td.eq(0).children().children().children().val();
+						var itemCode = td.eq(0).children().children().val();
 						var itemRentalPrice = td.eq(4).text();
 						var itemCount = td.eq(5).children().val();
 						
@@ -396,17 +389,18 @@ margin-right: 20px;
 					// 체크된 공간 체크박스 값을 가져온다.
 					SpaceRsvCheck.each(function(i) {
 						var spaceJson = {}
-						var tr = SpaceRsvCheck.parent().parent().parent().parent().eq(i);
+						var tr = SpaceRsvCheck.parent().parent().parent().eq(i);
 						var td = tr.children();
 						
-						var spaceCode = td.eq(0).children().children().children().val();
+						var spaceCode = td.eq(0).children().children().val();
 						var spaceRentalPrice = td.eq(9).text();
 						
 						spaceJson["spaceCode"] = spaceCode;
 						spaceJson["spaceRentalPrice"] = spaceRentalPrice;
 						spaceList.push(spaceJson);
 					});
-					
+					paramData["rsvStoreCode"] = [[${storeCode}]];
+					paramData["rsvState"] = "시간";
 					paramData["rsvUserName"] = $('#rsvUserName').val();
 					paramData["rsvUserPhone"] = $('#rsvUserPhone').val();
 					paramData["rsvUserEmail"] = $('#rsvUserEmail').val();

@@ -142,8 +142,6 @@ margin-right: 20px;
 			</div>
 		</div>
 		
-		
-		
 		<!-- 장비 예약 테이블 -->
 		<div class="table-responsive disableMetter"  id="itemInfo">
 			<table class="table table-striped jambo_table bulk_action" border="1">
@@ -187,7 +185,7 @@ margin-right: 20px;
 </th:block>
 	<th:block layout:fragment="customJs">
 	<!-- reservationDRP js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<script type="text/javascript">
+		<script type="text/javascript" th:inline="javascript">
 		
 //예약 폼 스타트
 		
@@ -340,7 +338,8 @@ margin-right: 20px;
 						spaceJson["spaceRentalPrice"] = spaceRentalPrice;
 						spaceList.push(spaceJson);
 					});
-					
+					paramData["rsvStoreCode"] = [[${storeCode}]];
+					paramData["rsvState"] = "일";
 					paramData["rsvUserName"] = $('#rsvUserName').val();
 					paramData["rsvUserPhone"] = $('#rsvUserPhone').val();
 					paramData["rsvUserEmail"] = $('#rsvUserEmail').val();

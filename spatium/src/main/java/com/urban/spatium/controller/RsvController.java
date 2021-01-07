@@ -32,6 +32,26 @@ public class RsvController {
 	private StoreService storeService;
 	
 	/**
+	 * 예약 통계(판매자)
+	 */
+	@GetMapping("/rsvStat")
+	public String rsvStat(Model model) {
+		model.addAttribute("title", "예약 통계");
+		
+		return "rsv/rsvStat";
+	}
+	
+	/**
+	 * 예약 통계(관리자)
+	 */
+	@GetMapping("/rsvStatAdmin")
+	public String rsvStatAdmin(Model model) {
+		model.addAttribute("title", "예약 통계");
+		
+		return "rsv/rsvStatAdmin";
+	}
+	
+	/**
 	 * 예약 취소
 	 */
 	@GetMapping("/rsvCancel")
@@ -100,10 +120,10 @@ public class RsvController {
 		System.out.println("요청사항 --> "+rsv.getRsvUserRequest());
 		System.out.println("공간 리스트 --> "+rsv.getSpaceList());
 		System.out.println("장비 리스트 --> "+rsv.getItemList());
+		System.out.println("업체 번호 --> "+rsv.getRsvStoreCode());
 		
 		String sessionId = (String) session.getAttribute("SID");
 		rsv.setRsvUserId(sessionId); // 임시 아이디 부여
-		rsv.setRsvStoreCode(5); 	//임시 스토어 코드 부여(세션에 존재하는거 받아올것!)
 		rsvService.insertTbRsv(rsv);
 	    
 	    return "/rsvListAdmin";
@@ -111,42 +131,43 @@ public class RsvController {
 	
 	
 	/**
-	 * 공간 예약 등록으로 이동(관리자화면)시간
+	 * 공간 예약 등록으로 이동(관리자화면)
 	 */
 	@GetMapping("/rsvInsertAdmin")
-	public String rsvInsertAdmin(Model model, int storeCode) {
+	public String rsvInsertAdmin(Model model, int storeCode, String rsvType) {
 		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
 		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
 		model.addAttribute("getItemByStore", getItemByStore);
-		
-		return "rsv/rsvInsertAdmin";
+		model.addAttribute("storeCode", storeCode);
+		if("시간".equals(rsvType)) {
+			return "rsv/rsvInsertAdmin";
+		}else if("일".equals(rsvType)){
+			return "rsv/rsvInsertDayAdmin";
+		}else {
+			return "/";
+		}
 	}
 	
-	/**
-	 * 공간 예약 등록으로 이동(관리자화면)일
-	 */
-	@GetMapping("/rsvInsertDayAdmin")
-	public String rsvInsertDayAdmin(Model model, int storeCode) {
-		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
-		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
-		model.addAttribute("getSpaceByStore", getSpaceByStore);
-		model.addAttribute("getItemByStore", getItemByStore);
-		
-		return "rsv/rsvInsertDayAdmin";
-	}
 	
 	/**
-	 * 공간 예약 등록으로 이동(구매자화면)시간
+	 * 공간 예약 등록으로 이동(구매자화면)
 	 */
 	@GetMapping("/rsvInsert")
-	public String rsvInsert(Model model,int storeCode) {
+	public String rsvInsert(Model model,int storeCode, String rsvType) {
 		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
 		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
 		model.addAttribute("getItemByStore", getItemByStore);
+		model.addAttribute("storeCode", storeCode);
 		
-		return "rsv/rsvInsert";
+		if("시간".equals(rsvType)) {
+			return "rsv/rsvInsert";
+		}else if("일".equals(rsvType)){
+			return "rsv/rsvInsertDay";
+		}else {
+			return "/";
+		}
 	}
 	
 	/**
@@ -170,15 +191,7 @@ public class RsvController {
 	}
 	
 	/**
-	 * 관리자페이지 예약 취소 목록 조회
-	 */
-	@GetMapping("/rsvCancelListAdmin")
-	public String rsvCancelListByAdmin() {
-		return "rsv/rsvCancelListAdmin";
-	}
-	
-	/**
-	 * 작업중
+	 * 예약 업소 선택 화면으로 이동 
 	 */
 	@GetMapping("/rsvStoreList")
 	public String rsvStoreList(Model model) {

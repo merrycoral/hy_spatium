@@ -35,6 +35,8 @@ public interface RsvMapper {
 
 	public void updateRsvPrice(int rsvCode, int totalPrice);
 
+	public void updateRsvDayPrice(int rsvCode, int totalPrice);
+	
 	public List<Rsv> rsvListExtend(String rsvCode);
 
 	public List<Rsv> getExRsv(Rsv rsv);
@@ -48,6 +50,7 @@ public interface RsvMapper {
 	public void cancelRsv(int rsvCode);
 
 	public void cancelRsvDetail(List<String> rsvDetailList);
+
 	
 	
 }

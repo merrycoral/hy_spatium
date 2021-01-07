@@ -58,12 +58,7 @@
 		$('#rsvStoreTb').find('.storeTr').click(function(){
 			var code = $(this).children().first().text();
 			var type = $(this).children().eq(1).text();
-			console.log(type);
-			if("시간"==type){
-				location.href="/rsvInsertAdmin?storeCode="+code;
-			}else if("일"==type){
-				location.href="/rsvInsertDayAdmin?storeCode="+code;
-			}
+			location.href="/rsvInsertAdmin?storeCode="+code+"&rsvType="+type;
 		})
 	//th:onclick="location.href=\'' + @{/rsvInsertAdmin}(storeCode=${s.storeCode})} + '\';"
 	
