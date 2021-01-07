@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customContent">
+
+            <div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
+                <div class="card my-5 ">
+			<div class="card-body p-5 text-center">
+				<div class="h3 font-weight-light mb-0">아이디 찾기
+                </div>
+                    <div class="ng-untouched ng-pristine ng-invalid">
+					<div class="form-group">
+                          <H3> 회원님의 아이디는 ${userId} 입니다.</H3>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="findBtn">확인</button>
+                         <button type="button" class="btn btn-success" data-dismiss="modal"  onclick="history.go(-1);">취소
+                    </button>
+                    </div>
+                 </div>
+             </div>
+        </div>
+</th:block>
+<th:block layout:fragment="customJs">
+<script>
+	$(function(){
+		$("#check").click(function(){
+			location.href='/user/login';
+		})
+	})
+</script>
+</th:block>
+</html>

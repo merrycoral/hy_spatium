@@ -36,6 +36,9 @@ public interface UserMapper {
 	//로그인
 	public User getUserById(String userId);
 	
+	//아이디 찾기
+	public String findId(String usermail);
+	
 	//아이디 중복체크
 	public int idChk(User user);
 	

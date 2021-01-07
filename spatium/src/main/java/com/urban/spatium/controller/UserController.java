@@ -2,12 +2,14 @@ package com.urban.spatium.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -214,15 +216,7 @@ public class UserController {
 
 		return "user/userList";
 	}
-	
-	//비밀번호찾기
-	
-	  @GetMapping("/findPw") 
-	  public String findPw(Model model) {
-		  model.addAttribute("title", "비밀번호찾기");
-		  return "user/findPw"; 
-	  } 
-	
+
 	//간편로그인
 	@GetMapping("/imsilogin")
 	public String imsilogin(HttpSession session) {
@@ -273,6 +267,20 @@ public class UserController {
 		if(result != null) model.addAttribute("result", result);
 
 		return "user/login";
+	}
+	
+	
+	//아이디 찾기
+	@RequestMapping(value = "/findId", method = RequestMethod.POST)
+	public String findId(HttpServletResponse response, @RequestParam("userEmail") String userEmail, Model model) throws Exception{
+		model.addAttribute("userId", userService.findId(response, userEmail));
+		return "/user/findId";
+	}
+	
+	//아이디 찾기 폼
+	@RequestMapping(value = "/findIdform")
+	public String findIdform() throws Exception{
+		return "/user/findIdform";
 	}
 	
 	//아이디 중복체크
