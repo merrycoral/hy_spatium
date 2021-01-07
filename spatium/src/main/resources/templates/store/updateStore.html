@@ -10,7 +10,6 @@
 <th:block layout:fragment="customCss">
 <style>
 .hid{display: none;}
-td{padding-left: 10px; padding-right: 10px;}
 
 </style>
 </th:block>
@@ -27,10 +26,13 @@ td{padding-left: 10px; padding-right: 10px;}
 		<div class="x_content">
 			<form id="addStoreForm" class="form-horizontal form-label-left"
 				th:action="@{/storeUpdate}" method="post">
-				<div style="padding-left: 1000px; color: red">* 표시는 필수 입력
-					사항입니다.</div>
-				<br>
-				<div class="item form-group">
+					<div class="form-group row">
+					<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
+					<div class="col-md-6 col-sm-6 ">
+			<div style="color: red; text-align: right;">* 표시는 필수 입력
+						사항입니다.</div></div></div>
+
+				<div class="form-group row">
 
 					<label class="col-form-label col-md-3 col-sm-3 label-align">
 						사업자 아이디
@@ -46,7 +48,7 @@ td{padding-left: 10px; padding-right: 10px;}
 							name="storeRegDate" th:value = "${result.storeRegDate}">
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align">
 						상호명 <span class="required">*</span>
 					</label>
@@ -55,7 +57,7 @@ td{padding-left: 10px; padding-right: 10px;}
 							name="storeName" placeholder="상호명을 입력해주시기 바랍니다." th:value = "${result.storeName}">
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align">
 						대표자명 <span class="required">*</span>
 					</label>
@@ -64,7 +66,7 @@ td{padding-left: 10px; padding-right: 10px;}
 							name="storeRepresentative" placeholder="대표자명을 입력해주시기 바랍니다." th:value = "${result.storeRepresentative}">
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align">
 						사업자 번호 <span class="required">*</span>
 					</label>
@@ -75,7 +77,7 @@ td{padding-left: 10px; padding-right: 10px;}
 						<span> 숫자만 입력해주시기 바랍니다. </span>
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						유형 <span class="required">*</span>
@@ -87,8 +89,8 @@ td{padding-left: 10px; padding-right: 10px;}
 							</div>
 				</div>
 
-				<div class="item form-group">
-					<label for="middle-name"
+				<div class="form-group row">
+					<label
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						주소 <span class="required">*</span>
 					</label>
@@ -97,22 +99,22 @@ td{padding-left: 10px; padding-right: 10px;}
 					<input type="text" id="sample6_address" name = "storeAddress" placeholder="주소" readonly="readonly" class="form-control" style="margin-bottom: 10px;" th:value = "${result.storeAddress}">
 					<input type="text" id="sample6_extraAddress" name = "storeAddress1" placeholder="참고항목" readonly="readonly" class="form-control" style="margin-bottom: 10px;">
 					<input type="text" id="sample6_detailAddress" name = "storeAddressDetail" placeholder="상세주소" class="form-control" th:value = "${result.storeAddressDetail}">
-					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" readonly="readonly" class="btn btn-success" style="margin-top: 20px; margin-left: 300px;">
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn btn-success" style="margin-top: 20px; width: 100%;">
 					</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align" style="margin-top: 20px;"> 업체
 						소개 </label>
-						<div class="col-md-6 col-sm-6 ">
-							<span style="color: #aaa; padding-left: 680px" id="counter2">(0
+						<div class="col-md-6 col-sm-6 " style="text-align: right;">
+							<span style="color: #aaa;" id="counter2">(0
 								/ 최대 500자)</span>
 							<textarea id="storeIntroduction" name="storeIntroduction"
 								class="form-control" style="resize: none;" cols="100" rows="10"
 								placeholder= "업체 소개를 입력해주시기 바랍니다." th:text= "${result.storeIntroduction}"></textarea>
 						</div>
 				</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						이메일 </label>
@@ -121,13 +123,13 @@ td{padding-left: 10px; padding-right: 10px;}
 							name="storeEmail" placeholder="업체 이메일을 입력해주시기 바랍니다." th:value = "${result.storeEmail}">
 					</div>
 				</div>
-				<div class="item form-group">
-						<label for="middle-name"
+					<div class="form-group row">
+						<label
 							class="col-form-label col-md-3 col-sm-3 label-align"> 결제
 							방식 <span class="required">*</span>
 						</label>
 						<div class="col-md-6 col-sm-6 ">
-							<select style="width: 775px; height: 40px; margin-top: -5px;"
+							<select style="width: 100%; height: 40px;"
 								id="storeRsvType" name="storeRsvType">
 								<option value="0">:: 결제 방식 선택 ::</option>
 								<option value="일">일 결제</option>
@@ -135,8 +137,8 @@ td{padding-left: 10px; padding-right: 10px;}
 							</select>
 						</div>
 					</div>
-				<div class="item form-group">
-					<label for="middle-name"
+				<div class="form-group row">
+					<label
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						연락처 <span class="required">*</span>
 					</label>
@@ -147,13 +149,13 @@ td{padding-left: 10px; padding-right: 10px;}
 						<span> 숫자만 입력해주시기 바랍니다. </span>
 					</div>
 				</div>
-				<div class="item form-group">
-					<label for="middle-name"
+				<div class="form-group row">
+					<label
 						class="col-form-label col-md-3 col-sm-3 label-align"> 사업자
 						계좌번호 <span class="required">*</span>
 					</label>
 					<div class="col-md-6 col-sm-6 ">
-					<select id = "storeAccountBankName" name = "storeAccountBankName" th:value = "${result.storeAccountBankName}">
+					<select id = "storeAccountBankName" name = "storeAccountBankName" th:value = "${result.storeAccountBankName}" style="width: 100%; height:30px; margin-bottom: 15px;">
 							<option value = "0"> :: 은행 선택 :: </option>
 							<option value = "BNP"> BNP </option>
 							<option value = "BOA"> BOA </option>
@@ -198,31 +200,27 @@ td{padding-left: 10px; padding-right: 10px;}
 						정책 <span class="required">*</span>
 					</label>
 						<div class="col-md-6 col-sm-6 ">
-							<table border="1">
+							<table border="1" style="width: 100%;">
 								<thead>
-									<tr>
+									<tr style="width: 100%">
 										<th style="text-align: center;">예약까지남은일수</th>
 										<th style="text-align: center;">환불퍼센트</th>
 										<th style="text-align: center;">생성 및 제거</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="r : ${result2}">
-										<td class="hid"><input type="hidden"
-											name="refundPolicyStoreCode" value="5"></td>
-										<td class="hid"><input type="hidden"
-											name="refundPolicyUserId" value="id001"></td>
+									<tr th:each="r : ${result2}" style="width: 100%">
 										<td>이용<input type="text" name="remainingDay"
-											style="width: 170px;" class="a"
+											 class="a form-control"
 											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.remainingDay}">일전
 										</td>
 										<td>총금액의<input type="text" name="refundPercent"
-											style="width: 170px;" class="b"
+											 class="b form-control"
 											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.refundPercent}">%
 										</td>
 										<td>
-											<button type="button" class="addBtn" style="width: 120px;">추가</button>
-											<button type="button" class="removeBtn" style="width: 120px;">삭제</button>
+											<button type="button" class="addBtn">추가</button>
+											<button type="button" class="removeBtn">삭제</button>
 										</td>
 									</tr>
 								</tbody>
@@ -231,7 +229,7 @@ td{padding-left: 10px; padding-right: 10px;}
 							<div><span> 당일 환불과 퍼센트는 0일, 0%로 표현 </span></div>
 						</div>
 					</div>
-				<div class="item form-group">
+				<div class="form-group row">
 					<label for="middle-name"
 						class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 						이미지 <span class="required">*</span>
@@ -241,11 +239,11 @@ td{padding-left: 10px; padding-right: 10px;}
 							name="storeImage" th:value = "${result.storeImage}">
 					</div>
 				</div>
-				<div class="ln_solid"></div>
-				<div class="item form-group">
-					<div class="col-md-6 col-sm-6">
-						<input type="submit" class="btn btn-success" value="업체 수정 하기"
-							id="updateStore" style="width: 250px; height: 50px; margin-left: 650px;">
+				<div class="form-group row">
+				<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
+					<div class="col-md-6 col-sm-6" style="text-align: center;">
+						<input type="submit" class="btn btn-primary" value="업체 수정 하기"
+							id="updateStore" style="width: 100%; height: 50px; margin-top: 20px;">
 					</div>
 				</div>
 
@@ -333,6 +331,8 @@ td{padding-left: 10px; padding-right: 10px;}
 						$('#counter2').html("(500 / 최대 500자)");
 					}
 				});
+				
+				$('#storeAccountBankName').val("$('#storeAccountBankName').val()").prop("selected", true);
 				
 			});
 			
