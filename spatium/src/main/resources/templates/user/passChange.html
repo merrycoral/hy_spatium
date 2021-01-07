@@ -14,31 +14,27 @@
 			<hr class="my-0">
 			<div class="card-body p-5">
 				<div class="text-center text-muted mb-4">가입 당시 입력한 이메일로 비밀번호를 발송합니다.</div>
-				<form class="ng-untouched ng-pristine ng-invalid">
 					<div class="form-group">
 						<label for="inputEmailAddress"
 							class="text-gray-600 small"></label><input
-							id="inputEmailAddress"
-							data-cy="emailInput" type="email" aria-describedby="emailHelp"
-							name="email" value="${user.userEmail}" placeholder="이메일"
+							id="userEmail"
+							data-cy="emailInput" type="email" 
+							name="userEmail"  placeholder="이메일"
 							class="form-control form-control-solid py-4 ng-untouched ng-pristine ng-invalid">
 						<div class="invalid-feedback">이메일</div>
 						
 					</div>
-					<div class="form-group mb-0 text-center" >
-						<button data-cy="resetPasswordButton"
-							type="submit" id="submit" class="btn btn-primary" >확인</button>
-					</div>
-				</form>
+					<div class="text-center small mt-2" id="checkMsg" style="color: red"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove"></span> Cancel
+                    </button>
+                </div>
 			</div>
-			<hr class="my-0">
-			<div class="card-body px-5 py-4">
+			
 				<div class="text-center">
-					<a href="/addUser">회원가입</a>
+					<a href="/<!-- addUser -->">회원가입</a>
 				</div>
 			</div>
-		</div>
-	</div>
-	
-	
 </html>

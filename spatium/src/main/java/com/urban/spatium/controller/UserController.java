@@ -129,12 +129,36 @@ public class UserController {
 	//탈퇴회원 리스트
 	@GetMapping("/deleteUser")
 	public String deleteUser(Model model) {
+		List<User> deleteUser = userService.deleteUser();
+		System.out.println(deleteUser);
+		
+		model.addAttribute("deleteUser", deleteUser);
 		return "user/deleteUser";
+	}
+	
+	//탈퇴회원 등록
+	@PostMapping("/addDeleteUser") 
+	public String addDeleteUser(User user ,@RequestParam(name = "userId", required = false)
+		  					String userId) {
+		 System.out.println("탈퇴회원 화면에서 입력받은 값--->" + user); 
+	  String result = userService.addDeleteUser(user); 
+	  System.out.println(result);
+	  return "redirect:/deleteUser"; 
+	}
+
+	@GetMapping("/addDeleteUser")
+	public String addDeleteUser(Model model) {
+		 model.addAttribute("title", "탈퇴회원");
+		 return "user/deleteUser";
 	}
 	
 	//불량회원 리스트
 	@GetMapping("/blackUser")
 	public String blackUser(Model model) {
+		List<User> blackUser = userService.blackUser();
+		System.out.println(blackUser);
+		
+		model.addAttribute("blackUser", blackUser);
 		return "user/blackUser";
 	}
 	
