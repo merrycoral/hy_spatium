@@ -21,17 +21,17 @@
                     <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
                     <div class="row">
                     </div>
-                    <div class="row"><div class="col-sm-12"><table id="datatable" class="table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
+                    <div class="row"><div class="col-sm-12"><table id="tbItemTotal" class="table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
                       <thead>
                         <tr role="row">
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 100px; text-align: center;"> 사업장 코드 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 85px; text-align: center;"> 장비 이름 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 85px; text-align: center;"> 장비 총 수량 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 90px; text-align: center;"> 장비 대여 가격 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 100px; text-align: center;"> 장비 대여 보증금 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 95px; text-align: center;"> 재고 등록 날짜 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 95px; text-align: center;"> 재고 변동 날짜 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px; text-align: center;"> 아이디 </th>
+                        <th class="sorting" style="text-align: center;"> 사업장 코드 </th>
+                        <th class="sorting" style="text-align: center;"> 장비 이름 </th>
+                        <th class="sorting" style="text-align: center;"> 장비 총 수량 </th>
+                        <th class="sorting" style="text-align: center;"> 장비 대여 가격 </th>
+                        <th class="sorting" style="text-align: center;"> 장비 대여 보증금 </th>
+                        <th class="sorting" style="text-align: center;"> 재고 등록 날짜 </th>
+                        <th class="sorting" style="text-align: center;"> 재고 변동 날짜 </th>
+                        <th class="sorting" style="text-align: center;"> 아이디 </th>
                         </tr>
                       </thead>
 
@@ -57,6 +57,37 @@
               </div>
             </div>
                 </div>
+
+</th:block>
+
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbItemTotal").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	</script>
 
 </th:block>
 

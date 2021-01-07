@@ -4,17 +4,9 @@
 	layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
-	<form action="/itemRepairList" method="post">
-		<select name="sk">
-			<option th:value="${userId}">아이디</option>
-			<option th:value="${itemRepairName}">장비이름</option>
-		</select>
-		<input type="text" name = "sv" placeholder="검색어를 입력해주세요"/>
-		<button type="submit">검색</button>
-	</form>
 
 	<div class="table-responsive m-t-20">
-		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id = "tbItemRepair">
 			<thead>
 				<tr>
 					<th scope="col">장비 수리 코드</th>
@@ -56,4 +48,36 @@
 	</div>
 
 </th:block>
+
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbItemRepair").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	</script>
+
+</th:block>
+
 </html>
