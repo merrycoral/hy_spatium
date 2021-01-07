@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.urban.spatium.dto.RefundPolicy;
 import com.urban.spatium.dto.Store;
 import com.urban.spatium.mapper.RefundMapper;
 import com.urban.spatium.mapper.StoreMapper;
@@ -50,6 +51,7 @@ public class StoreService {
 		
 		if(store != null) {
 			int result = storeMapper.addStore(store);
+			
 			int StoreCode = store.getStoreCode();
 			
 			

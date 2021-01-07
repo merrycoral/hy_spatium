@@ -60,6 +60,7 @@ public class StoreController {
 	@PostMapping("/addSpace")
 	public String addStore(Model model, Store store) {
 		System.out.println(store);
+		
 		int checkStore = store.getStoreCode();
 		System.out.println(checkStore);
 		System.out.println("스토어 받은값 --> " + store);

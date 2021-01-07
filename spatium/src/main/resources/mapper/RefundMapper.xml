@@ -67,6 +67,8 @@
 		)
 	</insert>
 	
+	
+	
 	<insert id="cancelRefund" parameterType="CancelRsv" >
 	INSERT INTO tbCancelRsv
 		(
@@ -92,6 +94,17 @@
 	)
 	</insert>
 	
+	<insert id="" parameterType="Store">	
+	INSERT INTO tbRefundPolicyRelation
+		(
+		, tbRefundPolicyRelationStoreCode
+		, tbRefundPolicyRelationRefundPolicyCode)
+	VALUES (
+	
+	, #{storeCode}
+	, #{refundPolicyCode}
+	)
+	</insert>
 	
 	<insert id="addRefundPolicy" parameterType="Store">	
      INSERT INTO tbRefundPolicy	
