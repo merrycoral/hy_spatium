@@ -1,7 +1,9 @@
 package com.urban.spatium.service;
 
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,6 +102,26 @@ public class UserService {
 		User user = userMapper.getUserById(userId);
 		
 		return user;
+	}
+	
+	
+	
+	//아이디 찾기
+	public String findId(HttpServletResponse response, String userEmail) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		String userId = userMapper.findId(userEmail);
+		
+		if (userId == null) {
+			out.println("<script>");
+			out.println("alert('가입된 아이디가 없습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		} else {
+			return userId;
+		}
 	}
 	
 	//아이디 중복체크

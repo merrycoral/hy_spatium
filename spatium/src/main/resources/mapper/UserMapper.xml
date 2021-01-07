@@ -137,13 +137,14 @@
 
 
 	<!--비밀번호 변경 -->
-	<update id="passChange" parameterType="String">
-		UPDATE user
+	<!-- <update id="updatePw" parameterType="User">
+		UPDATE
+		tbUser
 		SET
-			userPw=#{userPw}
+		userPw = #{userPw} 
 		WHERE
-			userEmail=#{userEmail};
-	</update>
+		userId = #{userId}
+	</update> -->
 
 
 	<!--로그인 -->
@@ -154,6 +155,16 @@
 		tbUser
 		WHERE
 		userId = #{userId};
+	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="String" resultType="String">
+		SELECT
+		id
+		FROM 
+		tbUser
+		WHERE
+		userEmail = #{userEmail};
 	</select>
 
 	<!-- 아이디 중복 체크 -->
