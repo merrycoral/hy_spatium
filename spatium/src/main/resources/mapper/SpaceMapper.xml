@@ -2,6 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.SpaceMapper">
 
+<select id="addSpaceChoice" resultType="Store" parameterType="String">
+
+SELECT 
+	storeCode
+	, storeId
+	, storeName
+	, storeRepresentative
+	, storeNumber
+	, storeBusinessType
+	, storeAddressNumber
+	, storeAddress
+	, storeAddressDetail
+	, storeIntroduction
+	, storeRsvType
+	, storeEmail
+	, storePhone
+	, storeAccountBankName
+	, storeAccountNumber
+	, storeRefundRull
+	, storeImage
+	, storeLevel
+	, storeRegDate
+FROM 
+	tbStore
+WHERE
+	storeId = #{storeId};
+
+</select>
+
 <select id = "addSpace" resultType="String" parameterType="String">
 
 SELECT 
