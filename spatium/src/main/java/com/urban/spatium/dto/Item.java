@@ -22,6 +22,35 @@ public class Item {
 	private String itemRentalStatus;
 	private String itemDetailUserId;
 	
+	private int itemDeleteCode;
+	private int storeDeleteCode;
+	private int storeItemDeleteCode;
+	private String userDeleteId;
+	private String itemDeleteReason;
+	private String itemDeleteRegDate;
+	
+	private int itemRepairCode;
+	private int storeRepairCode;
+	private int storeItemRepairCode;
+	private String userRepairId;
+	private String itemRepairPrice;
+	private String itemRepairRegDate;
+	private String itemRepairEndDate;
+	private String itemRepairName;
+	private String itemRepairCompany;
+	private String itemRepairCompanyPhone;
+	
+	private int itemBuyCode;
+	private int storeBuyCode;
+	private int storeBuyItemCode;
+	private String userBuyId;
+	private int itemBuyPrice;
+	private String itemBuyAccount;
+	private String itemBuyPhone;
+	private String itemBuyRegDate;
+	
+	private User user;
+		
 	public int getItemCode() {
 		return itemCode;
 	}
@@ -137,6 +166,157 @@ public class Item {
 		this.itemDetailUserId = itemDetailUserId;
 	}
 	
+	public int getItemDeleteCode() {
+		return itemDeleteCode;
+	}
+	public void setItemDeleteCode(int itemDeleteCode) {
+		this.itemDeleteCode = itemDeleteCode;
+	}
+	public int getStoreDeleteCode() {
+		return storeDeleteCode;
+	}
+	public void setStoreDeleteCode(int storeDeleteCode) {
+		this.storeDeleteCode = storeDeleteCode;
+	}
+	public int getStoreItemDeleteCode() {
+		return storeItemDeleteCode;
+	}
+	public void setStoreItemDeleteCode(int storeItemDeleteCode) {
+		this.storeItemDeleteCode = storeItemDeleteCode;
+	}
+	public String getUserDeleteId() {
+		return userDeleteId;
+	}
+	public void setUserDeleteId(String userDeleteId) {
+		this.userDeleteId = userDeleteId;
+	}
+	public String getItemDeleteReason() {
+		return itemDeleteReason;
+	}
+	public void setItemDeleteReason(String itemDeleteReason) {
+		this.itemDeleteReason = itemDeleteReason;
+	}
+	public String getItemDeleteRegDate() {
+		return itemDeleteRegDate;
+	}
+	public void setItemDeleteRegDate(String itemDeleteRegDate) {
+		this.itemDeleteRegDate = itemDeleteRegDate;
+	}
+	public int getItemRepairCode() {
+		return itemRepairCode;
+	}
+	public void setItemRepairCode(int itemRepairCode) {
+		this.itemRepairCode = itemRepairCode;
+	}
+	public int getStoreRepairCode() {
+		return storeRepairCode;
+	}
+	public void setStoreRepairCode(int storeRepairCode) {
+		this.storeRepairCode = storeRepairCode;
+	}
+	public int getStoreItemRepairCode() {
+		return storeItemRepairCode;
+	}
+	public void setStoreItemRepairCode(int storeItemRepairCode) {
+		this.storeItemRepairCode = storeItemRepairCode;
+	}
+	public String getUserRepairId() {
+		return userRepairId;
+	}
+	public void setUserRepairId(String userRepairId) {
+		this.userRepairId = userRepairId;
+	}
+	public String getItemRepairPrice() {
+		return itemRepairPrice;
+	}
+	public void setItemRepairPrice(String itemRepairPrice) {
+		this.itemRepairPrice = itemRepairPrice;
+	}
+	public String getItemRepairRegDate() {
+		return itemRepairRegDate;
+	}
+	public void setItemRepairRegDate(String itemRepairRegDate) {
+		this.itemRepairRegDate = itemRepairRegDate;
+	}
+	public String getItemRepairEndDate() {
+		return itemRepairEndDate;
+	}
+	public void setItemRepairEndDate(String itemRepairEndDate) {
+		this.itemRepairEndDate = itemRepairEndDate;
+	}
+	public String getItemRepairName() {
+		return itemRepairName;
+	}
+	public void setItemRepairName(String itemRepairName) {
+		this.itemRepairName = itemRepairName;
+	}
+	public String getItemRepairCompany() {
+		return itemRepairCompany;
+	}
+	public void setItemRepairCompany(String itemRepairCompany) {
+		this.itemRepairCompany = itemRepairCompany;
+	}
+	public String getItemRepairCompanyPhone() {
+		return itemRepairCompanyPhone;
+	}
+	public void setItemRepairCompanyPhone(String itemRepairCompanyPhone) {
+		this.itemRepairCompanyPhone = itemRepairCompanyPhone;
+	}
+	public int getItemBuyCode() {
+		return itemBuyCode;
+	}
+	public void setItemBuyCode(int itemBuyCode) {
+		this.itemBuyCode = itemBuyCode;
+	}
+	public int getStoreBuyCode() {
+		return storeBuyCode;
+	}
+	public void setStoreBuyCode(int storeBuyCode) {
+		this.storeBuyCode = storeBuyCode;
+	}
+	public int getStoreBuyItemCode() {
+		return storeBuyItemCode;
+	}
+	public void setStoreBuyItemCode(int storeBuyItemCode) {
+		this.storeBuyItemCode = storeBuyItemCode;
+	}
+	public String getUserBuyId() {
+		return userBuyId;
+	}
+	public void setUserBuyId(String userBuyId) {
+		this.userBuyId = userBuyId;
+	}
+	public int getItemBuyPrice() {
+		return itemBuyPrice;
+	}
+	public void setItemBuyPrice(int itemBuyPrice) {
+		this.itemBuyPrice = itemBuyPrice;
+	}
+	public String getItemBuyAccount() {
+		return itemBuyAccount;
+	}
+	public void setItemBuyAccount(String itemBuyAccount) {
+		this.itemBuyAccount = itemBuyAccount;
+	}
+	public String getItemBuyPhone() {
+		return itemBuyPhone;
+	}
+	public void setItemBuyPhone(String itemBuyPhone) {
+		this.itemBuyPhone = itemBuyPhone;
+	}
+	public String getItemBuyRegDate() {
+		return itemBuyRegDate;
+	}
+	public void setItemBuyRegDate(String itemBuyRegDate) {
+		this.itemBuyRegDate = itemBuyRegDate;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -178,10 +358,58 @@ public class Item {
 		builder.append(itemRentalStatus);
 		builder.append(", itemDetailUserId=");
 		builder.append(itemDetailUserId);
+		builder.append(", itemDeleteCode=");
+		builder.append(itemDeleteCode);
+		builder.append(", storeDeleteCode=");
+		builder.append(storeDeleteCode);
+		builder.append(", storeItemDeleteCode=");
+		builder.append(storeItemDeleteCode);
+		builder.append(", userDeleteId=");
+		builder.append(userDeleteId);
+		builder.append(", itemDeleteReason=");
+		builder.append(itemDeleteReason);
+		builder.append(", itemDeleteRegDate=");
+		builder.append(itemDeleteRegDate);
+		builder.append(", itemRepairCode=");
+		builder.append(itemRepairCode);
+		builder.append(", storeRepairCode=");
+		builder.append(storeRepairCode);
+		builder.append(", storeItemRepairCode=");
+		builder.append(storeItemRepairCode);
+		builder.append(", userRepairId=");
+		builder.append(userRepairId);
+		builder.append(", itemRepairPrice=");
+		builder.append(itemRepairPrice);
+		builder.append(", itemRepairRegDate=");
+		builder.append(itemRepairRegDate);
+		builder.append(", itemRepairEndDate=");
+		builder.append(itemRepairEndDate);
+		builder.append(", itemRepairName=");
+		builder.append(itemRepairName);
+		builder.append(", itemRepairCompany=");
+		builder.append(itemRepairCompany);
+		builder.append(", itemRepairCompanyPhone=");
+		builder.append(itemRepairCompanyPhone);
+		builder.append(", itemBuyCode=");
+		builder.append(itemBuyCode);
+		builder.append(", storeBuyCode=");
+		builder.append(storeBuyCode);
+		builder.append(", storeBuyItemCode=");
+		builder.append(storeBuyItemCode);
+		builder.append(", userBuyId=");
+		builder.append(userBuyId);
+		builder.append(", itemBuyPrice=");
+		builder.append(itemBuyPrice);
+		builder.append(", itemBuyAccount=");
+		builder.append(itemBuyAccount);
+		builder.append(", itemBuyPhone=");
+		builder.append(itemBuyPhone);
+		builder.append(", itemBuyRegDate=");
+		builder.append(itemBuyRegDate);
+		builder.append(", user=");
+		builder.append(user);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-	
+		
 }

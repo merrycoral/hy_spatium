@@ -112,7 +112,7 @@ margin-right: 20px;
 						</label>
 						<div class="col-md-6 col-sm-6 ">
 							<!-- 달력 인폿박스 시작 -->
-							<input type="text" style="width: 350px; text-align: center;" name="reservationDRP" id="reservationDRP" class="form-control">
+							<input type="text" style="text-align: center;" name="reservationDRP" id="reservationDRP" class="form-control">
 							<!-- 달력 아이콘 -->
 							<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
 							<!-- 달력 인폿박스 끝 -->
@@ -141,8 +141,6 @@ margin-right: 20px;
 					</div>
 			</div>
 		</div>
-		
-		
 		
 		<!-- 장비 예약 테이블 -->
 		<div class="table-responsive disableMetter"  id="itemInfo">
@@ -187,7 +185,7 @@ margin-right: 20px;
 </th:block>
 	<th:block layout:fragment="customJs">
 	<!-- reservationDRP js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<script type="text/javascript">
+		<script type="text/javascript" th:inline="javascript">
 		
 //예약 폼 스타트
 		
@@ -340,7 +338,8 @@ margin-right: 20px;
 						spaceJson["spaceRentalPrice"] = spaceRentalPrice;
 						spaceList.push(spaceJson);
 					});
-					
+					paramData["rsvStoreCode"] = [[${storeCode}]];
+					paramData["rsvState"] = "일";
 					paramData["rsvUserName"] = $('#rsvUserName').val();
 					paramData["rsvUserPhone"] = $('#rsvUserPhone').val();
 					paramData["rsvUserEmail"] = $('#rsvUserEmail').val();

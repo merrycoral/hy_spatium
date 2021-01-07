@@ -6,9 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.urban.spatium.dto.OKSpace;
 import com.urban.spatium.dto.ReadySpace;
+import com.urban.spatium.dto.Store;
 
 @Mapper
 public interface SpaceMapper {
+	
+	public String addSpace(String okId);
 	
 	public int addReadySpace(ReadySpace readySpace);
 	

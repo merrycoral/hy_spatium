@@ -130,34 +130,31 @@ public class BoradController {
 	 @GetMapping(value = "/detailPost")
 		public String detailPost(@ModelAttribute("params") Board params
 								 ,@RequestParam(name="boardIdx", required = false) int boardIdx
+								 ,@RequestParam(name="currentPageNo", required = false) String currentPageNo
 								 ,Model model) {
 		
 		Board board = boardService.getBoardsByCode(boardIdx);
 
 		boardService.postHitCnt(boardIdx);
-		
-		/*boardService.postLikeCntUp(boardIdx);
-		
-		boardService.postLikeCntDel(boardIdx);*/
-		
-		
-		
 		model.addAttribute("title", "게시글 상세보기");
 		model.addAttribute("Board", board);
-
+		model.addAttribute("currentPageNo", currentPageNo);
 		
 		return "borad/detailPost";
 		}
+	
+
 	 
 	 //소모임 게시글 수정(view)
 	 @GetMapping(value ="/modifyPost")
 	 public String modifyPost(@ModelAttribute("params") Board params
 			 				 ,@RequestParam(name="boardIdx", required = false) int boardIdx
-							 ,Model model) {
+			 				 ,Model model) {
 		 
 		 Board board = boardService.getBoardsByCode(boardIdx);
 		 List<Board> boardCate = boardService.getBoardCate();
-
+		 System.out.println(boardCate);
+		 
 		 
  
 		 model.addAttribute("boardCate", boardCate);
@@ -179,6 +176,8 @@ public class BoradController {
 
 			rttr.addAttribute("CurrentPageNo", params.getCurrentPageNo());
 			rttr.addAttribute("RecordsPerPage", params.getRecordsPerPage());
+			rttr.addAttribute("SearchKeyword", params.getSearchKeyword());
+			rttr.addAttribute("SearchType", params.getSearchType());
 			
 			System.out.println(result);
 				
@@ -196,6 +195,9 @@ public class BoradController {
 			String result = boardService.removePost(boardIdx);
 			rttr.addAttribute("CurrentPageNo", params.getCurrentPageNo());
 			rttr.addAttribute("RecordsPerPage", params.getRecordsPerPage());
+			rttr.addAttribute("SearchKeyword", params.getSearchKeyword());
+			rttr.addAttribute("SearchType", params.getSearchType());
+
 			
 			
 

@@ -3,6 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"	
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">	
 <mapper namespace="com.urban.spatium.mapper.RefundMapper">	
+	<resultMap type="CancelRsv" id="resultMapCancel">
+		<result column="cancelCode" 		property="cancelCode"/>
+		<result column="cancelRsvCode" 	property="cancelRsvCode"/>
+		<result column="cancelRegDate" 		property="cancelRegDate"/>
+		<result column="cancelState" 	property="cancelState"/>
+		<result column="cancelReason" 	property="cancelReason"/>
+		<result column="cancelPrice" 	property="cancelPrice"/>
+		<result column="refundPolicyCode" 	property="refundPolicyCode"/>
+	</resultMap>
+	
+	<select id="refundSelect" resultMap="resultMapCancel">
+	SELECT 
+		cancelCode
+		, cancelRsvCode
+		, cancelUserId
+		, cancelRegDate
+		, cancelState
+		, cancelReason
+		, cancelPrice
+		, cancelRefundPolicyCode
+	FROM 
+		tbCancelRsv
+	</select>
 	
 	<update id="refundRsv" parameterType="Rsv">
 	UPDATE 
@@ -52,9 +75,9 @@
 		, cancelState
 		, cancelReason
 		, cancelPrice
-		, refundPolicyCode
+		, cancelRefundPolicyCode
 		, cancelRegDate
-		, cancelConfirmDate
+		
 		)
 	VALUES 
 	(	
@@ -63,14 +86,14 @@
 		, #{cancelState}
 		, #{cancelReason}
 		, #{cancelPrice}
-		, #{refundPolicyCode}
+		, #{cancelRefundPolicyCode}
 		, NOW()
-		, NOW()
+		
 	)
 	</insert>
 	
 	
-	<insert id="addRefundPolicy" parameterType="java.util.Map">	
+	<insert id="addRefundPolicy" parameterType="Store">	
      INSERT INTO tbRefundPolicy	
 		( refundPolicyStoreCode	
 		, remainingDay	
@@ -78,15 +101,13 @@
 		, refundPolicyUserId	
 		, refundPolicyRegDate)	
       VALUES	
-       <foreach collection="list" item="i" separator=" , "> 	
        (	
-        #{i.refundPolicyStoreCode}	
-      , #{i.remainingDay}	
-      , #{i.refundPercent}	
-      , #{i.refundPolicyUserId}	
+        #{storeCode}	
+      , #{remainingDays}	
+      , #{refundPercents}	
+      , #{storeId}	
       , NOW()	
       )	
-      </foreach>	
    </insert>	
    <select id="getRefundPolicy" parameterType="int" resultType="RefundPolicy">
    		SELECT 

@@ -77,6 +77,14 @@
 			rsvCode=#{rsvCode}
 	</update>
 	
+	<update id="updateRsvDayPrice">
+		UPDATE tbRsv
+		SET
+			rsvTotalPrice=#{totalPrice}*timestampdiff(day, rsvStartDateTime, rsvEndDateTime)
+		WHERE 
+			rsvCode=#{rsvCode}
+	</update>
+	
 	<insert id="insertTbRsvRelation">	
 		INSERT INTO tbRsvRelation
 			(rsvRelationRsvCode

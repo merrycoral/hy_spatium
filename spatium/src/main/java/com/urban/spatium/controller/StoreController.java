@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.urban.spatium.dto.RefundPolicy;
 import com.urban.spatium.dto.Store;
+import com.urban.spatium.service.RefundService;
 import com.urban.spatium.service.StoreService;
 
 @Controller
@@ -20,6 +24,14 @@ public class StoreController {
 
 	@Autowired
 	private StoreService storeService;
+	@Autowired
+	private RefundService refundService;
+	
+	@GetMapping("/storeSeeMore")
+	public String storeSeeMore(Model model) {
+		
+		return "store/storeSeeMore";
+	}
 	
 	@PostMapping("/storeUpdate")
 	public String updateStoreSet(Model model, Store store) {
@@ -36,13 +48,18 @@ public class StoreController {
 							, @RequestParam(name = "storeCode", required = false) int storeCode) {
 			Store result = storeService.updateStore(storeCode);
 		System.out.println(storeCode + "==== 업체 수정에서 가져온 스토어 코드 ====");
+		
+		List<RefundPolicy> refundPolicy =refundService.getRefundPolicy(storeCode);
+		System.out.println(refundPolicy + "storeUpdate 컨트롤러 받은 값");
 			model.addAttribute("title", "업체 수정");
 			model.addAttribute("result", result);
+			model.addAttribute("result2", refundPolicy);
 		return "store/updateStore";
 	}
 	
 	@PostMapping("/addSpace")
 	public String addStore(Model model, Store store) {
+		System.out.println(store);
 		int checkStore = store.getStoreCode();
 		System.out.println(checkStore);
 		System.out.println("스토어 받은값 --> " + store);
@@ -50,6 +67,8 @@ public class StoreController {
 		String storeCate = store.getStoreBusinessType();
 		System.out.println("========== controller storeCode ============");
 		List<String> tMap = new ArrayList<>();
+		
+		
 		
 		String[] array = storeCate.split(",");
 		String[] i_array = new String[5];
@@ -104,8 +123,13 @@ public class StoreController {
 	}
 
 	@GetMapping("/addStore")
-	public String addStore(Model model) {
+	public String addStore(Model model, HttpSession session, Store store) {
 		model.addAttribute("title", "업체 등록");
+		String sessionId = (String) session.getAttribute("SID");
+		System.out.println(sessionId);
+		store.setStoreId(sessionId);
+		String storeId = store.getStoreId();
+		model.addAttribute("storeId", storeId);
 		return "store/addStore";
 	}
 

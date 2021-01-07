@@ -4,13 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.CalcMapper">
 
+	<sql id="CalcCountColumn">
+		SELECT
+			COUNT(p.paymentRsvCode) AS paymentNumber
+		FROM
+			tbPayment as p
+		INNER JOIN
+			tbRsv AS r
+		ON
+			p.paymentRsvCode = r.rsvCode
+	</sql>
+	
 	<sql id="CalcWaitColumn">
 		SELECT
 			 p.paymentCode
 			,p.paymentRsvCode
 			,p.paymentRefund
 			,p.paymentUseMoney
+			,p.paymentUsePoint
 			,p.paymentState
+			,p.paymentStoreId
+			,r.rsvStartDateTime
 			,r.rsvEndDateTime
 			,r.rsvState
 		FROM
@@ -27,25 +41,65 @@
 	</select>
 	
 	<select id="getCalcWaitCount" parameterType="int" resultType="int">
+		<include refid="CalcCountColumn" />
+		WHERE
+			p.paymentState = 'N';
+	</select>
+	
+	<select id="getTodayCount" parameterType="String" resultType="int">
+		<include refid="CalcCountColumn" />
+		<![CDATA[
+		WHERE
+			r.rsvEndDateTime >= #{today}
+		AND
+			r.rsvEndDateTime < DATE_ADD(#{today},INTERVAL 1 day)
+		]]>
+	</select>
+	
+	<select id="getTodaySubtotal" parameterType="String" resultType="Map">
 		SELECT
-			COUNT(p.paymentRsvCode) AS paymentNumber
+			 ifnull(p.paymentCode, '총합계') as 'subtotal'
+			,p.paymentRsvCode
+			,sum(p.paymentRefund) as 'refundSubtotal'
+			,sum(p.paymentUseMoney) as 'moneySubtotal'
+			,sum(p.paymentUsePoint) as 'pointSubtotal'
+			,count(p.paymentState) as 'countSubtotal'
+			,p.paymentStoreId
+			,r.rsvStartDateTime
+			,r.rsvEndDateTime
+			,r.rsvState
 		FROM
 			tbPayment as p
 		INNER JOIN
 			tbRsv AS r
 		ON
 			p.paymentRsvCode = r.rsvCode
+		<![CDATA[
 		WHERE
-			p.paymentState = 'N';
+			r.rsvEndDateTime >= #{today}
+		AND
+			r.rsvEndDateTime < DATE_ADD(#{today},INTERVAL 1 day)
+		]]>
+		GROUP BY p.paymentCode WITH ROLLUP
+	</select>
+	
+	<select id="getTodayList" parameterType="String" resultType="Map">
+		<include refid="CalcWaitColumn" />
+		<![CDATA[
+		WHERE
+			r.rsvEndDateTime >= #{today} 
+		AND
+			r.rsvEndDateTime < DATE_ADD(#{today},INTERVAL 1 day)
+		]]>
 	</select>
 	
 	<select id="getCalcWaitByTerm" parameterType="int" resultType="Map">
 		<include refid="CalcWaitColumn" />
 		<![CDATA[
 		WHERE
-			r.rsvEndDateTime >= '2020-12-28'
+			r.rsvEndDateTime >= #{startDay}
 		AND
-			r.rsvEndDateTime < '2021-01-01'
+			r.rsvEndDateTime < #{startEndDay}
 		AND
 			p.paymentStatus = 'N'
 		]]>

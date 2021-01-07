@@ -246,10 +246,9 @@ margin-right: 20px;
 </th:block>
 	<th:block layout:fragment="customJs">
 	<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<script type="text/javascript">
+		<script type="text/javascript" th:inline="javascript">
 		
 //예약 폼 스타트
-		
 //다음, 이전버튼으로 예약폼 이동		
 		$('#prevBtn').click(function(){
 			location.href="/rsvInsertAdmin";
@@ -405,7 +404,8 @@ margin-right: 20px;
 						spaceJson["spaceRentalPrice"] = spaceRentalPrice;
 						spaceList.push(spaceJson);
 					});
-					
+					paramData["rsvStoreCode"] = [[${storeCode}]];
+					paramData["rsvState"] = "시간";
 					paramData["rsvUserName"] = $('#rsvUserName').val();
 					paramData["rsvUserPhone"] = $('#rsvUserPhone').val();
 					paramData["rsvUserEmail"] = $('#rsvUserEmail').val();

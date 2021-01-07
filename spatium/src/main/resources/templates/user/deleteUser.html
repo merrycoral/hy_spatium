@@ -4,7 +4,7 @@
 	layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
-
+	<form action="/deleteUser" method="post">
 
 	<div class="table-responsive m-t-20">
 		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
@@ -12,7 +12,6 @@
 				<tr>
 					<th scope="col">아이디</th>
 					<th scope="col">탈퇴사유</th>
-					<th scope="col">등록일자</th>
 					<th scope="col">탈퇴 구분</th>
 					<th scope="col">비밀번호</th>
 					<th scope="col">이름</th>
@@ -29,32 +28,30 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:if="${#lists.size(userList) > 0}" th:each="l : ${userList}">
-					<td th:text="${l.deleteUserId}"></td>
-					<td th:text="${l.deleteReason}"></td>
-					<td th:text="${l.deleteRegDate}"></td>
-					<td th:text="${l.deleteCate}"></td>
-					<td th:text="${l.deleteUserPw}"></td>
-					<td th:text="${l.deleteUserName}"></td>
-					<td th:text="${l.deleteUserBirth}"></td>
-					<td th:text="${l.deleteUserGender}"></td>
-					<td th:text="${l.deleteUserPhone}"></td>
-					<td th:text="${l.deleteUserJob}"></td>
-					<td th:text="${l.deleteUserLevel}"></td>
-					<td th:text="${l.deleteUserEmail}"></td>
-					<td th:text="${l.deleteUserRegDate}"></td>
-					<td th:text="${l.deleteUserPoint}"></td>
+				<tr th:if="${#lists.size(deleteUser) > 0}" th:each="d : ${deleteUser}">
+					<td th:text="${d.deleteUserId}"></td>
+					<td th:text="${d.deleteReason}"></td>
+					<td th:text="${d.deleteCate}"></td>
+					<td th:text="${d.deleteUserPw}"></td>
+					<td th:text="${d.deleteUserName}"></td>
+					<td th:text="${d.deleteUserBirth}"></td>
+					<td th:text="${d.deleteUserGender}"></td>
+					<td th:text="${d.deleteUserPhone}"></td>
+					<td th:text="${d.deleteUserJob}"></td>
+					<td th:text="${d.deleteUserLevel}"></td>
+					<td th:text="${d.deleteUserEmail}"></td>
+					<td th:text="${d.deleteUserRegDate}"></td>
+					<td th:text="${d.deleteUserPoint}"></td>
 
 					<td><button type="submit"><a
-						th:href="@{/modifyUser(deleteUserId=${l.deleteUserId})}">수정</a></button></td>
+						th:href="@{/modifyUser(deleteUserId=${d.deleteUserId})}">수정</a></button></td>
 					<td><button type="submit"><a
-						th:href="@{/removeUser(deleteUserId=${l.deleteUserId}, deleteUserLevel=${l.deleteUserLevel})}">삭제</a></button>
+						th:href="@{/removeUser(deleteUserId=${d.deleteUserId}, deleteUserLevel=${d.deleteUserLevel})}">삭제</a></button>
 					</td>
 				</tr>
-
 			</tbody>
 		</table>
-
 	</div>
+	</form>
 </th:block>
 </html>

@@ -23,10 +23,6 @@ public interface BoardMapper {
 	
 	public int postHitCnt(int boardIdx);
 	
-	public int postLikeCntUp(int boardIdx);
-	
-	public int postLikeCntDel(int boardIdx);
-
 	
 	public int removePost(int boardIdx);
 	

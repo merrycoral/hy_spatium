@@ -4,7 +4,56 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.UserMapper">
 	
+	<!--불량회원 리스트 -->
+	<select id="blackUser" resultType="User">
+		SELECT
+		 blackUserId
+		, blackReason
+		, blackStartDate
+		, blackEndDate
+		FROM
+			tbBlackConsumer;
+	</select>
 	
+	<!--탈퇴회원 리스트 -->
+	<select id="deleteUser" resultType="User">
+		SELECT
+		 deleteUserId
+		, deleteReason
+		, deleteCate
+		, deleteUserPw
+		, deleteUserName
+		, deleteUserBirth
+		, deleteUserGender
+		, deleteUserPhone
+		, deleteUserJob
+		, deleteUserLevel
+		, deleteUserEmail
+		, deleteUserRegDate
+		, deleteUserPoint
+		FROM
+			tbDeleteUser;
+	</select>
+	
+	<!--탈퇴회원 등록  -->
+	<insert id="addDeleteUser">
+		INSERT INTO tbUser
+		(deleteUserId, deleteReason, deleteCate, deleteUserPw, deleteUserName, deleteUserBirth, deleteUserGender, deleteUserPhone, deleteUserJob, deleteUserLevel, deleteUserEmail, deleteUserRegDate, deleteUserPoint)
+		VALUES (
+		#{deleteUserId}
+		,#{deleteCate}
+		,#{deleteUserPw}
+		,#{deleteUserName}
+		,#{deleteUserBirth}
+		,#{deleteUserGender}
+		,#{deleteUserPhone}
+		,#{deleteUserJob}
+		,#{deleteUserLevel}
+		,#{deleteUserEmail}
+		,#{deleteUserJob};
+		,NOW()
+		,#{deleteUserPoint});
+	</insert>
 	
 	<!--회원탈퇴 -->
 	<delete id="removeMyinfo">
@@ -32,13 +81,22 @@
 	</update>
 
 	<!--회원삭제 -->
-	<delete id="removeUser">
-		DELETE
-		FROM
+	<update id="removeUser">
+		UPDATE
 		tbUser
+		SET
+		  userPw = '(탈퇴)'
+		, userName = '(탈퇴)'
+		, userBirth	= '(탈퇴)'
+		, userGender = '(탈퇴)'
+		, userPhone = '(탈퇴)'
+		, userJob = '(탈퇴)'
+		, userLevel = '5'
+		, userEmail = '(탈퇴)'
+		, userPoint = '(탈퇴)'
 		WHERE
 		userId=#{userId}; 
-	</delete>
+	</update>
 
 	<!--회원수정 -->
 	<update id="modifyUser" >
@@ -89,7 +147,7 @@
 
 
 	<!--로그인 -->
-	<select id="login" parameterType="String" resultType="User">
+	<select id="getUserById" parameterType="String" resultType="User">
 		SELECT
 		*
 		FROM

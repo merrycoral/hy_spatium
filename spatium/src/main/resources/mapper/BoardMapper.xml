@@ -19,8 +19,8 @@
 						<when test="'boardTitle'.equals(searchType)">
 							AND boardTitle LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
-						<when test="'boardContent'.equals(searchType)">
-							AND boardContent LIKE CONCAT('%', #{searchKeyword}, '%')
+						<when test="'boardContents'.equals(searchType)">
+							AND boardContents LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
 						<when test="'boardAddId'.equals(searchType)">
 							AND boardAddId LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -32,7 +32,7 @@
 					AND
 						(
 							   boardTitle LIKE CONCAT('%', #{searchKeyword}, '%')
-							OR boardContent LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR boardContents LIKE CONCAT('%', #{searchKeyword}, '%')
 							OR boardAddId LIKE CONCAT('%', #{searchKeyword}, '%')
 						)
 				</otherwise>
@@ -46,6 +46,7 @@
 			,boardAddId
 			,boardCateName
 			,boardTitle
+			,boardContents
 			,boardLikeCnt
 			,boardHitCnt
 			,boardAddDate
@@ -62,6 +63,7 @@
 			boardDeclaration = 'N'
 				AND
 			boardBlind = 'N'
+		<include refid="searchColumn" />
 		ORDER BY boardIdx DESC
 		LIMIT
 			#{paginationInfo.firstRecordIndex}, #{recordsPerPage}
@@ -72,7 +74,11 @@
 			COUNT(*)
 		FROM
 			tbBoard
-	
+		WHERE
+			boardDeclaration = 'N'
+				AND
+			boardBlind = 'N'
+		<include refid="searchColumn" />
 	</select>
 	
 
@@ -161,22 +167,8 @@
 		WHERE
 			boardIdx = #{boardIdx};
 	</update>
+
 	
-	 <update id="postLikeCntUp" parameterType="int">
-		UPDATE tbBoard
-		SET
-			  boardLikeCnt = boardLikeCnt+1
-		WHERE
-			boardIdx = #{boardIdx};
-	</update>
-	
-	 <update id="postLikeCntDel" parameterType="int">
-		UPDATE tbBoard
-		SET
-			  boardLikeCnt = boardLikeCnt+1
-		WHERE
-			boardIdx = #{boardIdx};
-	</update>
 	
 	
 	
