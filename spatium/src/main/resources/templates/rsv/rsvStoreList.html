@@ -9,7 +9,7 @@
 
 <th:block layout:fragment="customContent">
 
-	<h2>업체 목록</h2>
+	<h2>예약할 업체를 선택해주세요</h2>
 	<div class="x_content">
 		<table id="rsvStoreTb"
 			class="table table-striped jambo_table bulk_action dataTable no-footer">
@@ -17,7 +17,10 @@
 				<tr role="row">
 					<th class="sorting" tabindex="0" aria-controls="datatable"
 						aria-label="Position: activate to sort column ascending"
-						style="width: 100px; text-align: center;">업자id</th>
+						style="width: 100px; text-align: center;">업체 번호</th>
+					<th class="sorting" tabindex="0" aria-controls="datatable"
+						aria-label="Position: activate to sort column ascending"
+						style="width: 100px; text-align: center;">업체예약타입</th>
 					<th class="sorting" tabindex="0" aria-controls="datatable"
 						aria-label="Office: activate to sort column ascending"
 						style="width: 85px; text-align: center;">상호명</th>
@@ -36,8 +39,9 @@
 
 			<tbody>
 				<th:block th:each="s : ${storeList}">
-					<tr th:onclick="'location.href=\'' + @{/rsvInsertAdmin}(storeCode=${s.storeCode})} + '\';'">
-						<td style="text-align: center;" th:text="${s.storeId}"></td>
+					<tr class="storeTr">
+						<td style="text-align: center;" th:text="${s.storeCode}"></td>
+						<td style="text-align: center;" th:text="${s.storeRsvType}"></td>
 						<td style="text-align: center;" th:text="${s.storeName}"></td>
 						<td style="text-align: center;" th:text="${s.storeRepresentative}"></td>
 						<td style="text-align: center;" th:text="${s.storeAddress}"></td>
@@ -51,6 +55,19 @@
 </th:block>
 <th:block layout:fragment="customJs">
 	<script type="text/javascript">
+		$('#rsvStoreTb').find('.storeTr').click(function(){
+			var code = $(this).children().first().text();
+			var type = $(this).children().eq(1).text();
+			console.log(type);
+			if("시간"==type){
+				location.href="/rsvInsertAdmin?storeCode="+code;
+			}else if("일"==type){
+				location.href="/rsvInsertDayAdmin?storeCode="+code;
+			}
+		})
+	//th:onclick="location.href=\'' + @{/rsvInsertAdmin}(storeCode=${s.storeCode})} + '\';"
+	
+	
 		$("#rsvStoreTb").DataTable({
 			order : [ [ 0, "desc" ] ],
 			ordering : true,
