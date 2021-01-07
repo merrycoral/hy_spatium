@@ -1,9 +1,5 @@
 package com.urban.spatium.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -85,12 +81,16 @@ public class RsvService {
 			}
 		}
 		
+		//예약한거 가격 설정
 		rsv.setRsvTotalPrice(totalPrice);
 		System.out.println("총 시간당 예약 가격 --> "+totalPrice);
-		
-		//총 예약 가격은 시간당 예약가격 x 예약 시간
-		totalPrice = totalPrice*(rsvTime);
-		rsvMapper.updateRsvPrice(rsvCode, totalPrice);
+		if("시간".equals(rsv.getRsvState())) {
+			//총 예약 가격은 시간당 예약가격 x 예약 시간
+			totalPrice = totalPrice*(rsvTime);
+			rsvMapper.updateRsvPrice(rsvCode, totalPrice);
+		}else if("일".equals(rsv.getRsvState())) {
+			rsvMapper.updateRsvDayPrice(rsvCode, totalPrice);
+		}
 	}
 
 	public List<Rsv> rsvList() {
