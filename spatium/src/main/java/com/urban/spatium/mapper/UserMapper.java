@@ -9,7 +9,14 @@ import com.urban.spatium.dto.User;
 @Mapper
 public interface UserMapper {
 	
+	//불량회원 리스트
+	public List<User> blackUser(); 
 	
+	//탈퇴회원 리스트
+	public List<User> deleteUser(); 
+	
+	//탈퇴회원 등록
+	public int addDeleteUser(User user);
 	
 	//회원탈퇴
 	int removeMyinfo(String userId, String userLevel);
@@ -23,7 +30,7 @@ public interface UserMapper {
 	//회원수정
 	int modifyUser(User user);
 	
-	//회원리스트
+	//회원 리스트
 	 public List<User> getUserList(); 
 		
 	//로그인

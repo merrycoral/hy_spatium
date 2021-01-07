@@ -17,30 +17,51 @@ public class UserService {
 	@Autowired 
 	private UserMapper userMapper;
 	
-
-	//회원탈퇴
-		public String removeMyinfo(String userId, String userPw, String userLevel) {
-			String result = "회원 삭제 실패";
-
-			User user = userMapper.getUserById(userId);
-			
-			if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
-				int removeCheck = userMapper.removeMyinfo(userId, userLevel);
-				if(removeCheck > 0) result = "회원 삭제 성공";
-			}
-			return result;
+	//불량회원 리스트
+	public List<User> blackUser(){
+		List<User> blackUser = userMapper.blackUser(); 
+		return blackUser; 
+	}
+	
+	//탈퇴회원 리스트
+	 public List<User> deleteUser(){
+	 List<User> deleteUser = userMapper.deleteUser(); 
+	  	return deleteUser; 
+	 }
+	
+	//탈퇴회원 등록
+	public String addDeleteUser(User user) {
+		String insertCheck = "탈퇴회원 등록 실패";
+		if(user != null) {
+			int result = userMapper.addDeleteUser(user);
+			if(result > 0) insertCheck = "탈퇴회원 등록 성공";
 		}
+		return insertCheck;
+	}
+	
+	//회원탈퇴
+	public String removeMyinfo(String userId, String userPw, String userLevel) {
+		String result = "회원 삭제 실패";
+
+		User user = userMapper.getUserById(userId);
+			
+		if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
+			int removeCheck = userMapper.removeMyinfo(userId, userLevel);
+			if(removeCheck > 0) result = "회원 삭제 성공";
+		}
+		return result;
+	}
 	
 	//회원정보수정
-		public String myInfo(User user) {
-			String result = "회원정보수정 실패";
+	public String myInfo(User user) {
+		String result = "회원정보수정 실패";
 			
-			int myInfoCheck = userMapper.myInfo(user);
+		int myInfoCheck = userMapper.myInfo(user);
 			
-			if(myInfoCheck > 0) result = "회원정보수정 성공";
+		if(myInfoCheck > 0) result = "회원정보수정 성공";
 			
-			return result;
-		}
+		return result;
+	}
 	
 	//회원삭제
 	public String removeUser(String userId, String userPw, String userLevel) {
@@ -70,7 +91,7 @@ public class UserService {
 	  public List<User> getUserList(){
 	  List<User> userList = userMapper.getUserList(); 
 	  	return userList; 
-	  }
+	 }
 	 
 		
 	//로그인
