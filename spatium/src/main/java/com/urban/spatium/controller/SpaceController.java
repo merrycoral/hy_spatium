@@ -1,6 +1,5 @@
 package com.urban.spatium.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -43,6 +42,17 @@ public class SpaceController {
 		model.addAttribute("storeBusiness", array);
 		
 		return "space/addSpace";
+	}
+	
+	@GetMapping("/addSpaceChoice")
+	public String addSpaceChoice(Model model, HttpSession session, Store store) {
+		model.addAttribute("title", "공간 등록");
+		String storeId = (String) session.getAttribute("SID");
+		store.setStoreId(storeId);
+		List<Store> spaceChoice = spaceService.addSpaceChoice(storeId);
+		model.addAttribute("spaceChoice", spaceChoice);
+		
+		return "space/addSpaceChoice";
 	}
 	
 	@GetMapping("/spaceListReady")
