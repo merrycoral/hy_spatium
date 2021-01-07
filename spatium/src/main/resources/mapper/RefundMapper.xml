@@ -93,7 +93,7 @@
 	</insert>
 	
 	
-	<insert id="addRefundPolicy" parameterType="java.util.Map">	
+	<insert id="addRefundPolicy" parameterType="Store">	
      INSERT INTO tbRefundPolicy	
 		( refundPolicyStoreCode	
 		, remainingDay	
@@ -101,15 +101,13 @@
 		, refundPolicyUserId	
 		, refundPolicyRegDate)	
       VALUES	
-       <foreach collection="list" item="i" separator=" , "> 	
        (	
-        #{i.refundPolicyStoreCode}	
-      , #{i.remainingDay}	
-      , #{i.refundPercent}	
-      , #{i.refundPolicyUserId}	
+        #{storeCode}	
+      , #{remainingDays}	
+      , #{refundPercents}	
+      , #{storeId}	
       , NOW()	
       )	
-      </foreach>	
    </insert>	
    <select id="getRefundPolicy" parameterType="int" resultType="RefundPolicy">
    		SELECT 

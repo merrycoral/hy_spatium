@@ -12,6 +12,7 @@ import com.urban.spatium.dto.Payment;
 import com.urban.spatium.dto.Point;
 import com.urban.spatium.dto.RefundPolicy;
 import com.urban.spatium.dto.Rsv;
+import com.urban.spatium.dto.Store;
 import com.urban.spatium.mapper.PaymentMapper;
 import com.urban.spatium.mapper.RefundMapper;
 
@@ -56,7 +57,7 @@ public class RefundService {
 	public String addRefundPolicy(Map<String, Object> rePolicyMap) {
 		System.out.println("서비스체크");
 		String result = "환불정책 등록 실패";
-		if(refundMapper.addRefundPolicy(rePolicyMap)>0) {
+		if(refundMapper.addRefundPolicy((Store) rePolicyMap)>0) {
 			result = "환불정책 등록 성공";
 		}
 		return result;	
