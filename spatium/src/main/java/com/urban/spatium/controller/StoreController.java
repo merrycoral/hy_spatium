@@ -58,7 +58,7 @@ public class StoreController {
 	}
 	
 	@PostMapping("/addSpace")
-	public String addStore(Model model, Store store) {
+	public String addStore(Model model, Store store , RefundPolicy refundPolicy) {
 		System.out.println(store);
 		
 		int checkStore = store.getStoreCode();
@@ -115,7 +115,7 @@ public class StoreController {
 		
 		model.addAttribute("storeBusiness", array);
 		System.out.println("===============end store================");
-		String result = storeService.addStore(store, tMap);
+		String result = storeService.addStore(store, tMap, refundPolicy);
 		System.out.println("================start result===============");
 		System.out.println(result);
 		System.out.println("================end result===============");

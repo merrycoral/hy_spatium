@@ -10,8 +10,7 @@ public class CancelRsv {
 	private String cancelReason;
 	private int cancelRefundPolicyCode;
 	private int cancelPrice;
-	private int tbRefundPolicyRelationStoreCode;
-	private int tbRefundPolicyRelationRefundPolicyCode;
+	
 	
 	
 	public int getCancelRefundPolicyCode() {
@@ -20,18 +19,7 @@ public class CancelRsv {
 	public void setCancelRefundPolicyCode(int cancelRefundPolicyCode) {
 		this.cancelRefundPolicyCode = cancelRefundPolicyCode;
 	}
-	public int getTbRefundPolicyRelationStoreCode() {
-		return tbRefundPolicyRelationStoreCode;
-	}
-	public void setTbRefundPolicyRelationStoreCode(int tbRefundPolicyRelationStoreCode) {
-		this.tbRefundPolicyRelationStoreCode = tbRefundPolicyRelationStoreCode;
-	}
-	public int getTbRefundPolicyRelationRefundPolicyCode() {
-		return tbRefundPolicyRelationRefundPolicyCode;
-	}
-	public void setTbRefundPolicyRelationRefundPolicyCode(int tbRefundPolicyRelationRefundPolicyCode) {
-		this.tbRefundPolicyRelationRefundPolicyCode = tbRefundPolicyRelationRefundPolicyCode;
-	}
+	
 	public int getCancelPrice() {
 		return cancelPrice;
 	}
@@ -107,10 +95,6 @@ public class CancelRsv {
 		builder.append(cancelRefundPolicyCode);
 		builder.append(", cancelPrice=");
 		builder.append(cancelPrice);
-		builder.append(", tbRefundPolicyRelationStoreCode=");
-		builder.append(tbRefundPolicyRelationStoreCode);
-		builder.append(", tbRefundPolicyRelationRefundPolicyCode=");
-		builder.append(tbRefundPolicyRelationRefundPolicyCode);
 		builder.append("]");
 		return builder.toString();
 	}
