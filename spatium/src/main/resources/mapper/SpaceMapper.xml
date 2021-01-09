@@ -38,7 +38,7 @@ SELECT
 FROM 
 	tbStore
 WHERE
-	storeId = #{okId}
+	storeCode = #{storeCode}
 
 </select>
 

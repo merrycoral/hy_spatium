@@ -25,9 +25,10 @@ public class SpaceService {
 		return spaceChoiceList;
 	}
 	
-	public String addSpace(String okId){
-	
-		String okSpaceCate = spaceMapper.addSpace(okId);
+	public String addSpace(String storeCode){
+		
+		
+		String okSpaceCate = spaceMapper.addSpace(storeCode);
 		
 		return okSpaceCate;
 		

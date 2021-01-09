@@ -13,7 +13,7 @@ public interface SpaceMapper {
 	
 	public List<Store> addSpaceChoice(String storeId);
 	
-	public String addSpace(String okId);
+	public String addSpace(String storeCode);
 	
 	public int addReadySpace(ReadySpace readySpace);
 	

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.urban.spatium.dto.OKSpace;
 import com.urban.spatium.dto.ReadySpace;
@@ -30,13 +31,14 @@ public class SpaceController {
 	}
 	
 	@GetMapping("/addSpace")
-	public String addSpace(Model model, HttpSession session, Store store) {
+	public String addSpace(Model model, HttpSession session, Store store, String storeCode) {
+		System.out.println(storeCode + "spacecontroller에서 받은 스토어 코드 값");
 		model.addAttribute("title", "공간 등록");
 		String storeId = (String) session.getAttribute("SID");
 		store.setStoreId(storeId);
 		String okId = store.getStoreId();
 		System.out.println(okId + "스페이스 컨트롤러에서 받은 okId");
-		String spaceCateList = spaceService.addSpace(okId);
+		String spaceCateList = spaceService.addSpace(storeCode);
 		System.out.println(spaceCateList);
 		String[] array = spaceCateList.split(",");
 		model.addAttribute("storeBusiness", array);
