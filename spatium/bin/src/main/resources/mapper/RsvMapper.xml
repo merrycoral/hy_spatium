@@ -4,24 +4,83 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.RsvMapper">
 	
-<<<<<<< HEAD
-=======
+	<delete id="cancelRsvDetail" parameterType="int">
+		DELETE
+		FROM tbRsvDetail
+		WHERE 
+		<foreach item="rsvDList" index="index" collection="rsvDetailList" open="(" separator=" or " close=")">
+		rsvDetailCode = #{rsvDList}
+	  	</foreach>
+	</delete>
+	
+	<delete id="cancelRsv" parameterType="int">
+		DELETE
+		FROM tbRsv
+		WHERE rsvCode = #{rsvCode}
+	</delete>
+	
+	<delete id="cancelRsvRelation" parameterType="int">
+		DELETE
+		FROM tbRsvRelation
+		WHERE rsvRelationRsvCode = #{rsvCode}
+	</delete>
+	
+	<select id="getRsvDetailCodeByRsvCode" parameterType="int" resultType="String">
+		SELECT rsvRelationRsvDetailCode
+		FROM tbRsvRelation
+		WHERE rsvRelationRsvCode = #{rsvCode}
+	</select>
+	
+	<select id="getExItemRsv" parameterType="Rsv" resultType="Rsv">
+		<![CDATA[
+		SELECT sum(rsvDetailNum) as rsvDetailNum
+			, itemCode, rsvStartDateTime
+			, rsvEndDateTime 
+		FROM
+				(SELECT  
+				  sum(rsvDetailNum) as rsvDetailNum
+				, itemCode, rsvStartDateTime
+				, rsvEndDateTime 
+			FROM 
+				viewRsv
+			GROUP by
+				itemCode, rsvStartDateTime, rsvEndDateTime 
+			having 
+				rsvEndDateTime > #{rsvStartDateTime} 
+				AND
+				rsvStartDateTime < #{rsvEndDateTime} ) as t
+		GROUP BY 
+			itemCode
+		HAVING 
+			itemCode
+		ORDER BY 
+			itemCode;
+		]]>
+	</select>
+		
 	<select id="getExRsv" parameterType="Rsv" resultType="Rsv">
 		SELECT rsvCode, rsvDetailCode, okaySpaceName, itemTotalName, rsvStartDateTime, rsvEndDateTime
 		FROM viewRsv
-		WHERE
-		<foreach item="s" index="index" collection="spaceList" open="(" separator=" or " close=")">
+		WHERE 1=0
+		<foreach item="s" index="index" collection="spaceList" open="or (" separator=" or " close=")">
         okaySpaceCode = #{s.spaceCode}
 	  	</foreach>
 		and
         date(rsvStartDateTime) = #{rsvDate}
 	</select>	
 	
->>>>>>> branch 'develop' of https://github.com/atomkh/spatium.git
 	<update id="updateRsvPrice">
 		UPDATE tbRsv
 		SET
 			rsvTotalPrice=#{totalPrice}
+		WHERE 
+			rsvCode=#{rsvCode}
+	</update>
+	
+	<update id="updateRsvDayPrice">
+		UPDATE tbRsv
+		SET
+			rsvTotalPrice=#{totalPrice}*timestampdiff(day, rsvStartDateTime, rsvEndDateTime)
 		WHERE 
 			rsvCode=#{rsvCode}
 	</update>
@@ -66,9 +125,7 @@
 			, storeTotalCode
 			, itemTotalName
 			, itemTotalAmount
-			, itemRentalAmount
 			, itemRentalPrice
-			, itemRentalDeposit
 			, itemImg
 			, itemRegDate
 			, itemChangeRegDate
@@ -92,7 +149,6 @@
 			, okaySpaceRentalPrice
 			, okayStartTime
 			, okayCloseTime
-			, okaySpaceRsvType
 			, okayExceptionStartDate
 			, okayExceptionEndDate
 			, okayCompletedDate
@@ -111,9 +167,7 @@
 			, storeTotalCode
 			, itemTotalName
 			, itemTotalAmount
-			, itemRentalAmount
 			, itemRentalPrice
-			, itemRentalDeposit
 			, itemImg
 			, itemRegDate
 			, itemChangeRegDate
@@ -138,7 +192,6 @@
 			, okaySpaceRentalPrice
 			, okayStartTime
 			, okayCloseTime
-			, okaySpaceRsvType
 			, okayExceptionStartDate
 			, okayExceptionEndDate
 			, okayCompletedDate
@@ -167,8 +220,12 @@
 			, rsvTime
 			, rsvTimePrice
 			, rsvDetailCode
+			, rsvStartDateTime
+			, rsvEndDateTime
 		FROM 
 			viewRsv
+		ORDER BY
+			rsvCode DESC
 	</select>
 		
 	<select id="rsvListExtend" resultType="Rsv">
@@ -204,6 +261,8 @@
 			, rsvState
 		FROM 
 			tbRsv
+		ORDER BY
+			rsvCode DESC
 	</select>
 	
 	<insert id="insertTbRsv" parameterType="Rsv" useGeneratedKeys="true" keyProperty="rsvCode">
@@ -217,6 +276,7 @@
 			, rsvStartDateTime
 			, rsvEndDateTime
 			, rsvRegDate
+			, rsvStoreCode
 		)VALUES(
 			  #{rsvUserId}
 			, #{rsvUserName}
@@ -227,6 +287,7 @@
 			, #{rsvStartDateTime}
 			, #{rsvEndDateTime}
 			, NOW()
+			, #{rsvStoreCode}
 		);
 	</insert>
 	

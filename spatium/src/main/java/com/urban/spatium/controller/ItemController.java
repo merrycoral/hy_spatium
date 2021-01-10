@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.urban.spatium.dto.Item;
+import com.urban.spatium.mapper.ItemMapper;
 import com.urban.spatium.service.ItemService;
 
 @Controller
@@ -16,7 +17,8 @@ public class ItemController {
 	
 	@Autowired
 	private ItemService itemService;
-	private ItemService itemMapper;
+	@Autowired
+	private ItemMapper itemMapper;
 	
 	
 	//장비구입내역삭제
@@ -50,7 +52,7 @@ public class ItemController {
 	//장비구입내역 수정
 	@PostMapping("/modifyitemBuy")
 	public String modifyitemBuy(Item item) {
-		System.out.println("상품 수정화면에서 입력 받은 값->"+ item);
+		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
 		
 		String result = itemService.modifyitemBuy(item);
 		System.out.println(item.getItemBuyCode() + " : " + result);

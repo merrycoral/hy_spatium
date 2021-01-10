@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.ItemMapper">
+
+	<!--장비구입내역 삭제 -->
+	<delete id="removeitemBuy">
+		DELETE
+		FROM
+		tbItemBuyList
+		WHERE
+		itemBuyCode = #{itemBuyCode}; 
+	</delete>
+	
+	<!--장비구입내역 수정 -->
+	<update id="modifyitemBuy" >
+		UPDATE
+		tbItemBuyList
+		SET 
+		  storeBuyCode = #{storeBuyCode}
+		, storeBuyItemCode = #{storeBuyItemCode}
+		, userBuyId	= #{userBuyId}
+		, itemBuyPrice = #{itemBuyPrice}
+		, itemBuyAccount = #{itemBuyAccount}
+		, itemBuyPhone = #{itemBuyPhone}
+		, itemBuyRegDate = #{itemBuyRegDate}
+		WHERE
+			itemBuyCode = #{itemBuyCode};     
+	</update>
+	
+	<!--장비구입내역 -->
+	<select id = "itemBuyList" resultType="Item">
+		SELECT 
+			itemBuyCode
+			, storeBuyCode
+			, storeBuyItemCode
+			, userBuyId
+			, itemBuyPrice
+			, itemBuyAccount
+			, itemBuyPhone
+			, itemBuyRegDate
+		FROM
+			tbItemBuyList;
+	</select>
+
+	<!--장비수리내역 삭제 -->
+	<delete id="removeitemRepair">
+		DELETE
+		FROM
+		tbItemRepair
+		WHERE
+		itemRepairCode = #{itemRepairCode}; 
+	</delete>
+	
+	<!--장비수리내역 수정 -->
+	<update id="modifyitemRepair" >
+		UPDATE
+		tbItemRepair
+		SET 
+		  storeRepairCode = #{storeRepairCode}
+		, storeItemRepairCode = #{storeItemRepairCode}
+		, userRepairId	= #{userRepairId}
+		, itemRepairPrice = #{itemRepairPrice}
+		, itemRepairRegDate = #{itemRepairRegDate}
+		, itemRepairEndDate = #{itemRepairEndDate}
+		, itemRepairName = #{itemRepairName}
+		, itemRepairCompany = #{itemRepairCompany}
+		, itemRepairCompanyPhone = #{itemRepairCompanyPhone}
+		WHERE
+			itemRepairCode = #{itemRepairCode};     
+	</update>
+	
+	<!--장비수리내역 -->
+	<select id = "itemRepairList" resultType="Item">
+		SELECT 
+			itemRepairCode
+			, storeRepairCode
+			, storeItemRepairCode
+			, userRepairId
+			, itemRepairPrice
+			, itemRepairRegDate
+			, itemRepairEndDate
+			, itemRepairName
+			, itemRepairCompany
+			, itemRepairCompanyPhone
+		FROM
+			tbItemRepair;
+	</select>
+	
+	<!--장비파기내역 삭제 -->
+	<delete id="removeitemDelete">
+		DELETE
+		FROM
+		tbItemDeleteList
+		WHERE
+		itemDeleteCode = #{itemDeleteCode}; 
+	</delete>
+	
+	<!--장비파기내역 수정 -->
+	<update id="modifyitemDelete" >
+		UPDATE
+		itemDeleteCode
+		SET 
+		  storeDeleteCode = #{storeDeleteCode}
+		, storeItemDeleteCode = #{storeItemDeleteCode}
+		, userDeleteId	= #{userDeleteId}
+		, itemDeleteReason = #{itemDeleteReason}
+		, itemDeleteReason = #{itemDeleteReason}
+		, itemDeleteRegDate = #{itemDeleteRegDate}
+		WHERE
+			itemDeleteCode = #{itemDeleteCode};     
+	</update>
+	
+	<!--장비파기내역 -->
+	<select id = "itemDeleteList" resultType="Item">
+		SELECT 
+			itemDeleteCode
+			, storeDeleteCode
+			, storeItemDeleteCode
+			, userDeleteId
+			, itemDeleteReason
+			, itemDeleteRegDate
+		FROM
+			tbItemDeleteList;
+	</select>
+
+
+	<select id = "itemCountListByStoreCode" parameterType="int" resultType="Item">
+	
+	SELECT
+		 itemCode
+		 , storeTotalCode
+		 , itemTotalName
+		 , itemTotalAmount
+		 , itemRentalPrice
+		 , itemImg
+		 , itemRegDate
+		 , itemChangeRegDate
+		 , itemTotalUserId
+	FROM 
+		tbItemTotalAmount
+	WHERE
+		storeTotalCode = #{storeCode}
+	
+	</select>
+	
+	<select id = "itemCountList" resultType="Item">
+	
+	SELECT
+		 itemCode
+		 , storeTotalCode
+		 , itemTotalName
+		 , itemTotalAmount
+		 , itemRentalPrice
+		 , itemImg
+		 , itemRegDate
+		 , itemChangeRegDate
+		 , itemTotalUserId
+	FROM 
+		tbItemTotalAmount
+	
+	</select>
+
+	<select id = "itemList" resultType="Item">
+		
+		SELECT 
+			storeItemCode
+			, itemDetailCode
+			, storeDetailCode
+			, itemName
+			, itemDetail
+			, itemStatus
+			, itemRentalStatus
+			, itemImg
+			, itemRegDate
+			, itemChangeRegDate
+			, itemDetailUserId
+		FROM
+			tbItemDetail
+		
+	</select>
+
+	<insert id = "addItem" parameterType="Item">
+		
+		INSERT INTO tbItemDetail
+			(storeItemCode
+			, itemDetailCode
+			, storeDetailCode
+			, itemName
+			, itemCategory
+			, itemDetail
+			, itemStatus
+			, itemRentalStatus
+			, itemImg
+			, itemRegDate
+			, itemChangeRegDate
+			, itemDetailUserId)
+		VALUES 
+			(NULL
+			, #{itemDetailCode}
+			, 5
+			, #{itemName}
+			, #{itemCategory}
+			, #{itemDetail}
+			, #{itemStatus}
+			, #{itemRentalStatus}
+			, #{itemImg}
+			, NOW()
+			, NOW()
+			, 'id001')
+		
+	</insert>
+
+</mapper>

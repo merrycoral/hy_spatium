@@ -2,6 +2,81 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.SpaceMapper">
 
+<select id="addSpaceChoice" resultType="Store" parameterType="String">
+
+SELECT 
+	storeCode
+	, storeId
+	, storeName
+	, storeRepresentative
+	, storeNumber
+	, storeBusinessType
+	, storeAddressNumber
+	, storeAddress
+	, storeAddressDetail
+	, storeIntroduction
+	, storeRsvType
+	, storeEmail
+	, storePhone
+	, storeAccountBankName
+	, storeAccountNumber
+	, storeRefundRull
+	, storeImage
+	, storeLevel
+	, storeRegDate
+FROM 
+	tbStore
+WHERE
+	storeId = #{storeId};
+
+</select>
+
+<select id = "addSpace" resultType="String" parameterType="String">
+
+SELECT 
+	storeBusinessType
+FROM 
+	tbStore
+WHERE
+	storeId = #{okId}
+
+</select>
+
+<insert id = "addReadySpace">
+
+	INSERT INTO tbReadySpace
+	( readyStoreCode
+	, readySpaceName
+	, readySpaceType
+	, readyPeopleNumber
+	, readyBriefSpace
+	, readyDetailSpace
+	, readySpaceTag
+	, readyRentalPrice
+	, readyStartTime
+	, readyCloseTime
+	, readyExceptionStartDate
+	, readyExceptionEndDate
+	, readySpaceBasicOption
+	, readyRequestDate)
+VALUES 
+	( 5
+	, #{readySpaceName}
+	, 1
+	, #{readyPeopleNumber}
+	, #{readyBriefSpace}
+	, #{readyDetailSpace}
+	, #{readySpaceTag}
+	, #{readyRentalPrice}
+	, #{readyStartTime}
+	, #{readyCloseTime}
+	, #{readyExceptionStartDate}
+	, #{readyExceptionEndDate}
+	, #{readySpaceBasicOption}
+	, NOW())
+	
+</insert>
+
 <select id = "readySpaceList" resultType="ReadySpace">
 
 SELECT
@@ -16,7 +91,6 @@ SELECT
 	, readyRentalPrice
 	, readyStartTime
 	, readyCloseTime
-	, readySpaceRsvType
 	, readyExceptionStartDate
 	, readyExceptionEndDate
 	, readySpaceBasicOption
@@ -40,7 +114,6 @@ SELECT
 	, okaySpaceRentalPrice
 	, okayStartTime
 	, okayCloseTime
-	, okaySpaceRsvType
 	, okayExceptionStartDate
 	, okayExceptionEndDate
 	, okayCompletedDate
@@ -48,6 +121,33 @@ SELECT
 	, okaySpaceId
 FROM 
 	tbOkaySpace
+	
+</select>
+
+
+<select id = "OKSpaceListByStoreCode" resultType="OKSpace">
+
+SELECT
+	okaySpaceCode
+	, okayStoreCode
+	, okaySpaceName
+	, okaySpaceType
+	, okayPeopleNumber
+	, okayDetailSpace
+	, okayBriefSpace
+	, okaySpaceTag
+	, okaySpaceRentalPrice
+	, okayStartTime
+	, okayCloseTime
+	, okayExceptionStartDate
+	, okayExceptionEndDate
+	, okayCompletedDate
+	, okaySpaceBasicOption
+	, okaySpaceId
+FROM 
+	tbOkaySpace
+WHERE
+	okayStoreCode = #{storeCode}
 	
 </select>
 

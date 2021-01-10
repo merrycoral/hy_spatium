@@ -1,66 +1,96 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="@{layout/default}">
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
 
 
 <th:block layout:fragment="customContent">
-	<form th:action="@{/login}" name="login" method="post">
+   <form th:action="@{/login}" name="loginForm" method="post" >
 
-		<div class="col-lg-5">
-			<div class="card shadow-lg border-0 rounded-lg mt-5">
-				<div class="card-header justify-content-center">
-					<h3 class="font-weight-light my-4">로그인</h3>
-				</div>
-				<div class="card-body">
-					<form class="ng-untouched ng-pristine ng-invalid">
-						<div class="form-group">
-							<label for="inputEmailAddress"
-								class="small mb-1"></label><input id="inputUserid" data-cy="useridInput" type="userid"
-								name="UserId" placeholder="아이디" aria-describedby="useridHelp"
-								formcontrolname="userid"
-								class="form-control py-4 ng-untouched ng-pristine ng-invalid">
-							<div class="invalid-feedback">
-								required.</div>
-							<!---->
-							<!---->
-						</div>
-						<div class="form-group">
-							<label for="inputPassword"
-								class="small mb-1"></label><input 
-								id="inputPassword" data-cy="passwordInput" type="password"
-								name="UserPw" placeholder="비밀번호" formcontrolname="password"
-								class="form-control py-4 ng-untouched ng-pristine ng-invalid">
-							<div class="invalid-feedback">
-								required.</div>
-							<!---->
-							<!---->
-						</div>
-						<div class="form-group">
-							<div class="custom-control custom-checkbox">
-								<input id="rememberPasswordCheck"
-									data-cy="rememberPasswordCheck" type="checkbox"
-									formcontrolname="checkbox"
-									class="custom-control-input ng-untouched ng-pristine ng-valid"><label
-									for="rememberPasswordCheck"
-									class="custom-control-label">비밀번호 기억하기</label>
-							</div>
-						</div>
-						<div
-							class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-							<a class="middle" href="/findPw">비밀번호 찾기</a>
-							<button data-cy="loginButton"
-								type="submit" class="btn btn-primary">로그인</button>
-						</div>
-					</form>
-				</div>
-				<div class="card-footer text-center">
-					<div class="middle">
-						<a href="/addUser">회원가입</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
+      <div class="col-lg-5">
+         <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header justify-content-center">
+               <h3 class="font-weight-light my-4">로그인</h3>
+            </div>
+            <div class="card-body">
+                  <div class="form-group">
+                     <label for="inputEmailAddress"
+                        class="small mb-1"></label><input id="userId" data-cy="useridInput" type="text"
+                        name="userId" placeholder="아이디"                         
+                        class="form-control py-4 ng-untouched ng-pristine ng-invalid">
+                     <div class="invalid-feedback">
+                        </div>
+                    
+                  </div>
+                  <div class="form-group">
+                     <label for="inputPassword"
+                        class="small mb-1"></label><input 
+                        id="userPw" data-cy="passwordInput" type="password"
+                        name="userPw" placeholder="비밀번호" 
+                        class="form-control py-4 ng-untouched ng-pristine ng-invalid">
+                     <div class="invalid-feedback">
+                       </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="custom-control custom-checkbox">
+                        <input id="rememberId"
+                           type="checkbox"
+                           class="custom-control-input ng-untouched ng-pristine ng-valid"><label
+                           for="rememberId"
+                           class="custom-control-label">아이디 기억하기</label>
+                     </div>
+                  </div>
+                  <div
+                     class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                     <a class="middle" href="/findIdform">아이디/비밀번호 찾기</a>
+                     <button data-cy="loginButton"
+                        type="submit" class="btn btn-primary" onclick="CheckForm();">로그인</button>
+                  </div>
+            </div>
+            <div class="card-footer text-center">
+               <div class="middle">
+                  <a href="/addUser">회원가입</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </form>
+</th:block>
+
+<th:block layout:fragment="customJs">
+<script>
+//number 길이제한
+function maxLengthCheck(object){
+	   if (object.value.length > object.maxLength){
+	    object.value = object.value.slice(0, object.maxLength);
+	   }   
+	  }
+
+</script>
+
+<script>
+
+ function CheckForm(){
+	
+	var userId = $("#userId").val();
+	var userPw = $("#userPw").val();
+	
+	if(!userId){
+		alert("아이디를 입력하세요.");
+		$("#userId").focus();
+		return false;
+	}else if(!userPw){
+		alert("비밀번호를 입력하세요.");
+		$("#userPw").focus();
+		return false;
+	}else {
+		login(userId,userPw);
+	}
+	
+} 
+
+</script>
+
+
 </th:block>
 </html>

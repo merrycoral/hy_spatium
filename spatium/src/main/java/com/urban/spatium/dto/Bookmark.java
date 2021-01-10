@@ -5,6 +5,9 @@ public class Bookmark {
 	private String userId;
 	private int storeCode;
 	private String bookRegDate;
+	
+	private User user;
+	
 	public int getBookMarkCode() {
 		return bookMarkCode;
 	}
@@ -29,10 +32,27 @@ public class Bookmark {
 	public void setBookRegDate(String bookRegDate) {
 		this.bookRegDate = bookRegDate;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	@Override
 	public String toString() {
-		return "Bookmark [bookMarkCode=" + bookMarkCode + ", userId=" + userId + ", storeCode=" + storeCode
-				+ ", bookRegDate=" + bookRegDate + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Bookmark [bookMarkCode=");
+		builder.append(bookMarkCode);
+		builder.append(", userId=");
+		builder.append(userId);
+		builder.append(", storeCode=");
+		builder.append(storeCode);
+		builder.append(", bookRegDate=");
+		builder.append(bookRegDate);
+		builder.append(", user=");
+		builder.append(user);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 }

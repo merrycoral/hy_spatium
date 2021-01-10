@@ -160,7 +160,7 @@
 	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="String" resultType="String">
 		SELECT
-		id
+		userId
 		FROM 
 		tbUser
 		WHERE

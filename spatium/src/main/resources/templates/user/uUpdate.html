@@ -15,17 +15,19 @@
 
 
 		<div class="field item form-group">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">회원구분
-			</label>
-			<div class="form-check" >
+			<label class="col-form-label col-md-3 col-sm-3  label-align">회원구분<span
+				class="required">*</span></label>
+			<div th:switch="${user.userLevel}">
 
-				<label class="form-radio-label"> <input
-					class="form-radio-input" type="radio" name="userLevel" value="3" checked="checked">
+				<p th:case="3"> <input type="radio" name="userLevel" th:value="3" checked>
 					 <span class="form-radio-sign">개인</span>
-				</label> <label class="form-radio-label ml-3"> <input
-					class="form-radio-input" type="radio" name="userLevel" value="2">
-					<span class="form-radio-sign">판매자</span>
-				</label>
+				<input type="radio" name="userLevel" th:value="2">
+					<span class="form-radio-sign">판매자</span></p>
+			<p th:case="2">
+			<input type="radio" name="userLevel" th:value="3" >
+					 <span class="form-radio-sign">개인</span>
+				<input type="radio" name="userLevel" th:value="2" checked>
+					<span class="form-radio-sign">판매자</span></p>
 			</div>
 		</div>
 		
@@ -75,18 +77,20 @@
 			<label class="col-form-label col-md-3 col-sm-3  label-align">성별
 				<span class="required">*</span>
 			</label>
-			<div class="form-check">
+			<div th:switch="${user.userGender}">
 
-				<label class="form-radio-label"> <input
-					class="form-radio-input1" type="radio" name="userGender" value="남"
-					checked="checked"> <span class="form-radio-sign1">남성</span>
-				</label> <label class="form-radio-label"> <input
-					class="form-radio-input1" type="radio" name="userGender" value="여" >
-					<span class="form-radio-sign1">여성</span>
-				</label>
+				<p th:case="남성"> <input type="radio" name="userGender" th:value="남성" checked>
+					 <span class="form-radio-sign">남성</span>
+				<input type="radio" name="userGender" th:value="여성">
+					<span class="form-radio-sign">여성</span></p>
+			<p th:case="여성">
+			<input type="radio" name="userGender" th:value="남성" >
+					 <span class="form-radio-sign">남성</span>
+				<input type="radio" name="userGender" th:value="여성" checked>
+					<span class="form-radio-sign">여성</span></p>
 			</div>
 		</div>
-
+		
 		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화
 				<span class="required">*</span>
@@ -182,13 +186,5 @@
 			});
 	
 	</script>
-	<script  th:inline="javascript">
-   <![CDATA[
-   var userGender = [[${user.userGender}]];
-   
-   ]]>
 
- 	
-	</script>
-</th:block>
 </html>

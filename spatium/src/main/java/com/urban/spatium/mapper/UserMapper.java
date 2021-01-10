@@ -9,6 +9,10 @@ import com.urban.spatium.dto.User;
 @Mapper
 public interface UserMapper {
 	
+	
+	//휴면회원 리스트
+	public List<User> restUser(); 
+	
 	//불량회원 리스트
 	public List<User> blackUser(); 
 	

@@ -5,9 +5,40 @@
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
+
+<th:block layout:fragment="customJs">
+	<script>
+	$('#pointListTb').DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	
+		
+	});
+	</script>
+</th:block>
+
 <th:block layout:fragment="customContent">
 <h1>포인트사용내역조회</h1>
-<table border="1">
+<table id="pointListTb" border="1" class="table table-striped jambo_table bulk_action dataTable no-footer">
 	<thead>
 		<tr>
 			<th>포인트코드</th>

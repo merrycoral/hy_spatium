@@ -4,24 +4,101 @@
 	layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
-<form action="/findId" method="post">
-            <div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
-                <div class="card my-5 ">
-			<div class="card-body p-5 text-center">
-				<div class="h3 font-weight-light mb-0">아이디 찾기
-                </div>
-                    <div class="ng-untouched ng-pristine ng-invalid">
-					<div class="form-group">
-                           <input type="text" class="form-control" id="userEmail" name="userEmail" placeholder="이메일">
-                        </div>
-                        <button type="button" class="btn btn-primary" id="checkEmail">확인</button>
-                         <button type="button" class="btn btn-success" data-dismiss="modal" ><a href="/login"> 취소</a>
-                    </button>
-                    </div>
-                        <div class="text-center small" id="checkMsg" style="color: red"></div>
-                </div>
-             </div>
-        </div>
- </form>
+
+	<div class="card card-primary card-outline card-tabs">
+		<div class="card-header p-0 pt-1 border-bottom-0">
+			<ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+				<li class="nav-item"><a class="nav-link active"
+					id="custom-tabs-three-home-tab" data-toggle="pill"
+					href="#custom-tabs-three-home" role="tab"
+					aria-controls="custom-tabs-three-home" aria-selected="true">아이디</a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					id="custom-tabs-three-profile-tab" data-toggle="pill"
+					href="#custom-tabs-three-profile" role="tab"
+					aria-controls="custom-tabs-three-profile" aria-selected="false">비밀번호</a>
+				</li>
+
+			</ul>
+		</div>
+		<div class="card-body">
+			<div class="tab-content" id="custom-tabs-three-tabContent">
+				<div class="tab-pane fade active show" id="custom-tabs-three-home"
+					role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+					<div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
+						<div class="card my-5 ">
+							<div class="card-body p-5 text-center">
+								<div class="h3 font-weight-light mb-0">아이디 찾기</div>
+								<div class="ng-untouched ng-pristine ng-invalid">
+									<div class="form-group">
+										<input type="text" class="form-control" id="userEmail"
+											name="userEmail" placeholder="이메일">
+									</div>
+									<button type="button" class="btn btn-primary" id="checkId">확인</button>
+									<button type="button" class="btn btn-success" id="cancel">
+										취소</button>
+								</div>
+								<div class="text-center small" id="checkMsg" style="color: red"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-pane fade" id="custom-tabs-three-profile"
+			role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+			<div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
+				<div class="card my-5 ">
+					<div class="card-body p-5 text-center">
+						<div class="h3 font-weight-light mb-0">비밀번호 찾기</div>
+						<div class="ng-untouched ng-pristine ng-invalid">
+							<div class="form-group">
+								<input type="text" class="form-control" id="userId"
+									name="userId" placeholder="아이디"> <input type="text"
+									class="form-control" id="userEmail" name="userEmail"
+									placeholder="이메일">
+							</div>
+							<button type="button" class="btn btn-primary" id="findBtn">확인</button>
+							<button type="button" class="btn btn-success"
+								onclick="history.go(-1);">취소</button>
+						</div>
+						<div class="text-center small" id="checkMsg" style="color: red"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </th:block>
+
+<th:block layout:fragment="customJs">
+	<script>
+	$(function(){
+		$("#findBtn").click(function(){
+			$.ajax({
+				url : "/user/findPw",
+				type : "POST",
+				data : {
+					id : $("#userId").val(),
+					email : $("#userEmail").val()
+				},
+				success : function(result) {
+					alert(result);
+				},
+			})
+		});
+	})
+</script>
+
+<script>
+$(function(){
+	$("#checkId").click(function(){
+		location.href='/user/findId';
+	})
+	$("#cancel").click(function(){
+			location.href='/login';
+})
+});
+</script>
+	</th:block>
 </html>

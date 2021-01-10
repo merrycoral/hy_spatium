@@ -7,7 +7,7 @@
 	<form action="/deleteUser" method="post">
 
 	<div class="table-responsive m-t-20">
-		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id = "tbDeleteUser">
 			<thead>
 				<tr>
 					<th scope="col">아이디</th>
@@ -53,5 +53,36 @@
 		</table>
 	</div>
 	</form>
+</th:block>
+
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbDeleteUser").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	</script>
+
 </th:block>
 </html>

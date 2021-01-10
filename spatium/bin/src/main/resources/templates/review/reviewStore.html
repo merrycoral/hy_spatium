@@ -11,20 +11,24 @@
 	
 	#reviewTable th {padding : 5px;}
 	#reviewTable td {padding : 5px;}
+	.fa-star {font-size: 20px;}
+	.ystar {color:#F5C225;}
+	
 	
 </style>
 </th:block>
 
 <th:block layout:fragment="customContent">
 	 
-	<div class="modal fade" id="deleteCheck">
+ 	<div class="modal fade" id="reviewDetail">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h4 class="modal-title">리뷰 삭제 확인</h4>
+	        <h4 class="modal-title">리뷰 상세 보기</h4>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      </div>
 	      <div class="modal-body" style="font-size:15px;">
+	      
 	      	선택하신 <b><span class="selectRNum" style="font-size:25px; color:red"></span></b>개의 리뷰를 삭제하시겠습니까?<br>
 	      </div>
 	      <div class="modal-footer">
@@ -35,45 +39,17 @@
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 	
-	<div class="modal fade" id="blindCheck">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h4 class="modal-title">리뷰 블라인드 확인</h4>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	      </div>
-	      <div class="modal-body" style="font-size:15px;">
-	      	선택하신 <b><span class="selectRNum" style="color:red"></span></b>개의 리뷰를<br>
-	      	<select id="blindCheck" class="form-control blind">
-				<option value="N">블라인드</option>
-				<option value="Y">블라인드 해제</option>
-			</select>
-			처리합니다.
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-success" id="changeBlindReview">블라인드 변경하기</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-
 	<div class="col-md-12 col-sm-12  ">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>내 공간 리뷰 조회 <small>판매자 페이지</small></h2>
+				<h2>내 공간 리뷰 조회 <small th:text="${sessionId}"></small><small>님의 공간 리뷰 페이지</small></h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<button type="button" style="float:right;" class="btn btn-success btn-md" id="deleteBtn">선택 삭제하기</button>
-				<button type="button" style="float:right;" class="btn btn-success btn-md" id="blindBtn">선택 블라인드 변경</button>
-				<div id="noticeBox" class="alert alert-danger alert-dismissible col-md-3 col-sm-3" 
-					role="alert" style="display:none;">
-				  <strong id="notice"></strong>
-                  <button type="button" id="closeBtn" class="close" style="padding:6px;">
-                  	<span aria-hidden="true">×</span>
-                  </button>
-                </div>
+				
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star ystar"></i>
+				<i class="fa fa-star ystar" style="color:#F5C225"></i>
 				
 				<form action="/searchReview" method="post">
 					<select name="sk" class="form-control col-md-1 col-sm-1">
@@ -126,10 +102,10 @@
 								<td class=" " th:text="${ar.get('reviewCode')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceRsv')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceCode') }"></td>
-								<td class=" "><details style="width:200px;">
-										<summary th:text="${ar.get('reviewTitle')}"></summary>
+								<td class="rvTitle " th:text="${ar.get('reviewTitle')}" >
 										<span th:text="${ar.get('reviewContents')}"> </span>
-									</details></td>
+								</td>
+									
 								<td class=" " th:text="${ar.get('reviewAddId')}"></td>
 								<td class=" " th:text="${ar.get('reviewAddDate')}"></td>
 								<td class=" " th:text="${ar.get('reviewUpDate')}"></td>
@@ -148,14 +124,14 @@
 						<tfoot>
 							<tr>
 								<td colspan="18" style="text-align:center;">
-									<a th:href="@{/reviewAll}">[맨처음]</a>
-									<a th:if="${currentPage > 1}" th:href="@{/reviewAll(currentPage = ${currentPage - 1 })}">[이전]</a>
+									<a th:href="@{/reviewStore(1)}">[맨처음]</a>
+									<a th:if="${currentPage > 1}" th:href="@{/reviewStore(currentPage = ${currentPage - 1 })}">[이전]</a>
 									<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
-										<a th:unless="${currentPage == num}" th:href="@{/reviewAll(currentPage = ${num})}" th:text="${'[' + num + ']'}"></a>
+										<a th:unless="${currentPage == num}" th:href="@{/reviewStore(currentPage = ${num})}" th:text="${'[' + num + ']'}"></a>
 										<span th:if="${currentPage == num}" th:text="${'[' + num + ']'}"></span>
 									</th:block>
-									<a th:if="${currentPage < lastPage}"th:href="@{/reviewAll(currentPage = ${currentPage + 1 })}">[다음]</a>
-									<a th:href="@{/reviewAll(currentPage = ${lastPage})}">[맨마지막]</a>
+									<a th:if="${currentPage < lastPage}"th:href="@{/reviewStore(currentPage = ${currentPage + 1 })}">[다음]</a>
+									<a th:href="@{/reviewStore(currentPage = ${lastPage})}">[맨마지막]</a>
 								</td>
 							</tr>
 						</tfoot>
@@ -171,6 +147,17 @@
 </th:block>
 <th:block layout:fragment="customJs">
 <script  th:inline="javascript">
+	
+	$('#myCollapsible').collapse({
+	  toggle: false
+	});
+	
+	$('.rvTitle').click(function(){
+		console.log($('.rvTitle').index(this));
+		$('#reviewDetail').modal();
+		
+	});
+	
 	
 	$('#deleteBtn').click(function(){
 		$("form").attr("action", "/deleteReview");
@@ -189,9 +176,7 @@
 			$('#noticeBox').attr("style", "float:right; height: 38px; padding:8px 12px; margin: 0 5px;");
 		}
 	});
-	$('#closeBtn').click(function(){
-			$('#noticeBox').attr("style", "display:none;");
-	});
+
 			
 	$('#blindBtn').click(function(){
 		$("form").attr("action", "/blindReview");

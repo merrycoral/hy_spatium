@@ -260,7 +260,7 @@ function countChecked() {
     if (checkCount) {
         $('.column-title').hide();
         $('.bulk-actions').show();
-        $('.action-cnt').html(checkCount + ' Records Selected');
+        $('.action-cnt').html(checkCount + ' 선택된 행');
     } else {
         $('.column-title').show();
         $('.bulk-actions').hide();

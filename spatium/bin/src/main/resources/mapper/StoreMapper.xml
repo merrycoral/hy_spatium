@@ -2,79 +2,127 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.StoreMapper">
 
-<insert id="addStoreRelation" parameterType="int">
-	
-	INSERT INTO tbSpaceRelation
-		(spaceRelationCode
-		, spaceRelationStoreCode
-		, spaceRelationCateCode)
-	VALUES
-		 ( null
-		 , ${spaceRelationStoreCode}
-		 , 4);
-	
-</insert>
+<update id="updateStoreSet" parameterType="Store">
 
-<insert id="addStore" parameterType="Store" useGeneratedKeys="true" keyProperty="storeCode">
+	UPDATE tbStore
+	SET
+		storeId=#{storeId},
+		storeName=#{storeName},
+		storeRepresentative=#{storeRepresentative},
+		storeNumber=#{storeNumber},
+		storeBusinessType=#{storeBusinessType},
+		storeAddressNumber=#{storeAddressNumber},
+		storeAddress=#{storeAddress},
+		storeAddressDetail=#{storeAddressDetail},
+		storeIntroduction=#{storeIntroduction},
+		storeRsvType=#{storeRsvType},
+		storeEmail=#{storeEmail},
+		storePhone=#{storePhone},
+		storeAccountBankName=#{storeAccountBankName},
+		storeAccountNumber=#{storeAccountNumber},
+		storeRefundRull=#{storeRefundRull},
+		storeImage=#{storeImage},
+		storeLevel=#{storeLevel},
+		storeRegDate=#{storeRegDate}
+	WHERE 
+		storeCode=#{storeCode};
+	
+</update>
 
-	INSERT INTO tbStore 
-		(storeCode
+<select id = "getRefundRuleByStoreCode" parameterType="int" resultType="Map">
+
+	SELECT 
+		  remainingDay
+		, refundPercent
+	FROM 
+		tbRefundPolicy
+	WHERE 
+		refundPolicyStoreCode = #{storeCode};
+
+</select>
+
+<select id = "getStoreInfoByStoreCode" resultType="Store">
+
+	SELECT 
+		storeCode
 		, storeId
 		, storeName
 		, storeRepresentative
 		, storeNumber
 		, storeBusinessType
+		, storeAddressNumber
 		, storeAddress
+		, storeAddressDetail
 		, storeIntroduction
+		, storeRsvType
 		, storeEmail
 		, storePhone
+		, storeAccountBankName
 		, storeAccountNumber
-		, storeRemainingDay
-		, storeRefundPercent
+		, storeRefundRull
+		, storeImage
+		, storeLevel
+		, storeRegDate
+	FROM 
+		tbStore
+	WHERE
+		storeCode = #{storeCode};
+
+</select>
+
+<insert id="addStoreRelation" parameterType="java.util.Map">
+	
+	INSERT INTO tbSpaceRelation
+		(spaceRelationStoreCode
+		, spaceRelationCateCode)
+	VALUES
+		<foreach collection= "storeMap" item = "i" separator=",">
+		(#{i.code}, #{i.cateNumber})
+		</foreach>
+</insert>
+
+<insert id="addStore" parameterType="Store" useGeneratedKeys="true" keyProperty="storeCode">
+
+	INSERT INTO tbStore 
+		( storeId
+		, storeName
+		, storeRepresentative
+		, storeNumber
+		, storeBusinessType
+		, storeAddressNumber
+		, storeAddress
+		, storeAddressDetail
+		, storeIntroduction
+		, storeRsvType
+		, storeEmail
+		, storePhone
+		, storeAccountBankName
+		, storeAccountNumber
+		, storeRefundRull
 		, storeImage
 		, storeLevel
 		, storeRegDate)
 	VALUES 
-		(NULL
-		, #{storeId}
+		( #{storeId}
 		, #{storeName}
 		, #{storeRepresentative}
 		, #{storeNumber}
 		, #{storeBusinessType}
+		, #{storeAddressNumber}
 		, #{storeAddress}
+		, #{storeAddressDetail}
 		, #{storeIntroduction}
+		, #{storeRsvType}
 		, #{storeEmail}
 		, #{storePhone}
+		, #{storeAccountBankName}
 		, #{storeAccountNumber}
-		, #{storeRemainingDay}
-		, #{storeRefundPercent}
+		, #{storeRefundRull}
 		, #{storeImage}
 		, 1
 		, NOW())
 		
 </insert>
-
-<select id= "getByStoreCateCode" parameterType= "int" resultType= "Store">
-	
-	SELECT
-			s.storeCode
-		,	r.spaceRelationCode
-		, 	c.spaceCateCode
-		,	c.spaceCateName
-	FROM
-		tbSpaceRelation AS r
-	INNER JOIN
-		tbSpaceCate AS c
-	ON
-		r.spaceRelationCateCode = c.spaceCateCode
-	INNER JOIN
-		tbStore AS s
-	ON
-		s.storeCode = r.spaceRelationStoreCode
-	WHERE
-		s.storeCode = #{storeCode};
-		
-</select>
 
 <select id = "storeList" resultType="Store">
 
@@ -85,14 +133,16 @@
 		, storeRepresentative
 		, storeNumber
 		, storeBusinessType
+		, storeAddressNumber
 		, storeAddress
+		, storeAddressDetail
 		, storeIntroduction
+		, storeRsvType
 		, storeEmail
 		, storePhone
+		, storeAccountBankName
 		, storeAccountNumber
 		, storeRefundRull
-		, storeRemainingDay
-		, storeRefundPercent
 		, storeImage
 		, storeLevel
 	FROM

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customContent">
+
+            <div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
+                <div class="card my-5 ">
+			<div class="card-body p-5 text-center">
+				<div class="h3 font-weight-light mb-0">비밀번호 찾기
+                </div>
+                    <div class="ng-untouched ng-pristine ng-invalid">
+					<div class="form-group">
+                           <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디">
+                            <input type="text" class="form-control" id="userEmail" name="userEmail" placeholder="이메일">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="findBtn" >확인</button>
+                         <button type="button" class="btn btn-success" onclick="history.go(-1);" >취소
+                    </button>
+                    </div>
+                        <div class="text-center small" id="checkMsg" style="color: red"></div>
+                </div>
+             </div>
+        </div>
+</th:block>
+
+<th:block layout:fragment="customJs">
+<script>
+	$(function(){
+		$("#findBtn").click(function(){
+			$.ajax({
+				url : "/user/findPw",
+				type : "POST",
+				data : {
+					id : $("#userId").val(),
+					email : $("#userEmail").val()
+				},
+				success : function(result) {
+					alert(result);
+				},
+			})
+		});
+	})
+</script>
+</html>
