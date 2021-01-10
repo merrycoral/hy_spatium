@@ -157,7 +157,7 @@
 					<div class="col-md-6 col-sm-6 ">
 					<select id = "storeAccountBankName" name = "storeAccountBankName" th:value = "${result.storeAccountBankName}" style="width: 100%; height:30px; margin-bottom: 15px;">
 							<option value = "0"> :: 은행 선택 :: </option>
-							<option value = "BNP"> BNP </option>
+							<option value = "BNP" th:selected = "${result.storeAccountBankName} == 'BNP'"> BNP </option>
 							<option value = "BOA"> BOA </option>
 							<option value = "HSBC"> HSBC </option>
 							<option value = "IBK기업"> IBK기업 </option>
