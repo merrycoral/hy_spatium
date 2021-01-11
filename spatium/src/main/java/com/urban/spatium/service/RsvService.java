@@ -155,6 +155,27 @@ public class RsvService {
 		System.out.println("삭제완료");
 		
 	}
+
+	public List<Map<String, Object>> rsvStatAdmin() {
+		List<Map<String, Object>> rsvStatAdmin = rsvMapper.rsvStatAdmin();
+		//최고 예약수를 기준으로 다른 업체의 예약수를 퍼센트 계산
+		for(int i=0; i<rsvStatAdmin.size(); i++) {
+			System.out.println("count값 :"+rsvStatAdmin.get(i).get("count"));
+			if(rsvStatAdmin.get(i).get("count") != null) {
+				int count0 = Integer.parseInt(rsvStatAdmin.get(0).get("count").toString());
+				int counti = Integer.parseInt(rsvStatAdmin.get(i).get("count").toString());
+				int percentC = (counti*100/count0);
+				rsvStatAdmin.get(i).put("percentC", percentC);
+			}
+			if(rsvStatAdmin.get(i).get("sumPrice") != null) {
+				int count0 = Integer.parseInt(rsvStatAdmin.get(0).get("sumPrice").toString());
+				int counti = Integer.parseInt(rsvStatAdmin.get(i).get("sumPrice").toString());
+				int percentS = (counti*100/count0);
+				rsvStatAdmin.get(i).put("percentS", percentS);
+			}
+		}
+		return rsvStatAdmin;
+	}
 	
 	
 	
