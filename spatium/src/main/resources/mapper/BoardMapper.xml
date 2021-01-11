@@ -207,7 +207,7 @@
 		FROM
 			tbBoardReply
 		WHERE
-			replyIdx = #{replyIdx};	
+			boardIdx = #{boardIdx};	
 	</select>
 	
 	<insert id="addReply"  parameterType="BoardReply">

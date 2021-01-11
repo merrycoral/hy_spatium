@@ -19,38 +19,15 @@
 			});
 			return true;
 		});
+			
+		$(".addReplyBtn").click(function(){
+			  var formObj = $("form[name='replyForm']");
+ 			  formObj.attr("action", "/addReply");
+			  formObj.submit(); 
+			});
 
+		
 		/*]]>*/
-		var bno = '${Board.boardIdx}'; //게시글 번호
-		 
-		$('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
-		    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
-		    commentInsert(insertData); //Insert 함수호출(아래)
-		});
-		 
-		 
-		 
-		//댓글 목록 
-		function commentList(){
-		    $.ajax({
-		        url : '/board/replysList',
-		        type : 'get',
-		        data : {'bno':bno},
-		        success : function(data){
-		            var a =''; 
-		            $.each(data, function(key, value){ 
-		                a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-		                a += '<div class="commentInfo'+value.replyIdx+'">'+'댓글번호 : '+value.replyIdx+' / 작성자 : '+value.replyAddId;
-		                a += '<a onclick="commentUpdate('+value.replyIdx+',\''+value.replyContents+'\');"> 수정 </a>';
-		                a += '<a onclick="commentDelete('+value.replyIdx+');"> 삭제 </a> </div>';
-		                a += '<div class="commentContent'+value.replyIdx+'"> <p> 내용 : '+value.replyContents +'</p>';
-		                a += '</div></div>';
-		            });
-		            
-		            $(".commentList").html(a);
-		        }
-		    });
-		}
 	</script>
 </th:block>
 	
@@ -79,14 +56,14 @@
 					<th>회원아이디</th>
 					<td id="addId" th:text="${Board.boardAddId}"></td>
 					<th colspan="2">제목</th>
-					<td colspan="2" th:text="${Board.boardTitle}"></td>
+					<td th:text="${Board.boardTitle}"></td>
 					<th>작성날짜</th>
 					<td th:text="${Board.boardAddDate}"></td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td th:text="${Board.boardContents}"></td>
+					<td colspan="4" th:text="${Board.boardContents}"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -112,26 +89,44 @@
 			
 			
 		</div>
-    <th:block >
+    <th:block>
 		
 	    <!--  댓글  -->
     <div class="container">
-        <label for="content">comment</label>
-        <form name="commentInsertForm">
-            <div class="input-group">
-               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
-               <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
-               </span>
-              </div>
-        </form>
+		<div id="reply">
+			<ol class="replyList"  >
+				<li  th:if="${#lists.size(replysList) > 0}" th:each="r : ${replysList}">
+					<p>
+						작성자 : [[${r.replyAddId}]] / 작성날짜 : [[${r.replyAddDate}]]<br>
+					</p>
+					<p>
+						[[${r.replyContents}]]
+					</p>   <br><br>
+				</li>
+			</ol>
+		</div>
     </div>
+    <br><br>
     
-    <div class="container">
-        <div class="commentList"></div>
-    </div>
-
-
+    <form name="replyForm" method="post">
+    	<input type="hidden" id="boardIdx" name="boardIdx" th:value="${Board.boardIdx}" />
+    	<input type="hidden" id="boardAddId" name="boardAddId" th:value="${Board.boardAddId}" />
+		<input type="hidden" id="currentPageNo" name="currentPageNo" th:value="${params.currentPageNo}">
+		<input type="hidden" id="recordsPerPage" name="recordsPerPage" th:value="${params.recordsPerPage}">
+		<input type="hidden" id="searchKeyword" name="searchKeyword" th:value="${params.searchKeyword}">
+		<input type="hidden" id="searchType" name="searchType" th:value="${params.searchType}">
+		
+		<div>
+			<label>댓글 내용</label> <br>
+			<textarea rows="10" class="form-control" id="replyContents" name="replyContents" /></textarea> <br>
+			<label>댓글 작성자</label><br>
+			<input type="text" name="replyAddId" id="replyAddId" th:unless="${session.SID == null}" th:value="${session.SID}" readonly="readonly" class="form-control"/>
+		</div>
+		  <div>
+		 	 <button type="button" class="addReplyBtn">작성</button>
+		  </div>
+		
+    </form>
 	
 	</th:block>
 		</div>

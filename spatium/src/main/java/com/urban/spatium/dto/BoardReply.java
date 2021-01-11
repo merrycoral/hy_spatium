@@ -4,6 +4,13 @@ public class BoardReply {
 	
 	private Board board;
 
+	public Board getBoard() {
+		return board;
+	}
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+	
 	private int replyIdx;
 	private int boardIdx;
 	private String boardAddId;
@@ -16,12 +23,7 @@ public class BoardReply {
 	private String replyBlind;
 	
 	
-	public Board getBoard() {
-		return board;
-	}
-	public void setBoard(Board board) {
-		this.board = board;
-	}
+
 	public int getReplyIdx() {
 		return replyIdx;
 	}
@@ -82,21 +84,20 @@ public class BoardReply {
 	public void setReplyBlind(String replyBlind) {
 		this.replyBlind = replyBlind;
 	}
-	
-
 	@Override
 	public String toString() {
-		return "BoardReply [board=" + board + ", replyIdx=" + replyIdx + ", boardIdx=" + boardIdx + ", boardAddId="
-				+ boardAddId + ", replyContents=" + replyContents + ", replyLikeCnt=" + replyLikeCnt + ", replyAddId="
-				+ replyAddId + ", replyAddDate=" + replyAddDate + ", replyUpDate=" + replyUpDate + ", replyDeclaration="
-				+ replyDeclaration + ", replyBlind=" + replyBlind + ", getBoard()=" + getBoard() + ", getReplyIdx()="
-				+ getReplyIdx() + ", getBoardIdx()=" + getBoardIdx() + ", getBoardAddId()=" + getBoardAddId()
-				+ ", getReplyContents()=" + getReplyContents() + ", getReplyLikeCnt()=" + getReplyLikeCnt()
-				+ ", getReplyAddId()=" + getReplyAddId() + ", getReplyAddDate()=" + getReplyAddDate()
-				+ ", getReplyUpDate()=" + getReplyUpDate() + ", getReplyDeclaration()=" + getReplyDeclaration()
-				+ ", getReplyBlind()=" + getReplyBlind() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+		return "BoardReply [replyIdx=" + replyIdx + ", boardIdx=" + boardIdx + ", boardAddId=" + boardAddId
+				+ ", replyContents=" + replyContents + ", replyLikeCnt=" + replyLikeCnt + ", replyAddId=" + replyAddId
+				+ ", replyAddDate=" + replyAddDate + ", replyUpDate=" + replyUpDate + ", replyDeclaration="
+				+ replyDeclaration + ", replyBlind=" + replyBlind + ", getReplyIdx()=" + getReplyIdx()
+				+ ", getBoardIdx()=" + getBoardIdx() + ", getBoardAddId()=" + getBoardAddId() + ", getReplyContents()="
+				+ getReplyContents() + ", getReplyLikeCnt()=" + getReplyLikeCnt() + ", getReplyAddId()="
+				+ getReplyAddId() + ", getReplyAddDate()=" + getReplyAddDate() + ", getReplyUpDate()="
+				+ getReplyUpDate() + ", getReplyDeclaration()=" + getReplyDeclaration() + ", getReplyBlind()="
+				+ getReplyBlind() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
+
 	
 	
 }

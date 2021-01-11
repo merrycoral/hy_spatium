@@ -94,20 +94,26 @@ public class BoradController {
 	 }
 	 
 	 //소모임 게시글 상세조회
-	 @GetMapping(value = "/detailPost")
+	 @RequestMapping(value = "/detailPost", method = RequestMethod.GET)
 		public String detailPost(@ModelAttribute("params") Board params
 								 ,@RequestParam(name="boardIdx", required = false) int boardIdx
 								 ,@RequestParam(name="currentPageNo", required = false) String currentPageNo
-								 ,Model model) {
+								 ,Model model
+								 ,BoardReply boardReply) {
 		
 		Board board = boardService.getBoardsByCode(boardIdx);
 
-
+		List<BoardReply> replysList = boardService.getReplyByCode(boardReply.getBoardIdx());
+		model.addAttribute("replysList", replysList);
+		System.out.println("replysList==>>" + replysList);
 		
-		boardService.postHitCnt(boardIdx);
+		/*boardService.postHitCnt(boardIdx);*/
 		model.addAttribute("title", "게시글 상세보기");
 		model.addAttribute("Board", board);
 		model.addAttribute("currentPageNo", currentPageNo);
+		model.addAttribute("RecordsPerPage", params.getRecordsPerPage());
+		model.addAttribute("SearchKeyword", params.getSearchKeyword());
+		model.addAttribute("SearchType", params.getSearchType());
 		
 		return "borad/detailPost";
 		}
@@ -165,16 +171,34 @@ public class BoradController {
 		*********							댓글							***********
 		**************************************************************************/
 		
-		//댓글 리스트
-		@RequestMapping("/replysList")
-		@ResponseBody
-		public String getReplysList(@RequestParam(name="replyIdx", required = false) int replyIdx
-							     ,BoardReply boardReply, Model model) {
-			List<BoardReply> replysList = boardService.getReplysList(boardReply);
-			System.out.println("replysList == >" + replysList);
-			model.addAttribute("replysList",replysList);
-			return "borad/replysList";
+		//댓글 작성
+		@RequestMapping(value="/addReply",  method = RequestMethod.POST)
+		public String addReply(BoardReply boardReply, RedirectAttributes rttr
+							   ,@ModelAttribute("params") Board params)  {
+			
+			String result = boardService.addReply(boardReply);
+			
+			
+
+			rttr.addAttribute("boardIdx", boardReply.getBoardIdx());
+			System.out.println("boardReply ==>>>" +  params.getRecordsPerPage());
+			rttr.addAttribute("CurrentPageNo", params.getCurrentPageNo());
+			rttr.addAttribute("RecordsPerPage", params.getRecordsPerPage());
+			rttr.addAttribute("SearchKeyword", params.getSearchKeyword());
+			rttr.addAttribute("SearchType", params.getSearchType());
+			return "redirect:/detailPost";
 		}
 		
-		
+		//댓글 수정(View)
+		@RequestMapping(value="/modifyReplyView",  method = RequestMethod.GET)
+		public String modifyReplyView(@RequestParam(name="replyIdx", required = false) int replyIdx
+									,Model model
+								    ,@ModelAttribute("params") Board params) {
+			 
+			List<BoardReply> modifyReplyView =  boardService.getReplyByCode(replyIdx);
+			model.addAttribute("modifyReplyView", modifyReplyView);
+			model.addAttribute("params", params);
+			
+			return "borad/modifyReplyView";
+		}
 }
