@@ -13,6 +13,8 @@ public class Board extends Common{
 	private String boardDeclaration;
 	private String boardBlind;
 	
+	private BoardReply boardReply;
+	
 	
 	private User user; 
 	
@@ -124,6 +126,15 @@ public class Board extends Common{
 	}
 	public void setBoardCateName(String boardCateName) {
 		this.boardCateName = boardCateName;
+	}
+	
+	
+	
+	public BoardReply getBoardReply() {
+		return boardReply;
+	}
+	public void setBoardReply(BoardReply boardReply) {
+		this.boardReply = boardReply;
 	}
 	
 	

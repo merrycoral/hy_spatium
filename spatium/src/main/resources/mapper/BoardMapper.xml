@@ -81,8 +81,6 @@
 		<include refid="searchColumn" />
 	</select>
 	
-
-	
 	<select id="getBoardsByCode" parameterType="int" resultType="Board">
 		SELECT
 			boardIdx
@@ -169,35 +167,108 @@
 	</update>
 
 	
+	<!-- 댓글 -->
 	
-	
-	
-	
-	
-	
-	
-	
-	 	<!-- 
- 	<select id="getBoardsList" resultType="Board">
+	<select id = "getReplysList" resultType="BoardReply" parameterType="BoardReply">
 		SELECT
-			boardIdx
+			replyIdx
+			,boardIdx
 			,boardAddId
-			,boardCateName
-			,boardTitle
-			,boardLikeCnt
-			,boardHitCnt
-			,boardAddDate
-			,boardUpDate
-			,boardDeclaration
-			,boardBlind
+			,replyContents
+			,replyLikeCnt
+			,replyAddId
+			,replyAddDate
+			,replyUpDate
+			,replyDeclaration
+			,replyBlind
 		FROM
-			tbBoard
-				INNER JOIN 
-			tbBoardCete
-				on
-			boardCateCode = boardCate
-		ORDER BY boardIdx DESC;
-	</select> 
-	 -->
+			tbBoardReply
+		WHERE
+			replyDeclaration = 'N'
+				AND
+			replyBlind = 'N'
+		ORDER BY replyIdx DESC
+		LIMIT
+			#{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+	</select>
+	
+	<select id = "getReplyByCode" parameterType="int" resultType="BoardReply">
+		SELECT
+			replyIdx
+			,boardIdx
+			,boardAddId
+			,replyContents
+			,replyLikeCnt
+			,replyAddId
+			,replyAddDate
+			,replyUpDate
+			,replyDeclaration
+			,replyBlind
+		FROM
+			tbBoardReply
+		WHERE
+			boardIdx = #{boardIdx};	
+	</select>
+	
+	<insert id="addReply"  parameterType="BoardReply">
+		INSERT INTO tbBoardReply
+		( boardIdx
+		 ,boardAddId
+		 ,replyAddId
+		 ,replyContents
+		 ,replyAddDate
+		) VALUES(
+		  #{boardIdx}
+		 ,#{boardAddId}
+		 ,#{replyAddId}
+		 ,#{replyContents}
+		 ,NOW());
+	 </insert>
+
+	<update id="modifyReply" parameterType="BoardReply">
+		UPDATE 
+			tbBoardReply
+		SET
+			replyContents = #{replyContents}
+			,replyUpDate = NOW()
+		WHERE 
+			replyIdx = #{replyIdx};		
+	</update>
+
+	<delete id="removeReply" parameterType="int">
+		DELETE
+		FROM
+			tbBoardReply
+		WHERE
+			replyIdx = #{replyIdx};
+	</delete>
+
+	 
+	 <update id="blindReply" parameterType="int">
+		UPDATE tbBoardReply
+		SET
+			  replyBlind = 'Y'
+		WHERE
+			replyIdx = #{replyIdx};
+	</update>
+
+	 <update id="declarationReply" parameterType="int">
+		UPDATE tbBoard
+		SET
+			  replyDeclaration = 'Y'
+		WHERE
+			replyIdx = #{replyIdx};
+	</update>
+	
+	<select id="getReplyTotalCount" parameterType="BoardReply" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			tbBoardReply
+		WHERE
+			boardIdx = #{boardIdx};
+	</select>
+	
+
 
 </mapper>

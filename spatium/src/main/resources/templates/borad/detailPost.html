@@ -19,8 +19,14 @@
 			});
 			return true;
 		});
+			
+		$(".addReplyBtn").click(function(){
+			  var formObj = $("form[name='replyForm']");
+ 			  formObj.attr("action", "/addReply");
+			  formObj.submit(); 
+			});
 
-
+		
 		/*]]>*/
 	</script>
 </th:block>
@@ -50,14 +56,14 @@
 					<th>회원아이디</th>
 					<td id="addId" th:text="${Board.boardAddId}"></td>
 					<th colspan="2">제목</th>
-					<td colspan="2" th:text="${Board.boardTitle}"></td>
+					<td th:text="${Board.boardTitle}"></td>
 					<th>작성날짜</th>
 					<td th:text="${Board.boardAddDate}"></td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td th:text="${Board.boardContents}"></td>
+					<td colspan="4" th:text="${Board.boardContents}"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -83,43 +89,46 @@
 			
 			
 		</div>
-	</div>
-	
-	
-</th:block>
-		<th:block layout:fragment="add-content">
-		<div class="box-content">
-			<div class="card-content">
-				<div class="clearfix">
-					<h4 class="box-title pull-left">Comment</h4>
-					<!-- /.box-title -->
-				</div>
-
-				<form class="form-horizontal form-view">
-					<div class="input-group margin-bottom-20">
-						<input type="email" class="form-control" placeholder="">
-						<div class="input-group-btn"><button type="button" class="btn waves-effect waves-light"><i class="fa fa-commenting" aria-hidden="true"></i></button></div>
-						<!-- /.input-group-btn -->
-					</div>
-					<ul class="notice-list">
-						<li>
-							<span class="name">Betty Simmons</span>
-							<span class="desc">There are new settings available</span>
-							<span class="time">2019.03.26</span>
-							<button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button>
-						</li>
-						<li>
-							<span class="name">Betty Kim</span>
-							<span class="desc">There are new settings available</span>
-							<span class="time">2019.03.15</span>
-							<button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button>
-						</li>
-					</ul>
-				</form>
-			</div>
-			<!-- /.card-content -->
+    <th:block>
+		
+	    <!--  댓글  -->
+    <div class="container">
+		<div id="reply">
+			<ol class="replyList"  >
+				<li  th:if="${#lists.size(replysList) > 0}" th:each="r : ${replysList}">
+					<p>
+						작성자 : [[${r.replyAddId}]] / 작성날짜 : [[${r.replyAddDate}]]<br>
+					</p>
+					<p>
+						[[${r.replyContents}]]
+					</p>   <br><br>
+				</li>
+			</ol>
 		</div>
-		<!-- /.box-content -->
+    </div>
+    <br><br>
+    
+    <form name="replyForm" method="post">
+    	<input type="hidden" id="boardIdx" name="boardIdx" th:value="${Board.boardIdx}" />
+    	<input type="hidden" id="boardAddId" name="boardAddId" th:value="${Board.boardAddId}" />
+		<input type="hidden" id="currentPageNo" name="currentPageNo" th:value="${params.currentPageNo}">
+		<input type="hidden" id="recordsPerPage" name="recordsPerPage" th:value="${params.recordsPerPage}">
+		<input type="hidden" id="searchKeyword" name="searchKeyword" th:value="${params.searchKeyword}">
+		<input type="hidden" id="searchType" name="searchType" th:value="${params.searchType}">
+		
+		<div>
+			<label>댓글 내용</label> <br>
+			<textarea rows="10" class="form-control" id="replyContents" name="replyContents" /></textarea> <br>
+			<label>댓글 작성자</label><br>
+			<input type="text" name="replyAddId" id="replyAddId" th:unless="${session.SID == null}" th:value="${session.SID}" readonly="readonly" class="form-control"/>
+		</div>
+		  <div>
+		 	 <button type="button" class="addReplyBtn">작성</button>
+		  </div>
+		
+    </form>
+	
 	</th:block>
+		</div>
 
 </html>

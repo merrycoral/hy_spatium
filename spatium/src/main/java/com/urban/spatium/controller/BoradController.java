@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.urban.spatium.dto.Board;
+import com.urban.spatium.dto.BoardReply;
 import com.urban.spatium.mapper.BoardMapper;
 import com.urban.spatium.service.BoardService;
 
@@ -49,44 +51,11 @@ public class BoradController {
 	@GetMapping(value = "/boardList")
 	public String boardList(@ModelAttribute("params") Board board, Model model) {
 		List<Board> boardList = boardService.getBoardsList(board);
-	
 
 		model.addAttribute("title", "소모임 게시판");
 		model.addAttribute("boardList",boardList);
 		return "borad/boardList";
 	}
-
-		
-
-		
-
-	
-	/*
-	//소모임 게시판 리스트
-	@GetMapping("/boardList")
-	public String getboardList(Model model
-			,@RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
-		model.addAttribute("title", "소모임게시판");
-		/*
-		 * List<Board> boardsList = boardService.getBoardsList();
-		 * model.addAttribute("boardsList", boardMapper.getBoardsList());
-		
-		
-		Map<String, Object> resultMap = boardService.getBoardsList(currentPage);
-
-		model.addAttribute("boardList", resultMap.get("boardList"));
-		model.addAttribute("lastPage", resultMap.get("lastPage"));
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
-		model.addAttribute("endPageNum", resultMap.get("endPageNum"));
-
-		return "borad/boardList";
-	}
-	
-	*/
-
-	//게시글 검색
-
 
 
 	//소모임 게시글 작성(view)
@@ -95,8 +64,7 @@ public class BoradController {
 			 			   ,@RequestParam(name = "boardAddId", required = false) String boardAddId) {
 
 		 if(boardAddId == null) {
-			 
-			 return "redirect:/login";
+				 return "redirect:/login";
 		 }else {
 			 String result = boardService.addPost(board); 
 			 System.out.println(result); 
@@ -118,7 +86,6 @@ public class BoradController {
 			 return "redirect:/login";
 		 }
 		 else {
-			 
 			 List<Board> boardCate = boardService.getBoardCate();
 			 model.addAttribute("boardCate", boardCate);
 			 return "borad/boardWrite";
@@ -127,24 +94,30 @@ public class BoradController {
 	 }
 	 
 	 //소모임 게시글 상세조회
-	 @GetMapping(value = "/detailPost")
+	 @RequestMapping(value = "/detailPost", method = RequestMethod.GET)
 		public String detailPost(@ModelAttribute("params") Board params
 								 ,@RequestParam(name="boardIdx", required = false) int boardIdx
 								 ,@RequestParam(name="currentPageNo", required = false) String currentPageNo
-								 ,Model model) {
+								 ,Model model
+								 ,BoardReply boardReply) {
 		
 		Board board = boardService.getBoardsByCode(boardIdx);
 
-		boardService.postHitCnt(boardIdx);
+		List<BoardReply> replysList = boardService.getReplyByCode(boardReply.getBoardIdx());
+		model.addAttribute("replysList", replysList);
+		System.out.println("replysList==>>" + replysList);
+		
+		/*boardService.postHitCnt(boardIdx);*/
 		model.addAttribute("title", "게시글 상세보기");
 		model.addAttribute("Board", board);
 		model.addAttribute("currentPageNo", currentPageNo);
+		model.addAttribute("RecordsPerPage", params.getRecordsPerPage());
+		model.addAttribute("SearchKeyword", params.getSearchKeyword());
+		model.addAttribute("SearchType", params.getSearchType());
 		
 		return "borad/detailPost";
 		}
-	
 
-	 
 	 //소모임 게시글 수정(view)
 	 @GetMapping(value ="/modifyPost")
 	 public String modifyPost(@ModelAttribute("params") Board params
@@ -154,19 +127,14 @@ public class BoradController {
 		 Board board = boardService.getBoardsByCode(boardIdx);
 		 List<Board> boardCate = boardService.getBoardCate();
 		 System.out.println(boardCate);
-		 
-		 
- 
+
 		 model.addAttribute("boardCate", boardCate);
 		 model.addAttribute("title", "게시글 수정");
 		 model.addAttribute("Board", board);
-		 
-		 
+
 		 return "borad/modifyPost";
 	 }
-	 
-	 
-	 
+
 	 //소모임 게시글 수정(Action)
 		@PostMapping(value ="/modifyPost")
 		public String modifyPost(@ModelAttribute("params") Board params
@@ -189,18 +157,48 @@ public class BoradController {
 		public String removePost(@ModelAttribute("params") Board params
 				,@RequestParam(name="boardIdx", required = false) int boardIdx
 				,RedirectAttributes rttr) {
-			
 
-			
 			String result = boardService.removePost(boardIdx);
 			rttr.addAttribute("CurrentPageNo", params.getCurrentPageNo());
 			rttr.addAttribute("RecordsPerPage", params.getRecordsPerPage());
 			rttr.addAttribute("SearchKeyword", params.getSearchKeyword());
 			rttr.addAttribute("SearchType", params.getSearchType());
 
+			return "redirect:/boardList";
+		}
+		
+		/**************************************************************************
+		*********							댓글							***********
+		**************************************************************************/
+		
+		//댓글 작성
+		@RequestMapping(value="/addReply",  method = RequestMethod.POST)
+		public String addReply(BoardReply boardReply, RedirectAttributes rttr
+							   ,@ModelAttribute("params") Board params)  {
+			
+			String result = boardService.addReply(boardReply);
 			
 			
 
-			return "redirect:/boardList";
+			rttr.addAttribute("boardIdx", boardReply.getBoardIdx());
+			System.out.println("boardReply ==>>>" +  params.getRecordsPerPage());
+			rttr.addAttribute("CurrentPageNo", params.getCurrentPageNo());
+			rttr.addAttribute("RecordsPerPage", params.getRecordsPerPage());
+			rttr.addAttribute("SearchKeyword", params.getSearchKeyword());
+			rttr.addAttribute("SearchType", params.getSearchType());
+			return "redirect:/detailPost";
+		}
+		
+		//댓글 수정(View)
+		@RequestMapping(value="/modifyReplyView",  method = RequestMethod.GET)
+		public String modifyReplyView(@RequestParam(name="replyIdx", required = false) int replyIdx
+									,Model model
+								    ,@ModelAttribute("params") Board params) {
+			 
+			List<BoardReply> modifyReplyView =  boardService.getReplyByCode(replyIdx);
+			model.addAttribute("modifyReplyView", modifyReplyView);
+			model.addAttribute("params", params);
+			
+			return "borad/modifyReplyView";
 		}
 }
