@@ -8,13 +8,39 @@
 <th:block layout:fragment="customJs">
 	<script>
 		$(function(){
-			//결재 완료된건 a링크 삭제 후 텍스트로 표현
-			for(var i=0;i<$('.rsvState').length;i++){
-				if($('.rsvState').eq(i).text()=="결제 완료" || $('.rsvState').eq(i).text()=="환불 완료"){
-					$('.rsvState').eq(i).parent().find('.paymentTest').remove();
-					$('.rsvState').eq(i).parent().find('.paymentTestTd').text('완료');
+			
+			//오늘날짜 셋팅
+			var toDay = new Date();
+			var toDayYear = toDay.getFullYear();
+			var toDayMonth = toDay.getMonth();
+			toDay.setMonth(toDayMonth+1);
+			toDayMonth = toDay.getMonth();
+			if(toDayMonth==0){
+				toDayMonth=12;
+			}
+			var toDayDay = toDay.getDate();
+			var toDay1= new Date(toDayYear,toDayMonth,toDayDay);
+			
+			
+			for(var i=0; i<$('.rsvDate').length; i++){
+				var rsvdate = $('.rsvDate').eq(i).val();
+				//예약날짜
+				var rsvdateYear = rsvdate.substring(0,4);
+				var rsvdateMonth = rsvdate.substring(5,7);
+				var rsvdateDay = rsvdate.substring(8,10);
+				var rsvDay = new Date(rsvdateYear,rsvdateMonth,rsvdateDay);
+				console.log(rsvdateYear+"-"+rsvdateMonth+"-"+rsvdateDay);
+				console.log(rsvdate + "예약날짜");
+				//오늘날짜, 예약날짜 비교
+				//결재 완료된건 a링크 삭제 후 텍스트로 표현
+				if(rsvDay<toDay1 || $('.rsvState').eq(i).text()=="결제 완료" || $('.rsvState').eq(i).text()=="환불 완료"  ){
+						$('.rsvState').eq(i).parent().find('.paymentTest').remove();
+						$('.rsvState').eq(i).parent().find('.paymentTestTd').text('완료');
 				}
 			}
+			/***************************************** 여기까지  ****************************************************/
+			
+			
 			$("#rsvListTb").DataTable({
 				order: [ [ 0, "desc" ] ],
 				ordering: true,
@@ -83,7 +109,10 @@
 						<td th:text="${r.rsvUserPhone}" class=" "></td>
 						<td th:text="${r.rsvUserEmail}" class=" "></td>
 						<td th:text="${r.rsvTotalPrice}" class=" "></td>
-						<td th:text="${r.rsvStartDateTime}" class=" "></td>
+						
+						<!-- value 값 사용하기 위해 추가 -->
+						<td><input type="text" th:value="${r.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td>
+						
 						<td th:text="${r.rsvEndDateTime}" class=" "></td>
 						<td th:text="${r.rsvRegDate}" class=" "></td>
 						<td th:text="${r.rsvState}" class="rsvState"></td>
