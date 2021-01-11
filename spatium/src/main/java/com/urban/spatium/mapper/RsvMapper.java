@@ -51,6 +51,8 @@ public interface RsvMapper {
 
 	public void cancelRsvDetail(List<String> rsvDetailList);
 
+	public List<Map<String, Object>> rsvStatAdmin();
+
 	
 	
 }

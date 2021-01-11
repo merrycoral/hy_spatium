@@ -30,7 +30,6 @@ public class Rsv {
 	private int rsvDetailOnePrice;
 	private int rsvDetailTotalPrice;
 	
-	
 	private String storeId;
 	private String okaySpaceName;
 	private String itemTotalName;
@@ -38,7 +37,6 @@ public class Rsv {
 	private int rsvTimePrice;
 	private int itemCode;
 	private Payment payment;
-
 	
 	public String getStoreId() {
 		return storeId;
@@ -58,9 +56,6 @@ public class Rsv {
 	public void setItemCode(int itemCode) {
 		this.itemCode = itemCode;
 	}
-	
-	
-	
 	public Payment getPayment() {
 		return payment;
 	}
@@ -229,7 +224,6 @@ public class Rsv {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-	
 	@Override
 	public String toString() {
 		return "Rsv [rsvCode=" + rsvCode + ", rsvUserId=" + rsvUserId + ", rsvStoreCode=" + rsvStoreCode
@@ -244,7 +238,4 @@ public class Rsv {
 				+ ", okaySpaceName=" + okaySpaceName + ", itemTotalName=" + itemTotalName + ", rsvTime=" + rsvTime
 				+ ", rsvTimePrice=" + rsvTimePrice + ", itemCode=" + itemCode + ", payment=" + payment + "]";
 	}
-	
-	
-	
 }
