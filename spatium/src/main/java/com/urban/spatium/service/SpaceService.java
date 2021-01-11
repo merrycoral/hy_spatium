@@ -35,12 +35,13 @@ public class SpaceService {
 		
 	}
 	
-	public List<String> addReadySpace(ReadySpace readySpace, String storeCode) {
+	public String addReadySpace(ReadySpace readySpace, String storeCode, String ReadyStoreBusinessType) {
 		int result = spaceMapper.addReadySpace(readySpace);
+		
+		String checkCate = "ㅎㅇ";
 		
 		String storeCate = readySpace.getReadyStoreBusinessType();
 		
-		List<String> tMap = new ArrayList<>();
 		
 		String[] array = storeCate.split(",");
 		String[] i_array = new String[5];
@@ -78,17 +79,18 @@ public class SpaceService {
 			}else if(array[i].equals("한옥")) {
 				arrayCheck = "10";
 				i_array[i]=arrayCheck;
+				readySpace.setReadyStoreBusinessType(arrayCheck);
+				String feel = readySpace.getReadyStoreBusinessType();
+				System.out.println(feel + "feel 값 2222222222222222222222222222");
 			}
 			System.out.println(arrayCheck + "arrayCheck 숫자");
 			System.out.println(i_array[i] + "넣을 카테고리");
-			tMap.add(i, i_array[i]);
 		}
 		
-		System.out.println(tMap);
 		
 		System.out.println(storeCode + "애드레디스페이스11111111111111111111111");
 		
-		return tMap;
+		return checkCate;
 	}
 	
 	public List<ReadySpace> readySpaceList(){

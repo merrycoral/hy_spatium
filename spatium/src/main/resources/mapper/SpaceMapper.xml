@@ -62,7 +62,7 @@ WHERE
 VALUES 
 	( #{readyStoreCode}
 	, #{readySpaceName}
-	, #{ReadyStoreBusinessType}
+	, #{readyStoreBusinessType}
 	, #{readyPeopleNumber}
 	, #{readyBriefSpace}
 	, #{readyDetailSpace}
