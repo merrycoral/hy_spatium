@@ -60,9 +60,9 @@ WHERE
 	, readySpaceBasicOption
 	, readyRequestDate)
 VALUES 
-	( 5
+	( #{readyStoreCode}
 	, #{readySpaceName}
-	, 1
+	, #{readyStoreBusinessType}
 	, #{readyPeopleNumber}
 	, #{readyBriefSpace}
 	, #{readyDetailSpace}

@@ -23,10 +23,13 @@ public class SpaceController {
 	private SpaceService spaceService;
 	
 	@PostMapping("/spaceListReady")
-	public String addSpace(Model model, ReadySpace readySpace) {
+	public String addSpace(Model model, ReadySpace readySpace, String readyStoreBusinessType
+								,@RequestParam(name = "readyStoreCode", required = false) String readyStoreCode) {
 			System.out.println(readySpace);
-			String result = spaceService.addReadySpace(readySpace);
-			System.out.println(result);
+			System.out.println(readyStoreCode + " readyStoreCode");
+			String ReadyStore = spaceService.addReadySpace(readySpace, readyStoreCode, readyStoreBusinessType);
+			System.out.println(ReadyStore);
+			
 		return "redirect:/spaceListReady";
 	}
 	
@@ -42,6 +45,7 @@ public class SpaceController {
 		System.out.println(spaceCateList);
 		String[] array = spaceCateList.split(",");
 		model.addAttribute("storeBusiness", array);
+		model.addAttribute("storeCode", storeCode);
 		
 		return "space/addSpace";
 	}
