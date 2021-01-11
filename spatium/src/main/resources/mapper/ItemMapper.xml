@@ -184,8 +184,7 @@
 	<insert id = "addItem" parameterType="Item">
 		
 		INSERT INTO tbItemDetail
-			(storeItemCode
-			, itemDetailCode
+			( itemDetailCode
 			, storeDetailCode
 			, itemName
 			, itemCategory
@@ -197,8 +196,7 @@
 			, itemChangeRegDate
 			, itemDetailUserId)
 		VALUES 
-			(NULL
-			, #{itemDetailCode}
+			( #{itemDetailCode}
 			, 5
 			, #{itemName}
 			, #{itemCategory}

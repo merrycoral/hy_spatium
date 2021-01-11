@@ -55,10 +55,6 @@ public class StoreService {
 			int StoreCode = store.getStoreCode();
 			System.out.println(StoreCode + "스토어코드asdasdasd");
 			
-			
-			
-			
-			
 			int refundPolicyCode = refundPolicy.getRefundPolicyCode();
 			System.out.println(refundPolicyCode + "리파운드폴링키코드asdasdasd");
 			
@@ -70,18 +66,6 @@ public class StoreService {
 				refundMapper.addRefundPolicy(store);
 				refundMapper.addRefundPolicyRelation(store);
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			System.out.println(tList);
 			

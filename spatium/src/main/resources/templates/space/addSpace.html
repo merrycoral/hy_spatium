@@ -67,7 +67,9 @@
 							<input id="readyPeopleNumber" class="form-control col"
 								type="text" name="readyPeopleNumber"
 								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-								placeholder="공간 허용 인원수를 입력해주시기 바랍니다."> <span> 숫자만
+								placeholder="공간 허용 인원수를 입력해주시기 바랍니다."> 
+								<input type = "hidden" name = "readyStoreCode" th:value = ${storeCode}>
+								<span> 숫자만
 								입력해주시기 바랍니다. </span>
 						</div>
 					</div>
