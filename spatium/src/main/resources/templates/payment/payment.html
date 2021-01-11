@@ -47,6 +47,7 @@
 				console.log(">>사용할"+paymentUsePoint)
 				console.log(">>총금액"+totalPoint)
 				
+				
 				minus();
 				
 				if(Number(paymentUsePoint)>Number(totalPoint)){
@@ -55,12 +56,20 @@
 					
 					minus();//결제해야하는금액 
 				}
-					
-			})
 			
 				var abc = Math.floor($('.paymentUseMoney').val()*0.01); //결제금액의 1%포인트적립금
-				 $('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값	
+				$('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값
+			})
+				var abc = Math.floor($('.paymentUseMoney').val()*0.01); //결제금액의 1%포인트적립금
+				$('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값	
+				
+				
+				
+				 
 			
+			
+			
+				 
 			$("#charge_kakao").click(function() {
 				var IMP = window.IMP; // 생략가능
 				
@@ -70,7 +79,7 @@
 				// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 				// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 				IMP.request_pay({
-					pg : 'inicis', // version 1.1.0부터 지원.
+					pg : 'kakao', // version 1.1.0부터 지원.
 					/*
 					'kakao':카카오페이,
 					html5_inicis':이니시스(웹표준결제)
@@ -186,17 +195,18 @@
 	<div class="col-sm-8">
 	<div class="panel panel-default" id="hey">
 	
+		
 		<div class="field item form-group row">
 			<h2 class=" col-md-3 offset-md-4"><u>주문자 정보</u></h2>
 			<div class="col-md-3 offset-md-4" th:text="${rsv.rsvUserName}"></div>
 			<div class="col-md-3 offset-md-4" th:text="${rsv.rsvUserPhone}"></div>
 			<div class="col-md-3 offset-md-4" th:text="${rsv.rsvUserEmail}"></div>
 		</div>
-
+		
 
 
 		<div class="field item form-group">
-		<div class="col-md-8 offset-md-3">
+		<div class="col-md-7 offset-md-3">
 				<h1 class="alert-success">예약정보</h1>
 		</div>
 		</div>
