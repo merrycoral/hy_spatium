@@ -7,7 +7,7 @@
 	<div class="col-md-12 col-sm-12 ">
 		<div class="x_panel tile fixed_height_320 overflow_hidden">
 			<div class="x_title">
-				<h3>마감 정산 페이지 </h3>
+				<h3>일자별 매출 조회 페이지 </h3>
 			</div>
 			<div class="x_content">
 				<!-- 달력 인폿박스 시작 -->
@@ -60,6 +60,7 @@
 		</div>
 	</div>
 	
+	
 </th:block>
 <th:block layout:fragment="customJs">
 <!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -74,6 +75,29 @@
 	         dateFormat: "yy-mm-dd"
 	//데이터 피커 값 변경시
 	      });
+	
+	      $("#tbStoreOk").DataTable({
+	  		order: [ [ 0, "desc" ] ],
+	  		ordering: true,
+	  		lengthChange: false,
+	  		"dom": 'fltip',
+	  		"language": {
+	  			         "info": "페이지 _PAGE_ of _PAGES_",
+	  		        	 "paginate": {
+	  						        	 "first": "첫페이지",
+	  						        	 "last": "마지막",
+	  						             "previous": "이전",
+	  						             "next":"다음"
+	  						           },
+	  		        	 "sEmptyTable": "No data available in table",
+	  		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+	  		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+	  		        	 "sInfoPostFix": "",
+	  		        	 "sLengthMenu": "Show _MENU_ 개씩",
+	  		        	 "sSearch": "검색:",
+	  		        	 "sSearchPlaceholder": "",
+	  		        	 "sZeroRecords": "No matching records found"
+	  			         }
 </script>
 </th:block>
 </html>

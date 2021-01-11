@@ -1,5 +1,6 @@
 package com.urban.spatium.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,19 +18,33 @@ public class CalcService {
 		@Autowired
 		private CalcMapper calcMapper;
 		
+		public String CloseCalc(String today){
+			//업체 id 목록 가져오기
+			List<Map<String, String>> storeIdList = calcMapper.getStoreIdList();
+			System.out.println("PRINT storeIdList");
+			System.out.println(storeIdList);
+			for(int i=0; i<storeIdList.size();i++) {
+				String storeCode = storeIdList.get(i).get("storeCode");
+				String SID = storeIdList.get(i).get("storeId");
+				
+				List<Map<String, Object>> getTodaySubtotal = calcMapper.getTodaySubtotal(today, SID);
+				Map<String, Object> subtotal = getTodaySubtotal.get(getTodaySubtotal.size()-1);
+			}
+			
+			return today;
+		}
+		
 		public Map<String, Object> getTodayList(String today, String sessionId) {
-			int startRow = 0;
-			int rowPerPage = 30;
 			int startPageNum = 1;
 			int endPageNum = 10;
+			String SID = sessionId;
 			
-			List<Map<String, Object>> getTodaySubtotal = calcMapper.getTodaySubtotal(today);
+			List<Map<String, Object>> getTodaySubtotal = calcMapper.getTodaySubtotal(today, SID);
 			Map<String, Object> subtotal = getTodaySubtotal.get(getTodaySubtotal.size()-1);
 			System.out.println("SUBTOTAL PRINT");
 			System.out.println(subtotal);
 			
-			List<Map<String, Object>> getTodayList = calcMapper.getTodayList(today);
-			
+			List<Map<String, Object>> getTodayList = calcMapper.getTodayList(today, SID);
 			
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			resultMap.put("getTodayList", getTodayList);
@@ -40,6 +55,7 @@ public class CalcService {
 			
 			return resultMap;
 		}
+		
 		public Map<String, Object> getCalcWait(int currentPage) {
 			int startRow = 0;
 			int rowPerPage = 10;
