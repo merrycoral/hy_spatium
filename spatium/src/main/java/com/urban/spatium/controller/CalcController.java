@@ -35,8 +35,9 @@ public class CalcController {
 			
 			String sessionId = (String) session.getAttribute("SID");
 			Map<String, Object> resultMap = calcService.getTodayList(today, sessionId);
+			calcService.CloseCalc("2021-01-11");
 			
-			model.addAttribute("title", "오늘 매출 현황");
+			model.addAttribute("title", "실시간 매출 현황");
 			model.addAttribute("today", today);
 			model.addAttribute("getTodayList", resultMap.get("getTodayList"));
 			model.addAttribute("subtotal", resultMap.get("subtotal"));

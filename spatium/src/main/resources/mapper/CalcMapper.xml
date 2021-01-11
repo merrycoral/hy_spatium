@@ -35,6 +35,23 @@
 			p.paymentRsvCode = r.rsvCode
 	</sql>
 	
+	<insert id="insertDayClose" parameterType="String">
+		INSERT INTO tbCalcDaily
+	(calcDStoreCode, calcDay, calcDaySales, calcDaySum, calcDayPoint, calcDayRefund, calcDayRefCommission)
+	VALUES 
+		( {#storeId}
+		, 0
+		, 0, 0, 0, 0, 0)
+	</insert>
+	
+	<select id="getStoreIdList"  resultType="Map">
+		SELECT
+			  s.storeCode
+			, s.storeId
+		FROM
+			tbStore AS s
+	</select>
+	
 	<select id="getCalcWait" parameterType="int" resultType="Map">
 		<include refid="CalcWaitColumn" />
 

@@ -32,6 +32,8 @@ public class ReviewService {
 			int rowPerPage = cri.getPerPageNum();
 			int startRow = cri.getPageStart();
 			List<Review> exallReview = reviewMapper.exallReview(startRow, rowPerPage);
+			System.out.println("PRINT exallReview");
+			System.out.println(exallReview);
 			int listSize = exallReview.size();
 			for(int i=0; i<listSize; i++) {
 				if("1".equals(exallReview.get(i).getReviewType())) {
