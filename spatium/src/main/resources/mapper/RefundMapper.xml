@@ -70,28 +70,26 @@
 	
 	
 	<insert id="cancelRefund" parameterType="CancelRsv" >
+	
 	INSERT INTO tbCancelRsv
-		(
-		cancelRsvCode
-		, cancelUserId
-		, cancelState
-		, cancelReason
-		, cancelPrice
-		, cancelRefundPolicyCode
-		, cancelRegDate
-		
-		)
+	(cancelCode
+	, cancelRsvCode
+	, cancelUserId
+	, cancelState
+	, cancelReason
+	, cancelPrice
+	, cancelRefundPolicyCode
+	, cancelRegDate)
 	VALUES 
-	(	
-		#{cancelRsvCode}
-		, #{cancelUserId}
-		, #{cancelState}
-		, #{cancelReason}
-		, #{cancelPrice}
-		, #{cancelRefundPolicyCode}
-		, NOW()
-		
-	)
+	(NULL
+	, #{cancelRsvCode}
+	, #{cancelUserId}
+	, #{cancelState}
+	, #{cancelReason}
+	, #{cancelPrice}
+	, #{cancelRefundPolicyCode}
+	, NOW())
+	
 	</insert>
 	
 	<insert id="addRefundPolicyRelation" parameterType="Store">	

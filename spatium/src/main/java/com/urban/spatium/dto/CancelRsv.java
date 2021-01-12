@@ -11,21 +11,6 @@ public class CancelRsv {
 	private int cancelRefundPolicyCode;
 	private int cancelPrice;
 	
-	
-	
-	public int getCancelRefundPolicyCode() {
-		return cancelRefundPolicyCode;
-	}
-	public void setCancelRefundPolicyCode(int cancelRefundPolicyCode) {
-		this.cancelRefundPolicyCode = cancelRefundPolicyCode;
-	}
-	
-	public int getCancelPrice() {
-		return cancelPrice;
-	}
-	public void setCancelPrice(int cancelPrice) {
-		this.cancelPrice = cancelPrice;
-	}
 	public int getCancelCode() {
 		return cancelCode;
 	}
@@ -68,11 +53,17 @@ public class CancelRsv {
 	public void setCancelReason(String cancelReason) {
 		this.cancelReason = cancelReason;
 	}
-	public int getcancelRefundPolicyCode() {
+	public int getCancelRefundPolicyCode() {
 		return cancelRefundPolicyCode;
 	}
-	public void setcancelRefundPolicyCode(int cancelRefundPolicyCode) {
+	public void setCancelRefundPolicyCode(int cancelRefundPolicyCode) {
 		this.cancelRefundPolicyCode = cancelRefundPolicyCode;
+	}
+	public int getCancelPrice() {
+		return cancelPrice;
+	}
+	public void setCancelPrice(int cancelPrice) {
+		this.cancelPrice = cancelPrice;
 	}
 	@Override
 	public String toString() {
@@ -98,5 +89,9 @@ public class CancelRsv {
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
+	
+
 
 }

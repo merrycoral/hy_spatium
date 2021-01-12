@@ -47,8 +47,8 @@ public class RefundService {
 	}
 	
 	public int cancelRefund(CancelRsv cancelrsv) {
-		int refund = refundMapper.cancelRefund(cancelrsv);
-		return refund;
+		
+		return refundMapper.cancelRefund(cancelrsv);
 	}
 	
 	public List<RefundPolicy> getRefundPolicy(int storeCode){
