@@ -44,15 +44,10 @@ public class CalcController {
 		}
 		
 		@GetMapping("/dailyCalc")
-		public String dailyCalc(Model model, @RequestParam(name="result", required = false) String result
-					, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
-			Calendar cal = Calendar.getInstance();
-			SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
-			String today = day.format(cal.getTime());
-			SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
-			String nowtime = time.format(cal.getTime());
-			System.out.println(today);
-			System.out.println(nowtime);
+		public String dailyCalc(HttpSession session, Model model, @RequestParam(name="result", required = false) String result
+					) {
+			String sessionId = (String) session.getAttribute("SID");
+			Map<String, Object> resultMap = calcService.getDailyCalc(sessionId);
 			
 			return "calculate/dailyCalc";
 		}

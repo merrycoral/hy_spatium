@@ -21,6 +21,8 @@ public interface CalcMapper {
 
 	List<Map<String, Object>> getTodayTotal(String today, String SID);
 
-	void insertDayClose(Map<String, Object> refundMoney);
+	void insertDayClose(Map<String, Object> lastParam);
+
+	Map<String, Object> getDailyCalc(String sessionId);
 
 }
