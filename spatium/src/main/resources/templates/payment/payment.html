@@ -21,10 +21,16 @@
 
 
 
-	<script>
-		
-			          
+	<script th:inline="javascript">
+		          
 		$(function(){
+			
+			/*<![CDATA[*/
+		   	var a = [[${rsvDetailList}]]
+		    /*]]>*/
+		    
+		    console.log(a);
+		    
 			var check_ip = ip(); 
 			 $('#getIp').val(check_ip);// 접속한 기기의 IP를 가져온다
 			console.log(check_ip + "<<<<IIIIIIPPPPPPPPPPPP");
@@ -71,8 +77,11 @@
 			
 				 
 			$("#charge_kakao").click(function() {
-				var IMP = window.IMP; // 생략가능
 				
+				
+				
+				
+				var IMP = window.IMP; // 생략가능
 				var paymentUseMoney = $('.paymentUseMoney').val();
 				var money = $('input[name="cp_item"]:checked').val();
 				IMP.init('imp48494121');
@@ -180,14 +189,19 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 
+<th:block th:if="${#lists.size(rsvDetailList) > 0}" th:each = "p : ${rsvDetailList}">
+<span th:text="${p}"></span>
+
+
+</th:block>
 
 <form action="/test3" method="post" id="form" >
 
 
-<input type="hidden" value="결재적립" name="pointAddList"> <br>
 
-<input type="hidden" value="적립" name="pointSellList"> <br>
-<input type="hidden" value="사용" name="pointSellList"> <br>
+<div>디테일공간코드<input type="text" th:value="${rsv.rsvDetailSpace}"></div>
+<div>디테일장비코드<input type="text" th:value="${rsv.rsvDetailItem}"></div>
+
 <input type="hidden" th:value="${rsv.storeId}" name="paymentStoreId">
 <input type="hidden" th:value="${rsv.rsvStoreCode}" name="PaymentStoreCode">
 <input type="hidden" th:value="${rsv.rsvState}" name="rsvState">

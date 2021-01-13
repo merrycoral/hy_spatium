@@ -63,7 +63,8 @@ td{text-align: center;}
 				$('.rePrice').val(reCal);//환불퍼센트 * 실결제금액 = 환불할 금액
 				$('.reCode').val(result2);
 				console.log($('.reCode').val() + " <<<<<환불코드");
-				
+				$('.paymentRefund').val( $('.Price').val() - $('.rePrice').val() );//환불하고 남은금액
+				console.log($('.paymentRefund').val());
 				return reCal;
 				
 			}
@@ -72,8 +73,8 @@ td{text-align: center;}
 			
 			
 				$('.pointList').val( $('.Price').val() * 0.01 );//반활 적립 될 포인트
-				$('.paymentRefund').val( $('.Price').val() - $('.rePrice').val() );//환불하고 남은금액
-				console.log($('.paymentRefund').val());
+				
+				
 				console.log($('.pointList').val());
 				
 			$('#cancelTest').click(function(){	

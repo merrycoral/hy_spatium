@@ -106,7 +106,23 @@
 	</update>
 	
 	
-	
+		<!--예약코드를 넣으면 방코드, 장비코드 불러오는 쿼리문  -->
+	<select id="getRsvDetailCode" parameterType="String"  resultType="map" >
+		SELECT 
+			 rsvDetailSpace
+			,rsvDetailItem
+		FROM 
+			tbRsv AS r
+		INNER JOIN
+			tbRsvRelation AS a
+		ON 
+			r.rsvCode = a.rsvRelationRsvCode
+		INNER JOIN
+			tbRsvDetail AS d
+		ON
+			a.rsvRelationRsvDetailCode = d.rsvDetailCode
+		WHERE r.rsvCode= #{rsvCode};
+	</select>
 	
 	<select id="rsvState" parameterType="String"  resultType="Rsv" >
 	SELECT 
@@ -123,12 +139,24 @@
 		, rsvRegDate
 		, rsvState
 		, storeId
+		, rsvDetailSpace
+		, rsvDetailItem
+		
 	FROM 
-		tbRsv	
+		tbRsv AS r
 	INNER join
-	tbStore AS s
+		tbStore AS s
 	on
-	rsvStoreCode = storeCode
+		rsvStoreCode = storeCode
+	INNER JOIN
+		tbRsvRelation AS a
+	ON 
+		r.rsvCode = a.rsvRelationRsvCode
+	INNER JOIN
+		tbRsvDetail AS d
+	ON
+		a.rsvRelationRsvDetailCode = d.rsvDetailCode
+	
 	WHERE 
 		rsvCode = #{rsvCode};
 	</select>

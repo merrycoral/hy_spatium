@@ -131,8 +131,23 @@ public class paymentController {
 		System.out.println(rsvCode);
 		
 		//memberService.onelist(member.getMemberId());
-		
+	
 		Rsv rsv = paymentService.rsvState(rsvCode);
+		System.out.println("여기>>>"+paymentService.getRsvDetailCode(rsvCode));
+		
+		List<String> rsvDetailList=  paymentService.getRsvDetailCode(rsvCode);
+		System.out.println(rsvDetailList.get(0));
+		System.out.println(rsvDetailList.get(1));
+		System.out.println(rsvDetailList.get(2));
+		
+		/*
+		 * List<Map<String, Object>> map = paymentService.getRsvDetailCode(rsvCode);
+		 * System.out.println("사이즈>>>"+map.size()); map.get(0).get("rsvDetailSpace");
+		 * map.get(1).get("rsvDetailItem"); map.get(2).get("rsvDetailItem");
+		 * System.out.println("여기부터>>"+map.get(0).get("rsvDetailSpace"));
+		 * System.out.println(map.get(1).get("rsvDetailItem1"));
+		 * System.out.println(map.get(2).get("rsvDetailItem+1"));
+		 */
 		
 		
 		
@@ -142,6 +157,7 @@ public class paymentController {
 		String totalPoint =paymentService.totalPoint(rsv.getRsvUserId());
 		System.out.println("포인트"+totalPoint);
 		model.addAttribute("totalPoint", totalPoint);
+		model.addAttribute("rsvDetailList", paymentService.getRsvDetailCode(rsvCode));
 		
 		
 		
