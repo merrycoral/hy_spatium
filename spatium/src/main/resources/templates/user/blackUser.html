@@ -13,7 +13,6 @@
 					<th scope="col">등록 사유</th>
 					<th scope="col">등록 일자</th>
 					<th scope="col">해제 일자</th>
-					<th scope="col">수정</th>
 					<th scope="col">삭제</th>
 				</tr>
 			</thead>
@@ -23,10 +22,7 @@
 					<td th:text="${b.blackReason}"></td>
 					<td th:text="${b.blackStartDate}"></td>
 					<td th:text="${b.blackEndDate}"></td>
-					<td>
-
-						<button type="submit"><a th:href="@{/modifyUser(blackUserId=${b.blackUserId})}">수정</a></button></td>
-					<td>
+					
 						<button type="submit"><a th:href="@{/removeUser(blackUserId=${b.blackUserId}, blackUserLevel=${l.blackUserLevel})}">삭제</a></button>
 					</td>
 				</tr>

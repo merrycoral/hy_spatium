@@ -2,103 +2,109 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="@{layout/default}">
+	
 
 <th:block layout:fragment="customContent">
+<form action="/findIdform" method="post">
 
-	<div class="card card-primary card-outline card-tabs">
-		<div class="card-header p-0 pt-1 border-bottom-0">
-			<ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
-				<li class="nav-item"><a class="nav-link active"
-					id="custom-tabs-three-home-tab" data-toggle="pill"
-					href="#custom-tabs-three-home" role="tab"
-					aria-controls="custom-tabs-three-home" aria-selected="true">아이디</a>
-				</li>
-				<li class="nav-item"><a class="nav-link"
-					id="custom-tabs-three-profile-tab" data-toggle="pill"
-					href="#custom-tabs-three-profile" role="tab"
-					aria-controls="custom-tabs-three-profile" aria-selected="false">비밀번호</a>
-				</li>
-
-			</ul>
-		</div>
-		<div class="card-body">
-			<div class="tab-content" id="custom-tabs-three-tabContent">
-				<div class="tab-pane fade active show" id="custom-tabs-three-home"
-					role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
-					<div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
-						<div class="card my-5 ">
-							<div class="card-body p-5 text-center">
-								<div class="h3 font-weight-light mb-0">아이디 찾기</div>
-								<div class="ng-untouched ng-pristine ng-invalid">
-									<div class="form-group">
-										<input type="text" class="form-control" id="userEmail"
-											name="userEmail" placeholder="이메일">
-									</div>
-									<button type="button" class="btn btn-primary" id="checkId">확인</button>
-									<button type="button" class="btn btn-success" id="cancel">
-										취소</button>
+<div>
+  <input type="radio" name="tab" id="tab1" checked="checked" />
+  <label for="tab1" class="contentType">아이디</label>
+  <input type="radio" name="tab" id="tab2" />
+  <label for="tab2" class="contentType">비밀번호</label>
+</div>
+<div class="contents">
+  <p><div class="tab-content" id="vianfind-tabContent">
+  <div class="tab-pane fade show active" id="vianfind-home" role="tabpanel" aria-labelledby="vianfind-home-tab">
+<div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
+					<div class="card my-5 ">
+						<div class="card-body p-5 text-center">
+							<div class="h3 font-weight-light mb-0">아이디 찾기</div>
+							<div class="ng-untouched ng-pristine ng-invalid">
+								<div class="form-group">
+									<input type="text" class="form-control" id="userName"
+										name="userName" placeholder="이름">
 								</div>
-								<div class="text-center small" id="checkMsg" style="color: red"></div>
+								<div class="form-group">
+									<input type="text" class="form-control" id="userEmail"
+										name="userEmail" placeholder="이메일">
+								</div>
+								<button type="button" class="btn btn-primary" id="checkId"
+									onclick="checkId()">확인</button>
+								<a class="btn btn-success" id="cancel" href="login"> 취소</a>
 							</div>
+							<div class="text-center small" id="checkMsg" style="color: red"></div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 
-		<div class="tab-pane fade" id="custom-tabs-three-profile"
-			role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
-			<div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
-				<div class="card my-5 ">
-					<div class="card-body p-5 text-center">
-						<div class="h3 font-weight-light mb-0">비밀번호 찾기</div>
-						<div class="ng-untouched ng-pristine ng-invalid">
-							<div class="form-group">
-								<input type="text" class="form-control" id="userId"
-									name="userId" placeholder="아이디"> <input type="text"
-									class="form-control" id="userEmail" name="userEmail"
-									placeholder="이메일">
+</div></div>
+  <div><div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
+					<div class="card my-5 ">
+						<div class="card-body p-5 text-center">
+							<div class="h3 font-weight-light mb-0">비밀번호 찾기</div>
+							<div class="ng-untouched ng-pristine ng-invalid">
+								<div class="form-group">
+									<input type="text" class="form-control" id="userId"
+										name="userId" placeholder="아이디"></div>
+										<div class="form-group">
+										 <input type="text"
+										class="form-control" id="userEmail" name="userEmail"
+										placeholder="이메일">
+								</div>
+									</div>
+								<button type="button" class="btn btn-primary" id="findBtn">확인</button>
+								<a class="btn btn-success" href="login">취소</a>
 							</div>
-							<button type="button" class="btn btn-primary" id="findBtn">확인</button>
-							<button type="button" class="btn btn-success"
-								onclick="history.go(-1);">취소</button>
+							<div class="text-center small" id="checkMsg" style="color: red"></div>
 						</div>
-						<div class="text-center small" id="checkMsg" style="color: red"></div>
 					</div>
-				</div>
 			</div>
 		</div>
-	</div>
+</form>
 </th:block>
 
 <th:block layout:fragment="customJs">
-	<script>
-	$(function(){
-		$("#findBtn").click(function(){
-			$.ajax({
-				url : "/user/findPw",
-				type : "POST",
-				data : {
-					id : $("#userId").val(),
-					email : $("#userEmail").val()
-				},
-				success : function(result) {
-					alert(result);
-				},
-			})
-		});
-	})
+<script>
+//탭
+$(document).ready(function(){ 
+ $(".contents > div").last().hide();
+ var radioContent = $(".contents > div");
+ $("input[type='radio']").click(function(){
+  radioContent.hide();
+  radioContent.eq($("input[type='radio']").index(this)).show();
+ });
+});
 </script>
 
 <script>
-$(function(){
-	$("#checkId").click(function(){
-		location.href='/user/findId';
-	})
-	$("#cancel").click(function(){
-			location.href='/login';
-})
+//아이디 찾기
+$(document).on('click','#findId',function(){
+	var name = $('#userName').val();
+ 	var email = $('#userEmail').val();
+
+ 	var postData = {'userName' : name , 'userEmail' : email};
+
+	$.ajax({
+        url:'/user/findingId',
+        type:'POST',
+        data: postData,
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType : "json",
+
+        success:function(data){
+        	var emailLists = data.userEmail;
+        	var emailLength = emailLists.length
+        	var emailfind = emailLists.substring(1, emailLength-1)
+       	 		 $("#emailList").append("<h1>"+"회원님의 정보로 등록된 이메일은 : "+emailfind+" 입니다.</h1>")
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown){
+
+        	alert('정보를 다시 입력해주시길 바랍니다.' );
+        }
+    });
 });
 </script>
-	</th:block>
+</th:block>
 </html>

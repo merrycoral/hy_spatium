@@ -200,6 +200,27 @@ public class ItemController {
 				
 				return "item/itemDeleteList";
 		}
+		
+		//장비파기등록
+		@PostMapping("/addItemDelte")
+		public String addItemDelte(Model model, Item item) {
+				System.out.println(item + "=========== 장비 넘어온 값 ============");
+				String result = itemService.addItemDelte(item);
+				item.getItemDetailCode();
+				item.setItemDetailCode(item.getItemCode());
+				System.out.println(result);
+				
+			return "redirect:/addItem";
+		}
+		
+		@GetMapping("/addItemDelte")
+		public String addItemDelte(Model model) {
+			
+			model.addAttribute("title", "장비 등록");
+			
+			return "item/itemDeleteForm";
+		}
+			
 	
 	//장비수량목록
 	@GetMapping("/itemCountList")

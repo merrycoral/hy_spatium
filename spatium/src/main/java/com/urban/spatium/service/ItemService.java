@@ -109,6 +109,18 @@ public class ItemService {
 		return itemMapper.itemDeleteList();
 		}	
 	
+	//장기파기 등록
+	public String addItemDelte(Item item) {
+		
+		String addCheck = "장비 등록 실패";
+			if(item != null) {
+				itemMapper.addItemDelte(item);
+				addCheck = "장비 등록 성공";
+			}
+			
+		return addCheck;
+	}
+	
 	
 	public Item getitemBuyCode(int itemBuyCode) {
 		

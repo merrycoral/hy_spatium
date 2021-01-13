@@ -124,6 +124,26 @@
 		FROM
 			tbItemDeleteList;
 	</select>
+	
+	<!-- 장비파기 등록 -->
+	<insert id = "addItemDelte" parameterType="Item">
+		
+		INSERT INTO tbItemDetail
+			(itemDeleteCode
+			, storeDeleteCode
+			, storeItemDeleteCode
+			, userDeleteId
+			, itemDeleteReason
+			, itemDeleteRegDate
+		VALUES 
+			(
+			  #{itemDeleteCode}
+			, #{storeDeleteCode}
+			, #{storeItemDeleteCode}
+			, #{userDeleteId}
+			, #{itemDeleteReason}
+			, #{itemDeleteRegDate})
+	</insert>
 
 
 	<select id = "itemCountListByStoreCode" parameterType="int" resultType="Item">

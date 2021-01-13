@@ -4,31 +4,29 @@
 	layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
+	 <form action="/findId" method="post">
+	<div id="modal" class="modal">
+		<div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
+			<div class="card my-5 ">
+				<div class="card-body p-5 text-center">
+					<div class="h3 font-weight-light mb-0">아이디 찾기</div>
+					<div class="ng-untouched ng-pristine ng-invalid">
+						<div class="form-group">
+							<h4>
+								<b>손님 아이디는?</b><span class="close">&times;</span>
+							</h4>
+							<br>
+							${userId}
+						</div>
+						<button type="button" class="btn btn-primary" id="pwSearch">비밀번호
+							찾기</button>
+						<a class="btn btn-success" href="login">취소</a>
 
-            <div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
-                <div class="card my-5 ">
-			<div class="card-body p-5 text-center">
-				<div class="h3 font-weight-light mb-0">아이디 찾기
-                </div>
-                    <div class="ng-untouched ng-pristine ng-invalid">
-					<div class="form-group">
-                          <H3> 회원님의 아이디는 ${userId} 입니다.</H3>
-                        </div>
-                        <button type="button" class="btn btn-primary" id="findBtn">확인</button>
-                         <button type="button" class="btn btn-success" data-dismiss="modal"  onclick="history.go(-1);">취소
-                    </button>
-                    </div>
-                 </div>
-             </div>
-        </div>
-</th:block>
-<th:block layout:fragment="customJs">
-<script>
-	$(function(){
-		$("#findBtn").click(function(){
-			location.href='/login';
-		})
-	})
-</script>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
 </th:block>
 </html>

@@ -42,7 +42,7 @@
                   </div>
                   <div
                      class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                     <div id="findId" >아이디/비밀번호 찾기</div>
+                     <div id="findIdform" >아이디/비밀번호 찾기</div>
                      <button type="submit" class="btn btn-primary" onclick="CheckForm();">로그인</button>
                   </div>
             </div>
@@ -150,7 +150,7 @@ function getCookie(cookieName) {
 <script>
 //아이디 찾기
 $(function(){
-	$("#findId").click(function(){
+	$("#findIdform").click(function(){
 		location.href='/findIdform';
 	})
 })

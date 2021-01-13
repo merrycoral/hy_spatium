@@ -21,7 +21,6 @@
 					<th scope="col">등급</th>
 					<th scope="col">이메일</th>
 					<th scope="col">포인트</th>
-					<th scope="col">수정</th>
 					<th scope="col">삭제</th>
 				</tr>
 			</thead>
@@ -40,7 +39,6 @@
 					<td th:text="${l.restUserEmail}"></td>
 					<td th:text="${l.restUserPoint}"></td>
 
-					<td><button type="submit"><a th:href="@{/modifyUser(restUserId=${l.restUserId})}">수정</a></button></td>
 					<td><button type="submit"><a
 
 						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a></button>
