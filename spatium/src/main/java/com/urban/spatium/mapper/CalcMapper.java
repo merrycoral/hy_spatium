@@ -15,10 +15,12 @@ public interface CalcMapper {
 
 	int getTodayCount(String today);
 
-	List<Map<String, Object>> getTodayList(String today, String sID);
+	List<Map<String, Object>> getTodayList(String today, String SID);
 
-	List<Map<String, Object>> getTodaySubtotal(String today, String sID);
+	List<Map<String, Object>> getStoreIdList();
 
-	List<Map<String, String>> getStoreIdList();
+	List<Map<String, Object>> getTodayTotal(String today, String SID);
+
+	void insertDayClose(Map<String, Object> refundMoney);
 
 }
