@@ -2,6 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.SpaceMapper">
 
+<select id="readySpaceAccept" resultType="ReadySpace" parameterType="int">
+	
+	SELECT
+		readySpace
+		, readyStoreCode
+		, readySpaceName
+		, readySpaceType
+		, readyPeopleNumber
+		, readyBriefSpace
+		, readyDetailSpace
+		, readySpaceTag
+		, readyRentalPrice
+		, readyStartTime
+		, readyCloseTime
+		, readyExceptionStartDate
+		, readyExceptionEndDate
+		, readySpaceBasicOption
+		, readyRequestDate
+	FROM 
+		tbReadySpace
+	WHERE
+		readySpace = #{readySpace};
+	
+</select>
+
 <select id="addSpaceChoice" resultType="Store" parameterType="String">
 
 SELECT 

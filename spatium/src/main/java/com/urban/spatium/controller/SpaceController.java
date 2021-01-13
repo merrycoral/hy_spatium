@@ -22,6 +22,20 @@ public class SpaceController {
 	@Autowired
 	private SpaceService spaceService;
 	
+	/* 공간 승인 대기 목록에서 승인 버튼을 클릭하시 들어오는 컨트롤러 */
+	@GetMapping("/readySpaceAccept")
+	public String readySpaceAccept (Model model, ReadySpace readySpaceDto
+									,@RequestParam(name = "readySpace", required = false)int readySpace) {
+		
+		List<ReadySpace> rsl = spaceService.readySpaceAccept(readySpace);
+		
+		System.out.println(readySpace);
+		System.out.println(rsl + "11111111 rsl 부분");
+		model.addAttribute("title", "공간 승인 화면");
+		model.addAttribute("rsl", rsl);
+		
+		return "space/readySpaceAccept";
+	}
 	
 	/* 공간 등록 폼에서 포스트 맵핑으로 들어오는 컨트롤러
 	 * (공간 등록 이후 바로 공간 승인 대기 리스트로 가게 됩니다.) */
