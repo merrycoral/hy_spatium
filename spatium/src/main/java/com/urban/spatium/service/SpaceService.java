@@ -1,6 +1,5 @@
 package com.urban.spatium.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,13 @@ public class SpaceService {
 	
 	@Autowired
 	private SpaceMapper spaceMapper;
+	
+	public List<ReadySpace> readySpaceAccept(int readySpaceCode){
+	
+		List<ReadySpace> rsl = spaceMapper.readySpaceAccept(readySpaceCode);
+		
+		return rsl;
+	}
 	
 	public List<Store> addSpaceChoice(String storeId){
 		

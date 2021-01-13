@@ -11,6 +11,8 @@ import com.urban.spatium.dto.Store;
 @Mapper
 public interface SpaceMapper {
 	
+	public List<ReadySpace> readySpaceAccept(int readySpaceCode);
+	
 	public List<Store> addSpaceChoice(String storeId);
 	
 	public String addSpace(String storeCode);
