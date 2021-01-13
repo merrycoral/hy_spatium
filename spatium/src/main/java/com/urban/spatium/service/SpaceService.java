@@ -35,58 +35,10 @@ public class SpaceService {
 		
 	}
 	
-	public String addReadySpace(ReadySpace readySpace, String storeCode, String ReadyStoreBusinessType) {
+	public String addReadySpace(ReadySpace readySpace, String storeCode) {
 		int result = spaceMapper.addReadySpace(readySpace);
 		
 		String checkCate = "ㅎㅇ";
-		
-		String storeCate = readySpace.getReadyStoreBusinessType();
-		
-		
-		String[] array = storeCate.split(",");
-		String[] i_array = new String[5];
-		String arrayCheck = "0";
-		for(int i=0; i<array.length; i++) {
-			System.out.println(array[i]);
-			
-			if(array[i].equals("촬영 스튜디오")) {
-				arrayCheck = "1";
-				i_array[i]=arrayCheck;
-			}else if(array[i].equals("엠티장소")) {
-				arrayCheck = "2";
-				i_array[i]=arrayCheck;
-			}else if(array[i].equals("스터디룸")) {
-				arrayCheck = "3";
-				i_array[i]=arrayCheck;
-			}else if(array[i].equals("연습실")) {
-				arrayCheck = "4";
-				i_array[i]=arrayCheck;
-			}else if(array[i].equals("파티룸")) {
-				arrayCheck = "5";
-				i_array[i]=arrayCheck;
-			}else if(array[i].equals("회의실")) {
-				arrayCheck = "6";	
-				i_array[i]=arrayCheck;
-			}else if(array[i].equals("카페")) {
-				arrayCheck = "7";
-				i_array[i]=arrayCheck;
-			}else if(array[i].equals("다목적홀")) {
-				arrayCheck = "8";
-				i_array[i]=arrayCheck;
-			}else if(array[i].equals("공연장")) {
-				arrayCheck = "9";
-				i_array[i]=arrayCheck;
-			}else if(array[i].equals("한옥")) {
-				arrayCheck = "10";
-				i_array[i]=arrayCheck;
-				readySpace.setReadyStoreBusinessType(arrayCheck);
-				String feel = readySpace.getReadyStoreBusinessType();
-				System.out.println(feel + "feel 값 2222222222222222222222222222");
-			}
-			System.out.println(arrayCheck + "arrayCheck 숫자");
-			System.out.println(i_array[i] + "넣을 카테고리");
-		}
-		
 		
 		System.out.println(storeCode + "애드레디스페이스11111111111111111111111");
 		
@@ -101,7 +53,7 @@ public class SpaceService {
 	}
 	
 	public List<OKSpace> OKSpaceList(){
-		
+			
 		List<OKSpace> OKSpaceList = spaceMapper.OKSpaceList();
 		
 		return OKSpaceList;

@@ -6,7 +6,7 @@ public class OKSpace {
 	private int okaySpaceCode;
 	private int okayStoreCode;
 	private String okaySpaceName;
-	private int okaySpaceType;
+	private String okaySpaceType;
 	private int okayPeopleNumber;
 	private String okayDetailSpace;
 	private String okayBriefSpace;
@@ -45,10 +45,10 @@ public class OKSpace {
 	public void setOkaySpaceName(String okaySpaceName) {
 		this.okaySpaceName = okaySpaceName;
 	}
-	public int getOkaySpaceType() {
+	public String getOkaySpaceType() {
 		return okaySpaceType;
 	}
-	public void setOkaySpaceType(int okaySpaceType) {
+	public void setOkaySpaceType(String okaySpaceType) {
 		this.okaySpaceType = okaySpaceType;
 	}
 	public int getOkayPeopleNumber() {

@@ -22,17 +22,21 @@ public class SpaceController {
 	@Autowired
 	private SpaceService spaceService;
 	
+	
+	/* 공간 등록 폼에서 포스트 맵핑으로 들어오는 컨트롤러
+	 * (공간 등록 이후 바로 공간 승인 대기 리스트로 가게 됩니다.) */
 	@PostMapping("/spaceListReady")
 	public String addSpace(Model model, ReadySpace readySpace, String readyStoreBusinessType
 								,@RequestParam(name = "readyStoreCode", required = false) String readyStoreCode) {
 			System.out.println(readySpace);
 			System.out.println(readyStoreCode + " readyStoreCode");
-			String ReadyStore = spaceService.addReadySpace(readySpace, readyStoreCode, readyStoreBusinessType);
+			String ReadyStore = spaceService.addReadySpace(readySpace, readyStoreCode);
 			System.out.println(ReadyStore);
 			
 		return "redirect:/spaceListReady";
 	}
 	
+	/* 공간 등록 클릭 후 등록 하고자 하는 공간을 클릭시 들어오는 컨트톨러 */
 	@GetMapping("/addSpace")
 	public String addSpace(Model model, HttpSession session, Store store, String storeCode) {
 		System.out.println(storeCode + "spacecontroller에서 받은 스토어 코드 값");
@@ -50,6 +54,7 @@ public class SpaceController {
 		return "space/addSpace";
 	}
 	
+	/* 왼쪽 메뉴에서 공간 등록 클릭시 들어오는 컨트롤러 */
 	@GetMapping("/addSpaceChoice")
 	public String addSpaceChoice(Model model, HttpSession session, Store store) {
 		model.addAttribute("title", "공간 등록");
@@ -61,6 +66,7 @@ public class SpaceController {
 		return "space/addSpaceChoice";
 	}
 	
+	/* 왼쪽 메뉴에서 공간 승인 대기 클릭시 들어오는 컨트롤러 */
 	@GetMapping("/spaceListReady")
 	public String readySpaceList(Model model) {
 		List<ReadySpace> readySpaceList = spaceService.readySpaceList();
@@ -69,6 +75,7 @@ public class SpaceController {
 		return "space/readySpaceList";
 	}
 	
+	/* 왼쪽 메뉴에서 공간 승인 완료 클릭시 들어오는 컨트롤러 */
 	@GetMapping("/spaceListOK")
 	public String OKSpaceList(Model model) {
 		List<OKSpace> spaceListO = spaceService.OKSpaceList();

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.urban.spatium.dto.Item;
+import com.urban.spatium.dto.Store;
 import com.urban.spatium.dto.User;
 import com.urban.spatium.mapper.ItemMapper;
 import com.urban.spatium.mapper.UserMapper;
@@ -143,6 +144,13 @@ public class ItemService {
 			}
 			
 		return addCheck;
+	}
+	
+	public List<Store> addItemChoice(String storeId){
+		
+		List<Store> itemList = itemMapper.addItmeChoice(storeId);
+		
+		return itemList;
 	}
 	
 }

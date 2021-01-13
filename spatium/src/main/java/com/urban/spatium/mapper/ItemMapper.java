@@ -5,9 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.urban.spatium.dto.Item;
+import com.urban.spatium.dto.Store;
 
 @Mapper
 public interface ItemMapper {
+	
+	public List<Store> addItmeChoice(String storeId);
 	
 	public List<Item> itemCountList();
 	

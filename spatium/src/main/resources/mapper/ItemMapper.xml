@@ -197,7 +197,7 @@
 			, itemDetailUserId)
 		VALUES 
 			( #{itemDetailCode}
-			, 5
+			, #{storeDetailCode}
 			, #{itemName}
 			, #{itemCategory}
 			, #{itemDetail}
@@ -206,8 +206,36 @@
 			, #{itemImg}
 			, NOW()
 			, NOW()
-			, 'id001')
+			, #{itemDetailUserId})
 		
 	</insert>
+	
+	<select id="addItmeChoice" parameterType="String" resultType="Store">
+	
+		SELECT 
+			storeCode
+			, storeId
+			, storeName
+			, storeRepresentative
+			, storeNumber
+			, storeBusinessType
+			, storeAddressNumber
+			, storeAddress
+			, storeAddressDetail
+			, storeIntroduction
+			, storeRsvType
+			, storeEmail
+			, storePhone
+			, storeAccountBankName
+			, storeAccountNumber
+			, storeRefundRull
+			, storeImage
+			, storeLevel
+		FROM
+			tbStore
+		WHERE	
+			storeId = #{storeId};
+	
+	</select>
 
 </mapper>

@@ -5,7 +5,7 @@ public class ReadySpace {
 	private int readySpace;
 	private int readyStoreCode;
 	private String readySpaceName;
-	private int readySpaceType;
+	private String readySpaceType;
 	private int readyPeopleNumber;
 	private String readyBriefSpace;
 	private String readyDetailSpace;
@@ -41,10 +41,10 @@ public class ReadySpace {
 	public void setReadySpaceName(String readySpaceName) {
 		this.readySpaceName = readySpaceName;
 	}
-	public int getReadySpaceType() {
+	public String getReadySpaceType() {
 		return readySpaceType;
 	}
-	public void setReadySpaceType(int readySpaceType) {
+	public void setReadySpaceType(String readySpaceType) {
 		this.readySpaceType = readySpaceType;
 	}
 	public int getReadyPeopleNumber() {
