@@ -47,8 +47,16 @@ public class RsvController {
 	 * 예약수 통계(관리자)
 	 */
 	@GetMapping("/rsvStatAdmin")
-	public String rsvStatAdmin(Model model) {
-		List<Map<String, Object>> rsvStatAdmin = rsvService.rsvStatAdmin();
+	public String rsvStatAdmin(Model model, @RequestParam(name="options", required = false)String day) {
+		System.out.println("day : "+day);
+		List<Map<String, Object>> rsvStatAdmin = null;
+		if(day==null) {
+			//전체
+			rsvStatAdmin = rsvService.rsvStatAdmin();
+		}else{
+			//일,주,월간
+			rsvStatAdmin = rsvService.rsvStatAdmin(day);
+		}
 		model.addAttribute("title", "업체별 예약 통계");
 		model.addAttribute("rsvStatAdmin", rsvStatAdmin);
 		return "rsv/rsvStatAdmin";
@@ -113,7 +121,7 @@ public class RsvController {
 	 * 예약 하는 ajax
 	 */
 	@RequestMapping(value = "/rsvInsertAjax", produces="application/json"  ,method = RequestMethod.POST ) 
-	public @ResponseBody String addInOutPut(@RequestBody Rsv rsv, HttpSession session) {
+	public @ResponseBody String addInOutPut(@RequestBody Rsv rsv, HttpSession session) throws IOException {
 		System.out.println("예약날짜 --> "+rsv.getRsvDate());
 		System.out.println("시작시간 --> "+rsv.getStartTime());
 		System.out.println("종료시간 --> "+rsv.getEndTime());
@@ -127,8 +135,10 @@ public class RsvController {
 		
 		String sessionId = (String) session.getAttribute("SID");
 		rsv.setRsvUserId(sessionId); // 임시 아이디 부여
-		rsvService.insertTbRsv(rsv);
-	    
+		List<Rsv> result = rsvService.insertTbRsv(rsv);
+	    if(result.size()>0) {	
+	    	return "/rsvInsertAdmin?storeCode="+rsv.getRsvStoreCode()+"&rsvType="+rsv.getRsvState();
+	    }
 	    return "/rsvListAdmin";
 	}
 	

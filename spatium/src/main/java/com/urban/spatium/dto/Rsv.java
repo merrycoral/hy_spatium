@@ -33,7 +33,7 @@ public class Rsv {
 	private String storeId;
 	private String okaySpaceName;
 	private String itemTotalName;
-	private int rsvTime;
+	private String rsvTime;
 	private int rsvTimePrice;
 	private int itemCode;
 	private Payment payment;
@@ -68,10 +68,10 @@ public class Rsv {
 	public void setRsvTimePrice(int rsvTimePrice) {
 		this.rsvTimePrice = rsvTimePrice;
 	}
-	public int getRsvTime() {
+	public String getRsvTime() {
 		return rsvTime;
 	}
-	public void setRsvTime(int rsvTime) {
+	public void setRsvTime(String rsvTime) {
 		this.rsvTime = rsvTime;
 	}
 	public String getOkaySpaceName() {

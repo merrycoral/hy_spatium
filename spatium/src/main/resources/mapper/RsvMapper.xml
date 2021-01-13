@@ -4,54 +4,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.RsvMapper">
 	
-	<select id="monthRsvStatAdmin" resultType="Map">
+	<select id="dayRsvStatAdmin" parameterType="String" resultType="Map">
 		SELECT
 			storeCode
 			,storeName
 			,COUNT(storeCode) AS count
 			,ROUND(SUM(rsvTimePrice)/1000,0) AS sumPrice
-			,MONTH(`rsvStartDateTime`) AS `date`
+			,rsvStartDateTime
 		FROM 
 			viewRsv AS v
+		WHERE 
+		<choose>
+		    <when test='endDay == "월"'>
+		<![CDATA[
+		      rsvStartDateTime>=#{startDay} AND rsvStartDateTime<=LAST_DAY(#{startDay})
+		]]>
+		    </when>
+		    <when test='endDay == "일"'>
+		<![CDATA[
+		      rsvStartDateTime>=#{startDay} AND rsvStartDateTime<='${startDay} 23:59:59' 
+	    ]]>
+	    	</when>
+		    <otherwise>
+		<![CDATA[
+		      rsvStartDateTime>=#{startDay} AND rsvStartDateTime<=#{endDay} 
+	    ]]>
+		    </otherwise>
+		</choose>
 		GROUP BY
-			storeCode, date
-			HAVING DATE = '1'
-		ORDER BY
-			COUNT DESC
-	</select>
-	
-	<select id="weekRsvStatAdmin" resultType="Map">
-		SELECT
 			storeCode
-			,storeName
-			,COUNT(storeCode) AS count
-			,ROUND(SUM(rsvTimePrice)/1000,0) AS sumPrice
-			,DATE_FORMAT(DATE_SUB(`rsvStartDateTime`, INTERVAL (DAYOFWEEK(`rsvStartDateTime`)-1) DAY), '%Y/%m/%d') as START
-			,DATE_FORMAT(DATE_SUB(`rsvStartDateTime`, INTERVAL (DAYOFWEEK(`rsvStartDateTime`)-7) DAY), '%Y/%m/%d') as END
-		   ,DATE_FORMAT(`rsvStartDateTime`, '%Y/%U') AS DATE
-		FROM 
-			viewRsv
-		GROUP BY
-			storeCode, DATE
-			HAVING DATE = '2021/02'
-		ORDER BY
-			COUNT DESC
-	</select>
-	
-	<select id="dayRsvStatAdmin" resultType="Map">
-		SELECT
-			storeCode
-			,storeName
-			,COUNT(storeCode) AS count
-			,ROUND(SUM(rsvTimePrice)/1000,0) AS sumPrice
-			,DATE_FORMAT(rsvStartDateTime, '%Y-%m-%d') AS `date`
-		FROM 
-			viewRsv AS v
-		GROUP BY
-			storeCode, date
-			HAVING DATE = '2021-01-11'
-		ORDER BY
-			COUNT DESC
+		order by
+			count desc
 	</select>
 	
 	<select id="rsvStatAdmin" resultType="Map">
@@ -223,6 +206,37 @@
 			tbOkaySpace
 		WHERE
 			okaySpaceCode = #{tbRecord}
+	</select>
+	
+	<select id="rsvCheck" parameterType="int" resultType="Rsv">
+		SELECT 
+			okaySpaceCode,
+			okaySpaceName,
+			itemCode,
+			itemTotalName,
+			rsvStartDateTime,
+			rsvEndDateTime
+		FROM 
+			viewRsv AS v
+		<trim prefix="WHERE" suffixOverrides="AND |OR ">
+		  <if test="itemList != null">
+			<foreach item="i" index="index" collection="itemList" separator="or">
+	        	itemCode=#{i.itemCode}
+	 		</foreach>OR
+ 		 </if>
+ 		 
+ 		 <if test="spaceList != null">
+			<foreach item="s" index="index" collection="spaceList" separator="or">
+	       	 	okaySpaceCode=#{s.spaceCode}
+	 		</foreach>OR
+	 		</if>
+		</trim>
+		<![CDATA[
+			and
+			rsvEndDateTime > #{rsvStartDateTime}
+			and
+			rsvStartDateTime <#{rsvEndDateTime} 
+		]]>
 	</select>
 	
 	<select id="getItemByStore" parameterType="int" resultType="Item">
