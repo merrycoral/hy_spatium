@@ -2,9 +2,11 @@ package com.urban.spatium.service;
 
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.groovy.util.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,30 +56,29 @@ public class UserService {
 		return result;
 	}
 	
-	//회원정보수정
-	public String myInfo(User user) {
-		String result = "회원정보수정 실패";
+	//마이페이지 수정
+	public String modifyMyinfo(User user) {
+		String result = "마이페이지 수정 실패";
 			
-		int myInfoCheck = userMapper.myInfo(user);
+		int myInfoCheck = userMapper.modifyMyinfo(user);
 			
-		if(myInfoCheck > 0) result = "회원정보수정 성공";
+		if(myInfoCheck > 0) result = "마이페이지 수정 성공";
 			
 		return result;
 	}
 	
 	//회원삭제
 	public String removeUser(String userId, String userPw, String userLevel) {
-		String result = "회원 삭제 실패";
-
-		User user = userMapper.getUserById(userId);
+	String result = "회원 삭제 실패";
+	  
+	User user = userMapper.getUserById(userId);
+	  
+	if(user != null && user.getUserPw() != null &&
+	userPw.equals(user.getUserPw())) { 
+		int removeCheck =userMapper.removeUser(userId, userLevel); 
+		if(removeCheck > 0) result = "회원 삭제 성공"; } 
+	return result; }
 		
-		if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
-			int removeCheck = userMapper.removeUser(userId, userLevel);
-			if(removeCheck > 0) result = "회원 삭제 성공";
-		}
-		return result;
-	}
-	
 	//회원수정
 	public String modifyUser(User user) {
 		String result = "회원 수정 실패";
@@ -103,26 +104,9 @@ public class UserService {
 		
 		return user;
 	}
-	
-	
-	
+
 	//아이디 찾기
-	public String findId(HttpServletResponse response, String userEmail) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		String userId = userMapper.findId(userEmail);
-		
-		if (userId == null) {
-			out.println("<script>");
-			out.println("alert('가입된 아이디가 없습니다.');");
-			out.println("history.go(-1);");
-			out.println("</script>");
-			out.close();
-			return null;
-		} else {
-			return userId;
-		}
-	}
+	
 	
 	//아이디 중복체크
 	public int idChk(User user) {
@@ -147,4 +131,6 @@ public class UserService {
 		
 		return user;
 	}
+
+	
 }

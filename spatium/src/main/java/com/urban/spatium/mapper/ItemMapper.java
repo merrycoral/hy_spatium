@@ -30,6 +30,9 @@ public interface ItemMapper {
 	//장비파기내역
 	public List<Item> itemDeleteList();
 	
+	//장비파기 등록
+	public int addItemDelte(Item item);
+	
 	//장비수리내역 삭제
 	int removeitemRepair(int itemRepairCode);
 		  

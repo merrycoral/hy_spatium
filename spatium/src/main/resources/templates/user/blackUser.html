@@ -6,14 +6,13 @@
 <th:block layout:fragment="customContent">
 <form action="/blackUser" method="post">
 	<div class="table-responsive m-t-20">
-		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id="tbBlackConsumer">
 			<thead>
 				<tr>
 					<th scope="col">아이디</th>
 					<th scope="col">등록 사유</th>
 					<th scope="col">등록 일자</th>
 					<th scope="col">해제 일자</th>
-					<th scope="col">수정</th>
 					<th scope="col">삭제</th>
 				</tr>
 			</thead>
@@ -23,10 +22,7 @@
 					<td th:text="${b.blackReason}"></td>
 					<td th:text="${b.blackStartDate}"></td>
 					<td th:text="${b.blackEndDate}"></td>
-					<td>
-
-						<button type="submit"><a th:href="@{/modifyUser(blackUserId=${b.blackUserId})}">수정</a></button></td>
-					<td>
+					
 						<button type="submit"><a th:href="@{/removeUser(blackUserId=${b.blackUserId}, blackUserLevel=${l.blackUserLevel})}">삭제</a></button>
 					</td>
 				</tr>
@@ -35,5 +31,35 @@
 		</table>
 	</div>
 </form>	
+</th:block>
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbBlackConsumer").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	</script>
+
 </th:block>
 </html>

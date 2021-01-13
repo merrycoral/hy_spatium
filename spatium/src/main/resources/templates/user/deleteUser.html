@@ -7,9 +7,10 @@
 	<form action="/deleteUser" method="post">
 
 	<div class="table-responsive m-t-20">
-		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id ="tbDeleteUser">
 			<thead>
 				<tr>
+					<th><input type="checkbox" id="allSelect" value="${user.deleteUserId}">
 					<th scope="col">아이디</th>
 					<th scope="col">탈퇴사유</th>
 					<th scope="col">탈퇴 구분</th>
@@ -23,12 +24,12 @@
 					<th scope="col">이메일</th>
 					<th scope="col">가입일자</th>
 					<th scope="col">포인트</th>
-					<th scope="col">수정</th>
 					<th scope="col">삭제</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:if="${#lists.size(deleteUser) > 0}" th:each="d : ${deleteUser}">
+					<td> <input type="checkbox">
 					<td th:text="${d.deleteUserId}"></td>
 					<td th:text="${d.deleteReason}"></td>
 					<td th:text="${d.deleteCate}"></td>
@@ -44,8 +45,6 @@
 					<td th:text="${d.deleteUserPoint}"></td>
 
 					<td><button type="submit"><a
-						th:href="@{/modifyUser(deleteUserId=${d.deleteUserId})}">수정</a></button></td>
-					<td><button type="submit"><a
 						th:href="@{/removeUser(deleteUserId=${d.deleteUserId}, deleteUserLevel=${d.deleteUserLevel})}">삭제</a></button>
 					</td>
 				</tr>
@@ -53,5 +52,60 @@
 		</table>
 	</div>
 	</form>
+</th:block>
+
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbDeleteUser").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	</script>
+	<script>
+	//전체선택
+	 $('#allSelect').click(function () {
+         if ($("input:checkbox[id='allSelect']").prop("checked")) {
+             $("input[type=checkbox]").prop("checked", true);
+         } else {
+             $("input[type=checkbox]").prop("checked", false);
+         }
+     });
+	</script>
+	<script>
+	//부분선택
+$('#tbDeleteUser').click(function () {
+            let tbodyTr = $('tbody tr');
+            const tdArr = [];	
+            const td = tbodyTr.children();
+
+            td.each(function (i) {
+                if (td.eq(i).children().children().prop("checked")) {
+                    tdArr.push(td.eq(i - 1).text());
+                }
+            });
+            console.log(tdArr);
+        });
+</script>
 </th:block>
 </html>

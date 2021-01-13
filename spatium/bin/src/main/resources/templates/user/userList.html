@@ -3,9 +3,7 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="@{layout/default}">
 
-<th:block layout:fragment="customTitle">
-	<title th:text="${title}"></title>
-</th:block>
+
 
 <th:block layout:fragment="customJs">
 	<script type="text/javascript" th:inline="javascript">
@@ -23,16 +21,17 @@
 <th:block layout:fragment="customContent">
 	<form action="/userList" method="post">
 		<select name="sk">
-			<option value="아이디">아이디</option>
-			<option value="권한">권한</option>
-			<option value="이메일">이메일</option>
-		</select>
+			<option th:value="${userId}">아이디</option>
+			<option th:value="${userGrade}">권한</option>
+			</select>
 		<input type="text" name = "sv" placeholder="검색어를 입력해주세요"/>
-		<button type="submit">검색</button>
+		<button type="submit"  onclick="searchUserList">검색</button>
 	</form>
+<div>
+</div>
 
 <div class="table-responsive m-t-20">
-		<table class="table table-bordered table-responsive-lg">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
 			<thead>
 				<tr>
 					<th scope="col">아이디</th>
@@ -59,17 +58,17 @@
 				<td th:text="${l.userGender}"></td>
 				<td th:text="${l.userPhone}"></td>
 				<td th:text="${l.userJob}"></td>
-				<td th:text="${l.userLevel}"></td>
+				<td th:text="${l.userGrade}"></td>
 				<td th:text="${l.userEmail}"></td>
 				<td th:text="${l.userRegDate}"></td>
 				<td th:text="${l.userPoint}"></td>
 				<td>
-					<a  th:href="@{/modifyuser(userId=${l.userId})}">수정</a>
+					<button type="submit"><a  th:href="@{/modifyUser(userId=${l.userId})}">수정</a></button>
 				</td>
 				<td>
-					<a th:href="@{/removeuser(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a>
+					<button type="submit"><a th:href="@{/removeUser(userId=${l.userId}, userLevel=${l.userLevel})}">삭제</a></button>
 				</td>
-
+				</tr>
 			</tbody>
 		</table>
 	</div>

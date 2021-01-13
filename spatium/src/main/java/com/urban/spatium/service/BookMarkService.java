@@ -17,26 +17,18 @@ public class BookMarkService {
 	@Autowired 
 	private BookmarkMapper bookmarkMapper;
 	
-	//즐겨찾기 리스트
-	  public List<Bookmark> getBookMarkList(){
-		  List<Bookmark> bookMarkList = bookmarkMapper.getBookMarkList(); 
-		  int listSize =  bookMarkList.size();
-				  
-				  return bookMarkList;
-				  }
-	  
-	//즐겨찾기 수정  
-	public void modifyBookmark(int storeCode) {
-		int result = bookmarkMapper.modifyBookmark(storeCode);
+	
 		
+	//북마크 리스트
+	public List<Bookmark> bookMarkList(){
+		
+		return bookmarkMapper.bookMarkList();
 	}
 	
-	/*
-	 * //즐겨찾기 삭제 public void delete(Bookmark bookmark) { int result =
-	 * bookmarkMapper.delete(bookmark);
-	 * 
-	 * }
-	 */
+	public Bookmark getbookmarkByCode(int bookMarkCode) {
+	Bookmark bookmark = bookmarkMapper.getbookmarkByCode(bookMarkCode);
+					
+		return bookmark;
+	}
 	
-	
-	 }
+ }

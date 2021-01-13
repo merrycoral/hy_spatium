@@ -28,7 +28,7 @@ public class ItemService {
 		
 		User user = userMapper.getUserById(userId);
 		
-		if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
+		if(user != null && userPw != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
 		int removeCheck = itemMapper.removeitemBuy(itemBuyCode);
 		if(removeCheck > 0) result = "장비구입내역 삭제 완료";
 		}		
@@ -57,7 +57,7 @@ public class ItemService {
 		
 		User user = userMapper.getUserById(userId);
 		
-		if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
+		if(user != null && userPw != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
 		int removeCheck = itemMapper.removeitemRepair(itemRepairCode);
 		if(removeCheck > 0) result = "장비구입내역 삭제 완료";
 		}			
@@ -87,7 +87,7 @@ public class ItemService {
 			
 			User user = userMapper.getUserById(userId);
 			
-			if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
+			if(user != null && userPw != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
 			int removeCheck = itemMapper.removeitemDelete(itemDeleteCode);
 			if(removeCheck > 0) result = "장비구입내역 삭제 완료";
 			}
@@ -109,6 +109,18 @@ public class ItemService {
 		
 		return itemMapper.itemDeleteList();
 		}	
+	
+	//장기파기 등록
+	public String addItemDelte(Item item) {
+		
+		String addCheck = "장비 등록 실패";
+			if(item != null) {
+				itemMapper.addItemDelte(item);
+				addCheck = "장비 등록 성공";
+			}
+			
+		return addCheck;
+	}
 	
 	
 	public Item getitemBuyCode(int itemBuyCode) {

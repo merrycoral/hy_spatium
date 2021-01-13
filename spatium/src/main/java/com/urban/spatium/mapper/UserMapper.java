@@ -3,11 +3,17 @@ package com.urban.spatium.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import com.urban.spatium.dto.User;
 
 
 @Mapper
 public interface UserMapper {
+	
+	
+	//휴면회원 리스트
+	public List<User> restUser(); 
 	
 	//불량회원 리스트
 	public List<User> blackUser(); 
@@ -21,8 +27,8 @@ public interface UserMapper {
 	//회원탈퇴
 	int removeMyinfo(String userId, String userLevel);
 	
-	//회원정보수정
-	int myInfo(User user);
+	//마이페이지 수정
+	int modifyMyinfo(User user);
 	
 	//회원삭제
 	int removeUser(String userId, String userLevel);
@@ -31,13 +37,13 @@ public interface UserMapper {
 	int modifyUser(User user);
 	
 	//회원 리스트
-	 public List<User> getUserList(); 
+	public List<User> getUserList(); 
 		
 	//로그인
 	public User getUserById(String userId);
 	
 	//아이디 찾기
-	public String findId(String usermail);
+	
 	
 	//아이디 중복체크
 	public int idChk(User user);

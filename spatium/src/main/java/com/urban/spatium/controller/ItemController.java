@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.urban.spatium.dto.Item;
+
 import com.urban.spatium.dto.Store;
 import com.urban.spatium.service.ItemService;
 
@@ -20,6 +21,7 @@ public class ItemController {
 	
 	@Autowired
 	private ItemService itemService;
+
 	
 	
 	//장비구입내역삭제
@@ -53,7 +55,7 @@ public class ItemController {
 	//장비구입내역 수정
 	@PostMapping("/modifyitemBuy")
 	public String modifyitemBuy(Item item) {
-		System.out.println("상품 수정화면에서 입력 받은 값->"+ item);
+		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
 		
 		String result = itemService.modifyitemBuy(item);
 		System.out.println(item.getItemBuyCode() + " : " + result);
@@ -201,6 +203,27 @@ public class ItemController {
 				
 				return "item/itemDeleteList";
 		}
+		
+		//장비파기등록
+		@PostMapping("/addItemDelte")
+		public String addItemDelte(Model model, Item item) {
+				System.out.println(item + "=========== 장비 넘어온 값 ============");
+				String result = itemService.addItemDelte(item);
+				item.getItemDetailCode();
+				item.setItemDetailCode(item.getItemCode());
+				System.out.println(result);
+				
+			return "redirect:/addItem";
+		}
+		
+		@GetMapping("/addItemDelte")
+		public String addItemDelte(Model model) {
+			
+			model.addAttribute("title", "장비 등록");
+			
+			return "item/itemDeleteForm";
+		}
+			
 	
 	//장비수량목록
 	@GetMapping("/itemCountList")

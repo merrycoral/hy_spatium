@@ -64,7 +64,7 @@
 		userId=#{userId}; 
 	</delete>
 
-	<!--회원정보수정 -->
+	<!--마이페이지 수정 -->
 	<update id="modifyMyinfo" >
 		UPDATE
 		tbUser
@@ -79,7 +79,7 @@
 		WHERE
 			userId = #{userId};     
 	</update>
-
+	
 	<!--회원삭제 -->
 	<update id="removeUser">
 		UPDATE
@@ -158,15 +158,27 @@
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="findId" parameterType="String" resultType="String">
+	<select id="findIdform" resultType="User">
 		SELECT
-		id
+		userId
 		FROM 
 		tbUser
 		WHERE
-		userEmail = #{userEmail};
+		userName = #{userName} AND userEmail = #{userEmail};
 	</select>
+	
+	<!--비밀번호 찾기  -->
+	<!-- <select id="findPw" resultType="String"> 
+	SELECT 
+	userPw 
+	FROM 
+	tbUser 
+	WHERE 
+	userId = #{userId} AND userEmail = #{userEmail};
+	</select>
+ -->
 
+	
 	<!-- 아이디 중복 체크 -->
 	<select id="idChk" resultType="int">
 		SELECT
@@ -180,7 +192,7 @@
 	<!--회원가입 -->
 	<insert id="addUser">
 		INSERT INTO tbUser
-		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userEmail,	userRegDate)
+		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userGrade, userEmail,	userRegDate)
 		VALUES (
 		#{userId}
 		,#{userPw}
@@ -190,6 +202,7 @@
 		,#{userPhone}
 		,#{userJob}
 		,#{userLevel}
+		,#{userGrade}
 		,#{userEmail}
 		,NOW());
 	</insert>
