@@ -18,10 +18,15 @@ public class CalcService {
 		@Autowired
 		private CalcMapper calcMapper;
 		
-		public Map<String, Object> getDailyCalc (String sessionId) {
-			Map<String, Object> dailyCalcList = calcMapper.getDailyCalc(sessionId);
+		public Map<String, Object> getDailyCalc (String sessionId, int sessionLevel) {
+			List<Map<String, Object>> dailyCalcList = calcMapper.getDailyCalc(sessionId, sessionLevel);
+			Map<String, Object> storeInfo = calcMapper.getStoreInfo(sessionId);
 			
-			return null;
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap.put("dailyCalcList", dailyCalcList);
+			resultMap.put("storeInfo", storeInfo);
+			
+			return resultMap;
 		}
 		
 		public String CloseCalc(String today){
@@ -71,11 +76,9 @@ public class CalcService {
 		}
 		
 		public Map<String, Object> getTodayList(String today, String sessionId) {
-			int startPageNum = 1;
-			int endPageNum = 10;
-			String SID = sessionId;
-			List<Map<String, Object>> getTodayTotal = calcMapper.getTodayTotal(today, SID);
-			List<Map<String, Object>> getTodayList = calcMapper.getTodayList(today, SID);
+			Map<String, Object> storeInfo = calcMapper.getStoreInfo(sessionId);
+			List<Map<String, Object>> getTodayTotal = calcMapper.getTodayTotal(today, sessionId);
+			List<Map<String, Object>> getTodayList = calcMapper.getTodayList(today, sessionId);
 			
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			
@@ -86,18 +89,9 @@ public class CalcService {
 				resultMap.put("todaytotal", todaytotal);
 				resultMap.put("getTodayList", getTodayList);
 				resultMap.put("getTodayTotal", getTodayTotal);
-			}else {
-			/*
-			 * Map<String, Object> todaytotal = new HashMap<String, Object>();
-			 * todaytotal.put("countSubtotal", 0); todaytotal.put("pointSubtotal", 0);
-			 * todaytotal.put("moneySubtotal", 0); todaytotal.put("refundSubtotal", 0);
-			 * todaytotal.put("refundMoney", 0); resultMap.put("todaytotal", 0);
-			 * resultMap.put("getTodayList", 0); resultMap.put("getTodayTotal", 0);
-			 */
+				
 			}
-			
-			resultMap.put("startPageNum", startPageNum);
-			resultMap.put("endPageNum", endPageNum);
+			resultMap.put("storeInfo", storeInfo);
 			return resultMap;
 		}
 		

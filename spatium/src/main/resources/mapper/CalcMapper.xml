@@ -35,13 +35,28 @@
 			p.paymentRsvCode = r.rsvCode
 	</sql>
 	
+	<select id="getStoreInfo"  resultType="Map">
+		SELECT 
+			storeId, storeName, storeRepresentative
+		FROM 
+			tbStore
+			
+		<if test="sessionId != null and sessionId neq ''.toString()">
+			WHERE
+				storeId = #{sessionId}
+		</if>
+	</select>
+	
 	<select id="getDailyCalc"  resultType="Map">
 		SELECT
 			calcDailyCode, calcDStoreCode, calcDStoreId, calcDay, 
 			calcDaySales, calcDaySum, calcDayPoint, calcDayRefund, 
 			calcDayRefCommission, calcDayLogTime
 		FROM
-			tbCalcDaily AS cd
+			tbCalcDaily
+		
+			WHERE
+				calcDStoreId = #{sessionId}
 	</select>
 	
 	<insert id="insertDayClose" parameterType="Map">
