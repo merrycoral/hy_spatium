@@ -2,13 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customCss">
+<!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style type="text/css">
+#ui-datepicker-div .ui-datepicker-calendar tr:hover {
+    background-color: #808080;
+}
+</style>
+</th:block>
 <th:block layout:fragment="customContent">
-	<h1>업체별 통계</h1>
+	<div>
+		<span style="font-size: 40px;">업체별 통계</span>
+		<form id="optionForm" action="#" method="get">
+			<div class="btn-group form-check" data-toggle="buttons">
+				<label class="btn btn-secondary">
+				<input type="radio" class="dayBtn" name="options" id="dayDatePicker">일간
+				</label>
+				<label class="btn btn-secondary">
+				<input type="radio" name="options" class="weekBtn" id="weeklyDatePicker">주간
+				</label>
+				<label class="btn btn-secondary">
+				<input type="radio" name="options" class="monthBtn" id="monthDatePicker">월간
+				</label>
+			</div>
+		<div class="form-check" style="font-size: 20px;">
+			<span>기간 : </span>
+			<span id="dayRange">전체</span>
+			<button type="button" class="btn btn-info" id="submitBtn">검색</button>
+		</div>	
+		</form>
+	</div>
 <!-- 예약수 패널 시작 -->
 	<div class="col-md-6 col-sm-6 countPanelBox">
 		<div class="x_panel fixed_height_320">
 			<div class="x_title">
 				<h2>업체별 예약 수 통계</h2>
+				
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="upNdown"><i class="fa fa-arrows-v"></i>정렬</a></li>
 				</ul>
@@ -70,7 +99,7 @@
 <!-- 예약금액 패널 끝 -->
 <!-- 임시테이블 -->	
 	<div class="col-lg-12 col-md-12 col-sm-12">
-		<h2>데이터 값 보려고만든 임시 테이블입니다(삭제예정)</h2>
+		<h2>데이터 값 보려고만든 임시 테이블</h2>
 		<table border="1"
 			class="table table-striped jambo_table bulk_action dataTable no-footer">
 			<thead>
@@ -103,7 +132,71 @@
 
 </th:block>
 <th:block layout:fragment="customJs">
+<script src="js/moment.js"></script>
+<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript">
+		$('#submitBtn').click(function(){
+			$('#optionForm').submit();
+		})	
+	
+		//일간 데이터 피커
+		$('#dayDatePicker').datepicker({
+			showMonthAfterYear: true , 
+			dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
+			monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+			changeMonth: true,
+		    changeYear: true,
+			dateFormat: "yy-mm-dd",
+			maxDate : 0
+		}).on('change', function (e) {
+			$('#dayRange').text($("#dayDatePicker").val());
+		});
+		//주간 데이터 피커
+		$('#weeklyDatePicker').datepicker({
+			showMonthAfterYear: true , 
+			dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
+			monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+			changeMonth: true,
+		    changeYear: true,
+			dateFormat: "yy-mm-dd",
+		}).on('change', function (e) {
+		      var value = $("#weeklyDatePicker").val();
+		      var firstDate = moment(value, 'YYYY-MM-DD').day(0).format('YYYY-MM-DD');
+		      var lastDate =  moment(value, 'YYYY-MM-DD').day(6).format('YYYY-MM-DD');
+		      $("#weeklyDatePicker").val(firstDate + " - " + lastDate);
+		      $('#dayRange').text($("#weeklyDatePicker").val());
+		});
+		//월간 데이터 피커
+	    $("#monthDatePicker").datepicker({
+	    	showMonthAfterYear: true , 
+			dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
+			monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	        dateFormat: 'yy-mm',
+	        changeMonth: true,
+	        changeYear: true,
+	        showButtonPanel: true,
+	        onClose: function(dateText, inst) {
+		        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+		        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+		        $(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
+			    $('#dayRange').text($("#monthDatePicker").val()+"월");
+	        }
+	    })
+	    $("#monthDatePicker").focus(function () {
+	        $(".ui-datepicker-calendar").hide();
+	        $("#ui-datepicker-div").position({
+	            my: "center top",
+	            at: "center bottom",
+	            of: $(this)
+	        }); 
+	    });
+		
+		
+		
+		//데이터 피커 초기값
+		$('#dayDatePicker').datepicker('setDate', 'today');
+		$('#weeklyDatePicker').datepicker('setDate', 'today');
+	
 		//페이지 로딩시 정렬
 		$(document).ready(function() {
 			UD();UD();
@@ -136,4 +229,3 @@
 	</script>
 </th:block>
 </html>
-
