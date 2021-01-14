@@ -74,19 +74,7 @@
                   	<span aria-hidden="true">×</span>
                   </button>
                 </div>
-				
-				<form action="/reviewAll" method="post">
-					<select name="sk" class="form-control col-md-1 col-sm-1">
-						<option value="작성자">작성자</option>
-						<option value="리뷰제목">리뷰제목</option>
-						<option value="리뷰코드">리뷰코드</option>
-						<option value="예약코드">예약코드</option>
-						<option value="방코드">방 코드</option>
-					</select>
-					<input type="text" name="sv" class="form-control col-md-2 col-sm-2" placeholder="검색어를 입력해주세요"/>
-					<button type="submit" class="btn btn-primary">검색</button>
-				</form>
-				
+								
 			<form id="selectReview" method="post">
 				<div class="table-responsive">
 					<table class="table table-striped jambo_table bulk_action" id="reviewTable" style="padding: 0px;">
@@ -170,7 +158,32 @@
 	
 </th:block>
 <th:block layout:fragment="customJs">
+<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script  th:inline="javascript">
+		$("#reviewTable").DataTable({
+	  		order: [ [ 0, "asc" ] ],
+	  		ordering: true,
+	  		lengthChange: false,
+	  		"dom": 'fltip',
+            "language": {
+		                "info": "페이지 _PAGE_ / _PAGES_",
+		                "paginate": {
+		                            "first": "첫페이지",
+		                            "last": "마지막",
+		                             "previous": "이전",
+		                             "next":"다음"
+		                           },
+		                "sEmptyTable": "No data available in table",
+		                "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		                "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		                "sInfoPostFix": "",
+		                "sLengthMenu": "Show _MENU_ 개씩",
+		                "sSearch": "검색:",
+		                "sSearchPlaceholder": "",
+		                "sZeroRecords": "일치하는 검색 결과가 없습니다."
+		                }
+		 });
 	
 	$('#deleteBtn').click(function(){
 		$("form").attr("action", "/deleteReview");
