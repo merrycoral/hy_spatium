@@ -10,18 +10,6 @@
 		, addPointType
 		,addPoint
 		FROM
-			tbPoint;
-	</select>
-	
-	
-	
-	<!--구매자 포인트  -->
-	<select id="pointList" resultType="User">
-		SELECT
-		 addPointCode
-		, addPointType
-		,addPoint
-		FROM
 			tbPoint;    
 	</select>
   
