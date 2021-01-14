@@ -109,7 +109,17 @@ public class RsvController {
 	}
 	
 	/**
-	 * 예약 리스트
+	 * 관리자 예약 리스트 확장
+	 */
+	@GetMapping("/rsvListExtendAdmin")
+	public String rsvListExtendAdmin(Model model, @RequestParam(name = "", required =false)String rsvCode) {
+		List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
+		model.addAttribute("rsvListExtend", rsvListExtend);
+		return "rsv/rsvListExtendAdmin";
+	}
+	
+	/**
+	 * 구매자 예약 리스트 확장
 	 */
 	@GetMapping("/rsvListExtend")
 	public String rsvListExtend(Model model, @RequestParam(name = "", required =false)String rsvCode) {
@@ -178,9 +188,20 @@ public class RsvController {
 	 */
 	@GetMapping("/rsvListAdmin")
 	public String rsvListByAdmin(Model model) {
-		List<Rsv> rsvList = rsvService.rsvList();
+		List<Rsv> rsvList = rsvService.rsvListAdmin();
 		model.addAttribute("rsvList", rsvList);
 		return "rsv/rsvListAdmin";
+	}
+	
+	/**
+	 * 구매자페이지 예약 목록 조회
+	 */
+	@GetMapping("/rsvList")
+	public String rsvList(Model model, HttpSession session) {
+		String sessionId = (String) session.getAttribute("SID");
+		List<Rsv> rsvList = rsvService.rsvList(sessionId);
+		model.addAttribute("rsvList", rsvList);
+		return "rsv/rsvList";
 	}
 	
 	/**
