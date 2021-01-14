@@ -22,9 +22,12 @@ public class UserService {
 	  List<User> PointList = userMapper.pointList(); 
 	  	return PointList; 
 	 }
-	
-	
-	
+
+	//관리자 포인트
+		  public List<User> sPointList(){
+		  List<User> sPointList = userMapper.sPointList(); 
+		  	return sPointList; 
+		 }
 	
 	//불량회원 리스트
 	public List<User> blackUser(){

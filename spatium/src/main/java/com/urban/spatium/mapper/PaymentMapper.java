@@ -3,6 +3,7 @@ package com.urban.spatium.mapper;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,7 +16,9 @@ import com.urban.spatium.dto.Rsv;
 @Mapper
 public interface PaymentMapper {
 	
+	public int rsvCheck(Map<String,Object> totalMap);
 	
+	public List<Map<String,Object>> getRsvDetailCode(String rsvCode, String dateTime);
 	
 	public List<Payment> rsvDetail(String payCode);
 	

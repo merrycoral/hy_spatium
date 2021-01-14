@@ -45,9 +45,18 @@ public class User {
 	private String restUserEmail;
 	private String restUserPoint;
 	
-	private String addPointCode;
+	private int addPointCode;
 	private String addPointType;
-	private String addPoint;
+	private int addPoint;
+	
+	private int pointCode;
+	private String pointID;
+	private String pointAddList;
+	private String pointSellList;
+	private int pointList;
+	private int pointPaymentCode;
+	private int reviewCodepointReviewCode;
+	private String pointModyfiDate;
 	
 	public String getUserId() {
 		return userId;
@@ -291,10 +300,10 @@ public class User {
 		this.restUserPoint = restUserPoint;
 	}
 	
-	public String getAddPointCode() {
+	public int getAddPointCode() {
 		return addPointCode;
 	}
-	public void setAddPointCode(String addPointCode) {
+	public void setAddPointCode(int addPointCode) {
 		this.addPointCode = addPointCode;
 	}
 	public String getAddPointType() {
@@ -303,11 +312,59 @@ public class User {
 	public void setAddPointType(String addPointType) {
 		this.addPointType = addPointType;
 	}
-	public String getAddPoint() {
+	public int getAddPoint() {
 		return addPoint;
 	}
-	public void setAddPoint(String addPoint) {
+	public void setAddPoint(int addPoint) {
 		this.addPoint = addPoint;
+	}
+	public int getPointCode() {
+		return pointCode;
+	}
+	public void setPointCode(int pointCode) {
+		this.pointCode = pointCode;
+	}
+	public String getPointID() {
+		return pointID;
+	}
+	public void setPointID(String pointID) {
+		this.pointID = pointID;
+	}
+	public String getPointAddList() {
+		return pointAddList;
+	}
+	public void setPointAddList(String pointAddList) {
+		this.pointAddList = pointAddList;
+	}
+	public String getPointSellList() {
+		return pointSellList;
+	}
+	public void setPointSellList(String pointSellList) {
+		this.pointSellList = pointSellList;
+	}
+	public int getPointList() {
+		return pointList;
+	}
+	public void setPointList(int pointList) {
+		this.pointList = pointList;
+	}
+	public int getPointPaymentCode() {
+		return pointPaymentCode;
+	}
+	public void setPointPaymentCode(int pointPaymentCode) {
+		this.pointPaymentCode = pointPaymentCode;
+	}
+	public int getReviewCodepointReviewCode() {
+		return reviewCodepointReviewCode;
+	}
+	public void setReviewCodepointReviewCode(int reviewCodepointReviewCode) {
+		this.reviewCodepointReviewCode = reviewCodepointReviewCode;
+	}
+	public String getPointModyfiDate() {
+		return pointModyfiDate;
+	}
+	public void setPointModyfiDate(String pointModyfiDate) {
+		this.pointModyfiDate = pointModyfiDate;
 	}
 	@Override
 	public String toString() {
@@ -398,6 +455,22 @@ public class User {
 		builder.append(addPointType);
 		builder.append(", addPoint=");
 		builder.append(addPoint);
+		builder.append(", pointCode=");
+		builder.append(pointCode);
+		builder.append(", pointID=");
+		builder.append(pointID);
+		builder.append(", pointAddList=");
+		builder.append(pointAddList);
+		builder.append(", pointSellList=");
+		builder.append(pointSellList);
+		builder.append(", pointList=");
+		builder.append(pointList);
+		builder.append(", pointPaymentCode=");
+		builder.append(pointPaymentCode);
+		builder.append(", reviewCodepointReviewCode=");
+		builder.append(reviewCodepointReviewCode);
+		builder.append(", pointModyfiDate=");
+		builder.append(pointModyfiDate);
 		builder.append("]");
 		return builder.toString();
 	}
