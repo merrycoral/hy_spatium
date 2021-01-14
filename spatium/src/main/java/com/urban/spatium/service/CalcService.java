@@ -18,7 +18,14 @@ public class CalcService {
 		@Autowired
 		private CalcMapper calcMapper;
 		
+		public Map<String, Object> getDailyCalc (String sessionId) {
+			Map<String, Object> dailyCalcList = calcMapper.getDailyCalc(sessionId);
+			
+			return null;
+		}
+		
 		public String CloseCalc(String today){
+			//일별 매출 마감 등록되는 메서드입니다.
 			//업체 id 목록 가져오기
 			List<Map<String, Object>> storeIdList = calcMapper.getStoreIdList();
 			System.out.println("PRINT storeIdList");
@@ -26,7 +33,8 @@ public class CalcService {
 			//업체 id 목록에서 id 하나하나씩 일 마감정산을 진행합니다.
 			for(int i=0; i<storeIdList.size();i++) {
 				int storeCode = Integer.parseInt(storeIdList.get(i).get("storeCode").toString());
-				// i번째 스토어 아이디
+				// SID는 i번째 스토어 아이디
+				// getTodayList 에서는 SID가 sessionId이지만 현재 메서드에서는 SID가 i번째 스토어 아이디입니다.
 				String SID = storeIdList.get(i).get("storeId").toString();
 				List<Map<String, Object>> getTodayTotal = calcMapper.getTodayTotal(today, SID);
 				System.out.println(getTodayTotal.size() + "  getTodayTotal size");

@@ -35,6 +35,15 @@
 			p.paymentRsvCode = r.rsvCode
 	</sql>
 	
+	<select id="getDailyCalc"  resultType="Map">
+		SELECT
+			calcDailyCode, calcDStoreCode, calcDStoreId, calcDay, 
+			calcDaySales, calcDaySum, calcDayPoint, calcDayRefund, 
+			calcDayRefCommission, calcDayLogTime
+		FROM
+			tbCalcDaily AS cd
+	</select>
+	
 	<insert id="insertDayClose" parameterType="Map">
 		INSERT INTO tbCalcDaily
 	(calcDStoreCode, calcDStoreId, calcDay, calcDaySales, calcDaySum, calcDayPoint, calcDayRefund, calcDayRefCommission)
