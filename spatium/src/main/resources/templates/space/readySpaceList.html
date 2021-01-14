@@ -28,7 +28,6 @@
                         <th class="sorting" style="text-align: center;"> 허용 인원 </th>
                         <th class="sorting" style="text-align: center;"> 간략소개 </th>
                         <th class="sorting" style="text-align: center;"> 대여가격 </th>
-                        <th class="sorting" style="text-align: center;"> 기본옵션 </th>
                         <th class="sorting" style="text-align: center;"> 승인 요청 날짜 </th>
                         <th class="sorting" style="text-align: center;"> 승인 </th>
                         </tr>
@@ -42,7 +41,6 @@
 					<td style="text-align: center;" th:text = "${s.readyPeopleNumber}">
 					<td style="text-align: center;" th:text = "${s.readyBriefSpace}">
 					<td style="text-align: center;" th:text = "${s.readyRentalPrice}">
-					<td th:text = "${s.readySpaceBasicOption}">
 					<td style="text-align: center;" th:text = "${s.readyRequestDate}">
 					<td> <a th:href="@{/readySpaceAccept(readySpace=${s.readySpace})}"> 승인 </a> </td>
 				</tr>
