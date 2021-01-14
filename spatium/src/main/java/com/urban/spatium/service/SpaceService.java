@@ -18,6 +18,21 @@ public class SpaceService {
 	@Autowired
 	private SpaceMapper spaceMapper;
 	
+	public String OKSpaceInsert(ReadySpace readySpace) {
+		String chk = "삽입";
+		
+		spaceMapper.OKSpaceInsert(readySpace);
+		
+		return chk;
+	}
+	
+	public String readySpaceDelete(int readySpaceCode) {
+		String chk = "삭제";
+		spaceMapper.readySpaceDelete(readySpaceCode);
+		
+		return chk;
+	}
+	
 	public List<ReadySpace> readySpaceAccept(int readySpaceCode){
 	
 		List<ReadySpace> rsl = spaceMapper.readySpaceAccept(readySpaceCode);
