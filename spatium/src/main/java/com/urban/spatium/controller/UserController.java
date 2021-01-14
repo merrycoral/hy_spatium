@@ -24,28 +24,83 @@ public class UserController {
 	@Autowired 
 	private UserService userService;
 	
-	//구매자 포인트
-	@PostMapping("/pointList")
-	public String pintList(Model model) {
+	//탈퇴회원 업데이트
+		@PostMapping("/modifyDeleteUser")
+		public String modifyDeleteUser(User user) {
+			System.out.println("회원 수정 폼에서 입력받은 값" + user);
+					
+			String result = userService.modifyDeleteUser(user);
+			System.out.println(result);
+			
+			return "redirect:/userList";
+		}
+		
+		@GetMapping("/modifyDeleteUser")
+		public String modifyDeleteUser( Model model
+								   ,@RequestParam(name="userId", required = false) String userId) {
+			System.out.println("회원 수정 폼에 보여질 회원아이디" + userId);
+			
+			User user = userService.login(userId);		
+			
+			System.out.println("db에서 검색한 회원정보-->" + user);
+			
+			model.addAttribute("title", "회원 수정화면");
+			model.addAttribute("user", user);
+			
+			return "user/uUpdate";
+		}	
+	
+	//탈퇴회원 리스트
+		@GetMapping("/deleteUser")
+		public String deleteUser(Model model) {
+			List<User> deleteUser = userService.deleteUser();
+			System.out.println(deleteUser);
+			
+			model.addAttribute("deleteUser", deleteUser);
+			return "user/deleteUser";
+		}
+		
+		//탈퇴회원 등록
+		@PostMapping("/addDeleteUser") 
+		public String addDeleteUser(User user ,@RequestParam(name = "userId", required = false)
+			  					String userId) {
+			 System.out.println("탈퇴회원 화면에서 입력받은 값--->" + user); 
+		  String result = userService.addDeleteUser(user); 
+		  System.out.println(result);
+		  return "redirect:/deleteUser"; 
+		}
 
-		model.addAttribute("title", "포인트");
-				
-		return "user/pointList";
-	}
+		@GetMapping("/addDeleteUser")
+		public String addDeleteUser(Model model) {
+			 model.addAttribute("title", "탈퇴회원");
+			 return "user/deleteUser";
+		}
 	
-	@GetMapping("/pointList")
-	public String pintList(Model model, @RequestParam(name="result", required = false) String result) {
-		List<User> pointList = userService.pointList();
-		System.out.println(pointList);
-		model.addAttribute("title", "회원 목록");
-		model.addAttribute("pointList", pointList);
-		if(result != null) model.addAttribute("result", result);
-
-		return "user/pointList";
-	}
-	
-	
-	
+	//관리자용 회원삭제
+		 @PostMapping("/removeUser") 
+		 public String removeUser(@RequestParam(name="userId", required = false) String userId
+		  ,@RequestParam(name="userPw", required = false) String userPw
+		  ,@RequestParam(name="userLevel", required = false) String userLevel
+		  ,RedirectAttributes redirectAttr) {
+		  System.out.println("회원탈퇴화면에서 입력받은 값(id)--->" + userId);
+		  System.out.println("회원탈퇴화면에서 입력받은 값(pw)--->" + userPw);
+		  System.out.println("회원탈퇴화면에서 입력받은 값(level)--->"+ userLevel);
+	  
+		  String result = userService.removeUser(userId, userPw, userLevel);
+		  
+		  System.out.println(result); 
+		  
+		  redirectAttr.addAttribute("result", result);
+		  
+		  return "redirect:/userList"; }
+		  
+		  @GetMapping("/removeUser") public String removeUser( Model model
+		  ,@RequestParam(name="userId", required = false) String userId
+		  ,@RequestParam(name="userLevel", required = false) String userLevel) {
+		  model.addAttribute("title", "회원 탈퇴"); model.addAttribute("userId", userId);
+		  model.addAttribute("userLevel", userLevel); return "user/uDelete"; }
+		 
+		
 
 	//회원탈퇴
 	@PostMapping("/removeMyinfo")
@@ -76,23 +131,30 @@ public class UserController {
 		return "user/userDelete";
 	}
 		
+	
+	
+	
+	
+	
+	
+	
 	//마이페이지 수정
 	@PostMapping("/myInfo")
-	public String modifyMyinfo(User user) {
+	public String myInfo(User user) {
 		System.out.println("회원 수정 폼에서 입력받은 값" + user);
 				
-		String result = userService.modifyMyinfo(user);
+		String result = userService.myInfo(user);
 		System.out.println(result);
 		
 		return "redirect:/myInfo";
 	}
 	
 	@GetMapping("/myInfo") 
-		public String modifyMyinfo(Model model,@RequestParam(name="userId", required = false) String userId) {
+		public String myInfo(Model model, HttpSession session) {
 			
-		System.out.println("마이페이지 수정 폼에 보여질 회원아이디" + userId);
-		
-		User user = userService.login(userId);		
+		String userIdchk = (String) session.getAttribute("SID"); //로그인한 아이디를 가져오겠다는 코드
+		System.out.println(userIdchk);
+		User user = userService.login(userIdchk);	
 		
 		System.out.println("db에서 검색한 회원정보-->" + user);
 		
@@ -101,33 +163,7 @@ public class UserController {
 			return "user/myInfo";
 		}
 	
-	//회원삭제
-	 @PostMapping("/removeUser") 
-	 public String removeUser(@RequestParam(name="userId", required = false) String userId
-	  ,@RequestParam(name="userPw", required = false) String userPw
-	  ,@RequestParam(name="userLevel", required = false) String userLevel
-	  ,RedirectAttributes redirectAttr) {
-	  System.out.println("회원탈퇴화면에서 입력받은 값(id)--->" + userId);
-	  System.out.println("회원탈퇴화면에서 입력받은 값(pw)--->" + userPw);
-	  System.out.println("회원탈퇴화면에서 입력받은 값(level)--->"+ userLevel);
-  
-	  String result = userService.removeUser(userId, userPw, userLevel);
-	  
-	  System.out.println(result); 
-	  
-	  redirectAttr.addAttribute("result", result);
-	  
-	  return "redirect:/userList"; }
-	  
-	  @GetMapping("/removeUser") public String removeUser( Model model
-	  ,@RequestParam(name="userId", required = false) String userId
-	  ,@RequestParam(name="userLevel", required = false) String userLevel) {
-	  model.addAttribute("title", "회원 탈퇴"); model.addAttribute("userId", userId);
-	  model.addAttribute("userLevel", userLevel); return "user/uDelete"; }
-	 
-	
-		
-	//회원수정
+	//관리자용 회원수정
 	@PostMapping("/modifyUser")
 	public String modifyUser(User user) {
 		System.out.println("회원 수정 폼에서 입력받은 값" + user);
@@ -152,32 +188,6 @@ public class UserController {
 		
 		return "user/uUpdate";
 	}	
-	
-	//탈퇴회원 리스트
-	@GetMapping("/deleteUser")
-	public String deleteUser(Model model) {
-		List<User> deleteUser = userService.deleteUser();
-		System.out.println(deleteUser);
-		
-		model.addAttribute("deleteUser", deleteUser);
-		return "user/deleteUser";
-	}
-	
-	//탈퇴회원 등록
-	@PostMapping("/addDeleteUser") 
-	public String addDeleteUser(User user ,@RequestParam(name = "userId", required = false)
-		  					String userId) {
-		 System.out.println("탈퇴회원 화면에서 입력받은 값--->" + user); 
-	  String result = userService.addDeleteUser(user); 
-	  System.out.println(result);
-	  return "redirect:/deleteUser"; 
-	}
-
-	@GetMapping("/addDeleteUser")
-	public String addDeleteUser(Model model) {
-		 model.addAttribute("title", "탈퇴회원");
-		 return "user/deleteUser";
-	}
 	
 	//불량회원 리스트
 	@GetMapping("/blackUser")

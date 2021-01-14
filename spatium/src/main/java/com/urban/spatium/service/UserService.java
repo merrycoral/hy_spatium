@@ -17,20 +17,26 @@ public class UserService {
 	@Autowired 
 	private UserMapper userMapper;
 	
-	//구매자 포인트
-	  public List<User> pointList(){
-	  List<User> PointList = userMapper.pointList(); 
-	  	return PointList; 
-	 }
-	
-	
-	
 	
 	//불량회원 리스트
 	public List<User> blackUser(){
 		List<User> blackUser = userMapper.blackUser(); 
 		return blackUser; 
 	}
+	
+	
+	//탈퇴회원 업데이트
+	public String modifyDeleteUser(User user) {
+		String result = "회원 수정 실패";
+		
+		int modifyCheck = userMapper.modifyDeleteUser(user);
+		
+		if(modifyCheck > 0) result = "회원 수정 성공";
+		
+		return result;
+	}
+	
+	
 	
 	//탈퇴회원 리스트
 	 public List<User> deleteUser(){
@@ -61,30 +67,35 @@ public class UserService {
 		return result;
 	}
 	
+	//관리자용 회원삭제
+		public String removeUser(String userId, String userPw, String userLevel) {
+		String result = "회원 삭제 실패";
+		  
+		User user = userMapper.getUserById(userId);
+		  
+		if(user != null && user.getUserPw() != null &&
+		userPw.equals(user.getUserPw())) { 
+			int removeCheck =userMapper.removeUser(userId, userLevel); 
+			if(removeCheck > 0) result = "회원 삭제 성공"; } 
+		return result; }
+	
+	
+	
+	
 	//마이페이지 수정
-	public String modifyMyinfo(User user) {
+	public String myInfo(User user) {
 		String result = "마이페이지 수정 실패";
 			
-		int myInfoCheck = userMapper.modifyMyinfo(user);
+		int myInfoCheck = userMapper.myInfo(user);
 			
 		if(myInfoCheck > 0) result = "마이페이지 수정 성공";
 			
 		return result;
 	}
 	
-	//회원삭제
-	public String removeUser(String userId, String userPw, String userLevel) {
-	String result = "회원 삭제 실패";
-	  
-	User user = userMapper.getUserById(userId);
-	  
-	if(user != null && user.getUserPw() != null &&
-	userPw.equals(user.getUserPw())) { 
-		int removeCheck =userMapper.removeUser(userId, userLevel); 
-		if(removeCheck > 0) result = "회원 삭제 성공"; } 
-	return result; }
+	
 		
-	//회원수정
+	//관리자용 회원수정
 	public String modifyUser(User user) {
 		String result = "회원 수정 실패";
 		
@@ -130,12 +141,7 @@ public class UserService {
 		return insertCheck;
 	}
 	
-	public User getUserById(String userId) {
-		
-		User user = userMapper.getUserById(userId);
-		
-		return user;
-	}
+
 
 	
 }
