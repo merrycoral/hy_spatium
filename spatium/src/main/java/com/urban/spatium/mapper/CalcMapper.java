@@ -23,6 +23,8 @@ public interface CalcMapper {
 
 	void insertDayClose(Map<String, Object> lastParam);
 
-	Map<String, Object> getDailyCalc(String sessionId);
+	List<Map<String, Object>> getDailyCalc(String sessionId, int sessionLevel);
+
+	Map<String, Object> getStoreInfo(String sessionId);
 
 }

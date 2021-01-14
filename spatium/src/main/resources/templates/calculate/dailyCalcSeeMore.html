@@ -4,25 +4,27 @@
 	layout:decorate="@{layout/default}">
 <th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
-</th:block>
+</th:block>	
+
 <th:block layout:fragment="customContent">
-	
 	<div class="col-md-12 col-sm-12 ">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>실시간 매출 현황 페이지</h2>
+				<h2 th:text="${title}"></h2>
+				<div style="float:right;">
+					<b th:text="${storeInfo.storeId}"></b> / 
+					<b th:text="${storeInfo.storeRepresentative}"></b>  님의 
+					<b th:text="${storeInfo.storeName}"></b>
+				</div>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<b th:text=${today}></b>  <b th:text=${nowtime}></b> 현재 시각까지의 매출 현황입니다.
-				<button type="button" style="float:right;" class="btn btn-success btn-md" id="closeBtn">마감정산</button>
+				선택한 날짜 <b th:text=${getDate}></b> 의 매출 내역입니다.
 				<form id="selectReview" method="post">
 				<div class="table-responsive">
-					<table class="table table-striped jambo_table bulk_action" id="reviewTable" style="padding: 0px;">
+					<table class="table table-striped jambo_table bulk_action" id="selectedDateList" style="padding: 0px;">
 						<thead>
 							<tr class="headings">
-								<th><input type="checkbox" id="check-all" class="flat">
-								</th>
 								<th class="column-title">결제 코드</th>
 								<th class="column-title">예약 코드</th>
 								<th class="column-title">결제 금액</th>
@@ -31,16 +33,12 @@
 								<th class="column-title">이용 시작 시각</th>
 								<th class="column-title">이용 종료 시각</th>
 								<th class="column-title no-link last">결제  상태</th>
-								<th class="column-title bulk-actions" colspan="8"> 선택된 결제건  ( <span
-										class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i>
 								</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr class="even pointer" th:if="${#lists.size(getTodayList) > 0}"
 								th:each="gtl : ${getTodayList}">
-								<td class="a-center "><input type="checkbox" class="flat"
-									name="table_records" th:value="${gtl.get('paymentCode')}"></td>
 								<td class=" " th:text="${gtl.get('paymentCode')}"></td>
 								<td class=" " th:text="${gtl.get('paymentRsvCode')}"></td>
 								<td class=" " th:text="${gtl.get('paymentUseMoney')}"></td>
@@ -52,14 +50,13 @@
 							</tr>
 							<tr class="even pointer" th:if="${#lists.isEmpty(getTodayList) }">
 								<td colspan="9" style="text-align:center;">
-								<b th:text=${today}></b><br>
+								<b th:text=${getDate}></b><br>
 								 조회된 데이터가 없습니다.
 								</td>
 							</tr>
 						</tbody>
 						<tfoot style="background: #D7DCDE; font-weight: bold;">
 							<tr th:unless="${#lists.isEmpty(getTodayList) }">
-								<td></td>
 								<td>매출 건수 </td>
 								<td class=" " th:text="|${todaytotal.countSubtotal}건|"></td>
 								<td class=" " th:text="${todaytotal.moneySubtotal}"></td>
@@ -95,7 +92,29 @@
 <!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script  th:inline="javascript">
 
-
+$("#selectedDateList").DataTable({
+	order: [ [ 0, "desc" ] ],
+	ordering: true,
+	lengthChange: false,
+	"dom": 'fltip',
+	"language": {
+		         "info": "페이지 _PAGE_ / _PAGES_",
+	        	 "paginate": {
+					        	 "first": "첫페이지",
+					        	 "last": "마지막",
+					             "previous": "이전",
+					             "next":"다음"
+					           },
+	        	 "sEmptyTable": "No data available in table",
+	        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+	        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+	        	 "sInfoPostFix": "",
+	        	 "sLengthMenu": "Show _MENU_ 개씩",
+	        	 "sSearch": "검색:",
+	        	 "sSearchPlaceholder": "",
+	        	 "sZeroRecords": "검색 결과가 없습니다."
+		         }
+});
 
 	//데이터 피커
 	      $('#datepicker').datepicker({
