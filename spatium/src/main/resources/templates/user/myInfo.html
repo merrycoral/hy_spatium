@@ -54,18 +54,22 @@
 			</div>
 		</div>
 
-		<div class="field item form-group ">
+		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">성별
+				<span class="required">*</span>
 			</label>
 			<div class="form-check">
 
-				<label class="form-radio-label" th:value="${userGender}"> <input
-					class="form-radio-input1" type="radio" name="userGender" value="남">
-					<span class="form-radio-sign1">남성</span>
-				</label> <label class="form-radio-label ml-3"> <input
-					class="form-radio-input1" type="radio" name="userGender" value="여">
-					<span class="form-radio-sign1">여성</span>
-				</label>
+				<div th:switch="${user.userGender}">
+					<p th:case="남">
+						남 <input type="radio" name="userGender" th:value="남" checked>
+						여<input type="radio" name="userGender" th:value="여">
+					</p>
+					<p th:case="여">
+						남<input type="radio" name="userGender" th:value="남">
+						여<input type="radio" name="userGender" th:value="여" checked>
+					</p>
+				</div>
 			</div>
 		</div>
 
