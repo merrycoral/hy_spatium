@@ -112,7 +112,7 @@ margin-right: 20px;
 						</label>
 						<div class="col-md-6 col-sm-6 ">
 							<!-- 달력 인폿박스 시작 -->
-							<input type="text" style="text-align: center;" name="reservationDRP" id="reservationDRP" class="form-control">
+							<input type="text" autocomplete="off" style="text-align: center;" name="reservationDRP" id="reservationDRP" class="form-control">
 							<!-- 달력 아이콘 -->
 							<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
 							<!-- 달력 인폿박스 끝 -->
@@ -186,18 +186,78 @@ margin-right: 20px;
 	<th:block layout:fragment="customJs">
 	<!-- reservationDRP js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script type="text/javascript" th:inline="javascript">
-		
+		if([[${rsvCheck}]]==0){
+			alert("해당 시간에 이미 예약이 존재합니다.");
+		}
 //예약 폼 스타트
-		
 //다음, 이전버튼으로 예약폼 이동		
 		$('#prevBtn').click(function(){
 			location.reload();
 		})
+		var arrStartDate = [];
+		var arrEndDate = [];
 		$('#nextBtn').click(function(){
 			$('#rsvInfo').removeClass('disableMetter');
 			$('#spaceInfo').addClass('disableMetter');
 			$('#itemInfo').addClass('disablMetter');
-		})
+			
+			//공간 이미 있는 예약 가져오는 ajax
+			//날짜 클릭시 이미 예약되있는거 가져오기!!
+			var SpaceRsvCheck2 = $('.SpaceRsvCheck:checked');
+			var paramData2 = {};
+			var spaceList2 = [];
+			var inputCheck2 = 0;
+			
+			// 체크된 공간 체크박스 값을 가져온다.
+			SpaceRsvCheck2.each(function(i) {
+				var spaceJson2 = {}
+				var tr2 = SpaceRsvCheck2.parent().parent().parent().parent().eq(i);
+				var td2 = tr2.children();
+				var spaceCode2 = td2.eq(0).children().children().children().val();
+				spaceJson2["spaceCode"] = spaceCode2;
+				spaceList2.push(spaceJson2);
+			});
+			paramData2["spaceList"] = spaceList2;
+			paramData2["rsvType"] = '일';
+			paramData2["rsvDate"] = $('#reservationDRP').val();
+			console.log("paramData2 : " + JSON.stringify(paramData2));
+			
+			//이미 예약되잇는 날짜 가져오는 ajax시작!!
+				var request2 = $.ajax({
+					url: '/getExRsv', 
+					method: 'POST',
+					data : JSON.stringify(paramData2),
+					dataType: 'json' ,
+					contentType : "application/json"
+				});
+				request2.done(function( data2 ) {
+					console.log(data2);	
+					for (var i=0; i<data2.length; i++){
+						var startDay = data2[i].rsvStartDateTime.substring(0,10);
+						var endDay = data2[i].rsvEndDateTime.substring(0,10);
+						console.log("startDay : ",startDay);
+						console.log("endDay : ",endDay);
+						arrStartDate.push(startDay);
+						arrEndDate.push(endDay);
+					}
+				});
+				request2.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus );
+				});
+				
+			});
+//공간 이미 예약된 날짜 선택못하게 하는 스크립트
+			var rsvCheck = function(date) {
+					var formatted = date.format('YYYY-MM-DD');
+					if(arrStartDate.length>0){
+						for(var i=0; i<arrStartDate.length; i++){
+					        if (date >= moment(arrStartDate[i]) && date <= moment(arrEndDate[i])) {
+					            return true;
+					        }
+						}
+					}
+			    }		
+		
 		
 //장비 추가버튼 클릭시
 		$('#itemBtn').click(function(){
@@ -228,6 +288,7 @@ margin-right: 20px;
 				});
 				var paramData3 = {};
 				paramData3["itemList"] = itemList;
+				paramData3["rsvStoreCode"] = [[${storeCode}]];
 				paramData3["rsvDate"] = $('#reservationDRP').val();
 				paramData3["startTime"] = $('#startTime').val();
 				paramData3["endTime"] = $('#endTime').val();
@@ -256,9 +317,6 @@ margin-right: 20px;
 		
 			}
 		})
-		
-		
-		
 		
 //버튼 클릭시 폼넘기기크립트 시작~
 		var num1 = 0;
@@ -370,35 +428,9 @@ margin-right: 20px;
 			}
 		});
 //버튼 클릭시 폼넘기기 종료
-
-//데이터 피커
-		$('#reservationDRP').daterangepicker({
-			minDate: moment(),
-			locale: {
-				format: 'YYYY-MM-DD',
-	            applyLabel: '등록',
-	            cancelLabel: '취소',
-	            fromLabel: 'From',
-	            toLabel: 'To',
-	            customRangeLabel: 'Custom',
-	            daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
-	            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	            firstDay: 1
-	        }
 //데이터 피커 값 변경시
-		}).on("change", function(e) {//시간선택 보이게
-			$('.btn-group').parent().removeClass('disableMetter');
-		
-		//이미 체크되있는 시간 다 지우기
-			checkedTime = $('.timeCheck input:checked');
-			checkedTime.each(function() {
-				console.log($(this));
-					$(this).parent().removeClass('btn-primary');
-					$(this).parent().addClass('btn-secondary');
-			})
-			$('.timeCheck input').each(function() {
-				$(this).prop('checked', false);
-			})
+  $('input[name="reservationDRP"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
 		//이미 체크되있는 장비 다 지우기
 			checkedItem = $('.ItemRsvCheck:checked');
 			checkedItem.each(function() {
@@ -408,67 +440,32 @@ margin-right: 20px;
 		//장비예약버튼을 다시 누르게끔 떠있는 장비창 다시 숨기기
 			$('#itemInfo').addClass('disableMetter');
 				
-		//날짜 클릭시 이미 예약되있는거 가져오기!!
-		var SpaceRsvCheck2 = $('.SpaceRsvCheck:checked');
-		var paramData2 = {};
-		var spaceList2 = [];
-		var inputCheck2 = 0;
-		
-		// 체크된 공간 체크박스 값을 가져온다.
-		SpaceRsvCheck2.each(function(i) {
-			var spaceJson2 = {}
-			var tr2 = SpaceRsvCheck2.parent().parent().parent().parent().eq(i);
-			var td2 = tr2.children();
-			var spaceCode2 = td2.eq(0).children().children().children().val();
-			spaceJson2["spaceCode"] = spaceCode2;
-			spaceList2.push(spaceJson2);
-		});
-		paramData2["spaceList"] = spaceList2;
-		paramData2["rsvDate"] = $('#reservationDRP').val();
-		console.log("paramData2 : " + JSON.stringify(paramData2));
-		
-		var tc = $('.timeCheck');
-		var tci = $('.timeCheck input');
-		for(var i=0; i<tc.length; i++){
-			$(tc[i]).removeClass('btn-danger');
-			$(tc[i]).removeClass('btn-danger');
-			$(tci[i]).removeAttr('disabled');
-		}
-		
-		//이미 예약되잇는 날짜 가져오는 ajax시작!!
-			var request2 = $.ajax({
-				url: '/getExRsv', 
-				method: 'POST',
-				data : JSON.stringify(paramData2),
-				dataType: 'json' ,
-				contentType : "application/json"
-			});
-			request2.done(function( data2 ) {
-				console.log(data2);	
-				for (var i=0; i<data2.length; i++){
-					var startT = Number(data2[i].startTime);
-					var endT = Number(data2[i].endTime);
-					var timeCheck = $('.timeCheck input')
-					console.log(startT);
-					console.log(endT);
-					//예약 된 시간 색 바꾸기
-					for(var j=0; j<timeCheck.length; j++){
-						var rsvt = timeCheck[j].value;
-						if(rsvt >= startT && rsvt <= endT){
-							$(timeCheck[j]).attr('disabled','disabled');//선택금지
-							$(timeCheck[j]).parent().addClass('btn-danger');//색변환
-						}
-					}
-					
-				}
-			});
-			request2.fail(function( jqXHR, textStatus ) {
-				alert( "Request failed: " + textStatus );
-			});
-			
-		});
+  });
+
+  $('input[name="reservationDRP"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+//데이터 피커
+		$('#reservationDRP').daterangepicker({
+			minDate: moment(),
+			autoUpdateInput: false,
+			locale: {
+				cancelLabel: 'Clear',
+				format: 'YYYY-MM-DD',
+	            applyLabel: '등록',
+	            cancelLabel: '취소',
+	            fromLabel: 'From',
+	            toLabel: 'To',
+	            customRangeLabel: 'Custom',
+	            daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
+	            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	            firstDay: 1,
+	        },
+	        isInvalidDate :	rsvCheck
+		})
 //데이터 피커 종료
-		
+
+// 일요일만 선택 막기
 	</script>
 	</th:block>
 </html>

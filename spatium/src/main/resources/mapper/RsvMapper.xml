@@ -81,7 +81,8 @@
 	<select id="getExItemRsv" parameterType="Rsv" resultType="Rsv">
 		<![CDATA[
 		SELECT sum(rsvDetailNum) as rsvDetailNum
-			, itemCode, rsvStartDateTime
+			, itemCode
+			, rsvStartDateTime
 			, rsvEndDateTime 
 		FROM
 				(SELECT  
@@ -90,6 +91,7 @@
 				, rsvEndDateTime 
 			FROM 
 				viewRsv
+			WHERE storeCode = #{rsvStoreCode}
 			GROUP by
 				itemCode, rsvStartDateTime, rsvEndDateTime 
 			having 
@@ -112,8 +114,15 @@
 		<foreach item="s" index="index" collection="spaceList" open="or (" separator=" or " close=")">
         okaySpaceCode = #{s.spaceCode}
 	  	</foreach>
-		and
-        date(rsvStartDateTime) = #{rsvDate}
+	  	<if test="rsvType == null">
+			and
+			<![CDATA[
+	   	    date(rsvStartDateTime) <= #{rsvEndDateTime}
+	        and
+	        date(rsvStartDateTime) >= #{rsvStartDateTime}
+	    	]]> 
+	  	</if>
+			
 	</select>	
 	
 	<update id="updateRsvPrice">
@@ -127,7 +136,7 @@
 	<update id="updateRsvDayPrice">
 		UPDATE tbRsv
 		SET
-			rsvTotalPrice=#{totalPrice}*timestampdiff(day, rsvStartDateTime, rsvEndDateTime)
+			rsvTotalPrice=#{totalPrice}*(timestampdiff(day, rsvStartDateTime, rsvEndDateTime)+1)
 		WHERE 
 			rsvCode=#{rsvCode}
 	</update>
@@ -219,24 +228,18 @@
 		FROM 
 			viewRsv AS v
 		<trim prefix="WHERE" suffixOverrides="AND |OR ">
-		  <if test="itemList != null">
-			<foreach item="i" index="index" collection="itemList" separator="or">
-	        	itemCode=#{i.itemCode}
-	 		</foreach>OR
- 		 </if>
- 		 
- 		 <if test="spaceList != null">
+ 		 <if test="spaceList.size() > 0">
 			<foreach item="s" index="index" collection="spaceList" separator="or">
 	       	 	okaySpaceCode=#{s.spaceCode}
-	 		</foreach>OR
+	 		</foreach>
+	       	 	and
 	 		</if>
-		</trim>
 		<![CDATA[
-			and
 			rsvEndDateTime > #{rsvStartDateTime}
 			and
 			rsvStartDateTime <#{rsvEndDateTime} 
 		]]>
+		</trim>
 	</select>
 	
 	<select id="getItemByStore" parameterType="int" resultType="Item">

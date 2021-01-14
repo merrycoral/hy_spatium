@@ -45,14 +45,20 @@ public class RsvService {
 		System.out.println(rsvStartDateTime + " <-- 예약 시작 일시");
 		System.out.println(rsvEndDateTime + " <-- 예약 종료 일시");
 		
-		//예약 중복 체크
-		List<Rsv> rsvCheck = rsvMapper.rsvCheck(rsv);
-		if(rsvCheck == null) {
+		//공간 예약이 있을경우에만 예약 중복 체크
+		List<Rsv> rsvCheck =null;
+		if(rsv.getSpaceList().size()>0) {
+			System.out.println("공간있음 예약 중복체크 시작");
+			rsvCheck = rsvMapper.rsvCheck(rsv);
+		}
+		if(rsvCheck == null || rsvCheck.size()<=0) {
+			System.out.println("중복없음");
 			//예약 등록
 			rsvMapper.insertTbRsv(rsv);
 			int totalPrice = 0;
 			int rsvCode = rsv.getRsvCode();
 			if(rsv.getSpaceList() !=null) {
+				System.out.println("공간예약 시작");
 				for(int i=0; i<rsv.getSpaceList().size();i++) {	//공간 예약
 					Map<String, Object> spaceRsv = rsv.getSpaceList().get(i);
 					//가격 추가
@@ -67,6 +73,7 @@ public class RsvService {
 				}
 			}
 			if(rsv.getItemList() != null) {
+				System.out.println("장비예약 시작");
 				for(int i=0; i<rsv.getItemList().size();i++) {	//장비 예약
 					Map<String, Object> itemRsv = rsv.getItemList().get(i);
 					//가격 추가
@@ -94,6 +101,8 @@ public class RsvService {
 				rsvMapper.updateRsvDayPrice(rsvCode, totalPrice);
 			}
 			return null; 
+		}else {
+			System.out.println("공간 중복있음");
 		}
 		return rsvCheck;
 	}
@@ -124,7 +133,20 @@ public class RsvService {
 	}
 
 	public List<Rsv> getExRsv(Rsv rsv) {
-		List<Rsv> getExRsv = rsvMapper.getExRsv(rsv);
+		String rsvDate=rsv.getRsvDate();
+		List<Rsv> getExRsv = null;
+		//일별 예약일때
+		if(rsv.getRsvDate().length()>15) {
+			rsv.setRsvStartDateTime(rsvDate.substring(0,10));
+			rsv.setRsvEndDateTime(rsvDate.substring(13));
+			getExRsv = rsvMapper.getExRsv(rsv);
+		
+		//시간별 예약일때
+		}else {
+			getExRsv = rsvMapper.getExRsv(rsv);
+		}
+		
+		//이전 예약 가져온후 데이터 다듬기
 		for(int i=0; i<getExRsv.size(); i++) {
 			String startDT=getExRsv.get(i).getRsvStartDateTime();
 			String endDt=getExRsv.get(i).getRsvEndDateTime();
@@ -141,12 +163,16 @@ public class RsvService {
 	 * 그 시간대 장비 현황 파악 메서드
 	 */
 	public List<Rsv> getExItemRsv(Rsv rsv) {
-		rsv.getRsvDate();
-		rsv.getStartTime();
-		rsv.getEndTime();
-		
-		rsv.setRsvStartDateTime(rsv.getRsvDate() +" "+ rsv.getStartTime() + ":00:00");
-		rsv.setRsvEndDateTime(rsv.getRsvDate() +" "+ rsv.getEndTime() + ":00:00");
+		int leng = rsv.getRsvDate().length();
+		String startDay = rsv.getRsvDate().substring(0,10);
+		String EndDay = rsv.getRsvDate().substring(leng-10,leng);
+		if(rsv.getStartTime()!=null &&rsv.getEndTime()!=null) {
+			rsv.setRsvStartDateTime(startDay +" "+ rsv.getStartTime() + ":00:00");
+			rsv.setRsvEndDateTime(EndDay +" "+ rsv.getEndTime() + ":00:00");
+		}else {
+			rsv.setRsvStartDateTime(startDay +" "+ "00:00:00");
+			rsv.setRsvEndDateTime(EndDay +" "+ "23:59:59");
+		}
 		
 		List<Rsv> getExItemRsv = rsvMapper.getExItemRsv(rsv);
 		return getExItemRsv;

@@ -14,6 +14,10 @@ margin-right: 20px;
     display: table;
     margin-left: 10px;
 }
+.btn-secondary{
+    background-color: #A9F5A9;
+}
+
 .disableMetter {
 	display: none
 }
@@ -22,8 +26,16 @@ margin-right: 20px;
 	height: 45px;
 	margin: 0;
 }
+.bad{
+	color: red;	
+}
+.alert{
+	margin: 0;
+	padding: 0;
+}
 </style>
-<!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- reservationDRP css파일 --><link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
 </th:block>
 <th:block layout:fragment="customContent">
 
@@ -241,7 +253,9 @@ margin-right: 20px;
 	<th:block layout:fragment="customJs">
 	<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script type="text/javascript" th:inline="javascript">
-		
+		if([[${rsvCheck}]]==0){
+			alert("해당 시간에 이미 예약이 존재합니다.");
+		}
 //예약 폼 스타트
 		
 //다음, 이전버튼으로 예약폼 이동		
@@ -432,17 +446,89 @@ margin-right: 20px;
 		});
 //버튼 클릭시 폼넘기기 종료
 
+
 //데이터 피커
-		$('#datepicker').datepicker({
+		$('#datepicker').daterangepicker({
+			autoUpdateInput: false,
 			singleDatePicker : true,
 			singleClasses : "picker_5",
-			minDate : 0,
-			maxDate : '+3m',
-			dateFormat: "yy-mm-dd"
-//데이터 피커 값 변경시
-		}).on("change", function(e) {//시간선택 보이게
-			$('.btn-group').parent().removeClass('disableMetter');
-		
+			minDate : moment(),
+			locale: {
+				cancelLabel: 'Clear',
+				format: "YYYY-MM-DD",  
+	            customRangeLabel: 'Custom',
+	            daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
+	            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	        }
+		})
+//데이터 피커 종료
+
+//시간 체크 하기
+		$('.timeCheck input').click(function() {
+			var checkedTime = null;
+			$('.timeCheck input').each(function(i) {
+				var result = $(this).prop('checked');
+				checkedTime = $('.timeCheck input:checked');
+				//체크된 대상 가져오기
+				console.log(checkedTime.length, '체크된 대상 크기확인')
+			})
+	
+			//체크버튼을 3개 클릭했을경우 모두 체크 해제
+			if (checkedTime.length > 2) {
+				$('.timeCheck input').prop('checked', false);
+	
+				//체크 버튼을 2개 클릭했을경우 두개 사이 모두 체크
+			} else if (checkedTime.length == 2) {
+
+				//체크된 두개 찾기
+				checkedTime.each(function(i, d) {
+					num1 = Number(checkedTime[0].value);
+					num2 = Number(checkedTime[1].value);
+				})
+				console.log(num1, num2, '체크된 번호 2개');
+				for(var i = num1; i<num2; i++){
+					if($($('.timeCheck input')[i]).attr('disabled')=='disabled'){
+						$('.timeCheck input').prop('checked', false);
+						num1=null;
+						num2=null;
+						alert('빨간 부분은 예약 불가능한 시간 입니다.\n 빨간 부분이 포함되지 않도록 예약하여 주십시오.');
+					}
+				}
+				
+				//두개사이 모두 체크하기
+				$('.timeCheck input').each(function(i, d) {
+					if (num1 < i && i < num2) {
+						console.log(this, '체크');
+						$(this).prop('checked', true);
+					}
+				})
+				
+				$('#startTime').val(num1);
+				$('#endTime').val(num2);
+			} else if (checkedTime.length == 1){
+				num1 = Number(checkedTime[0].value);
+				$('#startTime').val(num1)
+				$('#endTime').val("");
+			}
+			
+			//체크된거 색바꾸기 
+			$('.timeCheck input').each(function(){
+				$(this).parent().removeClass('btn-primary');
+				$(this).parent().addClass('btn-secondary');
+			})
+			
+			checkedTime = $('.timeCheck input:checked');
+			checkedTime.each(function() {
+				console.log($(this));
+					$(this).parent().removeClass('btn-secondary');
+					$(this).parent().addClass('btn-primary');
+			})
+			
+		})
+//시간 체크 하기 종료
+		//데이터 피커 값 변경시
+  $('input[name="rsvDate"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
 		//이미 체크되있는 시간 다 지우기
 			checkedTime = $('.timeCheck input:checked');
 			checkedTime.each(function() {
@@ -519,74 +605,13 @@ margin-right: 20px;
 			request2.fail(function( jqXHR, textStatus ) {
 				alert( "Request failed: " + textStatus );
 			});
-			
-		});
-//데이터 피커 종료
+			//시간선택 보이게
+			$('.btn-group').parent().removeClass('disableMetter');
+  });
 
-//시간 체크 하기
-		$('.timeCheck input').click(function() {
-			var checkedTime = null;
-			$('.timeCheck input').each(function(i) {
-				var result = $(this).prop('checked');
-				checkedTime = $('.timeCheck input:checked');
-				//체크된 대상 가져오기
-				console.log(checkedTime.length, '체크된 대상 크기확인')
-			})
-	
-			//체크버튼을 3개 클릭했을경우 모두 체크 해제
-			if (checkedTime.length > 2) {
-				$('.timeCheck input').prop('checked', false);
-	
-				//체크 버튼을 2개 클릭했을경우 두개 사이 모두 체크
-			} else if (checkedTime.length == 2) {
-
-				//체크된 두개 찾기
-				checkedTime.each(function(i, d) {
-					num1 = Number(checkedTime[0].value);
-					num2 = Number(checkedTime[1].value);
-				})
-				console.log(num1, num2, '체크된 번호 2개');
-				for(var i = num1; i<num2; i++){
-					if($($('.timeCheck input')[i]).attr('disabled')=='disabled'){
-						$('.timeCheck input').prop('checked', false);
-						num1=null;
-						num2=null;
-						alert('빨간 부분은 예약 불가능한 시간 입니다.\n 빨간 부분이 포함되지 않도록 예약하여 주십시오.');
-					}
-				}
-				
-				//두개사이 모두 체크하기
-				$('.timeCheck input').each(function(i, d) {
-					if (num1 < i && i < num2) {
-						console.log(this, '체크');
-						$(this).prop('checked', true);
-					}
-				})
-				
-				$('#startTime').val(num1);
-				$('#endTime').val(num2);
-			} else if (checkedTime.length == 1){
-				num1 = Number(checkedTime[0].value);
-				$('#startTime').val(num1)
-				$('#endTime').val("");
-			}
-			
-			//체크된거 색바꾸기 
-			$('.timeCheck input').each(function(){
-				$(this).parent().removeClass('btn-primary');
-				$(this).parent().addClass('btn-secondary');
-			})
-			
-			checkedTime = $('.timeCheck input:checked');
-			checkedTime.each(function() {
-				console.log($(this));
-					$(this).parent().removeClass('btn-secondary');
-					$(this).parent().addClass('btn-primary');
-			})
-			
-		})
-//시간 체크 하기 종료
-		
+  $('input[name="rsvDate"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
 		
 	</script>
 	</th:block>

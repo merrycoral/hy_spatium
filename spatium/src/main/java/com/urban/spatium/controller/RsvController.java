@@ -102,6 +102,7 @@ public class RsvController {
 	public @ResponseBody List<Rsv> getExRsv(@RequestBody Rsv rsv) {
 		System.out.println("가져오기 -->  "+rsv.getSpaceList());
 		System.out.println("가져오기 -->  "+rsv.getRsvDate());
+		System.out.println("가져오기 -->  "+rsv.getRsvType());
 		List<Rsv> getExRsv = null;
 		getExRsv = rsvService.getExRsv(rsv);
 		return getExRsv;
@@ -136,51 +137,40 @@ public class RsvController {
 		String sessionId = (String) session.getAttribute("SID");
 		rsv.setRsvUserId(sessionId); // 임시 아이디 부여
 		List<Rsv> result = rsvService.insertTbRsv(rsv);
-	    if(result.size()>0) {	
-	    	return "/rsvInsertAdmin?storeCode="+rsv.getRsvStoreCode()+"&rsvType="+rsv.getRsvState();
+	    if(result!=null && result.size()>0) {
+	    	return "/rsvInsert?storeCode="+rsv.getRsvStoreCode()+"&rsvType="+rsv.getRsvState()+"&rsvCheck=0";
 	    }
 	    return "/rsvListAdmin";
 	}
 	
 	
 	/**
-	 * 공간 예약 등록으로 이동(관리자화면)
-	 */
-	@GetMapping("/rsvInsertAdmin")
-	public String rsvInsertAdmin(Model model, int storeCode, String rsvType) {
-		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
-		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
-		model.addAttribute("getSpaceByStore", getSpaceByStore);
-		model.addAttribute("getItemByStore", getItemByStore);
-		model.addAttribute("storeCode", storeCode);
-		if("시간".equals(rsvType)) {
-			return "rsv/rsvInsertAdmin";
-		}else if("일".equals(rsvType)){
-			return "rsv/rsvInsertDayAdmin";
-		}else {
-			return "/";
-		}
-	}
-	
-	
-	/**
-	 * 공간 예약 등록으로 이동(구매자화면)
+	 * 예약 등록 폼으로 이동
 	 */
 	@GetMapping("/rsvInsert")
-	public String rsvInsert(Model model,int storeCode, String rsvType) {
+	public String rsvInsert(Model model,int storeCode, String rsvType
+			, @RequestParam(name="rsvCheck", required = false)String rsvCheck
+			, @RequestParam(name="pageType", required = false)String pageType) {
 		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
 		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
 		model.addAttribute("getItemByStore", getItemByStore);
 		model.addAttribute("storeCode", storeCode);
-		
-		if("시간".equals(rsvType)) {
-			return "rsv/rsvInsert";
-		}else if("일".equals(rsvType)){
-			return "rsv/rsvInsertDay";
+		model.addAttribute("rsvCheck", rsvCheck);
+		if("admin".equals(pageType)) {
+			if("시간".equals(rsvType)) {
+				return "rsv/rsvInsertAdmin";
+			}else if("일".equals(rsvType)){
+				return "rsv/rsvInsertDayAdmin";
+			}
 		}else {
-			return "/";
+			if("시간".equals(rsvType)) {
+				return "rsv/rsvInsert";
+			}else if("일".equals(rsvType)){
+				return "rsv/rsvInsertDay";
+			}
 		}
+		return "/";
 	}
 	
 	/**
