@@ -3,32 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.UserMapper">
-	<!--구매자 포인트  -->
-	<select id="pointList" resultType="User">
-		SELECT
-		 addPointCode
-		, addPointType
-		,addPoint
-		FROM
-			tbPoint;    
-	</select>
-  
-<!--관리자 포인트  -->
-	<select id="sPointList" resultType="User">
-		SELECT
-		 pointCode
-		, pointID
-		,pointAddList
-		,pointSellList
-		,pointList
-		,pointPaymentCode
-		,reviewCodepointReviewCode
-		,pointModyfiDate
-		FROM
-			tbPointList;
-	</select>
-	
-	
+
 	<!--불량회원 리스트 -->
 	<select id="blackUser" resultType="User">
 		SELECT
@@ -39,6 +14,27 @@
 		FROM
 			tbBlackConsumer;
 	</select>
+	
+	
+	
+	
+	<!--탈퇴회원 업데이트-->
+	<update id="modifyDeleteUser">
+		UPDATE
+		tbUser
+		SET
+		  userPw = '(탈퇴)'
+		, userName = '(탈퇴)'
+		, userBirth	= '(탈퇴)'
+		, userGender = '(탈퇴)'
+		, userPhone = '(탈퇴)'
+		, userJob = '(탈퇴)'
+		, userLevel = '5'
+		, userEmail = '(탈퇴)'
+		, userPoint = '(탈퇴)'
+		WHERE
+		userId=#{userId}; 
+	</update>
 	
 	<!--탈퇴회원 리스트 -->
 	<select id="deleteUser" resultType="User">
@@ -80,17 +76,12 @@
 		,#{deleteUserPoint});
 	</insert>
 	
-	<!--회원탈퇴 -->
-	<delete id="removeMyinfo">
-		DELETE
-		FROM
-		tbUser
-		WHERE
-		userId=#{userId}; 
-	</delete>
-
+	
+	
+	
+	
 	<!--마이페이지 수정 -->
-	<update id="modifyMyinfo" >
+	<update id="myInfo" >
 		UPDATE
 		tbUser
 		SET 
@@ -105,25 +96,7 @@
 			userId = #{userId};     
 	</update>
 	
-	<!--회원삭제 -->
-	<update id="removeUser">
-		UPDATE
-		tbUser
-		SET
-		  userPw = '(탈퇴)'
-		, userName = '(탈퇴)'
-		, userBirth	= '(탈퇴)'
-		, userGender = '(탈퇴)'
-		, userPhone = '(탈퇴)'
-		, userJob = '(탈퇴)'
-		, userLevel = '5'
-		, userEmail = '(탈퇴)'
-		, userPoint = '(탈퇴)'
-		WHERE
-		userId=#{userId}; 
-	</update>
-
-	<!--회원수정 -->
+	<!--관리자용 회원수정 -->
 	<update id="modifyUser" >
 		UPDATE
 		tbUser

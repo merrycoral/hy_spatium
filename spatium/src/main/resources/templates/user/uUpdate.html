@@ -78,27 +78,18 @@
 				<span class="required">*</span>
 			</label>
 			<div class="form-check">
-
 				<div th:switch="${user.userGender}">
-
 					<p th:case="남">
-
 						남 <input type="radio" name="userGender" th:value="남" checked>
-
 						여<input type="radio" name="userGender" th:value="여">
 					</p>
-
 					<p th:case="여">
-
 						남<input type="radio" name="userGender" th:value="남">
-
 						여<input type="radio" name="userGender" th:value="여" checked>
 					</p>
-
 				</div>
 			</div>
 		</div>
-
 
 		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화

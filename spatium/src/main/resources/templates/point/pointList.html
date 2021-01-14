@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customContent">
+	<form action="/pointList" method="post"></form>
+
+<div class="table-responsive m-t-20">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id=tbPointList>
+			<thead>
+				<tr>
+					<th scope="col">포인트 적립코드</th>
+					<th scope="col">포인트 적립 타입</th>
+					<th scope="col">적립 포인트</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${#lists.size(pointList) > 0}" th:each="p : ${pointList}">
+				<td th:text="${p.addPointCode}"></td>
+				<td th:text="${p.addPointType}"></td>
+				<td th:text="${p.addPoint}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</th:block>
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbPointList").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	</script>
+
+</th:block>
+</html>
