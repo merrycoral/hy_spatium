@@ -26,10 +26,17 @@
 		$(function(){
 			
 			/*<![CDATA[*/
-		   	var a = [[${rsvDetailList}]]
+		   	var rsvResult = [[${result}]]
 		    /*]]>*/
 		    
-		    console.log(a);
+		    if(rsvResult=="X"){
+		    	alert("결제불가능하다 .");
+		    //location.href="/rsvListAdmin";
+		    }else{
+		    	alert("결제가능하다.");
+		    }
+		    
+		    console.log(rsvResult);
 		    
 			var check_ip = ip(); 
 			 $('#getIp').val(check_ip);// 접속한 기기의 IP를 가져온다
@@ -78,7 +85,15 @@
 				 
 			$("#charge_kakao").click(function() {
 				
+				var result123 = null;
+				//ajax로 지금걸러낸거 한번더하고
+				//ajax통과하고 결과가 O또는 X가 나오자나
 				
+				// result123에 결과값을 담고
+				if(result123=="X"){
+					alert("결재가 있다.")
+					return false;
+				}
 				
 				
 				var IMP = window.IMP; // 생략가능
@@ -199,8 +214,7 @@
 
 
 
-<div>디테일공간코드<input type="text" th:value="${rsv.rsvDetailSpace}"></div>
-<div>디테일장비코드<input type="text" th:value="${rsv.rsvDetailItem}"></div>
+
 
 <input type="hidden" th:value="${rsv.storeId}" name="paymentStoreId">
 <input type="hidden" th:value="${rsv.rsvStoreCode}" name="PaymentStoreCode">

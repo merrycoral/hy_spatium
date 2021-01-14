@@ -26,9 +26,14 @@ public class PaymentService {
 	private PaymentMapper paymentMapper;
 	
 	
-	public List<String> getRsvDetailCode(String rsvCode){
+	public int rsvCheck(Map<String,Object> totalMap) {
+		return paymentMapper.rsvCheck(totalMap);
+		
+	}
+	
+	public List<Map<String,Object>> getRsvDetailCode(String rsvCode , String dateTime){
 		System.out.println("서비스오냐");
-		return paymentMapper.getRsvDetailCode(rsvCode);
+		return paymentMapper.getRsvDetailCode(rsvCode,dateTime);
 		
 	}
 	

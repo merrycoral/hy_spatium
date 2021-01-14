@@ -3,6 +3,7 @@ package com.urban.spatium.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.urban.spatium.dto.Payment;
 import com.urban.spatium.dto.Point;
 import com.urban.spatium.dto.Rsv;
+import com.urban.spatium.dto.User;
 import com.urban.spatium.service.PaymentService;
+import com.urban.spatium.service.UserService;
 
 
 
@@ -32,7 +35,50 @@ import com.urban.spatium.service.PaymentService;
 public class paymentController {
 	@Autowired 
 	private PaymentService paymentService; 
+	@Autowired
+	private UserService userService;
 	
+	/* 관리자 포인트 */
+		@PostMapping("/sPointList")
+		public String sPointList(Model model) {
+
+			model.addAttribute("title", "포인트");
+					
+			return "point/sPointList";
+		}
+		
+		/* 관리자 포인트 */
+		@GetMapping("/sPointList")
+		public String sPointList(Model model, @RequestParam(name="result", required = false) String result) {
+			List<User> sPointList = userService.sPointList();
+			System.out.println(sPointList);
+			model.addAttribute("title", "회원 목록");
+			model.addAttribute("sPointList", sPointList);
+			if(result != null) model.addAttribute("result", result);
+
+			return "point/sPointList";
+		}
+	
+	/* 구매자 포인트 */
+	@GetMapping("/pointList")
+	public String pintList(Model model, @RequestParam(name="result", required = false) String result) {
+		List<User> pointList = userService.pointList();
+		System.out.println(pointList);
+		model.addAttribute("title", "회원 목록");
+		model.addAttribute("pointList", pointList);
+		if(result != null) model.addAttribute("result", result);
+
+		return "point/pointList";
+	}
+	
+	/* 구매자 포인트 */
+	@PostMapping("/pointList")
+	public String pintList(Model model) {
+
+		model.addAttribute("title", "포인트");
+				
+		return "point/pointList";
+	}
 	
 	@GetMapping("/rsvDetail")
 	public @ResponseBody Map<String, Object> rsvDetail(Model model,
@@ -131,33 +177,57 @@ public class paymentController {
 		System.out.println(rsvCode);
 		
 		//memberService.onelist(member.getMemberId());
-	
+		
 		Rsv rsv = paymentService.rsvState(rsvCode);
-		System.out.println("여기>>>"+paymentService.getRsvDetailCode(rsvCode));
 		
-		List<String> rsvDetailList=  paymentService.getRsvDetailCode(rsvCode);
-		System.out.println(rsvDetailList.get(0));
-		System.out.println(rsvDetailList.get(1));
-		System.out.println(rsvDetailList.get(2));
+		//이건 조건문 돌리기위한 변수선언
+		String dateTime = "";
+		System.out.println("여기>>>"+paymentService.getRsvDetailCode(rsvCode,dateTime));
+		//조건문이 공백이여서 코드만 불러온다
+		List<Map<String, Object>> rsvDetailMap = paymentService.getRsvDetailCode(rsvCode,dateTime);
+		dateTime = "notNull";
+		//조건문이 공백이 아니여서 코드+시간 불러온다
+		List<Map<String, Object>> rsvDateTimeMap = paymentService.getRsvDetailCode(rsvCode,dateTime);
 		
-		/*
-		 * List<Map<String, Object>> map = paymentService.getRsvDetailCode(rsvCode);
-		 * System.out.println("사이즈>>>"+map.size()); map.get(0).get("rsvDetailSpace");
-		 * map.get(1).get("rsvDetailItem"); map.get(2).get("rsvDetailItem");
-		 * System.out.println("여기부터>>"+map.get(0).get("rsvDetailSpace"));
-		 * System.out.println(map.get(1).get("rsvDetailItem1"));
-		 * System.out.println(map.get(2).get("rsvDetailItem+1"));
-		 */
+		System.out.println("코드만>>"+rsvDetailMap);
+		System.out.println("시간포함>>"+rsvDateTimeMap);
+		
+		//for each문을 돌리기위해 Map<List<Map<>>> 형태로 만들기위한 작업
+		Map<String,Object> totalMap = new HashMap<String,Object>();
+		List<Map<String, Object>> newRsvDetailMap = new ArrayList<Map<String,Object>>();
+		for(int i=0; i<rsvDetailMap.size();i++) {
+			
+			for(Map.Entry<String, Object> elem : rsvDetailMap.get(i).entrySet()){
+				Map<String,Object> map = new HashMap<String,Object>();
+				System.out.println("키 : " + elem.getKey() + "값 : " + elem.getValue());
+				map.put("columName", elem.getKey());
+				map.put("columValue", elem.getValue());
+				map.put("rsvStartDateTime",rsvDateTimeMap.get(i).get("rsvStartDateTime"));
+				map.put("rsvEndDateTime",rsvDateTimeMap.get(i).get("rsvEndDateTime"));
+				newRsvDetailMap.add(map);	
+	        }
+		}
+		System.out.println("리스트맵>>>"+newRsvDetailMap);
+		totalMap.put("list", newRsvDetailMap);
+		System.out.println(totalMap);
+		System.out.println("결고값>>>"+paymentService.rsvCheck(totalMap));
+		int result = paymentService.rsvCheck(totalMap);
+		String result2=null;
+		if(result==0) {
+			result2 = "O";
+		}else {
+			result2 = "X";
+		}
 		
 		
-		
+		model.addAttribute("result",result2 );
 		model.addAttribute("rsv", rsv);
 		System.out.println(rsv.getRsvUserId());
 		System.out.println(rsv.getRsvCode());
 		String totalPoint =paymentService.totalPoint(rsv.getRsvUserId());
 		System.out.println("포인트"+totalPoint);
 		model.addAttribute("totalPoint", totalPoint);
-		model.addAttribute("rsvDetailList", paymentService.getRsvDetailCode(rsvCode));
+		model.addAttribute("rsvDetailList", paymentService.getRsvDetailCode(rsvCode,dateTime));
 		
 		
 		

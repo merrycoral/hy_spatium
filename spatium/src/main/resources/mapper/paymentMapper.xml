@@ -105,12 +105,43 @@
 		 rsvCode = #{rsvCode}
 	</update>
 	
+	<select id="rsvCheck" resultType="int" parameterType ="java.util.Map" >
+		
+		SELECT 
+			COUNT(DISTINCT(rsvCode))
+		FROM 
+			tbRsv AS r
+		INNER JOIN
+			tbRsvRelation AS a
+		ON 
+			r.rsvCode = a.rsvRelationRsvCode
+		INNER JOIN
+			tbRsvDetail AS d
+		ON
+			a.rsvRelationRsvDetailCode = d.rsvDetailCode
+		WHERE
+		<foreach item="i" collection="list" separator=" OR ">
+			r.rsvState = '결제 완료' AND
+			${i.columName} = #{i.columValue}  AND 
+			   (rsvStartDateTime <![CDATA[ <= ]]>  #{i.rsvStartDateTime} AND rsvEndDateTime <![CDATA[ > ]]>  #{i.rsvStartDateTime}
+			OR rsvStartDateTime <![CDATA[ < ]]>  #{i.rsvEndDateTime} AND rsvEndDateTime <![CDATA[ >= ]]>  #{i.rsvEndDateTime} 
+			OR rsvStartDateTime <![CDATA[ > ]]>  #{i.rsvStartDateTime} AND rsvEndDateTime <![CDATA[ < ]]>  #{i.rsvEndDateTime} )
+		</foreach>
+	
+	</select>
+	
+	
+	
 	
 		<!--예약코드를 넣으면 방코드, 장비코드 불러오는 쿼리문  -->
-	<select id="getRsvDetailCode" parameterType="String"  resultType="map" >
+	<select id="getRsvDetailCode" parameterType="String"  resultType="java.util.LinkedHashMap" >
 		SELECT 
 			 rsvDetailSpace
 			,rsvDetailItem
+		<if test= "dateTime !=''">
+			,rsvStartDateTime
+			,rsvEndDateTime
+		</if>	
 		FROM 
 			tbRsv AS r
 		INNER JOIN
@@ -139,8 +170,8 @@
 		, rsvRegDate
 		, rsvState
 		, storeId
-		, rsvDetailSpace
-		, rsvDetailItem
+		<!-- , rsvDetailSpace
+		, rsvDetailItem -->
 		
 	FROM 
 		tbRsv AS r
@@ -148,7 +179,7 @@
 		tbStore AS s
 	on
 		rsvStoreCode = storeCode
-	INNER JOIN
+	<!-- INNER JOIN
 		tbRsvRelation AS a
 	ON 
 		r.rsvCode = a.rsvRelationRsvCode
@@ -156,7 +187,7 @@
 		tbRsvDetail AS d
 	ON
 		a.rsvRelationRsvDetailCode = d.rsvDetailCode
-	
+	 -->
 	WHERE 
 		rsvCode = #{rsvCode};
 	</select>
