@@ -28,14 +28,14 @@
 
 				<tbody>
 					<tr class="even pointer" th:if="${#lists.size(rsvListExtend) > 0}" th:each = "r : ${rsvListExtend}">
-						<td th:text="${r.rsvUserName}" class=" "></td>
-						<td th:text="${r.okaySpaceName}" class=" "></td>
-						<td th:text="${r.itemTotalName}" class=" "></td>
-						<td th:text="${r.rsvDetailOnePrice}" class=" "></td>
-						<td th:text="${r.rsvDetailNum}" class=" "></td>
-						<td th:text="${r.rsvDetailTotalPrice}" class=" "></td>
-						<td th:text="${r.rsvTime}" class=" "></td>
-						<td th:text="${r.rsvTimePrice}" class=" "></td>
+						<td th:text="${r.rsvUserName}"></td>
+						<td th:text="${r.okaySpaceName}"></td>
+						<td th:text="${r.itemTotalName}"></td>
+						<td th:text="${r.rsvDetailOnePrice}"></td>
+						<td th:text="${r.rsvDetailNum}"></td>
+						<td th:text="${r.rsvDetailTotalPrice}"></td>
+						<td th:text="${r.rsvTime}" ></td>
+						<td th:text="${r.rsvTimePrice}"></td>
 					</tr>
 				</tbody>
 			</table>

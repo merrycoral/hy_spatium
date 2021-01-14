@@ -11,6 +11,11 @@ import com.urban.spatium.dto.User;
 @Mapper
 public interface UserMapper {
 	
+	//구매자 포인트
+		public List<User> pointList(); 
+
+	//관리자 포인트
+		public List<User> sPointList(); 
 	
 	//휴면회원 리스트
 	public List<User> restUser(); 

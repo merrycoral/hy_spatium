@@ -236,7 +236,8 @@
 					</label>
 					<div class="col-md-6 col-sm-6 ">
 						<input type="file" id="storeImage" class="form-control"
-							name="storeImage" th:value = "${result.storeImage}">
+							name="storeImage" multiple="multiple">
+						<div id="preview"></div>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -271,6 +272,9 @@
 					}else if($('#storeAddress').val() == ""){
 						alert("주소를 입력해주시길 바랍니다.");
 						$('#storeAddress').focus();
+						return false;
+					}else if ($('#storeRsvType').val() == "0") {
+						alert("결제 방식을 선택해주시기 바랍니다.");
 						return false;
 					}else if($('#storePhone').val() == ""){
 						alert("업체 연락처를 입력해주시길 바랍니다.");
@@ -333,6 +337,68 @@
 				});
 				
 			});
+			
+			$(function(e){
+				$("input[type='file']").change(function(e){
+					
+					$('#preview').empty();
+					
+					var files = e.target.files;
+					var arr = Array.prototype.slice.call(files);
+					
+					for(var i = 0; i < files.length; i++){
+						if(!checkExtension(files[i].name,files[i].size)){
+							return false;
+						}
+					}
+					preview(arr);
+				});
+			});
+			
+			function checkExtension(fileName,fileSize){
+				var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+			    var maxSize = 20971520;
+			    
+			      if(fileSize >= maxSize){
+			          alert('파일 사이즈 초과');
+			          $("input[type='file']").val("");  //파일 초기화
+			          return false;
+			        }
+			        
+			        if(regex.test(fileName)){
+			          alert('업로드 불가능한 파일이 있습니다.');
+			          $("input[type='file']").val("");  //파일 초기화
+			          return false;
+			        }
+			        return true;
+			      }
+			
+			function preview(arr){
+				arr.forEach(function(f){
+					
+					var fileName = f.name;
+					if(fileName.length > 10){
+						fileName = fileName.substring(0,7) + "...";
+					}
+					
+					var str = '<div style="display: inline-flex; padding: 10px;"><li>';
+			        str += '<span>'+fileName+'</span><br>';
+					
+			        if(f.type.match('image.*')){
+			        	var reader = new FileReader();
+			        	reader.onload = function(e){
+			        		str += '<img src="'+e.target.result+'" title="'+f.name+'" width=100 height=100 />';
+			                str += '</li></div>';
+			                $(str).appendTo('#preview');
+			        	}
+			        	reader.readAsDataURL(f);
+			        }else{
+			        	str += '<img src="/resources/img/fileImg.png" title="'+f.name+'" width=100 height=100 />';
+			            $(str).appendTo('#preview');
+			        }
+			        
+				});
+			}
 			
 			function sample6_execDaumPostcode() {
 		        new daum.Postcode({

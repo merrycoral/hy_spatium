@@ -4,6 +4,7 @@ package com.urban.spatium.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,17 @@ public class PaymentService {
 	@Autowired 
 	private PaymentMapper paymentMapper;
 	
+	
+	public int rsvCheck(Map<String,Object> totalMap) {
+		return paymentMapper.rsvCheck(totalMap);
+		
+	}
+	
+	public List<Map<String,Object>> getRsvDetailCode(String rsvCode , String dateTime){
+		System.out.println("서비스오냐");
+		return paymentMapper.getRsvDetailCode(rsvCode,dateTime);
+		
+	}
 	
 	public List<Payment> rsvDetail(String payCode){	
 		List<Payment> list = paymentMapper.rsvDetail(payCode);

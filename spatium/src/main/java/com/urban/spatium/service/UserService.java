@@ -1,12 +1,8 @@
 package com.urban.spatium.service;
 
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.groovy.util.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +16,18 @@ public class UserService {
 	
 	@Autowired 
 	private UserMapper userMapper;
+	
+	//구매자 포인트
+	  public List<User> pointList(){
+	  List<User> PointList = userMapper.pointList(); 
+	  	return PointList; 
+	 }
+
+	//관리자 포인트
+		  public List<User> sPointList(){
+		  List<User> sPointList = userMapper.sPointList(); 
+		  	return sPointList; 
+		 }
 	
 	//불량회원 리스트
 	public List<User> blackUser(){

@@ -21,10 +21,23 @@
 
 
 
-	<script>
-		
-			          
+	<script th:inline="javascript">
+		          
 		$(function(){
+			
+			/*<![CDATA[*/
+		   	var rsvResult = [[${result}]]
+		    /*]]>*/
+		    
+		    if(rsvResult=="X"){
+		    	alert("결제불가능하다 .");
+		    //location.href="/rsvListAdmin";
+		    }else{
+		    	alert("결제가능하다.");
+		    }
+		    
+		    console.log(rsvResult);
+		    
 			var check_ip = ip(); 
 			 $('#getIp').val(check_ip);// 접속한 기기의 IP를 가져온다
 			console.log(check_ip + "<<<<IIIIIIPPPPPPPPPPPP");
@@ -71,8 +84,19 @@
 			
 				 
 			$("#charge_kakao").click(function() {
-				var IMP = window.IMP; // 생략가능
 				
+				var result123 = null;
+				//ajax로 지금걸러낸거 한번더하고
+				//ajax통과하고 결과가 O또는 X가 나오자나
+				
+				// result123에 결과값을 담고
+				if(result123=="X"){
+					alert("결재가 있다.")
+					return false;
+				}
+				
+				
+				var IMP = window.IMP; // 생략가능
 				var paymentUseMoney = $('.paymentUseMoney').val();
 				var money = $('input[name="cp_item"]:checked').val();
 				IMP.init('imp48494121');
@@ -180,14 +204,18 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 
+<th:block th:if="${#lists.size(rsvDetailList) > 0}" th:each = "p : ${rsvDetailList}">
+<span th:text="${p}"></span>
+
+
+</th:block>
 
 <form action="/test3" method="post" id="form" >
 
 
-<input type="hidden" value="결재적립" name="pointAddList"> <br>
 
-<input type="hidden" value="적립" name="pointSellList"> <br>
-<input type="hidden" value="사용" name="pointSellList"> <br>
+
+
 <input type="hidden" th:value="${rsv.storeId}" name="paymentStoreId">
 <input type="hidden" th:value="${rsv.rsvStoreCode}" name="PaymentStoreCode">
 <input type="hidden" th:value="${rsv.rsvState}" name="rsvState">

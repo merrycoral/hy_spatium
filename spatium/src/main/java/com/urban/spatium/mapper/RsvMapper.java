@@ -53,6 +53,10 @@ public interface RsvMapper {
 
 	public List<Map<String, Object>> rsvStatAdmin();
 
+	public List<Map<String, Object>> dayRsvStatAdmin(String startDay, String endDay);
+
+	public List<Rsv> rsvCheck(Rsv rsv);
+
 	
 	
 }

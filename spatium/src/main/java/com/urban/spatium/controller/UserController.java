@@ -23,7 +23,7 @@ public class UserController {
 	
 	@Autowired 
 	private UserService userService;
-
+	
 	//회원탈퇴
 	@PostMapping("/removeMyinfo")
 	public String removeMyinfo(@RequestParam(name="userId", required = false) String userId  
