@@ -22,6 +22,13 @@ public class SpaceController {
 	@Autowired
 	private SpaceService spaceService;
 	
+	/* 공간 승인 대기 목록에서 승인 버튼을 클릭 후 승인까지 완벽히 되었을시 들어오는 컨트롤러*/
+	@PostMapping("/spaceListOK")
+	public String spaceAccept (Model model) {
+			
+		return "redirect:/spaceListOK";
+	}
+	
 	/* 공간 승인 대기 목록에서 승인 버튼을 클릭하시 들어오는 컨트롤러 */
 	@GetMapping("/readySpaceAccept")
 	public String readySpaceAccept (Model model, ReadySpace readySpaceDto
