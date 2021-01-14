@@ -15,7 +15,9 @@ public interface RsvMapper {
 	
 	public void insertTbRsv(Rsv rsv);
 
-	public List<Rsv> rsvList();
+	public List<Rsv> rsvListAdmin();
+	
+	public List<Rsv> rsvList(String sessionId);
 	
 	public List<Rsv> rsvDetailList();
 	

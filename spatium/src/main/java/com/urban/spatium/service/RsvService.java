@@ -107,8 +107,12 @@ public class RsvService {
 		return rsvCheck;
 	}
 
-	public List<Rsv> rsvList() {
-		List<Rsv> rsvList = rsvMapper.rsvList();
+	public List<Rsv> rsvListAdmin() {
+		List<Rsv> rsvList = rsvMapper.rsvListAdmin();
+		return rsvList;
+	}
+	public List<Rsv> rsvList(String sessionId) {
+		List<Rsv> rsvList = rsvMapper.rsvList(sessionId);
 		return rsvList;
 	}
 	public List<Rsv> rsvDetailList() {

@@ -229,7 +229,7 @@
 			viewRsv AS v
 		<trim prefix="WHERE" suffixOverrides="AND |OR ">
  		 <if test="spaceList.size() > 0">
-			<foreach item="s" index="index" collection="spaceList" separator="or">
+			<foreach item="s" index="index" collection="spaceList" open="(" close=")" separator="or">
 	       	 	okaySpaceCode=#{s.spaceCode}
 	 		</foreach>
 	       	 	and
@@ -327,9 +327,10 @@
 			rsvCode = #{rsvCode};
 	</select>	
 		
-	<select id="rsvList" resultType="Rsv">
+	<select id="rsvList" parameterType="String" resultType="Rsv">
 		SELECT 
-			  rsvCode
+			storeName
+			, rsvCode
 			, rsvUserId
 			, rsvUserName
 			, rsvUserPhone
@@ -342,6 +343,36 @@
 			, rsvState
 		FROM 
 			tbRsv
+		INNER JOIN 
+			tbStore
+		ON 
+			rsvStoreCode = storeCode
+		WHERE
+			rsvUserId = #{sessionId}
+		ORDER BY
+			rsvCode DESC
+	</select>
+	
+	<select id="rsvListAdmin" resultType="Rsv">
+		SELECT 
+			storeName
+			, rsvCode
+			, rsvUserId
+			, rsvUserName
+			, rsvUserPhone
+			, rsvUserEmail
+			, rsvUserRequest
+			, rsvTotalPrice
+			, rsvStartDateTime
+			, rsvEndDateTime
+			, rsvRegDate
+			, rsvState
+		FROM 
+			tbRsv
+		INNER JOIN 
+			tbStore
+		ON 
+			rsvStoreCode = storeCode
 		ORDER BY
 			rsvCode DESC
 	</select>

@@ -7,6 +7,7 @@ public class Rsv {
 	private int rsvCode;
 	private String rsvUserId;
 	private int rsvStoreCode;
+	private String storeName;
 	private String rsvUserName;
 	private String rsvUserPhone;
 	private String rsvUserEmail;
@@ -38,6 +39,12 @@ public class Rsv {
 	private int itemCode;
 	private Payment payment;
 	
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String rsvStoreName) {
+		this.storeName = rsvStoreName;
+	}
 	public String getRsvType() {
 		return rsvType;
 	}
@@ -233,6 +240,8 @@ public class Rsv {
 		builder.append(rsvUserId);
 		builder.append(", rsvStoreCode=");
 		builder.append(rsvStoreCode);
+		builder.append(", storeName=");
+		builder.append(storeName);
 		builder.append(", rsvUserName=");
 		builder.append(rsvUserName);
 		builder.append(", rsvUserPhone=");
