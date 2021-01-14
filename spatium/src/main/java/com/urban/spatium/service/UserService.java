@@ -139,6 +139,18 @@ public class UserService {
 		
 		return insertCheck;
 	}
+
+
+	public List<User> sPointList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public List<User> pointList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 
