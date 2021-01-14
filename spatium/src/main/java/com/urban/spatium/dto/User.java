@@ -45,6 +45,10 @@ public class User {
 	private String restUserEmail;
 	private String restUserPoint;
 	
+	private String addPointCode;
+	private String addPointType;
+	private String addPoint;
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -287,6 +291,24 @@ public class User {
 		this.restUserPoint = restUserPoint;
 	}
 	
+	public String getAddPointCode() {
+		return addPointCode;
+	}
+	public void setAddPointCode(String addPointCode) {
+		this.addPointCode = addPointCode;
+	}
+	public String getAddPointType() {
+		return addPointType;
+	}
+	public void setAddPointType(String addPointType) {
+		this.addPointType = addPointType;
+	}
+	public String getAddPoint() {
+		return addPoint;
+	}
+	public void setAddPoint(String addPoint) {
+		this.addPoint = addPoint;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -370,6 +392,12 @@ public class User {
 		builder.append(restUserEmail);
 		builder.append(", restUserPoint=");
 		builder.append(restUserPoint);
+		builder.append(", addPointCode=");
+		builder.append(addPointCode);
+		builder.append(", addPointType=");
+		builder.append(addPointType);
+		builder.append(", addPoint=");
+		builder.append(addPoint);
 		builder.append("]");
 		return builder.toString();
 	}

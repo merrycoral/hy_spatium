@@ -23,6 +23,29 @@ public class UserController {
 	
 	@Autowired 
 	private UserService userService;
+	
+	//구매자 포인트
+	@PostMapping("/pointList")
+	public String pintList(Model model) {
+
+		model.addAttribute("title", "포인트");
+				
+		return "user/pointList";
+	}
+	
+	@GetMapping("/pointList")
+	public String pintList(Model model, @RequestParam(name="result", required = false) String result) {
+		List<User> pointList = userService.pointList();
+		System.out.println(pointList);
+		model.addAttribute("title", "회원 목록");
+		model.addAttribute("pointList", pointList);
+		if(result != null) model.addAttribute("result", result);
+
+		return "user/pointList";
+	}
+	
+	
+	
 
 	//회원탈퇴
 	@PostMapping("/removeMyinfo")

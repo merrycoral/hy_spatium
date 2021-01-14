@@ -16,6 +16,7 @@ import com.urban.spatium.dto.Item;
 import com.urban.spatium.dto.Store;
 import com.urban.spatium.service.ItemService;
 
+
 @Controller
 public class ItemController {
 	
@@ -206,20 +207,22 @@ public class ItemController {
 		
 		//장비파기등록
 		@PostMapping("/addItemDelte")
-		public String addItemDelte(Model model, Item item) {
+		public String addItemDelte(Model model, Item item, HttpSession session) {
 				System.out.println(item + "=========== 장비 넘어온 값 ============");
+				String sessionId = (String) session.getAttribute("SID");
+				System.out.println(sessionId);
+				item.setItemDetailUserId(sessionId);
 				String result = itemService.addItemDelte(item);
-				item.getItemDetailCode();
-				item.setItemDetailCode(item.getItemCode());
+				
 				System.out.println(result);
 				
-			return "redirect:/addItem";
+			return "redirect:/addItemDelte";
 		}
 		
 		@GetMapping("/addItemDelte")
 		public String addItemDelte(Model model) {
 			
-			model.addAttribute("title", "장비 등록");
+			model.addAttribute("title", "장비 등록 하기");
 			
 			return "item/itemDeleteForm";
 		}
