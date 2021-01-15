@@ -20,7 +20,7 @@
 			</div>
 			<div th:unless="${session.SID==null}" class="profile_info">
 				<span>환영합니다,</span>
-				<h2>[[${session.SID}]]님</h2>
+				<h2>[[${session.SNAME}]]님</h2>
 			</div>
 			<div th:if="${session.SID==null}" class="profile_info">
 				<a href="/imsilogin"><button type="button" class="btn btn-secondary" id="loginBtn">간편 로그인</button></a>

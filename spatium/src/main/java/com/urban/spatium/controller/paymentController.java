@@ -39,9 +39,9 @@ public class paymentController {
 	private UserService userService;
 	
 	
-	/* 구매자 포인트 */
+	/* 구매자 포인트  (관리자화면)*/
 	@GetMapping("/pointList")
-	public String pintList(Model model, HttpSession session) {
+	public String pointList(Model model, HttpSession session) {
 		String SID = (String) session.getAttribute("SID");
 		List<Point> pointList = paymentService.userPointSelect(SID);
 		System.out.println(pointList);
@@ -49,8 +49,19 @@ public class paymentController {
 		model.addAttribute("title", "회원 포인트 조회");
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("totalPoint", totalPoint);
-
 		return "point/pointList";
+	}
+	/* 구매자 포인트  (구매자화면)*/
+	@GetMapping("/pointListMain")
+	public String pointListMain(Model model, HttpSession session) {
+		String SID = (String) session.getAttribute("SID");
+		List<Point> pointList = paymentService.userPointSelect(SID);
+		System.out.println(pointList);
+		String totalPoint =paymentService.totalPoint(SID);
+		model.addAttribute("title", "회원 포인트 조회");
+		model.addAttribute("pointList", pointList);
+		model.addAttribute("totalPoint", totalPoint);
+		return "point/pointListMain";
 	}
 	
 	
@@ -231,6 +242,6 @@ public class paymentController {
 		
 		model.addAttribute("title", "마일리지 사용내역 조회");
 		model.addAttribute("pointList", pointList);
-		return "point/pointSearch";
+		return "point/allPointSearch";
 	}
 }
