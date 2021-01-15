@@ -25,13 +25,22 @@ public class SpaceController {
 	
 	/* 공간 승인 대기 목록에서 승인 버튼을 클릭 후 승인까지 완벽히 되었을시 들어오는 컨트롤러*/
 	@PostMapping("/spaceListOK")
-	public String spaceAccept (Model model, ReadySpace readySpace
-							,@RequestParam(name = "readySpace", required = false) int readySpaceCode) {
+	public String spaceAccept (Model model, HttpSession session, ReadySpace readySpace
+							,@RequestParam(name = "readySpace", required = false) String readySpaceCode
+							,@RequestParam(name = "spaceChk", required = false) String spaceChk) {
 			
 				System.out.println(readySpaceCode);
-				
-				List<ReadySpace> rsl = spaceService.readySpaceAccept(readySpaceCode);
-				spaceService.readySpaceDelete(readySpaceCode);
+				System.out.println(spaceChk);
+				String idChk = (String) session.getAttribute("SID");
+				readySpace.setreadySpaceId(idChk);
+				String readySpaceId = readySpace.getreadySpaceId();
+				System.out.println(readySpaceId);
+				if(spaceChk.equals("승인")) {
+					spaceService.OKSpaceInsert(readySpaceId, readySpaceCode);
+					spaceService.readySpaceDelete(readySpaceCode);
+				}else if(spaceChk.equals("미승인")) {
+					spaceService.readySpaceDelete(readySpaceCode);
+				}
 		
 		return "redirect:/spaceListOK";
 	}

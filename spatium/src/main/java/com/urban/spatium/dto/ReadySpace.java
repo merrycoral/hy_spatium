@@ -19,10 +19,17 @@ public class ReadySpace {
 	private String readyRequestDate;
 	
 	private String readyStoreBusinessType;
+	private String readySpaceId;
 	
 	private int storeCode;
 	private int spaceCateCode;
 	
+	public String getreadySpaceId() {
+		return readySpaceId;
+	}
+	public void setreadySpaceId(String readySpaceId) {
+		this.readySpaceId = readySpaceId;
+	}
 	public int getReadySpace() {
 		return readySpace;
 	}
@@ -136,14 +143,47 @@ public class ReadySpace {
 	
 	@Override
 	public String toString() {
-		return "ReadySpace [readySpace=" + readySpace + ", readyStoreCode=" + readyStoreCode + ", readySpaceName="
-				+ readySpaceName + ", readySpaceType=" + readySpaceType + ", readyPeopleNumber=" + readyPeopleNumber
-				+ ", readyBriefSpace=" + readyBriefSpace + ", readyDetailSpace=" + readyDetailSpace + ", readySpaceTag="
-				+ readySpaceTag + ", readyRentalPrice=" + readyRentalPrice + ", readyStartTime=" + readyStartTime
-				+ ", readyCloseTime=" + readyCloseTime + ", readyExceptionStartDate=" + readyExceptionStartDate + ", readyExceptionEndDate="
-				+ readyExceptionEndDate + ", readySpaceBasicOption=" + readySpaceBasicOption + ", readyRequestDate="
-				+ readyRequestDate + ", readyStoreBusinessType=" + readyStoreBusinessType + ", storeCode=" + storeCode
-				+ ", spaceCateCode=" + spaceCateCode + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("ReadySpace [readySpace=");
+		builder.append(readySpace);
+		builder.append(", readyStoreCode=");
+		builder.append(readyStoreCode);
+		builder.append(", readySpaceName=");
+		builder.append(readySpaceName);
+		builder.append(", readySpaceType=");
+		builder.append(readySpaceType);
+		builder.append(", readyPeopleNumber=");
+		builder.append(readyPeopleNumber);
+		builder.append(", readyBriefSpace=");
+		builder.append(readyBriefSpace);
+		builder.append(", readyDetailSpace=");
+		builder.append(readyDetailSpace);
+		builder.append(", readySpaceTag=");
+		builder.append(readySpaceTag);
+		builder.append(", readyRentalPrice=");
+		builder.append(readyRentalPrice);
+		builder.append(", readyStartTime=");
+		builder.append(readyStartTime);
+		builder.append(", readyCloseTime=");
+		builder.append(readyCloseTime);
+		builder.append(", readyExceptionStartDate=");
+		builder.append(readyExceptionStartDate);
+		builder.append(", readyExceptionEndDate=");
+		builder.append(readyExceptionEndDate);
+		builder.append(", readySpaceBasicOption=");
+		builder.append(readySpaceBasicOption);
+		builder.append(", readyRequestDate=");
+		builder.append(readyRequestDate);
+		builder.append(", readyStoreBusinessType=");
+		builder.append(readyStoreBusinessType);
+		builder.append(", readySpaceId=");
+		builder.append(readySpaceId);
+		builder.append(", storeCode=");
+		builder.append(storeCode);
+		builder.append(", spaceCateCode=");
+		builder.append(spaceCateCode);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 }

@@ -18,15 +18,15 @@ public class SpaceService {
 	@Autowired
 	private SpaceMapper spaceMapper;
 	
-	public String OKSpaceInsert(ReadySpace readySpace) {
+	public String OKSpaceInsert(String readySpaceId, String readySpaceCode) {
 		String chk = "삽입";
 		
-		spaceMapper.OKSpaceInsert(readySpace);
+		spaceMapper.OKSpaceInsert(readySpaceId, readySpaceCode);
 		
 		return chk;
 	}
 	
-	public String readySpaceDelete(int readySpaceCode) {
+	public String readySpaceDelete(String readySpaceCode) {
 		String chk = "삭제";
 		spaceMapper.readySpaceDelete(readySpaceCode);
 		

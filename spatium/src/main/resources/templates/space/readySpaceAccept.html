@@ -149,7 +149,8 @@
 					</li>
 					<li>
 					<div style="text-align: center;">
-						<input type="submit" id = "spaceAccept" class = "btn btn-primary" style="width: 30%; height: 40px; margin-top: 20px;" value = "승인">
+						<input type="submit" name = "spaceChk" id = "spaceAccept" class = "btn btn-primary" style="width: 30%; height: 40px; margin-top: 20px;" value = "승인">
+						<input type="submit" name = "spaceChk" id = "spaceNoAccept" class = "btn btn-warning" style="width: 30%; height: 40px; margin-top: 20px;" value = "미승인">
 					</div>
 					</li>
 				</ul>
@@ -165,7 +166,18 @@
 					var result = confirm('정말 승인을 하시겠습니까?');
 					
 					if(result){
-						alert('승인이 완료되었습니다.');	
+						alert('승인이 완료되었습니다.');
+					}else{
+						return false;
+					}
+				});
+				
+				$('#spaceNoAccept').click(function(){
+					
+					var result = confirm('정말 승인하지 않으시겠습니까?');
+					
+					if(result){
+						alert('미승인 처리되었습니다.');	
 					}else{
 						return false;
 					}

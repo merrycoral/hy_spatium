@@ -11,9 +11,9 @@ import com.urban.spatium.dto.Store;
 @Mapper
 public interface SpaceMapper {
 	
-	public int OKSpaceInsert (ReadySpace readySpace);
+	public int OKSpaceInsert (String readySpaceId, String readySpaceCode);
 	
-	public int readySpaceDelete (int readySpaceCode);
+	public int readySpaceDelete (String readySpaceCode);
 	
 	public List<ReadySpace> readySpaceAccept(int readySpaceCode);
 	

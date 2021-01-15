@@ -2,44 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.SpaceMapper">
 
-<insert id="OKSpaceInsert">
+<insert id="OKSpaceInsert" parameterType="String">
 	
 	INSERT INTO tbOkaySpace
-		( okayStoreCode
-		, okaySpaceName
-		, okaySpaceType
-		, okayPeopleNumber
-		, okayDetailSpace
-		, okayBriefSpace
-		, okaySpaceTag
-		, okaySpaceRentalPrice
-		, okayStartTime
-		, okayCloseTime
-		, okayExceptionStartDate
-		, okayExceptionEndDate
-		, okayCompletedDate
-		, okaySpaceBasicOption
-		, okaySpaceId)
-	VALUES 
-		( #{readyStoreCode}
-		, #{readySpaceName}
-		, #{readySpaceType}
-		, #{readyPeopleNumber}
-		, #{readyDetailSpace}
-		, #{readyBriefSpace}
-		, #{readySpaceTag}
-		, #{readyRentalPrice}
-		, #{readyStartTime}
-		, #{readyCloseTime}
-		, #{readyExceptionStartDate}
-		, #{readyExceptionEndDate}
+	SELECT
+		  null
+		, readyStoreCode
+		, readySpaceName
+		, readySpaceType
+		, readyPeopleNumber
+		, readyDetailSpace
+		, readyBriefSpace
+		, readySpaceTag
+		, readyRentalPrice
+		, readyStartTime
+		, readyCloseTime
+		, readyExceptionStartDate
+		, readyExceptionEndDate
 		, NOW()
-		, #{readySpaceBasicOption}
-		, 'id001');
+		, readySpaceBasicOption
+		, #{readySpaceId}
+	FROM
+		tbReadySpace AS r
+	WHERE
+		r.readySpace = #{readySpaceCode};
 
 </insert>
 
-<delete id="readySpaceDelete" parameterType="int">
+<delete id="readySpaceDelete" parameterType="String">
 
 	DELETE 
 	FROM 
