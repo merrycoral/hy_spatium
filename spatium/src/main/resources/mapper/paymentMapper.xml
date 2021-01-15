@@ -192,6 +192,20 @@
 		rsvCode = #{rsvCode};
 	</select>
 	
+	<select id="userPointSelect" resultMap="resultMapPoint" >
+	SELECT 
+		pointCode
+		, pointID
+		, pointAddList
+		, pointSellList
+		, pointList
+		, pointPaymentCode
+		, reviewCodepointReviewCode
+		, pointModyfiDate
+	FROM tbPointList
+	where
+		pointID = #{SID}
+	</select>
 	
 	<select id="pointSelect" resultMap="resultMapPoint" >
 	SELECT 

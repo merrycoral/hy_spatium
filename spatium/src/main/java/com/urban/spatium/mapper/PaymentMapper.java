@@ -30,6 +30,8 @@ public interface PaymentMapper {
 	
 	public Rsv rsvState(String rsvCode);
 	
+	public List<Point> userPointSelect(String SID);
+	
 	public List<Point> pointSelect();
 	
 	public List<Payment> paymentSelect(String SID);

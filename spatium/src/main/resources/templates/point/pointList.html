@@ -4,31 +4,43 @@
 	  layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
-	<form action="/pointList" method="post"></form>
-
+	
+<div style="font-size: 30px; text-align: center;" >
+	내 포인트 : <span th:text="${totalPoint}"> </span>
+</div>
 <div class="table-responsive m-t-20">
-		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id=tbPointList>
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id="tbPoint">
 			<thead>
 				<tr>
-					<th scope="col">포인트 적립코드</th>
-					<th scope="col">포인트 적립 타입</th>
-					<th scope="col">적립 포인트</th>
+					<th scope="col">포인트 코드</th>
+					<th scope="col">회원 아이디</th>
+					<th scope="col">적립내역</th>
+					<th scope="col">사용내역</th>
+					<th scope="col">변동 포인트</th>
+					<th scope="col">결제코드</th>
+					<th scope="col">리뷰코드</th>
+					<th scope="col">변동일자</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:if="${#lists.size(pointList) > 0}" th:each="p : ${pointList}">
-				<td th:text="${p.addPointCode}"></td>
-				<td th:text="${p.addPointType}"></td>
-				<td th:text="${p.addPoint}"></td>
+				<tr th:if="${#lists.size(pointList) > 0}" th:each="s : ${pointList}">
+				<td th:text="${s.pointCode}"></td>
+				<td th:text="${s.pointID}"></td>
+				<td th:text="${s.pointAddList}"></td>
+				<td th:text="${s.pointSellList}"></td>
+				<td th:text="${s.pointList}"></td>
+				<td th:text="${s.pointPaymentCode}"></td>
+				<td th:text="${s.reviewCodepointReviewCode}"></td>
+				<td th:text="${s.pointModyfiDate}"></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-</th:block>
+</th:block>	
 <th:block layout:fragment="customJs">
 
 <script>
-	$("#tbPointList").DataTable({
+	$("#tbPoint").DataTable({
 		order: [ [ 0, "desc" ] ],
 		ordering: true,
 		lengthChange: false,
@@ -54,5 +66,5 @@
 	
 	</script>
 
-</th:block>
+</th:block>	
 </html>
