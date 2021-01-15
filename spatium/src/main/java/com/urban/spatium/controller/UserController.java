@@ -25,7 +25,7 @@ public class UserController {
 	private UserService userService;
 
 
-
+	//탈퇴회원 업데이트
 	@GetMapping("/modifyDeleteUser")
 	public String modifyDeleteUser( Model model
 			,@RequestParam(name="userId", required = false) String userId) {
@@ -51,32 +51,26 @@ public class UserController {
 		return "user/deleteUser";
 	}
 
-
-
 	//관리자용 회원삭제
 	@PostMapping("/removeUser") 
-	public String removeUser(@RequestParam(name="userId", required = false) String userId
+	public String removeUser(@RequestParam(name="reason", required = false) String reason  
 			,@RequestParam(name="userPw", required = false) String userPw
-			,@RequestParam(name="userLevel", required = false) String userLevel
-			,RedirectAttributes redirectAttr) {
+			,@RequestParam(name="userId", required = false) String userId
+			,RedirectAttributes redirectAttr) { 
 		System.out.println("회원탈퇴화면에서 입력받은 값(id)--->" + userId);
 		System.out.println("회원탈퇴화면에서 입력받은 값(pw)--->" + userPw);
-		System.out.println("회원탈퇴화면에서 입력받은 값(level)--->"+ userLevel);
+		System.out.println("회원탈퇴화면에서 입력받은 값(reason)--->"+ reason);
 
-		String result = userService.removeUser(userId, userPw, userLevel);
-
-		System.out.println(result); 
-
-		redirectAttr.addAttribute("result", result);
-
-		return "redirect:/userList"; }
+		userService.removeUser(userId, userPw, reason);
+		
+		return "redirect:/logout";
+	}	
 
 	@GetMapping("/removeUser")
-	public String removeUser(Model model, @RequestParam(name="userId", required = false) String userId
-			,@RequestParam(name="userLevel", required = false) String userLevel) {
-		model.addAttribute("title", "회원 탈퇴");
-		model.addAttribute("userId", userId);
-		model.addAttribute("userLevel", userLevel);
+	public String removeUser(Model model, HttpSession session) {
+		model.addAttribute("title", "강제 탈퇴");
+		String SID = (String) session.getAttribute("SID");
+		model.addAttribute("SID", SID);
 
 		return "user/uDelete";
 	}
@@ -105,14 +99,6 @@ public class UserController {
 
 		return "user/userDelete";
 	}
-
-
-
-
-
-
-
-
 
 
 	//마이페이지 수정

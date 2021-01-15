@@ -8,7 +8,7 @@ import com.urban.spatium.dto.User;
 
 
 @Mapper
-public interface UserMapper {
+public interface UserMapper2 {
 	
 
 	//휴면회원 리스트
@@ -27,8 +27,13 @@ public interface UserMapper {
 	public int addDeleteUser(User user);
 	
 	//관리자용 회원삭제
-	/* int removeUser(String userId); */
-
+	int removeUser(String userId, String userLevel);
+	
+	
+	
+	
+	
+	
 	//마이페이지 수정
 	int myInfo(User user);
 	

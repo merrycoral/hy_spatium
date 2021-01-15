@@ -111,11 +111,11 @@ public class ItemService {
 		}	
 	
 	//장기파기 등록
-	public String addItemDelte(Item item) {
+	public String addItemDelete(Item item) {
 		
 		String addCheck = "장비파기 등록 실패";
 			if(item != null) {
-				itemMapper.addItemDelte(item);
+				itemMapper.addItemDelete(item);
 				addCheck = "장비파기 등록 성공";
 			}
 			
