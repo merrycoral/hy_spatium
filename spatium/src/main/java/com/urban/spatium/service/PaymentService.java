@@ -66,6 +66,11 @@ public class PaymentService {
 		return rsv;
 	}
 	
+	public List<Point> userPointSelect(String SID){
+		
+		return paymentMapper.userPointSelect(SID);
+	}
+	
 	public List<Point> pointSelect(){
 		
 		return paymentMapper.pointSelect();

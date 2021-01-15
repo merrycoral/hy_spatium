@@ -38,47 +38,22 @@ public class paymentController {
 	@Autowired
 	private UserService userService;
 	
-	/* 관리자 포인트 */
-		@PostMapping("/sPointList")
-		public String sPointList(Model model) {
-
-			model.addAttribute("title", "포인트");
-					
-			return "point/sPointList";
-		}
-		
-		/* 관리자 포인트 */
-		@GetMapping("/sPointList")
-		public String sPointList(Model model, @RequestParam(name="result", required = false) String result) {
-			List<User> sPointList = userService.sPointList();
-			System.out.println(sPointList);
-			model.addAttribute("title", "회원 목록");
-			model.addAttribute("sPointList", sPointList);
-			if(result != null) model.addAttribute("result", result);
-
-			return "point/sPointList";
-		}
 	
 	/* 구매자 포인트 */
 	@GetMapping("/pointList")
-	public String pintList(Model model, @RequestParam(name="result", required = false) String result) {
-		List<User> pointList = userService.pointList();
+	public String pintList(Model model, HttpSession session) {
+		String SID = (String) session.getAttribute("SID");
+		List<Point> pointList = paymentService.userPointSelect(SID);
 		System.out.println(pointList);
-		model.addAttribute("title", "회원 목록");
+		String totalPoint =paymentService.totalPoint(SID);
+		model.addAttribute("title", "회원 포인트 조회");
 		model.addAttribute("pointList", pointList);
-		if(result != null) model.addAttribute("result", result);
+		model.addAttribute("totalPoint", totalPoint);
 
 		return "point/pointList";
 	}
 	
-	/* 구매자 포인트 */
-	@PostMapping("/pointList")
-	public String pintList(Model model) {
-
-		model.addAttribute("title", "포인트");
-				
-		return "point/pointList";
-	}
+	
 	
 	@GetMapping("/rsvDetail")
 	public @ResponseBody Map<String, Object> rsvDetail(Model model,

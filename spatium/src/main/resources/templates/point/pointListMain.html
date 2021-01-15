@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="@{layout/default}">
+	  layout:decorate="@{layout/maindefault}">
 
 <th:block layout:fragment="customContent">
-	<form action="/sPointList" method="post"></form>
-
+	
+<div style="font-size: 30px; text-align: center;" >
+	내 포인트 : <span th:text="${totalPoint}"> </span>
+</div>
 <div class="table-responsive m-t-20">
 		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id="tbPoint">
 			<thead>
@@ -21,7 +23,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:if="${#lists.size(sPointList) > 0}" th:each="s : ${sPointList}">
+				<tr th:if="${#lists.size(pointList) > 0}" th:each="s : ${pointList}">
 				<td th:text="${s.pointCode}"></td>
 				<td th:text="${s.pointID}"></td>
 				<td th:text="${s.pointAddList}"></td>
