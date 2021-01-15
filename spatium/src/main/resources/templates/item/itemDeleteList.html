@@ -4,7 +4,7 @@
 	layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
-<form action="/itemDeleteList" method="post">
+<form action="/itemDeleteList" method="post"> 
 
 	<div class="table-responsive m-t-20">
 		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id = "tbItemDelete">
@@ -29,10 +29,10 @@
 				<td th:text="${d.itemDeleteReason}"></td>
 				<td th:text="${d.itemDeleteRegDate}"></td>
 				<td>
-					<input type="submit" value="수정"><a  th:href="@{/modifyitemBuy(itemBuyCode=${d.itemBuyCode})}"></a>
+					<input type="submit" value="수정"><a  th:href="@{/modifyitemDelete(itemDeleteCode=${d.itemDeleteCode})}"></a>
 				</td>
 				<td>
-					<input type="submit" value="삭제"><a th:href="@{/removeitemBuy(itemBuyCode=${d.itemBuyCode})}"></a>
+					<input type="submit" value="삭제"><a th:href="@{/removeitemDelete(itemDeleteCode=${d.itemDeleteCode})}"></a>
 				</td>
 				</tr>
 
@@ -40,7 +40,7 @@
 		</table>
 	</div>
 </form>
-	<button type="submit" style="float: right;">글쓰기</button>
+<input type="submit" value="글쓰기" style="float: right;"> <a href="/addItemDelte"></a>
 </th:block>
 
 <th:block layout:fragment="customJs">

@@ -23,62 +23,50 @@ public class UserService {
 		return blackUser; 
 	}
 	
-	
-	//탈퇴회원 업데이트
-	public String modifyDeleteUser(User user) {
-		String result = "회원 수정 실패";
-		
-		int modifyCheck = userMapper.modifyDeleteUser(user);
-		
-		if(modifyCheck > 0) result = "회원 수정 성공";
-		
-		return result;
-	}
-	
-	
-	
 	//탈퇴회원 리스트
 	 public List<User> deleteUser(){
 	 List<User> deleteUser = userMapper.deleteUser(); 
 	  	return deleteUser; 
 	 }
 	
-	//탈퇴회원 등록
-	public String addDeleteUser(User user) {
-		String insertCheck = "탈퇴회원 등록 실패";
-		if(user != null) {
-			int result = userMapper.addDeleteUser(user);
-			if(result > 0) insertCheck = "탈퇴회원 등록 성공";
-		}
-		return insertCheck;
-	}
+
 	
 	//회원탈퇴
-	public String removeMyinfo(String userId, String userPw, String userLevel) {
-		String result = "회원 삭제 실패";
-
+	public void removeMyinfo(String userId, String userPw, String reason) {
+		//1. 아이디로 유저 정보를 가져오는 쿼리문을 돌려서 user에 넣어준다.
 		User user = userMapper.getUserById(userId);
-			
+		
 		if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
-			int removeCheck = userMapper.removeMyinfo(userId, userLevel);
-			if(removeCheck > 0) result = "회원 삭제 성공";
+		//2. user에다가 추가로 탈퇴 사유와 탈퇴 타입을 넣어준다.
+		user.setDeleteReason(reason);
+		user.setDeleteCate("일반 탈퇴");
+		
+		//3. 유저 정보를 delelteUser테이블에 백업한다.
+			userMapper.addDeleteUser(user);
+			
+		//4. 유저정보를 죄다 (탈퇴)로 바꾼다
+			userMapper.modifyDeleteUser(userId);
 		}
-		return result;
 	}
+
+	
 	
 	//관리자용 회원삭제
 		public String removeUser(String userId, String userPw, String userLevel) {
-		String result = "회원 삭제 실패";
-		  
-		User user = userMapper.getUserById(userId);
-		  
-		if(user != null && user.getUserPw() != null &&
-		userPw.equals(user.getUserPw())) { 
-			int removeCheck =userMapper.removeUser(userId, userLevel); 
-			if(removeCheck > 0) result = "회원 삭제 성공"; } 
-		return result; }
+			String insertCheck = "회원 삭제 실패";
+			User user = userMapper.getUserById(userId);
+			if(user != null && user.getUserPw() != null &&
+			userPw.equals(user.getUserPw())) { 
+				user.setDeleteCate("관리자가 삭제");
+				int result = userMapper.addDeleteUser(user);
+				if(result > 0) insertCheck = "탈퇴회원 등록 성공";
+			}
+			return insertCheck;
+		}
 	
 	
+		
+		
 	
 	
 	//마이페이지 수정

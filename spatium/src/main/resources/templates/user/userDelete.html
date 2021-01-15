@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="@{layout/default}">
+	layout:decorate="@{layout/maindefault}">
 
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
@@ -18,9 +18,8 @@
 			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
 				class="required">*</span></label>
 			<div class="col-md-6 col-sm-6">
-				<div id="userId" name="userId" 
-					th:text="${user.userId}" readonly="readonly">
-			</div>
+				<div id="userId" th:text="${SID}"></div>
+				<input type="hidden" th:value="${SID}" name="userId">
 			</div>
 		</div>
 		
@@ -30,15 +29,15 @@
 			<div class="form-check">
 
 				<label class="form-checkbox-label"> <input
-					class="form-checkbox-input1" type="checkbox" name="reason" value="1"
+					class="form-checkbox-input1" type="checkbox" name="reason" value="사이트 이용안함"
 					> <span class="form-checkbox-sign1">사이트 이용안함</span>
 				</label>
 				<label class="form-checkbox-label"> <input
-					class="form-checkbox-input1" type="checkbox" name="reason" value="2"
+					class="form-checkbox-input1" type="checkbox" name="reason" value="이용이 불편함"
 					> <span class="form-checkbox-sign1">이용이 불편함</span>
 				</label>
 				<label class="form-checkbox-label"> <input
-					class="form-checkbox-input1" type="checkbox" name="reason" value="3"
+					class="form-checkbox-input1" type="checkbox" name="reason" value="다른 사이트 사용"
 					> <span class="form-checkbox-sign1">다른 사이트 사용</span>
 				</label>
 			</div>

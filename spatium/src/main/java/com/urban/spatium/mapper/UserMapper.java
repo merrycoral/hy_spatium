@@ -18,16 +18,13 @@ public interface UserMapper {
 	public List<User> blackUser(); 
 	
 	//탈퇴회원 업데이트
-	int modifyDeleteUser(User user);
+	int modifyDeleteUser(String userId);
 	
 	//탈퇴회원 리스트
 	public List<User> deleteUser(); 
 	
 	//탈퇴회원 등록
 	public int addDeleteUser(User user);
-	
-	//회원탈퇴
-	int removeMyinfo(String userId, String userLevel);
 	
 	//관리자용 회원삭제
 	int removeUser(String userId, String userLevel);

@@ -22,8 +22,8 @@
 					<td th:text="${b.blackReason}"></td>
 					<td th:text="${b.blackStartDate}"></td>
 					<td th:text="${b.blackEndDate}"></td>
-					
-						<button type="submit"><a th:href="@{/removeUser(blackUserId=${b.blackUserId}, blackUserLevel=${l.blackUserLevel})}">삭제</a></button>
+					<td>
+						<input type="submit"><a th:href="@{/removeUser(blackUserId=${b.blackUserId}, blackUserLevel=${l.blackUserLevel})}">삭제</a>
 					</td>
 				</tr>
 

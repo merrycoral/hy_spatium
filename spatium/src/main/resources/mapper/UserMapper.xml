@@ -19,19 +19,19 @@
 	
 	
 	<!--탈퇴회원 업데이트-->
-	<update id="modifyDeleteUser">
+	<update id="modifyDeleteUser" parameterType="String">
 		UPDATE
 		tbUser
 		SET
 		  userPw = '(탈퇴)'
 		, userName = '(탈퇴)'
-		, userBirth	= '(탈퇴)'
+		, userBirth	= '0000-00-00'
 		, userGender = '(탈퇴)'
 		, userPhone = '(탈퇴)'
 		, userJob = '(탈퇴)'
 		, userLevel = '5'
 		, userEmail = '(탈퇴)'
-		, userPoint = '(탈퇴)'
+		, userPoint = '0'
 		WHERE
 		userId=#{userId}; 
 	</update>
@@ -58,22 +58,34 @@
 	
 	<!--탈퇴회원 등록  -->
 	<insert id="addDeleteUser">
-		INSERT INTO tbUser
-		(deleteUserId, deleteReason, deleteCate, deleteUserPw, deleteUserName, deleteUserBirth, deleteUserGender, deleteUserPhone, deleteUserJob, deleteUserLevel, deleteUserEmail, deleteUserRegDate, deleteUserPoint)
+		INSERT INTO tbDeleteUser
+		(deleteUserId
+		, deleteReason
+		, deleteCate
+		, deleteUserPw
+		, deleteUserName
+		, deleteUserBirth
+		, deleteUserGender
+		, deleteUserPhone
+		, deleteUserJob
+		, deleteUserLevel
+		, deleteUserEmail
+		, deleteUserRegDate
+		, deleteUserPoint)
 		VALUES (
-		#{deleteUserId}
+		#{userId}
+		,#{deleteReason}
 		,#{deleteCate}
-		,#{deleteUserPw}
-		,#{deleteUserName}
-		,#{deleteUserBirth}
-		,#{deleteUserGender}
-		,#{deleteUserPhone}
-		,#{deleteUserJob}
-		,#{deleteUserLevel}
-		,#{deleteUserEmail}
-		,#{deleteUserJob};
+		,#{userPw}
+		,#{userName}
+		,#{userBirth}
+		,#{userGender}
+		,#{userPhone}
+		,#{userJob}
+		,#{userLevel}
+		,#{userEmail}
 		,NOW()
-		,#{deleteUserPoint});
+		,#{userPoint});
 	</insert>
 	
 	
