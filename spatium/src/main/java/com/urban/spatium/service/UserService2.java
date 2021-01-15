@@ -12,7 +12,7 @@ import com.urban.spatium.mapper.UserMapper;
 
 @Service
 @Transactional
-public class UserService {
+public class UserService2 {
 	
 	@Autowired 
 	private UserMapper userMapper;
@@ -48,19 +48,27 @@ public class UserService {
 			userMapper.modifyDeleteUser(userId);
 		}
 	}
+
+	
 	
 	//관리자용 회원삭제
-	public void removeUser(String userId, String userPw, String reason) {
-			
-		User user = userMapper.getUserById(userId);
-		if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
-		user.setDeleteReason(reason);
-			user.setDeleteCate("강제 탈퇴");
-				userMapper.addDeleteUser(user);
-				userMapper.modifyDeleteUser(userId);
+		public String removeUser(String userId, String userPw, String userLevel) {
+			String insertCheck = "회원 삭제 실패";
+			User user = userMapper.getUserById(userId);
+			if(user != null && user.getUserPw() != null &&
+			userPw.equals(user.getUserPw())) { 
+				user.setDeleteCate("관리자가 삭제");
+				int result = userMapper.addDeleteUser(user);
+				if(result > 0) insertCheck = "탈퇴회원 등록 성공";
 			}
-		}	
+			return insertCheck;
+		}
+	
+	
 		
+		
+	
+	
 	//마이페이지 수정
 	public String myInfo(User user) {
 		String result = "마이페이지 수정 실패";
@@ -71,6 +79,7 @@ public class UserService {
 			
 		return result;
 	}
+	
 	
 		
 	//관리자용 회원수정

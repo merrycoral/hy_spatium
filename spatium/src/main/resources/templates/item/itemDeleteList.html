@@ -4,13 +4,12 @@
 	layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
-<form action="/itemDeleteList" method="post">
+<form th:action="@{/addItemDelete}" method="post"> 
 
 	<div class="table-responsive m-t-20">
 		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id = "tbItemDelete">
 			<thead>
 				<tr>
-					<th scope="col">장비 파기 코드</th>
 					<th scope="col">업체 코드</th>
 					<th scope="col">세부 장비 코드</th>
 					<th scope="col">아이디</th>
@@ -22,25 +21,25 @@
 			</thead>
 			<tbody>
 				<tr th:if="${#lists.size(itemDeleteList) > 0}" th:each="d : ${itemDeleteList}">
-				<td th:text="${d.itemDeleteCode}"></td>
 				<td th:text="${d.storeDeleteCode}"></td>
 				<td th:text="${d.storeItemDeleteCode}"></td>
 				<td th:text="${d.userDeleteId}"></td>
 				<td th:text="${d.itemDeleteReason}"></td>
 				<td th:text="${d.itemDeleteRegDate}"></td>
 				<td>
-					<input type="submit" value="수정"><a  th:href="@{/modifyitemBuy(itemBuyCode=${d.itemBuyCode})}"></a>
+					<input type="submit" value="수정"><a  th:href="@{/modifyitemDelete(storeDeleteCode=${d.storeDeleteCode})}"></a>
 				</td>
 				<td>
-					<input type="submit" value="삭제"><a th:href="@{/removeitemBuy(itemBuyCode=${d.itemBuyCode})}"></a>
+					<input type="submit" value="삭제"><a th:href="@{/removeitemDelete(storeDeleteCode=${d.storeDeleteCode})}"></a>
 				</td>
 				</tr>
 
 			</tbody>
 		</table>
 	</div>
+	<button type="submit"style="float: right;"> <a th:action="@{/addItemDelete}">글쓰기</a></button>
 </form>
-	<button type="submit" style="float: right;">글쓰기</button>
+
 </th:block>
 
 <th:block layout:fragment="customJs">

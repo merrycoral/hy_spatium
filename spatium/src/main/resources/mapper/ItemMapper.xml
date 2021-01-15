@@ -126,19 +126,18 @@
 	</select>
 	
 	<!-- 장비파기 등록 -->
-	<insert id = "addItemDelte" parameterType="Item">
+	<insert id = "addItemDelete" parameterType="Item">
 		
-		INSERT INTO tbItemDetail
-			(itemDeleteCode
-			, storeDeleteCode
+		INSERT INTO tbItemDeleteList
+			(
+			 storeDeleteCode
 			, storeItemDeleteCode
 			, userDeleteId
 			, itemDeleteReason
-			, itemDeleteRegDate
+			, itemDeleteRegDate)
 		VALUES 
 			(
-			  #{itemDeleteCode}
-			, #{storeDeleteCode}
+			 #{storeDeleteCode}
 			, #{storeItemDeleteCode}
 			, #{userDeleteId}
 			, #{itemDeleteReason}

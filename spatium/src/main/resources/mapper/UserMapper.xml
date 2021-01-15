@@ -14,24 +14,21 @@
 		FROM
 			tbBlackConsumer;
 	</select>
-	
-	
-	
-	
+
 	<!--탈퇴회원 업데이트-->
-	<update id="modifyDeleteUser">
+	<update id="modifyDeleteUser" parameterType="String">
 		UPDATE
 		tbUser
 		SET
 		  userPw = '(탈퇴)'
 		, userName = '(탈퇴)'
-		, userBirth	= '(탈퇴)'
+		, userBirth	= '0000-00-00'
 		, userGender = '(탈퇴)'
 		, userPhone = '(탈퇴)'
 		, userJob = '(탈퇴)'
 		, userLevel = '5'
 		, userEmail = '(탈퇴)'
-		, userPoint = '(탈퇴)'
+		, userPoint = '0'
 		WHERE
 		userId=#{userId}; 
 	</update>
@@ -55,30 +52,6 @@
 		FROM
 			tbDeleteUser;
 	</select>
-	
-	<!--탈퇴회원 등록  -->
-	<insert id="addDeleteUser">
-		INSERT INTO tbUser
-		(deleteUserId, deleteReason, deleteCate, deleteUserPw, deleteUserName, deleteUserBirth, deleteUserGender, deleteUserPhone, deleteUserJob, deleteUserLevel, deleteUserEmail, deleteUserRegDate, deleteUserPoint)
-		VALUES (
-		#{deleteUserId}
-		,#{deleteCate}
-		,#{deleteUserPw}
-		,#{deleteUserName}
-		,#{deleteUserBirth}
-		,#{deleteUserGender}
-		,#{deleteUserPhone}
-		,#{deleteUserJob}
-		,#{deleteUserLevel}
-		,#{deleteUserEmail}
-		,#{deleteUserJob};
-		,NOW()
-		,#{deleteUserPoint});
-	</insert>
-	
-	
-	
-	
 	
 	<!--마이페이지 수정 -->
 	<update id="myInfo" >
@@ -129,21 +102,6 @@
 		FROM
 			viewUser;
 	</select>
-	<!-- SELECT userId , userPw , userName , userBirth , userGender , userPhone 
-		, userJob , userEmail , userRegDate , userPoint FROM tbUser AS u INNER JOIN 
-		tbUserLevel AS l ON u.userLevel=l.userLevelCode; -->
-
-
-	<!--비밀번호 변경 -->
-	<!-- <update id="updatePw" parameterType="User">
-		UPDATE
-		tbUser
-		SET
-		userPw = #{userPw} 
-		WHERE
-		userId = #{userId}
-	</update> -->
-
 
 	<!--로그인 -->
 	<select id="getUserById" parameterType="String" resultType="User">
@@ -165,18 +123,6 @@
 		userName = #{userName} AND userEmail = #{userEmail};
 	</select>
 	
-	<!--비밀번호 찾기  -->
-	<!-- <select id="findPw" resultType="String"> 
-	SELECT 
-	userPw 
-	FROM 
-	tbUser 
-	WHERE 
-	userId = #{userId} AND userEmail = #{userEmail};
-	</select>
- -->
-
-	
 	<!-- 아이디 중복 체크 -->
 	<select id="idChk" resultType="int">
 		SELECT
@@ -190,7 +136,7 @@
 	<!--회원가입 -->
 	<insert id="addUser">
 		INSERT INTO tbUser
-		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userGrade, userEmail,	userRegDate)
+		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userEmail,	userRegDate)
 		VALUES (
 		#{userId}
 		,#{userPw}
@@ -200,7 +146,6 @@
 		,#{userPhone}
 		,#{userJob}
 		,#{userLevel}
-		,#{userGrade}
 		,#{userEmail}
 		,NOW());
 	</insert>

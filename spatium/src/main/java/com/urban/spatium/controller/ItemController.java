@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.urban.spatium.dto.Item;
 
 import com.urban.spatium.dto.Store;
+import com.urban.spatium.dto.User;
 import com.urban.spatium.service.ItemService;
 
 
@@ -185,11 +186,11 @@ public class ItemController {
 		}
 		
 		@GetMapping("/modifyitemDelete")
-		public String modifyitemDelete(@RequestParam(name="itemDeleteCode", required = false) int itemDeleteCode
+		public String modifyitemDelete(@RequestParam(name="storeDeleteCode", required = false) int storeDeleteCode
 									,Model model) {
-			System.out.println("장비파기내역 수정화면에 입력받은 값 ->" + itemDeleteCode);	
+			System.out.println("장비파기내역 수정화면에 입력받은 값 ->" + storeDeleteCode);	
 			
-			Item item = itemService.getitemBuyCode(itemDeleteCode);
+			Item item = itemService.getitemBuyCode(storeDeleteCode);
 				
 			return "item/uItemDelete";
 		}
@@ -205,27 +206,45 @@ public class ItemController {
 				return "item/itemDeleteList";
 		}
 		
-		//장비파기등록
-		@PostMapping("/addItemDelte")
-		public String addItemDelte(Model model, Item item, HttpSession session) {
-				System.out.println(item + "=========== 장비 넘어온 값 ============");
-				String sessionId = (String) session.getAttribute("SID");
-				System.out.println(sessionId);
-				item.setItemDetailUserId(sessionId);
-				String result = itemService.addItemDelte(item);
-				
-				System.out.println(result);
-				
-			return "redirect:/addItemDelte";
-		}
-		
-		@GetMapping("/addItemDelte")
-		public String addItemDelte(Model model) {
-			
-			model.addAttribute("title", "장비 등록 하기");
-			
-			return "item/itemDeleteForm";
-		}
+	  //장비파기등록
+	/*
+	 * @PostMapping("/addItemDelete") public String addItemDelete( Item item
+	 * ,@RequestParam(name="userLevel", required = false, defaultValue = "5") int
+	 * userLevel) {
+	 * 
+	 * System.out.println("상품등록화면에서 입력 받은 값->" + userLevel);
+	 * 
+	 * if(userLevel < 3) { //2:판매자, 3:구매자 //상품등록 String result =
+	 * itemService.addItemDelete(item);
+	 * 
+	 * return "redirect:/itemDeleteList";
+	 * 
+	 * }else if(userLevel == 3) { return "redirect:/"; }else { return
+	 * "redirect:/login"; } }
+	 * 
+	 * @GetMapping("/addItemDelete") public String addItemDelete(Model model) {
+	 * model.addAttribute("title", "상품등록"); return "item/itemDeleteForm"; }
+	 */
+	 
+	
+	
+	  @PostMapping("/addItemDelete") public String addItemDelete(Model model, Item  item, HttpSession session) {
+		  System.out.println(item +	  "=========== 장비 넘어온 값 ============"); 
+		  String sessionId = (String) session.getAttribute("SID");
+	  
+	  System.out.println(sessionId); item.setItemDetailUserId(sessionId);
+	  
+	  String result = itemService.addItemDelete(item); 
+	  System.out.println(result);
+	  return "redirect:/addItemDelete"; 
+	  }
+	  
+	  @GetMapping("/addItemDelete") public String addItemDelte(Model model) {
+	  model.addAttribute("title", "장비 등록 하기"); 
+	  return "item/itemDeleteForm"; 
+	  }
+	 
+	 
 			
 	
 	//장비수량목록
