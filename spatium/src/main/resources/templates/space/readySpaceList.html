@@ -28,12 +28,8 @@
                         <th class="sorting" style="text-align: center;"> 허용 인원 </th>
                         <th class="sorting" style="text-align: center;"> 간략소개 </th>
                         <th class="sorting" style="text-align: center;"> 대여가격 </th>
-                        <th class="sorting" style="text-align: center;"> 시작시간 </th>
-                        <th class="sorting" style="text-align: center;"> 종료시간 </th>
-                        <th class="sorting" style="text-align: center;"> 예약 불가 시작날짜 </th>
-                        <th class="sorting" style="text-align: center;"> 예약 불가 종료날짜 </th>
-                        <th class="sorting" style="text-align: center;"> 기본옵션 </th>
                         <th class="sorting" style="text-align: center;"> 승인 요청 날짜 </th>
+                        <th class="sorting" style="text-align: center;"> 승인 </th>
                         </tr>
                       </thead>
 
@@ -45,12 +41,8 @@
 					<td style="text-align: center;" th:text = "${s.readyPeopleNumber}">
 					<td style="text-align: center;" th:text = "${s.readyBriefSpace}">
 					<td style="text-align: center;" th:text = "${s.readyRentalPrice}">
-					<td style="text-align: center;" th:text = "${s.readyStartTime}">
-					<td style="text-align: center;" th:text = "${s.readyCloseTime}">
-					<td style="text-align: center;" th:text = "${s.readyExceptionStartDate}">
-					<td style="text-align: center;" th:text = "${s.readyExceptionEndDate}">
-					<td th:text = "${s.readySpaceBasicOption}">
 					<td style="text-align: center;" th:text = "${s.readyRequestDate}">
+					<td style="text-align: center;"> <a th:href="@{/readySpaceAccept(readySpace=${s.readySpace})}"> 승인 </a> </td>
 				</tr>
 			</th:block>
 		</tbody>

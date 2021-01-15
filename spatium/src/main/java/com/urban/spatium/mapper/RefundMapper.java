@@ -35,5 +35,5 @@ public interface RefundMapper {
 	
 	public int addRefundPolicy(Store store);	
 
-
+	public int addRefundPolicyRelation(Store store);
 }

@@ -23,6 +23,20 @@ public class UserService {
 		return blackUser; 
 	}
 	
+	
+	//탈퇴회원 업데이트
+	public String modifyDeleteUser(User user) {
+		String result = "회원 수정 실패";
+		
+		int modifyCheck = userMapper.modifyDeleteUser(user);
+		
+		if(modifyCheck > 0) result = "회원 수정 성공";
+		
+		return result;
+	}
+	
+	
+	
 	//탈퇴회원 리스트
 	 public List<User> deleteUser(){
 	 List<User> deleteUser = userMapper.deleteUser(); 
@@ -52,31 +66,35 @@ public class UserService {
 		return result;
 	}
 	
-	//회원정보수정
+	//관리자용 회원삭제
+		public String removeUser(String userId, String userPw, String userLevel) {
+		String result = "회원 삭제 실패";
+		  
+		User user = userMapper.getUserById(userId);
+		  
+		if(user != null && user.getUserPw() != null &&
+		userPw.equals(user.getUserPw())) { 
+			int removeCheck =userMapper.removeUser(userId, userLevel); 
+			if(removeCheck > 0) result = "회원 삭제 성공"; } 
+		return result; }
+	
+	
+	
+	
+	//마이페이지 수정
 	public String myInfo(User user) {
-		String result = "회원정보수정 실패";
+		String result = "마이페이지 수정 실패";
 			
 		int myInfoCheck = userMapper.myInfo(user);
 			
-		if(myInfoCheck > 0) result = "회원정보수정 성공";
+		if(myInfoCheck > 0) result = "마이페이지 수정 성공";
 			
 		return result;
 	}
 	
-	//회원삭제
-	public String removeUser(String userId, String userPw, String userLevel) {
-		String result = "회원 삭제 실패";
-
-		User user = userMapper.getUserById(userId);
-		
-		if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
-			int removeCheck = userMapper.removeUser(userId, userLevel);
-			if(removeCheck > 0) result = "회원 삭제 성공";
-		}
-		return result;
-	}
 	
-	//회원수정
+		
+	//관리자용 회원수정
 	public String modifyUser(User user) {
 		String result = "회원 수정 실패";
 		
@@ -101,6 +119,9 @@ public class UserService {
 		
 		return user;
 	}
+
+	//아이디 찾기
+	
 	
 	//아이디 중복체크
 	public int idChk(User user) {
@@ -118,11 +139,20 @@ public class UserService {
 		
 		return insertCheck;
 	}
-	
-	public User getUserById(String userId) {
-		
-		User user = userMapper.getUserById(userId);
-		
-		return user;
+
+
+	public List<User> sPointList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+
+	public List<User> pointList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+
+	
 }

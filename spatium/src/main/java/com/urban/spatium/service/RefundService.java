@@ -23,6 +23,8 @@ public class RefundService {
 	@Autowired 
 	private RefundMapper refundMapper;
 	
+	
+	
 	public List<CancelRsv> refundSelect(){
 		List<CancelRsv> refundselect = refundMapper.refundSelect();
 		System.out.println("서비스!!!!!!!");
@@ -45,8 +47,8 @@ public class RefundService {
 	}
 	
 	public int cancelRefund(CancelRsv cancelrsv) {
-		int refund = refundMapper.cancelRefund(cancelrsv);
-		return refund;
+		
+		return refundMapper.cancelRefund(cancelrsv);
 	}
 	
 	public List<RefundPolicy> getRefundPolicy(int storeCode){

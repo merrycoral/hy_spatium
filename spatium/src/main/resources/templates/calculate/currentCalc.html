@@ -2,15 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+</th:block>
 <th:block layout:fragment="customContent">
 	
 	<div class="col-md-12 col-sm-12 ">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>실시간 매출 현황 페이지 <small><b th:text=${today}></b> 현재 시각까지의 매출 현황입니다.</small></h2>
+				<h2>실시간 매출 현황 페이지</h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
+				<b th:text=${today}></b>  <b th:text=${nowtime}></b> 현재 시각까지의 매출 현황입니다.
 				<button type="button" style="float:right;" class="btn btn-success btn-md" id="closeBtn">마감정산</button>
 				<form id="selectReview" method="post">
 				<div class="table-responsive">
@@ -46,17 +50,34 @@
 								<td class=" " th:text="${gtl.get('rsvEndDateTime')}"></td>
 								<td class="last " th:text="${gtl.get('rsvState')}"></td>
 							</tr>
+							<tr class="even pointer" th:if="${#lists.isEmpty(getTodayList) }">
+								<td colspan="9" style="text-align:center;">
+								<b th:text=${today}></b><br>
+								 조회된 데이터가 없습니다.
+								</td>
+							</tr>
 						</tbody>
 						<tfoot style="background: #D7DCDE; font-weight: bold;">
-							<tr >
+							<tr th:unless="${#lists.isEmpty(getTodayList) }">
 								<td></td>
 								<td>매출 건수 </td>
-								<td class=" " th:text="|${subtotal.countSubtotal}건|"></td>
-								<td class=" " th:text="${subtotal.moneySubtotal}"></td>
-								<td class=" " th:text="${subtotal.pointSubtotal}"></td>
-								<td class=" " th:text="${subtotal.refundSubtotal}"></td>
+								<td class=" " th:text="|${todaytotal.countSubtotal}건|"></td>
+								<td class=" " th:text="${todaytotal.moneySubtotal}"></td>
+								<td class=" " th:text="${todaytotal.pointSubtotal}"></td>
+								<td class=" " th:text="${todaytotal.refundSubtotal}"></td>
 								<td style="text-align: right;">매출합계</td>
-								<td class=" " th:text="${subtotal.moneySubtotal +subtotal.pointSubtotal- subtotal.refundSubtotal}"></td>
+								<td class=" " th:text="${todaytotal.moneySubtotal +todaytotal.pointSubtotal}"></td>
+								<td class="last "></td>
+							</tr>
+							<tr class="even pointer" th:if="${#lists.isEmpty(getTodayList) }">
+								<td></td>
+								<td>매출 건수 </td>
+								<td class=" " > 0건 </td>
+								<td class=" " >0</td>
+								<td class=" " >0</td>
+								<td class=" " >0</td>
+								<td style="text-align: right;">매출합계</td>
+								<td class=" ">0</td>
 								<td class="last "></td>
 							</tr>
 						</tfoot>

@@ -3,44 +3,31 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="@{layout/default}">
 
-
 <th:block layout:fragment="customContent">
-	<div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
-		<div class="card my-5 ">
+<form action="/mailSending" method="post">
+            <div class="col-xl-5 col-lg-8 col-md-8 col-sm-11">
+                <div class="card my-5 ">
 			<div class="card-body p-5 text-center">
 				<div class="h3 font-weight-light mb-0">비밀번호 찾기
-					</div>
-			</div>
-			<hr class="my-0">
-			<div class="card-body p-5">
+                </div>
+            <div class="card-body p-5">
 				<div 
-					class="text-center text-muted mb-4">이메일로 받은 인증번호를 입력하세요.</div>
-				<form class="ng-untouched ng-pristine ng-invalid">
+					class="text-center text-muted mb-4">
+                        입력된 이메일로 임시 비밀번호가 전송됩니다.
+                    </div>
+                    <form class="ng-untouched ng-pristine ng-invalid">
 					<div class="form-group">
-						<label for="inputEmailAddress"
-							class="text-gray-600 small"></label><input
-							id="inputEmailAddress"
-							data-cy="emailInput" type="email" aria-describedby="emailHelp"
-							name="email" value="?????????" placeholder="인증번호"
-							class="form-control form-control-solid py-4 ng-untouched ng-pristine ng-invalid">
-						<div class="invalid-feedback">이메일</div>
-						<!---->
-						<!---->
-					</div>
-					<div class="form-group mb-0 text-center" >
-						<button data-cy="resetPasswordButton"
-							type="submit" id="submit" class="btn btn-primary" >확인</button>
-					</div>
-				</form>
-			</div>
-			<hr class="my-0">
-			<div class="card-body px-5 py-4">
-				<div class="text-center">
-					<a href="/addUser">회원가입</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	
+                           <input type="text" class="form-control" id="userEmail" name="userEmail" placeholder="이메일">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="checkEmail">전송</button>
+                         <button type="submit" class="btn btn-success" data-dismiss="modal" ><a href="/login"> 취소</a>
+                    </button>
+                    </form>
+                        <div class="text-center small" id="checkMsg" style="color: red"></div>
+                </div>
+             </div>
+        </div>
+        </div>
+        </form>
+</th:block>
 </html>

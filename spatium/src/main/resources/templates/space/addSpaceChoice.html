@@ -24,6 +24,7 @@
                     <div class="row"><div class="col-sm-12"><table id="tbSpaceChoice" class="table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
                       <thead>
                         <tr role="row">
+                        <th class="sorting" style="text-align: center;"> 업체 코드 </th>
                         <th class="sorting" style="text-align: center;"> 상호명 </th>
                         <th class="sorting" style="text-align: center;"> 대표자명 </th>
                         <th class="sorting" style="text-align: center;"> 사업자 번호 </th>
@@ -38,7 +39,8 @@
 
             <tbody>
 			<th:block th:each = "s : ${spaceChoice}">
-				<tr onclick="location.href= '/addSpace'">
+				<tr class = "spaceTr">
+					<td style="text-align: center;" th:text = "${s.storeCode}"> </td>
 					<td style="text-align: center;" th:text = "${s.storeName}"> </td>
 					<td style="text-align: center;" th:text = "${s.storeRepresentative}"></td>
 					<td style="text-align: center;" th:text = "${s.storeNumber}"></td>
@@ -63,6 +65,12 @@
 <th:block layout:fragment="customJs">
 
 <script>
+	
+	$('#tbSpaceChoice').find('.spaceTr').click(function(){
+		var code = $(this).children().first().text();
+		location.href="/addSpace?storeCode="+code;
+	});
+
 	$("#tbSpaceChoice").DataTable({
 		order: [ [ 0, "desc" ] ],
 		ordering: true,

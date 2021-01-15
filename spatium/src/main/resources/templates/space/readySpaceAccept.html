@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customContent">
+
+<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					공간 <small> 승인 정보 </small>
+				</h2>
+				<div class="clearfix"></div>
+			</div>
+			<form th:action = "@{/spaceListOK}" method="post">
+			<div class="x_content">
+				<ul class="list-unstyled timeline" th:each = "r : ${rsl}">
+					<li>
+						<div class="block">
+							<div class="block_content">
+								<h2 class="title">
+									<a style="font-size: large;">공간 이름</a>
+								</h2>
+								<div class="byline">
+								<input type = "hidden" th:value="${r.readySpace}" name = readySpace>
+								<div style="font-size:x-large;" th:text = ${r.readySpaceName}></div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="block">
+							<div class="block_content">
+								<h2 class="title">
+									<a style="font-size: large;">공간 유형</a>
+								</h2>
+								<div class="byline">
+								<span style="font-size:x-large;" th:text = ${r.readySpaceType}> </span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="block">
+							<div class="block_content">
+								<h2 class="title">
+									<a style="font-size: large;">공간 허용 인원수</a>
+								</h2>
+								<div class="byline">
+								<span style="font-size:x-large;" th:text = ${r.readyPeopleNumber}> </span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="block">
+							<div class="block_content">
+								<h2 class="title">
+									<a style="font-size: large;">공간 간략소개</a>
+								</h2>
+								<div class="byline">
+								<span style="font-size:x-large;" th:text = ${r.readyBriefSpace}> </span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="block">
+							<div class="block_content">
+								<h2 class="title">
+									<a style="font-size: large;">공간 세부소개</a>
+								</h2>
+								<div class="byline">
+								<span style="font-size:x-large;" th:text = ${r.readyDetailSpace}> </span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="block">
+							<div class="block_content">
+								<h2 class="title">
+									<a style="font-size: large;">공간 태그</a>
+								</h2>
+								<div class="byline">
+								<span style="font-size:x-large;" th:text = ${r.readySpaceTag}> </span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="block">
+							<div class="block_content">
+								<h2 class="title">
+									<a style="font-size: large;">공간 대여가격</a>
+								</h2>
+								<div class="byline">
+								<span style="font-size:x-large;" th:text = ${r.readyRentalPrice}> </span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="block">
+							<div class="block_content">
+								<h2 class="title">
+									<a style="font-size: large;">영업 시간</a>
+								</h2>
+								<div class="byline">
+								<span style="font-size:x-large;" th:text = ${r.readyStartTime}> </span>
+								<span style="font-size:x-large;"> ~</span>
+								<span style="font-size:x-large;" th:text = ${r.readyCloseTime}> </span> 
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="block">
+							<div class="block_content">
+								<h2 class="title">
+									<a style="font-size: large;">예약 불가 날짜</a>
+								</h2>
+								<div class="byline">
+								<span style="font-size:x-large;" th:text = ${r.readyExceptionStartDate}> </span>
+								<span style="font-size:x-large;"> ~</span>
+								<span style="font-size:x-large;" th:text = ${r.readyExceptionEndDate}> </span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="block">
+							<div class="block_content">
+								<h2 class="title">
+									<a style="font-size: large;">공간 기본옵션</a>
+								</h2>
+								<div class="byline">
+								<span style="font-size:x-large;" th:text = ${r.readySpaceBasicOption}> </span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+					<div style="text-align: center;">
+						<input type="submit" name = "spaceChk" id = "spaceAccept" class = "btn btn-primary" style="width: 30%; height: 40px; margin-top: 20px;" value = "승인">
+						<input type="submit" name = "spaceChk" id = "spaceNoAccept" class = "btn btn-warning" style="width: 30%; height: 40px; margin-top: 20px;" value = "미승인">
+					</div>
+					</li>
+				</ul>
+			</div>
+			</form>
+		</div>
+		
+		<script type="text/javascript">
+		
+			$(function(){
+				$('#spaceAccept').click(function(){
+					
+					var result = confirm('정말 승인을 하시겠습니까?');
+					
+					if(result){
+						alert('승인이 완료되었습니다.');
+					}else{
+						return false;
+					}
+				});
+				
+				$('#spaceNoAccept').click(function(){
+					
+					var result = confirm('정말 승인하지 않으시겠습니까?');
+					
+					if(result){
+						alert('미승인 처리되었습니다.');	
+					}else{
+						return false;
+					}
+				});
+			});
+		
+		</script>
+		
+</th:block>

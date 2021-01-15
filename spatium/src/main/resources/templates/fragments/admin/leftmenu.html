@@ -10,7 +10,8 @@
 		</div>
 
 		<div class="clearfix"></div>
-
+	
+		
 		<!-- menu profile quick info -->
 		<div class="profile clearfix">
 			<div class="profile_pic">
@@ -18,8 +19,8 @@
 					class="img-circle profile_img">
 			</div>
 			<div class="profile_info">
-				<span>Welcome,</span>
-				<h2>John Doe</h2>
+				<span>환영합니다,</span>
+				<h2>관리자님</h2>
 			</div>
 		</div>
 		<!-- /menu profile quick info -->
@@ -29,7 +30,7 @@
 		<!-- sidebar menu -->
 		<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 			<div class="menu_section">
-				<h3>General</h3>
+				<h3>Spatium</h3>
 				<ul class="nav side-menu">
 				
 					<li><a><i class="fa fa-home"></i> !회원관리 <span
@@ -41,6 +42,7 @@
 							<li><a href="/blackUser">!불량회원 관리-kay</a></li>
 							<li><a href="/deleteUser">!탈퇴회원 관리-kay</a></li>
 							<li><a href="/bookMarkList">!찜한 공간-kay</a></li>
+							<li><a href="/pointList">!마일리지 내역-kay</a></li>
 						</ul></li>
 						
 							<li><a><i class="fa fa-edit"></i> !업체 관리 <span
@@ -53,7 +55,7 @@
 							<li><a href="/addSpaceChoice">공간 등록-ys</a></li>
 							<li><a href="/spaceListReady">공간 승인 대기-ys</a></li>
 							<li><a href="/spaceListOK">공간 승인 완료-ys</a></li>
-							<li><a href="/addItem">장비 등록-ys</a></li>
+							<li><a href="/addItemChoice">장비 등록-ys</a></li>
 							<li><a href="/itemList">장비 목록-ys</a></li>
 							<li><a href="/itemBuyList">!장비 구입 목록-kay</a></li>
 							<li><a href="/itemDeleteList">!장비 파기 목록-kay</a></li>
@@ -84,8 +86,10 @@
 					<li><a><i class="fa fa-calculator"></i> !정산
 							<span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="/adminCalc">#관리자 정산 조회-shy</a></li>
-							<li><a href="/sellerCalc">#판매자 정산 조회-shy</a></li>
+							<li><a href="/adminCalc">!관리자 정산 조회-shy</a></li>
+							<li><a href="/sellerCalc">!판매자 정산 조회-shy</a></li>
+							<li><a href="/currentCalc">실시간 매출 조회-shy</a></li>
+							<li><a href="/dailyCalc">!일별 매출 조회-shy</a></li>
 							<li><a href="/pointSearch">!포인트 사용 내역 조회-lty</a></li>
 						</ul></li>
 						
@@ -93,10 +97,10 @@
 					<li><a><i class="fa fa-bar-chart"></i>!통계 <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="/accessStat">접속 통계 (관) (OS별, 시간대별, 연령대별)-shy</a></li>
+							<li><a href="/accessStat">!접속 통계 (관) (OS별, 시간대별, 연령대별)-shy</a></li>
 							<li><a href="/buyStat">#구매 통계 (판) (공간별, 연령대별, 직업별)-shy</a></li>
-							<li><a href="/rsvStatAdmin">#예약 통계 (관) (업체별, 연령대별, 직업별)-cgh</a></li>
-							<li><a href="/rsvStat">#예약 통계 (판) (공간별, 연령대별, 직업별)-cgh</a></li>
+							<li><a href="/rsvStatAdmin">#업체별 예약수,금액 통계 (관)-cgh</a></li>
+							<li><a href="/rsvStatStore">#업체별 예약 통계(관,판)-cgh</a></li>
 						</ul></li>
 						
 						

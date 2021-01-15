@@ -4,6 +4,53 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.RsvMapper">
 	
+	<select id="dayRsvStatAdmin" parameterType="String" resultType="Map">
+		SELECT
+			storeCode
+			,storeName
+			,COUNT(storeCode) AS count
+			,ROUND(SUM(rsvTimePrice)/1000,0) AS sumPrice
+			,rsvStartDateTime
+		FROM 
+			viewRsv AS v
+		WHERE 
+		<choose>
+		    <when test='endDay == "월"'>
+		<![CDATA[
+		      rsvStartDateTime>=#{startDay} AND rsvStartDateTime<=LAST_DAY(#{startDay})
+		]]>
+		    </when>
+		    <when test='endDay == "일"'>
+		<![CDATA[
+		      rsvStartDateTime>=#{startDay} AND rsvStartDateTime<='${startDay} 23:59:59' 
+	    ]]>
+	    	</when>
+		    <otherwise>
+		<![CDATA[
+		      rsvStartDateTime>=#{startDay} AND rsvStartDateTime<=#{endDay} 
+	    ]]>
+		    </otherwise>
+		</choose>
+		GROUP BY
+			storeCode
+		order by
+			count desc
+	</select>
+	
+	<select id="rsvStatAdmin" resultType="Map">
+		SELECT
+			storeCode
+			,storeName
+			,COUNT(storeCode) AS count
+			,ROUND(SUM(rsvTimePrice)/1000,0) AS sumPrice
+		FROM 
+			viewRsv
+		GROUP BY
+			storeCode
+		ORDER BY
+			COUNT DESC
+	</select>
+	
 	<delete id="cancelRsvDetail" parameterType="int">
 		DELETE
 		FROM tbRsvDetail
@@ -34,7 +81,8 @@
 	<select id="getExItemRsv" parameterType="Rsv" resultType="Rsv">
 		<![CDATA[
 		SELECT sum(rsvDetailNum) as rsvDetailNum
-			, itemCode, rsvStartDateTime
+			, itemCode
+			, rsvStartDateTime
 			, rsvEndDateTime 
 		FROM
 				(SELECT  
@@ -43,6 +91,7 @@
 				, rsvEndDateTime 
 			FROM 
 				viewRsv
+			WHERE storeCode = #{rsvStoreCode}
 			GROUP by
 				itemCode, rsvStartDateTime, rsvEndDateTime 
 			having 
@@ -65,8 +114,15 @@
 		<foreach item="s" index="index" collection="spaceList" open="or (" separator=" or " close=")">
         okaySpaceCode = #{s.spaceCode}
 	  	</foreach>
-		and
-        date(rsvStartDateTime) = #{rsvDate}
+	  	<if test="rsvType == null">
+			and
+			<![CDATA[
+	   	    date(rsvStartDateTime) <= #{rsvEndDateTime}
+	        and
+	        date(rsvStartDateTime) >= #{rsvStartDateTime}
+	    	]]> 
+	  	</if>
+			
 	</select>	
 	
 	<update id="updateRsvPrice">
@@ -80,7 +136,7 @@
 	<update id="updateRsvDayPrice">
 		UPDATE tbRsv
 		SET
-			rsvTotalPrice=#{totalPrice}*timestampdiff(day, rsvStartDateTime, rsvEndDateTime)
+			rsvTotalPrice=#{totalPrice}*(timestampdiff(day, rsvStartDateTime, rsvEndDateTime)+1)
 		WHERE 
 			rsvCode=#{rsvCode}
 	</update>
@@ -159,6 +215,31 @@
 			tbOkaySpace
 		WHERE
 			okaySpaceCode = #{tbRecord}
+	</select>
+	
+	<select id="rsvCheck" parameterType="int" resultType="Rsv">
+		SELECT 
+			okaySpaceCode,
+			okaySpaceName,
+			itemCode,
+			itemTotalName,
+			rsvStartDateTime,
+			rsvEndDateTime
+		FROM 
+			viewRsv AS v
+		<trim prefix="WHERE" suffixOverrides="AND |OR ">
+ 		 <if test="spaceList.size() > 0">
+			<foreach item="s" index="index" collection="spaceList" open="(" close=")" separator="or">
+	       	 	okaySpaceCode=#{s.spaceCode}
+	 		</foreach>
+	       	 	and
+	 		</if>
+		<![CDATA[
+			rsvEndDateTime > #{rsvStartDateTime}
+			and
+			rsvStartDateTime <#{rsvEndDateTime} 
+		]]>
+		</trim>
 	</select>
 	
 	<select id="getItemByStore" parameterType="int" resultType="Item">
@@ -246,9 +327,10 @@
 			rsvCode = #{rsvCode};
 	</select>	
 		
-	<select id="rsvList" resultType="Rsv">
+	<select id="rsvList" parameterType="String" resultType="Rsv">
 		SELECT 
-			  rsvCode
+			storeName
+			, rsvCode
 			, rsvUserId
 			, rsvUserName
 			, rsvUserPhone
@@ -261,6 +343,36 @@
 			, rsvState
 		FROM 
 			tbRsv
+		INNER JOIN 
+			tbStore
+		ON 
+			rsvStoreCode = storeCode
+		WHERE
+			rsvUserId = #{sessionId}
+		ORDER BY
+			rsvCode DESC
+	</select>
+	
+	<select id="rsvListAdmin" resultType="Rsv">
+		SELECT 
+			storeName
+			, rsvCode
+			, rsvUserId
+			, rsvUserName
+			, rsvUserPhone
+			, rsvUserEmail
+			, rsvUserRequest
+			, rsvTotalPrice
+			, rsvStartDateTime
+			, rsvEndDateTime
+			, rsvRegDate
+			, rsvState
+		FROM 
+			tbRsv
+		INNER JOIN 
+			tbStore
+		ON 
+			rsvStoreCode = storeCode
 		ORDER BY
 			rsvCode DESC
 	</select>

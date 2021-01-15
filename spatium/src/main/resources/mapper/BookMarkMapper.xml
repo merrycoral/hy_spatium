@@ -4,25 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.BookmarkMapper">
 	
-	
-	
-	<!-- 즐겨찾기 모두삭제
-	<delete id="deleteAll">
+	<!-- 즐겨찾기 삭제 -->
+	<delete id="removeBookMark">
 		DELETE
 		FROM
 		tbBookmark
 		WHERE
-		userId=#{userId}; 
-	</delete>
-
-	즐겨찾기 삭제
-	<delete id="delete">
-		DELETE
-		FROM
-		tbBookmark
-		WHERE
-		storeCode = #{storeCode}; 
-	</delete> -->
+		bookMarkCode = #{bookMarkCode}; 
+	</delete> 
 
 	<!--즐겨찾기 수정  -->
 	<!-- <update id = "modifyBookmark">
@@ -36,13 +25,14 @@
 
  
 	<!-- 즐겨찾기 리스트 -->
-	<select id="getBookMarkList" resultType="int">
+	<select id="getBookMarkList" resultType="Bookmark">
 		SELECT
-			COUNT(bookMarkCode)
+			bookMarkCode
+			,userId
+			,storeCode
+			,BookRegDate
 		FROM
 			tbBookmark
-		WHERE 
-			storeCode = #{storeCode} AND userId = #{userId};
 	</select>
 
 

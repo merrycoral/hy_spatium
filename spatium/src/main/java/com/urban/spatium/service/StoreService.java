@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.urban.spatium.dto.RefundPolicy;
 import com.urban.spatium.dto.Store;
 import com.urban.spatium.mapper.RefundMapper;
 import com.urban.spatium.mapper.StoreMapper;
@@ -45,18 +46,17 @@ public class StoreService {
 		return getStoreInfoByStoreCode;
 	}
 	
-	public String addStore(Store store, List<String> tList) {
+	public String addStore(Store store, List<String> tList,RefundPolicy refundPolicy) {
 		String insertCheck = "업체 등록 실패";
 		
 		if(store != null) {
 			int result = storeMapper.addStore(store);
+			
 			int StoreCode = store.getStoreCode();
+			System.out.println(StoreCode + "스토어코드asdasdasd");
 			
-			
-			
-			
-			
-			
+			int refundPolicyCode = refundPolicy.getRefundPolicyCode();
+			System.out.println(refundPolicyCode + "리파운드폴링키코드asdasdasd");
 			
 			
 			
@@ -64,18 +64,8 @@ public class StoreService {
 				store.setRefundPercents(store.getRefundPercent().get(i));
 				store.setRemainingDays(store.getRemainingDay().get(i));
 				refundMapper.addRefundPolicy(store);
+				refundMapper.addRefundPolicyRelation(store);
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			System.out.println(tList);
 			

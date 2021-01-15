@@ -11,7 +11,7 @@
 
 <div class="x_panel">
                   <div class="x_title">
-                    <h2> 업체 목록 </h2>
+                    <h2> 공간 목록 </h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -21,26 +21,19 @@
                     <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
                     <div class="row">
                     </div>
-                    <div class="row"><div class="col-sm-12"><table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
+                    <div class="row"><div class="col-sm-12"><table id="tbSpaceOk" class= "table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
                       <thead>
                         <tr role="row">
-                        <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 80px;"> 공간 코드 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 100px;"> 업체 코드 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 85px;"> 공간 이름 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 50px;"> 공간 유형 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 79px;"> 공간 허용 인원수 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 공간 세부소개 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 공간 간략소개 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 공간 태그 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 공간 대여가격 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 영업시작시간 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 영업종료시간 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 공간예약타입 (시간, 일) </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 예약 불가 시작날짜 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 예약 불가 종료날짜 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 승인 완료 날짜 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 공간 기본옵션 </th>
-                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 65px;"> 검수자 아이디 </th>
+                        <th class="sorting" style="text-align: center;"> 이름 </th>
+                        <th class="sorting" style="text-align: center;"> 허용 인원 </th>
+                        <th class="sorting" style="text-align: center;"> 간략소개 </th>
+                        <th class="sorting" style="text-align: center;"> 대여가격 </th>
+                        <th class="sorting" style="text-align: center;"> 영업시작시간 </th>
+                       	<th class="sorting" style="text-align: center;"> 영업종료시간 </th>
+                        <th class="sorting" style="text-align: center;"> 예약 불가 시작날짜 </th>
+                        <th class="sorting" style="text-align: center;"> 예약 불가 종료날짜 </th>
+                        <th class="sorting" style="text-align: center;"> 승인 완료 날짜 </th>
+                        <th class="sorting" style="text-align: center;"> 검수자 아이디 </th>
                         </tr>
                       </thead>
 
@@ -48,23 +41,16 @@
             <tbody>
 			<th:block th:each = "s : ${spaceListO}">
 				<tr>
-					<td th:text = "${s.okaySpaceCode}">
-					<td th:text = "${s.okayStoreCode}">
-					<td th:text = "${s.okaySpaceName}">
-					<td th:text = "${s.okaySpaceType}">
-					<td th:text = "${s.okayPeopleNumber}">
-					<td th:text = "${s.okayDetailSpace}">
-					<td th:text = "${s.okayBriefSpace}">
-					<td th:text = "${s.okaySpaceTag}">
-					<td th:text = "${s.okaySpaceRentalPrice}">
-					<td th:text = "${s.okayStartTime}">
-					<td th:text = "${s.okayCloseTime}">
-					<td th:text = "${s.okaySpaceRsvType}">
-					<td th:text = "${s.okayExceptionStartDate}">
-					<td th:text = "${s.okayExceptionEndDate}">
-					<td th:text = "${s.okayCompletedDate}">
-					<td th:text = "${s.okaySpaceBasicOption}">
-					<td th:text = "${s.okaySpaceId}">
+					<td style="text-align: center;" th:text = "${s.okaySpaceName}">
+					<td style="text-align: center;" th:text = "${s.okayPeopleNumber}">
+					<td style="text-align: center;" th:text = "${s.okayBriefSpace}">
+					<td style="text-align: center;" th:text = "${s.okaySpaceRentalPrice}">
+					<td style="text-align: center;" th:text = "${s.okayStartTime}">
+					<td style="text-align: center;" th:text = "${s.okayCloseTime}">
+					<td style="text-align: center;" th:text = "${s.okayExceptionStartDate}">
+					<td style="text-align: center;" th:text = "${s.okayExceptionEndDate}">
+					<td style="text-align: center;" th:text = "${s.okayCompletedDate}">
+					<td style="text-align: center;" th:text = "${s.okaySpaceId}">
 				</tr>
 			</th:block>
 		</tbody>
@@ -75,6 +61,38 @@
               </div>
             </div>
                 </div>
+
+	
+</th:block>
+
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbSpaceOk").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	</script>
 
 </th:block>
 

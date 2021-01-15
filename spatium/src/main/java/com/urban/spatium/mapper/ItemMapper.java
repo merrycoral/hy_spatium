@@ -5,9 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.urban.spatium.dto.Item;
+import com.urban.spatium.dto.Store;
 
 @Mapper
 public interface ItemMapper {
+	
+	public List<Store> addItmeChoice(String storeId);
 	
 	public List<Item> itemCountList();
 	
@@ -26,6 +29,9 @@ public interface ItemMapper {
 			  
 	//장비파기내역
 	public List<Item> itemDeleteList();
+	
+	//장비파기 등록
+	public int addItemDelte(Item item);
 	
 	//장비수리내역 삭제
 	int removeitemRepair(int itemRepairCode);

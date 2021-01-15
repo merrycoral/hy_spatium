@@ -15,7 +15,9 @@ public interface RsvMapper {
 	
 	public void insertTbRsv(Rsv rsv);
 
-	public List<Rsv> rsvList();
+	public List<Rsv> rsvListAdmin();
+	
+	public List<Rsv> rsvList(String sessionId);
 	
 	public List<Rsv> rsvDetailList();
 	
@@ -50,6 +52,12 @@ public interface RsvMapper {
 	public void cancelRsv(int rsvCode);
 
 	public void cancelRsvDetail(List<String> rsvDetailList);
+
+	public List<Map<String, Object>> rsvStatAdmin();
+
+	public List<Map<String, Object>> dayRsvStatAdmin(String startDay, String endDay);
+
+	public List<Rsv> rsvCheck(Rsv rsv);
 
 	
 	

@@ -9,7 +9,7 @@
 
 <th:block layout:fragment="customContent">
 
-	<form th:action="@{/removeUser}" method="post">
+	<form th:action="@{/removeUser}" method="post" name="removeUser">
 
 		<span class="section">회원 삭제</span>
 
@@ -33,13 +33,24 @@
 		
 		<div class="form-group" align="center">
 			<div class="col-md-6 offset-md-3">
-				<button type="submit" id="submit" class="btn btn-primary ">회원삭제</button>
+				<button type="submit" id="submit" class="btn btn-primary " onclick="deleteCk()">회원삭제</button>
 			</div>
 		</div>
 	</form>
 
 </th:block>
 
-
+<th:block layout:fragment="customJs">
+<script>
+function deleteCk() {
+	 if (confirm("탈퇴 하시겠습니까?") == true){  
+	     document.removeUser.submit();
+	 }else{  
+	     return false;
+	 }
+}
+	
+</script>
+</th:block>
 
 </html>

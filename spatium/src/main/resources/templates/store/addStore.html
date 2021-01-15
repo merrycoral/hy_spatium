@@ -262,9 +262,9 @@
 											<input type="text" name="refundPercent" class="b form-control"
 											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">%
 										</td>
-										<td>
-											<button type="button" class="addBtn">추가</button>
-											<button type="button" class="removeBtn">삭제</button>
+										<td style="text-align: center;">
+											<button type="button" class="addBtn" >추가</button>
+											<button type="button" class="removeBtn"  >삭제</button>
 										</td>
 									</tr>
 								</tbody>
@@ -283,7 +283,9 @@
 						<div class="col-md-6 col-sm-6 ">
 							<input type="file" id="storeImage" class="form-control"
 								name="storeImage">
+								<div id="preview"></div>
 						</div>
+						
 					</div>
 					<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
@@ -477,9 +479,70 @@
 					$('#counter2').html("(500 / 최대 500자)");
 				}
 			});
-
 		});
-
+		
+			$(function(e){
+				$("input[type='file']").change(function(e){
+					
+					$('#preview').empty();
+					
+					var files = e.target.files;
+					var arr = Array.prototype.slice.call(files);
+					
+					for(var i = 0; i < files.length; i++){
+						if(!checkExtension(files[i].name,files[i].size)){
+							return false;
+						}
+					}
+					preview(arr);
+				});
+			});
+			
+			function checkExtension(fileName,fileSize){
+				var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+			    var maxSize = 20971520;
+			    
+			      if(fileSize >= maxSize){
+			          alert('파일 사이즈 초과');
+			          $("input[type='file']").val("");  //파일 초기화
+			          return false;
+			        }
+			        
+			        if(regex.test(fileName)){
+			          alert('업로드 불가능한 파일이 있습니다.');
+			          $("input[type='file']").val("");  //파일 초기화
+			          return false;
+			        }
+			        return true;
+			      }
+			
+			function preview(arr){
+				arr.forEach(function(f){
+					
+					var fileName = f.name;
+					if(fileName.length > 10){
+						fileName = fileName.substring(0,7) + "...";
+					}
+					
+					var str = '<div style="display: inline-flex; padding: 10px;"><li>';
+			        str += '<span>'+fileName+'</span><br>';
+					
+			        if(f.type.match('image.*')){
+			        	var reader = new FileReader();
+			        	reader.onload = function(e){
+			        		str += '<img src="'+e.target.result+'" title="'+f.name+'" width=200 height=200 />';
+			                str += '</li></div>';
+			                $(str).appendTo('#preview');
+			        	}
+			        	reader.readAsDataURL(f);
+			        }else{
+			        	str += '<img src="/resources/img/fileImg.png" title="'+f.name+'" width=200 height=200 />';
+			            $(str).appendTo('#preview');
+			        }
+			        
+				});
+			}
+			
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(
 					{

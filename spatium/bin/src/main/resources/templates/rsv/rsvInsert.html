@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/maindefault}">
+<th:block layout:fragment="customCss">
+<style type="text/css">
+.spaceRadio label{
+margin: 0;
+font-size: 20px;
+margin-right: 20px;
+}
+.btn-group{
+ 	max-width: 520px;
+    display: table;
+    margin-left: 10px;
+}
+.disableMetter {
+	display: none
+}
+.rsvItemNum{
+	width: 100%;
+	height: 45px;
+	margin: 0;
+}
+</style>
+<!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</th:block>
+<th:block layout:fragment="customContent">
+
+<!-- 공간 예약 테이블 -->
+	<form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsertAdmin" method="post">
+	<div class="table-responsive" id="spaceInfo">
+			<table class="table table-striped jambo_table bulk_action" border="1">
+				<thead>
+					<tr>
+						<th></th>
+						<th>공간 이름</th>
+						<th>공간 유형</th>
+						<th>공간 최대 인원수</th>
+						<th>공간 간략 소개</th>
+						<th>공간 태그</th>
+						<th>영업 시작 시간</th>
+						<th>영업 종료 시간</th>
+						<th>보유 옵션</th>
+						<th>공간 대여 가격</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="even pointer" th:if="${#lists.size(getSpaceByStore) > 0}" th:each = "s : ${getSpaceByStore}">
+						<td class="a-center ">
+							<div class="icheckbox_flats-green" style="position: relative;">
+								<input type="checkbox" class="flats SpaceRsvCheck" name="table_records" th:value="${s.okaySpaceCode}"
+									style="position: absolute; opacity: 1;">
+							</div>
+						</td>
+						<td th:text="${s.okaySpaceName}" class=" "></td>
+						<td th:text="${s.spaceCateName}" class=" "></td>
+						<td th:text="${s.okayPeopleNumber}" class=" "></td>
+						<td th:text="${s.okayBriefSpace}" class=" "></td>
+						<td th:text="${s.okaySpaceTag}" class=" "></td>
+						<td th:text="${s.okayStartTime}" class=" "></td>
+						<td th:text="${s.okayCloseTime}" class=" "></td>
+						<td th:text="${s.okaySpaceBasicOption}" class=" "></td>
+						<td th:text="${s.okaySpaceRentalPrice}" class=" "></td>
+					</tr>
+				</tbody>
+			</table>
+			<button id="nextBtn" type="button" class="btn btn-success">예약 정보 입력</button>
+		</div>
+	
+
+	<!-- 예약 화면 폼 -->
+	<div class="x_panel disableMetter" id="rsvInfo">
+			<div class="x_content">
+				<br>
+			<!-- <form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsertAdmin" method="post"> -->
+					<div class="item form-group">
+						<label class="col-form-label col-md-3 col-sm-3 label-align" 
+							for="rsvUserName">예약자명 <span class="required">*</span>
+						</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="rsvUserName" required="required" name="rsvUserName"
+								class="form-control ">
+						</div>
+						<div class="alert disableMetter">필수 입력요소 입니다</div>
+					</div>
+					<div class="item form-group">
+						<label class="col-form-label col-md-3 col-sm-3 label-align"
+							for="rsvUserPhone">예약자 연락처 <span class="required">*</span>
+						</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="rsvUserPhone" name="rsvUserPhone"
+								required="required" class="form-control">
+						</div>
+						<div class="alert disableMetter">필수 입력요소 입니다</div>
+					</div>
+					<div class="item form-group">
+						<label for="rsvUserEmail"
+							class="col-form-label col-md-3 col-sm-3 label-align">예약자 이메일</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input id="rsvUserEmail" class="form-control" type="text"
+								name="rsvUserEmail">
+						</div>
+					</div>
+					
+					<div class="item form-group datepickerGroup">
+						<label class="col-form-label col-md-3 col-sm-3 label-align">예약 날짜 선택 <span class="required">*</span>
+						</label>
+						<div class="col-md-6 col-sm-6 ">
+							<!-- 달력 인폿박스 시작 -->
+							<input type="text" name="rsvDate" autocomplete="off" class="form-control has-feedback-left" id="datepicker" > 
+							<!-- 달력 아이콘 -->
+							<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+							<!-- 달력 인폿박스 끝 -->
+							<input type="hidden" id="startTime" name="startTime" />
+							<input type="hidden" id="endTime" name="endTime" />
+						</div>
+						<div class="alert disableMetter">필수 입력요소 입니다</div>
+					</div>
+					
+					<!-- 시간 선택 버튼 시작 -->
+					<div class="item form-group disableMetter">
+					<label class="col-form-label col-md-3 col-sm-3 label-align">예약 시간 선택 <span class="required">*</span>
+						</label>
+					<div class="btn-group" >
+						<label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="0">0
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="1">1
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="2" >2
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="3" >3
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="4" >4
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="5" >5
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="6" >6
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="7" >7
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="8" >8
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="9" >9
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="10" >10
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="11" >11
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="12" >12
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="13" >13
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="14" >14
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="15" >15
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="16" >16
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="17" >17
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="18" >18
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="19" >19
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="20" >20
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="21" >21
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="22" >22
+						</label> <label class="btn btn-secondary timeCheck"> <input
+							type="checkbox" class="disableMetter" value="23" >23
+						</label>
+					</div>
+					</div>
+					
+					<div class="item form-group" style="margin-top: 9px">
+						<label for="rsvUserRequest"
+							class="col-form-label col-md-3 col-sm-3 label-align">요청 사항</label>
+						<div class="col-md-6 col-sm-6 ">
+							<textarea id="rsvUserRequest" class="form-control"
+								name="rsvUserRequest"></textarea>
+						</div>
+					</div>
+					
+					<div class="ln_solid"></div>
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button id="prevBtn" class="btn btn-primary testBtn" type="button">다시 선택</button>
+							<button id="itemBtn" class="btn btn-primary testBtn" type="button">장비 예약</button>
+							<button id="submitBtn" type="button" class="btn btn-success">예약하기</button>
+						</div>
+					</div>
+			</div>
+		</div>
+		
+		
+		
+		<!-- 장비 예약 테이블 -->
+		<div class="table-responsive disableMetter"  id="itemInfo">
+			<table class="table table-striped jambo_table bulk_action" border="1">
+				<thead>
+					<tr class="">
+						<th></th>
+						<th>장비 사진</th>
+						<th>장비 이름</th>
+						<th>대여 가능한 수량</th>
+						<th>대여 가격</th>
+						<th>대여 수량</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="even pointer" th:if="${#lists.size(getItemByStore) > 0}" th:each = "i : ${getItemByStore}">
+						<td class="a-center ">
+							<div class="icheckbox_flats-green" style="position: relative;">
+								<input type="checkbox" class="flats ItemRsvCheck" name="table_records"  th:value="${i.itemCode}"
+									style="position: absolute; opacity: 1;">
+							</div>
+						</td>
+						<td ><img style="height: 100px; " th:src="${i.itemImg}" alt="My Image"></td>
+						<td th:text="${i.itemTotalName}"></td>
+						<td th:text="${i.itemTotalAmount}" class="itemRentalAmount"></td>
+						<td th:text="${i.itemRentalPrice}" class="eachRsvItemPrice"></td>
+						<td style="padding: 0;"><input type="number" class="rsvItemNum" value="0"></td>
+						<td style="display:none" th:text="${i.itemTotalAmount}" class="itemTotalAmount"></td>
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		
+		
+		
+		
+	</form>
+
+
+</th:block>
+	<th:block layout:fragment="customJs">
+	<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript" th:inline="javascript">
+		
+//예약 폼 스타트
+		
+//다음, 이전버튼으로 예약폼 이동		
+		$('#prevBtn').click(function(){
+			location.href="/rsvInsert";
+		})
+		$('#nextBtn').click(function(){
+			$('#rsvInfo').removeClass('disableMetter');
+			$('#spaceInfo').addClass('disableMetter');
+			$('#itemInfo').addClass('disablMetter');
+		})
+		
+//장비 추가버튼 클릭시
+		$('#itemBtn').click(function(){
+			if ($('#datepicker').val()==null || $('#datepicker').val()==""){
+				$('#datepicker').parent().parent().addClass('bad');
+				$('#datepicker').parent().parent().find('.alert').removeClass('disableMetter');
+			}
+			$('#datepicker').change(function(e){
+				$('#datepicker').parent().parent().removeClass('bad');
+				$('#datepicker').parent().parent().find('.alert').addClass('disableMetter');
+				
+			})
+			if($('#datepicker').val()!=null && $('#datepicker').val()!=""){
+				if ($('.timeCheck input:checked').length==0){
+					alert("예약시간을 선택해주세요");
+				}else{
+			
+					$('#itemInfo').removeClass('disableMetter');
+					
+					var itemList=[];
+					//아이탬 체크박스 값을 가져온다
+					itemCList =  $('.ItemRsvCheck');
+					itemCList.each(function(i) {
+						var itemJson = {}
+						var tr3 = itemCList.parent().parent().parent().parent().eq(i);
+						var td3 = tr3.children();
+						// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+						var itemCode = td3.eq(0).children().children().children().val();
+						itemJson["itemCode"] = itemCode;
+						itemList.push(itemJson);
+					});
+					var paramData3 = {};
+					paramData3["itemList"] = itemList;
+					paramData3["rsvDate"] = $('#datepicker').val();
+					paramData3["startTime"] = $('#startTime').val();
+					paramData3["endTime"] = $('#endTime').val();
+					console.log(paramData3);
+					//장비 이미 예약되잇는 날짜 가져오는 ajax시작!!
+					var request3 = $.ajax({
+						url: '/getExItemRsv', 
+						method: 'POST',
+						data : JSON.stringify(paramData3),
+						dataType: 'json' ,
+						contentType : "application/json"
+					});
+					request3.done(function( data3 ) {
+						console.log(data3);	
+						var itemRentalAmount = $('.itemRentalAmount');
+						var itemTotalAmount = $('.itemTotalAmount');
+						for(var i=0; i<data3.length; i++){
+							//대여가능한 수량 = 전체 수량 - 예약된 수량
+							$(itemRentalAmount[i]).text($(itemTotalAmount[i]).text()-data3[i].rsvDetailNum)
+						}
+						//$('#itemRentalAmount').text 
+					});
+					request3.fail(function( jqXHR, textStatus ) {
+						alert( "Request failed: " + textStatus );
+					});
+			
+				}
+			}
+		})
+		
+		
+		
+		
+//버튼 클릭시 폼넘기기크립트 시작~
+		var num1 = 0;
+		var num2 = 0;
+		$('#submitBtn').click(function(){
+			
+			
+			var paramData = {};
+			var itemList = [];
+			var spaceList = [];
+			var inputCheck = 0;
+			var SpaceRsvCheck = $('.SpaceRsvCheck:checked')
+			var ItemRsvChecked = $('.ItemRsvCheck:checked')
+			
+//필수 입력요소가 입력이 안됬을때 경고
+			if($('#rsvUserName').val()==null || $('#rsvUserName').val()==""){
+				$('#rsvUserName').parent().parent().addClass('bad');
+				$('#rsvUserName').parent().parent().find('.alert').removeClass('disableMetter');
+			}
+			if ($('#rsvUserPhone').val()==null || $('#rsvUserPhone').val()==""){
+				$('#rsvUserPhone').parent().parent().addClass('bad');
+				$('#rsvUserPhone').parent().parent().find('.alert').removeClass('disableMetter');
+			}
+			if ($('#datepicker').val()==null || $('#datepicker').val()==""){
+				$('#datepicker').parent().parent().addClass('bad');
+				$('#datepicker').parent().parent().find('.alert').removeClass('disableMetter');
+			}
+//미입력되서 경고 뜬거 입력시 지우기
+			$('#rsvUserName').change(function(){
+				$('#rsvUserName').parent().parent().removeClass('bad');
+				$('#rsvUserName').parent().parent().find('.alert').addClass('disableMetter');
+			})
+			$('#rsvUserPhone').change(function(){
+				$('#rsvUserPhone').parent().parent().removeClass('bad');
+				$('#rsvUserPhone').parent().parent().find('.alert').addClass('disableMetter');
+			})
+			$('#datepicker').change(function(e){
+				$('#datepicker').parent().parent().removeClass('bad');
+				$('#datepicker').parent().parent().find('.alert').addClass('disableMetter');
+				
+			})
+		
+//위의 2개가 다 입력되었다면
+			if($('#rsvUserName').val()!=null && $('#rsvUserName').val()!="" && $('#rsvUserPhone').val()!=null && $('#rsvUserPhone').val()!="" && $('#datepicker').val()!=null && $('#datepicker').val()!=""){
+				if ((SpaceRsvCheck.length + ItemRsvChecked.length)<=0){
+					alert("하나 이상의 예약 대상을 체크해 주세요");
+				}else if ($('.timeCheck input:checked').length==0){
+					alert("예약시간을 선택해주세요");
+				}else{
+					//모든 입력이 완료되었다면 쿼리 실행
+					// 체크된 아이탬 체크박스 값을 가져온다
+					ItemRsvChecked.each(function(i) {
+						var itemJson = {}
+						var tr = ItemRsvChecked.parent().parent().parent().eq(i);
+						var td = tr.children();
+						// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+						var itemCode = td.eq(0).children().children().val();
+						var itemRentalPrice = td.eq(4).text();
+						var itemCount = td.eq(5).children().val();
+						
+						itemJson["itemCode"] = itemCode;
+						itemJson["itemRentalPrice"] = itemRentalPrice;
+						itemJson["itemCount"] = itemCount;
+						itemJson["itemTotalPrice"] = itemRentalPrice*itemCount;
+						itemList.push(itemJson);
+						
+					});
+					
+					// 체크된 공간 체크박스 값을 가져온다.
+					SpaceRsvCheck.each(function(i) {
+						var spaceJson = {}
+						var tr = SpaceRsvCheck.parent().parent().parent().eq(i);
+						var td = tr.children();
+						
+						var spaceCode = td.eq(0).children().children().val();
+						var spaceRentalPrice = td.eq(9).text();
+						
+						spaceJson["spaceCode"] = spaceCode;
+						spaceJson["spaceRentalPrice"] = spaceRentalPrice;
+						spaceList.push(spaceJson);
+					});
+					paramData["rsvStoreCode"] = [[${storeCode}]];
+					paramData["rsvState"] = "시간";
+					paramData["rsvUserName"] = $('#rsvUserName').val();
+					paramData["rsvUserPhone"] = $('#rsvUserPhone').val();
+					paramData["rsvUserEmail"] = $('#rsvUserEmail').val();
+					paramData["rsvDate"] = $('#datepicker').val();
+					paramData["startTime"] = $('#startTime').val();
+					paramData["endTime"] = $('#endTime').val();
+					paramData["rsvUserRequest"] = $('#rsvUserRequest').val();
+					paramData["spaceList"] = spaceList;
+					paramData["itemList"] = itemList;
+					console.log("paramData : " + JSON.stringify(paramData));
+					
+					//ajax시작!!
+					var request = $.ajax({
+						url: '/rsvInsertAjax', 
+						method: 'POST',
+						data : JSON.stringify(paramData),
+						dataType: 'text' ,
+						contentType : "application/json"
+					});
+					request.done(function( data ) {
+						console.log(data);	
+						location.href = data;	
+					});
+					request.fail(function( jqXHR, textStatus ) {
+						alert( "Request failed: " + textStatus );
+					});
+				}
+			}
+		});
+//버튼 클릭시 폼넘기기 종료
+
+//데이터 피커
+		$('#datepicker').datepicker({
+			singleDatePicker : true,
+			singleClasses : "picker_5",
+			minDate : 0,
+			maxDate : '+3m',
+			dateFormat: "yy-mm-dd"
+//데이터 피커 값 변경시
+		}).on("change", function(e) {//시간선택 보이게
+			$('.btn-group').parent().removeClass('disableMetter');
+		
+		//이미 체크되있는 시간 다 지우기
+			checkedTime = $('.timeCheck input:checked');
+			checkedTime.each(function() {
+				console.log($(this));
+					$(this).parent().removeClass('btn-primary');
+					$(this).parent().addClass('btn-secondary');
+			})
+			$('.timeCheck input').each(function() {
+				$(this).prop('checked', false);
+			})
+		//이미 체크되있는 장비 다 지우기
+			checkedItem = $('.ItemRsvCheck:checked');
+			checkedItem.each(function() {
+				$(this).prop('checked', false);
+				$(this).parent().removeClass('checked');
+			})
+		//장비예약버튼을 다시 누르게끔 떠있는 장비창 다시 숨기기
+			$('#itemInfo').addClass('disableMetter');
+				
+		//날짜 클릭시 이미 예약되있는거 가져오기!!
+		var SpaceRsvCheck2 = $('.SpaceRsvCheck:checked');
+		var paramData2 = {};
+		var spaceList2 = [];
+		var inputCheck2 = 0;
+		
+		// 체크된 공간 체크박스 값을 가져온다.
+		SpaceRsvCheck2.each(function(i) {
+			var spaceJson2 = {}
+			var tr2 = SpaceRsvCheck2.parent().parent().parent().parent().eq(i);
+			var td2 = tr2.children();
+			var spaceCode2 = td2.eq(0).children().children().children().val();
+			spaceJson2["spaceCode"] = spaceCode2;
+			spaceList2.push(spaceJson2);
+		});
+		paramData2["spaceList"] = spaceList2;
+		paramData2["rsvDate"] = $('#datepicker').val();
+		console.log("paramData2 : " + JSON.stringify(paramData2));
+		
+		var tc = $('.timeCheck');
+		var tci = $('.timeCheck input');
+		for(var i=0; i<tc.length; i++){
+			$(tc[i]).removeClass('btn-danger');
+			$(tc[i]).removeClass('btn-danger');
+			$(tci[i]).removeAttr('disabled');
+		}
+		
+		//이미 예약되잇는 날짜 가져오는 ajax시작!!
+			var request2 = $.ajax({
+				url: '/getExRsv', 
+				method: 'POST',
+				data : JSON.stringify(paramData2),
+				dataType: 'json' ,
+				contentType : "application/json"
+			});
+			request2.done(function( data2 ) {
+				console.log(data2);	
+				for (var i=0; i<data2.length; i++){
+					var startT = Number(data2[i].startTime);
+					var endT = Number(data2[i].endTime);
+					var timeCheck = $('.timeCheck input')
+					console.log(startT);
+					console.log(endT);
+					//예약 된 시간 색 바꾸기
+					for(var j=0; j<timeCheck.length; j++){
+						var rsvt = timeCheck[j].value;
+						if(rsvt >= startT && rsvt <= endT){
+							$(timeCheck[j]).attr('disabled','disabled');//선택금지
+							$(timeCheck[j]).parent().addClass('btn-danger');//색변환
+						}
+					}
+					
+				}
+			});
+			request2.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+			
+		});
+//데이터 피커 종료
+
+//시간 체크 하기
+		$('.timeCheck input').click(function() {
+			var checkedTime = null;
+			$('.timeCheck input').each(function(i) {
+				var result = $(this).prop('checked');
+				checkedTime = $('.timeCheck input:checked');
+				//체크된 대상 가져오기
+				console.log(checkedTime.length, '체크된 대상 크기확인')
+			})
+	
+			//체크버튼을 3개 클릭했을경우 모두 체크 해제
+			if (checkedTime.length > 2) {
+				$('.timeCheck input').prop('checked', false);
+	
+				//체크 버튼을 2개 클릭했을경우 두개 사이 모두 체크
+			} else if (checkedTime.length == 2) {
+
+				//체크된 두개 찾기
+				checkedTime.each(function(i, d) {
+					num1 = Number(checkedTime[0].value);
+					num2 = Number(checkedTime[1].value);
+				})
+				console.log(num1, num2, '체크된 번호 2개');
+				for(var i = num1; i<num2; i++){
+					if($($('.timeCheck input')[i]).attr('disabled')=='disabled'){
+						$('.timeCheck input').prop('checked', false);
+						num1=null;
+						num2=null;
+						alert('빨간 부분은 예약 불가능한 시간 입니다.\n 빨간 부분이 포함되지 않도록 예약하여 주십시오.');
+					}
+				}
+				
+				//두개사이 모두 체크하기
+				$('.timeCheck input').each(function(i, d) {
+					if (num1 < i && i < num2) {
+						console.log(this, '체크');
+						$(this).prop('checked', true);
+					}
+				})
+				
+				$('#startTime').val(num1);
+				$('#endTime').val(num2);
+			} else if (checkedTime.length == 1){
+				num1 = Number(checkedTime[0].value);
+				$('#startTime').val(num1)
+				$('#endTime').val("");
+			}
+			
+			//체크된거 색바꾸기 
+			$('.timeCheck input').each(function(){
+				$(this).parent().removeClass('btn-primary');
+				$(this).parent().addClass('btn-secondary');
+			})
+			
+			checkedTime = $('.timeCheck input:checked');
+			checkedTime.each(function() {
+				console.log($(this));
+					$(this).parent().removeClass('btn-secondary');
+					$(this).parent().addClass('btn-primary');
+			})
+			
+		})
+//시간 체크 하기 종료
+		
+		
+	</script>
+	</th:block>
+</html>

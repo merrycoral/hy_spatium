@@ -287,6 +287,7 @@ public class User {
 		this.restUserPoint = restUserPoint;
 	}
 	
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

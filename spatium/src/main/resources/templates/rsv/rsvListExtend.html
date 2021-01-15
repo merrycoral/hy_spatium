@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
-	layout:decorate="@{layout/default}">
+	layout:decorate="@{layout/maindefault}">
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
 <th:block layout:fragment="customContent">
 	<div class="x_content">
-		<p>예약 리스트</p>
 		<div class="table-responsive">
 			<table class="table table-striped jambo_table bulk_action" id="rsvExtendListTb" border="1">
 
@@ -18,6 +20,7 @@
 						<th class="column-title">시간당 가격</th>
 						<th class="column-title">시간</th>
 						<th class="column-title">총가격</th>
+						<th class="column-title">리뷰쓰기</th>
 						<th class="bulk-actions" colspan="11" style="display: none;">
 							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
 								class="fa fa-chevron-down"></i>
@@ -28,14 +31,15 @@
 
 				<tbody>
 					<tr class="even pointer" th:if="${#lists.size(rsvListExtend) > 0}" th:each = "r : ${rsvListExtend}">
-						<td th:text="${r.rsvUserName}" class=" "></td>
-						<td th:text="${r.okaySpaceName}" class=" "></td>
-						<td th:text="${r.itemTotalName}" class=" "></td>
-						<td th:text="${r.rsvDetailOnePrice}" class=" "></td>
-						<td th:text="${r.rsvDetailNum}" class=" "></td>
-						<td th:text="${r.rsvDetailTotalPrice}" class=" "></td>
-						<td th:text="${r.rsvTime}" class=" "></td>
-						<td th:text="${r.rsvTimePrice}" class=" "></td>
+						<td th:text="${r.rsvUserName}"></td>
+						<td th:text="${r.okaySpaceName}"></td>
+						<td th:text="${r.itemTotalName}"></td>
+						<td th:text="${r.rsvDetailOnePrice}"></td>
+						<td th:text="${r.rsvDetailNum}"></td>
+						<td th:text="${r.rsvDetailTotalPrice}"></td>
+						<td th:text="${r.rsvTime}" ></td>
+						<td th:text="${r.rsvTimePrice}"></td>
+						<td><a href="#">리뷰쓰러가기</a></td>
 					</tr>
 				</tbody>
 			</table>

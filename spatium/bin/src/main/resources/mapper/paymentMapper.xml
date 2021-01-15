@@ -14,6 +14,15 @@
 		<result column="paymentRegDate" 	property="paymentRegDate"/>
 		<result column="paymentMethod" 		property="paymentMethod"/>
 		<result column="paymentIP" 			property="paymentIP"/>
+		<collection property="RsvList" javaType="java.util.ArrayList" ofType="Rsv">
+			<id column="rsvCode" property="rsvCode"/>
+			<result column="rsvUserId" property="rsvUserId"/>
+			<result column="rsvUserName" property="rsvUserName"/>
+			<result column="rsvState" property="rsvState"/>
+			<result column="rsvUserPhone" property="rsvUserPhone"/>
+			<result column="rsvStartDateTime" property="rsvStartDateTime"/>
+		</collection>
+		
 	</resultMap>
 	<resultMap type="Point" id="resultMapPoint">
 		<result column="pointCode" 		property="pointCode"/>
@@ -25,6 +34,67 @@
 		<result column="reviewCodepointReviewCode" 	property="reviewCodepointReviewCode"/>
 		<result column="pointModyfiDate" 		property="pointModyfiDate"/>
 	</resultMap>
+	
+	
+	
+	
+	
+	<select id="rsvDetail" parameterType="String" resultType="Payment">
+	SELECT 
+	     rsvCode
+	    ,rsvDetailCode
+		,rsvDetailSpace	
+	    ,okayStoreCode	
+		,okaySpaceType	
+		,okaySpaceName	
+		,rsvDetailItem	
+		,itemTotalName	
+		,rsvDetailNum	
+		,rsvDetailOnePrice
+		,rsvState
+		,rsvStartDateTime
+
+	FROM
+		tbPayment AS p
+	INNER join
+		tbRsv AS r
+	ON
+		p.paymentRsvCode = r.rsvCode
+	INNER join
+		tbRsvRelation AS l
+	ON
+		r.rsvCode = l.rsvRelationRsvCode
+	INNER join
+		tbRsvDetail AS d
+	ON
+		l.rsvRelationRsvDetailCode = d.rsvDetailCode
+	INNER join
+		tbOkaySpace AS o
+	ON	
+		d.rsvDetailSpace = o.okaySpaceCode
+	Left join
+		tbItemTotalAmount AS t
+	ON	
+		d.rsvDetailItem = t.itemCode
+	WHERE
+	p.paymentCode = #{payCode};	
+	</select>
+	
+	
+	<select id="getPaymentCode" parameterType="String" resultMap="resultMapPayment">
+		SELECT 
+			*
+		FROM
+			 tbPayment AS p
+		INNER join
+			tbRsv AS r
+		on
+			p.paymentRsvCode = r.rsvCode
+		WHERE
+			p.paymentCode = #{paymentCode};
+	</select>
+	
+	
 	
 	
 	<update id="updateState" parameterType="Rsv">
@@ -42,6 +112,7 @@
 	SELECT 
 		rsvCode
 		, rsvUserId
+		, rsvStoreCode
 		, rsvUserName
 		, rsvUserPhone
 		, rsvUserEmail
@@ -50,9 +121,14 @@
 		, rsvStartDateTime
 		, rsvEndDateTime
 		, rsvRegDate
-		, rsvState		
+		, rsvState
+		, storeId
 	FROM 
-		tbRsv		
+		tbRsv	
+	INNER join
+	tbStore AS s
+	on
+	rsvStoreCode = storeCode
 	WHERE 
 		rsvCode = #{rsvCode};
 	</select>
@@ -72,20 +148,28 @@
 	</select>
 	
 	
-	<select id="paymentSelect" resultMap="resultMapPayment">
-	SELECT 
-		
-		paymentCode
+	<select id="paymentSelect" parameterType="String" resultMap="resultMapPayment">
+	SELECT 	
+	   paymentCode
 		,paymentRsvCode
 		,paymentPrice
 		, paymentUsePoint
 		, paymentUseMoney
 		, paymentAddPoint
-	
 		, paymentIP
 		, paymentRegDate
-		
-	FROM tbPayment
+		, rsvUserId
+		, rsvStartDateTime
+		, rsvState
+	FROM
+		tbPayment AS p
+	INNER JOIN
+		tbRsv AS r
+	on
+		p.paymentRsvCode = r.rsvCode		
+	WHERE
+		r.rsvUserId = #{SID};
+	
 	</select>
 	
 	
@@ -98,9 +182,10 @@
 	, paymentUsePoint
 	, paymentUseMoney
 	, paymentAddPoint
-	
+	, paymentStoreCode
 	, paymentIP
 	, paymentRegDate
+	, paymentStoreId
 	)
 	VALUES (
 	
@@ -109,9 +194,10 @@
 	, #{paymentUsePoint}
 	, #{paymentUseMoney}
 	, #{paymentAddPoint}
-	
+	, #{paymentStoreCode}
 	, #{paymentIP}
 	, NOW()
+	, #{paymentStoreId}
 	)
 	
 	</insert>

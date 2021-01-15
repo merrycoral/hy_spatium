@@ -7,7 +7,7 @@
 
 
 	<div class="table-responsive m-t-20">
-		<table class="table table-bordered table-responsive-lg">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
 			<thead>
 				<tr>
 					<th scope="col">아이디</th>
@@ -39,10 +39,15 @@
 					<td th:text="${l.restUserLevel}"></td>
 					<td th:text="${l.restUserEmail}"></td>
 					<td th:text="${l.restUserPoint}"></td>
-					<td><a th:href="@{/modifyUser(restUserId=${l.restUserId})}">수정</a></td>
-					<td><a
-						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a>
+
+					<td><button type="submit"><a th:href="@{/modifyUser(restUserId=${l.restUserId})}">수정</a></button></td>
+					<td><button type="submit"><a
+<<<<<<< HEAD
+						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a></button></td>
+=======
+						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a></button>
 					</td>
+>>>>>>> refs/heads/KAY
 				</tr>
 			</tbody>
 		</table>

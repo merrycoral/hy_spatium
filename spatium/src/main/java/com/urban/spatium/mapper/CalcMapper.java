@@ -1,7 +1,10 @@
 package com.urban.spatium.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.urban.spatium.dto.CalcWait;
 
 
 public interface CalcMapper {
@@ -12,8 +15,16 @@ public interface CalcMapper {
 
 	int getTodayCount(String today);
 
-	List<Map<String, Object>> getTodayList(String today);
+	List<Map<String, Object>> getTodayList(String today, String SID);
 
-	List<Map<String, Object>> getTodaySubtotal(String today);
+	List<Map<String, Object>> getStoreIdList();
+
+	List<Map<String, Object>> getTodayTotal(String today, String SID);
+
+	void insertDayClose(Map<String, Object> lastParam);
+
+	List<Map<String, Object>> getDailyCalc(String sessionId, int sessionLevel);
+
+	Map<String, Object> getStoreInfo(String sessionId);
 
 }

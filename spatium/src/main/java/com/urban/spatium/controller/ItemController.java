@@ -2,6 +2,9 @@ package com.urban.spatium.controller;
 
 import java.util.List;
 
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,14 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.urban.spatium.dto.Item;
+
+import com.urban.spatium.dto.Store;
 import com.urban.spatium.service.ItemService;
+
 
 @Controller
 public class ItemController {
 	
 	@Autowired
 	private ItemService itemService;
-	private ItemService itemMapper;
+
 	
 	
 	//장비구입내역삭제
@@ -50,7 +56,7 @@ public class ItemController {
 	//장비구입내역 수정
 	@PostMapping("/modifyitemBuy")
 	public String modifyitemBuy(Item item) {
-		System.out.println("상품 수정화면에서 입력 받은 값->"+ item);
+		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
 		
 		String result = itemService.modifyitemBuy(item);
 		System.out.println(item.getItemBuyCode() + " : " + result);
@@ -198,6 +204,29 @@ public class ItemController {
 				
 				return "item/itemDeleteList";
 		}
+		
+		//장비파기등록
+		@PostMapping("/addItemDelte")
+		public String addItemDelte(Model model, Item item, HttpSession session) {
+				System.out.println(item + "=========== 장비 넘어온 값 ============");
+				String sessionId = (String) session.getAttribute("SID");
+				System.out.println(sessionId);
+				item.setItemDetailUserId(sessionId);
+				String result = itemService.addItemDelte(item);
+				
+				System.out.println(result);
+				
+			return "redirect:/addItemDelte";
+		}
+		
+		@GetMapping("/addItemDelte")
+		public String addItemDelte(Model model) {
+			
+			model.addAttribute("title", "장비 등록 하기");
+			
+			return "item/itemDeleteForm";
+		}
+			
 	
 	//장비수량목록
 	@GetMapping("/itemCountList")
@@ -225,14 +254,31 @@ public class ItemController {
 	
 	//장비등록
 	@PostMapping("/addItem")
-	public String addItem(Model model, Item item) {
+	public String addItem(Model model, Item item, HttpSession session) {
 			System.out.println(item + "=========== 장비 넘어온 값 ============");
+			String sessionId = (String) session.getAttribute("SID");
+			System.out.println(sessionId);
+			item.setItemDetailUserId(sessionId);
 			String result = itemService.addItem(item);
-			item.getItemDetailCode();
-			item.setItemDetailCode(item.getItemCode());
+			
 			System.out.println(result);
 			
 		return "redirect:/addItem";
+	}
+	
+	@GetMapping("/addItem")
+	public String addItem(Model model, Item item
+						,@RequestParam(name = "storeCode", required = false) int storeCode) {
+		
+		System.out.println(storeCode);
+		item.setStoreDetailCode(storeCode);
+		int code = item.getStoreDetailCode();
+		System.out.println(code);
+		
+		model.addAttribute("title", "장비 등록 하기");
+		
+		
+		return "item/itemBuyForm";
 	}
 	
 	@GetMapping("/itemInfo")
@@ -245,12 +291,17 @@ public class ItemController {
 		return "item/itemInfo";
 	}
 	
-	@GetMapping("/addItem")
-	public String addItem(Model model) {
+	@GetMapping("/addItemChoice")
+	public String addItemChoice(Model model, HttpSession session) {
+		
+		String storeId = (String) session.getAttribute("SID");
+		
+		List<Store> itemList = itemService.addItemChoice(storeId);
 		
 		model.addAttribute("title", "장비 등록");
+		model.addAttribute("itemList", itemList);
 		
-		return "item/itemBuyForm";
+		return "item/itemBuyChoice";
 	}
 	
 }

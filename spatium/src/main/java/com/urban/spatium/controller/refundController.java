@@ -38,23 +38,28 @@ public class refundController {
 	
 	
 	@PostMapping("/refundBtn")
-	public String refundBtn(CancelRsv cancelrsv, Point point, Payment payment,Rsv rsv
+	public String refundBtn(CancelRsv cancelrsv, Point point, Payment payment,Rsv rsv,RefundPolicy refundPolicy
 							,@RequestParam(name = "cancelRsvCode" , required = false)int cancelRsvCode) {
-		System.out.println(cancelrsv.getCancelRsvCode());
-		System.out.println(cancelrsv.getcancelRefundPolicyCode());
-		System.out.println(cancelrsv.getCancelReason());
 		
-		System.out.println(cancelrsv.getCancelUserId());
-		System.out.println(cancelrsv.getCancelPrice());
-		
-		cancelrsv.setCancelReason(cancelrsv.getCancelReason());
-		cancelrsv.setcancelRefundPolicyCode(cancelrsv.getcancelRefundPolicyCode());
-		cancelrsv.setCancelRsvCode(cancelrsv.getCancelRsvCode());
-		cancelrsv.setCancelUserId(cancelrsv.getCancelUserId());
-		cancelrsv.setCancelPrice(cancelrsv.getCancelPrice());
-		cancelrsv.setCancelState("환불완료");
+		System.out.println("여기기기");
+		System.out.println("이거>>>"+cancelrsv);
+		/*
+		 * System.out.println(cancelrsv.getCancelRsvCode());
+		 * System.out.println(cancelrsv.getcancelRefundPolicyCode());
+		 * System.out.println(cancelrsv.getCancelReason());
+		 * 
+		 * System.out.println(cancelrsv.getCancelUserId());
+		 * System.out.println(cancelrsv.getCancelPrice());
+		 * 
+		 * cancelrsv.setCancelRsvCode(cancelrsv.getCancelRsvCode());
+		 * cancelrsv.setcancelRefundPolicyCode(refundPolicy.getRefundPolicyCode());
+		 * cancelrsv.setCancelReason(cancelrsv.getCancelReason());
+		 * cancelrsv.setCancelUserId(cancelrsv.getCancelUserId());
+		 * cancelrsv.setCancelPrice(cancelrsv.getCancelPrice());
+		 * cancelrsv.setCancelState("환불완료");
+		 */
 		int cancel = refundService.cancelRefund(cancelrsv);
-		
+		System.out.println("cancel" + cancel );
 		
 		
 		

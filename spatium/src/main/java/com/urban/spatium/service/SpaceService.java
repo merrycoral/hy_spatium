@@ -18,6 +18,28 @@ public class SpaceService {
 	@Autowired
 	private SpaceMapper spaceMapper;
 	
+	public String OKSpaceInsert(String readySpaceId, String readySpaceCode) {
+		String chk = "삽입";
+		
+		spaceMapper.OKSpaceInsert(readySpaceId, readySpaceCode);
+		
+		return chk;
+	}
+	
+	public String readySpaceDelete(String readySpaceCode) {
+		String chk = "삭제";
+		spaceMapper.readySpaceDelete(readySpaceCode);
+		
+		return chk;
+	}
+	
+	public List<ReadySpace> readySpaceAccept(int readySpaceCode){
+	
+		List<ReadySpace> rsl = spaceMapper.readySpaceAccept(readySpaceCode);
+		
+		return rsl;
+	}
+	
 	public List<Store> addSpaceChoice(String storeId){
 		
 			List<Store> spaceChoiceList = spaceMapper.addSpaceChoice(storeId);
@@ -25,23 +47,23 @@ public class SpaceService {
 		return spaceChoiceList;
 	}
 	
-	public String addSpace(String okId){
-	
-		String okSpaceCate = spaceMapper.addSpace(okId);
+	public String addSpace(String storeCode){
+		
+		
+		String okSpaceCate = spaceMapper.addSpace(storeCode);
 		
 		return okSpaceCate;
 		
 	}
 	
-	public String addReadySpace(ReadySpace readySpace) {
+	public String addReadySpace(ReadySpace readySpace, String storeCode) {
 		int result = spaceMapper.addReadySpace(readySpace);
-		String insertCheck = "공간 등록 실패";
 		
-		if(result > 0) {
-			insertCheck = "공간 등록 성공";
-		}
+		String checkCate = "ㅎㅇ";
 		
-		return insertCheck;
+		System.out.println(storeCode + "애드레디스페이스11111111111111111111111");
+		
+		return checkCate;
 	}
 	
 	public List<ReadySpace> readySpaceList(){
@@ -52,7 +74,7 @@ public class SpaceService {
 	}
 	
 	public List<OKSpace> OKSpaceList(){
-		
+			
 		List<OKSpace> OKSpaceList = spaceMapper.OKSpaceList();
 		
 		return OKSpaceList;

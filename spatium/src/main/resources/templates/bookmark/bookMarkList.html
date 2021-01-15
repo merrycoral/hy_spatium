@@ -23,7 +23,7 @@
 					<td th:text="${b.BookRegDate}"></td>
 					
 					<td>
-						<button type="submit"><a th:href="@{/removeBookmark(bookMarkUserId=${b.bookMarkUserId})}">삭제</a></button>
+						<button type="submit"><a th:href="@{/removeBookmark(bookMarkCode=${b.bookMarkCode})}">삭제</a></button>
 					</td>
 				</tr>
 
@@ -33,52 +33,10 @@
 
 </th:block>
 
-<div style="text-align: right;">
-       <a class="btn btn-outline-dark heart">
-           <img id="heart" src="">
-       </a>
-   </div>
 
-<th:block layout:fragment="customJs">
+<!-- <th:block layout:fragment="customJs">
 <script>
-    $(document).ready(function () {
-
-        var heart = ${heart};
-
-        if(heart>0) {
-            console.log(heartval);
-            $("#heart").prop("src", "/resources/images/like2.png");
-            $(".heart").prop('name',heartval)
-        }
-        else {
-            console.log(heartval);
-            $("#heart").prop("src", "/resources/images/like1.png");
-            $(".heart").prop('name',heartval)
-        }
-
-        $(".heart").on("click", function () {
-
-            var that = $(".heart");
-
-            var sendData = {'storeCode' : '${Store.storeCode}','heart' : that.prop('name')};
-            $.ajax({
-                url :'/store/heart',
-                type :'POST',
-                data : sendData,
-                success : function(data){
-                    that.prop('name',data);
-                    if(data==1) {
-                        $('#heart').prop("src","/resources/images/like2.png");
-                    }
-                    else{
-                        $('#heart').prop("src","/resources/images/like1.png");
-                    }
-
-
-                }
-            });
-        });
-    });
+    
 </script>
-</th:block>
+</th:block> -->
 </html>

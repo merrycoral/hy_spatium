@@ -9,7 +9,7 @@
 
 <th:block layout:fragment="customContent">
 
-	<form th:action="@{/removeMyinfo}" method="post">
+	<form th:action="@{/removeMyinfo}" method="post" name="remove">
 
 		<span class="section">회원 탈퇴</span>
 
@@ -19,7 +19,7 @@
 				class="required">*</span></label>
 			<div class="col-md-6 col-sm-6">
 				<div id="userId" name="userId" 
-					th:text="${userId}" readonly="readonly">
+					th:text="${user.userId}" readonly="readonly">
 			</div>
 			</div>
 		</div>
@@ -55,11 +55,22 @@
 		
 		<div class="form-group" align="center">
 			<div class="col-md-6 offset-md-3">
-				<button type="submit" id="submit" class="btn btn-primary " >회원탈퇴</button>
+				<button type="submit" id="submit" class="btn btn-primary " onclick="deleteCk()">회원탈퇴</button>
 			</div>
 		</div>
 	</form>
 
 </th:block>
-
+<th:block layout:fragment="customJs">
+<script>
+function deleteCk() {
+	 if (confirm("탈퇴 하시겠습니까?") == true){  
+	     document.remove.submit();
+	 }else{  
+	     return false;
+	 }
+}
+	
+</script>
+</th:block>
 </html>

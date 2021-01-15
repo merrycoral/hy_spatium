@@ -124,6 +124,26 @@
 		FROM
 			tbItemDeleteList;
 	</select>
+	
+	<!-- 장비파기 등록 -->
+	<insert id = "addItemDelte" parameterType="Item">
+		
+		INSERT INTO tbItemDetail
+			(itemDeleteCode
+			, storeDeleteCode
+			, storeItemDeleteCode
+			, userDeleteId
+			, itemDeleteReason
+			, itemDeleteRegDate
+		VALUES 
+			(
+			  #{itemDeleteCode}
+			, #{storeDeleteCode}
+			, #{storeItemDeleteCode}
+			, #{userDeleteId}
+			, #{itemDeleteReason}
+			, #{itemDeleteRegDate})
+	</insert>
 
 
 	<select id = "itemCountListByStoreCode" parameterType="int" resultType="Item">
@@ -184,8 +204,7 @@
 	<insert id = "addItem" parameterType="Item">
 		
 		INSERT INTO tbItemDetail
-			(storeItemCode
-			, itemDetailCode
+			( itemDetailCode
 			, storeDetailCode
 			, itemName
 			, itemCategory
@@ -197,9 +216,8 @@
 			, itemChangeRegDate
 			, itemDetailUserId)
 		VALUES 
-			(NULL
-			, #{itemDetailCode}
-			, 5
+			( #{itemDetailCode}
+			, #{storeDetailCode}
 			, #{itemName}
 			, #{itemCategory}
 			, #{itemDetail}
@@ -208,8 +226,36 @@
 			, #{itemImg}
 			, NOW()
 			, NOW()
-			, 'id001')
+			, #{itemDetailUserId})
 		
 	</insert>
+	
+	<select id="addItmeChoice" parameterType="String" resultType="Store">
+	
+		SELECT 
+			storeCode
+			, storeId
+			, storeName
+			, storeRepresentative
+			, storeNumber
+			, storeBusinessType
+			, storeAddressNumber
+			, storeAddress
+			, storeAddressDetail
+			, storeIntroduction
+			, storeRsvType
+			, storeEmail
+			, storePhone
+			, storeAccountBankName
+			, storeAccountNumber
+			, storeRefundRull
+			, storeImage
+			, storeLevel
+		FROM
+			tbStore
+		WHERE	
+			storeId = #{storeId};
+	
+	</select>
 
 </mapper>

@@ -4,82 +4,33 @@
 	layout:decorate="@{layout/default}">
 <th:block layout:fragment="customContent">
 	<h1>통계 페이지 - DB값과 화면 그래프 연결하기</h1>
-	
-	<table border="1">
-		<thead>
-			<tr>
-				<th>접속 코드</th>
-				<th>접속한 브라우저</th>
-				<th>접속 기기</th>
-				<th>유입 경로</th>
-				<th>접속 IP</th>
-				<th>접속 시간</th>
-				<th>접속 ID</th>
-				<th>수정</th>
-				<th>삭제</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:if="${#lists.size(accessList) > 0}" th:each="l : ${accessList}">
-				<td th:text="${l.accessCode}"></td>
-				<td th:text="${l.accessBrowser}"></td>
-				<td th:text="${l.accessDevice}"></td>
-				<td th:text="${l.accessRoute}"></td>
-				<td th:text="${l.accessIP}"></td>
-				<td th:text="${l.accessTime}"></td>
-				<td th:text="${l.accessID}"></td>
-				<!-- 객체 하나만 있을 때는 ? 해서 null 여부 확인으로 가능 -->
-
-				<td>
-					<a  th:href="@{#}">수정</a>
-				</td>
-				<td>
-					<!--ex : /removeMember?memberId=id001&memberLevel=관리자  -->
-					<a th:href="@{#}">삭제</a>
-				</td>
-			</tr>		
-		</tbody>
-	</table>
-
-	<div class="col-md-4 col-sm-4 ">
+	<div class="col-md-6 col-sm-6 ">
 		<div class="x_panel tile fixed_height_320 overflow_hidden">
 			<div class="x_title">
-				<h2>Device Usage</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false"><i
-							class="fa fa-wrench"></i></a>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">Settings 1</a>
-							<a class="dropdown-item" href="#">Settings 2</a>
-						</div></li>
-					<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-				</ul>
+				<h2>접속 브라우저 통계</h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
 				<table class="" style="width: 100%">
 					<tbody>
 						<tr>
-							<th style="width: 37%;">
-								<p>Top 5</p>
+							<th style="width: 50%;">
+								Top 5
 							</th>
 							<th>
-								<div class="col-lg-7 col-md-7 col-sm-7 ">
-									<p class="">Device</p>
+								<div class="col-lg-8 col-md-8 col-sm-7 ">
+									브라우저
 								</div>
-								<div class="col-lg-5 col-md-5 col-sm-5 ">
-									<p class="">Progress</p>
+								<div class="col-lg-4 col-md-4 col-sm-5 ">
+									비율
 								</div>
 							</th>
 						</tr>
 						<tr>
 							<td><iframe class="chartjs-hidden-iframe"
 									style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; inset: 0px;"></iframe>
-								<canvas class="canvasDoughnut" height="140" width="140"
-									style="margin: 15px 10px 10px 0px; width: 140px; height: 140px;"></canvas>
+								<canvas id="browserDoughnut" height="180" width="180"
+									style="margin: 15px 10px 10px 0px; width: 100%; height: 100%;"></canvas>
 							</td>
 							<td>
 								<table class="tile_info">
@@ -87,42 +38,42 @@
 										<tr>
 											<td>
 												<p>
-													<i class="fa fa-square blue"></i>IOS
+													<i class="fa fa-square blue"></i><span th:text="${btopname0}">%</span>
 												</p>
 											</td>
-											<td>30%</td>
+											<td th:text="${btoprate0}"></td>
 										</tr>
 										<tr>
 											<td>
 												<p>
-													<i class="fa fa-square green"></i>Android
+													<i class="fa fa-square green"></i><span th:text="${btopname1}"></span>
 												</p>
 											</td>
-											<td>10%</td>
+											<td th:text="${btoprate1}"></td>
 										</tr>
 										<tr>
 											<td>
 												<p>
-													<i class="fa fa-square purple"></i>Blackberry
+													<i class="fa fa-square purple"></i><span th:text="${btopname2}"></span>
 												</p>
 											</td>
-											<td>20%</td>
+											<td th:text="${btoprate2}"></td>
 										</tr>
 										<tr>
 											<td>
 												<p>
-													<i class="fa fa-square aero"></i>Symbian
+													<i class="fa fa-square red"></i><span th:text="${btopname3}"></span>
 												</p>
 											</td>
-											<td>15%</td>
+											<td th:text="${btoprate3}"></td>
 										</tr>
 										<tr>
 											<td>
 												<p>
-													<i class="fa fa-square red"></i>Others
+													<i class="fa fa-square aero"></i><span th:text="${btopname4}"></span>
 												</p>
 											</td>
-											<td>30%</td>
+											<td th:text="${btoprate4}"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -133,6 +84,116 @@
 			</div>
 		</div>
 	</div>
+	<h2>임시 테이블입니다</h2>
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<table border="1" class="table table-striped jambo_table bulk_action dataTable no-footer">
+			<thead>
+				<tr>
+					<th>접속 코드</th>
+					<th>접속한 브라우저</th>
+					<th>접속 기기</th>
+					<th>유입 경로</th>
+					<th>접속 IP</th>
+					<th>접속 시간</th>
+					<th>접속 ID</th>
+					<th>수정</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${#lists.size(accessList) > 0}" th:each="l : ${accessList}">
+					<td th:text="${l.accessCode}"></td>
+					<td th:text="${l.accessBrowser}"></td>
+					<td th:text="${l.accessDevice}"></td>
+					<td th:text="${l.accessRoute}"></td>
+					<td th:text="${l.accessIP}"></td>
+					<td th:text="${l.accessTime}"></td>
+					<td th:text="${l.accessID}"></td>
+					<!-- 객체 하나만 있을 때는 ? 해서 null 여부 확인으로 가능 -->
+	
+					<td>
+						<a  th:href="@{#}">수정</a>
+					</td>
+					<td>
+						<!--ex : /removeMember?memberId=id001&memberLevel=관리자  -->
+						<a th:href="@{#}">삭제</a>
+					</td>
+				</tr>		
+			</tbody>
+		</table>
+	</div>
 
+</th:block>
+<th:block layout:fragment="customJs">
+<script  th:inline="javascript">
+	/*<![CDATA[*/
+	var testValue = /*[[${accessList}]]*/;
+	var btopcount0 = /*[[${btopcount0}]]*/;
+	var btopcount1 = /*[[${btopcount1}]]*/;
+	var btopcount2 = /*[[${btopcount2}]]*/;
+	var btopcount3 = /*[[${btopcount3}]]*/;
+	var btopcount4 = /*[[${btopcount4}]]*/;
+	var btopname0 = /*[[${btopname0}]]*/;
+	var btopname1 = /*[[${btopname1}]]*/;
+	var btopname2 = /*[[${btopname2}]]*/;
+	var btopname3 = /*[[${btopname3}]]*/;
+	var btopname4 = /*[[${btopname4}]]*/;
+	/*]]>*/
+</script>
+<script type="text/javascript">
+	function init_chart_doughnut() {
+	
+	    if (typeof (Chart) === 'undefined') { return; }
+	
+	    console.log('init_chart_doughnut');
+   	
+	    if ($('#browserDoughnut').length) {
+	
+	        var chart_doughnut_settings = {
+	            type: 'doughnut',
+	            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+	            data: { 
+	                labels: [
+	                	btopname0,
+	                	btopname1,
+	                	btopname2,
+	                	btopname3,
+	                	btopname4
+	                ],
+	                datasets: [{
+	                    data: [btopcount0, btopcount1, btopcount2, btopcount3, btopcount4],
+	                    backgroundColor: [
+	                        "#3498DB",
+	                        "#26B99A",
+	                        "#9B59B6",
+	                        "#E74C3C",
+	                        "#BDC3C7"
+	                    ],
+	                    hoverBackgroundColor: [
+	                        "#49A9EA",
+	                        "#36CAAB",
+	                        "#B370CF",
+	                        "#E95E4F",
+	                        "#CFD4D8"
+	                    ]
+	                }]
+	            },
+	            options: {
+	                legend: false,
+	                responsive: false
+	            }
+	        }
+	
+	        $('#browserDoughnut').each(function () {
+	
+	            var chart_element = $(this);
+	            var chart_doughnut = new Chart(chart_element, chart_doughnut_settings);
+	
+	        });
+	
+	    }
+	
+	}
+</script>
 </th:block>
 </html>

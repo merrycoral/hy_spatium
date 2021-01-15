@@ -27,12 +27,15 @@ public class StoreController {
 	@Autowired
 	private RefundService refundService;
 	
+	/* 업체명 클릭시 자세히 보기 위해서 들어오는 컨트롤러 */
 	@GetMapping("/storeSeeMore")
 	public String storeSeeMore(Model model) {
 		
 		return "store/storeSeeMore";
 	}
 	
+	/* 수정 폼에서 클릭시 들어오는 포스트 맵핑 컨트롤러
+	 * (수정처리) */
 	@PostMapping("/storeUpdate")
 	public String updateStoreSet(Model model, Store store) {
 		
@@ -43,6 +46,7 @@ public class StoreController {
 		return "redirect:/storeListOK";
 	}
 	
+	/* 업체 목록에서 수정 버튼을 클릭시 들어오는 컨트롤러 */
 	@GetMapping("/storeUpdate")
 	public String updateStore(Model model, Store store
 							, @RequestParam(name = "storeCode", required = false) int storeCode) {
@@ -57,9 +61,11 @@ public class StoreController {
 		return "store/updateStore";
 	}
 	
+	/* 공간 등록 폼에서 포스트 맵핑으로 들어오는 컨트롤러 */
 	@PostMapping("/addSpace")
-	public String addStore(Model model, Store store) {
+	public String addStore(Model model, Store store , RefundPolicy refundPolicy) {
 		System.out.println(store);
+		
 		int checkStore = store.getStoreCode();
 		System.out.println(checkStore);
 		System.out.println("스토어 받은값 --> " + store);
@@ -69,7 +75,8 @@ public class StoreController {
 		List<String> tMap = new ArrayList<>();
 		
 		
-		
+		/*	길게 담겨진 문자열을 숫자 문자열로 변경하는 부분
+		 *  (원래 서비스 단에서 해야하는 작업을 컨트롤러 단에서 작업 추후 변경 예정) */
 		String[] array = storeCate.split(",");
 		String[] i_array = new String[5];
 		String arrayCheck = "0";
@@ -114,14 +121,15 @@ public class StoreController {
 		
 		model.addAttribute("storeBusiness", array);
 		System.out.println("===============end store================");
-		String result = storeService.addStore(store, tMap);
+		String result = storeService.addStore(store, tMap, refundPolicy);
 		System.out.println("================start result===============");
 		System.out.println(result);
 		System.out.println("================end result===============");
 		
 		return "space/addSpace";
 	}
-
+	
+	/* 왼쪽 메뉴에서 업체 등록 클릭시 들어오는 컨트롤러 */
 	@GetMapping("/addStore")
 	public String addStore(Model model, HttpSession session, Store store) {
 		model.addAttribute("title", "업체 등록");
@@ -132,7 +140,8 @@ public class StoreController {
 		model.addAttribute("storeId", storeId);
 		return "store/addStore";
 	}
-
+	
+	/* 왼쪽 메뉴에서 업체 리스트 클릭시 들어오는 컨트롤러 */
 	@GetMapping("/storeListOK")
 	public String storeList(Model model) {
 		List<Store> storeList = storeService.storeList();

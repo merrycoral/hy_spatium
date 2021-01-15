@@ -9,15 +9,35 @@
 	<title th:text="${title}"></title>
 </th:block>
 
-
+<th:block layout:fragment="customCss">
+<style>
+#form{margin-top: 100px; margin-left: 300px;}
+.field{text-decoration: underline;}
+#hey{border: 1px solid; background-color: #EAEAEA;}
+.right_col{}
+</style>
+</th:block>
 <th:block layout:fragment="customJs">
 
 
 
-	<script>
-		
-			          
+	<script th:inline="javascript">
+		          
 		$(function(){
+			
+			/*<![CDATA[*/
+		   	var rsvResult = [[${result}]]
+		    /*]]>*/
+		    
+		    if(rsvResult=="X"){
+		    	alert("결제불가능하다 .");
+		    //location.href="/rsvListAdmin";
+		    }else{
+		    	alert("결제가능하다.");
+		    }
+		    
+		    console.log(rsvResult);
+		    
 			var check_ip = ip(); 
 			 $('#getIp').val(check_ip);// 접속한 기기의 IP를 가져온다
 			console.log(check_ip + "<<<<IIIIIIPPPPPPPPPPPP");
@@ -40,6 +60,7 @@
 				console.log(">>사용할"+paymentUsePoint)
 				console.log(">>총금액"+totalPoint)
 				
+				
 				minus();
 				
 				if(Number(paymentUsePoint)>Number(totalPoint)){
@@ -48,22 +69,41 @@
 					
 					minus();//결제해야하는금액 
 				}
-					
-			})
 			
 				var abc = Math.floor($('.paymentUseMoney').val()*0.01); //결제금액의 1%포인트적립금
-				 $('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값	
-			
-			$("#charge_kakao").click(function() {
-				var IMP = window.IMP; // 생략가능
+				$('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값
+			})
+				var abc = Math.floor($('.paymentUseMoney').val()*0.01); //결제금액의 1%포인트적립금
+				$('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값	
 				
+				
+				
+				 
+			
+			
+			
+				 
+			$("#charge_kakao").click(function() {
+				
+				var result123 = null;
+				//ajax로 지금걸러낸거 한번더하고
+				//ajax통과하고 결과가 O또는 X가 나오자나
+				
+				// result123에 결과값을 담고
+				if(result123=="X"){
+					alert("결재가 있다.")
+					return false;
+				}
+				
+				
+				var IMP = window.IMP; // 생략가능
 				var paymentUseMoney = $('.paymentUseMoney').val();
 				var money = $('input[name="cp_item"]:checked').val();
 				IMP.init('imp48494121');
 				// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 				// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 				IMP.request_pay({
-					pg : 'inicis', // version 1.1.0부터 지원.
+					pg : 'kakao', // version 1.1.0부터 지원.
 					/*
 					'kakao':카카오페이,
 					html5_inicis':이니시스(웹표준결제)
@@ -164,34 +204,140 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 
+<th:block th:if="${#lists.size(rsvDetailList) > 0}" th:each = "p : ${rsvDetailList}">
+<span th:text="${p}"></span>
 
-<form action="/test3" method="post" id="form">
+
+</th:block>
+
+<form action="/test3" method="post" id="form" >
 
 
-<input type="hidden" value="결재적립" name="pointAddList"> <br>
-<input type="hidden" value="적립" name="pointSellList"> <br>
-<input type="hidden" value="사용" name="pointSellList"> <br>
+
+
+
 <input type="hidden" th:value="${rsv.storeId}" name="paymentStoreId">
 <input type="hidden" th:value="${rsv.rsvStoreCode}" name="PaymentStoreCode">
 <input type="hidden" th:value="${rsv.rsvState}" name="rsvState">
 <input type="hidden" id="getIp" name="PaymentIP">
-<div>총마일리지:<input type="text" th:value="${totalPoint}" class="totalPoint" readonly="readonly"></div>
+	<div class="col-sm-8">
+	<div class="panel panel-default" id="hey">
+	
+		
+		<div class="field item form-group row">
+			<h2 class=" col-md-3 offset-md-4"><u>주문자 정보</u></h2>
+			<div class="col-md-3 offset-md-4" th:text="${rsv.rsvUserName}"></div>
+			<div class="col-md-3 offset-md-4" th:text="${rsv.rsvUserPhone}"></div>
+			<div class="col-md-3 offset-md-4" th:text="${rsv.rsvUserEmail}"></div>
+		</div>
+		
 
-<div>예약코드  : <input type="text" th:value="${rsv.rsvCode}" name="paymentRsvCode"></div>
-<div>예약자아이디  : <input type="text" th:value = "${rsv.rsvUserId}" name="pointID" readonly="readonly"></div>
 
-<div>결재금액 : <input type="text" th:value="${rsv.rsvTotalPrice}" name="paymentPrice" class="paymentPrice" >  </div>
-<div>사용할마일리지 : <input type="text" name="paymentUsePoint" class="paymentUsePoint" value="0">  </div>
-<!-- 사용할 마일리지  : --> <input type="hidden" name="usePoint" class="usePoint" >
-<div>최종결재금액 : <input type="text" name="paymentUseMoney" class="paymentUseMoney" readonly="readonly">  </div>
-<div>적립포인트 : <input type="text" name="addPoint" class="paymentAddPoint" readonly="readonly">  </div>
+		<div class="field item form-group">
+		<div class="col-md-7 offset-md-3">
+				<h1 class="alert-success">예약정보</h1>
+		</div>
+		</div>
+		
+		
+		<div class="field item form-group">
+			<label class=" col-md-3 offset-md-1  label-align">예약코드: </label>
+			<div class="col-md-6 col-sm-6">
+				<input type="text" th:value="${rsv.rsvCode}" name="paymentRsvCode">
+			</div>
+		</div>
+		
+		
+		
+		<div class="field item form-group">
+			<label class=" col-md-3 offset-md-1  label-align">예약자아이디
+				: </label>
+			<div class="col-md-6 col-sm-6">
+				<input type="text" th:value="${rsv.rsvUserId}" name="pointID"
+					readonly="readonly">
+			</div>
+		</div>
+		
+		
+		
+		<div class="field item form-group row">
+		<div class="col-md-6 offset-md-3">
+				<h1 class="alert-success">포인트</h1>
+		</div>
+		</div>
+		<div class="field item form-group row">
+			<label class=" col-md-3 offset-md-1 label-align "><u>보유포인트</u></label>
+			<div class="col-md-6 col-sm-6">
+				<input type="text" th:value="${totalPoint}" class="totalPoint"
+					readonly="readonly">
+			</div>
+		</div>
 
 
-<input type="hidden" value="결제완료" name="payEnd">
+		
+		<div class="field item form-group">
+			<label class=" col-md-3 offset-md-1  label-align"><u>사용할포인트</u>
+				 </label>
+			<div class="col-md-6 col-sm-6">
+				<input type="text" name="paymentUsePoint" class="paymentUsePoint"
+					value="0">
+				<!-- 사용할 마일리지  : -->
+				<input type="hidden" name="usePoint" class="usePoint">
+			</div>
+		</div>
+		
+		<div class="field item form-group row ">
+		<div class="col-md-6 offset-md-3 ">
+				<h1 class="alert-success">결제</h1>
+		</div>
+		</div>
+		
+		
+		<div class="field item form-group">
+			<label class=" col-md-3 offset-md-1  label-align"><u>결재금액</u>
+				 </label>
+			<div class="col-md-6 col-sm-6">
+				<input type="text" th:value="${rsv.rsvTotalPrice}"
+					name="paymentPrice" class="paymentPrice">
+			</div>
+		</div>
+		
+		
+		
+		<div class="field item form-group">
+			<label class=" col-md-3 offset-md-1  label-align"><u>최종결제금액</u>
+				 </label>
+			<div class="col-md-6 col-sm-6">
+				<input type="text" name="paymentUseMoney" class="paymentUseMoney"
+					readonly="readonly">
+			</div>
+		</div>
+		
+		<div class="field item form-group row">
+		<div class="col-md-6 offset-md-3">
+				<h1 class="alert-success">구매적립</h1>
+		</div>
+		</div>
+	
+		<div class="field item form-group">
+			<label class=" col-md-3 offset-md-1  label-align"><u>적립포인트</u>
+				 </label>
+			<div class="col-md-6 col-sm-6">
+				<input type="text" name="addPoint" class="paymentAddPoint"
+					readonly="readonly">
+			</div>
+		</div>
+		
 
-  <button type="button" id="charge_kakao">결 제 하 기</button>
-           
-</form>
+		<div class="form-group" align="center" style="margin-top: 40px;">
+			
+				<button type="button" id="charge_kakao"
+					class="btn btn-primary btn-lg">결 제 하 기</button>
+			</div>
+		</div>
+		</div>
+		
+	</form>
 
 
  </th:block>

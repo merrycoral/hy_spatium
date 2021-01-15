@@ -1,5 +1,6 @@
 package com.urban.spatium.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,29 +18,83 @@ public class CalcService {
 		@Autowired
 		private CalcMapper calcMapper;
 		
-		public Map<String, Object> getTodayList(String today, String sessionId) {
-			int startRow = 0;
-			int rowPerPage = 30;
-			int startPageNum = 1;
-			int endPageNum = 10;
-			
-			List<Map<String, Object>> getTodaySubtotal = calcMapper.getTodaySubtotal(today);
-			Map<String, Object> subtotal = getTodaySubtotal.get(getTodaySubtotal.size()-1);
-			System.out.println("SUBTOTAL PRINT");
-			System.out.println(subtotal);
-			
-			List<Map<String, Object>> getTodayList = calcMapper.getTodayList(today);
-			
+		public Map<String, Object> getDailyCalc (String sessionId, int sessionLevel) {
+			List<Map<String, Object>> dailyCalcList = calcMapper.getDailyCalc(sessionId, sessionLevel);
+			Map<String, Object> storeInfo = calcMapper.getStoreInfo(sessionId);
 			
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("getTodayList", getTodayList);
-			resultMap.put("getTodaySubtotal", getTodaySubtotal);
-			resultMap.put("subtotal", subtotal);
-			resultMap.put("startPageNum", startPageNum);
-			resultMap.put("endPageNum", endPageNum);
+			resultMap.put("dailyCalcList", dailyCalcList);
+			resultMap.put("storeInfo", storeInfo);
 			
 			return resultMap;
 		}
+		
+		public String CloseCalc(String today){
+			//일별 매출 마감 등록되는 메서드입니다.
+			//업체 id 목록 가져오기
+			List<Map<String, Object>> storeIdList = calcMapper.getStoreIdList();
+			System.out.println("PRINT storeIdList");
+			System.out.println(storeIdList);
+			//업체 id 목록에서 id 하나하나씩 일 마감정산을 진행합니다.
+			for(int i=0; i<storeIdList.size();i++) {
+				int storeCode = Integer.parseInt(storeIdList.get(i).get("storeCode").toString());
+				// SID는 i번째 스토어 아이디
+				// getTodayList 에서는 SID가 sessionId이지만 현재 메서드에서는 SID가 i번째 스토어 아이디입니다.
+				String SID = storeIdList.get(i).get("storeId").toString();
+				List<Map<String, Object>> getTodayTotal = calcMapper.getTodayTotal(today, SID);
+				System.out.println(getTodayTotal.size() + "  getTodayTotal size");
+				
+				if(getTodayTotal.size() > 0) {
+					// 정산 데이터가 있을 경우
+					Map<String, Object> todaytotal = getTodayTotal.get(getTodayTotal.size()-1);
+					System.out.println(todaytotal + " <-- todaytotal");
+					Map<String, Object> lastParam = getTodayTotal.get(getTodayTotal.size()-1);
+					int moneySubtotal = Integer.parseInt(getTodayTotal.get(getTodayTotal.size()-1).get("moneySubtotal").toString());
+					int refundSubtotal = Integer.parseInt(getTodayTotal.get(getTodayTotal.size()-1).get("refundSubtotal").toString());
+					System.out.println(lastParam.get("refundMoney"));
+					lastParam.put("storeCode", storeCode);
+					lastParam.put("SID", SID);
+					lastParam.put("today", today);
+					calcMapper.insertDayClose(lastParam);
+				}else {
+					// 정산 할 날짜의 데이터가 없는 경우
+					System.out.println("!= 조건 안 통과");
+					System.out.println(today + SID + "  there is no data");
+					Map<String, Object> lastParam = new HashMap<String, Object>(); 
+					lastParam.put("countSubtotal", 0);
+					lastParam.put("pointSubtotal", 0);
+					lastParam.put("moneySubtotal", 0);
+					lastParam.put("refundSubtotal", 0);
+					lastParam.put("refundMoney", 0);
+					lastParam.put("storeCode", storeCode);
+					lastParam.put("SID", SID);
+					lastParam.put("today", today);
+					calcMapper.insertDayClose(lastParam);
+				}
+			}
+			return today;
+		}
+		
+		public Map<String, Object> getTodayList(String today, String sessionId) {
+			Map<String, Object> storeInfo = calcMapper.getStoreInfo(sessionId);
+			List<Map<String, Object>> getTodayTotal = calcMapper.getTodayTotal(today, sessionId);
+			List<Map<String, Object>> getTodayList = calcMapper.getTodayList(today, sessionId);
+			
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			
+			if(getTodayTotal.size() > 0) {
+				Map<String, Object> todaytotal = getTodayTotal.get(getTodayTotal.size()-1);
+				System.out.println("SUBTOTAL PRINT");
+				System.out.println(todaytotal);
+				resultMap.put("todaytotal", todaytotal);
+				resultMap.put("getTodayList", getTodayList);
+				resultMap.put("getTodayTotal", getTodayTotal);
+				
+			}
+			resultMap.put("storeInfo", storeInfo);
+			return resultMap;
+		}
+		
 		public Map<String, Object> getCalcWait(int currentPage) {
 			int startRow = 0;
 			int rowPerPage = 10;

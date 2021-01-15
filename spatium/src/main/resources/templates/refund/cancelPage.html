@@ -9,8 +9,11 @@
 
 <th:block layout:fragment="customCss">
 <style>
-table{float: left; margin-right: 200px;}
-#table2{float: none;}
+table{ float: left; margin-right: 200px; }
+input{margin-left: 5px; margin-right: 5px;}
+td{text-align: center;}
+#table1{width: 30%; height: 500px; margin-left: 100px;}
+#table2{width: 300px; float: none;}
 #Explanation{margin-left: 510px; margin-top: 5px;}
 .hid{display: none;}
 </style>
@@ -41,13 +44,16 @@ table{float: left; margin-right: 200px;}
 				var elapsedDay = Math.ceil(elapsedMSec/1000/60/60/24);
 				console.log("계산>>>"+elapsedDay);
 				console.log($('.day').length);	
-				var result;
 				
+				var result;
+				var result2;
 				for(var i=0; i<$('.day').length; i++){
 					if(elapsedDay >= $('.day').eq(0).val()){
-						result = $('.Pay').eq(0).val()
-					}else if(elapsedDay<$('.day').eq(i-1).val() && elapsedDay>=$('.day').eq(i).val()){
+						result = $('.Pay').eq(0).val();
+						result2 = $('.code').eq(0).val();
+					}else if(elapsedDay < $('.day').eq(i-1).val() && elapsedDay >= $('.day').eq(i).val()){
 						result = $('.Pay').eq(i).val();
+						result2 = $('.code').eq(i).val();
 					}
 				}
 				
@@ -55,9 +61,10 @@ table{float: left; margin-right: 200px;}
 				
 				$('.rePercent').val(result+"%");//환불할 퍼센트
 				$('.rePrice').val(reCal);//환불퍼센트 * 실결제금액 = 환불할 금액
-				
-				
-				
+				$('.reCode').val(result2);
+				console.log($('.reCode').val() + " <<<<<환불코드");
+				$('.paymentRefund').val( $('.Price').val() - $('.rePrice').val() );//환불하고 남은금액
+				console.log($('.paymentRefund').val());
 				return reCal;
 				
 			}
@@ -66,8 +73,8 @@ table{float: left; margin-right: 200px;}
 			
 			
 				$('.pointList').val( $('.Price').val() * 0.01 );//반활 적립 될 포인트
-				$('.paymentRefund').val( $('.Price').val() - $('.rePrice').val() );//환불하고 남은금액
-				console.log($('.paymentRefund').val());
+				
+				
 				console.log($('.pointList').val());
 				
 			$('#cancelTest').click(function(){	
@@ -82,6 +89,7 @@ table{float: left; margin-right: 200px;}
 								dateCal();
 								return false; */		 
 					}else if(dateCal() == $('.rePrice').val()){
+							
 							$('form').submit();
 						}
 			        }else{
@@ -100,12 +108,13 @@ table{float: left; margin-right: 200px;}
 <th:block layout:fragment="customContent">
 
 <form action="/refundBtn" method="post">
-	<input type="button" class="hey" value="팝업창 호출" >
+	
 	<!--예약테이블 결제상태 환불로변경? --><input type="hidden" name="rsvState" >
 	<!-- 포인트 적립내역 환불완료로 수정 --><input type="hidden" name="pointAddList">
 	<!-- 포인트에 환불 적립 될 (아이디 rsvId 쓰면됨)--><input type="hidden" name="pointID">
 	<!-- 적립된 포인트 마이너스 추가 --><input type="hidden" name="pointList" class="pointList">
 	<!-- 환불하고 남는금액 --><input type="hidden" name="paymentRefund" class="paymentRefund">
+	<!-- 환불상태 변경 --><input type="hidden" value="환불완료" name="cancelState" readonly="readonly">
 <table border="1" id="table1">
 	<tbody >
 		<th:block th:if="${#lists.size(cacelData) > 0}" th:each = "p : ${cacelData}">
@@ -135,6 +144,10 @@ table{float: left; margin-right: 200px;}
 			<td><input type="text" class="Price" th:value="${p.paymentUseMoney}" readonly="readonly"></td>
 		</tr>
 		
+		<tr class="hid">
+			<td>환불 코드</td>
+			<td><input type="text" class="reCode" name="cancelRefundPolicyCode" readonly="readonly"></td>
+		</tr>
 		
 		<tr>
 			<td>환불 퍼센트</td>
@@ -144,7 +157,7 @@ table{float: left; margin-right: 200px;}
 			<td>환불하는 금액</td>
 			<td><input type="text" class="rePrice" name="cancelPrice" readonly="readonly"></td>
 		</tr>
-	
+		
 		
 		<tr>
 			<td>취소사유</td>
@@ -158,8 +171,8 @@ table{float: left; margin-right: 200px;}
 			<td>예약 날짜</td>
 			<td><input type="text" class="rsvDate" th:value="${pr.rsvStartDateTime}" readonly="readonly"></td>
 		</tr>
-		<tr>
-			<td colspan="2"><button type="button" id="cancelTest">취소신청</button></td>
+		<tr align="center">
+			<td colspan="2"><button type="button"  class="btn btn-primary btn-lg" id="cancelTest">취소신청</button></td>
 		</tr>
 		
 		</th:block>
@@ -177,7 +190,7 @@ table{float: left; margin-right: 200px;}
 				<tbody>
 					<tr th:each="re : ${refundPolicy}">
 						<td class="hid">
-						<!-- 환불정책 코드값 --><input type="hidden" name="refundPolicyCode" th:value="${re.refundPolicyCode}">
+						<!-- 환불정책 코드값 --><input type="hidden" name="refundPolicyCode" class="code" th:value="${re.refundPolicyCode}">
 						</td>
 						<td>이용<input type="text" name="remainingDay"
 							style="width: 60px;" class="day" th:value="${re.remainingDay}"

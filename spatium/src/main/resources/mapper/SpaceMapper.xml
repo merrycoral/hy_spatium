@@ -2,6 +2,68 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.SpaceMapper">
 
+<insert id="OKSpaceInsert" parameterType="String">
+	
+	INSERT INTO tbOkaySpace
+	SELECT
+		  null
+		, readyStoreCode
+		, readySpaceName
+		, readySpaceType
+		, readyPeopleNumber
+		, readyDetailSpace
+		, readyBriefSpace
+		, readySpaceTag
+		, readyRentalPrice
+		, readyStartTime
+		, readyCloseTime
+		, readyExceptionStartDate
+		, readyExceptionEndDate
+		, NOW()
+		, readySpaceBasicOption
+		, #{readySpaceId}
+	FROM
+		tbReadySpace AS r
+	WHERE
+		r.readySpace = #{readySpaceCode};
+
+</insert>
+
+<delete id="readySpaceDelete" parameterType="String">
+
+	DELETE 
+	FROM 
+		tbReadySpace 
+	WHERE 
+		readySpace = #{readySpace}
+
+</delete>
+
+<select id="readySpaceAccept" resultType="ReadySpace" parameterType="int">
+	
+	SELECT
+		readySpace
+		, readyStoreCode
+		, readySpaceName
+		, readySpaceType
+		, readyPeopleNumber
+		, readyBriefSpace
+		, readyDetailSpace
+		, readySpaceTag
+		, readyRentalPrice
+		, readyStartTime
+		, readyCloseTime
+		, readyExceptionStartDate
+		, readyExceptionEndDate
+		, readySpaceBasicOption
+		, readyRequestDate
+	FROM 
+		tbReadySpace
+	WHERE
+		readySpace = #{readySpace};
+	
+</select>
+
 <select id="addSpaceChoice" resultType="Store" parameterType="String">
 
 SELECT 
@@ -38,7 +100,7 @@ SELECT
 FROM 
 	tbStore
 WHERE
-	storeId = #{okId}
+	storeCode = #{storeCode}
 
 </select>
 
@@ -60,9 +122,9 @@ WHERE
 	, readySpaceBasicOption
 	, readyRequestDate)
 VALUES 
-	( 5
+	( #{readyStoreCode}
 	, #{readySpaceName}
-	, 1
+	, #{readyStoreBusinessType}
 	, #{readyPeopleNumber}
 	, #{readyBriefSpace}
 	, #{readyDetailSpace}
