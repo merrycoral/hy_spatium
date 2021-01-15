@@ -10,6 +10,9 @@
 }
 </style>
 </th:block>
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
 <th:block layout:fragment="customContent">
 	<div>
 		<span style="font-size: 40px;">업체별 통계</span>

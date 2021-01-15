@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/maindefault}">
-<th:block layout:fragment="customCss">
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
 </th:block>
-
 <th:block layout:fragment="customJs">
 	<script>
 		$(function(){

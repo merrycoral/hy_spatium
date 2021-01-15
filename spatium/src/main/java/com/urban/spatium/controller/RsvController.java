@@ -76,6 +76,13 @@ public class RsvController {
 			out.flush();
 			System.out.println("여기 안도나");
 			return "index";
+		}else if ("환불 완료".equals(rsvState)) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('이미 결제 취소 및 환불이 완료되었습니다.'); location.href=\"rsvListAdmin\";</script>");
+			out.flush();
+			System.out.println("여기 안도나");
+			return "index";
 		}
 		
 		//미결제된 예약일시 바로 취소 및 DB에서 삭제(릴레이션, 예약, 세부예약 삭제)
@@ -114,6 +121,7 @@ public class RsvController {
 	@GetMapping("/rsvListExtendAdmin")
 	public String rsvListExtendAdmin(Model model, @RequestParam(name = "", required =false)String rsvCode) {
 		List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
+		model.addAttribute("title", "세부 예약 리스트 보기");
 		model.addAttribute("rsvListExtend", rsvListExtend);
 		return "rsv/rsvListExtendAdmin";
 	}
@@ -124,6 +132,7 @@ public class RsvController {
 	@GetMapping("/rsvListExtend")
 	public String rsvListExtend(Model model, @RequestParam(name = "", required =false)String rsvCode) {
 		List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
+		model.addAttribute("title", "나의 세부 예약 리스트");
 		model.addAttribute("rsvListExtend", rsvListExtend);
 		return "rsv/rsvListExtend";
 	}
@@ -163,6 +172,7 @@ public class RsvController {
 			, @RequestParam(name="pageType", required = false)String pageType) {
 		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
 		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
+		model.addAttribute("title", "예약 등록");
 		model.addAttribute("getSpaceByStore", getSpaceByStore);
 		model.addAttribute("getItemByStore", getItemByStore);
 		model.addAttribute("storeCode", storeCode);
@@ -189,6 +199,7 @@ public class RsvController {
 	@GetMapping("/rsvListAdmin")
 	public String rsvListByAdmin(Model model) {
 		List<Rsv> rsvList = rsvService.rsvListAdmin();
+		model.addAttribute("title", "예약 목록");
 		model.addAttribute("rsvList", rsvList);
 		return "rsv/rsvListAdmin";
 	}
@@ -200,6 +211,7 @@ public class RsvController {
 	public String rsvList(Model model, HttpSession session) {
 		String sessionId = (String) session.getAttribute("SID");
 		List<Rsv> rsvList = rsvService.rsvList(sessionId);
+		model.addAttribute("title", "예약 목록");
 		model.addAttribute("rsvList", rsvList);
 		return "rsv/rsvList";
 	}
@@ -210,6 +222,7 @@ public class RsvController {
 	@GetMapping("/rsvDetailListAdmin")
 	public String rsvDetailListByAdmin(Model model) {
 		List<Rsv> rsvDetailList = rsvService.rsvDetailList();
+		model.addAttribute("title", "세부 예약 목록");
 		model.addAttribute("rsvDetailList", rsvDetailList);
 		return "rsv/rsvDetailListAdmin";
 	}
@@ -220,7 +233,7 @@ public class RsvController {
 	@GetMapping("/rsvStoreList")
 	public String rsvStoreList(Model model) {
 		List<Store> storeList = storeService.storeList();
-		model.addAttribute("title", "업체 리스트");
+		model.addAttribute("title", "예약할 업체 리스트");
 		model.addAttribute("storeList", storeList);
 		return "rsv/rsvStoreList";
 	}

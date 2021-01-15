@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
 <th:block layout:fragment="customContent">
 	<h1>!!아직 손도 안댔음!! 업체별 어느공간과 어느장비가 어느시점에 얼마나 수익창출을 했나를 통계낼 예정</h1>
 <!-- 예약수 패널 시작 -->
