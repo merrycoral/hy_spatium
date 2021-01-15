@@ -82,6 +82,10 @@ public class PaymentService {
 		return paymentMapper.paymentSelect(SID);
 	}
 	
+	public List<Payment> allPaymentSelect(){
+		return paymentMapper.allPaymentSelect();
+	}
+	
 	public int paymentSystem(Payment payment) {
 		
 		int pay = paymentMapper.paymentSystem(payment);

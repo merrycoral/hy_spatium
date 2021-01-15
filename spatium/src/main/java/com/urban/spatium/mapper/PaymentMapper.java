@@ -36,6 +36,8 @@ public interface PaymentMapper {
 	
 	public List<Payment> paymentSelect(String SID);
 	
+	public List<Payment> allPaymentSelect();
+	
 	public int paymentSystem(Payment payment);
 	
 	public int addPoint(Point Point);

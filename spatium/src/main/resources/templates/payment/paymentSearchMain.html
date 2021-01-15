@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="@{layout/default}">
+	  layout:decorate="@{layout/maindefault}">
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
@@ -113,7 +113,7 @@
 		
 		for(var i=0; i<$('.rsvDate').length; i++){
 			
-			var rsvdate = $('.rsvDate').eq(i).val();
+			var rsvdate = $('.rsvDate').eq(i).text();
 			//예약날짜
 			var rsvdateYear = rsvdate.substring(0,4);
 			var rsvdateMonth = rsvdate.substring(5,7);
@@ -151,7 +151,6 @@
 		<tr>
 			<th>결제코드</th>
 			<th>예약코드</th>
-			<th>아이디</th>
 			<th>결제금액</th>
 			<th>사용한 포인트</th>
 			<th>실결제금액</th>
@@ -169,15 +168,13 @@
 		<tr>
 			<td><span th:text="${p.paymentCode}" class="payCode" style="text-decoration: underline; cursor:pointer;"></span></td>
 			<td th:text="${p.paymentRsvCode}"></td>
-			<td th:text="${pr.rsvUserId}"></td>
 			<td th:text="${p.paymentPrice}"></td>
 			<td th:text="${p.paymentUsePoint}"></td>
 			<td th:text="${p.paymentUseMoney}"></td>
 			<td th:text="${p.paymentAddPoint}"></td>
 			<td th:text="${p.paymentRegDate}" class="paymentRegDate"></td>
 			<td th:text="${p.paymentIP}"></td>
-			<td><input type="text" th:value="${pr.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td>
-			<!-- <td th:text="${pr.rsvStartDateTime}" class="rsvDate"></td> -->
+			<td th:text="${pr.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td>
 			<td th:text="${pr.rsvState}" class="rsvState"></td>
 			
 			<td class="cancelTestTd">

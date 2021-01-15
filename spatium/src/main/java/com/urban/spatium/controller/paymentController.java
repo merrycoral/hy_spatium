@@ -223,12 +223,23 @@ public class paymentController {
 		
 	}
 	
-	
-	
-	@GetMapping("/paymentSearch")
-	public String paymentSearch(Model model,HttpSession session) {
+	//구매자 페이지 결제내역
+	@GetMapping("/paymentSearchMain")
+	public String paymentSearchMain(Model model,HttpSession session) {
 		String SID = (String) session.getAttribute("SID");
 		List<Payment> paymentList = paymentService.paymentSelect(SID);
+		System.out.println("컨트롤러!!!1" + paymentList);
+		model.addAttribute("title", "결제내역조회");
+		model.addAttribute("paymentList", paymentList);
+		return "payment/paymentSearchMain";
+	}
+	
+	
+	//관리자 페이지 결제내역
+	@GetMapping("/paymentSearch")
+	public String paymentSearch(Model model) {
+		
+		List<Payment> paymentList = paymentService.allPaymentSelect();
 		System.out.println("컨트롤러!!!1" + paymentList);
 		model.addAttribute("title", "결제내역조회");
 		model.addAttribute("paymentList", paymentList);

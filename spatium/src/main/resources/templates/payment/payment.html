@@ -32,15 +32,11 @@
 		    if(rsvResult=="X"){
 		    	alert("결제불가능하다 .");
 		    //location.href="/rsvListAdmin";
-		    }else{
-		    	alert("결제가능하다.");
 		    }
 		    
 		    console.log(rsvResult);
 		    
-			var check_ip = ip(); 
-			 $('#getIp').val(check_ip);// 접속한 기기의 IP를 가져온다
-			console.log(check_ip + "<<<<IIIIIIPPPPPPPPPPPP");
+			
 			
 			 function minus(){
 				var paymentPrice = $('.paymentPrice').val();//결제가격
@@ -77,7 +73,9 @@
 				$('.paymentAddPoint').val(abc);//적립되어야하는 포인트 값	
 				
 				
-				
+				var check_ip = ip(); 
+				 $('#getIp').val(check_ip);// 접속한 기기의 IP를 가져온다
+				console.log(check_ip + "<<<<IIIIIIPPPPPPPPPPPP");	
 				 
 			
 			
@@ -204,8 +202,10 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 
+
+<!-- 날짜 비교하기 위해 디테일 코드 가져온 거 -->
 <th:block th:if="${#lists.size(rsvDetailList) > 0}" th:each = "p : ${rsvDetailList}">
-<span th:text="${p}"></span>
+
 
 
 </th:block>
