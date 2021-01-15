@@ -24,6 +24,9 @@ margin-right: 20px;
 }
 </style>
 </th:block>
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
 <th:block layout:fragment="customContent">
 
 <!-- 공간 예약 테이블 -->

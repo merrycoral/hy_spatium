@@ -25,6 +25,9 @@ margin-right: 20px;
 </style>
 <!-- reservationDRP css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </th:block>
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
 <th:block layout:fragment="customContent">
 <!-- 공간 예약 테이블 -->
 	<form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsertAdmin" method="post">
