@@ -29,8 +29,15 @@ public class StoreController {
 	
 	/* 업체명 클릭시 자세히 보기 위해서 들어오는 컨트롤러 */
 	@GetMapping("/storeSeeMore")
-	public String storeSeeMore(Model model) {
+	public String storeSeeMore(Model model, Store store
+								,@RequestParam(name = "storeCode", required = false) int storeCode) {
 		
+			System.out.println(storeCode);
+			Store storeList = storeService.getStoreInfoByStoreCode(storeCode);
+			System.out.println(storeList);
+			model.addAttribute("title", "업체정보");
+			model.addAttribute("storeList", storeList);
+			
 		return "store/storeSeeMore";
 	}
 	
