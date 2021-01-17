@@ -43,6 +43,31 @@
 		FROM
 			tbItemBuyList;
 	</select>
+	
+	<!-- 장비구입 등록 -->
+	<insert id = "addItemBuy" parameterType="Item">
+		
+		INSERT INTO tbItemBuyList
+			(
+			 itemBuyCode
+			, storeBuyCode
+			, storeBuyItemCode
+			, userBuyId
+			, itemBuyPrice
+			, itemBuyAccount
+			, itemBuyPhone
+			, itemBuyRegDate)
+		VALUES 
+			(
+			 #{itemBuyCode}
+			, #{storeBuyCode}
+			, #{storeBuyItemCode}
+			, #{userBuyId}
+			, #{itemBuyPrice}
+			, #{itemBuyAccount}
+			, #{itemBuyPhone}
+			, #{itemBuyRegDate}	)
+	</insert>
 
 	<!--장비수리내역 삭제 -->
 	<delete id="removeitemRepair">
@@ -87,6 +112,35 @@
 		FROM
 			tbItemRepair;
 	</select>
+	
+	<!-- 장비수리 등록 -->
+	<insert id = "addItemRepair" parameterType="Item">
+		
+		INSERT INTO tbItemRepair
+			(
+			 itemRepairCode
+			, storeRepairCode
+			, storeItemRepairCode
+			, userRepairId
+			, itemRepairPrice
+			, itemRepairRegDate
+			, itemRepairEndDate
+			, itemRepairName
+			, itemRepairCompany
+			, itemRepairCompanyPhone)
+		VALUES 
+			(
+			 #{itemRepairCode}
+			, #{storeRepairCode}
+			, #{storeItemRepairCode}
+			, #{userRepairId}
+			, #{itemRepairPrice}
+			, #{itemRepairRegDate}
+			, #{itemRepairEndDate}
+			, #{itemRepairName}
+			, #{itemRepairCompany}
+			, #{itemRepairCompanyPhone})
+	</insert>
 	
 	<!--장비파기내역 삭제 -->
 	<delete id="removeitemDelete">

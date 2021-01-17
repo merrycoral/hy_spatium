@@ -39,11 +39,10 @@
 					<button type="submit"><a th:href="@{/removeitemBuy(itemBuyCode=${i.itemBuyCode})}">삭제</button>
 				</td>
 				</tr>
-
 			</tbody>
 		</table>
 	</div>
-
+	<button type="submit" style="float: right;" ><a th:href="@{addItemBuy}"> 글쓰기</a></button>
 </th:block>
 
 <th:block layout:fragment="customJs">

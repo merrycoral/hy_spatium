@@ -85,6 +85,27 @@ public class ItemController {
 			return "item/itemBuyList";
 	}
 	
+	//장비구입등록
+	  @PostMapping("/addItemBuy") 
+	  public String addItemBuy(Model model, Item  item, HttpSession session) {
+		  System.out.println(item +	  "=========== 장비 넘어온 값 ============"); 
+		  String sessionId = (String) session.getAttribute("SID");
+	  
+	  System.out.println(sessionId); 
+	  item.setItemDetailUserId(sessionId);
+	  
+	  String result = itemService.addItemBuy(item); 
+	  System.out.println(result);
+		/* return "redirect:/addItemDelete"; */
+	   return "item/itemBuyList"; 
+	  }
+	  
+	  @GetMapping("/addItemBuy") 
+	  public String addItemBuy(Model model) {
+	  model.addAttribute("title", "장비 등록 하기"); 
+	  return "item/itemBuyForm2"; 
+	  }
+	
 	
 	//장비수리내역 삭제
 	@PostMapping("/removeitemRepair")
@@ -147,6 +168,27 @@ public class ItemController {
 		return "item/itemRepairList";
 	}
 	
+	//장비수리등록
+	  @PostMapping("/addItemRepair") 
+	  public String addItemRepair(Model model, Item  item, HttpSession session) {
+		  System.out.println(item +	  "=========== 장비 넘어온 값 ============"); 
+		  String sessionId = (String) session.getAttribute("SID");
+	  
+	  System.out.println(sessionId); 
+	  item.setItemDetailUserId(sessionId);
+	  
+	  String result = itemService.addItemRepair(item); 
+	  System.out.println(result);
+		/* return "redirect:/addItemDelete"; */
+	   return "item/itemRepairList"; 
+	  }
+	  
+	  @GetMapping("/addItemRepair") 
+	  public String addItemRepair(Model model) {
+	  model.addAttribute("title", "장비 등록 하기"); 
+	  return "item/itemRepairForm"; 
+	  }
+	
 	//장비파기내역 삭제
 		@PostMapping("/removeitemDelete")
 		public String removeitemDelete(@RequestParam(name="itemDeleteCode", required = false) int itemDeleteCode
@@ -191,7 +233,8 @@ public class ItemController {
 			System.out.println("장비파기내역 수정화면에 입력받은 값 ->" + storeDeleteCode);	
 			
 			Item item = itemService.getitemBuyCode(storeDeleteCode);
-				
+			model.addAttribute("item", item);
+			
 			return "item/uItemDelete";
 		}
 		
@@ -207,27 +250,6 @@ public class ItemController {
 		}
 		
 	  //장비파기등록
-	/*
-	 * @PostMapping("/addItemDelete") public String addItemDelete( Item item
-	 * ,@RequestParam(name="userLevel", required = false, defaultValue = "5") int
-	 * userLevel) {
-	 * 
-	 * System.out.println("상품등록화면에서 입력 받은 값->" + userLevel);
-	 * 
-	 * if(userLevel < 3) { //2:판매자, 3:구매자 //상품등록 String result =
-	 * itemService.addItemDelete(item);
-	 * 
-	 * return "redirect:/itemDeleteList";
-	 * 
-	 * }else if(userLevel == 3) { return "redirect:/"; }else { return
-	 * "redirect:/login"; } }
-	 * 
-	 * @GetMapping("/addItemDelete") public String addItemDelete(Model model) {
-	 * model.addAttribute("title", "상품등록"); return "item/itemDeleteForm"; }
-	 */
-	 
-	
-	
 	  @PostMapping("/addItemDelete") public String addItemDelete(Model model, Item  item, HttpSession session) {
 		  System.out.println(item +	  "=========== 장비 넘어온 값 ============"); 
 		  String sessionId = (String) session.getAttribute("SID");
@@ -236,7 +258,9 @@ public class ItemController {
 	  
 	  String result = itemService.addItemDelete(item); 
 	  System.out.println(result);
-	  return "redirect:/addItemDelete"; 
+		/* return "redirect:/addItemDelete"; */
+	   return "item/itemDeleteList"; 
+	 
 	  }
 	  
 	  @GetMapping("/addItemDelete") public String addItemDelte(Model model) {
@@ -244,9 +268,6 @@ public class ItemController {
 	  return "item/itemDeleteForm"; 
 	  }
 	 
-	 
-			
-	
 	//장비수량목록
 	@GetMapping("/itemCountList")
 	public String itemCountList(Model model) {

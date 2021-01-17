@@ -41,6 +41,9 @@ public interface ItemMapper {
 		  
 	//장비수리내역
 	public List<Item> itemRepairList();
+	
+	//장비수리 등록
+	public int addItemRepair(Item item);
 		
 	//장비구입내역 삭제
 	int removeitemBuy(int itemBuyCode);
@@ -50,5 +53,8 @@ public interface ItemMapper {
 	  
 	//장비구입내역
 	public List<Item> itemBuyList();
+	
+	//장비구입 등록
+	public int addItemBuy(Item item);
 	  
 }
