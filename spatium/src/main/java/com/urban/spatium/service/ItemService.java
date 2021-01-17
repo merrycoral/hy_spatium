@@ -51,6 +51,16 @@ public class ItemService {
 		return itemMapper.itemBuyList();
 	}
 	
+	//장기구입 등록
+	public String addItemBuy(Item item) {
+			
+	String addCheck = "장비파기 등록 실패";
+		if(item != null) {
+		itemMapper.addItemRepair(item);
+			addCheck = "장비파기 등록 성공";
+		}
+		return addCheck;
+	}
 	//장비수리내역 삭제
 	public String removeitemRepair(int itemRepairCode, String userId, String userPw) {
 		String result = "장비구입내역 삭제 실패";
@@ -79,6 +89,17 @@ public class ItemService {
 	public List<Item> itemRepairList(){
 			
 		return itemMapper.itemRepairList();
+	}
+	
+	//장기수리 등록
+	public String addItemRepair(Item item) {
+			
+	String addCheck = "장비파기 등록 실패";
+		if(item != null) {
+		itemMapper.addItemRepair(item);
+			addCheck = "장비파기 등록 성공";
+		}
+		return addCheck;
 	}
 	
 	//장비파기내역 삭제

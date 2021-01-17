@@ -8,13 +8,14 @@
 </th:block>
 
 <th:block layout:fragment="customContent">
-<form th:action="@{/addItemDelete}" method="post">
+<form th:action="@{/addItemRepair}" method="post">
 
 	<div class="row">
 		<div class="col-md-12 col-sm-12 ">
+			
 				<div class="x_title">
 					<h2>
-						장비파기 <small> 등록하기 </small>
+						장비수리 <small> 등록하기 </small>
 					</h2>
 					<div class="clearfix"></div>
 				</div>
@@ -44,53 +45,81 @@
 							<label class="col-form-label col-md-3 col-sm-3 label-align">
 								세부 장비 코드 <span class="required">*</span>
 							</label>
-							<div class="col-md-6 col-sm-6 ">
 								<div class="col-md-6 col-sm-6 ">
 								<input type="text" id="storeItemDeleteCode" name="storeItemDeleteCode"
 									class="form-control"
 									placeholder="세부 장비 코드를 입력해주세요.">
 							</div>
 						</div>	
-					</div>						
 						<div class="form-group row">
 							<label class="col-form-label col-md-3 col-sm-3 label-align">
 								아이디 <span class="required">*</span>
 							</label>
-							<div class="col-md-6 col-sm-6 ">
 								<div class="col-md-6 col-sm-6 ">
 								<input type="text" id="userId" name="userId"
 									class="form-control"
-									placeholder="파기한 사람 아이디를 입력해주세요.">
+									placeholder="수리한 사람 아이디를 입력해주세요.">
 							</div>
 						</div>	
-					</div>		
-						<div class="form-group row">
-							<label class="col-form-label col-md-3 col-sm-3 label-align"
-								style="margin-top: 15px;"> 장비  파기 사유 </label>
-							<div class="col-md-6 col-sm-6 " style="text-align: right;">
-								<span style="color: #aaa;" id="counter">(0
-									/ 최대 500자)</span>
-								<textarea id="itemDeleteReason" name="itemDeleteReason" class="form-control"
-									style="resize: none;" rows="4"
-									placeholder="장비 파기 사유를 입력해주세요."></textarea>
-							</div>
-						</div>
 						<div class="form-group row">
 							<label class="col-form-label col-md-3 col-sm-3 label-align">
-								장비 파기 일자 <span class="required">*</span>
+								장비 수리비용 <span class="required">*</span>
 							</label>
-							<div class="col-md-6 col-sm-6 ">
 								<div class="col-md-6 col-sm-6 ">
-								<input type="date" id="itemDeleteRegDate" name="itemDeleteRegDate"
+								<input type="text" id="itemRepairPrice" name="itemRepairPrice"
 									class="form-control">
 							</div>
 						</div>	
-					</div>		
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								수리 맡긴 일자 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="date" id="itemRepairRegDate" name="itemRepairRegDate"
+									class="form-control">
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								수리 끝나는 일자 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="date" id="itemRepairEndDate" name="itemRepairEndDate"
+									class="form-control">
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								장비 이름 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="text" id="itemRepairName" name="itemRepairName"
+									class="form-control">
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								수리 맡긴 업체 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="text" id="itemRepairCompany" name="itemRepairCompany"
+									class="form-control">
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								수리 맡긴 업체번호 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="text" id=itemRepairCompanyPhone name="itemRepairCompanyPhone"
+									class="form-control">
+							</div>
+						</div>	
 					<div class="form-group row">
 						<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
 							<div class="col-md-6 col-sm-6" style="text-align: center;">
 								<button type="submit" class="btn btn-primary"
-									style="width: 100%; height: 50px;" id = "addItemDelte" >상품등록</button>
+									style="width: 100%; height: 50px;" id = "addItemRepair" >상품등록</button>
 							</div>
 						</div>
 					</div>
@@ -101,39 +130,38 @@
 <th:block layout:fragment="customJs">
 	<script type="text/javascript">
 			
-			$('#addItemDelete').click(function(){
-				if($('#storeDeleteCode').val() == "0"){
+			$('#addItemRepair').click(function(){
+				if($('#storeRepairCode').val() == "0"){
 					alert("업체 코드를 입력해주세요.");
 					return false;
-				}else if($('#storeItemDeleteCode').val() == '0'){
+				}else if($('#storeItemRepairCode').val() == '0'){
 					alert("세부 장비 코드를 입력해주세요.");
 					return false;
-				}else if($('#userId').val() == "0"){
+				}else if($('#userRepairId').val() == "0"){
 					alert("아이디를 입력해주세요.");
 					return false;
-				}else if($('#itemDeleteReason')val() == "0"){
-					alert("장비 파기 사유를 입력해주세요.");
+				}else if($('#itemRepairPrice')val() == "0"){
+					alert("장비 수리 비용을 입력해주세요.");
 					return false;
-				}else if($('#itemDeleteRegDate').val() == "0"){
-					alert("장비 파기 일자를 입력해주세요.");
+				}else if($('#itemRepairRegDate').val() == "0"){
+					alert("수리 맡긴 일자를 입력해주세요.");
+					return false;
+				}else if($('#itemRepairEndDate').val() == "0"){
+					alert("수리끝나는 일자를 입력해주세요.");
+					return false;
+				}else if($('#itemRepairName').val() == "0"){
+					alert("장비 이름을 입력해주세요.");
+					return false;
+				}else if($('#itemRepairCompany').val() == "0"){
+					alert("수리 맡긴 업체를 입력해주세요.");
+					return false;
+				}else if($('#itemRepairCompanyPhone').val() == "0"){
+					alert("수리 맡긴 업체 번호를 입력해주세요.");
 					return false;
 				}else{
-					alert("장비파기 등록에 성공하셨습니다.");
+					alert("장비수리 등록에 성공하셨습니다.");
 				}
 			});
-			
-			$('#itemDeleteReason').keyup(function() {
-				var content = $(this).val();
-				$('#counter').html("(" + content.length + " / 최대 500자)");
-
-				if (content.length > 500) {
-					alert("최대 500자까지 입력 가능합니다.");
-					$(this).val(content.substring(0, 500));
-					$('#counter').html("(500 / 최대 500자)");
-				}
-			});
-		});
-		
 	</script>
 </th:block>
 </html>
