@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="@{layout/default}">
+	  layout:decorate="@{layout/maindefault}">
 
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
@@ -9,13 +9,15 @@
 
 <th:block layout:fragment="customCss">
 <style>
+body{height: 1000px;}
 table{ float: left; margin-right: 200px; }
 input{margin-left: 5px; margin-right: 5px;}
 td{text-align: center;}
-#table1{width: 30%; height: 500px; margin-left: 100px;}
+#table1{width: 30%; min-height: 500px; margin-left: 100px;}
 #table2{width: 300px; float: none;}
 #Explanation{margin-left: 510px; margin-top: 5px;}
 .hid{display: none;}
+
 </style>
 </th:block>
 
@@ -209,4 +211,5 @@ td{text-align: center;}
 	
 	
 </form>
+
 </th:block>

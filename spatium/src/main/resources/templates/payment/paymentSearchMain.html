@@ -8,10 +8,12 @@
 
 <th:block layout:fragment="customCss">
 <style>
-.hid{display: none; position: absolute; top: 20px; background-color: white; width: 80%; height: 60%;}
+
+.hid{display: none; position: absolute; top: 250px; background-color: white; width: 80%; height: 30%; margin-left: 80px; border: 2px solid;  overflow: scroll;}
+#tabled{border: 1px solid; width: 90%; margin-left: 30px;}
 .hide{display: none; }
 .Active{display: block;}
-#removeBtn{margin-left:96%; margin-top: 2%;}
+#removeBtn{margin-left:96%; margin-top: 1%;}
 #teble2{display: inline-block}
 
 </style>
@@ -113,7 +115,7 @@
 		
 		for(var i=0; i<$('.rsvDate').length; i++){
 			
-			var rsvdate = $('.rsvDate').eq(i).text();
+			var rsvdate = $('.rsvDate').eq(i).val();
 			//예약날짜
 			var rsvdateYear = rsvdate.substring(0,4);
 			var rsvdateMonth = rsvdate.substring(5,7);
@@ -157,9 +159,9 @@
 			<th>적립포인트</th>
 			<th>결제일시</th>
 			<th>결제IP</th>
-			<th>예약날짜</th>
 			<th>예약상태</th>
 			<th>환불</th>
+			<th>예약날짜</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -174,12 +176,13 @@
 			<td th:text="${p.paymentAddPoint}"></td>
 			<td th:text="${p.paymentRegDate}" class="paymentRegDate"></td>
 			<td th:text="${p.paymentIP}"></td>
-			<td th:text="${pr.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td>
 			<td th:text="${pr.rsvState}" class="rsvState"></td>
-			
 			<td class="cancelTestTd">
 				<a class="cancelTest" th:href="@{/cancelTest(paymentCode=${p.paymentCode})}"><button type="button" class="cancelTest">환불</button></a>
 			</td>
+			<td><input type="text" th:value="${pr.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td>
+			<!-- <td th:text="${pr.rsvStartDateTime}" class="rsvDate"></td> -->
+			
 		</tr>
 		</th:block>
 		</th:block>
@@ -187,9 +190,9 @@
 </table>
 <div class="hid" id="hidTable">
 <button type="button" id="removeBtn">X</button>
-<table border="1" >
+<table id="tabled">
 
-	<thead>
+	<thead class="tbody">
 		<tr>
 			<th>예약코드</th>
 			<th>세부예약코드</th>
@@ -206,7 +209,7 @@
 			<th>예약날짜</th>
 		</tr>
 	</thead>
-	<tbody id="tbody">
+	<tbody id="tbody" class="tbody">
 	
 	</tbody>
 </table>
