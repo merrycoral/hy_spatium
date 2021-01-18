@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,6 +44,17 @@ public class MainController {
 	private ItemService itemService;
 	@Autowired 
 	private ReviewService reviewService;
+	
+	@PostMapping("/searchAll")
+	public String mainSearchAll(Model model, Store store
+								,@RequestParam(name = "searchName", required = false) String searchName) {
+			
+		System.out.println(searchName);
+		List<Store> searchAll = storeService.mainSearchAll(searchName);
+		model.addAttribute("searchAll", searchAll);
+		model.addAttribute("searchName", searchName);
+		return "indexSearch";
+	}
 	
 	@GetMapping("/mainSpaceOrder")
 	public String mainSpaceOrder() {

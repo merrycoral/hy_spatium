@@ -2,6 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.StoreMapper">
 
+<select id="mainSearchAll" resultType="Store" parameterType="String">
+
+	SELECT DISTINCT
+		  storeCode
+		, storeId
+		, storeName
+		, storeRepresentative
+		, storeNumber
+		, storeBusinessType
+		, storeAddressNumber
+		, storeAddress
+		, storeAddressDetail
+		, storeIntroduction
+		, storeRsvType
+		, storeEmail
+		, storePhone
+		, storeAccountBankName
+		, storeAccountNumber
+		, storeRefundRull
+		, storeImage
+		, storeLevel
+		, storeRegDate
+	FROM 
+		tbStore AS s
+	INNER JOIN
+		tbOkaySpace AS o
+	WHERE
+		s.storeName LIKE CONCAT('%',#{searchName},'%')
+	OR
+		s.storeBusinessType LIKE CONCAT('%',#{searchName},'%')
+	OR
+		o.okaySpaceTag LIKE CONCAT('%',#{searchName},'%')
+
+</select>
+
 <update id="updateStoreSet" parameterType="Store">
 
 	UPDATE tbStore

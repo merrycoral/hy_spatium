@@ -91,26 +91,23 @@
 							</div>
 
 							<div class="col-md-6">
-								<p class="lead">Amount Due 2/22/2014</p>
+								<p class="lead">환불 정책</p>
 								<div class="table-responsive">
 									<table class="table">
 										<tbody>
 											<tr>
-												<th style="width: 50%">Subtotal:</th>
-												<td>$250.30</td>
+											<th style="text-align: center; width: 50%;">예약까지남은일수</th>
+											<th style="text-align: center;">환불퍼센트</th>
 											</tr>
-											<tr>
-												<th>Tax (9.3%)</th>
-												<td>$10.34</td>
-											</tr>
-											<tr>
-												<th>Shipping:</th>
-												<td>$5.80</td>
-											</tr>
-											<tr>
-												<th>Total:</th>
-												<td>$265.24</td>
-											</tr>
+											<tr th:each="r : ${storeList}" style="width: 100%">
+										<td>이용<input type="text" name="remainingDay"
+											 class="a form-control"
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.remainingDay}">일전
+										</td>
+										<td>총금액의<input type="text" name="refundPercent"
+											 class="b form-control"
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.refundPercent}">%
+										</td>
 										</tbody>
 									</table>
 								</div>

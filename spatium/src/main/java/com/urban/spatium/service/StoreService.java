@@ -23,6 +23,13 @@ public class StoreService {
 	@Autowired
 	private RefundMapper refundMapper;
 	
+	public List<Store> mainSearchAll(String searchName){
+			
+			List<Store> searchStore = storeMapper.mainSearchAll(searchName);
+		
+		return searchStore;
+	}
+	
 	public String updateStoreSet(Store store) {
 		
 		String updateCheck = "업체 수정 실패";
