@@ -11,11 +11,15 @@
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>실시간 매출 현황 페이지</h2>
+				<div style="float:right;">
+					<b th:text="${storeInfo.storeId}"></b> / 
+					<b th:text="${storeInfo.storeRepresentative}"></b>  님의 
+					<b th:text="${storeInfo.storeName}"></b>
+				</div>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
 				<b th:text=${today}></b>  <b th:text=${nowtime}></b> 현재 시각까지의 매출 현황입니다.
-				<button type="button" style="float:right;" class="btn btn-success btn-md" id="closeBtn">마감정산</button>
 				<form id="selectReview" method="post">
 				<div class="table-responsive">
 					<table class="table table-striped jambo_table bulk_action" id="reviewTable" style="padding: 0px;">

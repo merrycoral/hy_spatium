@@ -26,9 +26,8 @@ public class CalcController {
 		
 		@GetMapping("/currentCalc")
 		public String currentCalc(HttpSession session, Model model, @RequestParam(name="result", required = false) String result
-				, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
+				) {
 			String sessionId = (String) session.getAttribute("SID");
-			if(sessionId != null && sessionId != "") {
 			Calendar cal = Calendar.getInstance();
 			SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
 			String today = day.format(cal.getTime());
@@ -42,11 +41,10 @@ public class CalcController {
 			model.addAttribute("title", "실시간 매출 현황");
 			model.addAttribute("today", today);
 			model.addAttribute("nowtime", nowtime);
+			model.addAttribute("storeInfo", resultMap.get("storeInfo"));
 			model.addAttribute("getTodayList", resultMap.get("getTodayList"));
 			model.addAttribute("todaytotal", resultMap.get("todaytotal"));
 			return "calculate/currentCalc";
-			}
-			return null;
 		}
 		
 		@GetMapping("/dailyCalcSeeMore")
@@ -100,9 +98,7 @@ public class CalcController {
 		@GetMapping("/sellerCalc")
 		public String sellerCalc(Model model, @RequestParam(name="result", required = false) String result,  HttpSession session) {
 			String sessionId = (String) session.getAttribute("SID");
-			if(sessionId != null && sessionId != "") {
-				return "calculate/sellerCalc";
-			}
+			
 			return "calculate/sellerCalc";
 		}
 		

@@ -30,7 +30,7 @@ public class CalcService {
 		}
 		
 		public String CloseCalc(String today){
-			//일별 매출 마감 등록되는 메서드입니다.
+			//매일 0시에 일별 매출 마감 등록되는 메서드입니다.
 			//업체 id 목록 가져오기
 			List<Map<String, Object>> storeIdList = calcMapper.getStoreIdList();
 			System.out.println("PRINT storeIdList");
