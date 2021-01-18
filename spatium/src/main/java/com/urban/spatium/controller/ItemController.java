@@ -250,13 +250,15 @@ public class ItemController {
 		}
 		
 	  //장비파기등록
-	  @PostMapping("/addItemDelete") public String addItemDelete(Model model, Item  item, HttpSession session) {
+	  @PostMapping("/addItemDelete") public String addItemDelete(Model model, Item  item, HttpSession session,
+			  						@RequestParam(name = "userId", required = false) String userId) {
 		  System.out.println(item +	  "=========== 장비 넘어온 값 ============"); 
 		  String sessionId = (String) session.getAttribute("SID");
+		  System.out.println(userId + "1111111111111111111111111111111");
 	  
 	  System.out.println(sessionId); item.setItemDetailUserId(sessionId);
 	  
-	  String result = itemService.addItemDelete(item); 
+	  String result = itemService.addItemDelete(userId); 
 	  System.out.println(result);
 		/* return "redirect:/addItemDelete"; */
 	   return "item/itemDeleteList"; 
