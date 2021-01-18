@@ -74,14 +74,12 @@ public class RsvController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('이미 결제가 완료되었습니다. 결제 페이지에서 환불해주세요'); location.href=\"paymentSearch\";</script>");
 			out.flush();
-			System.out.println("여기 안도나");
 			return "index";
 		}else if ("환불 완료".equals(rsvState)) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('이미 결제 취소 및 환불이 완료되었습니다.'); location.href=\"rsvListAdmin\";</script>");
 			out.flush();
-			System.out.println("여기 안도나");
 			return "index";
 		}
 		
@@ -141,7 +139,8 @@ public class RsvController {
 	 * 예약 하는 ajax
 	 */
 	@RequestMapping(value = "/rsvInsertAjax", produces="application/json"  ,method = RequestMethod.POST ) 
-	public @ResponseBody String addInOutPut(@RequestBody Rsv rsv, HttpSession session) throws IOException {
+	public @ResponseBody String addInOutPut(@RequestBody Rsv rsv, HttpSession session, @RequestParam(name="pageType", required = false)String pageType) throws IOException {
+		String returnPath = "/rsvList";
 		System.out.println("예약날짜 --> "+rsv.getRsvDate());
 		System.out.println("시작시간 --> "+rsv.getStartTime());
 		System.out.println("종료시간 --> "+rsv.getEndTime());
@@ -159,7 +158,10 @@ public class RsvController {
 	    if(result!=null && result.size()>0) {
 	    	return "/rsvInsert?storeCode="+rsv.getRsvStoreCode()+"&rsvType="+rsv.getRsvState()+"&rsvCheck=0";
 	    }
-	    return "/rsvListAdmin";
+	    if("admin".equals(pageType)) {
+	    	returnPath = "/rsvListAdmin";
+	    }
+	    return returnPath;
 	}
 	
 	
@@ -170,6 +172,7 @@ public class RsvController {
 	public String rsvInsert(Model model,int storeCode, String rsvType
 			, @RequestParam(name="rsvCheck", required = false)String rsvCheck
 			, @RequestParam(name="pageType", required = false)String pageType) {
+		String returnPath = "/";
 		List<OKSpace> getSpaceByStore = rsvService.getSpaceByStore(storeCode);//업체에 소속된 공간 가져오기
 		List<Item> getItemByStore = rsvService.getItemByStore(storeCode);//업체에 소속된 장비 가져오기
 		model.addAttribute("title", "예약 등록");
@@ -179,18 +182,18 @@ public class RsvController {
 		model.addAttribute("rsvCheck", rsvCheck);
 		if("admin".equals(pageType)) {
 			if("시간".equals(rsvType)) {
-				return "rsv/rsvInsertAdmin";
+				returnPath = "rsv/rsvInsertAdmin";
 			}else if("일".equals(rsvType)){
-				return "rsv/rsvInsertDayAdmin";
+				returnPath = "rsv/rsvInsertDayAdmin";
 			}
 		}else {
 			if("시간".equals(rsvType)) {
-				return "rsv/rsvInsert";
+				returnPath = "rsv/rsvInsert";
 			}else if("일".equals(rsvType)){
-				return "rsv/rsvInsertDay";
+				returnPath = "rsv/rsvInsertDay";
 			}
 		}
-		return "/";
+		return returnPath;
 	}
 	
 	/**
