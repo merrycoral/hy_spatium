@@ -27,9 +27,12 @@ public interface UserMapper {
 	public int addDeleteUser(User user);
 	
 	//관리자용 회원삭제
-	/* int removeUser(String userId); */
+	 int removeUser(String userId); 
 
-	//마이페이지 수정
+	//구매자 마이페이지 수정
+	int myPage(User user);
+	
+	//관리자 마이페이지 수정
 	int myInfo(User user);
 	
 	//관리자용 회원수정
@@ -41,13 +44,16 @@ public interface UserMapper {
 	//로그인
 	public User getUserById(String userId);
 	
-	//아이디 찾기
-	
+	//관리자 아이디 중복체크
+	public int idCheck(User user);
 	
 	//아이디 중복체크
 	public int idChk(User user);
 	
-	//회원가입
+	//관리자 회원가입
+	public int addAdmin(User user);
+	
+	//구매자 회원가입
 	public int addUser(User user);
 
 	

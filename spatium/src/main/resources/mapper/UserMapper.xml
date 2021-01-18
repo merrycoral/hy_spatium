@@ -53,7 +53,39 @@
 			tbDeleteUser;
 	</select>
 	
-	<!--마이페이지 수정 -->
+	<!--탈퇴회원 등록  -->
+	<insert id="addDeleteUser">
+		INSERT INTO tbDeleteUser
+		(deleteUserId
+		, deleteReason
+		, deleteCate
+		, deleteUserPw
+		, deleteUserName
+		, deleteUserBirth
+		, deleteUserGender
+		, deleteUserPhone
+		, deleteUserJob
+		, deleteUserLevel
+		, deleteUserEmail
+		, deleteUserRegDate
+		, deleteUserPoint)
+		VALUES (
+		#{userId}
+		,#{deleteReason}
+		,#{deleteCate}
+		,#{userPw}
+		,#{userName}
+		,#{userBirth}
+		,#{userGender}
+		,#{userPhone}
+		,#{userJob}
+		,#{userLevel}
+		,#{userEmail}
+		,NOW()
+		,#{userPoint});
+	</insert>
+	
+	<!--관리자 마이페이지 수정 -->
 	<update id="myInfo" >
 		UPDATE
 		tbUser
@@ -67,6 +99,40 @@
 		, userEmail = #{userEmail}
 		WHERE
 			userId = #{userId};     
+	</update>
+	
+	<!--구매자 마이페이지 수정 -->
+	<update id="myPage" >
+		UPDATE
+		tbUser
+		SET 
+		  userPw = #{userPw}
+		, userName = #{userName}
+		, userBirth	= #{userBirth}
+		, userGender = #{userGender}
+		, userPhone = #{userPhone}
+		, userJob = #{userJob}
+		, userEmail = #{userEmail}
+		WHERE
+			userId = #{userId};     
+	</update>
+	
+	<!--관리자용 회원삭제 업데이트-->
+	<update id="removeUser" parameterType="String">
+		UPDATE
+		tbUser
+		SET
+		  userPw = '(탈퇴)'
+		, userName = '(탈퇴)'
+		, userBirth	= '0000-00-00'
+		, userGender = '(탈퇴)'
+		, userPhone = '(탈퇴)'
+		, userJob = '(탈퇴)'
+		, userLevel = '5'
+		, userEmail = '(탈퇴)'
+		, userPoint = '0'
+		WHERE
+		userId=#{userId}; 
 	</update>
 	
 	<!--관리자용 회원수정 -->
@@ -123,6 +189,16 @@
 		userName = #{userName} AND userEmail = #{userEmail};
 	</select>
 	
+	<!-- 관리자 아이디 중복 체크 -->
+	<select id="idCheck" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM
+		tbUser
+		WHERE
+		userId = #{userId};
+	</select>
+	
 	<!-- 아이디 중복 체크 -->
 	<select id="idChk" resultType="int">
 		SELECT
@@ -133,7 +209,24 @@
 		userId = #{userId};
 	</select>
 
-	<!--회원가입 -->
+	<!--관리자 회원가입 -->
+	<insert id="addAdmin">
+		INSERT INTO tbUser
+		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userEmail,	userRegDate)
+		VALUES (
+		#{userId}
+		,#{userPw}
+		,#{userName}
+		,#{userBirth}
+		,#{userGender}
+		,#{userPhone}
+		,#{userJob}
+		,#{userLevel}
+		,#{userEmail}
+		,NOW());
+	</insert>
+	
+	<!--구매자 회원가입 -->
 	<insert id="addUser">
 		INSERT INTO tbUser
 		(userId, userPw, userName, userBirth, userGender, userPhone, userJob, userLevel, userEmail,	userRegDate)

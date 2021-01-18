@@ -26,7 +26,7 @@
 				<div class="login-links">
 					<a th:href="@{/admin}"  class="link">관리자 화면(임시)</a>
 					<a th:href="@{/login}" th:if="${session.SID == null}" class="link">로그인</a> 
-					<a th:href="@{/myInfo}" th:unless="${session.SID == null}" class="link">마이페이지</a>
+					<a th:href="@{/myPage}" th:unless="${session.SID == null}" class="link">마이페이지</a>
 					<a th:href="@{/rsvList}" th:unless="${session.SID == null}" class="link">내 예약조회</a>
 					<a th:href="@{/paymentSearchMain}" th:unless="${session.SID == null}" class="link">결제내역조회</a>
 					<a th:href="@{/pointListMain}" th:unless="${session.SID == null}" class="link">마일리지</a>
