@@ -61,7 +61,19 @@
 	<!-- 카테고리 start -->
 	<div class="jumbotron">
 		<div class="container">
-	    <th:block th:text = "${searchName}"></th:block> 에 대한 검색결과 입니다.
+	    <th:block th:text = "${searchName}"></th:block> 에 대한 검색결과 입니다. <br/><br/>
+	    	    <form th:action="@{/searchAll}" method="post">
+				<input class="btn btn-primary" name = "searchName" value = "촬영 스튜디오" type="submit">
+				<input class="btn btn-primary" name = "searchName" value = "엠티장소" type="submit">
+				<input class="btn btn-primary" name = "searchName" value = "스터디룸" type="submit">
+				<input class="btn btn-primary" name = "searchName" value = "연습실" type="submit">
+				<input class="btn btn-primary" name = "searchName" value = "파티룸" type="submit">
+				<input class="btn btn-primary" name = "searchName" value = "회의실" type="submit">
+				<input class="btn btn-primary" name = "searchName" value = "카페" type="submit">
+				<input class="btn btn-primary" name = "searchName" value = "다목적홀" type="submit">
+				<input class="btn btn-primary" name = "searchName" value = "공연장" type="submit">
+				<input class="btn btn-primary" name = "searchName" value = "한옥" type="submit">
+		</form>
 	  </div>
 	</div>
 	<!-- 카테고리 end -->

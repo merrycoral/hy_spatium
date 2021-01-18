@@ -192,8 +192,8 @@ public class UserController {
 	@GetMapping("/imsilogin")
 	public String imsilogin(HttpSession session) {
 		session.setAttribute("SID", "id001");
-		session.setAttribute("SLEVEL", "관리자");
-		session.setAttribute("SNAME", "홍01");
+		session.setAttribute("SLEVEL", "1");
+		session.setAttribute("SNAME", "이순신");
 		return "redirect:/userList";
 	}
 
@@ -220,7 +220,7 @@ public class UserController {
 
 		if(userId != null && userPw != null && User != null && User.getUserPw() != null && userPw.equals(User.getUserPw())) {
 			session.setAttribute("SID", userId);
-			session.setAttribute("SLEVEL", User.getUserLevel());
+			session.setAttribute("SLEVEL", Integer.toString(User.getUserLevel()));
 			session.setAttribute("SNAME", User.getUserName());
 			System.out.println(userId + " : 로그인 성공");
 		}else {
