@@ -180,7 +180,7 @@
 	</select>
 	
 	<!-- 장비파기 등록 -->
-	<insert id = "addItemDelete" parameterType="Item">
+	<insert id = "addItemDelete" parameterType="String">
 		
 		INSERT INTO tbItemDeleteList
 			(

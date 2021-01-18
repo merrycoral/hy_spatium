@@ -54,28 +54,26 @@ public class UserController {
 	//관리자용 회원삭제
 	@PostMapping("/removeUser") 
 	public String removeUser(@RequestParam(name="reason", required = false) String reason  
-			,@RequestParam(name="userPw", required = false) String userPw
 			,@RequestParam(name="userId", required = false) String userId
 			,RedirectAttributes redirectAttr) { 
 		System.out.println("회원탈퇴화면에서 입력받은 값(id)--->" + userId);
-		System.out.println("회원탈퇴화면에서 입력받은 값(pw)--->" + userPw);
 		System.out.println("회원탈퇴화면에서 입력받은 값(reason)--->"+ reason);
 
-		userService.removeUser(userId, userPw, reason);
+		userService.removeUser(userId, reason);
 		
-		return "redirect:/logout";
+		return "redirect:/userList";
 	}	
 
 	@GetMapping("/removeUser")
-	public String removeUser(Model model, HttpSession session) {
+	public String removeUser(Model model, HttpSession session
+			,@RequestParam(name="userId", required = false) String userId) {
 		model.addAttribute("title", "강제 탈퇴");
-		String SID = (String) session.getAttribute("SID");
-		model.addAttribute("SID", SID);
+		model.addAttribute("userId", userId);
 
-		return "user/uDelete";
+		return "user/adminDelete";
 	}
 
-	//회원탈퇴-----------------------------------------------------------------------------------------------------
+	//회원탈퇴
 	@PostMapping("/removeMyinfo")
 	public String removeMyinfo(@RequestParam(name="reason", required = false) String reason  
 			,@RequestParam(name="userPw", required = false) String userPw
@@ -101,7 +99,7 @@ public class UserController {
 	}
 
 
-	//마이페이지 수정
+	//관리자 마이페이지 수정
 	@PostMapping("/myInfo")
 	public String myInfo(User user) {
 		System.out.println("회원 수정 폼에서 입력받은 값" + user);
@@ -111,7 +109,7 @@ public class UserController {
 
 		return "redirect:/myInfo";
 	}
-
+	
 	@GetMapping("/myInfo") 
 	public String myInfo(Model model, HttpSession session) {
 
@@ -124,6 +122,31 @@ public class UserController {
 		model.addAttribute("title", "회원 수정화면");
 		model.addAttribute("user", user);
 		return "user/myInfo";
+	}
+	
+	//구매자 마이페이지 수정
+	@PostMapping("/myPage")
+	public String myPage(User user) {
+		System.out.println("회원 수정 폼에서 입력받은 값" + user);
+		
+		String result = userService.myPage(user);
+		System.out.println(result);
+		
+		return "redirect:/myPage";
+	}
+
+	@GetMapping("/myPage") 
+	public String myPage(Model model, HttpSession session) {
+
+		String userIdchk = (String) session.getAttribute("SID"); //로그인한 아이디를 가져오겠다는 코드
+		System.out.println(userIdchk);
+		User user = userService.login(userIdchk);	
+
+		System.out.println("db에서 검색한 회원정보-->" + user);
+
+		model.addAttribute("title", "회원 수정화면");
+		model.addAttribute("user", user);
+		return "user/myPage";
 	}
 
 	//관리자용 회원수정
@@ -149,7 +172,7 @@ public class UserController {
 		model.addAttribute("title", "회원 수정화면");
 		model.addAttribute("user", user);
 
-		return "user/uUpdate";
+		return "user/adminUpdate";
 	}	
 
 	//불량회원 리스트
@@ -240,13 +263,20 @@ public class UserController {
 		return "user/login";
 	}
 
-
 	//아이디 찾기
 	@RequestMapping("/findIdform")
 	public String findIdform()	{ 
 		return "/user/findIdform"; 
 	}
 
+	//관리자아이디 중복체크
+	@ResponseBody
+	@RequestMapping(value="/idCheck", method = RequestMethod.POST)
+	public int idCheck(User user) throws Exception {
+		int result = userService.idCheck(user);
+		return result;
+	}
+	
 	//아이디 중복체크
 	@ResponseBody
 	@RequestMapping(value="/idChk", method = RequestMethod.POST)
@@ -255,19 +285,34 @@ public class UserController {
 		return result;
 	}
 
-	//회원가입
+	//관리자 회원가입
+	@PostMapping("/addAdmin") 
+	public String addAdmin(User user ,@RequestParam(name = "userId", required = false)
+	String userId) {
+		System.out.println("회원가입화면에서 입력받은 값--->" + user); 
+		String result = userService.addAdmin(user); 
+		System.out.println(result);
+		return "redirect:/userList"; 
+	}
+	
+	@GetMapping("/addAdmin") public String addAdmin(Model model) {
+		model.addAttribute("title", "회원 가입");
+		return "user/adminJoin";
+	}
+	
+	//구매자 회원가입
 	@PostMapping("/addUser") 
 	public String addUser(User user ,@RequestParam(name = "userId", required = false)
 	String userId) {
 		System.out.println("회원가입화면에서 입력받은 값--->" + user); 
 		String result = userService.addUser(user); 
 		System.out.println(result);
-		return "redirect:/userList"; 
+		return "redirect:/main"; 
 	}
 
 	@GetMapping("/addUser") public String addUser(Model model) {
 		model.addAttribute("title", "회원 가입");
-		return "user/join";
+		return "user/userJoin";
 	}
 }  
 
