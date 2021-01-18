@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="@{layout/default}">
+	  layout:decorate="@{layout/maindefault}">
 
 
 
@@ -11,10 +11,10 @@
 
 <th:block layout:fragment="customCss">
 <style>
-#form{margin-top: 100px; margin-left: 300px;}
-.field{text-decoration: underline;}
-#hey{border: 1px solid; background-color: #EAEAEA;}
-.right_col{}
+#form{margin-top: 30px; margin-left: 400px;}
+#hey{border: 1px solid; background-color: #EAEAEA; text-align: center; width: 55%;}
+.title{font-size: 30px; padding: 15px;}
+.Contents{padding: 5px;}
 </style>
 </th:block>
 <th:block layout:fragment="customJs">
@@ -191,20 +191,18 @@
 	</script>
 </th:block>
 
-
+<!-- 메인 화면 시작지점 -->
 <th:block layout:fragment="customContent">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 
 
+<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
+
 <!-- 날짜 비교하기 위해 디테일 코드 가져온 거 -->
 <th:block th:if="${#lists.size(rsvDetailList) > 0}" th:each = "p : ${rsvDetailList}">
-
-
-
 </th:block>
 
 <form action="/test3" method="post" id="form" >
@@ -217,112 +215,98 @@
 <input type="hidden" th:value="${rsv.rsvStoreCode}" name="PaymentStoreCode">
 <input type="hidden" th:value="${rsv.rsvState}" name="rsvState">
 <input type="hidden" id="getIp" name="PaymentIP">
-	<div class="col-sm-8">
-	<div class="panel panel-default" id="hey">
+	
 	
 		
-		<div class="field item form-group row">
-			<h2 class=" col-md-3 offset-md-4"><u>주문자 정보</u></h2>
-			<div class="col-md-3 offset-md-4" th:text="${rsv.rsvUserName}"></div>
-			<div class="col-md-3 offset-md-4" th:text="${rsv.rsvUserPhone}"></div>
-			<div class="col-md-3 offset-md-4" th:text="${rsv.rsvUserEmail}"></div>
-		</div>
+	<div id="hey">
 		
 
+		<div>
+			<h1 class="title"><u>주문자 정보</u></h1>
+			<div th:text="${rsv.rsvUserName}"></div>
+			<div th:text="${rsv.rsvUserPhone}"></div>
+			<div th:text="${rsv.rsvUserEmail}"></div>
+		</div>
 
-		<div class="field item form-group">
-		<div class="col-md-7 offset-md-3">
-				<h1 class="alert-success">예약정보</h1>
-		</div>
-		</div>
 		
-		
-		<div class="field item form-group">
-			<label class=" col-md-3 offset-md-1  label-align">예약코드: </label>
-			<div class="col-md-6 col-sm-6">
-				<input type="text" th:value="${rsv.rsvCode}" name="paymentRsvCode">
-			</div>
+		<div>
+				<h1 class="title">예약 정보</h1>
 		</div>
 		
 		
 		
-		<div class="field item form-group">
-			<label class=" col-md-3 offset-md-1  label-align">예약자아이디
-				: </label>
-			<div class="col-md-6 col-sm-6">
-				<input type="text" th:value="${rsv.rsvUserId}" name="pointID"
+		<div class="Contents">
+			<label><u>예 약 코 드 </u></label>
+			<input type="text" th:value="${rsv.rsvCode}" name="paymentRsvCode">
+		</div>
+		
+		
+		
+		<div class="Contents">
+			<label><u>예약아이디</u></label>
+			<input type="text" th:value="${rsv.rsvUserId}" name="pointID"
 					readonly="readonly">
-			</div>
+			
 		</div>
 		
 		
 		
-		<div class="field item form-group row">
-		<div class="col-md-6 offset-md-3">
-				<h1 class="alert-success">포인트</h1>
+	
+		<div>
+				<h1 class="title">포인트</h1>
 		</div>
-		</div>
-		<div class="field item form-group row">
-			<label class=" col-md-3 offset-md-1 label-align "><u>보유포인트</u></label>
-			<div class="col-md-6 col-sm-6">
-				<input type="text" th:value="${totalPoint}" class="totalPoint"
+	
+		<div class="Contents">
+			<label><u>보유 포인트</u></label>
+			<input type="text" th:value="${totalPoint}" class="totalPoint"
 					readonly="readonly">
-			</div>
+			
 		</div>
 
 
 		
-		<div class="field item form-group">
-			<label class=" col-md-3 offset-md-1  label-align"><u>사용할포인트</u>
-				 </label>
-			<div class="col-md-6 col-sm-6">
-				<input type="text" name="paymentUsePoint" class="paymentUsePoint"
+		<div class="Contents">
+			<label><u>사용 포인트</u> </label>
+			<input type="text" name="paymentUsePoint" class="paymentUsePoint"
 					value="0">
 				<!-- 사용할 마일리지  : -->
 				<input type="hidden" name="usePoint" class="usePoint">
-			</div>
-		</div>
-		
-		<div class="field item form-group row ">
-		<div class="col-md-6 offset-md-3 ">
-				<h1 class="alert-success">결제</h1>
-		</div>
+			
 		</div>
 		
 		
-		<div class="field item form-group">
-			<label class=" col-md-3 offset-md-1  label-align"><u>결재금액</u>
-				 </label>
-			<div class="col-md-6 col-sm-6">
-				<input type="text" th:value="${rsv.rsvTotalPrice}"
+		<div>
+				<h1 class="title">결 제</h1>
+		</div>
+		
+		
+		
+		<div class="Contents">
+			<label><u>결 재 금 액</u></label>
+			<input type="text" th:value="${rsv.rsvTotalPrice}"
 					name="paymentPrice" class="paymentPrice">
-			</div>
+			
 		</div>
 		
 		
 		
-		<div class="field item form-group">
-			<label class=" col-md-3 offset-md-1  label-align"><u>최종결제금액</u>
-				 </label>
-			<div class="col-md-6 col-sm-6">
-				<input type="text" name="paymentUseMoney" class="paymentUseMoney"
+		<div class="Contents">
+			<label><u>실 결제금액</u></label>
+			<input type="text" name="paymentUseMoney" class="paymentUseMoney"
 					readonly="readonly">
-			</div>
+			
 		</div>
 		
-		<div class="field item form-group row">
-		<div class="col-md-6 offset-md-3">
-				<h1 class="alert-success">구매적립</h1>
-		</div>
-		</div>
+			<div>
+				<h1 class="title">구매 적립</h1>
+			</div>
+		
 	
-		<div class="field item form-group">
-			<label class=" col-md-3 offset-md-1  label-align"><u>적립포인트</u>
-				 </label>
-			<div class="col-md-6 col-sm-6">
-				<input type="text" name="addPoint" class="paymentAddPoint"
+		<div class="Contents">
+			<label><u>적립 포인트</u> </label>
+			<input type="text" name="addPoint" class="paymentAddPoint"
 					readonly="readonly">
-			</div>
+			
 		</div>
 		
 
@@ -331,12 +315,13 @@
 				<button type="button" id="charge_kakao"
 					class="btn btn-primary btn-lg">결 제 하 기</button>
 			</div>
+		
 		</div>
-		</div>
+		
 		
 	</form>
 
-
+</div>
  </th:block>
  
 
