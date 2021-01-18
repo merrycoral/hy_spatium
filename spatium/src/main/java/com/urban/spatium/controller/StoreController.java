@@ -144,6 +144,9 @@ public class StoreController {
 		System.out.println(sessionId);
 		store.setStoreId(sessionId);
 		String storeId = store.getStoreId();
+		if(storeId.equals(null)) {
+			System.out.println("로그인 후 이용해주시기 바랍니다.");
+		}
 		model.addAttribute("storeId", storeId);
 		return "store/addStore";
 	}

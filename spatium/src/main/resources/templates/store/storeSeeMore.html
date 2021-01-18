@@ -102,11 +102,11 @@
 											<tr th:each="r : ${storeList}" style="width: 100%">
 										<td>이용<input type="text" name="remainingDay"
 											 class="a form-control"
-											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.remainingDay}">일전
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.remainingDay}" readonly="readonly">일전
 										</td>
 										<td>총금액의<input type="text" name="refundPercent"
 											 class="b form-control"
-											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.refundPercent}">%
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.refundPercent}" readonly="readonly">%
 										</td>
 										</tbody>
 									</table>
