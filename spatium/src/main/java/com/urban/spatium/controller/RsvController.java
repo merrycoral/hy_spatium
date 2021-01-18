@@ -131,6 +131,7 @@ public class RsvController {
 	public String rsvListExtend(Model model, @RequestParam(name = "", required =false)String rsvCode) {
 		List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
 		model.addAttribute("title", "나의 세부 예약 리스트");
+		model.addAttribute("rsvCode", rsvCode);
 		model.addAttribute("rsvListExtend", rsvListExtend);
 		return "rsv/rsvListExtend";
 	}

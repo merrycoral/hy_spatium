@@ -1,7 +1,9 @@
 package com.urban.spatium.controller;
 
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,39 +12,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.urban.spatium.Criteria2;
-import com.urban.spatium.PageMaker;
+import com.urban.spatium.URLgetter;
+import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.service.ReviewService;
+import com.urban.spatium.service.RsvService;
 
 
 @Controller
 public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private RsvService rsvService;
 	
 	private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
-	
-		@RequestMapping(value = "/rvpageEx", method = RequestMethod.GET)
-		public String listPage(@ModelAttribute("cri") Criteria2 cri, Model model) throws Exception {
-			
-			log.info(cri.toString());
-			
-			model.addAttribute("list", reviewService.exallReview(cri));  // 게시판의 글 리스트
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(reviewService.exallReviewcnt(cri));
-			
-			model.addAttribute("pageMaker", pageMaker);  // 게시판 하단의 페이징 관련, 이전페이지, 페이지 링크 , 다음 페이지
-			
-			System.out.println(pageMaker);
-			return "review/pageEx";
+		
+		@GetMapping("/writeReview")
+		public String writeReview(Model model, HttpServletRequest request, HttpSession session
+				) {
+			String sessionId = (String) session.getAttribute("SID");
+			System.out.println(URLgetter.getURL(request));
+			String[] array = URLgetter.getURL(request).split("=");
+			System.out.println(array);
+			String rsvCode = array[1]; 
+			//URL에서 가져온 값 자르기
+			System.out.println(rsvCode + " <-- rsvCode");
+			List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
+			model.addAttribute("rsvCode", rsvCode);
+			model.addAttribute("title", "리뷰 작성하기");
+			model.addAttribute("rsvListExtend", rsvListExtend);
+			return "review/writeReview";
 		}
 		
 		@GetMapping("/reviewStore")
@@ -157,10 +160,4 @@ public class ReviewController {
 			
 			return "review/reviewSearch";
 		}
-		
-		@GetMapping("/writeReview")
-		public String writeReview() {
-			return "review/writeReview";
-		}
-	
 }
