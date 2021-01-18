@@ -28,6 +28,8 @@
 		tbStore AS s
 	INNER JOIN
 		tbOkaySpace AS o
+	ON 
+		s.storeCode = o.okayStoreCode
 	WHERE
 		s.storeName LIKE CONCAT('%',#{searchName},'%')
 	OR
