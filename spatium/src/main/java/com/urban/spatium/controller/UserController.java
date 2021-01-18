@@ -193,7 +193,7 @@ public class UserController {
 	public String imsilogin(HttpSession session) {
 		session.setAttribute("SID", "id001");
 		session.setAttribute("SLEVEL", "1");
-		session.setAttribute("SNAME", "홍01");
+		session.setAttribute("SNAME", "이순신");
 		return "redirect:/userList";
 	}
 
