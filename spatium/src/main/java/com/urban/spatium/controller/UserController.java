@@ -125,18 +125,18 @@ public class UserController {
 	}
 	
 	//구매자 마이페이지 수정
-	@PostMapping("/myPage")
-	public String myPage(User user) {
+	@PostMapping("/userUpdate")
+	public String userUpdate(User user) {
 		System.out.println("회원 수정 폼에서 입력받은 값" + user);
 		
 		String result = userService.myPage(user);
 		System.out.println(result);
 		
-		return "redirect:/myPage";
+		return "redirect:/mypage";
 	}
 
-	@GetMapping("/myPage") 
-	public String myPage(Model model, HttpSession session) {
+	@GetMapping("/userUpdate") 
+	public String userUpdate(Model model, HttpSession session) {
 
 		String userIdchk = (String) session.getAttribute("SID"); //로그인한 아이디를 가져오겠다는 코드
 		System.out.println(userIdchk);
@@ -144,6 +144,20 @@ public class UserController {
 
 		System.out.println("db에서 검색한 회원정보-->" + user);
 
+		model.addAttribute("title", "회원 수정화면");
+		model.addAttribute("user", user);
+		return "user/userUpdate";
+	}
+	
+	@GetMapping("/myPage") 
+	public String myPage(Model model, HttpSession session) {
+		
+		String userIdchk = (String) session.getAttribute("SID"); //로그인한 아이디를 가져오겠다는 코드
+		System.out.println(userIdchk);
+		User user = userService.login(userIdchk);	
+		
+		System.out.println("db에서 검색한 회원정보-->" + user);
+		
 		model.addAttribute("title", "회원 수정화면");
 		model.addAttribute("user", user);
 		return "user/myPage";
@@ -217,7 +231,7 @@ public class UserController {
 		session.setAttribute("SID", "id001");
 		session.setAttribute("SLEVEL", "1");
 		session.setAttribute("SNAME", "이순신");
-		return "redirect:/userList";
+		return "redirect:/";
 	}
 
 	//로그아웃
@@ -250,7 +264,7 @@ public class UserController {
 			System.out.println(userId + " : 로그인 실패");
 			return "redirect:/login";
 		}
-		return "redirect:/userList";
+		return "redirect:/index";
 	}
 
 	@GetMapping("/login")

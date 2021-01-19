@@ -49,6 +49,8 @@ public class Item {
 	private String itemBuyPhone;
 	private String itemBuyRegDate;
 	
+	
+	
 	private User user;
 		
 	public int getItemCode() {

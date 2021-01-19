@@ -56,7 +56,7 @@ public class ItemService {
 			
 	String addCheck = "장비파기 등록 실패";
 		if(item != null) {
-		itemMapper.addItemRepair(item);
+		itemMapper.addItemBuy(item);
 			addCheck = "장비파기 등록 성공";
 		}
 		return addCheck;
@@ -132,11 +132,11 @@ public class ItemService {
 		}	
 	
 	//장기파기 등록
-	public String addItemDelete(String userId) {
+	public String addItemDelete(Item item) {
 		
 		String addCheck = "장비파기 등록 실패";
-			if(userId != null) {
-				itemMapper.addItemDelete(userId);
+			if(item != null) {
+				itemMapper.addItemDelete(item);
 				addCheck = "장비파기 등록 성공";
 			}
 			
@@ -185,5 +185,6 @@ public class ItemService {
 		
 		return itemList;
 	}
-	
+
+		
 }

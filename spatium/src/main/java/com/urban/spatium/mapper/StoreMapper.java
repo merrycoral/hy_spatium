@@ -22,6 +22,12 @@ public interface StoreMapper {
 	
 	public List<Store> storeList();
 
-	public List<Map<String, Object>> getRefundRuleByStoreCode(int storeCode);
+	public List<Store> bestStoreList();
 	
+	public List<Map<String, Object>> getRefundRuleByStoreCode(int storeCode);
+
+	public void addBestStore(String storeCode);
+
+	public void delBestStore(String storeCode);
+
 }

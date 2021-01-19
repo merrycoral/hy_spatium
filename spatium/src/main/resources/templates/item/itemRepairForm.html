@@ -19,11 +19,6 @@
 					</h2>
 					<div class="clearfix"></div>
 				</div>
-				<!-- <div>
-					<input type="hidden" name="useId" th:unless="${session.SID == null}" th:value="${session.SID}" />
-					<input type="hidden" name="userLevel" th:unless="${session.SLEVEL == null}" th:value="${session.SLEVEL}"/>
-				</div> -->
-				
 				<div class="x_content">
 					<br>
 					<div class="form-group row">
@@ -36,7 +31,7 @@
 								업체 코드 <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="storeDeleteCode" name="storeDeleteCode"
+								<input type="text" id="storeRepairCode" name="storeRepairCode"
 									class="form-control"
 									placeholder="업체 코드를 입력해주세요.">
 							</div>
@@ -46,7 +41,7 @@
 								세부 장비 코드 <span class="required">*</span>
 							</label>
 								<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="storeItemDeleteCode" name="storeItemDeleteCode"
+								<input type="text" id="storeItemRepairCode" name="storeItemRepairCode"
 									class="form-control"
 									placeholder="세부 장비 코드를 입력해주세요.">
 							</div>
@@ -56,7 +51,7 @@
 								아이디 <span class="required">*</span>
 							</label>
 								<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="userId" name="userId"
+								<input type="text" id="userRepairId" name="userRepairId"
 									class="form-control"
 									placeholder="수리한 사람 아이디를 입력해주세요.">
 							</div>

@@ -2,6 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.StoreMapper">
 
+<delete id="delBestStore" parameterType="String">
+	
+	DELETE 
+	FROM 
+		tbBestStore
+	WHERE
+		bestStoreCode = ${storeCode};
+	
+</delete>
+
+<select id="bestStoreList" resultType="Store">
+	
+	SELECT 
+	bestStoreCode as storeCode
+	, bestStoreImg as storeImage
+	, bestStoreName as storeName
+	FROM 
+	tbBestStore
+	
+</select>
+
+<insert id="addBestStore" parameterType="String">
+
+	INSERT INTO tbBestStore	(
+		 bestStoreCode
+		,bestStoreImg 
+		,bestStoreName
+	)VALUES(
+		 #{storeCode}
+		,(SELECT storeImage
+		  FROM tbStore
+		  WHERE storeCode = #{storeCode})
+		,(SELECT storeName
+		  FROM tbStore
+		  WHERE storeCode = #{storeCode})
+	)
+		
+</insert>
+
 <select id="mainSearchAll" resultType="Store" parameterType="String">
 
 	SELECT DISTINCT

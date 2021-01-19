@@ -107,4 +107,17 @@ public class StoreService {
 		return refundRule;
 	}
 
+	public void addBestStore(String storeCode) {
+		storeMapper.addBestStore(storeCode);
+	}
+
+	public List<Store> bestStoreList() {
+		List<Store> bestStoreList = storeMapper.bestStoreList();
+		return bestStoreList;
+	}
+
+	public void delBestStore(String storeCode) {
+		storeMapper.delBestStore(storeCode);
+	}
+
 }
