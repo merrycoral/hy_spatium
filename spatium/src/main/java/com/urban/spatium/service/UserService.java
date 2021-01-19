@@ -29,8 +29,6 @@ public class UserService {
 	  	return deleteUser; 
 	 }
 	
-
-	
 	//회원탈퇴
 	public void removeMyinfo(String userId, String userPw, String reason) {
 		//1. 아이디로 유저 정보를 가져오는 쿼리문을 돌려서 user에 넣어준다.
@@ -42,7 +40,7 @@ public class UserService {
 		user.setDeleteCate("일반 탈퇴");
 		
 		//3. 유저 정보를 delelteUser테이블에 백업한다.
-			userMapper.addDeleteUser(user);
+			userMapper.addDeleteUser(user);    //하나의 서비스에서 여러 매퍼를 호출할 수 있다.
 			
 		//4. 유저정보를 죄다 (탈퇴)로 바꾼다
 			userMapper.modifyDeleteUser(userId);
@@ -50,10 +48,10 @@ public class UserService {
 	}
 	
 	//관리자용 회원삭제
-	public void removeUser(String userId, String userPw, String reason) {
+	public void removeUser(String userId, String reason) {
 			
 		User user = userMapper.getUserById(userId);
-		if(user != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
+		if(user != null) {
 		user.setDeleteReason(reason);
 			user.setDeleteCate("강제 탈퇴");
 				userMapper.addDeleteUser(user);
@@ -61,7 +59,7 @@ public class UserService {
 			}
 		}	
 		
-	//마이페이지 수정
+	//관리자 마이페이지 수정
 	public String myInfo(User user) {
 		String result = "마이페이지 수정 실패";
 			
@@ -69,6 +67,17 @@ public class UserService {
 			
 		if(myInfoCheck > 0) result = "마이페이지 수정 성공";
 			
+		return result;
+	}
+	
+	//구매자 마이페이지 수정
+	public String myPage(User user) {
+		String result = "마이페이지 수정 실패";
+		
+		int myInfoCheck = userMapper.myPage(user);
+		
+		if(myInfoCheck > 0) result = "마이페이지 수정 성공";
+		
 		return result;
 	}
 	
@@ -90,7 +99,6 @@ public class UserService {
 	  	return userList; 
 	 }
 	 
-		
 	//로그인
 	public User login(String userId) {
 		
@@ -99,8 +107,11 @@ public class UserService {
 		return user;
 	}
 
-	//아이디 찾기
-	
+	//관리자 아이디 중복체크
+	public int idCheck(User user) {
+		int result = userMapper.idCheck(user);
+		return result;
+	}
 	
 	//아이디 중복체크
 	public int idChk(User user) {
@@ -108,7 +119,18 @@ public class UserService {
 		return result;
 	}
 	
-	//회원가입	
+	//관리자 회원가입	
+	public String addAdmin(User user) {
+		String insertCheck = "회원가입 실패";
+		if(user != null) {
+			int result = userMapper.addAdmin(user);
+			if(result > 0) insertCheck = "회원가입 성공";
+		}
+		
+		return insertCheck;
+	}
+	
+	//구매자 회원가입	
 	public String addUser(User user) {
 		String insertCheck = "회원가입 실패";
 		if(user != null) {
@@ -120,17 +142,14 @@ public class UserService {
 	}
 
 
-	public List<User> sPointList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public List<User> pointList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+	/*
+	 * public List<User> sPointList() { // TODO Auto-generated method stub return
+	 * null; }
+	 * 
+	 * 
+	 * public List<User> pointList() { // TODO Auto-generated method stub return
+	 * null; }
+	 */
 
 
 	
