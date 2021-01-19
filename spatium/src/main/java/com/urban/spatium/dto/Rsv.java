@@ -38,7 +38,14 @@ public class Rsv {
 	private int rsvTimePrice;
 	private int itemCode;
 	private Payment payment;
+	private String pageType;
 	
+	public String getPageType() {
+		return pageType;
+	}
+	public void setPageType(String pageType) {
+		this.pageType = pageType;
+	}
 	public String getStoreName() {
 		return storeName;
 	}
@@ -298,6 +305,8 @@ public class Rsv {
 		builder.append(itemCode);
 		builder.append(", payment=");
 		builder.append(payment);
+		builder.append(", pageType=");
+		builder.append(pageType);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -344,6 +344,7 @@
 			, rsvTimePrice
 			, rsvDetailCode
 			, storeCode
+			, storeId
 		FROM 
 			viewRsv
 		WHERE 

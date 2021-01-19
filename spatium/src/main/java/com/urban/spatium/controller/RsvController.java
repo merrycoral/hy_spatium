@@ -128,7 +128,7 @@ public class RsvController {
 	 * 예약 하는 ajax
 	 */
 	@RequestMapping(value = "/rsvInsertAjax", produces="application/json"  ,method = RequestMethod.POST ) 
-	public @ResponseBody String addInOutPut(@RequestBody Rsv rsv, HttpSession session, @RequestParam(name="pageType", required = false)String pageType) throws IOException {
+	public @ResponseBody String addInOutPut(@RequestBody Rsv rsv, HttpSession session) throws IOException {
 		String returnPath = "/rsvList";
 		System.out.println("예약날짜 --> "+rsv.getRsvDate());
 		System.out.println("시작시간 --> "+rsv.getStartTime());
@@ -140,16 +140,19 @@ public class RsvController {
 		System.out.println("공간 리스트 --> "+rsv.getSpaceList());
 		System.out.println("장비 리스트 --> "+rsv.getItemList());
 		System.out.println("업체 번호 --> "+rsv.getRsvStoreCode());
+		System.out.println("페이지 타입--> "+rsv.getPageType());
 		
 		String sessionId = (String) session.getAttribute("SID");
-		rsv.setRsvUserId(sessionId); // 임시 아이디 부여
+		rsv.setRsvUserId(sessionId); // 세션 아이디 부여
 		List<Rsv> result = rsvService.insertTbRsv(rsv);
 	    if(result!=null && result.size()>0) {
 	    	return "/rsvInsert?storeCode="+rsv.getRsvStoreCode()+"&rsvType="+rsv.getRsvState()+"&rsvCheck=0";
 	    }
-	    if("admin".equals(pageType)) {
+	    if("admin".equals(rsv.getPageType())) {
+	    	System.out.println("관리자페이지로");
 	    	returnPath = "/rsvListAdmin";
 	    }
+	    System.out.println("구매자 페이지로");
 	    return returnPath;
 	}
 	
