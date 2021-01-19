@@ -225,16 +225,17 @@ public class ItemController {
 		return "redirect:/itemDeleteList";
 	}
 
-	@GetMapping("/modifyitemDelete")
-	public String modifyitemDelete(@RequestParam(name="storeDeleteCode", required = false) String storeDeleteCode
-			,Model model) {
-		System.out.println("장비파기내역 수정화면에 입력받은 값 ->" + storeDeleteCode);	
-
-		Item item = itemService.modifyitemDelete(storeDeleteCode);
-		model.addAttribute("item", item);
-
-		return "item/uItemDelete";
-	}
+	/*
+	 * @GetMapping("/modifyitemDelete") public String
+	 * modifyitemDelete(@RequestParam(name="storeDeleteCode", required = false)
+	 * String storeDeleteCode ,Model model) {
+	 * System.out.println("장비파기내역 수정화면에 입력받은 값 ->" + storeDeleteCode);
+	 * 
+	 * Item item = itemService.modifyitemDelete(storeDeleteCode);
+	 * model.addAttribute("item", item);
+	 * 
+	 * return "item/uItemDelete"; }
+	 */
 
 	//장비파기내역
 	@GetMapping("/itemDeleteList")
