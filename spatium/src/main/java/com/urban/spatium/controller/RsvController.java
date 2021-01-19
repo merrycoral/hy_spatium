@@ -33,17 +33,6 @@ public class RsvController {
 	private StoreService storeService;
 	
 	/**
-	 * 예약 통계(판매자)
-	 */
-	@GetMapping("/rsvStatStore")
-	public String rsvStat(Model model) {
-		List<Map<String, Object>> rsvStatAdmin = rsvService.rsvStatAdmin();
-		model.addAttribute("title", "나의 예약 통계");
-		model.addAttribute("rsvStatAdmin", rsvStatAdmin);
-		return "rsv/rsvStatStore";
-	}
-	
-	/**
 	 * 예약수 통계(관리자)
 	 */
 	@GetMapping("/rsvStatAdmin")
