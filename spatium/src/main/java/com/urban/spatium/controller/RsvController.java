@@ -187,10 +187,10 @@ public class RsvController {
 	}
 	
 	/**
-	 * 관리자페이지 예약 목록 조회
+	 * 관리자페이지 예약 목록 조회(관리자용)
 	 */
 	@GetMapping("/rsvListAdmin")
-	public String rsvListByAdmin(Model model) {
+	public String rsvListAdmin(Model model) {
 		List<Rsv> rsvList = rsvService.rsvListAdmin();
 		model.addAttribute("title", "예약 목록");
 		model.addAttribute("rsvList", rsvList);
@@ -198,7 +198,19 @@ public class RsvController {
 	}
 	
 	/**
-	 * 구매자페이지 예약 목록 조회
+	 * 관리자페이지 예약 목록 조회(판매자용)
+	 */
+	@GetMapping("/rsvListAdminByStore")
+	public String rsvListAdminByStore(Model model, HttpSession session) {
+		String storeId = (String) session.getAttribute("SID");
+		List<Rsv> rsvList = rsvService.rsvListAdminByStore(storeId);
+		model.addAttribute("title", "예약 목록");
+		model.addAttribute("rsvList", rsvList);
+		return "rsv/rsvListAdminByStore";
+	}
+	
+	/**
+	 * 구매자페이지 예약 목록 조회(구매자용)
 	 */
 	@GetMapping("/rsvList")
 	public String rsvList(Model model, HttpSession session) {
@@ -210,14 +222,26 @@ public class RsvController {
 	}
 	
 	/**
-	 * 관리자페이지 예약 세부 목록 조회
+	 * 관리자페이지 예약 세부 목록 조회(관리자용)
 	 */
 	@GetMapping("/rsvDetailListAdmin")
-	public String rsvDetailListByAdmin(Model model) {
+	public String rsvDetailListAdmin(Model model) {
 		List<Rsv> rsvDetailList = rsvService.rsvDetailList();
 		model.addAttribute("title", "세부 예약 목록");
 		model.addAttribute("rsvDetailList", rsvDetailList);
 		return "rsv/rsvDetailListAdmin";
+	}
+	
+	/**
+	 * 관리자페이지 예약 세부 목록 조회(판매자용)
+	 */
+	@GetMapping("/rsvDetailListAdminByStore")
+	public String rsvDetailListAdminByStore(Model model, HttpSession session) {
+		String storeId = (String) session.getAttribute("SID");
+		List<Rsv> rsvDetailList = rsvService.rsvDetailListByStore(storeId);
+		model.addAttribute("title", "세부 예약 목록");
+		model.addAttribute("rsvDetailList", rsvDetailList);
+		return "rsv/rsvDetailListAdminByStore";
 	}
 	
 	/**
