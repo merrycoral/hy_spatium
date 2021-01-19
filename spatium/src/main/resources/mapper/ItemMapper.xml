@@ -154,7 +154,7 @@
 	<!--장비파기내역 수정 -->
 	<update id="modifyitemDelete" >
 		UPDATE
-		itemDeleteCode
+		tbItemDeleteList
 		SET 
 		  storeDeleteCode = #{storeDeleteCode}
 		, storeItemDeleteCode = #{storeItemDeleteCode}
