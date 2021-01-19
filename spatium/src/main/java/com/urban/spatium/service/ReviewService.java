@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.urban.spatium.Criteria2;
 import com.urban.spatium.dto.Review;
+import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.mapper.ReviewMapper;
+import com.urban.spatium.mapper.RsvMapper;
 
 @Service
 @Transactional
@@ -18,14 +20,14 @@ public class ReviewService {
 		@Autowired
 		private ReviewMapper reviewMapper;
 		
+		public List<Rsv> getRsv(String rsvCode) {
+			List<Rsv> getRsv = reviewMapper.getRsv(rsvCode);
+			return getRsv;
+		}
+		
 		public List<Review> getReviewByStoreCode(int storeCode) {
 			List<Review> reviewList = reviewMapper.getReviewByStoreCode(storeCode);
 			return reviewList;
-		}
-		
-		public int exallReviewcnt(Criteria2 cri) {
-			int count = reviewMapper.getAllReviewCount();
-			return count;
 		}
 		
 		public List<Review> exallReview(Criteria2 cri) {
@@ -203,9 +205,10 @@ public class ReviewService {
 			return resultMap;
 		}
 
-		public Object listCriteria(Criteria2 cri) {
-			// TODO Auto-generated method stub
-			return null;
+		public int insertReview(Review wroteReview) {
+			Map <String, Object> review = new HashMap<>();
+			//review.put(reviewSpaceRsv, wroteReview.getReviewSpaceCode());
+			return 0;
 		}
 
 }
