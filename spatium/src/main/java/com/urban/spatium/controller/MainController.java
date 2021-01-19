@@ -56,14 +56,27 @@ public class MainController {
 		return "indexSearch";
 	}
 	
-	@GetMapping("/mainSpaceOrder")
-	public String mainSpaceOrder() {
-		return "promotion/mainSpaceOrder";
-	}
-	
+	//추천 공간 선정 페이지
 	@GetMapping("/bestSpaceOrder")
-	public String bestSpaceOrder() {
+	public String getBestSpaceOrder(Model model) {
+		List<Store> storeList = storeService.storeList();
+		List<Store> bestStoreList = storeService.bestStoreList();
+		model.addAttribute("title", "추천 공간 선정");
+		model.addAttribute("storeList", storeList);
+		model.addAttribute("bestStoreList", bestStoreList);
 		return "promotion/bestSpaceOrder";
+	}
+	//추천 공간 등록
+	@PostMapping("/addBestStore")
+	public String addBestStore(Model model, @RequestParam(name="storeCode", required = false)String storeCode) {
+		storeService.addBestStore(storeCode);
+		return "redirect:/bestSpaceOrder";
+	}
+	//추천 공간 삭제
+	@PostMapping("/delBestStore")
+	public String delBestStore(Model model, @RequestParam(name="storeCode", required = false)String storeCode) {
+		storeService.delBestStore(storeCode);
+		return "redirect:/bestSpaceOrder";
 	}
 	
 	@GetMapping("/admin")
@@ -74,7 +87,10 @@ public class MainController {
 	@GetMapping("/index")
 	public String index(Model model) {
 		List<Store> storeList = storeService.storeList();
+		List<Store> bestStoreList = storeService.bestStoreList();
+		model.addAttribute("title", "Spatium");
 		model.addAttribute("storeList", storeList);
+		model.addAttribute("bestStoreList", bestStoreList);
 		return "index";
 	}
 	
@@ -84,7 +100,9 @@ public class MainController {
 		model.addAttribute("title", "37기 포트폴리오");
 		return "mainPage";
 	}
-	
+	/**
+	 * 메인화면에서 업체사진 클릭시 업체정보
+	 */
 	@GetMapping("/storeInfo")
 	public String storeInfo(Model model, int storeCode) {
 		Store storeInfo = storeService.getStoreInfoByStoreCode(storeCode);
@@ -101,6 +119,9 @@ public class MainController {
 		return "store/storeInfo";
 	}
 	
+	/**
+	 * 지도 가져오는 api
+	 */
 	@CrossOrigin("https://naveropenapi.apigw.ntruss.com")
 	@ResponseBody
 	@RequestMapping(value = "/adressAjax",produces = "application/json",method = RequestMethod.POST ) 
