@@ -250,7 +250,7 @@ public class UserController {
 			System.out.println(userId + " : 로그인 실패");
 			return "redirect:/login";
 		}
-		return "redirect:/userList";
+		return "/index";
 	}
 
 	@GetMapping("/login")

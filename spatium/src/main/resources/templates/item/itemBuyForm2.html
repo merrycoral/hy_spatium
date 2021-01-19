@@ -18,10 +18,6 @@
 					</h2>
 					<div class="clearfix"></div>
 				</div>
-				<!-- <div>
-					<input type="hidden" name="useId" th:unless="${session.SID == null}" th:value="${session.SID}" />
-					<input type="hidden" name="userLevel" th:unless="${session.SLEVEL == null}" th:value="${session.SLEVEL}"/>
-				</div> -->
 				
 				<div class="x_content">
 					<br>
@@ -112,28 +108,28 @@
 </form>
 </th:block>
 <th:block layout:fragment="customJs">
-	<script type="text/javascript">
+	<script>
 			
 			$('#addItemBuy').click(function(){
-				if($('#storeBuyCode').val() == "0"){
+				if($('#storeBuyCode').val() == ""){
 					alert("업체 코드를 입력해주세요.");
 					return false;
-				}else if($('#storeBuyItemCode').val() == '0'){
+				}else if($('#storeBuyItemCode').val() == ""){
 					alert("세부 장비 코드를 입력해주세요.");
 					return false;
-				}else if($('#userBuyId').val() == "0"){
+				}else if($('#userBuyId').val() == ""){
 					alert("아이디를 입력해주세요.");
 					return false;
-				}else if($('#itemBuyPrice')val() == "0"){
+				}else if($('#itemBuyPrice')val() == ""){
 					alert("장구입 비용을 입력해주세요.");
 					return false;
-				}else if($('#itemBuyAccount').val() == "0"){
+				}else if($('#itemBuyAccount').val() == ""){
 					alert("거래처를 입력해주세요.");
 					return false;
-				}else if($('#itemBuyPhone').val() == "0"){
+				}else if($('#itemBuyPhone').val() == ""){
 					alert("전화번호를 입력해주세요.");
 					return false;
-				}else if($('#itemBuyRegDate').val() == "0"){
+				}else if($('#itemBuyRegDate').val() == ""){
 					alert("구입 일자를 입력해주세요.");
 					return false;
 				}else{

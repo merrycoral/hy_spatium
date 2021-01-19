@@ -25,10 +25,6 @@ public class BookMarkService {
 		return bookmarkMapper.bookMarkList();
 	}
 	
-	public Bookmark getbookmarkByCode(int bookMarkCode) {
-	Bookmark bookmark = bookmarkMapper.getbookmarkByCode(bookMarkCode);
-					
-		return bookmark;
-	}
+	
 	
  }

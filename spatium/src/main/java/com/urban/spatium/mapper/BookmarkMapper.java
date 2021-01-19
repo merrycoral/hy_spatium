@@ -18,8 +18,7 @@ public interface BookmarkMapper {
     //즐겨찾기 추가
   	int addBookmark(Bookmark bookmark);
   	
-  	public Bookmark getbookmarkByCode(int bookMarkCode);
-	
+ 
 }
 	
 	

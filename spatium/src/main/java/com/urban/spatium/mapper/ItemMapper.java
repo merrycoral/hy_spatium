@@ -25,13 +25,13 @@ public interface ItemMapper {
 	int removeitemDelete(int itemDeleteCode);
 			  
 	//장비파기내역 수정
-	int modifyitemDelete(Item item);
+	int modifyitemDelete(Item storeDeleteCode);
 			  
 	//장비파기내역
 	public List<Item> itemDeleteList();
 	
 	//장비파기 등록
-	public int addItemDelete(String userId);
+	public int addItemDelete(Item item);
 	
 	//장비수리내역 삭제
 	int removeitemRepair(int itemRepairCode);

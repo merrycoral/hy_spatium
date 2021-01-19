@@ -25,10 +25,10 @@
 				<td th:text="${d.itemDeleteReason}"></td>
 				<td th:text="${d.itemDeleteRegDate}"></td>
 				<td>
-					<input type="submit" value="수정" ><a  th:href="@{/modifyitemDelete(storeDeleteCode=${d.storeDeleteCode})}"></a>
+					<button type="submit"><a  th:href="@{/modifyitemDelete(storeDeleteCode=${d.storeDeleteCode})}">수정</a></button>
 				</td>
 				<td>
-					<input type="submit" value="삭제" ><a th:href="@{/removeitemDelete(storeDeleteCode=${d.storeDeleteCode})}"></a>
+					<button type="submit" ><a th:href="@{/removeitemDelete(storeDeleteCode=${d.storeDeleteCode})}">삭제</a></button>
 				</td>
 				</tr>
 
