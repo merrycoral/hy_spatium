@@ -170,6 +170,7 @@
 		, rsvRegDate
 		, rsvState
 		, storeId
+		, storeName
 		<!-- , rsvDetailSpace
 		, rsvDetailItem -->
 		
@@ -267,8 +268,13 @@
 	
 	</select>
 	
+	<!-- 인설트 되는값 결제성공페이지 보여주기  -->
+	<select id="">
+	
+	</select>
 	
 	<insert id="paymentSystem" parameterType="Payment" useGeneratedKeys="true" keyProperty="paymentCode">
+	
 	INSERT INTO tbPayment
 	(
 	

@@ -3,16 +3,46 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="@{layout/maindefault}">
 
-
-
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
 
+<th:block layout:fragment="customCss">
+<style>
+.title{font-size: 30px; margin-bottom: 10px;}
+.container{text-align: center;}
+.table{width: 30%; height:400px;  margin-left: 450px; background-color: #EAEAEA;}
+.jaemok{}
+
+</style>
+</th:block>
+
 <th:block layout:fragment="customContent">
 <div class="container " style="margin-top: 70px; margin-bottom: 70px;">
-<h1>결제가 성공하였습니다.</h1>
-<a href="/"><button type="button">메인화면</button></a>
+<h1 class="title">결제 성공</h1>
+<table border="1" class="table">
+	<tbody>
+		<tr>
+			<td class="jaemok">적립포인트<strong style="margin-left: 20px;">  :  </strong></td>
+			<td th:text="${pay.paymentAddPoint}"></td>
+		</tr>
+		<tr>
+			<td class="jaemok">결제금액     <strong style="margin-left: 20px;">  :  </strong></td>
+			<td th:text="${pay.paymentUseMoney}"></td>
+		</tr>
+		<tr>
+			<td class="jaemok">결제수단     <strong style="margin-left: 20px;">  :  </strong></td>
+			<td>카카오 페이</td>
+		</tr>
+		<tr>
+			<td class="jaemok">결제일시     <strong style="margin-left: 20px;">  :  </strong></td>
+			<td th:text="${pay.paymentRegDate}"></td>
+		</tr>
+	</tbody>
+</table>
+
+
+<a href="/" ><button type="button">메인화면</button></a>
 </div>
 </th:block>
 </html>

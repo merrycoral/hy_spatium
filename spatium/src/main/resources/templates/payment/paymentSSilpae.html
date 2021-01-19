@@ -3,7 +3,13 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="@{layout/maindefault}">
 
+<th:block layout:fragment="customCss">
+<style>
+.container{text-align: center;}
+.silpae{font-size: 30px; margin-bottom: 20px;}
 
+</style>
+</th:block>
 
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
@@ -11,8 +17,12 @@
 
 <th:block layout:fragment="customContent">
 <div class="container " style="margin-top: 70px; margin-bottom: 70px;">
-<h1>결제실패</h1>
-<a href="/"><button type="button">메인화면</button></a>
+<h1 class="silpae">결제실패</h1>
+<a href="/" ><button type="button">메인화면</button></a>
+<br><br>
+<div>
+<a href="/rsvList"><button type="button">예약페이지</button></a>
+</div>
 </div>
 </th:block>
 </html>

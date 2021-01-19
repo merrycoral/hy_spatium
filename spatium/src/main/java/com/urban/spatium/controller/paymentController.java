@@ -80,6 +80,7 @@ public class paymentController {
 	}
 	@GetMapping("/paymentSSilpae")
 	public String paymentSSilpae(Model model) {
+		
 		model.addAttribute("title", "결제실패화면");
 		return "payment/paymentSSilpae";
 	}
@@ -143,8 +144,10 @@ public class paymentController {
 			
 		}
 		
-		
+		int a = payment.getPaymentCode();
 		System.out.println("여기");
+		//model.addAttribute("pay", payment.getPaymentCode());
+		System.out.println(pay+"pay<<<<<<<<<<<<<<<<<");
 		return "payment/paymentSuccess";
 		
 	}
