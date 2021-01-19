@@ -231,7 +231,7 @@ public class UserController {
 		session.setAttribute("SID", "id001");
 		session.setAttribute("SLEVEL", "1");
 		session.setAttribute("SNAME", "이순신");
-		return "redirect:/userList";
+		return "redirect:/";
 	}
 
 	//로그아웃
@@ -264,7 +264,7 @@ public class UserController {
 			System.out.println(userId + " : 로그인 실패");
 			return "redirect:/login";
 		}
-		return "/index";
+		return "redirect:/index";
 	}
 
 	@GetMapping("/login")
