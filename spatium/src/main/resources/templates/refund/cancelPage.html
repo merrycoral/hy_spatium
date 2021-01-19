@@ -9,12 +9,13 @@
 
 <th:block layout:fragment="customCss">
 <style>
-body{height: 1000px;}
+
 table{ float: left; margin-right: 200px; }
-input{margin-left: 5px; margin-right: 5px;}
-td{text-align: center;}
-#table1{width: 30%; min-height: 500px; margin-left: 100px;}
-#table2{width: 300px; float: none;}
+
+td,th{text-align: center; padding: 6px;}
+
+#table1{width: 30%; min-height: 500px; margin-left: 100px; border: 1px solid;}
+#table2{float: none; width: 350px; float: none; border: 2px solid;}
 #Explanation{margin-left: 510px; margin-top: 5px;}
 .hid{display: none;}
 
@@ -63,8 +64,8 @@ td{text-align: center;}
 				
 				$('.rePercent').val(result+"%");//환불할 퍼센트
 				//환불금액 반올림 해야함 하다가 맘ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
-				Math.floor($('.rePrice').val(reCal));//환불퍼센트 * 실결제금액 = 환불할 금액
-				console.log(Math.floor($('.rePrice').val(reCal)) + " <<<<<");
+				$('.rePrice').val(Math.floor(reCal));//환불퍼센트 * 실결제금액 = 환불할 금액
+				console.log($('.rePrice').val(Math.floor(reCal))) + " <<<<<환불하는금액";
 				
 				$('.reCode').val(result2);
 				console.log($('.reCode').val() + " <<<<<환불코드");
@@ -121,7 +122,7 @@ td{text-align: center;}
 	<!-- 적립된 포인트 마이너스 추가 --><input type="hidden" name="pointList" class="pointList">
 	<!-- 환불하고 남는금액 --><input type="hidden" name="paymentRefund" class="paymentRefund">
 	<!-- 환불상태 변경 --><input type="hidden" value="환불완료" name="cancelState" readonly="readonly">
-<table border="1" id="table1">
+<table id="table1">
 	<tbody >
 		<th:block th:if="${#lists.size(cacelData) > 0}" th:each = "p : ${cacelData}">
 		<th:block th:each = "pr : ${p.RsvList}">
@@ -186,8 +187,8 @@ td{text-align: center;}
 	</tbody>
 </table>
 	
-	<table border="1" id="table2">
-				<thead>
+	<table id="table2">
+				<thead class="thead2">
 					<tr>
 						<th>예약까지남은일수</th>
 						<th>환불퍼센트</th>
