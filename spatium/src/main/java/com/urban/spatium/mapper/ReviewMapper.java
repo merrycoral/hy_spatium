@@ -33,4 +33,8 @@ public interface ReviewMapper {
 
 	public List<Rsv> getRsv(String rsvCode);
 
+	public int getStore(String rsvCode);
+
+	public void insertReview(Map<String, Object> review);
+
 }

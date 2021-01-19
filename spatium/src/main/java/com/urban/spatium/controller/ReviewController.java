@@ -55,10 +55,11 @@ public class ReviewController {
 		}
 		
 		@PostMapping("/writeReview")
-		public String insertReview(Model model, Review wroteReview) {
+		public String insertReview(HttpSession session, Model model, Review wroteReview) {
 			System.out.println(wroteReview);
 			System.out.println(wroteReview.getReviewTitle());
-			//reviewService.insertReview(wroteReview);
+			String SID = (String) session.getAttribute("SID");
+			reviewService.insertReview(wroteReview, SID);
 			
 			//int result = reviewService.insertReview(review);
 			//System.out.println(result);
