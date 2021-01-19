@@ -17,14 +17,30 @@ public class BookMarkService {
 	@Autowired 
 	private BookmarkMapper bookmarkMapper;
 	
+	//북마크 전체삭제
+	public void deleteAll(String userId) {
+		bookmarkMapper.deleteAll(userId);
+    }
 	
+	//북마크 삭제
+	public void removeBookMark(int bookMarkCode) {
+		String result = "북마크 삭제 실패";
+		
+		bookmarkMapper.removeBookMark(bookMarkCode);
+		System.out.println(result);
+	}
 		
 	//북마크 리스트
-	public List<Bookmark> bookMarkList(){
+	public List<Bookmark> bookMark(){
 		
-		return bookmarkMapper.bookMarkList();
+		return bookmarkMapper.bookMark();
 	}
 	
+	//북마크 추가
+	public void addbookMark(Bookmark bookmark) {
+        
+		bookmarkMapper.addbookMark(bookmark);
+    }
 	
 	
  }

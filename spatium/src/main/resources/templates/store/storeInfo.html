@@ -23,11 +23,17 @@
 		height: 50px;
 		width: 150px;
 	}
+	#bookmark{
+	text-align: right;
+	}
 </style>
 </th:block>
 
 
 <th:block layout:fragment="customContent">
+<div id="bookmark">
+<button type="button" class="btn btn-danger" id="bookMark">찜하기</button>
+</div>
 	<!-- 공간 진열 start -->
 	<div class="container main_space"
 		data-example-id="thumbnails-with-custom-content">

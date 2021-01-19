@@ -5,10 +5,13 @@
 
 <th:block layout:fragment="customContent">
 
+<button type="button" class="selectDelete">선택삭제</button>
+
 	<div class="table-responsive m-t-20">
 		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id = "tbBookmark">
 			<thead>
 				<tr>
+				<th><input type="checkbox" id="allCheck" >	</th>
 					<th scope="col">No.</th>
 					<th scope="col">아이디</th>
 					<th scope="col">공간</th>
@@ -17,16 +20,15 @@
 			</thead>
 			<tbody>
 				<tr th:if="${#lists.size(bookMarkList) > 0}" th:each="b : ${bookMarkList}">
+				<td><input type="checkbox" class="RowCheck" th:value="${b.bookMarkCode}"></td>
 					<td th:text="${b.bookMarkCode}"></td>
 					<td th:text="${b.userId}"></td>
 					<td th:text="${b.storeCode}"></td>
 					<td th:text="${b.BookRegDate}"></td>
-					
 					<td>
 						<button type="submit"><a th:href="@{/removeBookmark(bookMarkCode=${b.bookMarkCode})}">삭제</a></button>
 					</td>
 				</tr>
-
 			</tbody>
 		</table>
 	</div>
@@ -61,5 +63,21 @@
 	
 	</script>
 
+<script>
+//전체선택
+$("#allCheck").click(function(){
+ var chk = $("#allCheck").prop("checked");
+ if(chk) {
+  $(".RowCheck").prop("checked", true);
+ } else {
+  $(".RowCheck").prop("checked", false);
+ }
+});
+</script>
+<script>
+ $(".RowCheck").click(function(){
+  $("#allCheck").prop("checked", false);
+ });
+</script>
 </th:block>
 </html>

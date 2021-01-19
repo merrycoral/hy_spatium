@@ -23,12 +23,12 @@ public class ItemService {
 	private UserMapper userMapper; 
 	
 	//장비구입내역 삭제
-	public String removeitemBuy(int itemBuyCode, String userId, String userPw) {
+	public String removeitemBuy(int itemBuyCode, String userId) {
 		String result = "장비구입내역 삭제 실패";
 		
 		User user = userMapper.getUserById(userId);
 		
-		if(user != null && userPw != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
+		if(user != null) {
 		int removeCheck = itemMapper.removeitemBuy(itemBuyCode);
 		if(removeCheck > 0) result = "장비구입내역 삭제 완료";
 		}		
@@ -62,12 +62,12 @@ public class ItemService {
 		return addCheck;
 	}
 	//장비수리내역 삭제
-	public String removeitemRepair(int itemRepairCode, String userId, String userPw) {
+	public String removeitemRepair(int itemRepairCode, String userId) {
 		String result = "장비구입내역 삭제 실패";
 		
 		User user = userMapper.getUserById(userId);
 		
-		if(user != null && userPw != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
+		if(user != null) {
 		int removeCheck = itemMapper.removeitemRepair(itemRepairCode);
 		if(removeCheck > 0) result = "장비구입내역 삭제 완료";
 		}			
@@ -103,12 +103,12 @@ public class ItemService {
 	}
 	
 	//장비파기내역 삭제
-	public String removeitemDelete(int itemDeleteCode, String userId, String userPw) {
+	public String removeitemDelete(int itemDeleteCode, String userId) {
 			String result = "장비구입내역 삭제 실패";
 			
 			User user = userMapper.getUserById(userId);
 			
-			if(user != null && userPw != null && user.getUserPw() != null && userPw.equals(user.getUserPw())) {
+			if(user != null) {
 			int removeCheck = itemMapper.removeitemDelete(itemDeleteCode);
 			if(removeCheck > 0) result = "장비구입내역 삭제 완료";
 			}
