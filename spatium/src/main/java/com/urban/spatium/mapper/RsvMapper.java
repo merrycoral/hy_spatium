@@ -17,10 +17,14 @@ public interface RsvMapper {
 
 	public List<Rsv> rsvListAdmin();
 	
+	public List<Rsv> rsvListAdminByStore(String storeId);
+
 	public List<Rsv> rsvList(String sessionId);
 	
 	public List<Rsv> rsvDetailList();
 	
+	public List<Rsv> rsvDetailListByStore(String storeId);
+
 	public List<OKSpace> getSpaceByStore(int storeCode);
 	
 	public List<Item> getItemByStore(int storeCode);
@@ -58,6 +62,8 @@ public interface RsvMapper {
 	public List<Map<String, Object>> dayRsvStatAdmin(String startDay, String endDay);
 
 	public List<Rsv> rsvCheck(Rsv rsv);
+
+
 
 	
 	

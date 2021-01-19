@@ -41,15 +41,18 @@ public class LoginInterceptor implements HandlerInterceptor{
 			}
 		}else {
 			if(sessionLevel != null && "2".equals(sessionLevel)){ //판매자가 접근하면 안되는곳들
-				if( //회원 관련 경로
+				if(	requestUri.indexOf("/rsvListAdminByStore") > -1 || requestUri.indexOf("/rsvDetailListAdminByStore") > -1) {
+						return true;
+				}
+				else if( //회원 관련 경로
 					  requestUri.indexOf("/userList") 	> -1	|| requestUri.indexOf("/restUser") 	> -1
 				   || requestUri.indexOf("/blackUser") 	> -1 	|| requestUri.indexOf("/deleteUser") 	> -1
 				   || requestUri.indexOf("/pointList") 	> -1 	|| requestUri.indexOf("/bookMarkList") 	> -1
+				   || requestUri.indexOf("/addAdmin") 	> -1 	
 				   //예약 관련 경로
 				   || requestUri.indexOf("/rsvStoreList") 	> -1 	|| requestUri.indexOf("/rsvListAdmin") 	> -1
-				   || requestUri.indexOf("/rsvDetailListAdmin")> -1 || requestUri.indexOf("/rsvListExtendAdmin") 	> -1
-				   || requestUri.indexOf("/rsvInsertAdmin")> -1 || requestUri.indexOf("/rsvInsertDayAdmin") 	> -1
-				   || requestUri.indexOf("/rsvStatAdmin") 	> -1 ) {
+				   || requestUri.indexOf("/rsvDetailListAdmin")> -1 || requestUri.indexOf("/rsvInsertAdmin")> -1 
+				   || requestUri.indexOf("/rsvInsertDayAdmin") 	> -1|| requestUri.indexOf("/rsvStatAdmin") 	> -1 ) {
 					response.sendRedirect("/");
 					return false;
 				}

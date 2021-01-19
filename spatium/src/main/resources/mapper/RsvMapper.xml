@@ -308,6 +308,28 @@
 		ORDER BY
 			rsvCode DESC
 	</select>
+	
+	<select id="rsvDetailListByStore" parameterType="String" resultType="Rsv">
+		SELECT 
+			rsvCode
+			, rsvDetailNum
+			, rsvDetailOnePrice
+			, rsvDetailTotalPrice
+			, okaySpaceName
+			, itemTotalName
+			, rsvUserName
+			, rsvTime
+			, rsvTimePrice
+			, rsvDetailCode
+			, rsvStartDateTime
+			, rsvEndDateTime
+		FROM 
+			viewRsv
+		WHERE
+			storeId=#{storeId}
+		ORDER BY
+			rsvCode DESC
+	</select>
 		
 	<select id="rsvListExtend" resultType="Rsv">
 		SELECT 
@@ -321,6 +343,7 @@
 			, rsvUserName
 			, rsvTimePrice
 			, rsvDetailCode
+			, storeCode
 		FROM 
 			viewRsv
 		WHERE 
@@ -373,6 +396,32 @@
 			tbStore
 		ON 
 			rsvStoreCode = storeCode
+		ORDER BY
+			rsvCode DESC
+	</select>
+	
+	<select id="rsvListAdminByStore" parameterType="String" resultType="Rsv">
+		SELECT 
+			storeName
+			, rsvCode
+			, rsvUserId
+			, rsvUserName
+			, rsvUserPhone
+			, rsvUserEmail
+			, rsvUserRequest
+			, rsvTotalPrice
+			, rsvStartDateTime
+			, rsvEndDateTime
+			, rsvRegDate
+			, rsvState
+		FROM 
+			tbRsv
+		INNER JOIN 
+			tbStore
+		ON 
+			rsvStoreCode = storeCode
+		WHERE 
+			storeId = #{storeId}
 		ORDER BY
 			rsvCode DESC
 	</select>

@@ -35,7 +35,7 @@ public class RsvService {
 			endTime = rsv.getEndTime()+":59:59";
 			int stime = Integer.parseInt(rsv.getStartTime());
 			int etime = Integer.parseInt(rsv.getEndTime());
-			rsvTime = etime-stime;
+			rsvTime = etime-stime+1;
 		}
 		String rsvStartDateTime = rsv.getRsvDate().substring(0,10) + " " +startTime;
 		String rsvEndDateTime = rsv.getRsvDate().substring(rsv.getRsvDate().length()-10,rsv.getRsvDate().length()) + " " +endTime;
@@ -111,12 +111,20 @@ public class RsvService {
 		List<Rsv> rsvList = rsvMapper.rsvListAdmin();
 		return rsvList;
 	}
+	public List<Rsv> rsvListAdminByStore(String storeId) {
+		List<Rsv> rsvList = rsvMapper.rsvListAdminByStore(storeId);
+		return rsvList;
+	}
 	public List<Rsv> rsvList(String sessionId) {
 		List<Rsv> rsvList = rsvMapper.rsvList(sessionId);
 		return rsvList;
 	}
 	public List<Rsv> rsvDetailList() {
 		List<Rsv> rsvDetailList = rsvMapper.rsvDetailList();
+		return rsvDetailList;
+	}
+	public List<Rsv> rsvDetailListByStore(String storeId) {
+		List<Rsv> rsvDetailList = rsvMapper.rsvDetailListByStore(storeId);
 		return rsvDetailList;
 	}
 
@@ -262,6 +270,9 @@ public class RsvService {
 		}
 		return rsvStatAdmin;
 	}
+
+
+	
 	
 
 }
