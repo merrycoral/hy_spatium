@@ -20,49 +20,55 @@
 			<div class="x_content">
 				<div class="form-group row">
 					<div class="col-md-3 col-sm-3 ">
+					<!-- 
 						<img src="../../src/img/xbox.png">
+					 -->
 					</div>
-					<div class="col-md-9 col-sm-9 ">
-						<h3 th:text="${r.okaySpaceName}"></h3>
-						KS스터디카페
-						 / 
-						12월 11일 / 
+					
+					<!-- 이용한 공간의 예약 정보가 표시됩니다. -->
+					<div class="col-md-9 col-sm-9 " th:if="${#lists.size(rsvListExtend) > 0}" th:each = "r : ${rsvListExtend}">
+						<b th:text="${r.okaySpaceName}"></b>
+						<th:block th:if="${#lists.size(getRsv) > 0}" th:each = "g : ${getRsv}">
+						 / <span th:text="${g.rsvStartDateTime}"></span> ~ 
+						<span th:text="${g.rsvEndDateTime}"></span> / 
+						</th:block> 
 						<span th:text="${r.rsvTime}"></span><br>
 					</div>
 				</div> 
 			</div>
+			
+			
 			<div class="x_title">
 				<h2>리뷰 작성하기 </h2>
 				<div class="clearfix"></div>
 	        </div>
 			<div class="x_content">
+				<form id="writeReview" method="post">
 				<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 ">별점</label>
 					<!-- 종합 점수  -->
 					<div class="col-md-9 col-sm-9 ">
-						<span class="glyphicon glyphicon-star"></span>
-						<span class="glyphicon glyphicon-star"></span>
-						<span class="glyphicon glyphicon-star"></span>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
+						<label><input type="radio" name="reviewScore" value="5"> <span class="fa-star ystar">★★★★★</span> </label>
+						<label><input type="radio" name="reviewScore" value="4"> <span class="fa-star ystar">★★★★</span> </label>
+						<label><input type="radio" name="reviewScore" value="3"> <span class="fa-star ystar">★★★</span> </label>
+						<label><input type="radio" name="reviewScore" value="2"> <span class="fa-star ystar">★★</span> </label>
+						<label><input type="radio" name="reviewScore" value="1"> <span class="fa-star ystar">★</span></label>
+						<br> 이 매장을 다른 사람에게 얼마나 추천하시나요?<br>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 ">후기 제목</label>
 					<div class="col-md-9 col-sm-9 ">
-						<input type="text" class="form-control" placeholder="후기 제목을 입력하세요.">
+						<input type="text" name="reviewTitle" class="form-control" placeholder="후기 제목을 입력하세요.">
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 ">구매 후기</label>
 					<div class="col-md-9 col-sm-9 ">
 						<textarea id="message"
-						required="required" class="form-control" name="message" data-parsley-trigger="keyup"
+						required="required" class="form-control" name="reviewContents" data-parsley-trigger="keyup"
 						data-parsley-minlength="20" data-parsley-maxlength="100"
-						data-parsley-minlength-message="Come on! You need to enter at least a 20 characters long comment.."
+						data-parsley-minlength-message="후기는 10자 이상 입력해주세요."
 						data-parsley-validation-threshold="10">
 						</textarea>
 					</div>
@@ -72,49 +78,54 @@
 					<div class="col-md-9 col-sm-9 ">
 						<div class="form-group">
 						    <label for="exampleInputFile">파일 업로드</label>
-						    <input type="file" id="exampleInputFile">
+						    <input type="file" name="reviewPhoto" id="exampleInputFile">
 						    <p class="help-block">후기 사진을 등록해주세요.</p>
 						</div>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 ">평가</label>
+					<input type="hidden" name="reviewSpaceRsv" th:value="${rsvCode}">
 					<div class="col-md-9 col-sm-9 ">
 						<b>서비스</b> - 서비스는 친절했나요? <br>
-						<label><input type="radio" name="service" value="5"> 5점 </label>
-						<label><input type="radio" name="service" value="4"> 4점 </label>
-						<label><input type="radio" name="service" value="3"> 3점 </label>
-						<label><input type="radio" name="service" value="2"> 2점 </label>
-						<label><input type="radio" name="service" value="1"> 1점 </label>
+						<label><input type="radio" name="reviewService" value="5"> 5점 </label>
+						<label><input type="radio" name="reviewService" value="4"> 4점 </label>
+						<label><input type="radio" name="reviewService" value="3"> 3점 </label>
+						<label><input type="radio" name="reviewService" value="2"> 2점 </label>
+						<label><input type="radio" name="reviewService" value="1"> 1점 </label>
 						<br><b>청결도</b> - 매장은 깨끗했나요?<br>
-						<label><input type="radio" name="cleanliness" value="5"> 5점 </label>
-						<label><input type="radio" name="cleanliness" value="4"> 4점 </label>
-						<label><input type="radio" name="cleanliness" value="3"> 3점 </label>
-						<label><input type="radio" name="cleanliness" value="2"> 2점 </label>
-						<label><input type="radio" name="cleanliness" value="1"> 1점 </label>
+						<label><input type="radio" name="reviewClean" value="5"> 5점 </label>
+						<label><input type="radio" name="reviewClean" value="4"> 4점 </label>
+						<label><input type="radio" name="reviewClean" value="3"> 3점 </label>
+						<label><input type="radio" name="reviewClean" value="2"> 2점 </label>
+						<label><input type="radio" name="reviewClean" value="1"> 1점 </label>
 						<br><b>화장실</b> - 화장실이 깔끔하고 이용이 편리했나요?<br>
-						<label><input type="radio" name="toilet" value="5"> 5점 </label>
-						<label><input type="radio" name="toilet" value="4"> 4점 </label>
-						<label><input type="radio" name="toilet" value="3"> 3점 </label>
-						<label><input type="radio" name="toilet" value="2"> 2점 </label>
-						<label><input type="radio" name="toilet" value="1"> 1점 </label>
+						<label><input type="radio" name="reviewRestroom" value="5"> 5점 </label>
+						<label><input type="radio" name="reviewRestroom" value="4"> 4점 </label>
+						<label><input type="radio" name="reviewRestroom" value="3"> 3점 </label>
+						<label><input type="radio" name="reviewRestroom" value="2"> 2점 </label>
+						<label><input type="radio" name="reviewRestroom" value="1"> 1점 </label>
 						<br><b>시설 상태</b> - 시설을 문제없이 이용하셨나요?<br>
-						<label><input type="radio" name="facility" value="5"> 5점 </label>
-						<label><input type="radio" name="facility" value="4"> 4점 </label>
-						<label><input type="radio" name="facility" value="3"> 3점 </label>
-						<label><input type="radio" name="facility" value="2"> 2점 </label>
-						<label><input type="radio" name="facility" value="1"> 1점 </label>
+						<label><input type="radio" name="reviewFacility" value="5"> 5점 </label>
+						<label><input type="radio" name="reviewFacility" value="4"> 4점 </label>
+						<label><input type="radio" name="reviewFacility" value="3"> 3점 </label>
+						<label><input type="radio" name="reviewFacility" value="2"> 2점 </label>
+						<label><input type="radio" name="reviewFacility" value="1"> 1점 </label>
 						<br><b>분위기</b> - 인테리어, 주변 소음 등 분위기는 만족하셨나요?<br>
-						<label><input type="radio" name="mood" value="5"> 5점 </label>
-						<label><input type="radio" name="mood" value="4"> 4점 </label>
-						<label><input type="radio" name="mood" value="3"> 3점 </label>
-						<label><input type="radio" name="mood" value="2"> 2점 </label>
-						<label><input type="radio" name="mood" value="1"> 1점 </label>
+						<label><input type="radio" name="reviewAmbience" value="5"> 5점 </label>
+						<label><input type="radio" name="reviewAmbience" value="4"> 4점 </label>
+						<label><input type="radio" name="reviewAmbience" value="3"> 3점 </label>
+						<label><input type="radio" name="reviewAmbience" value="2"> 2점 </label>
+						<label><input type="radio" name="reviewAmbience" value="1"> 1점 </label>
 					</div>
 				</div>
 				<div style="text-align:center">
 					<button type="submit" class="btn btn-success">리뷰 등록하기</button>
+					<a th:href = "@{/rsvListExtend(rsvCode=${rsvCode})}">
+						<button type="button" class="btn btn-secondary">돌아가기</button>
+					</a>
 				</div>
+				</form>
 			</div>
 			</div>
 		</div>
@@ -124,12 +135,14 @@
 </th:block>
 
 <th:block layout:fragment="customJs">
+<script src="js/jquery.star-rating-svg.js"></script>
 <script  th:inline="javascript">
+
 	$(function(){
 		var star = $('.fa-star');
 		console.log(star);
 	});
-	
+
 
 </script>
 </th:block>

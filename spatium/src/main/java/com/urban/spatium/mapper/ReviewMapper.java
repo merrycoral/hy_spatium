@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.urban.spatium.Criteria2;
 import com.urban.spatium.dto.Review;
+import com.urban.spatium.dto.Rsv;
 
 @Mapper
 public interface ReviewMapper {
@@ -30,7 +31,6 @@ public interface ReviewMapper {
 
 	public List<Review> getReviewByStoreCode(int storeCode);
 
-
-
+	public List<Rsv> getRsv(String rsvCode);
 
 }

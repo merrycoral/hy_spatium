@@ -1,5 +1,7 @@
 package com.urban.spatium.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.urban.spatium.URLgetter;
+import com.urban.spatium.dto.Review;
 import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.service.ReviewService;
 import com.urban.spatium.service.RsvService;
@@ -41,11 +44,26 @@ public class ReviewController {
 			String rsvCode = array[1]; 
 			//URL에서 가져온 값 자르기
 			System.out.println(rsvCode + " <-- rsvCode");
+			
 			List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
+			List<Rsv> getRsv = reviewService.getRsv(rsvCode);
 			model.addAttribute("rsvCode", rsvCode);
+			model.addAttribute("getRsv", getRsv);
 			model.addAttribute("title", "리뷰 작성하기");
 			model.addAttribute("rsvListExtend", rsvListExtend);
 			return "review/writeReview";
+		}
+		
+		@PostMapping("/writeReview")
+		public String insertReview(Model model, Review wroteReview) {
+			System.out.println(wroteReview);
+			System.out.println(wroteReview.getReviewTitle());
+			//reviewService.insertReview(wroteReview);
+			
+			//int result = reviewService.insertReview(review);
+			//System.out.println(result);
+			// /memberList?result=회원삭제성공
+			return "redirect:/reviewAll";
 		}
 		
 		@GetMapping("/reviewStore")

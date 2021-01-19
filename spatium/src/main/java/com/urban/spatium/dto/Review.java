@@ -14,6 +14,7 @@ public class Review {
 	private String reviewType;
 	private int reviewPoint;
 	private String reviewDisplay; 
+	private String reviewPhoto; 
 	private int reviewClean; 
 	private int reviewService;
 	private int reviewRestroom;
@@ -28,10 +29,19 @@ public class Review {
 				+ ", reviewContents=" + reviewContents + ", reviewAddId=" + reviewAddId + ", reviewAddDate="
 				+ reviewAddDate + ", reviewUpDate=" + reviewUpDate + ", reviewLikeCnt=" + reviewLikeCnt
 				+ ", reviewType=" + reviewType + ", reviewPoint=" + reviewPoint + ", reviewDisplay=" + reviewDisplay
-				+ ", reviewClean=" + reviewClean + ", reviewService=" + reviewService + ", reviewRestroom="
-				+ reviewRestroom + ", reviewFacility=" + reviewFacility + ", reviewAmbience=" + reviewAmbience
-				+ ", reviewScore=" + reviewScore + "]";
+				+ ", reviewPhoto=" + reviewPhoto + ", reviewClean=" + reviewClean + ", reviewService=" + reviewService
+				+ ", reviewRestroom=" + reviewRestroom + ", reviewFacility=" + reviewFacility + ", reviewAmbience="
+				+ reviewAmbience + ", reviewScore=" + reviewScore + "]";
 	}
+
+	public String getReviewPhoto() {
+		return reviewPhoto;
+	}
+
+	public void setReviewPhoto(String reviewPhoto) {
+		this.reviewPhoto = reviewPhoto;
+	}
+
 	public String getReviewStoreId() {
 		return reviewStoreId;
 	}
