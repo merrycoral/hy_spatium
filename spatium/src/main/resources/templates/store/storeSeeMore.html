@@ -99,7 +99,7 @@
 											<th style="text-align: center; width: 50%;">예약까지남은일수</th>
 											<th style="text-align: center;">환불퍼센트</th>
 											</tr>
-											<tr th:each="r : ${storeList}" style="width: 100%">
+											<tr th:each="r : ${storeList2}" style="width: 100%">
 										<td>이용<input type="text" name="remainingDay"
 											 class="a form-control"
 											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.remainingDay}" readonly="readonly">일전

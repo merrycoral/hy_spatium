@@ -2,7 +2,6 @@ package com.urban.spatium.controller;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.urban.spatium.dto.Item;
 
 import com.urban.spatium.dto.Store;
-import com.urban.spatium.dto.User;
 import com.urban.spatium.service.ItemService;
 
 
@@ -70,6 +68,7 @@ public class ItemController {
 		System.out.println("장비구입 수정화면에 입력받은 값 ->" + itemBuyCode);	
 		
 		Item item = itemService.getitemBuyCode(itemBuyCode);
+		System.out.println(item);
 			
 		return "item/uItemBuy";
 	}
@@ -152,6 +151,7 @@ public class ItemController {
 		System.out.println("장비수리내역 수정화면에 입력받은 값 ->" + itemRepairCode);	
 		
 		Item item = itemService.getitemBuyCode(itemRepairCode);
+		System.out.println(item);
 			
 		return "item/uItemRepair";
 	}
