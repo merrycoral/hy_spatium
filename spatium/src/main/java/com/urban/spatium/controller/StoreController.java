@@ -1,9 +1,7 @@
 package com.urban.spatium.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,9 +32,11 @@ public class StoreController {
 		
 			System.out.println(storeCode);
 			Store storeList = storeService.getStoreInfoByStoreCode(storeCode);
+			List<RefundPolicy> storeList2 = refundService.getRefundPolicy(storeCode);
 			System.out.println(storeList);
 			model.addAttribute("title", "업체정보");
 			model.addAttribute("storeList", storeList);
+			model.addAttribute("storeList2", storeList2);
 			
 		return "store/storeSeeMore";
 	}
