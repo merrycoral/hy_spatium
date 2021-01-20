@@ -22,7 +22,7 @@ public interface ItemMapper {
 	
 	
 	//장비파기내역 삭제
-	int removeitemDelete(int itemDeleteCode);
+	int removeitemDelete(String storeDeleteCode);
 			  
 	//장비파기내역 수정
 	int modifyitemDelete(Item storeDeleteCode);
@@ -34,7 +34,7 @@ public interface ItemMapper {
 	public int addItemDelete(Item item);
 	
 	//장비수리내역 삭제
-	int removeitemRepair(int itemRepairCode);
+	int removeitemRepair(String itemRepairCode);
 		  
 	//장비수리내역 수정
 	int modifyitemRepair(Item item);
@@ -46,7 +46,7 @@ public interface ItemMapper {
 	public int addItemRepair(Item item);
 		
 	//장비구입내역 삭제
-	int removeitemBuy(int itemBuyCode);
+	int removeitemBuy(String itemBuyCode);
 	  
 	//장비구입내역 수정
 	int modifyitemBuy(Item item);
@@ -56,5 +56,7 @@ public interface ItemMapper {
 	
 	//장비구입 등록
 	public int addItemBuy(Item item);
+
+	public Item itemListByCode(String itemBuyCode);
 	  
 }

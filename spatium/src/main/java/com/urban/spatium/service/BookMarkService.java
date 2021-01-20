@@ -18,18 +18,19 @@ public class BookMarkService {
 	private BookmarkMapper bookmarkMapper;
 	
 	//북마크 전체삭제
-	public void deleteAll(String userId) {
-		bookmarkMapper.deleteAll(userId);
-    }
+	/*
+	 * public void deleteAll(String userId) { bookmarkMapper.deleteAll(userId); }
+	 */
 	
 	//북마크 삭제
-	public void removeBookMark(int bookMarkCode) {
-		String result = "북마크 삭제 실패";
+	public String removeBookMark(String bookMarkCode) {
+		String result = "북마크  삭제 실패";
 		
-		bookmarkMapper.removeBookMark(bookMarkCode);
-		System.out.println(result);
-	}
-		
+		int removeCheck = bookmarkMapper.removeBookMark(bookMarkCode);
+		if(removeCheck > 0) result = "북마크  삭제 완료";
+		return result;
+	}	
+	
 	//북마크 리스트
 	public List<Bookmark> bookMark(){
 		

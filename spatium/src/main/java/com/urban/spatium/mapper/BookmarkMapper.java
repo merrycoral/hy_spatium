@@ -13,7 +13,7 @@ public interface BookmarkMapper {
 	void deleteAll(String userId); 
 	
     //북마크 삭제
-	void removeBookMark(int bookMarkCode);
+	int removeBookMark(String bookMarkCode);
   
     //북마크 리스트
     public List<Bookmark> bookMark();

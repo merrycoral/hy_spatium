@@ -23,17 +23,13 @@ public class ItemService {
 	private UserMapper userMapper; 
 	
 	//장비구입내역 삭제
-	public String removeitemBuy(int itemBuyCode, String userId) {
+	public String removeitemBuy(String itemBuyCode) {
 		String result = "장비구입내역 삭제 실패";
 		
-		User user = userMapper.getUserById(userId);
-		
-		if(user != null) {
 		int removeCheck = itemMapper.removeitemBuy(itemBuyCode);
 		if(removeCheck > 0) result = "장비구입내역 삭제 완료";
-		}		
 		return result;
-	}
+	}		
 	
 	//장비구입내역 수정
 	public String modifyitemBuy(Item item) {
@@ -62,19 +58,14 @@ public class ItemService {
 		return addCheck;
 	}
 	//장비수리내역 삭제
-	public String removeitemRepair(int itemRepairCode, String userId) {
-		String result = "장비구입내역 삭제 실패";
+	public String removeitemRepair(String itemRepairCode) {
+		String result = "장비수리내역 삭제 실패";
 		
-		User user = userMapper.getUserById(userId);
-		
-		if(user != null) {
 		int removeCheck = itemMapper.removeitemRepair(itemRepairCode);
-		if(removeCheck > 0) result = "장비구입내역 삭제 완료";
-		}			
+		if(removeCheck > 0) result = "장비수리내역 삭제 완료";
 		return result;
-	}
-
-		
+	}	
+	
 	//장비수리내역 수정
 	public String modifyitemRepair(Item item) {
 		String result = "장비수리내역 수정 실패";
@@ -91,7 +82,7 @@ public class ItemService {
 		return itemMapper.itemRepairList();
 	}
 	
-	//장기수리 등록
+	//장비수리 등록
 	public String addItemRepair(Item item) {
 			
 	String addCheck = "장비파기 등록 실패";
@@ -103,17 +94,13 @@ public class ItemService {
 	}
 	
 	//장비파기내역 삭제
-	public String removeitemDelete(int itemDeleteCode, String userId) {
-			String result = "장비구입내역 삭제 실패";
-			
-			User user = userMapper.getUserById(userId);
-			
-			if(user != null) {
-			int removeCheck = itemMapper.removeitemDelete(itemDeleteCode);
-			if(removeCheck > 0) result = "장비구입내역 삭제 완료";
-			}
-			return result;
-		}
+	public String removeitemDelete(String storeDeleteCode) {
+		String result = "장비파기내역 삭제 실패";
+		
+		int removeCheck = itemMapper.removeitemDelete(storeDeleteCode);
+		if(removeCheck > 0) result = "장비파기내역 삭제 완료";
+		return result;
+	}	
 
 	//장비파기내역 수정
 	public String modifyitemDelete(Item item) {
@@ -184,6 +171,11 @@ public class ItemService {
 		List<Store> itemList = itemMapper.addItmeChoice(storeId);
 		
 		return itemList;
+	}
+
+	public Item itemListByCode(String itemBuyCode) {
+		Item item = itemMapper.itemListByCode(itemBuyCode);
+		return item;
 	}
 
 		
