@@ -6,6 +6,13 @@
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
+<th:block layout:fragment="customCss">
+	<style type="text/css">
+		.disable{
+			display: none;
+		}
+	</style>
+</th:block>
 
 <th:block layout:fragment="customContent">
 
@@ -35,8 +42,8 @@
 
 				<input class="form-control" maxlength="12"
 					id="userId" name="userId"	required="required">
-				<button type="submit" id="idchk" class="btn btn-primary"
-					onclick="idChk();" value="N">중복확인</button>
+				<button type="button" id="idchk" class="btn btn-primary"
+					onclick="idCheck();" value="N">중복확인</button>
 			</div>
 
 		</div>
@@ -122,7 +129,7 @@
 
 		<div class="form-group" align="center">
 			<div class="col-md-6 offset-md-3">
-				<button type="submit" id="submit" class="btn btn-primary ">회원가입</button>
+				<button type="submit" id="submit" class="btn btn-primary">회원가입</button>
 				<button type="button" id="cancel" class="btn btn-success">취소</button>
 			</div>
 		</div>
@@ -130,19 +137,15 @@
 
 </th:block>
 <th:block layout:fragment="customJs">
-
 <script> 
-	//number 제한길이
-	function maxLengthCheck(object){
-    	if (object.value.length > object.maxLength){
-     		 object.value = object.value.slice(0, object.maxLength);
-    	}    
-  }
-</script>
- 
-  <script >
-  //유효성검사
- 	
+var check = 0;
+			//number 제한길이
+			function maxLengthCheck(object){
+		    	if (object.value.length > object.maxLength){
+		     		 object.value = object.value.slice(0, object.maxLength);
+		    	}    
+		 	 }
+		  //유효성검사
 	 		$("#cancel").on("click", function(){
 				location.href = "/";
 			})
@@ -191,15 +194,24 @@
 				var idChk = $("#idChk").val();
 				if(idChk == "N"){
 					alert("중복확인 버튼을 눌러주세요.");
-				}else {
-					$("#joinform").submit();
+					return false;
 				}
+				if(check==1){
+					console.log("서브밋!");
+					console.log("서브밋 끝!");
+					return true;
+	 			}else if(check==0){
+	 				alert("아이디 중복체크를 해주세요");
+	 				return false;
+	 			}
 			});
 		
-	</script >
-	< <script >		
 		
 		//아이디 중복체크
+ 		$('#userId').change(function(){
+ 			check=0;
+ 		})
+ 		
 		function idCheck(){
 			$.ajax({
 				url : "/idCheck",
@@ -209,9 +221,11 @@
 				success : function(data){
 					if(data == 1){
 						alert("이미 존재하는 아이디입니다.");
+						check=0;
 					}else if(data == 0){
 						$("#idCheck").attr("value", "Y");
 						alert("사용가능한 아이디입니다.");
+						check=1;
 					}
 						
 				}

@@ -32,17 +32,31 @@
 		FROM
 			tbBookmark
 	</select>
+	
+	<!-- 북마크 체크 -->
+	<select id="getBookMark" parameterType="String" resultType="Bookmark">
+		SELECT
+			bookMarkCode
+			,userId
+			,storeCode
+			,BookRegDate
+		FROM
+			tbBookmark
+		WHERE
+			userId=#{userId}
+		AND
+			storeCode=#{storeCode};
+	</select>
 
 
 	<!-- 북마크 추가 -->
-	<insert id="addbookMark">
+	<insert id="addbookMark" parameterType="String" >
         INSERT INTO tbBookmark
-        (bookMarkCode, userId, storeCode, BookRegDate)
+        (userId, storeCode, BookRegDate)
         VALUES(
-           #{bookMarkCode}
-          ,#{userId}
+          #{userId}
           ,#{storeCode}
-          ,NOW()););
+          ,NOW());
         
     </insert>
 

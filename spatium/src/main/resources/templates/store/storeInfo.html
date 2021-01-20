@@ -23,22 +23,24 @@
 		height: 50px;
 		width: 150px;
 	}
-	#bookmark{
-	text-align: right;
-	}
 </style>
 </th:block>
 
 
 <th:block layout:fragment="customContent">
-<div id="bookmark">
-<button type="button" class="btn btn-danger" id="bookMark">찜하기</button>
-</div>
+
+
 	<!-- 공간 진열 start -->
 	<div class="container main_space"
 		data-example-id="thumbnails-with-custom-content">
 		<div th:text="${storeInfo.storeName}" style="font-size: 50px; font-weight: bold; margin-bottom: 10px;"></div>		
-		<div th:text="'#'+${storeInfo.storeBusinessType}" style="margin-bottom: 10px;"></div>
+		<div style="margin-bottom: 10px;">
+			<span th:text="'#'+${storeInfo.storeBusinessType}" ></span>
+			<span>
+				<button type="button" class="btn btn-danger" id="bookMark">찜하기</button>
+			</span>
+		</div>
+		
 		<div class="row ">
 			<div class="col-lg-12 col-sm-12">
 				<div class="thumbnail">
@@ -177,7 +179,29 @@
 			request.fail(function( jqXHR, textStatus ) {
 				alert( "Request failed: " + textStatus );
 			});
-		})
+		
+    	
+    	$('#bookMark').click(function(){
+    		var storeCode = [[${storeInfo.storeCode}]]
+    		var request = $.ajax({
+				url: "/addbookMark",	//요청 url
+				method: "POST",	//요청 방식
+				data: { storeCode : storeCode },	//요청하는 곳에 전달될 데이타
+				dataType: "text"	//응답되어 받은 데이타를 parsing 시킬 방식
+			});
+			
+    		request.done(function( data ) {
+				alert(data);
+			});
+			
+    		request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+
+
+    	});
+    	
+    	})
     	
     </script>
 </th:block>

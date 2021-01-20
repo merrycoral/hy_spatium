@@ -38,10 +38,15 @@ public class BookMarkService {
 	}
 	
 	//북마크 추가
-	public void addbookMark(Bookmark bookmark) {
+	public void addbookMark(String userId, String storeCode) {
         
-		bookmarkMapper.addbookMark(bookmark);
+		bookmarkMapper.addbookMark(userId,storeCode);
     }
+
+	public List<Bookmark> getBookMark(String userId, String storeCode) {
+		List<Bookmark> bookmark = bookmarkMapper.getBookMark(userId, storeCode);
+		return bookmark;
+	}
 	
 	
  }
