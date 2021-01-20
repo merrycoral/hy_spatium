@@ -1,7 +1,5 @@
 package com.urban.spatium.dto;
 
-import java.util.List;
-
 public class OKSpace {
 	private int okaySpaceCode;
 	private int okayStoreCode;
