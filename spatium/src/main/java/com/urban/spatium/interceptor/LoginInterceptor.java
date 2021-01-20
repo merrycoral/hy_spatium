@@ -55,9 +55,14 @@ public class LoginInterceptor implements HandlerInterceptor{
 				   || requestUri.indexOf("/rsvStoreList") 	> -1 	|| requestUri.indexOf("/rsvListAdmin") 	> -1
 				   || requestUri.indexOf("/rsvDetailListAdmin")> -1 || requestUri.indexOf("/rsvInsertAdmin")> -1 
 				   || requestUri.indexOf("/rsvInsertDayAdmin") 	> -1|| requestUri.indexOf("/rsvStatAdmin") 	> -1 
-				   //리뷰, 정산 고나련 경로
+				   //리뷰, 정산 관련 경로
 				   || requestUri.indexOf("/reviewAll") 	> -1 	|| requestUri.indexOf("/adminCalc") 	> -1
 				   || requestUri.indexOf("/buyStat")> -1
+				   //장비, 업체 관련 경로
+				   
+				   
+				   //결제 관련 경로
+				   
 				   
 						) {
 					response.sendRedirect("/");
@@ -75,7 +80,10 @@ public class LoginInterceptor implements HandlerInterceptor{
 					|| requestUri.indexOf("/rsvStoreList") 	> -1 	 || requestUri.indexOf("/rsvListAdmin") 	> -1
 				    || requestUri.indexOf("/rsvDetailListAdmin")> -1 || requestUri.indexOf("/rsvListExtendAdmin") 	> -1
 				    || requestUri.indexOf("/rsvInsertAdmin")> -1	 || requestUri.indexOf("/rsvInsertDayAdmin") 	> -1
-					|| requestUri.indexOf("/rsvStatAdmin") 	> -1 	) {
+					|| requestUri.indexOf("/rsvStatAdmin") 	> -1 	
+					
+						
+					) {
 					response.sendRedirect("/");
 					return false;
 				}				
