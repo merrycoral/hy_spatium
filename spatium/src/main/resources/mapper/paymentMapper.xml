@@ -171,8 +171,7 @@
 		, rsvState
 		, storeId
 		, storeName
-		<!-- , rsvDetailSpace
-		, rsvDetailItem -->
+		
 		
 	FROM 
 		tbRsv AS r
@@ -180,15 +179,6 @@
 		tbStore AS s
 	on
 		rsvStoreCode = storeCode
-	<!-- INNER JOIN
-		tbRsvRelation AS a
-	ON 
-		r.rsvCode = a.rsvRelationRsvCode
-	INNER JOIN
-		tbRsvDetail AS d
-	ON
-		a.rsvRelationRsvDetailCode = d.rsvDetailCode
-	 -->
 	WHERE 
 		rsvCode = #{rsvCode};
 	</select>
@@ -269,8 +259,13 @@
 	</select>
 	
 	<!-- 인설트 되는값 결제성공페이지 보여주기  -->
-	<select id="">
-	
+	<select id="paymentSuccess" parameterType="int" resultType="Payment">
+		SELECT
+			*
+		FROM
+			 tbPayment
+		WHERE
+			paymentCode = #{a};
 	</select>
 	
 	<insert id="paymentSystem" parameterType="Payment" useGeneratedKeys="true" keyProperty="paymentCode">

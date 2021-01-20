@@ -9,13 +9,13 @@
 <th:block layout:fragment="customCss">
 <style>
 
-.hid{display: none; position: absolute; top: 250px; background-color: white; width: 80%; height: 30%; margin-left: 80px; border: 2px solid;  overflow: scroll;}
-#tabled{border: 1px solid; width: 90%; margin-left: 30px;}
+.hid{display: none; position: absolute; top: 250px; background-color: white; width: 85%; height: 30%; margin-left: 80px; border: 2px solid;  overflow: scroll;}
+#tabled{border: 1px solid; width: 95%; margin-left: 30px; margin-top: 10px;}
 .hide{display: none; }
 .Active{display: block;}
 #removeBtn{margin-left:96%; margin-top: 1%;}
 #teble2{display: inline-block}
-
+.hidth{border-right: 1px solid; border-bottom: 2px solid;}
 </style>
 </th:block>
 
@@ -24,31 +24,7 @@
 	$(function(){
 		
 		
-		$('#paymentListTb').DataTable({
-			order: [ [ 0, "desc" ] ],
-			ordering: true,
-			lengthChange: false,
-			"dom": 'fltip',
-			"language": {
-				         "info": "페이지 _PAGE_ of _PAGES_",
-			        	 "paginate": {
-							        	 "first": "첫페이지",
-							        	 "last": "마지막",
-							             "previous": "이전",
-							             "next":"다음"
-							           },
-			        	 "sEmptyTable": "No data available in table",
-			        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
-			        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
-			        	 "sInfoPostFix": "",
-			        	 "sLengthMenu": "Show _MENU_ 개씩",
-			        	 "sSearch": "검색:",
-			        	 "sSearchPlaceholder": "",
-			        	 "sZeroRecords": "No matching records found"
-				         }
 		
-			
-		});
 		$('.payCode').click(function(){
 			$('#hidTable').addClass('Active');
 			console.log($(this).text());
@@ -70,19 +46,19 @@
               	   	 for(var i =0; i<data.rsvDetail.length;i++){
               	   	 	console.log(data.rsvDetail[i]);
 	              	   	innerHtml += "<tr>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvCode+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailCode+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailSpace+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].okayStoreCode+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].okaySpaceType+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].okaySpaceName+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailItem+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].itemTotalName+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailNum+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvDetailOnePrice+"</td>"
-	              	   	innerHtml += "<td>"+(data.rsvDetail[i].rsvDetailOnePrice)*(data.rsvDetail[i].rsvDetailNum)+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvState+"</td>"
-	              	   	innerHtml += "<td>"+data.rsvDetail[i].rsvStartDateTime+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].rsvCode+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].rsvDetailCode+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].rsvDetailSpace+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].okayStoreCode+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].okaySpaceType+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].okaySpaceName+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].rsvDetailItem+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].itemTotalName+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].rsvDetailNum+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].rsvDetailOnePrice+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+(data.rsvDetail[i].rsvDetailOnePrice)*(data.rsvDetail[i].rsvDetailNum)+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].rsvState+"</td>"
+	              	   	innerHtml += "<td class="+"hidth"+">"+data.rsvDetail[i].rsvStartDateTime+"</td>"
 	              		innerHtml += "</tr>"
               	   	 }
               	   	 
@@ -136,8 +112,32 @@
 			
 	
 		}
+		/***************************************** 여기까지  ****************************************************/
+		$('#paymentListTb').DataTable({
+			order: [ [ 0, "desc" ] ],
+			ordering: true,
+			lengthChange: false,
+			"dom": 'fltip',
+			"language": {
+				         "info": "페이지 _PAGE_ of _PAGES_",
+			        	 "paginate": {
+							        	 "first": "첫페이지",
+							        	 "last": "마지막",
+							             "previous": "이전",
+							             "next":"다음"
+							           },
+			        	 "sEmptyTable": "No data available in table",
+			        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+			        	 "sInfoPostFix": "",
+			        	 "sLengthMenu": "Show _MENU_ 개씩",
+			        	 "sSearch": "검색:",
+			        	 "sSearchPlaceholder": "",
+			        	 "sZeroRecords": "No matching records found"
+				         }
 		
-		
+			
+		});
 		
 		
 	});
@@ -149,18 +149,18 @@
 <th:block layout:fragment="customContent">
 
 
-<h1 style="font-size: 30px;">결제내역조회</h1>
+<h1 style="font-size: 35px; text-align: center; ">결제내역조회</h1>
 <table border="1" id="paymentListTb" class="table table-striped jambo_table bulk_action dataTable no-footer">
 	<thead>
 		<tr>
 			<th>결제코드</th>
 			<th>예약코드</th>
-			<th>결제금액</th>
+			<th>주문금액</th>
 			<th>사용한 포인트</th>
-			<th>실결제금액</th>
+			<th>결제금액</th>
 			<th>적립포인트</th>
 			<th>결제일시</th>
-			<th>결제IP</th>
+			<!-- <th>결제IP</th> -->
 			<th>예약상태</th>
 			<th>환불</th>
 			<th>예약날짜</th>
@@ -177,7 +177,7 @@
 			<td th:text="${p.paymentUseMoney}"></td>
 			<td th:text="${p.paymentAddPoint}"></td>
 			<td th:text="${p.paymentRegDate}" class="paymentRegDate"></td>
-			<td th:text="${p.paymentIP}"></td>
+			<!-- <td th:text="${p.paymentIP}"></td> -->
 			<td th:text="${pr.rsvState}" class="rsvState"></td>
 			<td class="cancelTestTd">
 				<a class="cancelTest" th:href="@{/cancelTest(paymentCode=${p.paymentCode})}"><button type="button" class="cancelTest">환불</button></a>
@@ -196,19 +196,19 @@
 
 	<thead class="tbody">
 		<tr>
-			<th>예약코드</th>
-			<th>세부예약코드</th>
-			<th>예약공간코드</th>
-			<th>업체코드</th>
-			<th>예약공간유형</th>
-			<th>예약공간명</th>
-			<th>예약장비코드</th>
-			<th>예약장비명</th>
-			<th>예약개수</th>
-			<th>개별가격</th>
-			<th>결재금액</th>
-			<th>예약상태</th>
-			<th>예약날짜</th>
+			<th class="hidth">예약코드</th>
+			<th class="hidth">세부예약코드</th>
+			<th class="hidth">예약공간코드</th>
+			<th class="hidth">업체코드</th>
+			<th class="hidth">예약공간유형</th>
+			<th class="hidth">예약공간명</th>
+			<th class="hidth">예약장비코드</th>
+			<th class="hidth">예약장비명</th>
+			<th class="hidth">예약개수</th>
+			<th class="hidth">개별가격</th>
+			<th class="hidth">결재금액</th>
+			<th class="hidth">예약상태</th>
+			<th class="hidth">예약날짜</th>
 		</tr>
 	</thead>
 	<tbody id="tbody" class="tbody">

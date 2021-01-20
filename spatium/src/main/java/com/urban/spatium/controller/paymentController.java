@@ -120,7 +120,7 @@ public class paymentController {
 		Rsv rsv = new Rsv();
 		point.setPointAddList("결제 완료");
 		point.setPointID(pointID);
-		point.setPointSellList("마일리지 적립");
+		point.setPointSellList("포인트 적립");
 		point.setPointList(addPoint);
 		point.setPointPaymentCode(payment.getPaymentCode());
 		int result1=paymentService.addPoint(point);
@@ -136,7 +136,7 @@ public class paymentController {
 			
 			point.setPointAddList("결제 사용");
 			point.setPointID(pointID);
-			point.setPointSellList("마일리지 사용");
+			point.setPointSellList("포인트 사용");
 			point.setPointList(usePoint*-1);
 			point.setPointPaymentCode(payment.getPaymentCode());
 			int result2 = paymentService.addPoint(point);
@@ -145,12 +145,16 @@ public class paymentController {
 		}
 		
 		int a = payment.getPaymentCode();
+		Payment paymentcode =paymentService.paymentSuccess(a);
+		System.out.println(paymentcode+"페이먼트코드값<<<<<<<<<<<<<<");
 		System.out.println("여기");
-		//model.addAttribute("pay", payment.getPaymentCode());
+		model.addAttribute("pay", paymentcode);
 		System.out.println(pay+"pay<<<<<<<<<<<<<<<<<");
 		return "payment/paymentSuccess";
 		
 	}
+	
+	
 	@RequestMapping(value = "/ajaxTest", produces="application/json"  ,method = RequestMethod.POST ) 
 	   public @ResponseBody void ajaxTest(@RequestBody String money) {
 	      System.out.println("메인컨트롤러 .>>..");

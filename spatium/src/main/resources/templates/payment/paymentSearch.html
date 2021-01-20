@@ -22,31 +22,7 @@
 	$(function(){
 		
 		
-		$('#paymentListTb').DataTable({
-			order: [ [ 0, "desc" ] ],
-			ordering: true,
-			lengthChange: false,
-			"dom": 'fltip',
-			"language": {
-				         "info": "페이지 _PAGE_ of _PAGES_",
-			        	 "paginate": {
-							        	 "first": "첫페이지",
-							        	 "last": "마지막",
-							             "previous": "이전",
-							             "next":"다음"
-							           },
-			        	 "sEmptyTable": "No data available in table",
-			        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
-			        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
-			        	 "sInfoPostFix": "",
-			        	 "sLengthMenu": "Show _MENU_ 개씩",
-			        	 "sSearch": "검색:",
-			        	 "sSearchPlaceholder": "",
-			        	 "sZeroRecords": "No matching records found"
-				         }
-		
-			
-		});
+	
 		$('.payCode').click(function(){
 			$('#hidTable').addClass('Active');
 			console.log($(this).text());
@@ -121,12 +97,13 @@
 			var rsvDay = new Date(rsvdateYear,rsvdateMonth,rsvdateDay);
 			console.log(rsvdateYear+"-"+rsvdateMonth+"-"+rsvdateDay);
 			console.log(rsvdate + "예약날짜");
+			console.log(rsvDay < toDay1 + "오늘날짜 예약날짜비교");
 			
 			
 			
 			//오늘날짜, 예약날짜 비교
 			
-		 	if(rsvDay<toDay1 || $('.rsvState').eq(i).text()=="환불 완료"){
+		 	if(rsvDay < toDay1 || $('.rsvState').eq(i).text()=="환불 완료"){
 		 		$('.rsvDate').eq(i).parent().parent().find('.cancelTest').remove();
 		 		$('.rsvDate').eq(i).parent().parent().find('.cancelTestTd').text('환불불가');
 			}
@@ -134,8 +111,32 @@
 			
 	
 		}
+		/***************************************** 여기까지  ****************************************************/
+		$('#paymentListTb').DataTable({
+			order: [ [ 0, "desc" ] ],
+			ordering: true,
+			lengthChange: false,
+			"dom": 'fltip',
+			"language": {
+				         "info": "페이지 _PAGE_ of _PAGES_",
+			        	 "paginate": {
+							        	 "first": "첫페이지",
+							        	 "last": "마지막",
+							             "previous": "이전",
+							             "next":"다음"
+							           },
+			        	 "sEmptyTable": "No data available in table",
+			        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+			        	 "sInfoPostFix": "",
+			        	 "sLengthMenu": "Show _MENU_ 개씩",
+			        	 "sSearch": "검색:",
+			        	 "sSearchPlaceholder": "",
+			        	 "sZeroRecords": "No matching records found"
+				         }
 		
-		
+			
+		});
 		
 		
 	});
@@ -145,7 +146,7 @@
 </th:block>
 
 <th:block layout:fragment="customContent">
-<h1>결제내역조회임..</h1>
+
 <table border="1" id="paymentListTb" class="table table-striped jambo_table bulk_action dataTable no-footer">
 	<thead>
 		<tr>
