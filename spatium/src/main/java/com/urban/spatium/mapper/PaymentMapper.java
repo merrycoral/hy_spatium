@@ -40,7 +40,7 @@ public interface PaymentMapper {
 	
 	public List<Payment> allPaymentSelect();
 	
-	public List<Payment> StorePaymentSelect();
+	public List<Payment> StorePaymentSelect(String SID);
 	
 	public int paymentSystem(Payment payment);
 	

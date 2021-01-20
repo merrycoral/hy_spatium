@@ -94,7 +94,7 @@ public class refundController {
 		
 		return "refund/refundPolicy";
 	}
-	
+	//환불페이지
 	@GetMapping("/cancelTest")
 	public String cancelTest(Model model
 							,@RequestParam(name="paymentCode", required = false) String paymentCode) {
@@ -113,8 +113,19 @@ public class refundController {
 		
 		return "refund/cancelPage";
 	}
+	//판매자 환불페이지
+	@GetMapping("/refundSearchMyStore")
+	public String refundSearchMyStore(Model model,HttpSession session) {
+		String storeId = (String) session.getAttribute("SID");
+		List<CancelRsv> storeRefundSelect = refundService.refundSelectStore(storeId);
+		System.out.println("컨트롤러!!!!!!"+storeRefundSelect);
+		model.addAttribute("refundSelect", storeRefundSelect);
+		model.addAttribute("title", "환불내역조회");
+		return "refund/refundSearchMyStore";
+	}
 	
 	
+	//관리자 환불페이지
 	@GetMapping("/refundSearch")
 	public String refundSearch(Model model) {
 		

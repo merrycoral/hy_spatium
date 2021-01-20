@@ -10,11 +10,19 @@ public class RefundPolicy {
 	private String refundPolicyUserId;
 	private int refundPolicyRegDate;
 	private String storeName;
-	
+	private CancelRsv cancelRsv;
 	private List<RefundPolicy> refundPolicyList;
 	
 	
 	
+
+	public CancelRsv getCancelRsv() {
+		return cancelRsv;
+	}
+
+	public void setCancelRsv(CancelRsv cancelRsv) {
+		this.cancelRsv = cancelRsv;
+	}
 
 	public List<RefundPolicy> getRefundPolicyList() {
 		return refundPolicyList;
@@ -97,6 +105,8 @@ public class RefundPolicy {
 		builder.append(refundPolicyRegDate);
 		builder.append(", storeName=");
 		builder.append(storeName);
+		builder.append(", cancelRsv=");
+		builder.append(cancelRsv);
 		builder.append(", refundPolicyList=");
 		builder.append(refundPolicyList);
 		builder.append("]");
