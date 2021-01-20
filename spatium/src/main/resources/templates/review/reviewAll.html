@@ -12,6 +12,8 @@
 	#reviewTable th {padding : 5px;}
 	#reviewTable td {padding : 5px;}
 	
+	.ystar {color:#F5C225; font-size: 20px;}
+	
 </style>
 </th:block>
 
@@ -26,33 +28,25 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      </div>
 	      <div class="modal-body" style="font-size:15px;">
-				<div th:if="${#lists.size(allReview) > 0}" th:each="ar : ${allReview}">
-				<span class="a-center "><input type="checkbox" class="flat chose"
-					name="table_records" th:value="${ar.get('reviewCode')}"></span>
-				<span class=" " th:text="${ar.get('reviewCode')}"></span>
-				<span class=" " th:text="${ar.get('reviewSpaceRsv')}"></span>
-				<span class=" " th:text="${ar.get('reviewSpaceCode') }"></span>
-				<details style="width:200px;">
-					<summary th:text="${ar.get('reviewTitle')}"></summary>
-					<span th:text="${ar.get('reviewContents')}"> </span>
-				</details>
-				<span class=" " th:text="${ar.get('reviewAddId')}"></span>
-				<span class=" " th:text="${ar.get('reviewAddDate')}"></span>
-				<span class=" " th:text="${ar.get('reviewUpDate')}"></span>
-				<span class=" " th:text="${ar.get('reviewLikeCnt')}"></span>
-				<span class=" " th:text="${ar.get('reviewType')}"></span>
-				<span class=" " th:text="${ar.get('reviewPoint')}"></span>
-				<span class=" " th:text="${ar.get('reviewDisplay')}"></span>
-				<span class=" " th:text="${ar.get('reviewClean')}"></span>
-				<span class=" " th:text="${ar.get('reviewService')}"></span>
-				<span class=" " th:text="${ar.get('reviewRestroom')}"></span>
-				<span class=" " th:text="${ar.get('reviewFacility')}"></span>
-				<span class=" " th:text="${ar.get('reviewAmbience')}"></span>
-				<span class=" last" th:text="${ar.get('reviewScore')}"></span>
+	      	<h4 id="reviewTitle"></h4>
+	      	작성자 : <span id="reviewAddId"></span>
+	      	작성일 : <span id="reviewAddDate"></span>
+	      	<br>
+	      	리뷰 코드 : <span id="reviewCode"> </span>
+	      	예약 코드 : <span id="reviewSpaceRsv"> </span>
+	      	공간 코드 : <span id="reviewSpaceCode"> </span>
+	      	<br>
+	      	<h2> 종합 추천 점수 : <span id="reviewScore" class="ystar"></span></h2>
+	      	청결도 : <span id="reviewClean"></span>
+	      	서비스 : <span id="reviewService"></span>
+	      	화장실 : <span id="reviewRestroom"></span>
+	      	시설 : <span id="reviewFacility"></span>
+	      	분위기 : <span id="reviewAmbience"></span>
+	      	
+	      	<br>
+	      		<span id="reviewContents"></span>
+		 	</div>
 				
-				</div>
-				
-	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 	        <button type="button" class="btn btn-success" id="changeBlindReview">블라인드 변경하기</button>
@@ -160,10 +154,9 @@
 								<td class=" " th:text="${ar.get('reviewCode')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceRsv')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceCode') }"></td>
-								<td class=" "><details style="width:200px;">
-										<summary th:text="${ar.get('reviewTitle')}"></summary>
-										<span th:text="${ar.get('reviewContents')}"> </span>
-									</details></td>
+								<td class="reviewTitle"> <span class="reviewTitle" th:text="${ar.get('reviewTitle')}"></span>
+									 <span class="reviewIn "th:text="${ar.get('reviewContents')}"></span>								
+								</td>
 								<td class=" " th:text="${ar.get('reviewAddId')}"></td>
 								<td class=" " th:text="${ar.get('reviewAddDate')}"></td>
 								<td class=" " th:text="${ar.get('reviewUpDate')}"></td>
@@ -207,12 +200,69 @@
 <!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script  th:inline="javascript">
+	var details = $('details');
+	var reviewTitle = $("td.reviewTitle");
 		
-		var reviewRow = $(".reviewRow");
-		var details = $(details);
-		console.log(reviewRow[1]);
+	reviewTitle.click(function(e) {
+	
+		e.preventDefault();
+		var index = $(".reviewTitle").index(this);
+		console.log(index);
 		
+		var reviewRow = $(this).parents('tr');
+		console.log(reviewRow);
+	  
+		var reviewCode = $(this).parents('tr').find('td')[1];
+		console.log($(reviewCode).text());
+		var reviewSpaceRsv = $(this).parents('tr').find('td')[2];
+		console.log($(reviewSpaceRsv).text());
+		
+		var reviewSpaceCode = $(this).parents('tr').find('td')[3];
+		var reviewTitle = $(this).parents('tr').find('.reviewTitle');
+		var reviewContents = $(this).parents('tr').find('.reviewIn');
+		console.log("내용이 나와야 한다구우");
+		console.log($(reviewContents).text());
+		var reviewAddId = $(this).parents('tr').find('td')[5];
+		var reviewAddDate = $(this).parents('tr').find('td')[6];
+		var reviewClean = $(this).parents('tr').find('td')[12];
+		var reviewService = $(this).parents('tr').find('td')[13];
+		var reviewRestroom = $(this).parents('tr').find('td')[14];
+		var reviewFacility = $(this).parents('tr').find('td')[15];
+		var reviewAmbience = $(this).parents('tr').find('td')[16];
+		var reviewScore = $(this).parents('tr').find('td')[17];
+		
+		$('#reviewCode').text($(reviewCode).text());
+		$('#reviewSpaceRsv').text($(reviewSpaceRsv).text());
+		$('#reviewSpaceCode').text($(reviewSpaceCode).text());
+		$('#reviewTitle').text($(reviewTitle).text());
+		$('#reviewContents').text($(reviewContents).text());
+		$('#reviewAddId').text($(reviewAddId).text());
+		$('#reviewAddDate').text($(reviewAddDate).text());
+		$('#reviewClean').text($(reviewClean).text());
+		$('#reviewService').text($(reviewService).text());
+		$('#reviewRestroom').text($(reviewRestroom).text());
+		$('#reviewFacility').text($(reviewFacility).text());
+		$('#reviewAmbience').text($(reviewAmbience).text());
+		
+		var score = $(reviewScore).text();
+		var starScore = ""
+		for(i=1;i<=score;i++){
+			starScore += '★'
+		}
+		$('#reviewScore').text(starScore);
+		
+		$('#reviewReply').modal();
+	 }
+	
+	);
 
+		console.log(reviewTitle);
+		
+/* 		details.click(function(){
+			$('#reviewReply').modal();
+			var el = $(this).index();
+			  console.log(el);
+		}); */
 		
 		$("#reviewTable").DataTable({
 	  		order: [ [ 0, "asc" ] ],
