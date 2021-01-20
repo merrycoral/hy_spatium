@@ -8,7 +8,6 @@
 		SELECT 
 			reviewCode, 
 			reviewSpaceRsv, 
-			reviewSpaceCode, 
 			reviewStoreId,
 			reviewTitle, 
 			reviewContents, 
@@ -30,7 +29,6 @@
 	<insert id="insertReview" parameterType="String">
 		INSERT INTO tbReview
 			( reviewSpaceRsv
-			, reviewSpaceCode
 			, reviewStoreId
 			, reviewStoreCode
 			, reviewTitle

@@ -94,9 +94,10 @@
 					<div class="tab-pane fade" id="item">
 						<th:block th:each="i : ${itemCountListByStoreCode}">
 							<div class="spaceInfo" th:text="${i.itemTotalName}" style="font-size: 20px; font-weight: bold; margin-bottom: 10px;"></div>
-							<div class="spaceInfo"></div><div><img data-src="holder.js/100%x200" alt="100%x500"
-																th:src="${i.itemImg}" data-holder-rendered="true"
-																style="height: 200px; width: 300px; display: block;"></div>
+							<div class="spaceInfo"></div>
+							<div><img data-src="holder.js/100%x200" alt="100%x500"
+									th:src="${i.itemImg}" data-holder-rendered="true"
+									style="height: 200px; width: 300px; display: block;"></div>
 							<div class="spaceInfo">보유 개수 </div><div><span th:text = "${i.itemTotalAmount}+개"></span></div>
 							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${storeInfo.storeRsvType}"></span>당<span th:text = "${i.itemRentalPrice}"></span>원</div>
 							<div class="spaceInfo">------------------------------------------------------------------------------------------------------</div>
@@ -140,6 +141,7 @@
    		//주소를 좌표로 변환하고싶은 ajax
 	   		/*<![CDATA[*/
    			var address = [[${storeInfo.storeAddress}]];
+	   		console.log(address);
 			/*]]>*/	
    			var xCode = 0;
    			var yCode = 0;
