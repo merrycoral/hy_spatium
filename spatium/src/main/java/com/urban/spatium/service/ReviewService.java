@@ -26,10 +26,11 @@ public class ReviewService {
 			Map <String, Object> review = new HashMap<>();
 			String rsvCode = Integer.toString(wroteReview.getReviewSpaceRsv());
 			List<Rsv> getRsv = rsvMapper.rsvListExtend(rsvCode);
-			System.out.println("@@@@@@@@@@@" + getRsv.get(0).getStoreId());
-			review.put("reviewSpaceRsv", 54567);
-			review.put("reviewStoreId", getRsv.get(0).getStoreId());
-			review.put("reviewStoreCode", reviewMapper.getStore(rsvCode));
+			Map <String, Object> storeInfo = reviewMapper.getStore(rsvCode);
+			System.out.println("##########" + getRsv.get(0).getStoreId());
+			review.put("reviewSpaceRsv", rsvCode);
+			review.put("reviewStoreId", storeInfo.get("storeId"));
+			review.put("reviewStoreCode", storeInfo.get("storeCode"));
 			review.put("reviewTitle", wroteReview.getReviewTitle());
 			review.put("reviewContents", wroteReview.getReviewContents());
 			review.put("SID", SID);
@@ -49,10 +50,8 @@ public class ReviewService {
 			review.put("reviewPhoto", wroteReview.getReviewPhoto());
 			//review.put("", wroteReview.get);
 			
-			review.put("reviewSpaceRsv", wroteReview.getReviewSpaceCode());
-			
 			System.out.println(review);
-			//reviewMapper.insertReview(review);
+			reviewMapper.insertReview(review);
 			
 			
 			return 7;

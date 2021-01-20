@@ -8,7 +8,6 @@
 		SELECT 
 			reviewCode, 
 			reviewSpaceRsv, 
-			reviewSpaceCode, 
 			reviewStoreId,
 			reviewTitle, 
 			reviewContents, 
@@ -59,13 +58,14 @@
 			, #{reviewScore}, #{reviewPhoto})
 	</insert>
 	
-	<select id="getStore" parameterType="String" resultType="int">
+	<select id="getStore" parameterType="String" resultType="Map">
 		select
-			storeCode
+			  storeCode
+			, storeId
 		From
 			viewRsv
-		where rsvCode = #{rsvCode}
-	
+		where
+			rsvCode = #{rsvCode}
 	</select>
 	
 	<select id="getReviewByStoreCode" parameterType="int" resultType="Review">
