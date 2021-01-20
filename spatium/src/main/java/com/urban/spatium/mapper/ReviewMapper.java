@@ -12,6 +12,7 @@ import com.urban.spatium.dto.Rsv;
 @Mapper
 public interface ReviewMapper {
 
+
 	public List<Map<String, Object>> getAllReview(int startRow, int rowPerPage);
 
 	public int deleteReview(String reviewCode);
@@ -32,5 +33,9 @@ public interface ReviewMapper {
 	public List<Review> getReviewByStoreCode(int storeCode);
 
 	public List<Rsv> getRsv(String rsvCode);
+
+	public Map<String, Object> getStore(String rsvCode);
+
+	public void insertReview(Map<String, Object> review);
 
 }

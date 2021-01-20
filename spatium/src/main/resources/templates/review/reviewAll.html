@@ -16,7 +16,52 @@
 </th:block>
 
 <th:block layout:fragment="customContent">
-	 
+	
+	<!-- 리뷰 답변 모달  -->
+	<div class="modal fade" id="reviewReply">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title">리뷰에 사장님 답글 작성하기</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      </div>
+	      <div class="modal-body" style="font-size:15px;">
+				<div th:if="${#lists.size(allReview) > 0}" th:each="ar : ${allReview}">
+				<span class="a-center "><input type="checkbox" class="flat chose"
+					name="table_records" th:value="${ar.get('reviewCode')}"></span>
+				<span class=" " th:text="${ar.get('reviewCode')}"></span>
+				<span class=" " th:text="${ar.get('reviewSpaceRsv')}"></span>
+				<span class=" " th:text="${ar.get('reviewSpaceCode') }"></span>
+				<details style="width:200px;">
+					<summary th:text="${ar.get('reviewTitle')}"></summary>
+					<span th:text="${ar.get('reviewContents')}"> </span>
+				</details>
+				<span class=" " th:text="${ar.get('reviewAddId')}"></span>
+				<span class=" " th:text="${ar.get('reviewAddDate')}"></span>
+				<span class=" " th:text="${ar.get('reviewUpDate')}"></span>
+				<span class=" " th:text="${ar.get('reviewLikeCnt')}"></span>
+				<span class=" " th:text="${ar.get('reviewType')}"></span>
+				<span class=" " th:text="${ar.get('reviewPoint')}"></span>
+				<span class=" " th:text="${ar.get('reviewDisplay')}"></span>
+				<span class=" " th:text="${ar.get('reviewClean')}"></span>
+				<span class=" " th:text="${ar.get('reviewService')}"></span>
+				<span class=" " th:text="${ar.get('reviewRestroom')}"></span>
+				<span class=" " th:text="${ar.get('reviewFacility')}"></span>
+				<span class=" " th:text="${ar.get('reviewAmbience')}"></span>
+				<span class=" last" th:text="${ar.get('reviewScore')}"></span>
+				
+				</div>
+				
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="button" class="btn btn-success" id="changeBlindReview">블라인드 변경하기</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<!-- 리뷰 삭제 모달 -->
 	<div class="modal fade" id="deleteCheck">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -35,6 +80,7 @@
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 	
+	<!-- 블라인드 모달  -->
 	<div class="modal fade" id="blindCheck">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -107,9 +153,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" th:if="${#lists.size(allReview) > 0}"
+							<tr class="even pointer reviewRow" th:if="${#lists.size(allReview) > 0}"
 								th:each="ar : ${allReview}">
-								<td class="a-center "><input type="checkbox" class="flat"
+								<td class="a-center "><input type="checkbox" class="flat chose"
 									name="table_records" th:value="${ar.get('reviewCode')}"></td>
 								<td class=" " th:text="${ar.get('reviewCode')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceRsv')}"></td>
@@ -161,6 +207,13 @@
 <!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script  th:inline="javascript">
+		
+		var reviewRow = $(".reviewRow");
+		var details = $(details);
+		console.log(reviewRow[1]);
+		
+
+		
 		$("#reviewTable").DataTable({
 	  		order: [ [ 0, "asc" ] ],
 	  		ordering: true,
@@ -187,7 +240,7 @@
 	
 	$('#deleteBtn').click(function(){
 		$("form").attr("action", "/deleteReview");
-		var selected = $('.flat:checked').length;
+		var selected = $('.chose:checked').length;
 		console.log(selected);
 		if (selected > 0) {
 			$('#noticeBox').attr("style", "display:none;");
@@ -208,7 +261,7 @@
 			
 	$('#blindBtn').click(function(){
 		$("form").attr("action", "/blindReview");
-		var selected = $('.flat:checked').length;
+		var selected = $('.chose:checked').length;
 		console.log(selected);
 		if (selected > 0) {
 			$('#noticeBox').attr("style", "display:none;");

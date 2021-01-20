@@ -18,7 +18,44 @@ import com.urban.spatium.mapper.RsvMapper;
 @Transactional
 public class ReviewService {
 		@Autowired
+		private RsvMapper rsvMapper;
+		@Autowired
 		private ReviewMapper reviewMapper;
+		
+		public int insertReview(Review wroteReview, String SID) {
+			Map <String, Object> review = new HashMap<>();
+			String rsvCode = Integer.toString(wroteReview.getReviewSpaceRsv());
+			List<Rsv> getRsv = rsvMapper.rsvListExtend(rsvCode);
+			Map <String, Object> storeInfo = reviewMapper.getStore(rsvCode);
+			System.out.println("##########" + getRsv.get(0).getStoreId());
+			review.put("reviewSpaceRsv", rsvCode);
+			review.put("reviewStoreId", storeInfo.get("storeId"));
+			review.put("reviewStoreCode", storeInfo.get("storeCode"));
+			review.put("reviewTitle", wroteReview.getReviewTitle());
+			review.put("reviewContents", wroteReview.getReviewContents());
+			review.put("SID", SID);
+			if(wroteReview.getReviewPhoto() != null) {
+				review.put("reviewType", 2);
+				review.put("reviewPoint", 50);
+			}else {
+				review.put("reviewType", 3);
+				review.put("reviewPoint", 10);
+			}
+			review.put("reviewClean", wroteReview.getReviewClean());
+			review.put("reviewService", wroteReview.getReviewService());
+			review.put("reviewRestroom", wroteReview.getReviewRestroom());
+			review.put("reviewFacility", wroteReview.getReviewFacility());
+			review.put("reviewAmbience", wroteReview.getReviewAmbience());
+			review.put("reviewScore", wroteReview.getReviewScore());
+			review.put("reviewPhoto", wroteReview.getReviewPhoto());
+			//review.put("", wroteReview.get);
+			
+			System.out.println(review);
+			reviewMapper.insertReview(review);
+			
+			
+			return 7;
+		}
 		
 		public List<Rsv> getRsv(String rsvCode) {
 			List<Rsv> getRsv = reviewMapper.getRsv(rsvCode);
@@ -203,12 +240,6 @@ public class ReviewService {
 			System.out.println(resultMap.get("endPageNum"));
 			
 			return resultMap;
-		}
-
-		public int insertReview(Review wroteReview) {
-			Map <String, Object> review = new HashMap<>();
-			//review.put(reviewSpaceRsv, wroteReview.getReviewSpaceCode());
-			return 0;
 		}
 
 }

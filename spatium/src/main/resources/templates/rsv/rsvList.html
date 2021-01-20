@@ -89,6 +89,7 @@
 						<th class="column-title">세부</th>
 						<th class="column-title">결제</th>
 						<th class="column-title">예약취소</th>
+						<th class="column-title">리뷰쓰기</th>
 						<th class="bulk-actions" colspan="12" style="display: none;">
 							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
 								class="fa fa-chevron-down"></i>
@@ -109,6 +110,7 @@
 						<td class=" "><a th:href="@{/rsvListExtend(rsvCode=${r.rsvCode})}">확장</a></td>
 						<td class="paymentTestTd"><a  th:href="@{/paymentTest(rsvCode=${r.rsvCode})}" class="paymentTest">결제</a></td>
 						<td><a  th:href="@{/rsvCancel(rsvCode=${r.rsvCode},rsvState=${r.rsvState})}">취소</a></td>
+						<td><a th:href = "@{/writeReview(rsvCode=${r.rsvCode})}">리뷰쓰러가기</a></td>
 					</tr>
 				</tbody>
 			</table>
