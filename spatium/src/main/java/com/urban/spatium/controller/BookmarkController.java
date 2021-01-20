@@ -23,14 +23,17 @@ public class BookmarkController {
 	
 
 	//북마크 삭제
-	@GetMapping("/removeBookMark")
-	public String removeBookMark(@RequestParam(name="bookMarkCode", required = false) int bookMarkCode) {
-			
-		bookmarkService.removeBookMark(bookMarkCode);
+	@GetMapping("/removeBookMark") 
+	public String removeBookMark(@RequestParam(name="bookMarkCode", required = false) String bookMarkCode , Model model) {
+		 System.out.println("북마크 삭제화면에 입력받은 값 ->" + bookMarkCode);
+	  
+	 bookmarkService.removeBookMark(bookMarkCode);
+	  
+	 model.addAttribute("bookMarkCode", bookMarkCode);
+	 	  
+	 return "redirect:/bookMarkList";
+	  }
 
-		return "redirect:/bookMarkList";
-	}
-		
 	//북마크 목록
 	@PostMapping("/bookMark")
 	public String bookMark(Model model) {

@@ -26,7 +26,7 @@
 					<td th:text="${b.storeCode}"></td>
 					<td th:text="${b.BookRegDate}"></td>
 					<td>
-						<button type="submit"><a th:href="@{/removeBookmark(bookMarkCode=${b.bookMarkCode})}">삭제</a></button>
+						<a th:href="@{/removeBookmark(bookMarkCode=${b.bookMarkCode})}"><button type="submit">삭제</button></a>
 					</td>
 				</tr>
 			</tbody>

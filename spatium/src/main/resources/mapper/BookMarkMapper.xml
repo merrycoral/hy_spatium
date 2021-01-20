@@ -14,7 +14,7 @@
 	</delete> 
 	
 	<!-- 북마크 삭제 -->
-	<delete id="removeBookMark" parameterType="int">
+	<delete id="removeBookMark">
 		DELETE
 		FROM
 		tbBookmark
