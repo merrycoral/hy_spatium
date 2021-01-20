@@ -25,6 +25,10 @@ public class PaymentService {
 	@Autowired 
 	private PaymentMapper paymentMapper;
 	
+	public Payment paymentSuccess(int a) {
+		
+		return paymentMapper.paymentSuccess(a);
+	}
 	
 	public int rsvCheck(Map<String,Object> totalMap) {
 		return paymentMapper.rsvCheck(totalMap);

@@ -58,6 +58,7 @@ public class SpaceService {
 	
 	public String addReadySpace(ReadySpace readySpace, String storeCode) {
 		int result = spaceMapper.addReadySpace(readySpace);
+		System.out.println(result);
 		
 		String checkCate = "ㅎㅇ";
 		

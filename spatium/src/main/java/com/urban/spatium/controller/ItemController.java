@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.urban.spatium.dto.Item;
 
 import com.urban.spatium.dto.Store;
-import com.urban.spatium.dto.User;
 import com.urban.spatium.service.ItemService;
 
 
@@ -62,16 +61,15 @@ public class ItemController {
 		return "redirect:/itemBuyList";
 	}
 
-	/*
-	 * @GetMapping("/modifyitemBuy") public String
-	 * modifyitemBuy(@RequestParam(name="itemBuyCode", required = false) String
-	 * itemBuyCode ,Model model) { System.out.println("장비구입 수정화면에 입력받은 값 ->" +
-	 * itemBuyCode);
-	 * 
-	 * Item item = itemService.modifyitemBuy(itemBuyCode);
-	 * 
-	 * return "item/uItemBuy"; }
-	 */
+	@GetMapping("/modifyitemBuy")
+	public String modifyitemBuy(@RequestParam(name="itemBuyCode", required = false) int itemBuyCode
+			,Model model) {
+		System.out.println("장비구입 수정화면에 입력받은 값 ->" + itemBuyCode);	
+
+		Item item = itemService.getitemBuyCode(itemBuyCode);
+		System.out.println(item);
+		return "item/uItemBuy";
+	}
 
 	//장비구입내역
 	@GetMapping("/itemBuyList")
@@ -141,16 +139,17 @@ public class ItemController {
 		return "redirect:/itemRepairList";
 	}
 
-	/*
-	 * @GetMapping("/modifyitemRepair") public String
-	 * modifyitemRepair(@RequestParam(name="itemRepairCode", required = false)
-	 * String itemRepairCode ,Model model) {
-	 * System.out.println("장비수리내역 수정화면에 입력받은 값 ->" + itemRepairCode);
-	 * 
-	 * Item item = itemService.getitemBuyCode(itemRepairCode);
-	 * 
-	 * return "item/uItemRepair"; }
-	 */
+	@GetMapping("/modifyitemRepair")
+	public String modifyitemRepair(@RequestParam(name="itemRepairCode", required = false) int itemRepairCode
+			,Model model) {
+		System.out.println("장비수리내역 수정화면에 입력받은 값 ->" + itemRepairCode);	
+
+		Item item = itemService.getitemBuyCode(itemRepairCode);
+		System.out.println(item);
+			
+		return "item/uItemRepair";
+	}
+
 	//장비수리내역
 	@GetMapping("/itemRepairList")
 	public String itemRepairList(Model model) {
@@ -290,16 +289,19 @@ public class ItemController {
 
 	//장비등록
 	@PostMapping("/addItem")
-	public String addItem(Model model, Item item, HttpSession session) {
+	public String addItem(Model model, Item item, HttpSession session, Store store
+							,@RequestParam(name = "code", required = false) int code) {
 		System.out.println(item + "=========== 장비 넘어온 값 ============");
 		String sessionId = (String) session.getAttribute("SID");
 		System.out.println(sessionId);
 		item.setItemDetailUserId(sessionId);
+		System.out.println(code + "포스트 맵핑 장비등록 스토어코드");
+		item.setStoreDetailCode(code);
 		String result = itemService.addItem(item);
-
+		
 		System.out.println(result);
 
-		return "redirect:/addItem";
+		return "redirect:/";
 	}
 
 	@GetMapping("/addItem")
@@ -310,9 +312,9 @@ public class ItemController {
 		item.setStoreDetailCode(storeCode);
 		int code = item.getStoreDetailCode();
 		System.out.println(code);
+		model.addAttribute("code", code);
 
 		model.addAttribute("title", "장비 등록 하기");
-
 
 		return "item/itemBuyForm";
 	}

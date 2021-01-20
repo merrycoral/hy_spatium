@@ -20,7 +20,6 @@ public interface ItemMapper {
 
 	public List<Item> itemCountListByStoreCode(int storeCode);
 	
-	
 	//장비파기내역 삭제
 	int removeitemDelete(int itemDeleteCode);
 			  

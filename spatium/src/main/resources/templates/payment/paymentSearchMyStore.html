@@ -78,31 +78,32 @@
 		var toDay = new Date();
 		var toDayYear = toDay.getFullYear();
 		var toDayMonth = toDay.getMonth();
-		toDay.setMonth(toDayMonth);
+		toDay.setMonth(toDayMonth+1);
 		toDayMonth = toDay.getMonth();
+		if(toDayMonth==0){
+			toDayMonth=12;
+		}
 		var toDayDay = toDay.getDate();
 		var toDay1= new Date(toDayYear,toDayMonth,toDayDay);
 		
 		
 		for(var i=0; i<$('.rsvDate').length; i++){
 			
-			var rsvdate = $('.rsvDate').eq(i).text();
+			var rsvdate = $('.rsvDate').eq(i).val();
 			//예약날짜
 			var rsvdateYear = rsvdate.substring(0,4);
 			var rsvdateMonth = rsvdate.substring(5,7);
 			var rsvdateDay = rsvdate.substring(8,10);
 			var rsvDay = new Date(rsvdateYear,rsvdateMonth,rsvdateDay);
 			console.log(rsvdateYear+"-"+rsvdateMonth+"-"+rsvdateDay);
-			console.log(rsvDay + "예약날짜");
-			console.log(toDay1 + "오늘날짜")
-			var check = rsvDay < toDay1;
-			console.log(check, "오늘날짜 예약날짜비교");
+			console.log(rsvdate + "예약날짜");
+			console.log(rsvDay < toDay1 + "오늘날짜 예약날짜비교");
 			
 			
 			
 			//오늘날짜, 예약날짜 비교
 			
-		 	if(rsvDay < toDay1/*    || $('.rsvState').eq(i).text()=="환불 완료"  */ ){
+		 	if(rsvDay < toDay1 || $('.rsvState').eq(i).text()=="환불 완료"){
 		 		$('.rsvDate').eq(i).parent().parent().find('.cancelTest').remove();
 		 		$('.rsvDate').eq(i).parent().parent().find('.cancelTestTd').text('환불불가');
 			}
@@ -176,8 +177,8 @@
 			<td th:text="${p.paymentAddPoint}"></td>
 			<td th:text="${p.paymentRegDate}" class="paymentRegDate"></td>
 			<td th:text="${p.paymentIP}"></td>
-			<!-- <td><input type="text" th:value="${pr.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td> -->
-			<td th:text="${pr.rsvStartDateTime}" class="rsvDate"></td>
+			<td><input type="text" th:value="${pr.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td>
+			<!-- <td th:text="${pr.rsvStartDateTime}" class="rsvDate"></td> -->
 			<td th:text="${pr.rsvState}" class="rsvState"></td>
 			
 			<td class="cancelTestTd">

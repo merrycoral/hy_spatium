@@ -8,7 +8,6 @@
 		SELECT 
 			reviewCode, 
 			reviewSpaceRsv, 
-			reviewSpaceCode, 
 			reviewStoreId,
 			reviewTitle, 
 			reviewContents, 
@@ -27,17 +26,15 @@
 			reviewScore
 	</sql>
 	
-	<insert id="insertReview" parameterType="String">
+	<insert id="insertReview" parameterType="hashMap">
 		INSERT INTO tbReview
 			( reviewSpaceRsv
-			, reviewSpaceCode
 			, reviewStoreId
 			, reviewStoreCode
 			, reviewTitle
 			, reviewContents
 			, reviewAddId
 			, reviewAddDate
-			, reviewUpDate
 			, reviewType
 			, reviewPoint
 			, reviewDisplay
@@ -47,12 +44,28 @@
 			, reviewFacility
 			, reviewAmbience, reviewScore, reviewPhoto)
 			VALUES
-			(0, 0, '', 0, '', '', '', NOW(), NOW(), 0, 0, 0, 'Y', 0, 0, 0, 0, 0, 0, '')
+			( #{reviewSpaceRsv}
+			, #{reviewStoreId}
+			, #{reviewStoreCode}
+			, #{reviewTitle}
+			, #{reviewContents}
+			, #{SID}
+			, NOW()
+			, #{reviewType}
+			, #{reviewPoint}
+			, 'Y', #{reviewClean}, #{reviewService}, #{reviewRestroom}
+			, #{reviewFacility}, #{reviewAmbience}
+			, #{reviewScore}, #{reviewPhoto})
 	</insert>
 	
-	<select id="getStore" parameterType="int" resultType="String">
+	<select id="getStore" parameterType="String" resultType="Map">
 		select
-	
+			  storeCode
+			, storeId
+		From
+			viewRsv
+		where
+			rsvCode = #{rsvCode}
 	</select>
 	
 	<select id="getReviewByStoreCode" parameterType="int" resultType="Review">

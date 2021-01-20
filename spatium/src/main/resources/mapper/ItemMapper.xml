@@ -269,7 +269,7 @@
 			, itemChangeRegDate
 			, itemDetailUserId)
 		VALUES 
-			( #{itemDetailCode}
+			( 200000001
 			, #{storeDetailCode}
 			, #{itemName}
 			, #{itemCategory}
