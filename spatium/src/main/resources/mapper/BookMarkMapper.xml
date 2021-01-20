@@ -4,6 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.BookmarkMapper">
 	
+	<!-- 북마크 전체삭제 -->
+	<delete id="deleteAll">
+		DELETE
+		FROM
+		tbBookmark
+		WHERE
+		userId = #{userId}; 
+	</delete> 
+	
 	<!-- 북마크 삭제 -->
 	<delete id="removeBookMark">
 		DELETE
@@ -14,7 +23,7 @@
 	</delete> 
 
 	<!-- 북마크 리스트 -->
-	<select id="bookMarkList" resultType="Bookmark">
+	<select id="bookMark" resultType="Bookmark">
 		SELECT
 			bookMarkCode
 			,userId
@@ -25,8 +34,8 @@
 	</select>
 
 
-	<!-- 북마크 추가
-	<insert id="addBookmark">
+	<!-- 북마크 추가 -->
+	<insert id="addbookMark">
         INSERT INTO tbBookmark
         (bookMarkCode, userId, storeCode, BookRegDate)
         VALUES(
@@ -35,6 +44,6 @@
           ,#{storeCode}
           ,NOW()););
         
-    </insert> -->
+    </insert>
 
 </mapper>

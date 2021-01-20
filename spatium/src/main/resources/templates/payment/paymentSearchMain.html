@@ -164,6 +164,7 @@
 			<th>예약상태</th>
 			<th>환불</th>
 			<th>예약날짜</th>
+			<th style="display : none;">논디스플레이</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -182,7 +183,8 @@
 			<td class="cancelTestTd">
 				<a class="cancelTest" th:href="@{/cancelTest(paymentCode=${p.paymentCode})}"><button type="button" class="cancelTest">환불</button></a>
 			</td>
-			<td><input type="text" th:value="${pr.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td>
+			<td style="display : none;"><input type="text" th:value="${pr.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td>
+			<td th:text="${pr.rsvStartDateTime}"></td>
 			<!-- <td th:text="${pr.rsvStartDateTime}" class="rsvDate"></td> -->
 			
 		</tr>

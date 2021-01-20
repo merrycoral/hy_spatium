@@ -218,14 +218,14 @@ public class paymentController {
 		System.out.println(rsv.getRsvUserId());
 		System.out.println(rsv.getRsvCode());
 		String totalPoint =paymentService.totalPoint(rsv.getRsvUserId());
+		//마일리지 총값
 		System.out.println("포인트"+totalPoint);
 		model.addAttribute("totalPoint", totalPoint);
+		//한개예약리스트
 		model.addAttribute("rsvDetailList", paymentService.getRsvDetailCode(rsvCode,dateTime));
 		
 		
 		
-		//마일리지 총값
-		//한개예약리스트
 		return "payment/payment";
 		
 	}
@@ -234,14 +234,23 @@ public class paymentController {
 	@GetMapping("/paymentSearchMain")
 	public String paymentSearchMain(Model model,HttpSession session) {
 		String SID = (String) session.getAttribute("SID");
-		List<Payment> paymentList = paymentService.paymentSelect(SID);
-		System.out.println("컨트롤러!!!1" + paymentList);
+		List<Payment> userpaymentList = paymentService.paymentSelect(SID);
+		System.out.println("컨트롤러!!!1" + userpaymentList);
 		model.addAttribute("title", "결제내역조회");
-		model.addAttribute("paymentList", paymentList);
+		model.addAttribute("paymentList", userpaymentList);
 		return "payment/paymentSearchMain";
 	}
 	
-	
+	//판매자 페이지 결제내역
+	@GetMapping("/paymentSearchMyStore")
+	public String paymentSearchMyStore(Model model,HttpSession session) {
+		String SID = (String) session.getAttribute("SID");
+		List<Payment> storepaymentList = paymentService.StorePaymentSelect(SID);
+		System.out.println("컨트롤러!!!1" + storepaymentList);
+		model.addAttribute("title", "결제내역조회");
+		model.addAttribute("paymentList", storepaymentList);
+		return "payment/paymentSearchMyStore";
+	}
 	//관리자 페이지 결제내역
 	@GetMapping("/paymentSearch")
 	public String paymentSearch(Model model) {

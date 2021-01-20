@@ -65,7 +65,7 @@
 		, storeRegDate
 	FROM 
 		tbStore AS s
-	INNER JOIN
+	LEFT JOIN
 		tbOkaySpace AS o
 	ON 
 		s.storeCode = o.okayStoreCode

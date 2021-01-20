@@ -9,14 +9,17 @@ import com.urban.spatium.dto.Bookmark;
 @Mapper
 public interface BookmarkMapper {
 
-    //즐겨찾기 삭제
-    int removeBookMark(int bookMarkCode);
+	//북마크 전체삭제
+	void deleteAll(String userId); 
+	
+    //북마크 삭제
+	int removeBookMark(String bookMarkCode);
   
-    //즐겨찾기 리스트
-    public List<Bookmark> bookMarkList();
+    //북마크 리스트
+    public List<Bookmark> bookMark();
    
-    //즐겨찾기 추가
-  	int addBookmark(Bookmark bookmark);
+    //북마크 추가
+  	int addbookMark(Bookmark bookmark);
   	
  
 }
