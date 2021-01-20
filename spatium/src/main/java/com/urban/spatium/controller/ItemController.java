@@ -2,6 +2,7 @@ package com.urban.spatium.controller;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -294,16 +295,19 @@ public class ItemController {
 
 	//장비등록
 	@PostMapping("/addItem")
-	public String addItem(Model model, Item item, HttpSession session) {
+	public String addItem(Model model, Item item, HttpSession session, Store store
+							,@RequestParam(name = "code", required = false) int code) {
 		System.out.println(item + "=========== 장비 넘어온 값 ============");
 		String sessionId = (String) session.getAttribute("SID");
 		System.out.println(sessionId);
 		item.setItemDetailUserId(sessionId);
+		System.out.println(code + "포스트 맵핑 장비등록 스토어코드");
+		item.setStoreDetailCode(code);
 		String result = itemService.addItem(item);
-
+		
 		System.out.println(result);
 
-		return "redirect:/addItem";
+		return "redirect:/";
 	}
 
 	@GetMapping("/addItem")
@@ -314,9 +318,9 @@ public class ItemController {
 		item.setStoreDetailCode(storeCode);
 		int code = item.getStoreDetailCode();
 		System.out.println(code);
+		model.addAttribute("code", code);
 
 		model.addAttribute("title", "장비 등록 하기");
-
 
 		return "item/itemBuyForm";
 	}
