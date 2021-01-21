@@ -9,6 +9,7 @@
 	details > summary::-webkit-details-marker {display: none}
 	details > summary::marker {display: none}
 	
+	#reviewSpaceRsv input {-webkit-appearance: none}
 	#reviewTable th {padding : 5px;}
 	#reviewTable td {padding : 5px;}
 	
@@ -28,28 +29,38 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      </div>
 	      <div class="modal-body" style="font-size:15px;">
-	      	<h4 id="reviewTitle"></h4>
-	      	작성자 : <span id="reviewAddId"></span>
+	      	<h5 id="reviewTitle"></h5>
+	      	<small style="text-align:right;">작성자 : <span id="reviewAddId"></span>
 	      	작성일 : <span id="reviewAddDate"></span>
 	      	<br>
 	      	리뷰 코드 : <span id="reviewCode"> </span>
-	      	예약 코드 : <span id="reviewSpaceRsv"> </span>
+	      	예약 코드 : <span class="reviewSpaceRsv"> </span>
+	      	
 	      	공간 코드 : <span id="reviewSpaceCode"> </span>
 	      	<br>
-	      	<h2> 종합 추천 점수 : <span id="reviewScore" class="ystar"></span></h2>
-	      	청결도 : <span id="reviewClean"></span>
-	      	서비스 : <span id="reviewService"></span>
-	      	화장실 : <span id="reviewRestroom"></span>
-	      	시설 : <span id="reviewFacility"></span>
-	      	분위기 : <span id="reviewAmbience"></span>
-	      	
-	      	<br>
-	      		<span id="reviewContents"></span>
-		 	</div>
+	      	</small>
+	      	<h5> 종합 추천 점수 : <span id="reviewScore" class="ystar"></span></h5>
+	      	<small>
+		      	청결도 : <span id="reviewClean"></span> | 
+		      	서비스 : <span id="reviewService"></span> | 
+		      	화장실 : <span id="reviewRestroom"></span> | 
+		      	시설 : <span id="reviewFacility"></span> | 
+		      	분위기 : <span id="reviewAmbience"></span>
+	      	</small>
+	      	<hr>
+      		<span id="reviewContents"></span>
+	      	<hr>
+	      	<b>답글 작성</b>
+	      	<form id="storeReply" method="post">
+		      	<textarea class="form-control" name="storeReply" rows="3" placeholder="답글을 입력해주세요." 
+		      	style="margin-top: 0px; margin-bottom: 0px; height: 131px;"></textarea>
+		      	<input type="hidden" id="getReviewCode" name="getReviewCode" readonly>
+	      	</form>
+	 	  </div>
 				
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-success" id="changeBlindReview">블라인드 변경하기</button>
+	        <button type="button" class="btn btn-success" id="postReply">답글 등록</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
@@ -102,6 +113,11 @@
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>리뷰 전체 목록 <small>관리자 페이지</small></h2>
+				<div style="float:right;">
+					<b th:text="${storeInfo.storeId}"></b> / 
+					<b th:text="${storeInfo.storeRepresentative}"></b>  님의 
+					<b th:text="${storeInfo.storeName}"></b>
+				</div>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -114,7 +130,7 @@
                   	<span aria-hidden="true">×</span>
                   </button>
                 </div>
-								
+			<!-- 리뷰 목록 -->
 			<form id="selectReview" method="post">
 				<div class="table-responsive">
 					<table class="table table-striped jambo_table bulk_action" id="reviewTable" style="padding: 0px;">
@@ -129,7 +145,7 @@
 								<th class="column-title">작성자</th>
 								<th class="column-title">등록일</th>
 								<th class="column-title">수정일</th>
-								<th class="column-title">추천수</th>
+								<th class="column-title">답변<br>여부</th>
 								<th class="column-title">리뷰<br>타입
 								</th>
 								<th class="column-title">적립<br>포인트
@@ -154,13 +170,13 @@
 								<td class=" " th:text="${ar.get('reviewCode')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceRsv')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceCode') }"></td>
-								<td class="reviewTitle"> <span class="reviewTitle" th:text="${ar.get('reviewTitle')}"></span>
-									 <span class="reviewIn "th:text="${ar.get('reviewContents')}"></span>								
+								<td class="reviewTitle"> <span th:text="${ar.get('reviewTitle')}"></span>
+									 <input type="hidden" class="reviewIn" th:value="${ar.get('reviewContents')}">								
 								</td>
 								<td class=" " th:text="${ar.get('reviewAddId')}"></td>
 								<td class=" " th:text="${ar.get('reviewAddDate')}"></td>
 								<td class=" " th:text="${ar.get('reviewUpDate')}"></td>
-								<td class=" " th:text="${ar.get('reviewLikeCnt')}"></td>
+								<td class=" " ></td>
 								<td class=" " th:text="${ar.get('reviewType')}"></td>
 								<td class=" " th:text="${ar.get('reviewPoint')}"></td>
 								<td class=" " th:text="${ar.get('reviewDisplay')}"></td>
@@ -172,20 +188,7 @@
 								<td class=" last" th:text="${ar.get('reviewScore')}"></td>
 							</tr>
 						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="18" style="text-align:center;">
-									<a th:href="@{/reviewAll}">[맨처음]</a>
-									<a th:if="${currentPage > 1}" th:href="@{/reviewAll(currentPage = ${currentPage - 1 })}">[이전]</a>
-									<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
-										<a th:unless="${currentPage == num}" th:href="@{/reviewAll(currentPage = ${num})}" th:text="${'[' + num + ']'}"></a>
-										<span th:if="${currentPage == num}" th:text="${'[' + num + ']'}"></span>
-									</th:block>
-									<a th:if="${currentPage < lastPage}"th:href="@{/reviewAll(currentPage = ${currentPage + 1 })}">[다음]</a>
-									<a th:href="@{/reviewAll(currentPage = ${lastPage})}">[맨마지막]</a>
-								</td>
-							</tr>
-						</tfoot>
+
 					</table>
 					<input type="hidden" id="hiddenBox" name="blindValue">
 				</div>
@@ -220,8 +223,6 @@
 		var reviewSpaceCode = $(this).parents('tr').find('td')[3];
 		var reviewTitle = $(this).parents('tr').find('.reviewTitle');
 		var reviewContents = $(this).parents('tr').find('.reviewIn');
-		console.log("내용이 나와야 한다구우");
-		console.log($(reviewContents).text());
 		var reviewAddId = $(this).parents('tr').find('td')[5];
 		var reviewAddDate = $(this).parents('tr').find('td')[6];
 		var reviewClean = $(this).parents('tr').find('td')[12];
@@ -232,10 +233,12 @@
 		var reviewScore = $(this).parents('tr').find('td')[17];
 		
 		$('#reviewCode').text($(reviewCode).text());
-		$('#reviewSpaceRsv').text($(reviewSpaceRsv).text());
+		$('#getReviewCode').val($(reviewCode).text());
+		$('.reviewSpaceRsv').find('input').val($(reviewSpaceRsv).text());
+		$('.reviewSpaceRsv').text($(reviewSpaceRsv).text());
 		$('#reviewSpaceCode').text($(reviewSpaceCode).text());
 		$('#reviewTitle').text($(reviewTitle).text());
-		$('#reviewContents').text($(reviewContents).text());
+		$('#reviewContents').text($(reviewContents).val());
 		$('#reviewAddId').text($(reviewAddId).text());
 		$('#reviewAddDate').text($(reviewAddDate).text());
 		$('#reviewClean').text($(reviewClean).text());
@@ -257,6 +260,22 @@
 	);
 
 		console.log(reviewTitle);
+		
+		reviewTitle.click(function(){
+			var getReviewCode = $(reviewCode).text()
+			var request = $.ajax({
+				url: '/viewReplyReview', 
+				method: 'POST',
+				data: { getReviewCode : getReviewCode }, 
+				dataType: 'json' 
+			});
+			request.done(function( data ) {
+				console.log(JSON.stringify(data));	
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});	
+		}); 
 		
 /* 		details.click(function(){
 			$('#reviewReply').modal();
@@ -287,6 +306,12 @@
 		                "sZeroRecords": "일치하는 검색 결과가 없습니다."
 		                }
 		 });
+	
+	$('#postReply').click(function(){
+		$("form").attr("action", "/replyReview");
+		console.log($('#getReviewCode').val());
+		$('#storeReply').submit();
+	});
 	
 	$('#deleteBtn').click(function(){
 		$("form").attr("action", "/deleteReview");
