@@ -12,7 +12,7 @@
 			</div>
 
 			<div class="col-md-6 navbar-form serch">
-			<form th:action="@{/searchAll}" method="post">
+			<form th:action="@{/store/searchAll}" method="post">
 				<input class="serch_bar" placeholder="검색" name = "searchName"></input>
 				<button class="serch_btn" type="submit">검색</button>
 			</form>
@@ -25,10 +25,10 @@
 				</div>
 				<div class="login-links">
 					<a th:href="@{/admin}" th:if="${session.SLEVEL == '1' || session.SLEVEL == '2'}" class="link">관리자 화면(임시)</a>
-					<a th:href="@{/myPage}" th:unless="${session.SID == null}" class="link">마이페이지</a>
-					<a th:href="@{/login}" th:if="${session.SID == null}" class="link">로그인</a> 
-					<a th:href="@{/logout}" th:unless="${session.SID == null}" class="link">07로그아웃</a>
-					<a th:href="@{/addUser}" th:if="${session.SID == null}" class="link">회원가입</a> 
+					<a th:href="@{/user/myPage}" th:unless="${session.SID == null}" class="link">마이페이지</a>
+					<a th:href="@{/user/login}" th:if="${session.SID == null}" class="link">로그인</a> 
+					<a th:href="@{/user/logout}" th:unless="${session.SID == null}" class="link">07로그아웃</a>
+					<a th:href="@{/user/addUser}" th:if="${session.SID == null}" class="link">회원가입</a> 
 					<div style="text-align: right">
 						<label th:unless="${session.SID == null}"
 							th:text="${'id: ' + session.SID + ' ' + session.SNAME + '님이  로그인하셨습니다.'}"></label>
