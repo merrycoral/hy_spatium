@@ -109,20 +109,6 @@
 								<td class="last" th:text="${cwl.get('rsvState')}"></td>
 							</tr>
 						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="18" style="text-align:center;">
-									<a th:href="@{/adminCalc}">[맨처음]</a>
-									<a th:if="${currentPage > 1}" th:href="@{/adminCalc(currentPage = ${currentPage - 1 })}">[이전]</a>
-									<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
-										<a th:unless="${currentPage == num}" th:href="@{/adminCalc(currentPage = ${num})}" th:text="${'[' + num + ']'}"></a>
-										<span th:if="${currentPage == num}" th:text="${'[' + num + ']'}"></span>
-									</th:block>
-									<a th:if="${currentPage < lastPage}"th:href="@{/adminCalc(currentPage = ${currentPage + 1 })}">[다음]</a>
-									<a th:href="@{/adminCalc(currentPage = ${lastPage})}">[맨마지막]</a>
-								</td>
-							</tr>
-						</tfoot>
 					</table>
 					<input type="hidden" id="hiddenBox" name="blindValue">
 				</div>
@@ -135,46 +121,7 @@
 </th:block>
 <th:block layout:fragment="customJs">
 <script  th:inline="javascript">
-	
-	$('#deleteBtn').click(function(){
-		$("form").attr("action", "/deleteReview");
-		var selected = $('.flat:checked').length;
-		console.log(selected);
-		if (selected > 0) {
-			$('#noticeBox').attr("style", "display:none;");
-			$('#deleteCheck').modal();
-			$('.selectRNum').text(selected);
-			
-			$('#deleteReview').click(function(){
-					$('#selectReview').submit();
-			});
-		}else{
-			$('#notice').text('삭제할 리뷰를 선택하세요.');
-			$('#noticeBox').attr("style", "float:right; height: 38px; padding:8px 12px; margin: 0 5px;");
-		}
-	});
-	$('#closeBtn').click(function(){
-			$('#noticeBox').attr("style", "display:none;");
-	});
-			
-	$('#blindBtn').click(function(){
-		$("form").attr("action", "/blindReview");
-		var selected = $('.flat:checked').length;
-		console.log(selected);
-		if (selected > 0) {
-			$('#noticeBox').attr("style", "display:none;");
-			$('#blindCheck').modal();
-			$('.selectRNum').text(selected);
-			
-			$('#changeBlindReview').click(function(){
-					$('#hiddenBox').val($('#blindCheck option').val());
-					$('#selectReview').submit();
-			});
-		}else{
-			$('#notice').text('변경할 리뷰를 선택하세요.');
-			$('#noticeBox').attr("style", "float:right; height: 38px; padding:8px 12px; margin: 0 5px;");
-		}
-	});
+
 </script>
 </th:block>
 

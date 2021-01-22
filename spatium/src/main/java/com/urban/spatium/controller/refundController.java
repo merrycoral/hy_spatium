@@ -95,7 +95,7 @@ public class refundController {
 		return "refund/refundPolicy";
 	}
 	//환불페이지
-	@GetMapping("/cancelTest")
+	@GetMapping("/refund/cancelTest")
 	public String cancelTest(Model model
 							,@RequestParam(name="paymentCode", required = false) String paymentCode) {
 		

@@ -78,15 +78,15 @@ public class paymentController {
 		
 		return rsvDetailMap;		
 	}
-	@GetMapping("/paymentSSilpae")
+	@GetMapping("/payment/paymentSSilpae")
 	public String paymentSSilpae(Model model) {
 		
 		model.addAttribute("title", "결제실패화면");
 		return "payment/paymentSSilpae";
 	}
 	
-	@PostMapping("/test3")
-	public  String test3(Model model,Payment payment
+	@PostMapping("/payment/paymentTest")
+	public  String paymentTest(Model model,Payment payment
 						,@RequestParam(name = "pointID",required = false)String pointID
 						,@RequestParam(name = "usePoint",required = false)int usePoint
 						,@RequestParam(name = "addPoint",required = false)int addPoint

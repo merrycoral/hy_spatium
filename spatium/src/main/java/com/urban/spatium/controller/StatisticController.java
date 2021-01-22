@@ -18,9 +18,9 @@ public class StatisticController {
 	@Autowired
 	private AccessService accessService;
 	
-	@GetMapping("/buyStat")
+	@GetMapping("/statistic/seller/buyStat")
 	public String buyStat(Model model, @RequestParam(name="result", required = false) String result) {
-		return "statistic/buyStatistic";
+		return "statistic/seller/buyStatistic";
 	}
 	
 	@GetMapping("/chartEx")
@@ -28,7 +28,7 @@ public class StatisticController {
 		return "statistic/chartEx";
 	}
 
-	@GetMapping("/accessStat")
+	@GetMapping("/statistic/admin/accessStat")
 	public String statisticEx(Model model, @RequestParam(name="result", required = false) String result) {
 		List<Access> accessList = accessService.getAccessRecord();
 		int accessCount = accessService.getAccessCount();
@@ -71,7 +71,7 @@ public class StatisticController {
 		
 		int max = brate.length;
 		
-		return "statistic/statisticEx";
+		return "statistic/admin/statisticEx";
 	}
 	//name=result 일치하는 값을 가져오겠다.
 	//false일 시 필수X, String result에 null로 들어간다. false시 : localhost/memberList true시 : localhost/memberList?result=123

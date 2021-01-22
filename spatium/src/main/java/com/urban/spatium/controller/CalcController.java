@@ -24,7 +24,7 @@ public class CalcController {
 		@Autowired
 		private CalcService calcService;
 		
-		@GetMapping("/currentCalc")
+		@GetMapping("/calculate/seller/currentCalc")
 		public String currentCalc(HttpSession session, Model model, @RequestParam(name="result", required = false) String result
 				) {
 			String sessionId = (String) session.getAttribute("SID");
@@ -44,10 +44,10 @@ public class CalcController {
 			model.addAttribute("storeInfo", resultMap.get("storeInfo"));
 			model.addAttribute("getTodayList", resultMap.get("getTodayList"));
 			model.addAttribute("todaytotal", resultMap.get("todaytotal"));
-			return "calculate/currentCalc";
+			return "/calculate/seller/currentCalc";
 		}
 		
-		@GetMapping("/dailyCalcSeeMore")
+		@GetMapping("/calculate/seller/dailyCalcSeeMore")
 		public String dailyCalcSeeMore(Model model, HttpServletRequest request, HttpSession session) {
 			String sessionId = (String) session.getAttribute("SID");
 			System.out.println(URLgetter.getURL(request));
@@ -61,10 +61,10 @@ public class CalcController {
 			model.addAttribute("getTodayList", resultMap.get("getTodayList"));
 			model.addAttribute("todaytotal", resultMap.get("todaytotal"));
 			model.addAttribute("storeInfo", resultMap.get("storeInfo"));
-			return "calculate/dailyCalcSeeMore";
+			return "/calculate/seller/dailyCalcSeeMore";
 		}
 		
-		@GetMapping("/dailyCalc")
+		@GetMapping("/calculate/seller/dailyCalc")
 		public String dailyCalc(HttpSession session, Model model, @RequestParam(name="result", required = false) String result
 					) {
 			String sessionId = (String) session.getAttribute("SID");
@@ -78,9 +78,9 @@ public class CalcController {
 			model.addAttribute("dailyCalcList", resultMap.get("dailyCalcList"));
 			model.addAttribute("storeInfo", resultMap.get("storeInfo"));
 			
-			return "calculate/dailyCalc";
+			return "/calculate/seller/dailyCalc";
 		}
-		@GetMapping("/adminCalc")
+		@GetMapping("/calculate/admin/adminCalc")
 		public String adminCalc(Model model, @RequestParam(name="result", required = false) String result
 				, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
 		
@@ -92,10 +92,10 @@ public class CalcController {
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
-			return "calculate/adminCalc";
+			return "/calculate/admin/adminCalc";
 		}
 		
-		@GetMapping("/sellerCalc")
+		@GetMapping("/calculte/seller/sellerCalc")
 		public String sellerCalc(Model model, @RequestParam(name="result", required = false) String result,  HttpSession session) {
 			String sessionId = (String) session.getAttribute("SID");
 			

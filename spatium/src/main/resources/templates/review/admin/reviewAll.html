@@ -310,13 +310,13 @@
 		 });
 	
 	$('#postReply').click(function(){
-		$("form").attr("action", "/replyReview");
+		$("form").attr("action", "/review/replyReview");
 		console.log($('#getReviewCode').val());
 		$('#storeReply').submit();
 	});
 	
 	$('#deleteBtn').click(function(){
-		$("form").attr("action", "/deleteReview");
+		$("form").attr("action", "/review/admin/deleteReview");
 		var selected = $('.chose:checked').length;
 		console.log(selected);
 		if (selected > 0) {
@@ -337,7 +337,7 @@
 	});
 			
 	$('#blindBtn').click(function(){
-		$("form").attr("action", "/blindReview");
+		$("form").attr("action", "/review/admin/blindReview");
 		var selected = $('.chose:checked').length;
 		console.log(selected);
 		if (selected > 0) {

@@ -43,7 +43,7 @@
 		<tbody>
 			<th:block th:each = "d : ${dailyCalcList}">
 				<tr class="even pointer">
-					<td> <a th:href = "@{/dailyCalcSeeMore(calcDay=${d.calcDay})}" th:text = "${d.calcDay}"> </a></td>
+					<td> <a th:href = "@{/calculate/seller/dailyCalcSeeMore(calcDay=${d.calcDay})}" th:text = "${d.calcDay}"> </a></td>
 					<td th:text = "${d.calcDaySum}"></td>
 					<td th:text = "${d.calcDaySum - d.calcDayPoint + d.calcDayRefund}"></td>
 					<td th:text = "${d.calcDayPoint}"></td>
