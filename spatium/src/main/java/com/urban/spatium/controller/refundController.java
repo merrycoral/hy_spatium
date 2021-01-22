@@ -114,25 +114,25 @@ public class refundController {
 		return "refund/cancelPage";
 	}
 	//판매자 환불페이지
-	@GetMapping("/refundSearchMyStore")
+	@GetMapping("/refund/seller/refundSearchMyStore")
 	public String refundSearchMyStore(Model model,HttpSession session) {
 		String storeId = (String) session.getAttribute("SID");
 		List<CancelRsv> storeRefundSelect = refundService.refundSelectStore(storeId);
 		System.out.println("컨트롤러!!!!!!"+storeRefundSelect);
 		model.addAttribute("refundSelect", storeRefundSelect);
 		model.addAttribute("title", "환불내역조회");
-		return "refund/refundSearchMyStore";
+		return "/refund/seller/refundSearchMyStore";
 	}
 	
 	
 	//관리자 환불페이지
-	@GetMapping("/refundSearch")
+	@GetMapping("/refund/admin/refundSearch")
 	public String refundSearch(Model model) {
 		
 		List<CancelRsv> refundSelect = refundService.refundSelect();
 		System.out.println("컨트롤러!!!!!!"+refundSelect);
 		model.addAttribute("refundSelect", refundSelect);
 		model.addAttribute("title", "환불내역조회");
-		return "refund/refundSearch";
+		return "/refund/admin/refundSearch";
 	}
 }

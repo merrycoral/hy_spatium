@@ -73,8 +73,10 @@
 							<li><a href="/reservation/seller/rsvListAdminByStore">!내 공간 예약 목록 조회-cgh</a></li>
 							<li th:if="${session.SLEVEL=='1'}"><a href="/reservation/admin/rsvDetailListAdmin">전체 예약 세부 목록 조회-cgh</a></li>
 							<li><a href="/reservation/seller/rsvDetailListAdminByStore">!내 공간 예약 세부 목록 조회-cgh</a></li>
-							<li><a href="/payment/admin/paymentSearch">!결제 내역 조회-lty</a></li>
-							<li><a href="/refund/admin/refundSearch">!환불 내역 조회-lty</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/payment/admin/paymentSearch">!결제 내역 조회-lty</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/refund/admin/refundSearch">!환불 내역 조회-lty</a></li>
+							<li><a href="/payment/seller/paymentSearchMyStore">!내공간 결제 내역 조회-lty</a></li>
+							<li><a href="/refund/seller/refundSearchMyStore">!내공간 환불 내역 조회-lty</a></li>
 							</ul></li>
 						
 						
@@ -94,7 +96,7 @@
 							<li><a href="/calculate/seller/sellerCalc">!판매자 정산 조회-shy</a></li>
 							<li><a href="/calculate/seller/currentCalc">실시간 매출 조회-shy</a></li>
 							<li><a href="/calculate/seller/dailyCalc">!일별 매출 조회-shy</a></li>
-							<li><a href="/point/admin/pointSearch">!포인트 사용 내역 조회-lty</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/point/admin/pointSearch">!포인트 사용 내역 조회-lty</a></li>
 						</ul></li>
 						
 						

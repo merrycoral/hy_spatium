@@ -242,33 +242,33 @@ public class paymentController {
 	}
 	
 	//판매자 페이지 결제내역
-	@GetMapping("/paymentSearchMyStore")
+	@GetMapping("/payment/seller/paymentSearchMyStore")
 	public String paymentSearchMyStore(Model model,HttpSession session) {
 		String SID = (String) session.getAttribute("SID");
 		List<Payment> storepaymentList = paymentService.StorePaymentSelect(SID);
 		System.out.println("컨트롤러!!!1" + storepaymentList);
 		model.addAttribute("title", "결제내역조회");
 		model.addAttribute("paymentList", storepaymentList);
-		return "payment/paymentSearchMyStore";
+		return "payment/seller/paymentSearchMyStore";
 	}
 	//관리자 페이지 결제내역
-	@GetMapping("/paymentSearch")
+	@GetMapping("/payment/admin/paymentSearch")
 	public String paymentSearch(Model model) {
 		
 		List<Payment> paymentList = paymentService.allPaymentSelect();
 		System.out.println("컨트롤러!!!1" + paymentList);
 		model.addAttribute("title", "결제내역조회");
 		model.addAttribute("paymentList", paymentList);
-		return "payment/paymentSearch";
+		return "payment/admin/paymentSearch";
 	}
 	
-	@GetMapping("/pointSearch")
+	@GetMapping("/point/admin/pointSearch")
 	public String pointSearch(Model model) {
 		 
 		List<Point> pointList = paymentService.pointSelect();
 		
 		model.addAttribute("title", "마일리지 사용내역 조회");
 		model.addAttribute("pointList", pointList);
-		return "point/allPointSearch";
+		return "point/admin/allPointSearch";
 	}
 }
