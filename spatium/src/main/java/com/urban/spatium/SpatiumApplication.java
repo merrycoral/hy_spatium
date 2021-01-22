@@ -21,7 +21,7 @@ public class SpatiumApplication {
 	
 	@Autowired
 	private CalcService calcService;
-	@Scheduled(cron = "0 0 0 * * ?")
+	@Scheduled(cron = "0 01 0 * * ?")
 	public void scheduledClose() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -1);

@@ -54,7 +54,6 @@
 			calcDayRefCommission, calcDayLogTime
 		FROM
 			tbCalcDaily
-		
 			WHERE
 				calcDStoreId = #{sessionId}
 	</select>
