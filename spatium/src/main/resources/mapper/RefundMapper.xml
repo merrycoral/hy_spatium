@@ -6,12 +6,37 @@
 	<resultMap type="CancelRsv" id="resultMapCancel">
 		<result column="cancelCode" 		property="cancelCode"/>
 		<result column="cancelRsvCode" 	property="cancelRsvCode"/>
+		<result column="cancelUserId" 	property="cancelUserId"/>
 		<result column="cancelRegDate" 		property="cancelRegDate"/>
 		<result column="cancelState" 	property="cancelState"/>
 		<result column="cancelReason" 	property="cancelReason"/>
 		<result column="cancelPrice" 	property="cancelPrice"/>
 		<result column="refundPolicyCode" 	property="refundPolicyCode"/>
+		<collection property="refundPolicyList" javaType="java.util.ArrayList" ofType="RefundPolicy">
+			<id column="refundPolicyCode" property="refundPolicyCode"/>
+			<result column="refundPolicyUserId" property="refundPolicyUserId"/>
+		</collection>
 	</resultMap>
+	
+	<select id="refundSelectStore" parameterType="String" resultMap="resultMapCancel">
+	SELECT
+	cancelCode
+	,cancelUserId
+	,cancelRsvCode
+	,cancelRegDate
+	,cancelState
+	,cancelReason
+	,cancelPrice
+	FROM
+		 tbCancelRsv
+	INNER join
+		 tbRefundPolicy
+	on
+		 cancelRefundPolicyCode = refundPolicyCode
+	WHERE
+		refundPolicyUserId = #{storeId}
+		
+	</select>
 	
 	<select id="refundSelect" resultMap="resultMapCancel">
 	SELECT 
@@ -25,6 +50,7 @@
 		, cancelRefundPolicyCode
 	FROM 
 		tbCancelRsv
+		
 	</select>
 	
 	<update id="refundRsv" parameterType="Rsv">

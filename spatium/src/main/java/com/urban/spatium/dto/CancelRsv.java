@@ -1,5 +1,7 @@
 package com.urban.spatium.dto;
 
+import java.util.List;
+
 public class CancelRsv {
 	private int cancelCode;
 	private int cancelRsvCode;
@@ -10,7 +12,14 @@ public class CancelRsv {
 	private String cancelReason;
 	private int cancelRefundPolicyCode;
 	private int cancelPrice;
+	private List<RefundPolicy> refundPolicyList;
 	
+	public List<RefundPolicy> getRefundPolicyList() {
+		return refundPolicyList;
+	}
+	public void setRefundPolicyList(List<RefundPolicy> refundPolicyList) {
+		this.refundPolicyList = refundPolicyList;
+	}
 	public int getCancelCode() {
 		return cancelCode;
 	}
@@ -86,6 +95,8 @@ public class CancelRsv {
 		builder.append(cancelRefundPolicyCode);
 		builder.append(", cancelPrice=");
 		builder.append(cancelPrice);
+		builder.append(", refundPolicyList=");
+		builder.append(refundPolicyList);
 		builder.append("]");
 		return builder.toString();
 	}

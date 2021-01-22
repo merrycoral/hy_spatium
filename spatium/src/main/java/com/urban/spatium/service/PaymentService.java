@@ -80,6 +80,10 @@ public class PaymentService {
 		return paymentMapper.pointSelect();
 	}
 	
+	public List<Payment> StorePaymentSelect(String SID){
+		return paymentMapper.StorePaymentSelect(SID);
+	}
+	
 	public List<Payment> paymentSelect(String SID){
 		
 		

@@ -160,6 +160,7 @@
 			<th>결제일시</th>
 			<th>결제IP</th>
 			<th>예약날짜</th>
+			<th style="display : none;">논디스플레이</th>
 			<th>예약상태</th>
 			<th>환불</th>
 		</tr>
@@ -177,8 +178,8 @@
 			<td th:text="${p.paymentAddPoint}"></td>
 			<td th:text="${p.paymentRegDate}" class="paymentRegDate"></td>
 			<td th:text="${p.paymentIP}"></td>
-			<td><input type="text" th:value="${pr.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td>
-			<!-- <td th:text="${pr.rsvStartDateTime}" class="rsvDate"></td> -->
+			<td style="display : none;"><input type="text" th:value="${pr.rsvStartDateTime}" class="rsvDate" readonly="readonly"></td>
+			<td th:text="${pr.rsvStartDateTime}"></td>
 			<td th:text="${pr.rsvState}" class="rsvState"></td>
 			
 			<td class="cancelTestTd">

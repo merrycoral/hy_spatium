@@ -38,4 +38,6 @@ public interface ReviewMapper {
 
 	public void insertReview(Map<String, Object> review);
 
+	public void replyReview(String storeReply, String getReviewCode, String SID);
+
 }

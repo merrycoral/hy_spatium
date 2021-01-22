@@ -9,8 +9,11 @@
 	details > summary::-webkit-details-marker {display: none}
 	details > summary::marker {display: none}
 	
+	#reviewSpaceRsv input {-webkit-appearance: none}
 	#reviewTable th {padding : 5px;}
 	#reviewTable td {padding : 5px;}
+	
+	.ystar {color:#F5C225; font-size: 20px;}
 	
 </style>
 </th:block>
@@ -26,36 +29,38 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      </div>
 	      <div class="modal-body" style="font-size:15px;">
-				<div th:if="${#lists.size(allReview) > 0}" th:each="ar : ${allReview}">
-				<span class="a-center "><input type="checkbox" class="flat chose"
-					name="table_records" th:value="${ar.get('reviewCode')}"></span>
-				<span class=" " th:text="${ar.get('reviewCode')}"></span>
-				<span class=" " th:text="${ar.get('reviewSpaceRsv')}"></span>
-				<span class=" " th:text="${ar.get('reviewSpaceCode') }"></span>
-				<details style="width:200px;">
-					<summary th:text="${ar.get('reviewTitle')}"></summary>
-					<span th:text="${ar.get('reviewContents')}"> </span>
-				</details>
-				<span class=" " th:text="${ar.get('reviewAddId')}"></span>
-				<span class=" " th:text="${ar.get('reviewAddDate')}"></span>
-				<span class=" " th:text="${ar.get('reviewUpDate')}"></span>
-				<span class=" " th:text="${ar.get('reviewLikeCnt')}"></span>
-				<span class=" " th:text="${ar.get('reviewType')}"></span>
-				<span class=" " th:text="${ar.get('reviewPoint')}"></span>
-				<span class=" " th:text="${ar.get('reviewDisplay')}"></span>
-				<span class=" " th:text="${ar.get('reviewClean')}"></span>
-				<span class=" " th:text="${ar.get('reviewService')}"></span>
-				<span class=" " th:text="${ar.get('reviewRestroom')}"></span>
-				<span class=" " th:text="${ar.get('reviewFacility')}"></span>
-				<span class=" " th:text="${ar.get('reviewAmbience')}"></span>
-				<span class=" last" th:text="${ar.get('reviewScore')}"></span>
+	      	<h5 id="reviewTitle"></h5>
+	      	<small style="text-align:right;">작성자 : <span id="reviewAddId"></span>
+	      	작성일 : <span id="reviewAddDate"></span>
+	      	<br>
+	      	리뷰 코드 : <span id="reviewCode"> </span>
+	      	예약 코드 : <span class="reviewSpaceRsv"> </span>
+	      	
+	      	공간 코드 : <span id="reviewSpaceCode"> </span>
+	      	<br>
+	      	</small>
+	      	<h5> 종합 추천 점수 : <span id="reviewScore" class="ystar"></span></h5>
+	      	<small>
+		      	청결도 : <span id="reviewClean"></span> | 
+		      	서비스 : <span id="reviewService"></span> | 
+		      	화장실 : <span id="reviewRestroom"></span> | 
+		      	시설 : <span id="reviewFacility"></span> | 
+		      	분위기 : <span id="reviewAmbience"></span>
+	      	</small>
+	      	<hr>
+      		<span id="reviewContents"></span>
+	      	<hr>
+	      	<b>답글 작성</b>
+	      	<form id="storeReply" method="post">
+		      	<textarea class="form-control" name="storeReply" rows="3" placeholder="답글을 입력해주세요." 
+		      	style="margin-top: 0px; margin-bottom: 0px; height: 131px;"></textarea>
+		      	<input type="hidden" id="getReviewCode" name="getReviewCode" readonly>
+	      	</form>
+	 	  </div>
 				
-				</div>
-				
-	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-success" id="changeBlindReview">블라인드 변경하기</button>
+	        <button type="button" class="btn btn-success" id="postReply">답글 등록</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
@@ -108,6 +113,11 @@
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>리뷰 전체 목록 <small>관리자 페이지</small></h2>
+				<div style="float:right;">
+					<b th:text="${storeInfo.storeId}"></b> / 
+					<b th:text="${storeInfo.storeRepresentative}"></b>  님의 
+					<b th:text="${storeInfo.storeName}"></b>
+				</div>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -120,7 +130,7 @@
                   	<span aria-hidden="true">×</span>
                   </button>
                 </div>
-								
+			<!-- 리뷰 목록 -->
 			<form id="selectReview" method="post">
 				<div class="table-responsive">
 					<table class="table table-striped jambo_table bulk_action" id="reviewTable" style="padding: 0px;">
@@ -135,7 +145,7 @@
 								<th class="column-title">작성자</th>
 								<th class="column-title">등록일</th>
 								<th class="column-title">수정일</th>
-								<th class="column-title">추천수</th>
+								<th class="column-title">답변<br>여부</th>
 								<th class="column-title">리뷰<br>타입
 								</th>
 								<th class="column-title">적립<br>포인트
@@ -160,14 +170,13 @@
 								<td class=" " th:text="${ar.get('reviewCode')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceRsv')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceCode') }"></td>
-								<td class=" "><details style="width:200px;">
-										<summary th:text="${ar.get('reviewTitle')}"></summary>
-										<span th:text="${ar.get('reviewContents')}"> </span>
-									</details></td>
+								<td class="reviewTitle"> <span th:text="${ar.get('reviewTitle')}"></span>
+									 <input type="hidden" class="reviewIn" th:value="${ar.get('reviewContents')}">								
+								</td>
 								<td class=" " th:text="${ar.get('reviewAddId')}"></td>
 								<td class=" " th:text="${ar.get('reviewAddDate')}"></td>
 								<td class=" " th:text="${ar.get('reviewUpDate')}"></td>
-								<td class=" " th:text="${ar.get('reviewLikeCnt')}"></td>
+								<td class=" " ></td>
 								<td class=" " th:text="${ar.get('reviewType')}"></td>
 								<td class=" " th:text="${ar.get('reviewPoint')}"></td>
 								<td class=" " th:text="${ar.get('reviewDisplay')}"></td>
@@ -179,20 +188,7 @@
 								<td class=" last" th:text="${ar.get('reviewScore')}"></td>
 							</tr>
 						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="18" style="text-align:center;">
-									<a th:href="@{/reviewAll}">[맨처음]</a>
-									<a th:if="${currentPage > 1}" th:href="@{/reviewAll(currentPage = ${currentPage - 1 })}">[이전]</a>
-									<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
-										<a th:unless="${currentPage == num}" th:href="@{/reviewAll(currentPage = ${num})}" th:text="${'[' + num + ']'}"></a>
-										<span th:if="${currentPage == num}" th:text="${'[' + num + ']'}"></span>
-									</th:block>
-									<a th:if="${currentPage < lastPage}"th:href="@{/reviewAll(currentPage = ${currentPage + 1 })}">[다음]</a>
-									<a th:href="@{/reviewAll(currentPage = ${lastPage})}">[맨마지막]</a>
-								</td>
-							</tr>
-						</tfoot>
+
 					</table>
 					<input type="hidden" id="hiddenBox" name="blindValue">
 				</div>
@@ -207,12 +203,85 @@
 <!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script  th:inline="javascript">
+	var details = $('details');
+	var reviewTitle = $("td.reviewTitle");
 		
-		var reviewRow = $(".reviewRow");
-		var details = $(details);
-		console.log(reviewRow[1]);
+	reviewTitle.click(function(e) {
+	
+		e.preventDefault();
+		var index = $(".reviewTitle").index(this);
+		console.log(index);
 		
+		var reviewRow = $(this).parents('tr');
+		console.log(reviewRow);
+	  
+		var reviewCode = $(this).parents('tr').find('td')[1];
+		console.log($(reviewCode).text());
+		var reviewSpaceRsv = $(this).parents('tr').find('td')[2];
+		console.log($(reviewSpaceRsv).text());
+		
+		var reviewSpaceCode = $(this).parents('tr').find('td')[3];
+		var reviewTitle = $(this).parents('tr').find('.reviewTitle');
+		var reviewContents = $(this).parents('tr').find('.reviewIn');
+		var reviewAddId = $(this).parents('tr').find('td')[5];
+		var reviewAddDate = $(this).parents('tr').find('td')[6];
+		var reviewClean = $(this).parents('tr').find('td')[12];
+		var reviewService = $(this).parents('tr').find('td')[13];
+		var reviewRestroom = $(this).parents('tr').find('td')[14];
+		var reviewFacility = $(this).parents('tr').find('td')[15];
+		var reviewAmbience = $(this).parents('tr').find('td')[16];
+		var reviewScore = $(this).parents('tr').find('td')[17];
+		
+		$('#reviewCode').text($(reviewCode).text());
+		$('#getReviewCode').val($(reviewCode).text());
+		$('.reviewSpaceRsv').find('input').val($(reviewSpaceRsv).text());
+		$('.reviewSpaceRsv').text($(reviewSpaceRsv).text());
+		$('#reviewSpaceCode').text($(reviewSpaceCode).text());
+		$('#reviewTitle').text($(reviewTitle).text());
+		$('#reviewContents').text($(reviewContents).val());
+		$('#reviewAddId').text($(reviewAddId).text());
+		$('#reviewAddDate').text($(reviewAddDate).text());
+		$('#reviewClean').text($(reviewClean).text());
+		$('#reviewService').text($(reviewService).text());
+		$('#reviewRestroom').text($(reviewRestroom).text());
+		$('#reviewFacility').text($(reviewFacility).text());
+		$('#reviewAmbience').text($(reviewAmbience).text());
+		
+		var score = $(reviewScore).text();
+		var starScore = ""
+		for(i=1;i<=score;i++){
+			starScore += '★'
+		}
+		$('#reviewScore').text(starScore);
+		
+		$('#reviewReply').modal();
+	 }
+	
+	);
 
+		console.log(reviewTitle);
+		
+		reviewTitle.click(function(){
+			var getReviewCode = $(reviewCode).text()
+			var request = $.ajax({
+				url: '/viewReplyReview', 
+				method: 'POST',
+				data: { getReviewCode : getReviewCode }, 
+				dataType: 'json' 
+			});
+			request.done(function( data ) {
+				console.log(JSON.stringify(data));	
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});	
+		}); 
+		
+/* 		details.click(function(){
+			$('#reviewReply').modal();
+			var el = $(this).index();
+			  console.log(el);
+		}); */
 		
 		$("#reviewTable").DataTable({
 	  		order: [ [ 0, "asc" ] ],
@@ -237,6 +306,12 @@
 		                "sZeroRecords": "일치하는 검색 결과가 없습니다."
 		                }
 		 });
+	
+	$('#postReply').click(function(){
+		$("form").attr("action", "/replyReview");
+		console.log($('#getReviewCode').val());
+		$('#storeReply').submit();
+	});
 	
 	$('#deleteBtn').click(function(){
 		$("form").attr("action", "/deleteReview");

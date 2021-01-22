@@ -10,10 +10,10 @@ public class Review {
 	private String reviewAddId;
 	private String reviewAddDate;	
 	private String reviewUpDate;
-	private int reviewLikeCnt;
 	private String reviewType;
 	private int reviewPoint;
-	private String reviewDisplay; 
+	private String reviewDisplay;
+	private String reviewReply;
 	private String reviewPhoto; 
 	private int reviewClean; 
 	private int reviewService;
@@ -27,11 +27,19 @@ public class Review {
 		return "Review [reviewCode=" + reviewCode + ", reviewSpaceRsv=" + reviewSpaceRsv + ", reviewSpaceCode="
 				+ reviewSpaceCode + ", reviewStoreId=" + reviewStoreId + ", reviewTitle=" + reviewTitle
 				+ ", reviewContents=" + reviewContents + ", reviewAddId=" + reviewAddId + ", reviewAddDate="
-				+ reviewAddDate + ", reviewUpDate=" + reviewUpDate + ", reviewLikeCnt=" + reviewLikeCnt
-				+ ", reviewType=" + reviewType + ", reviewPoint=" + reviewPoint + ", reviewDisplay=" + reviewDisplay
-				+ ", reviewPhoto=" + reviewPhoto + ", reviewClean=" + reviewClean + ", reviewService=" + reviewService
+				+ reviewAddDate + ", reviewUpDate=" + reviewUpDate + ", reviewType=" + reviewType + ", reviewPoint="
+				+ reviewPoint + ", reviewDisplay=" + reviewDisplay + ", reviewReply=" + reviewReply + ", reviewPhoto="
+				+ reviewPhoto + ", reviewClean=" + reviewClean + ", reviewService=" + reviewService
 				+ ", reviewRestroom=" + reviewRestroom + ", reviewFacility=" + reviewFacility + ", reviewAmbience="
 				+ reviewAmbience + ", reviewScore=" + reviewScore + "]";
+	}
+
+	public String getReviewReply() {
+		return reviewReply;
+	}
+
+	public void setReviewReply(String reviewReply) {
+		this.reviewReply = reviewReply;
 	}
 
 	public String getReviewPhoto() {
@@ -95,12 +103,6 @@ public class Review {
 	}
 	public void setReviewUpDate(String reviewUpDate) {
 		this.reviewUpDate = reviewUpDate;
-	}
-	public int getReviewLikeCnt() {
-		return reviewLikeCnt;
-	}
-	public void setReviewLikeCnt(int reviewLikeCnt) {
-		this.reviewLikeCnt = reviewLikeCnt;
 	}
 	public String getReviewType() {
 		return reviewType;

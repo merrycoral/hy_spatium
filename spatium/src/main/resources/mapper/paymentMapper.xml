@@ -253,7 +253,7 @@
 	on
 		p.paymentRsvCode = r.rsvCode		
 	where
-	paymentStoreId = #{paymentStoreId}
+	paymentStoreId = #{SID}
 	</select>
 	
 	<!-- 구매자 결제내역 페이지 세션아이디 있는값 조회 -->
