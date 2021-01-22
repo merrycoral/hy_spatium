@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
-	layout:decorate="@{layout/default}">
+	layout:decorate="@{layout/maindefault}">
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
@@ -71,16 +71,15 @@
 	</script>
 </th:block>
 	
+	
 <th:block layout:fragment="customContent">
 	<div class="x_content">
-		<p>예약 리스트</p>
 		<div class="table-responsive">
 			<table class="table table-striped jambo_table bulk_action" id="rsvListTb" border="1">
+
 				<thead>
 					<tr class="headings">
-						<th class="column-title">예약 코드</th>
-						<th class="column-title">업체 이름</th>
-						<th class="column-title">아이디</th>
+						<th class="column-title">예약 업체</th>
 						<th class="column-title">이름</th>
 						<th class="column-title">연락처</th>
 						<th class="column-title">총 가격</th>
@@ -100,16 +99,14 @@
 
 				<tbody>
 					<tr class="even pointer" th:if="${#lists.size(rsvList) > 0}" th:each = "r : ${rsvList}">
-						<td th:text="${r.rsvCode}" class=" "></td>
 						<td th:text="${r.storeName}" class=" "></td>
-						<td th:text="${r.rsvUserId}" class=" "></td>
 						<td th:text="${r.rsvUserName}" class=" "></td>
 						<td th:text="${r.rsvUserPhone}" class=" "></td>
 						<td th:text="${r.rsvTotalPrice}" class=" "></td>
 						<td th:text="${r.rsvStartDateTime}" class="rsvDate"></td>
 						<td th:text="${r.rsvEndDateTime}" class=" "></td>
 						<td th:text="${r.rsvState}" class="rsvState"></td>
-						<td class=" "><a th:href="@{/rsvListExtendAdmin(rsvCode=${r.rsvCode})}">확장</a></td>
+						<td class=" "><a th:href="@{/rsvListExtend(rsvCode=${r.rsvCode})}">확장</a></td>
 						<td class="paymentTestTd"><a  th:href="@{/paymentTest(rsvCode=${r.rsvCode})}" class="paymentTest">결제</a></td>
 						<td><a  th:href="@{/rsvCancel(rsvCode=${r.rsvCode},rsvState=${r.rsvState})}">취소</a></td>
 					</tr>

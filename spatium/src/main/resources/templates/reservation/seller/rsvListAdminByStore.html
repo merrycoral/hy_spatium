@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
-	layout:decorate="@{layout/maindefault}">
+	layout:decorate="@{layout/default}">
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
@@ -71,15 +71,16 @@
 	</script>
 </th:block>
 	
-	
 <th:block layout:fragment="customContent">
 	<div class="x_content">
+		<p>예약 리스트</p>
 		<div class="table-responsive">
 			<table class="table table-striped jambo_table bulk_action" id="rsvListTb" border="1">
-
 				<thead>
 					<tr class="headings">
-						<th class="column-title">예약 업체</th>
+						<th class="column-title">예약 코드</th>
+						<th class="column-title">업체 이름</th>
+						<th class="column-title">아이디</th>
 						<th class="column-title">이름</th>
 						<th class="column-title">연락처</th>
 						<th class="column-title">총 가격</th>
@@ -89,7 +90,6 @@
 						<th class="column-title">세부</th>
 						<th class="column-title">결제</th>
 						<th class="column-title">예약취소</th>
-						<th class="column-title">리뷰쓰기</th>
 						<th class="bulk-actions" colspan="12" style="display: none;">
 							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
 								class="fa fa-chevron-down"></i>
@@ -100,17 +100,18 @@
 
 				<tbody>
 					<tr class="even pointer" th:if="${#lists.size(rsvList) > 0}" th:each = "r : ${rsvList}">
+						<td th:text="${r.rsvCode}" class=" "></td>
 						<td th:text="${r.storeName}" class=" "></td>
+						<td th:text="${r.rsvUserId}" class=" "></td>
 						<td th:text="${r.rsvUserName}" class=" "></td>
 						<td th:text="${r.rsvUserPhone}" class=" "></td>
 						<td th:text="${r.rsvTotalPrice}" class=" "></td>
 						<td th:text="${r.rsvStartDateTime}" class="rsvDate"></td>
 						<td th:text="${r.rsvEndDateTime}" class=" "></td>
 						<td th:text="${r.rsvState}" class="rsvState"></td>
-						<td class=" "><a th:href="@{/rsvListExtend(rsvCode=${r.rsvCode})}">확장</a></td>
-						<td class="paymentTestTd"><a  th:href="@{/paymentTest(rsvCode=${r.rsvCode})}" class="paymentTest">결제</a></td>
-						<td><a  th:href="@{/rsvCancel(rsvCode=${r.rsvCode},rsvState=${r.rsvState})}">취소</a></td>
-						<td><a th:href = "@{/writeReview(rsvCode=${r.rsvCode})}">리뷰쓰러가기</a></td>
+						<td class=" "><a th:href="@{/reservation/seller/rsvListExtendAdmin(rsvCode=${r.rsvCode})}">확장</a></td>
+						<td class="paymentTestTd"><a  th:href="@{/payment/admin/paymentTest(rsvCode=${r.rsvCode})}" class="paymentTest">결제</a></td>
+						<td><a  th:href="@{/reservation/admin/rsvCancel(rsvCode=${r.rsvCode},rsvState=${r.rsvState})}">취소</a></td>
 					</tr>
 				</tbody>
 			</table>
