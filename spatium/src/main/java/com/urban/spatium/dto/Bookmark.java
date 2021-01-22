@@ -8,6 +8,8 @@ public class Bookmark {
 	
 	private User user;
 	
+	private Item item;
+	
 	public int getBookMarkCode() {
 		return bookMarkCode;
 	}
@@ -38,6 +40,12 @@ public class Bookmark {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public Item getItem() {
+		return item;
+	}
+	public void setItem(Item item) {
+		this.item = item;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -51,6 +59,8 @@ public class Bookmark {
 		builder.append(bookRegDate);
 		builder.append(", user=");
 		builder.append(user);
+		builder.append(", item=");
+		builder.append(item);
 		builder.append("]");
 		return builder.toString();
 	}
