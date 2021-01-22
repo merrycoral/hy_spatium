@@ -124,6 +124,56 @@
 <script src="/vendors/morris.js/morris.min.js"></script>
 <script  th:inline="javascript">
 
+	function init_morris_charts() {
+		
+	    if ($('#graph_bar_group').length) {
+        	/*<![CDATA[*/
+        		var latest7days = [[${latest7days}]];
+        		var i = 0;
+        	/*]]>*/
+        	
+	        Morris.Bar({
+	            element: 'graph_bar_group',
+	            data: [
+					
+	            	    { "period": latest7days[0].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[0].calcDaySales
+	            	    	, "매출 합계": latest7days[0].calcDaySum /10000 },
+	            	    { "period": latest7days[1].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[1].calcDaySales
+	            	    	, "매출 합계": latest7days[1].calcDaySum/10000 },
+	            	    { "period": latest7days[2].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[2].calcDaySales
+	            	    	, "매출 합계": latest7days[2].calcDaySum/10000 },
+	            	    { "period": latest7days[3].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[3].calcDaySales
+	            	    	, "매출 합계": latest7days[3].calcDaySum/10000 },
+	            	    { "period": latest7days[4].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[4].calcDaySales
+	            	    	, "매출 합계": latest7days[4].calcDaySum/10000 },
+	            	    { "period": latest7days[5].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[5].calcDaySales
+	            	    	, "매출 합계": latest7days[5].calcDaySum/10000 },
+	            	    { "period": latest7days[6].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[6].calcDaySales
+	            	    	, "매출 합계": latest7days[6].calcDaySum/10000 }
+
+	            ],
+	            xkey: 'period',
+	            barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+	            ykeys: ['예약 건수', '매출 합계'],
+	            labels: ['예약 건수', '매출(만원)'],
+	            hideHover: 'auto',
+	            xLabelAngle: 0,
+	            resize: true
+	        });
+	
+	    }
+		
+	}
+	
+
+
 	/*<![CDATA[*/
 	var testValue = /*[[${accessList}]]*/;
 	var btopcount0 = /*[[${btopcount0}]]*/;
@@ -139,34 +189,6 @@
 	/*]]>*/
 </script>
 <script type="text/javascript">
-function init_morris_charts() {
-
-    if ($('#graph_bar_group').length) {
-
-        Morris.Bar({
-            element: 'graph_bar_group',
-            data: [
-                { "period": "2016-10-01", "licensed": 807, "sorned": 660 },
-                { "period": "2016-09-30", "licensed": 1251, "sorned": 729 },
-                { "period": "2016-09-29", "licensed": 1769, "sorned": 1018 },
-                { "period": "2016-09-20", "licensed": 2246, "sorned": 1461 },
-                { "period": "2016-09-19", "licensed": 2657, "sorned": 1967 },
-                { "period": "2016-09-15", "licensed": 2401, "sorned": 1656 },
-                { "period": "2016-09-10", "licensed": 2115, "sorned": 1022 }
-            ],
-            xkey: 'period',
-            barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-            ykeys: ['licensed', 'sorned'],
-            labels: ['Licensed', 'SORN'],
-            hideHover: 'auto',
-            xLabelAngle: 60,
-            resize: true
-        });
-
-    }
-	
-}
-
 
 	function init_chart_doughnut() {
 	
