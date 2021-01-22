@@ -4,6 +4,11 @@
 	layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
+<div class="x_panel">
+	  <div class="x_title">
+		<h2>장비파기 목록</h2>
+		  <div class="clearfix"></div>
+		</div>  
 	<div class="table-responsive m-t-20">
 		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id = "tbItemDelete">
 			<thead>
@@ -25,17 +30,18 @@
 				<td th:text="${d.itemDeleteReason}"></td>
 				<td th:text="${d.itemDeleteRegDate}"></td>
 				<td>
-					<button type="submit"><a  th:href="@{/modifyitemDelete(storeDeleteCode=${d.storeDeleteCode})}">수정</a></button>
+					<a  th:href="@{/modifyitemDelete(storeDeleteCode=${d.storeDeleteCode})}"><button class="btn btn-secondary btn-sm" type="submit">수정</button></a>
 				</td>
 				<td>
-					<button type="submit" ><a th:href="@{/removeitemDelete(storeDeleteCode=${d.storeDeleteCode})}">삭제</a></button>
+					<a th:href="@{/removeitemDelete(storeDeleteCode=${d.storeDeleteCode})}"><button class="btn btn-secondary btn-sm" type="submit" >삭제</button></a>
 				</td>
 				</tr>
 
 			</tbody>
 		</table>
 	</div>
-	<button type="submit" style="float: right;" ><a th:href="@{addItemDelete}"> 글쓰기</a></button>
+	</div>
+	<a th:href="@{addItemDelete}"><button class="btn btn-secondary btn-sm" type="submit" style="float: right;" > 글쓰기</button></a>
 </th:block>
 
 <th:block layout:fragment="customJs">

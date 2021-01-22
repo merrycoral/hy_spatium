@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.urban.spatium.dto.User;
 import com.urban.spatium.service.UserService;
 
-@Controller
+@Controller("/user")
 public class UserController {
 
 	@Autowired 

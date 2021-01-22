@@ -110,6 +110,25 @@
 			itemRepairCode = #{itemRepairCode};     
 	</update>
 	
+	<!--장비수리 코드로 장비 가져오기 -->
+	<select id = "itemRepairByCode" resultType="Item">
+		SELECT 
+			itemRepairCode
+			, storeRepairCode
+			, storeItemRepairCode
+			, userRepairId
+			, itemRepairPrice
+			, itemRepairRegDate
+			, itemRepairEndDate
+			, itemRepairName
+			, itemRepairCompany
+			, itemRepairCompanyPhone
+		FROM
+			tbItemRepair
+		WHERE
+			itemRepairCode=#{itemRepairCode}
+	</select>
+	
 	<!--장비수리내역 -->
 	<select id = "itemRepairList" resultType="Item">
 		SELECT 
@@ -174,10 +193,24 @@
 		, storeItemDeleteCode = #{storeItemDeleteCode}
 		, userDeleteId	= #{userDeleteId}
 		, itemDeleteReason = #{itemDeleteReason}
-		, itemDeleteReason = #{itemDeleteReason}
 		WHERE
 			itemDeleteCode = #{itemDeleteCode};     
 	</update>
+	
+	<!--장비수리 코드로 장비 가져오기 -->
+	<select id = "itemDeleteByCode" resultType="Item">
+		SELECT 
+			itemDeleteCode
+			, storeDeleteCode
+			, storeItemDeleteCode
+			, userDeleteId
+			, itemDeleteReason
+			, itemDeleteRegDate
+		FROM
+			tbItemDeleteList
+		WHERE
+			storeDeleteCode=#{storeDeleteCode}
+	</select>
 	
 	<!--장비파기내역 -->
 	<select id = "itemDeleteList" resultType="Item">

@@ -19,8 +19,9 @@ public interface BookmarkMapper {
     public List<Bookmark> bookMark();
    
     //북마크 추가
-  	int addbookMark(Bookmark bookmark);
-  	
+  	int addbookMark(String userId, String storeCode);
+
+	List<Bookmark> getBookMark(String userId, String storeCode);
  
 }
 	

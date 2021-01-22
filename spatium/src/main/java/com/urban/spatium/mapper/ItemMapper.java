@@ -57,5 +57,9 @@ public interface ItemMapper {
 	public int addItemBuy(Item item);
 
 	public Item itemListByCode(String itemBuyCode);
+	
+	public Item itemRepairByCode(String itemRepairCode);
+	
+	public Item itemDeleteByCode(String storeDeleteCode);
 	  
 }

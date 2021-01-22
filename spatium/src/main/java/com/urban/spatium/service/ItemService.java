@@ -8,9 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.urban.spatium.dto.Item;
 import com.urban.spatium.dto.Store;
-import com.urban.spatium.dto.User;
 import com.urban.spatium.mapper.ItemMapper;
-import com.urban.spatium.mapper.UserMapper;
 
 
 @Service
@@ -19,8 +17,6 @@ public class ItemService {
 
 	@Autowired
 	private ItemMapper itemMapper;
-	@Autowired
-	private UserMapper userMapper; 
 	
 	//장비구입내역 삭제
 	public String removeitemBuy(String itemBuyCode) {
@@ -175,6 +171,16 @@ public class ItemService {
 
 	public Item itemListByCode(String itemBuyCode) {
 		Item item = itemMapper.itemListByCode(itemBuyCode);
+		return item;
+	}
+	
+	public Item itemRepairByCode(String itemRepairCode) {
+		Item item = itemMapper.itemRepairByCode(itemRepairCode);
+		return item;
+	}
+	
+	public Item itemDeleteByCode(String storeDeleteCode) {
+		Item item = itemMapper.itemDeleteByCode(storeDeleteCode);
 		return item;
 	}
 
