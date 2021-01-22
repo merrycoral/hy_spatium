@@ -4,7 +4,7 @@
 	layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
-<form action="/itemBuyList" method="post"></form>
+<form action="/item/admin/itemBuyList" method="post"></form>
 <div class="x_panel">
 	  <div class="x_title">
 		<h2>장비구입 목록</h2>
@@ -37,17 +37,17 @@
 				<td th:text="${i.itemBuyPhone}"></td>
 				<td th:text="${i.itemBuyRegDate}"></td>
 				<td>
-					<a th:href="@{/modifyitemBuy(itemBuyCode=${i.itemBuyCode})}"><button class="btn btn-secondary btn-sm" type="submit">수정</button></a>
+					<a th:href="@{/item/admin/modifyitemBuy(itemBuyCode=${i.itemBuyCode})}"><button class="btn btn-secondary btn-sm" type="submit">수정</button></a>
 				</td>
 				<td>
-					<a th:href="@{/removeitemBuy(itemBuyCode=${i.itemBuyCode})}"><button class="btn btn-secondary btn-sm" type="submit">삭제</button></a>
+					<a th:href="@{/item/admin/removeitemBuy(itemBuyCode=${i.itemBuyCode})}"><button class="btn btn-secondary btn-sm" type="submit">삭제</button></a>
 				</td>
 				</tr>
 			</tbody>
 		</table>
 		</div>
 	</div>
-	<a th:href="@{addItemBuy}"><button class="btn btn-secondary btn-sm" type="submit" style="float: right;" > 글쓰기</button></a>
+	<a th:href="@{item/admin/addItemBuy}"><button class="btn btn-secondary btn-sm" type="submit" style="float: right;" > 글쓰기</button></a>
 </th:block>
 
 <th:block layout:fragment="customJs">

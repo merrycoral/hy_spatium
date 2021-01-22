@@ -26,19 +26,20 @@ public class BookmarkController {
 	
 
 	//북마크 삭제
-	@GetMapping("/removeBookMark") 
+	@ResponseBody
+	@RequestMapping(value = "/bookmark/removeBookMark",produces = "application/json",method = RequestMethod.POST ) 
 	public String removeBookMark(@RequestParam(name="bookMarkCode", required = false) String bookMarkCode , Model model) {
 		 System.out.println("북마크 삭제화면에 입력받은 값 ->" + bookMarkCode);
 	  
 	 bookmarkService.removeBookMark(bookMarkCode);
-	  
 	 model.addAttribute("bookMarkCode", bookMarkCode);
-	 	  
-	 return "redirect:/bookMarkList";
+	 System.out.println("어디까지 왔니?");
+	 
+	 return "redirect:/bookmark/bookMarkList";
 	  }
 
 	//북마크 목록
-	@PostMapping("/bookMark")
+	@PostMapping("/bookmark/bookMark")
 	public String bookMark(Model model) {
 
 		model.addAttribute("title", "북마크 목록");
@@ -46,7 +47,7 @@ public class BookmarkController {
 		return "bookmark/bookMarkList";
 	}
 
-	@GetMapping("/bookMark")
+	@GetMapping("/bookmark/bookMark")
 	public String bookMarkList(Model model, @RequestParam(name="userId", required = false) String userId) {
 		List<Bookmark> bookMarkList = bookmarkService.bookMark();
 		model.addAttribute("bookMarkList", bookMarkList);
@@ -55,7 +56,7 @@ public class BookmarkController {
 	
 	//북마크 추가
 	@ResponseBody
-	@RequestMapping(value = "/addbookMark",produces = "application/json",method = RequestMethod.POST ) 
+	@RequestMapping(value = "/bookmark/addbookMark",produces = "application/json",method = RequestMethod.POST ) 
     public String addbookMark (HttpSession session
     		, @RequestParam(name="storeCode", required = false)String storeCode) {
 		String userId=(String)session.getAttribute("SID");

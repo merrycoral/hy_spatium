@@ -9,7 +9,7 @@
 
 <th:block layout:fragment="customContent">
 
-	<form th:action="@{/removeitemDelete}" method="post">
+	<form th:action="@{/item/admin/removeitemDelete}" method="post">
 
 		<span class="section">장비파기내역 삭제</span>
 
@@ -27,8 +27,6 @@
 					<input type="hidden" id="userId" name="userId" th:value="${user.userId}" required="required">
 			</div>
 		</div>
-		</div>
-		
 		<div class="form-group" align="center">
 			<div class="col-md-6 offset-md-3">
 				<button type="submit" id="submit" class="btn btn-primary ">장비구입내역 삭제</button>
