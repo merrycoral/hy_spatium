@@ -1,7 +1,5 @@
 package com.urban.spatium.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -37,14 +33,14 @@ public class ReviewController {
 	
 	private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
 			
-		@GetMapping("/myReview")
+		@GetMapping("/review/myReview")
 		public String myReview(Model model, HttpServletRequest request, HttpSession session
 				) {
 			
 			
 			return "review/myReview";
 		}
-		@GetMapping("/writeReview")
+		@GetMapping("/review/writeReview")
 		public String writeReview(Model model, HttpServletRequest request, HttpSession session
 				) {
 			String sessionId = (String) session.getAttribute("SID");
@@ -65,7 +61,7 @@ public class ReviewController {
 		}
 		
 		@ResponseBody
-		@PostMapping(value = "/viewReplyReview", produces = "application/json")
+		@PostMapping(value = "/review/viewReplyReview", produces = "application/json")
 		public List<Map<String, Object>> viewReplyReview(
 				@RequestParam(name="getReviewCode", required = false) String getReviewCode){
 			System.out.println("ajax 실행");
@@ -88,7 +84,7 @@ public class ReviewController {
 			return "redirect:/reviewAll";
 		} */
 		
-		@PostMapping("/replyReview")
+		@PostMapping("/review/replyReview")
 		public String replyReview(HttpSession session, Model model
 				, @RequestParam(name="storeReply", required = true) String storeReply
 				, @RequestParam(name="getReviewCode", required = true) String getReviewCode) {
@@ -97,9 +93,9 @@ public class ReviewController {
 			String result = reviewService.replyReview(storeReply,getReviewCode, SID);
 			System.out.println(result);
 			
-			return "redirect:/reviewAll";
+			return "redirect:/review/admin/reviewAll";
 		}
-		@PostMapping("/writeReview")
+		@PostMapping("/review/writeReview")
 		public String insertReview(HttpSession session, Model model, Review wroteReview) {
 			System.out.println(wroteReview);
 			System.out.println(wroteReview.getReviewTitle());
@@ -109,10 +105,10 @@ public class ReviewController {
 			//int result = reviewService.insertReview(review);
 			//System.out.println(result);
 			// /memberList?result=회원삭제성공
-			return "redirect:/reviewAll";
+			return "redirect:/review/admin/reviewAll";
 		}
 		
-		@GetMapping("/reviewStore")
+		@GetMapping("/review/seller/reviewStore")
 		public String reviewStore(HttpSession session, Model model, @RequestParam(name="result", required = false) String result
 					, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
 			//List<Review> allReview = reviewService.getAllReview();
@@ -134,11 +130,11 @@ public class ReviewController {
 			
 				//return "redirect:/";
 			
-			return "review/reviewStore";
+			return "review/seller/reviewStore";
 		}
 								
 		
-		@PostMapping("/blindReview")
+		@PostMapping("/review/admin/blindReview")
 		public String blindReview(@RequestParam(name="table_records", required = false) String reviewCode
 				,@RequestParam(name="blindValue", required = true) String blindValue
 				,RedirectAttributes redirectAttr) {
@@ -151,10 +147,10 @@ public class ReviewController {
 			System.out.println(result);
 			redirectAttr.addAttribute("result", result);
 			// /memberList?result=회원삭제성공
-			return "redirect:/reviewAll";
+			return "redirect:/review/admin/reviewAll";
 		}
 		
-		@PostMapping("/deleteReview")
+		@PostMapping("/review/admin/deleteReview")
 		public String deleteReview(@RequestParam(name="table_records", required = false) String reviewCode
 								  ,RedirectAttributes redirectAttr) {
 			System.out.println("입력받은 값(reviewCode)--->"	+ reviewCode);
@@ -164,10 +160,10 @@ public class ReviewController {
 			System.out.println(result);
 			redirectAttr.addAttribute("result", result);
 			// /memberList?result=회원삭제성공
-			return "redirect:/reviewAll";
+			return "redirect:/review/admin/reviewAll";
 		}
 	
-		@GetMapping("/reviewAll")
+		@GetMapping("/review/admin/reviewAll")
 		public String reviewAll(HttpSession session, Model model
 				, @RequestParam(name="result", required = false) String result) {
 			//List<Review> allReview = reviewService.getAllReview();
@@ -177,10 +173,10 @@ public class ReviewController {
 			model.addAttribute("title", "리뷰 전체 조회");
 			model.addAttribute("storeInfo", resultMap.get("storeInfo"));
 			model.addAttribute("allReview", resultMap.get("allReview"));
-			return "review/reviewAll";
+			return "review/admin/reviewAll";
 		}
 		
-		@PostMapping("/reviewAll")
+		@PostMapping("/review/reviewAll")
 		public String searchReview(@RequestParam(name = "sk", required = false) String searchKey
 								,@RequestParam(name = "sv", required = false) String searchValue
 								, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage
