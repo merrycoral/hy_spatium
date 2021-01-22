@@ -119,5 +119,4 @@ public class SpaceController {
 			model.addAttribute("spaceListO", spaceListO);
 		return "space/admin/OKSpaceList";
 	}
-	
 }
