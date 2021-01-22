@@ -15,7 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.urban.spatium.URLgetter;
@@ -33,7 +36,14 @@ public class ReviewController {
 	private RsvService rsvService;
 	
 	private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
-		
+			
+		@GetMapping("/myReview")
+		public String myReview(Model model, HttpServletRequest request, HttpSession session
+				) {
+			
+			
+			return "review/myReview";
+		}
 		@GetMapping("/writeReview")
 		public String writeReview(Model model, HttpServletRequest request, HttpSession session
 				) {
@@ -54,6 +64,38 @@ public class ReviewController {
 			return "review/writeReview";
 		}
 		
+		@RequestMapping(value = "/ajaxHY", method = RequestMethod.POST, produces = "application/json")
+		public @ResponseBody List<Map<String, Object>> ajaxHY(
+				@RequestParam String reviewCode){
+			System.out.println(reviewCode);
+			List<Map<String, Object>> storeReplyReview = reviewService.viewReplyReview(reviewCode);
+			
+			return storeReplyReview;
+		}
+
+		
+		@PostMapping("/viewReplyReview")
+		public String viewReplyReview(HttpSession session, Model model
+				, @RequestParam(name="getReviewCode", required = true) String getReviewCode) {
+			//postReply
+			String SID = (String) session.getAttribute("SID");
+			List<Map<String, Object>> result = reviewService.viewReplyReview(getReviewCode);
+			System.out.println(result);
+			
+			return "redirect:/reviewAll";
+		}
+		
+		@PostMapping("/replyReview")
+		public String replyReview(HttpSession session, Model model
+				, @RequestParam(name="storeReply", required = true) String storeReply
+				, @RequestParam(name="getReviewCode", required = true) String getReviewCode) {
+			//postReply
+			String SID = (String) session.getAttribute("SID");
+			String result = reviewService.replyReview(storeReply,getReviewCode, SID);
+			System.out.println(result);
+			
+			return "redirect:/reviewAll";
+		}
 		@PostMapping("/writeReview")
 		public String insertReview(HttpSession session, Model model, Review wroteReview) {
 			System.out.println(wroteReview);
@@ -123,18 +165,15 @@ public class ReviewController {
 		}
 	
 		@GetMapping("/reviewAll")
-		public String reviewAll(Model model, @RequestParam(name="result", required = false) String result
-					, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		public String reviewAll(HttpSession session, Model model
+				, @RequestParam(name="result", required = false) String result) {
 			//List<Review> allReview = reviewService.getAllReview();
-			
-			Map<String, Object> resultMap = reviewService.getAllReview(currentPage);
+			String SID = (String) session.getAttribute("SID");
+			Map<String, Object> resultMap = reviewService.getAllReview(SID);
 			
 			model.addAttribute("title", "리뷰 전체 조회");
+			model.addAttribute("storeInfo", resultMap.get("storeInfo"));
 			model.addAttribute("allReview", resultMap.get("allReview"));
-			model.addAttribute("lastPage", resultMap.get("lastPage"));
-			model.addAttribute("currentPage", currentPage);
-			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
-			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
 			return "review/reviewAll";
 		}
 		

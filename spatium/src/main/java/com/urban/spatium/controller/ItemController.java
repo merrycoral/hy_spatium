@@ -2,6 +2,7 @@ package com.urban.spatium.controller;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,52 +26,32 @@ public class ItemController {
 
 
 	//장비구입내역삭제
-	@PostMapping("/removeitemBuy")
-	public String removeitemBuy(@RequestParam(name="itemBuyCode", required = false) int itemBuyCode
-			,@RequestParam(name="userId", required = false) String userId
-			,@RequestParam(name="userPw", required = false) String userPw) {
-		System.out.println("장비구입 삭제화면에서 입력 받은 값->" + itemBuyCode);
-		System.out.println("장비구입 삭제화면에서 입력 받은 값->" + userId);
-		System.out.println("장비구입 삭제화면에서 입력 받은 값->" + userPw);
-
-		String result = itemService.removeitemBuy(itemBuyCode, userId, userPw);
-		System.out.println(itemBuyCode + " : " + result);
-
-		return "redirect:/itemBuyList";
-	}
-
-	@GetMapping("/removeitemBuy")
-	public String removeitemBuy(@RequestParam(name="itemBuyCode", required = false) int itemBuyCode
-			,Model model) {
-		System.out.println("장비구입 수정화면에 입력받은 값 ->" + itemBuyCode);
-
-		Item item = itemService.getitemBuyCode(itemBuyCode);
-
-		model.addAttribute("itemBuyCode", itemBuyCode);
-		model.addAttribute("getStoreBuyCode", item.getStoreBuyCode());
-
-		return "item/dItemBuy";
-	}
-
+	 @GetMapping("/removeitemBuy") 
+	 public String removeitemBuy(@RequestParam(name="itemBuyCode", required = false) String
+	 itemBuyCode ,Model model) {
+	 System.out.println("장비구입 삭제화면에 입력받은 값 ->" + itemBuyCode);
+	 itemService.removeitemBuy(itemBuyCode);
+	 model.addAttribute("itemBuyCode", itemBuyCode);
+	 	  
+	 return "redirect:/itemBuyList";
+	  }
+	 
 	//장비구입내역 수정
 	@PostMapping("/modifyitemBuy")
 	public String modifyitemBuy(Item item) {
 		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
-
-		String result = itemService.modifyitemBuy(item);
-		System.out.println(item.getItemBuyCode() + " : " + result);
+		itemService.modifyitemBuy(item);
 		return "redirect:/itemBuyList";
 	}
 
-	@GetMapping("/modifyitemBuy")
-	public String modifyitemBuy(@RequestParam(name="itemBuyCode", required = false) int itemBuyCode
-			,Model model) {
-		System.out.println("장비구입 수정화면에 입력받은 값 ->" + itemBuyCode);	
-
-		Item item = itemService.getitemBuyCode(itemBuyCode);
-		System.out.println(item);
-		return "item/uItemBuy";
-	}
+	  @GetMapping("/modifyitemBuy") 
+	  public String modifyitemBuy(@RequestParam(name="itemBuyCode", required = false) String itemBuyCode, Model model) { 
+		  System.out.println("장비구입 수정화면에 입력받은 값 ->" +  itemBuyCode);
+		  Item item = itemService.itemListByCode(itemBuyCode);
+		  model.addAttribute("item", item);
+	  
+	  return "item/uItemBuy"; 
+	  }
 
 	//장비구입내역
 	@GetMapping("/itemBuyList")
@@ -84,11 +65,12 @@ public class ItemController {
 	}
 
 	//장비구입등록
-	@PostMapping("/addItemBuy") public String addItemBuy(Model model, Item  item, HttpSession session,
-			@RequestParam(name = "userBuyId", required = false) String userId) {
+	@PostMapping("/addItemBuy") 
+	public String addItemBuy(Model model, Item  item, HttpSession session,
+			@RequestParam(name = "userBuyId", required = false) String userBuyId) {
 		System.out.println(item +	  "=========== 장비 넘어온 값 ============"); 
 		String sessionId = (String) session.getAttribute("SID");
-		System.out.println(userId );
+		System.out.println(userBuyId );
 
 		System.out.println(sessionId); item.setItemDetailUserId(sessionId);
 
@@ -96,64 +78,41 @@ public class ItemController {
 		System.out.println(result);
 
 		return "redirect:/itemBuyList"; 
-
 	}
 
-	@GetMapping("/addItemBuy") public String addItemBuy(Model model) {
-		model.addAttribute("title", "장비구입 등록 하기"); 
+	@GetMapping("/addItemBuy") 
+	public String addItemBuy(Model model) {
+		model.addAttribute("title", "장비수리 등록 하기"); 
 		return "item/itemBuyForm2"; 
 	}
 
 	//장비수리내역 삭제
-	@PostMapping("/removeitemRepair")
-	public String removeitemRepair(@RequestParam(name="itemRepairCode", required = false) int itemRepairCode
-			,@RequestParam(name="userId", required = false) String userId
-			,@RequestParam(name="userPw", required = false) String userPw) {
-		System.out.println("장비수리내역 삭제화면에서 입력 받은 값->" + itemRepairCode);
-		System.out.println("장비수리내역 삭제화면에서 입력 받은 값->" + userId);
-		System.out.println("장비수리내역 삭제화면에서 입력 받은 값->" + userPw);
-
-		String result = itemService.removeitemRepair(itemRepairCode, userId, userPw);
-		System.out.println(itemRepairCode + " : " + result);
-
-		return "redirect:/itemRepairList";
-	}
-
-	@GetMapping("/removeitemRepair")
-	public String removeitemRepair(@RequestParam(name="itemRepairCode", required = false) int itemRepairCode
-			,Model model) {
-		System.out.println("장비수리내역 수정화면에 입력받은 값 ->" + itemRepairCode);
-
-		Item item = itemService.getitemBuyCode(itemRepairCode);
-
-		model.addAttribute("itemRepairCode", itemRepairCode);
-		model.addAttribute("getStoreBuyCode", item.getStoreBuyCode());
-
-		return "item/dItemRepair";
-	}
+	@GetMapping("/removeitemRepair") 
+	 public String removeitemRepair(@RequestParam(name="itemRepairCode", required = false) String itemRepairCode ,Model model) {
+		 System.out.println("장비구입 수정화면에 입력받은 값 ->" + itemRepairCode);
+	 itemService.removeitemRepair(itemRepairCode);
+	 model.addAttribute("itemRepairCode", itemRepairCode);
+	 	  
+	 return "redirect:/itemRepairList";
+	  }
 
 	//장비수리내역 수정
 	@PostMapping("/modifyitemRepair")
 	public String modifyitemRepair(Item item) {
-		System.out.println("장비수리내역 수정화면에서 입력 받은 값->"+ item);
-
-		String result = itemService.modifyitemRepair(item);
-		System.out.println(item.getItemRepairCode() + " : " + result);
-
+		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
+		itemService.modifyitemRepair(item);
 		return "redirect:/itemRepairList";
 	}
 
-	@GetMapping("/modifyitemRepair")
-	public String modifyitemRepair(@RequestParam(name="itemRepairCode", required = false) int itemRepairCode
-			,Model model) {
-		System.out.println("장비수리내역 수정화면에 입력받은 값 ->" + itemRepairCode);	
-
-		Item item = itemService.getitemBuyCode(itemRepairCode);
-		System.out.println(item);
-			
-		return "item/uItemRepair";
-	}
-
+	@GetMapping("/modifyitemRepair") 
+	public String modifyitemRepair(@RequestParam(name="itemRepairCode", required = false) String itemRepairCode, Model model) { 
+	  System.out.println("장비구입 수정화면에 입력받은 값 ->" +  itemRepairCode);
+	  Item item = itemService.itemListByCode(itemRepairCode);
+	  model.addAttribute("item", item);
+	  
+	  return "item/uitemRepair"; 
+	  }
+		
 	//장비수리내역
 	@GetMapping("/itemRepairList")
 	public String itemRepairList(Model model) {
@@ -187,55 +146,31 @@ public class ItemController {
 	}
 
 	//장비파기내역 삭제
-	@PostMapping("/removeitemDelete")
-	public String removeitemDelete(@RequestParam(name="itemDeleteCode", required = false) int itemDeleteCode
-			,@RequestParam(name="userId", required = false) String userId
-			,@RequestParam(name="userPw", required = false) String userPw) {
-		System.out.println("장비파기내역 삭제화면에서 입력 받은 값->" + itemDeleteCode);
-		System.out.println("장비파기내역 삭제화면에서 입력 받은 값->" + userId);
-		System.out.println("장비파기내역 삭제화면에서 입력 받은 값->" + userPw);
-
-		String result = itemService.removeitemDelete(itemDeleteCode, userId, userPw);
-		System.out.println(itemDeleteCode + " : " + result);
-
-		return "redirect:/itemDeleteList";
-	}
-
-	@GetMapping("/removeitemDelete")
-	public String removeitemDelete(@RequestParam(name="itemDeleteCode", required = false) int itemDeleteCode
-			,Model model) {
-		System.out.println("장비파기내역 수정화면에 입력받은 값 ->" + itemDeleteCode);
-
-		Item item = itemService.getitemBuyCode(itemDeleteCode);
-
-		model.addAttribute("itemDeleteCode", itemDeleteCode);
-		model.addAttribute("getStoreBuyCode", item.getStoreBuyCode());
-
-		return "item/dItemDelete";
-	}
-
+	@GetMapping("/removeitemDelete") 
+	 public String removeitemDelete(@RequestParam(name="storeDeleteCode", required = false) String storeDeleteCode ,Model model) {
+		 System.out.println("장비파기 수정화면에 입력받은 값 ->" + storeDeleteCode);
+		 itemService.removeitemDelete(storeDeleteCode);
+		 model.addAttribute("storeDeleteCode", storeDeleteCode);
+		 return "redirect:/itemDeleteList";
+	  }
+	
 	//장비파기내역 수정
 	@PostMapping("/modifyitemDelete")
 	public String modifyitemDelete(Item item) {
-		System.out.println("장비파기내역 수정화면에서 입력 받은 값->"+ item);
-
-		String result = itemService.modifyitemDelete(item);
-		System.out.println(item.getItemBuyCode() + " : " + result);
-		return "redirect:/itemDeleteList";
+		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
+		itemService.modifyitemDelete(item);
+		return "redirect:/itemRepairList";
 	}
 
-	/*
-	 * @GetMapping("/modifyitemDelete") public String
-	 * modifyitemDelete(@RequestParam(name="storeDeleteCode", required = false)
-	 * String storeDeleteCode ,Model model) {
-	 * System.out.println("장비파기내역 수정화면에 입력받은 값 ->" + storeDeleteCode);
-	 * 
-	 * Item item = itemService.modifyitemDelete(storeDeleteCode);
-	 * model.addAttribute("item", item);
-	 * 
-	 * return "item/uItemDelete"; }
-	 */
-
+	@GetMapping("/modifyitemDelete") 
+	public String modifyitemDelete(@RequestParam(name="storeDeleteCode", required = false) String storeDeleteCode, Model model) { 
+	  System.out.println("장비구입 수정화면에 입력받은 값 ->" +  storeDeleteCode);
+	  Item item = itemService.itemListByCode(storeDeleteCode);
+	  model.addAttribute("item", item);
+	  
+	  return "item/uItemDelete"; 
+	  }
+	
 	//장비파기내역
 	@GetMapping("/itemDeleteList")
 	public String itemDeleteList(Model model) {
@@ -249,10 +184,10 @@ public class ItemController {
 
 	//장비파기등록
 	@PostMapping("/addItemDelete") public String addItemDelete(Model model, Item  item, HttpSession session,
-			@RequestParam(name = "userDeleteId", required = false) String userId) {
+			@RequestParam(name = "userDeleteId", required = false) String userDeleteId) {
 		System.out.println(item +	  "=========== 장비 넘어온 값 ============"); 
 		String sessionId = (String) session.getAttribute("SID");
-		System.out.println(userId );
+		System.out.println(userDeleteId );
 
 		System.out.println(sessionId); item.setItemDetailUserId(sessionId);
 
@@ -294,16 +229,19 @@ public class ItemController {
 
 	//장비등록
 	@PostMapping("/addItem")
-	public String addItem(Model model, Item item, HttpSession session) {
+	public String addItem(Model model, Item item, HttpSession session, Store store
+							,@RequestParam(name = "code", required = false) int code) {
 		System.out.println(item + "=========== 장비 넘어온 값 ============");
 		String sessionId = (String) session.getAttribute("SID");
 		System.out.println(sessionId);
 		item.setItemDetailUserId(sessionId);
+		System.out.println(code + "포스트 맵핑 장비등록 스토어코드");
+		item.setStoreDetailCode(code);
 		String result = itemService.addItem(item);
-
+		
 		System.out.println(result);
 
-		return "redirect:/addItem";
+		return "redirect:/itemList";
 	}
 
 	@GetMapping("/addItem")
@@ -314,9 +252,9 @@ public class ItemController {
 		item.setStoreDetailCode(storeCode);
 		int code = item.getStoreDetailCode();
 		System.out.println(code);
+		model.addAttribute("code", code);
 
 		model.addAttribute("title", "장비 등록 하기");
-
 
 		return "item/itemBuyForm";
 	}

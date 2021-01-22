@@ -23,7 +23,9 @@ public class RefundService {
 	@Autowired 
 	private RefundMapper refundMapper;
 	
-	
+	public List<CancelRsv> refundSelectStore(String storeId){
+		return refundMapper.refundSelectStore(storeId);
+	}
 	
 	public List<CancelRsv> refundSelect(){
 		List<CancelRsv> refundselect = refundMapper.refundSelect();

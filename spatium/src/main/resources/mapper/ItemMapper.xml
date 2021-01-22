@@ -24,7 +24,6 @@
 		, itemBuyPrice = #{itemBuyPrice}
 		, itemBuyAccount = #{itemBuyAccount}
 		, itemBuyPhone = #{itemBuyPhone}
-		, itemBuyRegDate = #{itemBuyRegDate}
 		WHERE
 			itemBuyCode = #{itemBuyCode};     
 	</update>
@@ -42,6 +41,24 @@
 			, itemBuyRegDate
 		FROM
 			tbItemBuyList;
+
+	</select>
+	
+	<!--장비 코드로 장비 가져오기 -->
+	<select id = "itemListByCode" resultType="Item">
+		SELECT 
+			itemBuyCode
+			, storeBuyCode
+			, storeBuyItemCode
+			, userBuyId
+			, itemBuyPrice
+			, itemBuyAccount
+			, itemBuyPhone
+			, itemBuyRegDate
+		FROM
+			tbItemBuyList
+		WHERE
+			itemBuyCode=#{itemBuyCode}
 	</select>
 	
 	<!-- 장비구입 등록 -->
@@ -49,8 +66,7 @@
 		
 		INSERT INTO tbItemBuyList
 			(
-			 itemBuyCode
-			, storeBuyCode
+			 storeBuyCode
 			, storeBuyItemCode
 			, userBuyId
 			, itemBuyPrice
@@ -59,8 +75,7 @@
 			, itemBuyRegDate)
 		VALUES 
 			(
-			 #{itemBuyCode}
-			, #{storeBuyCode}
+			 #{storeBuyCode}
 			, #{storeBuyItemCode}
 			, #{userBuyId}
 			, #{itemBuyPrice}
@@ -87,7 +102,6 @@
 		, storeItemRepairCode = #{storeItemRepairCode}
 		, userRepairId	= #{userRepairId}
 		, itemRepairPrice = #{itemRepairPrice}
-		, itemRepairRegDate = #{itemRepairRegDate}
 		, itemRepairEndDate = #{itemRepairEndDate}
 		, itemRepairName = #{itemRepairName}
 		, itemRepairCompany = #{itemRepairCompany}
@@ -148,20 +162,19 @@
 		FROM
 		tbItemDeleteList
 		WHERE
-		itemDeleteCode = #{itemDeleteCode}; 
+		storeDeleteCode = #{storeDeleteCode}; 
 	</delete>
 	
 	<!--장비파기내역 수정 -->
 	<update id="modifyitemDelete" >
 		UPDATE
-		itemDeleteCode
+		tbItemDeleteList
 		SET 
 		  storeDeleteCode = #{storeDeleteCode}
 		, storeItemDeleteCode = #{storeItemDeleteCode}
 		, userDeleteId	= #{userDeleteId}
 		, itemDeleteReason = #{itemDeleteReason}
 		, itemDeleteReason = #{itemDeleteReason}
-		, itemDeleteRegDate = #{itemDeleteRegDate}
 		WHERE
 			itemDeleteCode = #{itemDeleteCode};     
 	</update>
@@ -195,7 +208,7 @@
 			, #{storeItemDeleteCode}
 			, #{userDeleteId}
 			, #{itemDeleteReason}
-			, #{itemDeleteRegDate})
+			, NOW())
 	</insert>
 
 
@@ -269,7 +282,7 @@
 			, itemChangeRegDate
 			, itemDetailUserId)
 		VALUES 
-			( #{itemDetailCode}
+			( 200000001
 			, #{storeDetailCode}
 			, #{itemName}
 			, #{itemCategory}

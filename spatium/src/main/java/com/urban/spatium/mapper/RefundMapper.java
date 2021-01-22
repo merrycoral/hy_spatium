@@ -21,6 +21,8 @@ import com.urban.spatium.dto.Store;
 @Mapper	
 public interface RefundMapper {	
 	
+	public List<CancelRsv> refundSelectStore(String storeId);
+	
 	public List<CancelRsv> refundSelect();
 	
 	public int refundRsv(Rsv rsv);

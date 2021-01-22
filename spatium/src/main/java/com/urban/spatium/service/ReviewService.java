@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.urban.spatium.Criteria2;
 import com.urban.spatium.dto.Review;
 import com.urban.spatium.dto.Rsv;
+import com.urban.spatium.mapper.CalcMapper;
 import com.urban.spatium.mapper.ReviewMapper;
 import com.urban.spatium.mapper.RsvMapper;
 
@@ -21,6 +22,9 @@ public class ReviewService {
 		private RsvMapper rsvMapper;
 		@Autowired
 		private ReviewMapper reviewMapper;
+		@Autowired
+		private CalcMapper calcMapper;
+		
 		
 		public int insertReview(Review wroteReview, String SID) {
 			Map <String, Object> review = new HashMap<>();
@@ -67,13 +71,8 @@ public class ReviewService {
 			return reviewList;
 		}
 		
-		public List<Review> exallReview(Criteria2 cri) {
-			int rowPerPage = cri.getPerPageNum();
-			int startRow = cri.getPageStart();
-			List<Review> exallReview = reviewMapper.exallReview(startRow, rowPerPage);
-			System.out.println("PRINT exallReview");
-			System.out.println(exallReview);
-			int listSize = exallReview.size();
+		public List<Review> reviewType() {
+			/*
 			for(int i=0; i<listSize; i++) {
 				if("1".equals(exallReview.get(i).getReviewType())) {
 					exallReview.get(i).setReviewType("동영상");
@@ -83,14 +82,13 @@ public class ReviewService {
 					exallReview.get(i).setReviewType("텍스트");				
 				}
 			}
-			return exallReview;
+			*/
+			return null;
 		}
 		
-		public Map<String, Object> getAllReview(int currentPage){
+		public Map<String, Object> getAllReview(String SID){
 			int startRow = 0;
 			int rowPerPage = 10;
-			int startPageNum = 1;
-			int endPageNum = 10;
 					
 			//last 페이지 구하기
 			double count = reviewMapper.getAllReviewCount();
@@ -99,29 +97,13 @@ public class ReviewService {
 			System.out.println(lastPage + "<--- lastPage");
 			
 			//페이지 알고리즘
-			startRow = (currentPage - 1) * rowPerPage;
 			
 			List<Map<String, Object>> allReview = reviewMapper.getAllReview(startRow, rowPerPage);
 			
-			if(currentPage > 6 && lastPage < 10) {
-				startPageNum = currentPage - 5;
-				endPageNum  = currentPage + 4;
-				
-				if(endPageNum >= lastPage) {
-					startPageNum = (lastPage - 9);
-					endPageNum = lastPage;
-				}
-			}else {
-				endPageNum = lastPage;
-			}
-			
+			Map<String, Object> storeInfo = calcMapper.getStoreInfo(SID);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("lastPage", lastPage);
 			resultMap.put("allReview", allReview);
-			resultMap.put("startPageNum", startPageNum);
-			resultMap.put("endPageNum", endPageNum);
-			System.out.println(resultMap.get("startPageNum"));
-			System.out.println(resultMap.get("endPageNum"));
+			resultMap.put("storeInfo", storeInfo);
 			
 			return resultMap;
 		}
@@ -241,5 +223,18 @@ public class ReviewService {
 			
 			return resultMap;
 		}
+
+		public String replyReview(String storeReply, String getReviewCode, String SID) {
+			reviewMapper.replyReview(storeReply, getReviewCode, SID);
+			String replyReviewResult = "리뷰 답글 등록 완료";
+			
+			return replyReviewResult;
+		}
+
+		public List<Map<String, Object>> viewReplyReview(String reviewCode) {
+			List<Map<String, Object>> storeReplyReview = viewReplyReview(reviewCode);
+			return storeReplyReview;
+		}
+
 
 }

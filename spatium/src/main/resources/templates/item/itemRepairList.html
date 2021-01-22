@@ -36,17 +36,17 @@
 				<td th:text="${r.itemRepairCompany}"></td>
 				<td th:text="${r.itemRepairCompanyPhone}"></td>
 				<td>
-					<button type="submit"><a  th:href="@{/modifyitemRepair(itemRepairCode=${r.itemRepairCode})}">수정</button>
+					<a  th:href="@{/modifyitemRepair(itemRepairCode=${r.itemRepairCode})}"><button type="submit">수정</button></a>
 				</td>
 				<td>
-					<button type="submit"><a th:href="@{/removeitemRepair(itemRepairCode=${r.itemRepairCode})}">삭제</button>
+					<a th:href="@{/removeitemRepair(itemRepairCode=${r.itemRepairCode})}"><button type="submit">삭제</button></a>
 				</td>
 				</tr>
 
 			</tbody>
 		</table>
 	</div>
-	<button type="submit" style="float: right;" ><a th:href="@{addItemRepair}"> 글쓰기</a></button>
+	<a th:href="@{addItemRepair}"> <button type="submit" style="float: right;" >글쓰기</button></a>
 </th:block>
 
 <th:block layout:fragment="customJs">
