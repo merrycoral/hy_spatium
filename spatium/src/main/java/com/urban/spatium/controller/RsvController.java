@@ -35,7 +35,7 @@ public class RsvController {
 	/**
 	 * 예약수 통계(관리자)
 	 */
-	@GetMapping("/reservation/admin/rsvStatAdmin")
+	@GetMapping("/statistic/admin/rsvStatAdmin")
 	public String rsvStatAdmin(Model model, @RequestParam(name="options", required = false)String day) {
 		System.out.println("day : "+day);
 		List<Map<String, Object>> rsvStatAdmin = null;
@@ -48,13 +48,13 @@ public class RsvController {
 		}
 		model.addAttribute("title", "업체별 예약 통계");
 		model.addAttribute("rsvStatAdmin", rsvStatAdmin);
-		return "rsv/rsvStatAdmin";
+		return "reservation/admin/rsvStatAdmin";
 	}
 	
 	/**
 	 * 예약 취소
 	 */
-	@GetMapping("/rsvCancel")
+	@GetMapping("/reservation/admin/rsvCancel")
 	public String rsvCancel(int rsvCode, String rsvState, HttpServletResponse response) throws IOException {
 		System.out.println("예약 상태 --> " + rsvState);
 		//결제가 완료된 예약일시 환불하도록 유도
@@ -75,7 +75,7 @@ public class RsvController {
 		//미결제된 예약일시 바로 취소 및 DB에서 삭제(릴레이션, 예약, 세부예약 삭제)
 		System.out.println("삭제할 예약 코드 --> " + rsvCode);
 		rsvService.cancelRsv(rsvCode);
-		return "redirect:rsvListAdmin";
+		return "redirect:reservation/admin/rsvListAdmin";
 	}
 	
 	/**
@@ -106,12 +106,12 @@ public class RsvController {
 	/**
 	 * 관리자 예약 리스트 확장
 	 */
-	@GetMapping("/reservation/admin/rsvListExtendAdmin")
+	@GetMapping("/reservation/seller/rsvListExtendAdmin")
 	public String rsvListExtendAdmin(Model model, @RequestParam(name = "", required =false)String rsvCode) {
 		List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
 		model.addAttribute("title", "세부 예약 리스트 보기");
 		model.addAttribute("rsvListExtend", rsvListExtend);
-		return "rsv/rsvListExtendAdmin";
+		return "reservation/seller/rsvListExtendAdmin";
 	}
 	
 	/**
@@ -123,7 +123,7 @@ public class RsvController {
 		model.addAttribute("title", "나의 세부 예약 리스트");
 		model.addAttribute("rsvCode", rsvCode);
 		model.addAttribute("rsvListExtend", rsvListExtend);
-		return "rsv/rsvListExtend";
+		return "reservation/rsvListExtend";
 	}
 	
 	/**
@@ -131,7 +131,7 @@ public class RsvController {
 	 */
 	@RequestMapping(value = "/rsvInsertAjax", produces="application/json"  ,method = RequestMethod.POST ) 
 	public @ResponseBody String addInOutPut(@RequestBody Rsv rsv, HttpSession session) throws IOException {
-		String returnPath = "/rsvList";
+		String returnPath = "/reservation/rsvList";
 		System.out.println("예약날짜 --> "+rsv.getRsvDate());
 		System.out.println("시작시간 --> "+rsv.getStartTime());
 		System.out.println("종료시간 --> "+rsv.getEndTime());
@@ -148,11 +148,11 @@ public class RsvController {
 		rsv.setRsvUserId(sessionId); // 세션 아이디 부여
 		List<Rsv> result = rsvService.insertTbRsv(rsv);
 	    if(result!=null && result.size()>0) {
-	    	return "/rsvInsert?storeCode="+rsv.getRsvStoreCode()+"&rsvType="+rsv.getRsvState()+"&rsvCheck=0";
+	    	return "/reservation/rsvInsert?storeCode="+rsv.getRsvStoreCode()+"&rsvType="+rsv.getRsvState()+"&rsvCheck=0";
 	    }
 	    if("admin".equals(rsv.getPageType())) {
 	    	System.out.println("관리자페이지로");
-	    	returnPath = "/rsvListAdmin";
+	    	returnPath = "/reservation/admin/rsvListAdmin";
 	    }
 	    System.out.println("구매자 페이지로");
 	    return returnPath;
@@ -162,7 +162,7 @@ public class RsvController {
 	/**
 	 * 예약 등록 폼으로 이동
 	 */
-	@GetMapping("/rsvInsert")
+	@GetMapping("/reservation/rsvInsert")
 	public String rsvInsert(Model model,int storeCode, String rsvType
 			, @RequestParam(name="rsvCheck", required = false)String rsvCheck
 			, @RequestParam(name="pageType", required = false)String pageType) {
@@ -176,15 +176,15 @@ public class RsvController {
 		model.addAttribute("rsvCheck", rsvCheck);
 		if("admin".equals(pageType)) {
 			if("시간".equals(rsvType)) {
-				returnPath = "rsv/rsvInsertAdmin";
+				returnPath = "reservation/admin/rsvInsertAdmin";
 			}else if("일".equals(rsvType)){
-				returnPath = "rsv/rsvInsertDayAdmin";
+				returnPath = "reservation/admin/rsvInsertDayAdmin";
 			}
 		}else {
 			if("시간".equals(rsvType)) {
-				returnPath = "rsv/rsvInsert";
+				returnPath = "reservation/rsvInsert";
 			}else if("일".equals(rsvType)){
-				returnPath = "rsv/rsvInsertDay";
+				returnPath = "reservation/rsvInsertDay";
 			}
 		}
 		return returnPath;
@@ -193,70 +193,70 @@ public class RsvController {
 	/**
 	 * 관리자페이지 예약 목록 조회(관리자용)
 	 */
-	@GetMapping("/rsvListAdmin")
+	@GetMapping("/reservation/admin/rsvListAdmin")
 	public String rsvListAdmin(Model model) {
 		List<Rsv> rsvList = rsvService.rsvListAdmin();
 		model.addAttribute("title", "예약 목록");
 		model.addAttribute("rsvList", rsvList);
-		return "rsv/rsvListAdmin";
+		return "reservation/admin/rsvListAdmin";
 	}
 	
 	/**
 	 * 관리자페이지 예약 목록 조회(판매자용)
 	 */
-	@GetMapping("/rsvListAdminByStore")
+	@GetMapping("/reservation/seller/rsvListAdminByStore")
 	public String rsvListAdminByStore(Model model, HttpSession session) {
 		String storeId = (String) session.getAttribute("SID");
 		List<Rsv> rsvList = rsvService.rsvListAdminByStore(storeId);
 		model.addAttribute("title", "예약 목록");
 		model.addAttribute("rsvList", rsvList);
-		return "rsv/rsvListAdminByStore";
+		return "reservation/seller/rsvListAdminByStore";
 	}
 	
 	/**
 	 * 구매자페이지 예약 목록 조회(구매자용)
 	 */
-	@GetMapping("/rsvList")
+	@GetMapping("/reservation/rsvList")
 	public String rsvList(Model model, HttpSession session) {
 		String sessionId = (String) session.getAttribute("SID");
 		List<Rsv> rsvList = rsvService.rsvList(sessionId);
 		model.addAttribute("title", "예약 목록");
 		model.addAttribute("rsvList", rsvList);
-		return "rsv/rsvList";
+		return "reservation/rsvList";
 	}
 	
 	/**
 	 * 관리자페이지 예약 세부 목록 조회(관리자용)
 	 */
-	@GetMapping("/rsvDetailListAdmin")
+	@GetMapping("/reservation/admin/rsvDetailListAdmin")
 	public String rsvDetailListAdmin(Model model) {
 		List<Rsv> rsvDetailList = rsvService.rsvDetailList();
 		model.addAttribute("title", "세부 예약 목록");
 		model.addAttribute("rsvDetailList", rsvDetailList);
-		return "rsv/rsvDetailListAdmin";
+		return "reservation/admin/rsvDetailListAdmin";
 	}
 	
 	/**
 	 * 관리자페이지 예약 세부 목록 조회(판매자용)
 	 */
-	@GetMapping("/rsvDetailListAdminByStore")
+	@GetMapping("/reservation/seller/rsvDetailListAdminByStore")
 	public String rsvDetailListAdminByStore(Model model, HttpSession session) {
 		String storeId = (String) session.getAttribute("SID");
 		List<Rsv> rsvDetailList = rsvService.rsvDetailListByStore(storeId);
 		model.addAttribute("title", "세부 예약 목록");
 		model.addAttribute("rsvDetailList", rsvDetailList);
-		return "rsv/rsvDetailListAdminByStore";
+		return "reservation/seller/rsvDetailListAdminByStore";
 	}
 	
 	/**
-	 * 예약 업소 선택 화면으로 이동 
+	 * 예약 업체 선택 화면으로 이동 
 	 */
-	@GetMapping("/rsvStoreList")
+	@GetMapping("/reservation/admin/rsvStoreList")
 	public String rsvStoreList(Model model) {
 		List<Store> storeList = storeService.storeList();
 		model.addAttribute("title", "예약할 업체 리스트");
 		model.addAttribute("storeList", storeList);
-		return "rsv/rsvStoreList";
+		return "reservation/admin/rsvStoreList";
 	}
 	
 }
