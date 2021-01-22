@@ -241,7 +241,7 @@ public class ItemController {
 		
 		System.out.println(result);
 
-		return "redirect:/";
+		return "redirect:/itemList";
 	}
 
 	@GetMapping("/addItem")
