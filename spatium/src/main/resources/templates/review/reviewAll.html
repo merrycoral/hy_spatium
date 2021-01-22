@@ -262,15 +262,17 @@
 		console.log(reviewTitle);
 		
 		reviewTitle.click(function(){
-			var getReviewCode = $(reviewCode).text()
+			
+			console.log($(reviewCode).text());
+			var getReviewCode = $(reviewCode).text();
 			var request = $.ajax({
 				url: '/viewReplyReview', 
 				method: 'POST',
 				data: { getReviewCode : getReviewCode }, 
-				dataType: 'json' 
+				dataType: 'text'
 			});
 			request.done(function( data ) {
-				console.log(JSON.stringify(data));	
+				console.log(data);	
 			});
 			request.fail(function( jqXHR, textStatus ) {
 				alert( "Request failed: " + textStatus );

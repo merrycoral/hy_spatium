@@ -28,7 +28,7 @@ import com.urban.spatium.service.ReviewService;
 import com.urban.spatium.service.RsvService;
 
 
-@Controller
+@Controller("review")
 public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
@@ -64,26 +64,29 @@ public class ReviewController {
 			return "review/writeReview";
 		}
 		
-		@RequestMapping(value = "/ajaxHY", method = RequestMethod.POST, produces = "application/json")
-		public @ResponseBody List<Map<String, Object>> ajaxHY(
-				@RequestParam String reviewCode){
-			System.out.println(reviewCode);
-			List<Map<String, Object>> storeReplyReview = reviewService.viewReplyReview(reviewCode);
+		@ResponseBody
+		@PostMapping(value = "/viewReplyReview", produces = "application/json")
+		public List<Map<String, Object>> viewReplyReview(
+				@RequestParam(name="getReviewCode", required = false) String getReviewCode){
+			System.out.println("ajax 실행");
+			System.out.println(getReviewCode + "<------ getReviewCode");
+			List<Map<String, Object>> storeReplyReview = reviewService.viewReplyReview(getReviewCode);
 			
 			return storeReplyReview;
 		}
 
 		
-		@PostMapping("/viewReplyReview")
-		public String viewReplyReview(HttpSession session, Model model
+/*		@PostMapping("/viewReplyReview")
+		public @ResponseBody String viewReplyReview(HttpSession session, Model model
 				, @RequestParam(name="getReviewCode", required = true) String getReviewCode) {
 			//postReply
 			String SID = (String) session.getAttribute("SID");
+			System.out.println(getReviewCode);
 			List<Map<String, Object>> result = reviewService.viewReplyReview(getReviewCode);
 			System.out.println(result);
 			
 			return "redirect:/reviewAll";
-		}
+		} */
 		
 		@PostMapping("/replyReview")
 		public String replyReview(HttpSession session, Model model

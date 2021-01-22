@@ -232,8 +232,9 @@ public class ReviewService {
 		}
 
 		public List<Map<String, Object>> viewReplyReview(String reviewCode) {
-			List<Map<String, Object>> storeReplyReview = viewReplyReview(reviewCode);
-			return storeReplyReview;
+			//List<Map<String, Object>> storeReplyReview = reviewMapper.viewReplyReview(reviewCode);
+			System.out.println("service 도착");
+			return null;
 		}
 
 

@@ -19,7 +19,7 @@ import com.urban.spatium.dto.CalcWait;
 import com.urban.spatium.service.CalcService;
 
 
-@Controller
+@Controller("calculate")
 public class CalcController {
 		@Autowired
 		private CalcService calcService;

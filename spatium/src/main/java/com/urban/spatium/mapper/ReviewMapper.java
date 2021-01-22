@@ -40,4 +40,6 @@ public interface ReviewMapper {
 
 	public void replyReview(String storeReply, String getReviewCode, String SID);
 
+	public List<Map<String, Object>> viewReplyReview(String reviewCode);
+
 }

@@ -12,7 +12,7 @@ import com.urban.spatium.dto.Access;
 import com.urban.spatium.dto.Browser4;
 import com.urban.spatium.service.AccessService;
 
-@Controller
+@Controller("statistic")
 public class StatisticController {
 	
 	@Autowired
