@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.urban.spatium.dto.Bookmark;
 import com.urban.spatium.service.BookMarkService;
 
-@Controller
+@Controller("/bookmark")
 public class BookmarkController {
 	
 	@Autowired 
