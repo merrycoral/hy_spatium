@@ -9,14 +9,14 @@
 
 <th:block layout:fragment="customContent">
 
-	<form th:action="@{/removeitemRepair}" method="post">
+	<form th:action="@{/item/admin/removeitemBuy}" method="post">
 
-		<span class="section">장비파기내역 삭제</span>
+		<span class="section">장비구입내역 삭제</span>
 
 		<div class="field item form-group">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">장비 수리 코드</label>
+			<label class="col-form-label col-md-3 col-sm-3  label-align">장비 구입 코드</label>
 			<div class="col-md-6 col-sm-6">
-				<div th:text="${itemRepairCode}">
+				<div th:text="${itemBuyCode}">
 			</div>
 			</div>
 		</div>

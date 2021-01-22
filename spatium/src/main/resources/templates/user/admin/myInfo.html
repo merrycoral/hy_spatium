@@ -7,28 +7,12 @@
 	<title th:text="${title}"></title>
 </th:block>
 
+<!--관리자 마이페이지 -->
 <th:block layout:fragment="customContent">
 
-	<form th:action="@{/modifyUser}" name="formChck" method="post">
+	<form th:action="@{/user/admin/myInfo}" name="umyInfo" method="post">
 
-		<span class="section">회원 수정</span>
-
-			<div class="field item form-group">
-			<label class="col-form-label col-md-3 col-sm-3  label-align">회원구분<span
-				class="required">*</span></label>
-			<div th:switch="${user.userLevel}" >
-
-				<p th:case="3" > <input type="radio" name="userLevel" th:value="3" checked>
-					 <span class="form-radio-sign">개인</span>
-				<input type="radio" name="userLevel" th:value="2">
-					<span class="form-radio-sign">판매자</span></p>
-			<p th:case="2">
-			<input type="radio" name="userLevel" th:value="3" >
-					 <span class="form-radio-sign">개인</span>
-				<input type="radio" name="userLevel" th:value="2" checked>
-					<span class="form-radio-sign">판매자</span></p>
-			</div>
-		</div>
+		<span class="section">나의 정보</span>
 
 		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
@@ -39,8 +23,8 @@
 					th:value="${user.userId}" readonly="readonly">
 
 			</div>
-
 		</div>
+		
 		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호</label>
 			<div class="col-md-6 col-sm-6">
@@ -127,65 +111,19 @@
 
 		<div class="form-group" align="center">
 			<div class="col-md-6 offset-md-3">
-				<button type="submit" id="submit" class="btn btn-primary "
-					onclick="updateCk()">회원수정</button>
-				<button type="button" id="cancel" class="btn btn-success">취소</button>
+				<input type="submit" class="btn btn-primary" onclick="updateCk()">
+				<a class="btn btn-success" href="/">취소</a>
 			</div>
 		</div>
 	</form>
 
 </th:block>
-<th:block layout:fragment="customJs">
 
-	<script>
-		$("#cancel").on("click", function() {
-			location.href = "/userList";
-		})
-
-		$("#submit").on("click", function() {
-			
-			if ($("#password").val() == "") {
-				alert("비밀번호를 입력해주세요.");
-				$("#userPass").focus();
-				return false;
-			}
-			if ($("#name").val() == "") {
-				alert("성명을 입력해주세요.");
-				$("#userName").focus();
-				return false;
-			}
-			if ($("#birth").val() == "") {
-				alert("생년월일을 입력해주세요.");
-				$("#birth").focus();
-				return false;
-			}
-			if ($("#gender").val() == "") {
-				alert("성별을 선택해주세요.");
-				$("#gender").focus();
-				return false;
-			}
-			if ($("#phone").val() == "") {
-				alert("휴대전화번호를 입력해주세요.");
-				$("#phone").focus();
-				return false;
-			}
-			if ($("#job").val() == "") {
-				alert("직업을 입력해주세요.");
-				$("#job").focus();
-				return false;
-			}
-			if ($("#email").val() == "") {
-				alert("이메일을 입력해주세요.");
-				$("#email").focus();
-				return false;
-			}
-
-		});
-	</script>
+	<th:block layout:fragment="customJs">	
 	<script>
 	function updateCk() {
 		 if (confirm("수정 하시겠습니까?") == true){  
-		     document.formChck.submit();
+		     document.umyInfo.submit();
 		 }else{  
 		     return false;
 		 }

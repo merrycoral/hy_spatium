@@ -24,46 +24,46 @@ public class ItemController {
 	private ItemService itemService;
 
 	//장비구입내역삭제
-	 @GetMapping("/removeitemBuy") 
+	 @GetMapping("/item/admin/removeitemBuy") 
 	 public String removeitemBuy(@RequestParam(name="itemBuyCode", required = false) String
 	 itemBuyCode ,Model model) {
 	 System.out.println("장비구입 삭제화면에 입력받은 값 ->" + itemBuyCode);
 	 itemService.removeitemBuy(itemBuyCode);
 	 model.addAttribute("itemBuyCode", itemBuyCode);
 	 	  
-	 return "redirect:/itemBuyList";
+	 return "redirect:/item/admin/itemBuyList";
 	  }
 	 
 	//장비구입내역 수정
-	@PostMapping("/modifyitemBuy")
+	@PostMapping("/item/admin/modifyitemBuy")
 	public String modifyitemBuy(Item item) {
 		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
 		itemService.modifyitemBuy(item);
-		return "redirect:/itemBuyList";
+		return "redirect:/item/admin/itemBuyList";
 	}
 
-	  @GetMapping("/modifyitemBuy") 
+	  @GetMapping("/item/admin/modifyitemBuy") 
 	  public String modifyitemBuy(@RequestParam(name="itemBuyCode", required = false) String itemBuyCode, Model model) { 
 		  System.out.println("장비구입 수정화면에 입력받은 값 ->" +  itemBuyCode);
 		  Item item = itemService.itemListByCode(itemBuyCode);
 		  model.addAttribute("item", item);
 	  
-	  return "item/uItemBuy"; 
+	  return "item/admin/uItemBuy"; 
 	  }
 
 	//장비구입내역
-	@GetMapping("/itemBuyList")
+	@GetMapping("/item/admin/itemBuyList")
 	public String itemBuyList(Model model) {
 		List<Item> itemBuyList = itemService.itemBuyList();
 		System.out.println("장비구입내역");
 		System.out.println(itemBuyList);
 		model.addAttribute("itemBuyList", itemBuyList);
 
-		return "item/itemBuyList";
+		return "item/admin/itemBuyList";
 	}
 
 	//장비구입등록
-	@PostMapping("/addItemBuy") 
+	@PostMapping("/item/admin/addItemBuy") 
 	public String addItemBuy(Model model, Item  item, HttpSession session,
 			@RequestParam(name = "userBuyId", required = false) String userBuyId) {
 		System.out.println(item +	  "=========== 장비 넘어온 값 ============"); 
@@ -75,44 +75,44 @@ public class ItemController {
 		String result = itemService.addItemBuy(item); 
 		System.out.println(result);
 
-		return "redirect:/itemBuyList"; 
+		return "redirect:/item/admin/itemBuyList"; 
 	}
 
-	@GetMapping("/addItemBuy") 
+	@GetMapping("/item/admin/addItemBuy") 
 	public String addItemBuy(Model model) {
 		model.addAttribute("title", "장비수리 등록 하기"); 
-		return "item/itemBuyForm2"; 
+		return "item/admin/itemBuyForm2"; 
 	}
 
 	//장비수리내역 삭제
-	@GetMapping("/removeitemRepair") 
+	@GetMapping("/item/admin/removeitemRepair") 
 	 public String removeitemRepair(@RequestParam(name="itemRepairCode", required = false) String itemRepairCode ,Model model) {
 		 System.out.println("장비구입 수정화면에 입력받은 값 ->" + itemRepairCode);
 	 itemService.removeitemRepair(itemRepairCode);
 	 model.addAttribute("itemRepairCode", itemRepairCode);
 	 	  
-	 return "redirect:/itemRepairList";
+	 return "redirect:/item/admin/itemRepairList";
 	  }
 
 	//장비수리내역 수정
-	@PostMapping("/modifyitemRepair")
+	@PostMapping("/item/admin/modifyitemRepair")
 	public String modifyitemRepair(Item item) {
 		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
 		itemService.modifyitemRepair(item);
-		return "redirect:/itemRepairList";
+		return "redirect:/item/admin/itemRepairList";
 	}
 
-	@GetMapping("/modifyitemRepair") 
+	@GetMapping("/item/admin/modifyitemRepair") 
 	public String modifyitemRepair(@RequestParam(name="itemRepairCode", required = false) String itemRepairCode, Model model) { 
 	  System.out.println("장비구입 수정화면에 입력받은 값 ->" +  itemRepairCode);
 	  Item item = itemService.itemRepairByCode(itemRepairCode);
 	  model.addAttribute("item", item);
 	  
-	  return "item/uitemRepair"; 
+	  return "item/admin/uitemRepair"; 
 	  }
 		
 	//장비수리내역
-	@GetMapping("/itemRepairList")
+	@GetMapping("/item/admin/itemRepairList")
 	public String itemRepairList(Model model) {
 		List<Item> itemRepairList = itemService.itemRepairList();
 
@@ -120,11 +120,11 @@ public class ItemController {
 		System.out.println(itemRepairList);
 		model.addAttribute("itemRepairList", itemRepairList);
 
-		return "item/itemRepairList";
+		return "item/admin/itemRepairList";
 	}
 
 	//장비수리등록
-	@PostMapping("/addItemRepair") public String addItemRepair(Model model, Item  item, HttpSession session,
+	@PostMapping("/item/admin/addItemRepair") public String addItemRepair(Model model, Item  item, HttpSession session,
 			@RequestParam(name = "userRepairId", required = false) String userId) {
 		System.out.println(item +	  "=========== 장비 넘어온 값 ============"); 
 		String sessionId = (String) session.getAttribute("SID");
@@ -135,53 +135,53 @@ public class ItemController {
 		String result = itemService.addItemRepair(item); 
 		System.out.println(result);
 
-		return "redirect:/itemRepairList"; 
+		return "redirect:/item/admin/itemRepairList"; 
 	}
 
-	@GetMapping("/addItemRepair") public String addItemRepair(Model model) {
+	@GetMapping("/item/admin/addItemRepair") public String addItemRepair(Model model) {
 		model.addAttribute("title", "장비수리 등록 하기"); 
-		return "item/itemRepairForm"; 
+		return "item/admin/itemRepairForm"; 
 	}
 
 	//장비파기내역 삭제
-	@GetMapping("/removeitemDelete") 
+	@GetMapping("/item/admin/removeitemDelete") 
 	 public String removeitemDelete(@RequestParam(name="storeDeleteCode", required = false) String storeDeleteCode ,Model model) {
 		 System.out.println("장비파기 수정화면에 입력받은 값 ->" + storeDeleteCode);
 		 itemService.removeitemDelete(storeDeleteCode);
 		 model.addAttribute("storeDeleteCode", storeDeleteCode);
-		 return "redirect:/itemDeleteList";
+		 return "redirect:/item/admin/itemDeleteList";
 	  }
 	
 	//장비파기내역 수정
-	@PostMapping("/modifyitemDelete")
+	@PostMapping("/item/admin/modifyitemDelete")
 	public String modifyitemDelete(Item item) {
 		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
 		itemService.modifyitemDelete(item);
-		return "redirect:/itemDeleteList";
+		return "redirect:/item/admin/itemDeleteList";
 	}
 
-	@GetMapping("/modifyitemDelete") 
+	@GetMapping("/item/admin/modifyitemDelete") 
 	public String modifyitemDelete(@RequestParam(name="storeDeleteCode", required = false) String storeDeleteCode, Model model) { 
 	  System.out.println("장비구입 수정화면에 입력받은 값 ->" +  storeDeleteCode);
 	  Item item = itemService.itemDeleteByCode(storeDeleteCode);
 	  model.addAttribute("item", item);
 	  
-	  return "item/uItemDelete"; 
+	  return "item/admin/uItemDelete"; 
 	  }
 	
 	//장비파기내역
-	@GetMapping("/itemDeleteList")
+	@GetMapping("/item/admin/itemDeleteList")
 	public String itemDeleteList(Model model) {
 		List<Item> itemDeleteList = itemService.itemDeleteList();
 		System.out.println("장비파기내역");
 		System.out.println(itemDeleteList);
 		model.addAttribute("itemDeleteList", itemDeleteList);
 
-		return "item/itemDeleteList";
+		return "item/admin/itemDeleteList";
 	}
 
 	//장비파기등록
-	@PostMapping("/addItemDelete") public String addItemDelete(Model model, Item  item, HttpSession session,
+	@PostMapping("/item/admin/addItemDelete") public String addItemDelete(Model model, Item  item, HttpSession session,
 			@RequestParam(name = "userDeleteId", required = false) String userDeleteId) {
 		System.out.println(item +	  "=========== 장비 넘어온 값 ============"); 
 		String sessionId = (String) session.getAttribute("SID");
@@ -192,17 +192,17 @@ public class ItemController {
 		String result = itemService.addItemDelete(item); 
 		System.out.println(result);
 
-		return "redirect:/itemDeleteList"; 
+		return "redirect:/item/admin/itemDeleteList"; 
 
 	}
 
-	@GetMapping("/addItemDelete") public String addItemDelte(Model model) {
+	@GetMapping("/item/admin/addItemDelete") public String addItemDelte(Model model) {
 		model.addAttribute("title", "장비 등록 하기"); 
-		return "item/itemDeleteForm"; 
+		return "item/admin/itemDeleteForm"; 
 	}
 
 	//장비수량목록
-	@GetMapping("/itemCountList")
+	@GetMapping("/item/admin/itemCountList")
 	public String itemCountList(Model model) {
 
 		List<Item> itemTotalLi = itemService.itemCountList();
@@ -210,11 +210,11 @@ public class ItemController {
 		model.addAttribute("title", "장비 수량 목록");
 		model.addAttribute("itemTotalLi", itemTotalLi);
 
-		return "item/itemTotalAmount";
+		return "item/admin/itemTotalAmount";
 	}
 
 	//장비목록
-	@GetMapping("/itemList")
+	@GetMapping("/item/admin/itemList")
 	public String itemList(Model model) {
 
 		List<Item> itemLi = itemService.itemList();
@@ -222,11 +222,11 @@ public class ItemController {
 		model.addAttribute("title", "장비 목록");
 		model.addAttribute("itemLi", itemLi);
 
-		return "item/itemDetail";
+		return "item/admin/itemDetail";
 	}
 
 	//장비등록
-	@PostMapping("/addItem")
+	@PostMapping("/item/admin/addItem")
 	public String addItem(Model model, Item item, HttpSession session, Store store
 							,@RequestParam(name = "code", required = false) int code) {
 		System.out.println(item + "=========== 장비 넘어온 값 ============");
@@ -239,10 +239,10 @@ public class ItemController {
 		
 		System.out.println(result);
 
-		return "redirect:/itemList";
+		return "redirect:/item/admin/itemList";
 	}
 
-	@GetMapping("/addItem")
+	@GetMapping("/item/admin/addItem")
 	public String addItem(Model model, Item item
 			,@RequestParam(name = "storeCode", required = false) int storeCode) {
 
@@ -254,20 +254,20 @@ public class ItemController {
 
 		model.addAttribute("title", "장비 등록 하기");
 
-		return "item/itemBuyForm";
+		return "item/admin/itemBuyForm";
 	}
 
-	@GetMapping("/itemInfo")
+	@GetMapping("/item/admin/itemInfo")
 	public String itemInfo(Model model, Item item
 			,@RequestParam(name = "storeItemCode", required = false) int storeItemCode) {
 
 		model.addAttribute("title", "장비 상세 정보");
 		model.addAttribute("item", item);
 
-		return "item/itemInfo";
+		return "item/admin/itemInfo";
 	}
 
-	@GetMapping("/addItemChoice")
+	@GetMapping("/item/seller/addItemChoice")
 	public String addItemChoice(Model model, HttpSession session) {
 
 		String storeId = (String) session.getAttribute("SID");
@@ -277,7 +277,7 @@ public class ItemController {
 		model.addAttribute("title", "장비 등록");
 		model.addAttribute("itemList", itemList);
 
-		return "item/itemBuyChoice";
+		return "item/seller/itemBuyChoice";
 	}
 
 }

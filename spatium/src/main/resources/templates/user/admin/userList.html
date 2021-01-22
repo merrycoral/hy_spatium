@@ -4,7 +4,7 @@
 	  layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
-	<form action="/userList" method="post"></form>
+	<form action="user/admin/userList" method="post"></form>
 
 <div class="table-responsive m-t-20">
 		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id="tbUser">
@@ -39,10 +39,10 @@
 				<td th:text="${l.userRegDate}"></td>
 				<td th:text="${l.userPoint}"></td>
 				<td>
-					<button type="submit" ><a  th:href="@{/modifyUser(userId=${l.userId})}">수정</a></button>
+					<a  th:href="@{/user/admin/modifyUser(userId=${l.userId})}"><button type="submit" >수정</button></a>
 				</td>
 				<td>
-					<button type="submit" ><a th:href="@{/removeUser(userId=${l.userId})}">삭제</a></button>
+					<a th:href="@{/user/admin/removeUser(userId=${l.userId})}"><button type="submit" >삭제</button></a>
 				</td>
 				</tr>
 			</tbody>

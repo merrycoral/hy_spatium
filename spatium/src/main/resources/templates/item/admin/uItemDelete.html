@@ -9,7 +9,7 @@
 
 <th:block layout:fragment="customContent">
 
-	<form th:action="@{/modifyitemDelete}" method="post">
+	<form th:action="@{/item/admin/modifyitemDelete}" method="post">
 
 		<span class="section">장비파기내역 수정</span>
 			
@@ -57,7 +57,7 @@
 		<div class="form-group" align="center">
 			<div class="col-md-6 offset-md-3">
 				<button type="submit" id="submit" class="btn btn-primary ">수정</button>
-				<input type="submit" id="cancel" class="btn btn-success" value="취소"><a href="itemDeleteList"></a>
+				<input type="submit" id="cancel" class="btn btn-success" value="취소"><a href="item/admin/itemDeleteList"></a>
 			</div>
 		</div>
 	</form>

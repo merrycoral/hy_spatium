@@ -4,50 +4,55 @@
 	layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customContent">
-<div class="x_panel">
-	  <div class="x_title">
-		<h2>장비파기 목록</h2>
-		  <div class="clearfix"></div>
-		</div>  
+<form action="/user/admin/restUser" method="post">
+
 	<div class="table-responsive m-t-20">
-		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id = "tbItemDelete">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id="tbRestUser">
 			<thead>
 				<tr>
-					<th scope="col">업체 코드</th>
-					<th scope="col">세부 장비 코드</th>
 					<th scope="col">아이디</th>
-					<th scope="col">장비 파기 사유</th>
-					<th scope="col">장비 파기 일자</th>
-					<th scope="col">수정</th>
+					<th scope="col">등록일자</th>
+					<th scope="col">해제일자</th>
+					<th scope="col">이름</th>
+					<th scope="col">생년월일</th>
+					<th scope="col">성별</th>
+					<th scope="col">핸드폰</th>
+					<th scope="col">직업</th>
+					<th scope="col">등급</th>
+					<th scope="col">이메일</th>
+					<th scope="col">포인트</th>
 					<th scope="col">삭제</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr th:if="${#lists.size(itemDeleteList) > 0}" th:each="d : ${itemDeleteList}">
-				<td th:text="${d.storeDeleteCode}"></td>
-				<td th:text="${d.storeItemDeleteCode}"></td>
-				<td th:text="${d.userDeleteId}"></td>
-				<td th:text="${d.itemDeleteReason}"></td>
-				<td th:text="${d.itemDeleteRegDate}"></td>
-				<td>
-					<a  th:href="@{/modifyitemDelete(storeDeleteCode=${d.storeDeleteCode})}"><button class="btn btn-secondary btn-sm" type="submit">수정</button></a>
-				</td>
-				<td>
-					<a th:href="@{/removeitemDelete(storeDeleteCode=${d.storeDeleteCode})}"><button class="btn btn-secondary btn-sm" type="submit" >삭제</button></a>
-				</td>
-				</tr>
 
+			<tbody>
+				<tr th:if="${#lists.size(userList) > 0}" th:each="l : ${userList}">
+					<td th:text="${l.restUserId}"></td>
+					<td th:text="${l.restUserRegDate}"></td>
+					<td th:text="${l.restUserEndRegDate}"></td>
+					<td th:text="${l.restUserName}"></td>
+					<td th:text="${l.restUserBirth}"></td>
+					<td th:text="${l.restUserGender}"></td>
+					<td th:text="${l.restUserPhone}"></td>
+					<td th:text="${l.restUserJob}"></td>
+					<td th:text="${l.restUserLevel}"></td>
+					<td th:text="${l.restUserEmail}"></td>
+					<td th:text="${l.restUserPoint}"></td>
+
+					<td><button type="submit"><a
+
+						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a></button>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
-	</div>
-	<a th:href="@{addItemDelete}"><button class="btn btn-secondary btn-sm" type="submit" style="float: right;" > 글쓰기</button></a>
+</form>
 </th:block>
-
 <th:block layout:fragment="customJs">
 
 <script>
-	$("#tbItemDelete").DataTable({
+	$("#tbRestUser").DataTable({
 		order: [ [ 0, "desc" ] ],
 		ordering: true,
 		lengthChange: false,

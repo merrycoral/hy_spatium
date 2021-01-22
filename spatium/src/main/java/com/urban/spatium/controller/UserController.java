@@ -26,7 +26,7 @@ public class UserController {
 
 
 	//탈퇴회원 업데이트
-	@GetMapping("/modifyDeleteUser")
+	@GetMapping("/user/admin/modifyDeleteUser")
 	public String modifyDeleteUser( Model model
 			,@RequestParam(name="userId", required = false) String userId) {
 		System.out.println("회원 수정 폼에 보여질 회원아이디" + userId);
@@ -38,21 +38,21 @@ public class UserController {
 		model.addAttribute("title", "회원 수정화면");
 		model.addAttribute("user", user);
 
-		return "user/uUpdate";
+		return "user/admin/uUpdate";
 	}	
 
 	//탈퇴회원 리스트
-	@GetMapping("/deleteUser")
+	@GetMapping("/user/admin/deleteUser")
 	public String deleteUser(Model model) {
 		List<User> deleteUser = userService.deleteUser();
 		System.out.println(deleteUser);
 
 		model.addAttribute("deleteUser", deleteUser);
-		return "user/deleteUser";
+		return "user/admin/deleteUser";
 	}
 
 	//관리자용 회원삭제
-	@PostMapping("/removeUser") 
+	@PostMapping("/user/admin/removeUser") 
 	public String removeUser(@RequestParam(name="reason", required = false) String reason  
 			,@RequestParam(name="userId", required = false) String userId
 			,RedirectAttributes redirectAttr) { 
@@ -61,20 +61,20 @@ public class UserController {
 
 		userService.removeUser(userId, reason);
 		
-		return "redirect:/userList";
+		return "redirect:/user/admin/userList";
 	}	
 
-	@GetMapping("/removeUser")
+	@GetMapping("/user/admin/removeUser")
 	public String removeUser(Model model, HttpSession session
 			,@RequestParam(name="userId", required = false) String userId) {
 		model.addAttribute("title", "강제 탈퇴");
 		model.addAttribute("userId", userId);
 
-		return "user/adminDelete";
+		return "user/admin/adminDelete";
 	}
 
 	//회원탈퇴
-	@PostMapping("/removeMyinfo")
+	@PostMapping("/user/removeMyinfo")
 	public String removeMyinfo(@RequestParam(name="reason", required = false) String reason  
 			,@RequestParam(name="userPw", required = false) String userPw
 			,@RequestParam(name="userId", required = false) String userId
@@ -88,7 +88,7 @@ public class UserController {
 		return "redirect:/logout";
 	}
 
-	@GetMapping("/removeMyinfo")
+	@GetMapping("/user/removeMyinfo")
 	public String removeMyinfo( Model model
 			,HttpSession session) {
 		model.addAttribute("title", "회원 탈퇴");
@@ -100,17 +100,17 @@ public class UserController {
 
 
 	//관리자 마이페이지 수정
-	@PostMapping("/myInfo")
+	@PostMapping("/user/admin/myInfo")
 	public String myInfo(User user) {
 		System.out.println("회원 수정 폼에서 입력받은 값" + user);
 
 		String result = userService.myInfo(user);
 		System.out.println(result);
 
-		return "redirect:/myInfo";
+		return "redirect:/user/admin/myInfo";
 	}
 	
-	@GetMapping("/myInfo") 
+	@GetMapping("/user/admin/myInfo") 
 	public String myInfo(Model model, HttpSession session) {
 
 		String userIdchk = (String) session.getAttribute("SID"); //로그인한 아이디를 가져오겠다는 코드
@@ -121,21 +121,21 @@ public class UserController {
 
 		model.addAttribute("title", "회원 수정화면");
 		model.addAttribute("user", user);
-		return "user/myInfo";
+		return "/user/admin/myInfo";
 	}
 	
 	//구매자 마이페이지 수정
-	@PostMapping("/userUpdate")
+	@PostMapping("/user/userUpdate")
 	public String userUpdate(User user) {
 		System.out.println("회원 수정 폼에서 입력받은 값" + user);
 		
 		String result = userService.myPage(user);
 		System.out.println(result);
 		
-		return "redirect:/mypage";
+		return "user/myPage";
 	}
 
-	@GetMapping("/userUpdate") 
+	@GetMapping("/user/userUpdate") 
 	public String userUpdate(Model model, HttpSession session) {
 
 		String userIdchk = (String) session.getAttribute("SID"); //로그인한 아이디를 가져오겠다는 코드
@@ -149,7 +149,7 @@ public class UserController {
 		return "user/userUpdate";
 	}
 	
-	@GetMapping("/myPage") 
+	@GetMapping("/user/myPage") 
 	public String myPage(Model model, HttpSession session) {
 		
 		String userIdchk = (String) session.getAttribute("SID"); //로그인한 아이디를 가져오겠다는 코드
@@ -164,17 +164,17 @@ public class UserController {
 	}
 
 	//관리자용 회원수정
-	@PostMapping("/modifyUser")
+	@PostMapping("/user/admin/modifyUser")
 	public String modifyUser(User user) {
 		System.out.println("회원 수정 폼에서 입력받은 값" + user);
 
 		String result = userService.modifyUser(user);
 		System.out.println(result);
 
-		return "redirect:/userList";
+		return "redirect:/user/admin/userList";
 	}
 
-	@GetMapping("/modifyUser")
+	@GetMapping("/user/admin/modifyUser")
 	public String modifyUser( Model model
 			,@RequestParam(name="userId", required = false) String userId) {
 		System.out.println("회원 수정 폼에 보여질 회원아이디" + userId);
@@ -186,35 +186,35 @@ public class UserController {
 		model.addAttribute("title", "회원 수정화면");
 		model.addAttribute("user", user);
 
-		return "user/adminUpdate";
+		return "user/admin/adminUpdate";
 	}	
 
 	//불량회원 리스트
-	@GetMapping("/blackUser")
+	@GetMapping("/user/admin/blackUser")
 	public String blackUser(Model model) {
 		List<User> blackUser = userService.blackUser();
 		System.out.println(blackUser);
 
 		model.addAttribute("blackUser", blackUser);
-		return "user/blackUser";
+		return "/user/admin/blackUser";
 	}
 
 	//휴면회원 리스트
-	@GetMapping("/restUser")
+	@GetMapping("/user/admin/restUser")
 	public String restUser(Model model) {
-		return "user/restUser";
+		return "user/admin/restUser";
 	}
 
 	//회원리스트
-	@PostMapping("/userList")
+	@PostMapping("/user/admin/userList")
 	public String userList(Model model) {
 
 		model.addAttribute("title", "회원 목록");
 
-		return "user/userList";
+		return "user/admin/userList";
 	}
 
-	@GetMapping("/userList")
+	@GetMapping("/user/admin/userList")
 	public String getUserList(Model model, @RequestParam(name="result", required = false) String result) {
 		List<User> UserList = userService.getUserList();
 		System.out.println(UserList);
@@ -222,7 +222,7 @@ public class UserController {
 		model.addAttribute("userList", UserList);
 		if(result != null) model.addAttribute("result", result);
 
-		return "user/userList";
+		return "user/admin/userList";
 	}
 
 	//간편로그인
@@ -235,12 +235,12 @@ public class UserController {
 	}
 
 	//로그아웃
-	@GetMapping("/logout")
+	@GetMapping("/user/logout")
 	public String logout(HttpSession session) {
 
 		session.invalidate();
 
-		return "redirect:/login";
+		return "redirect:/user/login";
 	}
 
 	//로그인
@@ -278,14 +278,14 @@ public class UserController {
 	}
 
 	//아이디 찾기
-	@RequestMapping("/findIdform")
+	@RequestMapping("/user/findIdform")
 	public String findIdform()	{ 
 		return "/user/findIdform"; 
 	}
 
 	//관리자아이디 중복체크
 	@ResponseBody
-	@RequestMapping(value="/idCheck", method = RequestMethod.POST)
+	@RequestMapping(value="/user/admin/idCheck", method = RequestMethod.POST)
 	public int idCheck(User user) throws Exception {
 		int result = userService.idCheck(user);
 		return result;
@@ -293,29 +293,29 @@ public class UserController {
 	
 	//아이디 중복체크
 	@ResponseBody
-	@RequestMapping(value="/idChk", method = RequestMethod.POST)
+	@RequestMapping(value="/user/idChk", method = RequestMethod.POST)
 	public int idChk(User user) throws Exception {
 		int result = userService.idChk(user);
 		return result;
 	}
 
 	//관리자 회원가입
-	@PostMapping("/addAdmin") 
+	@PostMapping("/user/admin/addAdmin") 
 	public String addAdmin(User user ,@RequestParam(name = "userId", required = false)
 	String userId) {
 		System.out.println("회원가입화면에서 입력받은 값--->" + user); 
 		String result = userService.addAdmin(user); 
 		System.out.println(result);
-		return "redirect:/userList"; 
+		return "redirect:/user/admin/userList"; 
 	}
 	
-	@GetMapping("/addAdmin") public String addAdmin(Model model) {
+	@GetMapping("/user/admin/addAdmin") public String addAdmin(Model model) {
 		model.addAttribute("title", "회원 가입");
-		return "user/adminJoin";
+		return "user/admin/adminJoin";
 	}
 	
 	//구매자 회원가입
-	@PostMapping("/addUser") 
+	@PostMapping("/user/addUser") 
 	public String addUser(User user ,@RequestParam(name = "userId", required = false)
 	String userId) {
 		System.out.println("회원가입화면에서 입력받은 값--->" + user); 
@@ -324,7 +324,7 @@ public class UserController {
 		return "redirect:/main"; 
 	}
 
-	@GetMapping("/addUser") public String addUser(Model model) {
+	@GetMapping("/user/addUser") public String addUser(Model model) {
 		model.addAttribute("title", "회원 가입");
 		return "user/userJoin";
 	}
