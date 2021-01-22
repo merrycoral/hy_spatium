@@ -26,7 +26,7 @@ public class StoreController {
 	private RefundService refundService;
 	
 	/* 업체명 클릭시 자세히 보기 위해서 들어오는 컨트롤러 */
-	@GetMapping("/storeSeeMore")
+	@GetMapping("/store/admin/storeSeeMore")
 	public String storeSeeMore(Model model, Store store
 								,@RequestParam(name = "storeCode", required = false) int storeCode) {
 		
@@ -38,23 +38,23 @@ public class StoreController {
 			model.addAttribute("storeList", storeList);
 			model.addAttribute("storeList2", storeList2);
 			
-		return "store/storeSeeMore";
+		return "store/admin/storeSeeMore";
 	}
 	
 	/* 수정 폼에서 클릭시 들어오는 포스트 맵핑 컨트롤러
 	 * (수정처리) */
-	@PostMapping("/storeUpdate")
+	@PostMapping("/store/admin/storeUpdate")
 	public String updateStoreSet(Model model, Store store) {
 		
 			String result = storeService.updateStoreSet(store);
 			System.out.println(result);
 			model.addAttribute("result", result);
 			
-		return "redirect:/storeListOK";
+		return "redirect:/store/admin/storeListOK";
 	}
 	
 	/* 업체 목록에서 수정 버튼을 클릭시 들어오는 컨트롤러 */
-	@GetMapping("/storeUpdate")
+	@GetMapping("/store/admin/storeUpdate")
 	public String updateStore(Model model, Store store
 							, @RequestParam(name = "storeCode", required = false) int storeCode) {
 			Store result = storeService.updateStore(storeCode);
@@ -65,11 +65,11 @@ public class StoreController {
 			model.addAttribute("title", "업체 수정");
 			model.addAttribute("result", result);
 			model.addAttribute("result2", refundPolicy);
-		return "store/updateStore";
+		return "store/admin/updateStore";
 	}
 	
 	/* 공간 등록 폼에서 포스트 맵핑으로 들어오는 컨트롤러 */
-	@PostMapping("/addSpace")
+	@PostMapping("/space/seller/addSpace")
 	public String addStore(Model model, Store store , RefundPolicy refundPolicy) {
 		System.out.println(store);
 		
@@ -133,11 +133,11 @@ public class StoreController {
 		System.out.println(result);
 		System.out.println("================end result===============");
 		
-		return "space/addSpace";
+		return "space/seller/addSpace";
 	}
 	
 	/* 왼쪽 메뉴에서 업체 등록 클릭시 들어오는 컨트롤러 */
-	@GetMapping("/addStore")
+	@GetMapping("/store/seller/addStore")
 	public String addStore(Model model, HttpSession session, Store store) {
 		model.addAttribute("title", "업체 등록");
 		String sessionId = (String) session.getAttribute("SID");
@@ -148,15 +148,15 @@ public class StoreController {
 			System.out.println("로그인 후 이용해주시기 바랍니다.");
 		}
 		model.addAttribute("storeId", storeId);
-		return "store/addStore";
+		return "store/seller/addStore";
 	}
 	
 	/* 왼쪽 메뉴에서 업체 리스트 클릭시 들어오는 컨트롤러 */
-	@GetMapping("/storeListOK")
+	@GetMapping("/store/admin/storeListOK")
 	public String storeList(Model model) {
 		List<Store> storeList = storeService.storeList();
 		model.addAttribute("title", "업체 리스트");
 		model.addAttribute("storeList", storeList);
-		return "store/storeListOK";
+		return "store/admin/storeListOK";
 	}
 }	
