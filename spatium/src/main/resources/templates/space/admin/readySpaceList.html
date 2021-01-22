@@ -42,7 +42,7 @@
 					<td style="text-align: center;" th:text = "${s.readyBriefSpace}">
 					<td style="text-align: center;" th:text = "${s.readyRentalPrice}">
 					<td style="text-align: center;" th:text = "${s.readyRequestDate}">
-					<td style="text-align: center;"> <a th:href="@{/readySpaceAccept(readySpace=${s.readySpace})}"> 승인 </a> </td>
+					<td style="text-align: center;"> <a th:href="@{/space/admin/readySpaceAccept(readySpace=${s.readySpace})}"> 승인 </a> </td>
 				</tr>
 			</th:block>
 		</tbody>

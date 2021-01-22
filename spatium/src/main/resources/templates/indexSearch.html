@@ -59,7 +59,7 @@
 	<th:block th:each="s : ${searchAll}">
 		      <div class="col-lg-4 col-sm-4">
 		        <div class="thumbnail">
-		          <a th:href="@{/storeInfo(storeCode=${s.storeCode})}">
+		          <a th:href="@{/store/storeInfo(storeCode=${s.storeCode})}">
 		            <img data-src="holder.js/100%x200" alt="100%x200" th:src="${s.storeImage}" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
 		          </a>
 		          <div th:text="${s.storeName}" style="font-weight: bold; font-size: 20px;"></div>

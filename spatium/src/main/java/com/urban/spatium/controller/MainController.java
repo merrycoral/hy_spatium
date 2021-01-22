@@ -47,7 +47,7 @@ public class MainController {
 	@Autowired 
 	private ReviewService reviewService;
 	
-	@PostMapping("/searchAll")
+	@PostMapping("/store/searchAll")
 	public String mainSearchAll(Model model, Store store
 								,@RequestParam(name = "searchName", required = false) String searchName) {
 			
@@ -105,7 +105,7 @@ public class MainController {
 	/**
 	 * 메인화면에서 업체사진 클릭시 업체정보
 	 */
-	@GetMapping("/storeInfo")
+	@GetMapping("/store/storeInfo")
 	public String storeInfo(Model model, int storeCode) {
 		Store storeInfo = storeService.getStoreInfoByStoreCode(storeCode);
 		List<OKSpace> spaceList = spaceService.OKSpaceListByStoreCode(storeCode);
