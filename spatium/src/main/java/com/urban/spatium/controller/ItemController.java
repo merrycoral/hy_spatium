@@ -17,13 +17,11 @@ import com.urban.spatium.dto.Store;
 import com.urban.spatium.service.ItemService;
 
 
-@Controller
+@Controller("/item")
 public class ItemController {
 
 	@Autowired
 	private ItemService itemService;
-
-
 
 	//장비구입내역삭제
 	 @GetMapping("/removeitemBuy") 
@@ -107,7 +105,7 @@ public class ItemController {
 	@GetMapping("/modifyitemRepair") 
 	public String modifyitemRepair(@RequestParam(name="itemRepairCode", required = false) String itemRepairCode, Model model) { 
 	  System.out.println("장비구입 수정화면에 입력받은 값 ->" +  itemRepairCode);
-	  Item item = itemService.itemListByCode(itemRepairCode);
+	  Item item = itemService.itemRepairByCode(itemRepairCode);
 	  model.addAttribute("item", item);
 	  
 	  return "item/uitemRepair"; 
@@ -159,13 +157,13 @@ public class ItemController {
 	public String modifyitemDelete(Item item) {
 		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
 		itemService.modifyitemDelete(item);
-		return "redirect:/itemRepairList";
+		return "redirect:/itemDeleteList";
 	}
 
 	@GetMapping("/modifyitemDelete") 
 	public String modifyitemDelete(@RequestParam(name="storeDeleteCode", required = false) String storeDeleteCode, Model model) { 
 	  System.out.println("장비구입 수정화면에 입력받은 값 ->" +  storeDeleteCode);
-	  Item item = itemService.itemListByCode(storeDeleteCode);
+	  Item item = itemService.itemDeleteByCode(storeDeleteCode);
 	  model.addAttribute("item", item);
 	  
 	  return "item/uItemDelete"; 
