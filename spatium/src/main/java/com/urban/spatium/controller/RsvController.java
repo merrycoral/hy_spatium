@@ -35,7 +35,7 @@ public class RsvController {
 	/**
 	 * 예약수 통계(관리자)
 	 */
-	@GetMapping("/rsvStatAdmin")
+	@GetMapping("/reservation/admin/rsvStatAdmin")
 	public String rsvStatAdmin(Model model, @RequestParam(name="options", required = false)String day) {
 		System.out.println("day : "+day);
 		List<Map<String, Object>> rsvStatAdmin = null;
@@ -81,8 +81,9 @@ public class RsvController {
 	/**
 	 * 기 예약된 장비 가져오는 ajax
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getExItemRsv", produces="application/json"  ,method = RequestMethod.POST ) 
-	public @ResponseBody List<Rsv> getExItemRsv(@RequestBody Rsv rsv) {
+	public List<Rsv> getExItemRsv(@RequestBody Rsv rsv) {
 		System.out.println("에이작스"+rsv);
 		List<Rsv> getExItemRsv = rsvService.getExItemRsv(rsv);
 		
@@ -105,7 +106,7 @@ public class RsvController {
 	/**
 	 * 관리자 예약 리스트 확장
 	 */
-	@GetMapping("/rsvListExtendAdmin")
+	@GetMapping("/reservation/admin/rsvListExtendAdmin")
 	public String rsvListExtendAdmin(Model model, @RequestParam(name = "", required =false)String rsvCode) {
 		List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
 		model.addAttribute("title", "세부 예약 리스트 보기");
@@ -116,7 +117,7 @@ public class RsvController {
 	/**
 	 * 구매자 예약 리스트 확장
 	 */
-	@GetMapping("/rsvListExtend")
+	@GetMapping("/reservation/rsvListExtend")
 	public String rsvListExtend(Model model, @RequestParam(name = "", required =false)String rsvCode) {
 		List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
 		model.addAttribute("title", "나의 세부 예약 리스트");
