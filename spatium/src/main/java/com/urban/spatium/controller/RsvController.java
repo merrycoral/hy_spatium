@@ -52,22 +52,22 @@ public class RsvController {
 	}
 	
 	/**
-	 * 예약 취소
+	 * 예약 취소(관리자)
 	 */
 	@GetMapping("/reservation/admin/rsvCancel")
-	public String rsvCancel(int rsvCode, String rsvState, HttpServletResponse response) throws IOException {
+	public String rsvCancelAdmin(int rsvCode, String rsvState, HttpServletResponse response) throws IOException {
 		System.out.println("예약 상태 --> " + rsvState);
 		//결제가 완료된 예약일시 환불하도록 유도
 		if("결제 완료".equals(rsvState)) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('이미 결제가 완료되었습니다. 결제 페이지에서 환불해주세요'); location.href=\"paymentSearch\";</script>");
+			out.println("<script>alert('이미 결제가 완료되었습니다. 결제 페이지에서 환불해주세요'); location.href=\"/payment/admin/paymentSearch\";</script>");
 			out.flush();
 			return "index";
 		}else if ("환불 완료".equals(rsvState)) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('이미 결제 취소 및 환불이 완료되었습니다.'); location.href=\"rsvListAdmin\";</script>");
+			out.println("<script>alert('이미 결제 취소 및 환불이 완료되었습니다.'); location.href=\"/reservation/admin/rsvListAdmin\";</script>");
 			out.flush();
 			return "index";
 		}
@@ -76,6 +76,33 @@ public class RsvController {
 		System.out.println("삭제할 예약 코드 --> " + rsvCode);
 		rsvService.cancelRsv(rsvCode);
 		return "redirect:reservation/admin/rsvListAdmin";
+	}
+	
+	/**
+	 * 예약 취소(구매자)
+	 */
+	@GetMapping("/reservation/rsvCancel")
+	public String rsvCancel(int rsvCode, String rsvState, HttpServletResponse response) throws IOException {
+		System.out.println("예약 상태 --> " + rsvState);
+		//결제가 완료된 예약일시 환불하도록 유도
+		if("결제 완료".equals(rsvState)) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('이미 결제가 완료되었습니다. 결제 페이지에서 환불해주세요'); location.href=\"/payment/paymentSearch\";</script>");
+			out.flush();
+			return "index";
+		}else if ("환불 완료".equals(rsvState)) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('이미 결제 취소 및 환불이 완료되었습니다.'); location.href=\"/reservation/rsvList\";</script>");
+			out.flush();
+			return "index";
+		}
+		
+		//미결제된 예약일시 바로 취소 및 DB에서 삭제(릴레이션, 예약, 세부예약 삭제)
+		System.out.println("삭제할 예약 코드 --> " + rsvCode);
+		rsvService.cancelRsv(rsvCode);
+		return "redirect:reservation/rsvList";
 	}
 	
 	/**
