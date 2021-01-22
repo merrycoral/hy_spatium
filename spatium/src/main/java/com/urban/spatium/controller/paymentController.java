@@ -162,7 +162,7 @@ public class paymentController {
 	    }
 
 	
-	@GetMapping("/paymentTest")
+	@GetMapping("/payment/paymentTest")
 	public  String test(Model model
 					,@RequestParam(name="rsvCode", required = false) String rsvCode
 					) {
