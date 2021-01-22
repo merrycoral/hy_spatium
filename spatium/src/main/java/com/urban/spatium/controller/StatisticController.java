@@ -1,6 +1,9 @@
 package com.urban.spatium.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,15 +14,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.urban.spatium.dto.Access;
 import com.urban.spatium.dto.Browser4;
 import com.urban.spatium.service.AccessService;
+import com.urban.spatium.service.StatisticService;
 
 @Controller("statistic")
 public class StatisticController {
 	
 	@Autowired
 	private AccessService accessService;
+	@Autowired
+	private StatisticService statisticService;
 	
 	@GetMapping("/statistic/seller/buyStat")
-	public String buyStat(Model model, @RequestParam(name="result", required = false) String result) {
+	public String buyStat(Model model, HttpSession session,
+			 @RequestParam(name="result", required = false) String result) {
+		String SID = (String) session.getAttribute("SID");
+		List<Map <String, Object>> latest7days = statisticService.getDailyRsv(SID);
+		model.addAttribute("title", SID + "님의 판매 통계");
+		model.addAttribute("latest7days", latest7days);
 		return "statistic/seller/buyStatistic";
 	}
 	
