@@ -16,6 +16,9 @@
 		<a th:href="@{/payment/paymentSearchMain}" th:unless="${session.SID == null}" class="btn btn-info">결제내역조회</a>
 		<a th:href="@{/point/pointListMain}" th:unless="${session.SID == null}" class="btn btn-info">마일리지 내역 조회</a>
 		<a th:href="@{/review/myReview}" th:unless="${session.SID == null}" class="btn btn-info">내 리뷰 조회</a>
+		<a th:href="@{/store/myStore}" th:unless="${session.SID == null}" th:if="${session.SLEVEL == '2'} or ${session.SLEVEL == '1'}" class="btn btn-info">내 업체 조회</a>
+		<a th:href="@{/space/mySpace}" th:unless="${session.SID == null}" th:if="${session.SLEVEL == '2'} or ${session.SLEVEL == '1'}" class="btn btn-info">내 공간 조회</a>
+		<a th:href="@{/item/myItem}" th:unless="${session.SID == null}" th:if="${session.SLEVEL == '2'} or ${session.SLEVEL == '1'}" class="btn btn-info">내 장비 조회</a>
 		<a th:href="@{/bookmark/bookMark}" th:unless="${session.SID == null}" class="btn btn-info">북마크</a>
 		<a th:href="@{/user/removeMyinfo}" th:unless="${session.SID == null}" class="btn btn-info">회원탈퇴</a>
 			<div class="section" style="font-size: 20px; font-weight: bold;"><span>나의 정보</span></div>

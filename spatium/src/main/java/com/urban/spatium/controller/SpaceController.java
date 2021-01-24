@@ -22,6 +22,20 @@ public class SpaceController {
 	@Autowired
 	private SpaceService spaceService;
 	
+	@GetMapping("/space/mySpace")
+	public String myReadySpaceList(HttpSession session, Model model, ReadySpace readySpace, OKSpace okSpace){
+		
+		String readySpaceId = (String) session.getAttribute("SID");
+		readySpace.setreadySpaceId(readySpaceId);
+		List<ReadySpace> myReadySpaceList = spaceService.myReadySpaceList(readySpaceId);
+		List<OKSpace> myOKaySpaceList = spaceService.myOKSpaceList(readySpaceId);
+		
+		model.addAttribute("readySpaceList", myReadySpaceList);
+		model.addAttribute("spaceListO", myOKaySpaceList);
+		
+		return "space/seller/mySpace";
+	}
+	
 	/* 공간 승인 대기 목록에서 승인 버튼을 클릭 후 승인까지 완벽히 되었을시 들어오는 컨트롤러*/
 	@PostMapping("/space/admin/spaceListOK")
 	public String spaceAccept (Model model, HttpSession session, ReadySpace readySpace

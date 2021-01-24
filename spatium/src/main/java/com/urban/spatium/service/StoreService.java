@@ -23,6 +23,13 @@ public class StoreService {
 	@Autowired
 	private RefundMapper refundMapper;
 	
+	public List<Store> myStoreList(String storeId){
+		
+		List<Store> myStoreList =  storeMapper.myStoreList(storeId);
+		
+		return myStoreList;
+	}
+	
 	public List<Store> mainSearchAll(String searchName){
 			
 			List<Store> searchStore = storeMapper.mainSearchAll(searchName);

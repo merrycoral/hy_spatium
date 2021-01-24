@@ -2,6 +2,74 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.SpaceMapper">
 
+<select id="myOKSpaceList" parameterType="String" resultType="OKSpace">
+
+SELECT
+	  okaySpaceCode
+	, okayStoreCode
+	, okaySpaceName
+	, okaySpaceType
+	, okayPeopleNumber
+	, okayDetailSpace
+	, okayBriefSpace
+	, okaySpaceTag
+	, okaySpaceRentalPrice
+	, okayStartTime
+	, okayCloseTime
+	, okayExceptionStartDate
+	, okayExceptionEndDate
+	, okayCompletedDate
+	, okaySpaceBasicOption
+	, okaySpaceId
+FROM
+	tbStore AS s
+INNER JOIN
+	tbUser AS u
+ON
+	s.storeId = u.userId
+INNER JOIN
+	tbOkaySpace AS o
+ON
+	s.storeCode = o.okayStoreCode
+WHERE
+	u.userId = #{okaySpaceId};
+
+</select>
+
+<select id="myReadySpaceList" parameterType="String" resultType="ReadySpace">
+
+SELECT
+	  readySpace
+	, readyStoreCode
+	, readySpaceName
+	, readySpaceType
+	, readyPeopleNumber
+	, readyBriefSpace
+	, readyDetailSpace
+	, readySpaceTag
+	, readyRentalPrice
+	, readyStartTime
+	, readyCloseTime
+	, readyExceptionStartDate
+	, readyExceptionEndDate
+	, readySpaceBasicOption
+	, readyRequestDate
+	, readySpaceId
+FROM
+	tbStore AS s
+INNER JOIN
+	tbUser AS u
+ON
+	s.storeId = u.userId
+INNER JOIN
+	tbReadySpace AS r
+ON
+	s.storeCode = r.readyStoreCode
+WHERE
+	u.userId = #{readySpaceId};
+
+</select>
+
 <insert id="OKSpaceInsert" parameterType="String">
 	
 	INSERT INTO tbOkaySpace
