@@ -53,6 +53,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 			if(sessionLevel != null && ("3".equals(sessionLevel)||"6".equals(sessionLevel))){ 
 				if( //회원 관련 경로  
 					   requestUri.indexOf("/admin/")	> -1	|| requestUri.indexOf("/seller/") 	> -1
+					   || requestUri.equals("/admin")
 					) {
 					response.sendRedirect("/");
 					return false;

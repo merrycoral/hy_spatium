@@ -48,6 +48,7 @@ public class RsvController {
 		}
 		model.addAttribute("title", "업체별 예약 통계");
 		model.addAttribute("rsvStatAdmin", rsvStatAdmin);
+		model.addAttribute("day", day);
 		return "reservation/admin/rsvStatAdmin";
 	}
 	

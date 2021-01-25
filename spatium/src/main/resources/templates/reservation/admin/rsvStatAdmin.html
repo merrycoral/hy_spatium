@@ -14,6 +14,7 @@
 	<title th:text="${title}"></title>
 </th:block>
 <th:block layout:fragment="customContent">
+
 	<div>
 		<span style="font-size: 40px;">업체별 통계</span>
 		<form id="optionForm" action="#" method="get">
@@ -27,10 +28,12 @@
 				<label class="btn btn-secondary">
 				<input type="radio" name="options" class="monthBtn" id="monthDatePicker">월간
 				</label>
+				<label class="btn btn-secondary reset">전체</label>
 			</div>
 		<div class="form-check" style="font-size: 20px;">
 			<span>기간 : </span>
-			<span id="dayRange">전체</span>
+			<span class="dayRange" th:if="${day!=null}" th:text="${day}"></span>
+			<span class="dayRange" th:unless="${day!=null}">전체</span>
 			<button type="button" class="btn btn-info" id="submitBtn">검색</button>
 		</div>	
 		</form>
@@ -152,7 +155,7 @@
 			dateFormat: "yy-mm-dd",
 			maxDate : 0
 		}).on('change', function (e) {
-			$('#dayRange').text($("#dayDatePicker").val());
+			$('.dayRange').text($("#dayDatePicker").val());
 		});
 		//주간 데이터 피커
 		$('#weeklyDatePicker').datepicker({
@@ -167,7 +170,7 @@
 		      var firstDate = moment(value, 'YYYY-MM-DD').day(0).format('YYYY-MM-DD');
 		      var lastDate =  moment(value, 'YYYY-MM-DD').day(6).format('YYYY-MM-DD');
 		      $("#weeklyDatePicker").val(firstDate + " - " + lastDate);
-		      $('#dayRange').text($("#weeklyDatePicker").val());
+		      $('.dayRange').text($("#weeklyDatePicker").val());
 		});
 		//월간 데이터 피커
 	    $("#monthDatePicker").datepicker({
@@ -182,7 +185,7 @@
 		        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
 		        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
 		        $(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
-			    $('#dayRange').text($("#monthDatePicker").val()+"월");
+			    $('.dayRange').text($("#monthDatePicker").val()+"월");
 	        }
 	    })
 	    $("#monthDatePicker").focus(function () {
@@ -193,7 +196,10 @@
 	            of: $(this)
 	        }); 
 	    });
-		
+		//전체 클릭
+		$('.reset').click(function(){
+			location.href="/statistic/admin/rsvStatAdmin";
+		})
 		
 		
 		//데이터 피커 초기값

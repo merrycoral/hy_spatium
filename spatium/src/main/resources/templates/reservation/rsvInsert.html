@@ -41,7 +41,7 @@ margin-right: 20px;
 	<title th:text="${title}"></title>
 </th:block>
 <th:block layout:fragment="customContent">
-
+<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
 <!-- 공간 예약 테이블 -->
 	<form id="formRsv" class="form-horizontal form-label-left" action="/rsvInsertAdmin" method="post">
 	<div class="table-responsive" id="spaceInfo">
@@ -251,7 +251,7 @@ margin-right: 20px;
 		
 	</form>
 
-
+</div>
 </th:block>
 	<th:block layout:fragment="customJs">
 	<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

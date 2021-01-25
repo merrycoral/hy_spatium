@@ -6,8 +6,12 @@
 	<title th:text="${title}"></title>
 </th:block>
 <th:block layout:fragment="customContent">
+<div class="x_panel">
+                  <div class="x_title">
+                    <h2> 예약 리스트 </h2>
+                    <div class="clearfix"></div>
+                  </div>
 	<div class="x_content">
-		<p>예약 리스트</p>
 		<div class="table-responsive">
 			<table class="table table-striped jambo_table bulk_action" id="rsvExtendListTb" border="1">
 
@@ -46,7 +50,7 @@
 			</table>
 		</div>
 	</div>
-
+</div>
 </th:block>
 <th:block layout:fragment="customJs">
 	<script>
