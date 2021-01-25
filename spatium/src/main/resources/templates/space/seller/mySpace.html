@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="@{layout/default}">
+	  layout:decorate="@{layout/maindefault}">
 
 <th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 </th:block>
 
+<th:block layout:fragment="customCss">
+<style>
+.divtag{font-size: 30px;}
+</style>
+</th:block>
+
 <th:block layout:fragment="customContent">
 
 <div class="x_panel">
-                  <div class="x_title">
-                    <h2> 공간 승인 대기 목록 </h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                      <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                    <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
-                    <div class="row">
-                    </div>
+<div style="text-align: center;">
+<h1 class="divtag">공간 승인 대기 목록</h1>
+</div>	
                     <div class="row"><div class="col-sm-12"><table id="tbSpaceReady" class="table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
                       <thead>
                         <tr role="row">
@@ -45,23 +43,13 @@
 			</th:block>
 		</tbody>
                     </table>
-                    </div></div></div>
-                  </div>
-                  </div>
-              </div>
-            </div>
+                    </div></div>
                 </div>
                 
                 <div class="x_panel">
-                  <div class="x_title">
-                    <h2> 공간 승인 완료 목록 </h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                      <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                    <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
+                <div style="text-align: center;">
+				<h1 class="divtag">공간 승인 완료 목록</h1>
+				</div>	
                     <div class="row">
                     </div>
                     <div class="row"><div class="col-sm-12"><table id="tbSpaceOk" class= "table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
@@ -98,12 +86,38 @@
 			</th:block>
 		</tbody>
                     </table>
-                    </div></div></div>
-                  </div>
-                  </div>
-              </div>
-            </div>
+                    </div></div>
                 </div>
 
 </th:block>
 
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbSpaceReady, #tbSpaceOk").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	</script>
+
+</th:block>
