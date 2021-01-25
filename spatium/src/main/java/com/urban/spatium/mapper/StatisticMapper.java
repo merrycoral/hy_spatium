@@ -10,4 +10,8 @@ public interface StatisticMapper {
 
 	List<Map<String, Object>> getDailyRsv(String SID);
 
+	List<Map<String, Object>> statGenderJob(String storeCode, String criteria);
+
+	List<Map<String, Object>> statAge(String storeCode);
+
 }

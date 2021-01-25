@@ -4,36 +4,37 @@
 	layout:decorate="@{layout/default}">
 <th:block layout:fragment="customContent">
 	<h1>구매 통계 페이지 </h1>
-    <!-- bar charts group -->
+    <!-- line graph -->
     <div class="col-md-6 col-sm-6  ">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Bar Chart Group <small>Sessions</small></h2>
-          <ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Settings 1</a>
-                  <a class="dropdown-item" href="#">Settings 2</a>
-                </div>
-            </li>
-            <li><a class="close-link"><i class="fa fa-close"></i></a>
-            </li>
-          </ul>
+          <h2>일별 매출 건수 </h2>
           <div class="clearfix"></div>
         </div>
-        <div class="x_content1">
-          <div id="graph_bar_group" style="width:100%; height:280px;"></div>
+        <div class="x_content2">
+          <div id="graph_line" style="width:100%; height:300px;"></div>
         </div>
       </div>
     </div>
-    <div class="clearfix"></div>
-    <!-- /bar charts group -->
+    <!-- /line graph -->
+    
+     <!-- bar chart -->
+     <div class="col-md-6 col-sm-6  ">
+       <div class="x_panel">
+         <div class="x_title">
+           <h2>일별 매출액 <small>Sessions</small></h2>
+           <div class="clearfix"></div>
+         </div>
+         <div class="x_content">
+           <div id="graph_bar" style="width:100%; height:300px;"></div>
+         </div>
+       </div>
+     </div>
+     <!-- /bar charts -->
+
 
 	<div class="col-md-6 col-sm-6 ">
-		<div class="x_panel tile fixed_height_320 overflow_hidden">
+		<div class="x_panel tile">
 			<div class="x_title">
 				<h2>직업별 이용 통계</h2>
 				<div class="clearfix"></div>
@@ -41,7 +42,7 @@
 			<div class="x_content">
 			
 			
-				<table class="" style="width: 100%">
+				<table class="" style="width: 100%; ">
 					<tbody>
 						<tr>
 							<th style="width: 50%;">
@@ -114,7 +115,6 @@
 			</div>
 		</div>
 	</div>
-	<h2>임시 테이블입니다</h2>
 	
 
 </th:block>
@@ -126,11 +126,83 @@
 
 	function init_morris_charts() {
 		
-	    if ($('#graph_bar_group').length) {
+	    if ($('#graph_line').length) {
+	    	/*<![CDATA[*/
+    		var latest7days = [[${latest7days}]];
+    		var i = 0;
+			/*]]>*/
+	        Morris.Line({
+	            element: 'graph_line',
+	            xkey: 'date',
+	            parseTime: false,
+	            ykeys: ['예약 건수'],
+	            labels: ['예약 건수'],
+	            hideHover: 'auto',
+	            lineColors: ['#34495E', '#26B99A', '#ACADAC', '#3498DB'],
+	            data: [
+            	    { "date": latest7days[6].calcDay.slice(-2) +"일"
+            	    	, "예약 건수": latest7days[6].calcDaySales },
+            	    { "date": latest7days[5].calcDay.slice(-2) +"일"
+            	    	, "예약 건수": latest7days[5].calcDaySales },
+            	    { "date": latest7days[4].calcDay.slice(-2) +"일"
+            	    	, "예약 건수": latest7days[4].calcDaySales },
+            	    { "date": latest7days[3].calcDay.slice(-2) +"일"
+            	    	, "예약 건수": latest7days[3].calcDaySales },
+            	    { "date": latest7days[2].calcDay.slice(-2) +"일"
+            	    	, "예약 건수": latest7days[2].calcDaySales },
+               	    { "date": latest7days[1].calcDay.slice(-2) +"일"
+               	    	, "예약 건수": latest7days[1].calcDaySales },
+               	    { "date": latest7days[0].calcDay.slice(-2) +"일"
+            	    	, "예약 건수": latest7days[0].calcDaySales }
+	            ],
+	            resize: true
+	        });
+
+	        $MENU_TOGGLE.on('click', function () {
+	            $(window).resize();
+	        });
+
+	    }
+	    
+	    if ($('#graph_bar').length) {
         	/*<![CDATA[*/
-        		var latest7days = [[${latest7days}]];
-        		var i = 0;
-        	/*]]>*/
+	    		var latest7days = [[${latest7days}]];
+	    		var i = 0;
+   			/*]]>*/
+	    	
+	        Morris.Bar({
+	            element: 'graph_bar',
+	            data: [
+            	    { "period": latest7days[6].calcDay.slice(-2) +"일"
+            	    	, "매출 합계": latest7days[6].calcDaySum },
+            	    { "period": latest7days[5].calcDay.slice(-2) +"일"
+            	    	, "매출 합계": latest7days[5].calcDaySum },
+            	    { "period": latest7days[4].calcDay.slice(-2) +"일"
+            	    	, "매출 합계": latest7days[4].calcDaySum },
+            	    { "period": latest7days[3].calcDay.slice(-2) +"일"
+            	    	, "매출 합계": latest7days[3].calcDaySum },
+            	    { "period": latest7days[2].calcDay.slice(-2) +"일"
+            	    	, "매출 합계": latest7days[2].calcDaySum },
+               	    { "period": latest7days[1].calcDay.slice(-2) +"일"
+               	    	, "매출 합계": latest7days[1].calcDaySum },
+               	    { "period": latest7days[0].calcDay.slice(-2) +"일"
+               	    	, "매출 합계": latest7days[0].calcDaySum }
+	                
+	            ],
+	            xkey: 'period',
+	            ykeys: ['매출 합계'],
+	            labels: ['매출 합계'],
+	            barRatio: 0.4,
+	            barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+	            xLabelAngle: 0,
+	            hideHover: 'auto',
+	            resize: true
+	        });
+	    }
+	    
+		
+	    if ($('#graph_bar_group').length) {
+
         	
 	        Morris.Bar({
 	            element: 'graph_bar_group',
@@ -172,7 +244,6 @@
 		
 	}
 	
-
 
 	/*<![CDATA[*/
 	var testValue = /*[[${accessList}]]*/;
