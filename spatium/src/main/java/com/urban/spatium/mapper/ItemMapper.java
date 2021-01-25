@@ -61,5 +61,7 @@ public interface ItemMapper {
 	public Item itemRepairByCode(String itemRepairCode);
 	
 	public Item itemDeleteByCode(String storeDeleteCode);
+
+	public List<Item> bookMark();
 	  
 }

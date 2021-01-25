@@ -18,6 +18,21 @@ public class SpaceService {
 	@Autowired
 	private SpaceMapper spaceMapper;
 	
+	public List<OKSpace> myOKSpaceList(String okaySpaceId){
+		
+		List<OKSpace> myOKaySpaceList = spaceMapper.myOKSpaceList(okaySpaceId);
+		
+		return myOKaySpaceList;
+		
+	}
+	
+	public List<ReadySpace> myReadySpaceList(String readySpaceId){
+		
+		List<ReadySpace> myReadySpaceList = spaceMapper.myReadySpaceList(readySpaceId);
+		
+		return myReadySpaceList;
+	}
+	
 	public String OKSpaceInsert(String readySpaceId, String readySpaceCode) {
 		String chk = "삽입";
 		

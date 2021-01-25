@@ -16,7 +16,7 @@
 
 <th:block layout:fragment="customContent">
 
-	<form th:action="@{/addAdmin}" id="joinform" method="post">
+	<form th:action="@{/user/admin/addAdmin}" id="joinform" method="post">
 
 		<span class="section">회원 등록</span>
 		<div class="field item form-group">
@@ -214,7 +214,7 @@ var check = 0;
  		
 		function idCheck(){
 			$.ajax({
-				url : "/idCheck",
+				url : "/user/admin/idCheck",
 				type : "post",
 				dataType : "json",
 				data : {"userId" : $("#userId").val()},

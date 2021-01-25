@@ -8,17 +8,17 @@
 </th:block>
 
 <th:block layout:fragment="customContent">
-<form th:action="@{/addItemBuy}" method="post">
+<form th:action="@{/item/admin/addItemRepair}" method="post">
 
 	<div class="row">
 		<div class="col-md-12 col-sm-12 ">
+			
 				<div class="x_title">
 					<h2>
-						장비구입 <small> 등록하기 </small>
+						장비수리 <small> 등록하기 </small>
 					</h2>
 					<div class="clearfix"></div>
 				</div>
-				
 				<div class="x_content">
 					<br>
 					<div class="form-group row">
@@ -31,7 +31,7 @@
 								업체 코드 <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="storeBuyCode" name="storeBuyCode"
+								<input type="text" id="storeRepairCode" name="storeRepairCode"
 									class="form-control"
 									placeholder="업체 코드를 입력해주세요.">
 							</div>
@@ -41,7 +41,7 @@
 								세부 장비 코드 <span class="required">*</span>
 							</label>
 								<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="storeBuyItemCode" name="storeBuyItemCode"
+								<input type="text" id="storeItemRepairCode" name="storeItemRepairCode"
 									class="form-control"
 									placeholder="세부 장비 코드를 입력해주세요.">
 							</div>
@@ -51,47 +51,62 @@
 								아이디 <span class="required">*</span>
 							</label>
 								<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="userBuyId" name="userBuyId"
+								<input type="text" id="userRepairId" name="userRepairId"
 									class="form-control"
-									placeholder="구매한 사람 아이디를 입력해주세요.">
+									placeholder="수리한 사람 아이디를 입력해주세요.">
 							</div>
 						</div>	
 						<div class="form-group row">
 							<label class="col-form-label col-md-3 col-sm-3 label-align">
-								구입 비용 <span class="required">*</span>
+								장비 수리비용 <span class="required">*</span>
 							</label>
 								<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="itemBuyPrice" name="itemBuyPrice"
-									class="form-control"
-									placeholder="구입 비용을 입력해주세요.">
+								<input type="text" id="itemRepairPrice" name="itemRepairPrice"
+									class="form-control">
 							</div>
 						</div>	
 						<div class="form-group row">
 							<label class="col-form-label col-md-3 col-sm-3 label-align">
-								구입 거래처 <span class="required">*</span>
+								수리 맡긴 일자 <span class="required">*</span>
 							</label>
 								<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="itemBuyAccount" name="itemBuyAccount"
-									class="form-control"
-									placeholder="구입 거래처를 입력해주세요.">
+								<input type="date" id="itemRepairRegDate" name="itemRepairRegDate"
+									class="form-control">
 							</div>
 						</div>	
 						<div class="form-group row">
 							<label class="col-form-label col-md-3 col-sm-3 label-align">
-								구입처 전화번호 <span class="required">*</span>
+								수리 끝나는 일자 <span class="required">*</span>
 							</label>
 								<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="itemBuyPhone" name="itemBuyPhone"
-									class="form-control"
-									placeholder="전화번호를 입력해주세요.">
+								<input type="date" id="itemRepairEndDate" name="itemRepairEndDate"
+									class="form-control">
 							</div>
 						</div>	
 						<div class="form-group row">
 							<label class="col-form-label col-md-3 col-sm-3 label-align">
-								구입 일자 <span class="required">*</span>
+								장비 이름 <span class="required">*</span>
 							</label>
 								<div class="col-md-6 col-sm-6 ">
-								<input type="date" id="itemBuyRegDate" name="itemBuyRegDate"
+								<input type="text" id="itemRepairName" name="itemRepairName"
+									class="form-control">
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								수리 맡긴 업체 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="text" id="itemRepairCompany" name="itemRepairCompany"
+									class="form-control">
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								수리 맡긴 업체번호 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="text" id=itemRepairCompanyPhone name="itemRepairCompanyPhone"
 									class="form-control">
 							</div>
 						</div>	
@@ -99,7 +114,7 @@
 						<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
 							<div class="col-md-6 col-sm-6" style="text-align: center;">
 								<button type="submit" class="btn btn-primary"
-									style="width: 100%; height: 50px;" id = "addItemBuy" >상품등록</button>
+									style="width: 100%; height: 50px;" id = "addItemRepair" >상품등록</button>
 							</div>
 						</div>
 					</div>
@@ -108,32 +123,38 @@
 </form>
 </th:block>
 <th:block layout:fragment="customJs">
-	<script>
+	<script type="text/javascript">
 			
-			$('#addItemBuy').click(function(){
-				if($('#storeBuyCode').val() == ""){
+			$('#addItemRepair').click(function(){
+				if($('#storeRepairCode').val() == "0"){
 					alert("업체 코드를 입력해주세요.");
 					return false;
-				}else if($('#storeBuyItemCode').val() == ""){
+				}else if($('#storeItemRepairCode').val() == '0'){
 					alert("세부 장비 코드를 입력해주세요.");
 					return false;
-				}else if($('#userBuyId').val() == ""){
+				}else if($('#userRepairId').val() == "0"){
 					alert("아이디를 입력해주세요.");
 					return false;
-				}else if($('#itemBuyPrice')val() == ""){
-					alert("장구입 비용을 입력해주세요.");
+				}else if($('#itemRepairPrice')val() == "0"){
+					alert("장비 수리 비용을 입력해주세요.");
 					return false;
-				}else if($('#itemBuyAccount').val() == ""){
-					alert("거래처를 입력해주세요.");
+				}else if($('#itemRepairRegDate').val() == "0"){
+					alert("수리 맡긴 일자를 입력해주세요.");
 					return false;
-				}else if($('#itemBuyPhone').val() == ""){
-					alert("전화번호를 입력해주세요.");
+				}else if($('#itemRepairEndDate').val() == "0"){
+					alert("수리끝나는 일자를 입력해주세요.");
 					return false;
-				}else if($('#itemBuyRegDate').val() == ""){
-					alert("구입 일자를 입력해주세요.");
+				}else if($('#itemRepairName').val() == "0"){
+					alert("장비 이름을 입력해주세요.");
+					return false;
+				}else if($('#itemRepairCompany').val() == "0"){
+					alert("수리 맡긴 업체를 입력해주세요.");
+					return false;
+				}else if($('#itemRepairCompanyPhone').val() == "0"){
+					alert("수리 맡긴 업체 번호를 입력해주세요.");
 					return false;
 				}else{
-					alert("장비구입 등록에 성공하셨습니다.");
+					alert("장비수리 등록에 성공하셨습니다.");
 				}
 			});
 	</script>

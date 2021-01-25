@@ -59,14 +59,14 @@ public class MainController {
 	}
 	
 	//추천 공간 선정 페이지
-	@GetMapping("/bestSpaceOrder")
+	@GetMapping("/promotion/admin/bestSpaceOrder")
 	public String getBestSpaceOrder(Model model) {
 		List<Store> storeList = storeService.storeList();
 		List<Store> bestStoreList = storeService.bestStoreList();
 		model.addAttribute("title", "추천 공간 선정");
 		model.addAttribute("storeList", storeList);
 		model.addAttribute("bestStoreList", bestStoreList);
-		return "promotion/bestSpaceOrder";
+		return "promotion/admin/bestSpaceOrder";
 	}
 	//추천 공간 등록
 	@PostMapping("/addBestStore")

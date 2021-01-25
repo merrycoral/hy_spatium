@@ -29,7 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		String requestUri	= request.getRequestURI();
 		
 		//관리자1 판매자2 구매자3
-		if(sessionId == null) {//requestUri 에 "/addmember"가 존재한다면 여긴 허락해줄게
+		if(sessionId == null) {//비로그인시 접근 가능한곳
 			if(		requestUri.indexOf("/addUser") 		> -1 || requestUri.indexOf("/index") > -1
 				||  requestUri.indexOf("/storeInfo") 	> -1 ||	requestUri.indexOf("/searchAll") > -1
 				||	requestUri.indexOf("/imsilogin") 	> -1 ||	requestUri.indexOf("/adressAjax") > -1
@@ -40,50 +40,19 @@ public class LoginInterceptor implements HandlerInterceptor{
 				response.sendRedirect("/login");
 				return false;
 			}
-		}else {
+		}else {//로그인시
+			//판매자가 접근하면 안되는곳들
 			if(sessionLevel != null && "2".equals(sessionLevel)){//판매자에게 추가적으로 허락된곳
-				if(	requestUri.indexOf("/rsvListAdminByStore") > -1 || requestUri.indexOf("/rsvDetailListAdminByStore") > -1) {
-						return true;
-				}
-				//판매자가 접근하면 안되는곳들
-				else if(  
-					//회원 관련 경로 
-					  requestUri.indexOf("/userList") 	> -1	|| requestUri.indexOf("/restUser") 	> -1
-				   || requestUri.indexOf("/blackUser") 	> -1 	|| requestUri.indexOf("/deleteUser") 	> -1
-				   || requestUri.indexOf("/pointList") 	> -1 	|| requestUri.indexOf("/bookMarkList") 	> -1
-				   || requestUri.indexOf("/addAdmin") 	> -1 	
-				   //예약 관련 경로
-				   || requestUri.indexOf("/rsvStoreList") 	> -1 	|| requestUri.indexOf("/rsvListAdmin") 	> -1
-				   || requestUri.indexOf("/rsvDetailListAdmin")> -1 || requestUri.indexOf("/rsvInsertAdmin")> -1 
-				   || requestUri.indexOf("/rsvInsertDayAdmin") 	> -1|| requestUri.indexOf("/rsvStatAdmin") 	> -1 
-				   //리뷰, 정산 관련 경로
-				   || requestUri.indexOf("/reviewAll") 	> -1 	|| requestUri.indexOf("/adminCalc") 	> -1
-				   || requestUri.indexOf("/buyStat")> -1
-				   //장비, 업체 관련 경로
-				   
-				   
-				   //결제 관련 경로
-				   
-				   
-						) {
+				if(requestUri.indexOf("/admin/") 	> -1) {
 					response.sendRedirect("/");
 					return false;
 				}
 			}
+
+			//구매자, 불량회원이 접근하면 안되는곳들
 			if(sessionLevel != null && ("3".equals(sessionLevel)||"6".equals(sessionLevel))){ 
-				//구매자, 불량회원이 접근하면 안되는곳들
 				if( //회원 관련 경로  
-					   requestUri.indexOf("/userList") 		> -1	|| requestUri.indexOf("/restUser") 	> -1
-					|| requestUri.indexOf("/blackUser") 	> -1 	|| requestUri.indexOf("/deleteUser") 	> -1
-					|| requestUri.indexOf("/pointList") 	> -1 	|| requestUri.indexOf("/bookMarkList") 	> -1
-					|| requestUri.indexOf("/admin") 	> -1 
-					//예약 관련 경로
-					|| requestUri.indexOf("/rsvStoreList") 	> -1 	 || requestUri.indexOf("/rsvListAdmin") 	> -1
-				    || requestUri.indexOf("/rsvDetailListAdmin")> -1 || requestUri.indexOf("/rsvListExtendAdmin") 	> -1
-				    || requestUri.indexOf("/rsvInsertAdmin")> -1	 || requestUri.indexOf("/rsvInsertDayAdmin") 	> -1
-					|| requestUri.indexOf("/rsvStatAdmin") 	> -1 	
-					
-						
+					   requestUri.indexOf("/admin/")	> -1	|| requestUri.indexOf("/seller/") 	> -1
 					) {
 					response.sendRedirect("/");
 					return false;

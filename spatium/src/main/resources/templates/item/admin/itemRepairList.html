@@ -44,10 +44,10 @@
 						<td th:text="${r.itemRepairCompany}"></td>
 						<td th:text="${r.itemRepairCompanyPhone}"></td>
 						<td><a
-							th:href="@{/modifyitemRepair(itemRepairCode=${r.itemRepairCode})}"><button
+							th:href="@{/item/admin/modifyitemRepair(itemRepairCode=${r.itemRepairCode})}"><button
 									class="btn btn-secondary btn-sm" type="submit">수정</button></a></td>
 						<td><a
-							th:href="@{/removeitemRepair(itemRepairCode=${r.itemRepairCode})}"><button
+							th:href="@{/item/admin/removeitemRepair(itemRepairCode=${r.itemRepairCode})}"><button
 									class="btn btn-secondary btn-sm" type="submit">삭제</button></a></td>
 					</tr>
 
@@ -55,7 +55,7 @@
 			</table>
 		</div>
 	</div>
-	<a th:href="@{addItemRepair}">
+	<a th:href="@{item/admin/addItemRepair}">
 		<button class="btn btn-secondary btn-sm" type="submit"
 			style="float: right;">글쓰기</button>
 	</a>
