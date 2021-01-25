@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="@{layout/default}">
+	layout:decorate="@{layout/maindefault}">
 
 <th:block layout:fragment="customContent">
+<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
 
 	<div class="table-responsive m-t-20">
-		<table class="table table-striped jambo_table bulk_action dataTable no-footer">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id = "tbBookmark">
 			<thead>
 				<tr>
 					<th scope="col">No.</th>
 					<th scope="col">아이디</th>
 					<th scope="col">공간</th>
+					<th scope="col">등록일자</th>
 					<th scope="col">삭제</th>
 				</tr>
 			</thead>
@@ -21,64 +23,61 @@
 					<td th:text="${b.userId}"></td>
 					<td th:text="${b.storeCode}"></td>
 					<td th:text="${b.BookRegDate}"></td>
-					
 					<td>
-						<button type="submit"><a th:href="@{/removeBookmark(bookMarkUserId=${b.bookMarkUserId})}">삭제</a></button>
+						<a th:href="@{/bookmark/removeBookmark(bookMarkCode=${b.bookMarkCode})}"><button type="submit">삭제</button></a>
 					</td>
 				</tr>
-
 			</tbody>
 		</table>
 	</div>
-
+</div>
 </th:block>
-
-<div style="text-align: right;">
-       <a class="btn btn-outline-dark heart">
-           <img id="heart" src="">
-       </a>
-   </div>
-
 <th:block layout:fragment="customJs">
+
 <script>
-    $(document).ready(function () {
-
-        var heart = ${heart};
-
-        if(heart>0) {
-            console.log(heartval);
-            $("#heart").prop("src", "/resources/images/like2.png");
-            $(".heart").prop('name',heartval)
-        }
-        else {
-            console.log(heartval);
-            $("#heart").prop("src", "/resources/images/like1.png");
-            $(".heart").prop('name',heartval)
-        }
-
-        $(".heart").on("click", function () {
-
-            var that = $(".heart");
-
-            var sendData = {'storeCode' : '${Store.storeCode}','heart' : that.prop('name')};
-            $.ajax({
-                url :'/store/heart',
-                type :'POST',
-                data : sendData,
-                success : function(data){
-                    that.prop('name',data);
-                    if(data==1) {
-                        $('#heart').prop("src","/resources/images/like2.png");
-                    }
-                    else{
-                        $('#heart').prop("src","/resources/images/like1.png");
-                    }
-
-
-                }
-            });
-        });
-    });
-</script>
+	$("#tbBookmark").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+//북마크 삭제
+ $('#bookBtn').click(function(){
+		var bookMarkCode = [[${b.bookMarkCode}]]
+		var request = $.ajax({
+			url: "/bookmark/removeBookMark",	
+			method: "POST",	
+			data: { bookMarkCode : bookMarkCode },	
+			dataType: "text"	
+		});
+		
+		request.done(function( data ) {
+			alert(data);
+		});
+		
+		request.fail(function( jqXHR, textStatus ) {
+			alert( "Request failed: " + textStatus );
+		});
+	});
+	}) 
+	</script>
 </th:block>
 </html>

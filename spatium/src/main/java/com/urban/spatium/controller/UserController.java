@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.urban.spatium.dto.Item;
 import com.urban.spatium.dto.User;
 import com.urban.spatium.service.UserService;
 
@@ -189,6 +190,15 @@ public class UserController {
 		return "user/admin/adminUpdate";
 	}	
 
+	//불량회원 삭제
+	@GetMapping("/user/admin/removeBlack") 
+	 public String removeBlack(Model model, @RequestParam(name="blackUserId", required = false) String blackUserId) {
+		 System.out.println("장비파기 삭제화면에 입력받은 값 ->" + blackUserId);
+		 userService.removeBlack(blackUserId);
+		 model.addAttribute("blackUserId", blackUserId);
+		 return "redirect:/user/admin/blackUser";
+	  }
+	
 	//불량회원 리스트
 	@GetMapping("/user/admin/blackUser")
 	public String blackUser(Model model) {
@@ -199,6 +209,21 @@ public class UserController {
 		return "/user/admin/blackUser";
 	}
 
+	//불량회원 등록
+	@PostMapping("/user/admin/addBlackUser") 
+	public String addBlackUser(User user ,@RequestParam(name = "userId", required = false)	String userId) {
+		System.out.println("불량회원 등록화면에서 입력받은 값--->" + user); 
+		String result = userService.addBlackUser(user); 
+		System.out.println(result);
+		return "redirect:/user/admin/blackUser"; 
+	}
+
+	@GetMapping("/user/admin/addBlackUser") 
+	public String addBlackUser(Model model) {
+		model.addAttribute("title", "불량회원 등록");
+		return "user/admin/blackUserForm";
+	}
+	
 	//휴면회원 리스트
 	@GetMapping("/user/admin/restUser")
 	public String restUser(Model model) {

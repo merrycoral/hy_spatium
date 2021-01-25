@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customContent">
+	<form action="/user/admin/removeUser" method="post">
+
+	<div class="table-responsive m-t-20">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id ="tbDeleteUser">
+			<thead>
+				<tr>
+					<th scope="col">아이디</th>
+					<th scope="col">탈퇴사유</th>
+					<th scope="col">탈퇴 구분</th>
+					<th scope="col">비밀번호</th>
+					<th scope="col">이름</th>
+					<th scope="col">생년월일</th>
+					<th scope="col">성별</th>
+					<th scope="col">핸드폰</th>
+					<th scope="col">직업</th>
+					<th scope="col">등급</th>
+					<th scope="col">이메일</th>
+					<th scope="col">가입일자</th>
+					<th scope="col">포인트</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${#lists.size(deleteUser) > 0}" th:each="d : ${deleteUser}">
+					<td th:text="${d.deleteUserId}"></td>
+					<td th:text="${d.deleteReason}"></td>
+					<td th:text="${d.deleteCate}"></td>
+					<td th:text="${d.deleteUserPw}"></td>
+					<td th:text="${d.deleteUserName}"></td>
+					<td th:text="${d.deleteUserBirth}"></td>
+					<td th:text="${d.deleteUserGender}"></td>
+					<td th:text="${d.deleteUserPhone}"></td>
+					<td th:text="${d.deleteUserJob}"></td>
+					<td th:text="${d.deleteUserLevel}"></td>
+					<td th:text="${d.deleteUserEmail}"></td>
+					<td th:text="${d.deleteUserRegDate}"></td>
+					<td th:text="${d.deleteUserPoint}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</form>
+</th:block>
+
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbDeleteUser").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	</script>
+
+</th:block>
+</html>

@@ -136,7 +136,6 @@ public class ItemService {
 				itemMapper.addItemDelete(item);
 				addCheck = "장비파기 등록 성공";
 			}
-			
 		return addCheck;
 	}
 	
