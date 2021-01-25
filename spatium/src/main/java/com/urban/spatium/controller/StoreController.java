@@ -25,6 +25,21 @@ public class StoreController {
 	@Autowired
 	private RefundService refundService;
 	
+	@GetMapping("/store/seller/myStoreSeeMore")
+	public String myStoreSeeMore(Model model, Store store
+			,@RequestParam(name = "storeCode", required = false) int storeCode) {
+		
+		System.out.println(storeCode);
+		Store storeList = storeService.getStoreInfoByStoreCode(storeCode);
+		List<RefundPolicy> storeList2 = refundService.getRefundPolicy(storeCode);
+		System.out.println(storeList);
+		model.addAttribute("title", "업체정보");
+		model.addAttribute("storeList", storeList);
+		model.addAttribute("storeList2", storeList2);		
+		
+		return "store/seller/myStoreSeeMore";
+	}
+	
 	/* 메인 페이지에서 본인 업체 조회*/
 	@GetMapping("/store/myStore")
 	public String myStore(HttpSession session, Store store, Model model) {
