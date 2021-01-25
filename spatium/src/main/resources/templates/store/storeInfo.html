@@ -145,7 +145,7 @@
 </th:block>
 <th:block layout:fragment="customJs">
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rt37xgq4ur"></script>
-    <script type="text/javascript" th:inline="javascript">
+    <script type="text/javascript" th:inline="javascript"> //타임리프값을 쓰려면 th:inline 써줘야함
     	$(function() {
    		//주소를 좌표로 변환하고싶은 ajax
 	   		/*<![CDATA[*/

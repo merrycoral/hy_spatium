@@ -21,10 +21,10 @@
 				<tr th:if="${#lists.size(bookMarkList) > 0}" th:each="b : ${bookMarkList}">
 					<td th:text="${b.bookMarkCode}"></td>
 					<td th:text="${b.userId}"></td>
-					<td th:text="${b.storeCode}"></td>
+					<td th:text="${b.storeName}"></td>
 					<td th:text="${b.BookRegDate}"></td>
 					<td>
-						<a th:href="@{/bookmark/removeBookmark(bookMarkCode=${b.bookMarkCode})}"><button type="submit">삭제</button></a>
+						<a th:href="@{/bookmark/removeBookMark(bookMarkCode=${b.bookMarkCode})}"><button>삭제</button></a>
 					</td>
 				</tr>
 			</tbody>
@@ -34,7 +34,8 @@
 </th:block>
 <th:block layout:fragment="customJs">
 
-<script>
+<script type="text/javascript" th:inline="javascript">
+$(function() {
 	$("#tbBookmark").DataTable({
 		order: [ [ 0, "desc" ] ],
 		ordering: true,
@@ -53,31 +54,13 @@
 		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
 		        	 "sInfoPostFix": "",
 		        	 "sLengthMenu": "Show _MENU_ 개씩",
-		        	 "sSearch": "검색:",
+		        	 "sSearch": "",
 		        	 "sSearchPlaceholder": "",
 		        	 "sZeroRecords": "No matching records found"
 			         }
 	});
-	
-//북마크 삭제
- $('#bookBtn').click(function(){
-		var bookMarkCode = [[${b.bookMarkCode}]]
-		var request = $.ajax({
-			url: "/bookmark/removeBookMark",	
-			method: "POST",	
-			data: { bookMarkCode : bookMarkCode },	
-			dataType: "text"	
-		});
 		
-		request.done(function( data ) {
-			alert(data);
-		});
-		
-		request.fail(function( jqXHR, textStatus ) {
-			alert( "Request failed: " + textStatus );
-		});
-	});
-	}) 
+});
 	</script>
 </th:block>
 </html>

@@ -278,7 +278,7 @@ public class UserController {
 	}
 
 	//아이디 찾기
-	@RequestMapping("/user/findIdform")
+	@GetMapping("/findIdform")
 	public String findIdform()	{ 
 		return "/user/findIdform"; 
 	}

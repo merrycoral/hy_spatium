@@ -222,19 +222,69 @@ public class Store {
 	
 	@Override
 	public String toString() {
-		return "Store [storeCode=" + storeCode + ", storeId=" + storeId + ", storeName=" + storeName
-				+ ", storeRepresentative=" + storeRepresentative + ", storeNumber=" + storeNumber
-				+ ", storeBusinessType=" + storeBusinessType + ", storeAddressNumber=" + storeAddressNumber
-				+ ", storeAddress=" + storeAddress + ", storeAddressDetail=" + storeAddressDetail
-				+ ", storeIntroduction=" + storeIntroduction + ", storeEmail=" + storeEmail + ", storeRsvType="
-				+ storeRsvType + ", storePhone=" + storePhone + ", storeAccountBankName=" + storeAccountBankName
-				+ ", storeAccountNumber=" + storeAccountNumber + ", storeRefundRull=" + storeRefundRull
-				+ ", storeRemainingDay=" + storeRemainingDay + ", storeRefundPercent=" + storeRefundPercent
-				+ ", storeImage=" + storeImage + ", storeLevel=" + storeLevel + ", storeRegDate=" + storeRegDate
-				+ ", storeCategoryList=" + storeCategoryList + ", remainingDay=" + remainingDay + ", refundPercent="
-				+ refundPercent + ", remainingDays=" + remainingDays + ", refundPercents=" + refundPercents
-				+ ", refundPolicyCode=" + refundPolicyCode + ", spaceRelationStoreCode=" + spaceRelationStoreCode
-				+ ", spaceRelationCateCode=" + spaceRelationCateCode + ", spaceRelationCode=" + spaceRelationCode + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Store [storeCode=");
+		builder.append(storeCode);
+		builder.append(", storeId=");
+		builder.append(storeId);
+		builder.append(", storeName=");
+		builder.append(storeName);
+		builder.append(", storeRepresentative=");
+		builder.append(storeRepresentative);
+		builder.append(", storeNumber=");
+		builder.append(storeNumber);
+		builder.append(", storeBusinessType=");
+		builder.append(storeBusinessType);
+		builder.append(", storeAddressNumber=");
+		builder.append(storeAddressNumber);
+		builder.append(", storeAddress=");
+		builder.append(storeAddress);
+		builder.append(", storeAddressDetail=");
+		builder.append(storeAddressDetail);
+		builder.append(", storeIntroduction=");
+		builder.append(storeIntroduction);
+		builder.append(", storeEmail=");
+		builder.append(storeEmail);
+		builder.append(", storeRsvType=");
+		builder.append(storeRsvType);
+		builder.append(", storePhone=");
+		builder.append(storePhone);
+		builder.append(", storeAccountBankName=");
+		builder.append(storeAccountBankName);
+		builder.append(", storeAccountNumber=");
+		builder.append(storeAccountNumber);
+		builder.append(", storeRefundRull=");
+		builder.append(storeRefundRull);
+		builder.append(", storeRemainingDay=");
+		builder.append(storeRemainingDay);
+		builder.append(", storeRefundPercent=");
+		builder.append(storeRefundPercent);
+		builder.append(", storeImage=");
+		builder.append(storeImage);
+		builder.append(", storeLevel=");
+		builder.append(storeLevel);
+		builder.append(", storeRegDate=");
+		builder.append(storeRegDate);
+		builder.append(", storeCategoryList=");
+		builder.append(storeCategoryList);
+		builder.append(", remainingDay=");
+		builder.append(remainingDay);
+		builder.append(", refundPercent=");
+		builder.append(refundPercent);
+		builder.append(", remainingDays=");
+		builder.append(remainingDays);
+		builder.append(", refundPercents=");
+		builder.append(refundPercents);
+		builder.append(", refundPolicyCode=");
+		builder.append(refundPolicyCode);
+		builder.append(", spaceRelationStoreCode=");
+		builder.append(spaceRelationStoreCode);
+		builder.append(", spaceRelationCateCode=");
+		builder.append(spaceRelationCateCode);
+		builder.append(", spaceRelationCode=");
+		builder.append(spaceRelationCode);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 }

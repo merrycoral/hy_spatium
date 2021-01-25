@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="@{layout/default}">
+	layout:decorate="@{layout/maindefault}">
 	
 
 <th:block layout:fragment="customContent">
-<form action="/findIdform" method="post">
+<form action="user/findIdform" method="post">
 
 <div>
   <input type="radio" name="tab" id="tab1" checked="checked" />
@@ -31,7 +31,7 @@
 								</div>
 								<button type="button" class="btn btn-primary" id="checkId"
 									onclick="checkId()">확인</button>
-								<a class="btn btn-success" id="cancel" href="login"> 취소</a>
+								<a class="btn btn-success" id="cancel" href="user/login"> 취소</a>
 							</div>
 							<div class="text-center small" id="checkMsg" style="color: red"></div>
 						</div>
@@ -86,7 +86,7 @@ $(document).on('click','#findId',function(){
  	var postData = {'userName' : name , 'userEmail' : email};
 
 	$.ajax({
-        url:'/user/findingId',
+        url:'/user/findIdform',
         type:'POST',
         data: postData,
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
