@@ -40,19 +40,9 @@ public class paymentController {
 	
 	
 	/* 구매자 포인트  (관리자화면)*/
-	@GetMapping("/pointList")
-	public String pointList(Model model, HttpSession session) {
-		String SID = (String) session.getAttribute("SID");
-		List<Point> pointList = paymentService.userPointSelect(SID);
-		System.out.println(pointList);
-		String totalPoint =paymentService.totalPoint(SID);
-		model.addAttribute("title", "회원 포인트 조회");
-		model.addAttribute("pointList", pointList);
-		model.addAttribute("totalPoint", totalPoint);
-		return "point/pointList";
-	}
+
 	/* 구매자 포인트  (구매자화면)*/
-	@GetMapping("/pointListMain")
+	@GetMapping("/point/pointListMain")
 	public String pointListMain(Model model, HttpSession session) {
 		String SID = (String) session.getAttribute("SID");
 		List<Point> pointList = paymentService.userPointSelect(SID);
@@ -66,7 +56,7 @@ public class paymentController {
 	
 	
 	
-	@GetMapping("/rsvDetail")
+	@GetMapping("/payment/rsvDetail")
 	public @ResponseBody Map<String, Object> rsvDetail(Model model,
 						@RequestParam String payCode) {
 		System.out.println("여기왔다.");
@@ -150,6 +140,7 @@ public class paymentController {
 		System.out.println("여기");
 		model.addAttribute("pay", paymentcode);
 		System.out.println(pay+"pay<<<<<<<<<<<<<<<<<");
+		
 		return "payment/paymentSuccess";
 		
 	}
@@ -231,7 +222,7 @@ public class paymentController {
 	}
 	
 	//구매자 페이지 결제내역
-	@GetMapping("/paymentSearchMain")
+	@GetMapping("/payment/paymentSearchMain")
 	public String paymentSearchMain(Model model,HttpSession session) {
 		String SID = (String) session.getAttribute("SID");
 		List<Payment> userpaymentList = paymentService.paymentSelect(SID);
