@@ -9,9 +9,6 @@ import com.urban.spatium.dto.Bookmark;
 @Mapper
 public interface BookmarkMapper {
 
-	//북마크 전체삭제
-	void deleteAll(String userId); 
-	
     //북마크 삭제
 	int removeBookMark(String bookMarkCode);
   

@@ -18,7 +18,7 @@ import com.urban.spatium.dto.Bookmark;
 import com.urban.spatium.dto.Store;
 import com.urban.spatium.service.BookMarkService;
 
-@Controller("/bookmark")
+@Controller
 public class BookmarkController {
 	
 	@Autowired 
@@ -27,17 +27,15 @@ public class BookmarkController {
 	
 
 	//북마크 삭제
-	@ResponseBody
-	@RequestMapping(value = "/bookmark/removeBookMark",produces = "application/json",method = RequestMethod.POST ) 
+	@GetMapping("/bookmark/removeBookMark") 
 	public String removeBookMark(@RequestParam(name="bookMarkCode", required = false) String bookMarkCode , Model model) {
-		 System.out.println("북마크 삭제화면에 입력받은 값 ->" + bookMarkCode);
-	  
-	 bookmarkService.removeBookMark(bookMarkCode);
-	 model.addAttribute("bookMarkCode", bookMarkCode);
-	 System.out.println("어디까지 왔니?");
-	 
-	 return "redirect:/bookmark/bookMarkList";
-	  }
+		System.out.println("북마크 삭제화면에 입력받은 값 ->" + bookMarkCode);
+		
+		bookmarkService.removeBookMark(bookMarkCode);
+		model.addAttribute("bookMarkCode", bookMarkCode);
+		
+		return "redirect:/bookmark/bookMark";
+	}
 
 	//북마크 목록
 	@PostMapping("/bookmark/bookMark")

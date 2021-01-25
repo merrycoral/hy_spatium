@@ -17,10 +17,6 @@ public class BookMarkService {
 	@Autowired 
 	private BookmarkMapper bookmarkMapper;
 	
-	//북마크 전체삭제
-	/*
-	 * public void deleteAll(String userId) { bookmarkMapper.deleteAll(userId); }
-	 */
 	
 	//북마크 삭제
 	public String removeBookMark(String bookMarkCode) {
@@ -47,6 +43,6 @@ public class BookMarkService {
 		List<Bookmark> bookmark = bookmarkMapper.getBookMark(userId, storeCode);
 		return bookmark;
 	}
-	
+
 	
  }

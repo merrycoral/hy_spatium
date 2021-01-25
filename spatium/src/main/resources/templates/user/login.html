@@ -1,165 +1,316 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-   layout:decorate="@{layout/maindefault}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/maindefault}">
+<th:block layout:fragment="customCss">
+	<style type="text/css">
+*, :after, :before {
+	box-sizing: border-box
+}
 
+.clearfix:after, .clearfix:before {
+	content: '';
+	display: table
+}
 
+.clearfix:after {
+	clear: both;
+	display: block
+}
+
+a {
+	color: inherit;
+	text-decoration: none
+}
+
+.login-wrap {
+	width: 100%;
+	margin: auto;
+	max-width: 525px;
+	min-height: 670px;
+	position: relative;
+	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0
+		rgba(0, 0, 0, .19);
+}
+
+.login-html {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	padding: 90px 70px 50px 70px;
+	background: #FEFEFD;
+}
+
+.login-html .sign-in-htm {
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	transform: rotateY(180deg);
+	backface-visibility: hidden;
+	transition: all .4s linear;
+}
+
+.login-html .sign-in, .login-form .group .check {
+	display: none;
+}
+
+.login-html .tab, .login-form .group .label, .login-form .group .button
+	{
+	text-transform: uppercase;
+}
+
+.login-html .tab {
+	font-size: 22px;
+	margin-right: 15px;
+	padding-bottom: 5px;
+	margin: 0 15px 10px 0;
+	display: inline-block;
+	border-bottom: 2px solid transparent;
+}
+
+.login-html .sign-in:checked+.tab {
+	/* ////////////////////////////////// */
+	font-size: 40px;
+	color: #050505;
+	/* border-color:#FDD528; */
+	text-align: center;
+}
+
+.login-form {
+	min-height: 345px;
+	position: relative;
+	perspective: 1000px;
+	transform-style: preserve-3d;
+}
+
+.login-form .group {
+	margin-bottom: 15px;
+}
+
+.login-form .group .label, .login-form .group .input, .login-form .group .button
+	{
+	width: 100%;
+	color: #050505;
+	display: block;
+}
+
+.login-form .group .input, .login-form .group .button {
+	border: none;
+	padding: 15px 20px;
+	border-radius: 25px;
+	background: #E8E8E7;
+}
+
+.login-form .group input[data-type="password"] {
+	text-security: circle;
+	-webkit-text-security: circle;
+}
+
+.login-form .group .label {
+	color: #040404;
+	font-size: 12px;
+}
+
+.login-form .group .button {
+	background: #FDD528;
+}
+
+.login-form .group label .icon {
+	width: 15px;
+	height: 15px;
+	border-radius: 2px;
+	position: relative;
+	display: inline-block;
+	background: rgba(255, 255, 255, .1);
+}
+
+.login-form .group label .icon:before, .login-form .group label .icon:after
+	{
+	content: '';
+	width: 10px;
+	height: 2px;
+	background: #fff;
+	position: absolute;
+	transition: all .2s ease-in-out 0s;
+}
+
+.login-form .group label .icon:before {
+	left: 3px;
+	width: 5px;
+	bottom: 6px;
+	transform: scale(0) rotate(0);
+}
+
+.login-form .group label .icon:after {
+	top: 6px;
+	right: 0;
+	transform: scale(0) rotate(0);
+}
+
+.login-form .group .check:checked+label {
+	color: #090909;
+}
+
+.login-form .group .check:checked+label .icon {
+	background: #FDD528;
+}
+
+.login-form .group .check:checked+label .icon:before {
+	transform: scale(1) rotate(45deg);
+}
+
+.login-form .group .check:checked+label .icon:after {
+	transform: scale(1) rotate(-45deg);
+}
+
+.login-html .sign-in:checked+.tab+.login-form .sign-in-htm {
+	transform: rotate(0);
+}
+
+.foot-lnk {
+	text-align: center;
+}
+</style>
+</th:block>
 <th:block layout:fragment="customContent">
+	<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
+		<form th:action="@{/login}" name="loginForm" method="post">
 
-<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
-   <form th:action="@{/login}" name="loginForm" method="post" >
+			<div class="login-wrap">
+				<div class="login-html">
+				<div style="text-align:center;">
+					<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label
+						for="tab-1" class="tab">LOGIN</label>
+					<div class="login-form">
 
-      <div class="col-lg-5">
-         <div class="card shadow-lg border-0 rounded-lg mt-5">
-            <div class="card-header justify-content-center">
-               <h3 class="font-weight-light my-4">로그인</h3>
-            </div>
-            <div class="card-body">
-                  <div class="form-group">
-                     <label for="inputEmailAddress"
-                        class="small mb-1"></label><input id="userId" data-cy="useridInput" type="text"
-                        name="userId" placeholder="아이디"                         
-                        class="form-control py-4 ng-untouched ng-pristine ng-invalid">
-                     <div class="invalid-feedback">
-                        </div>
-                    
-                  </div>
-                  <div class="form-group">
-                     <label for="inputPassword"
-                        class="small mb-1"></label><input 
-                        id="userPw" data-cy="passwordInput" type="password"
-                        name="userPw" placeholder="비밀번호" 
-                        class="form-control py-4 ng-untouched ng-pristine ng-invalid">
-                     <div class="invalid-feedback">
-                       </div>
-                  </div>
-                  <div class="form-group">
-                     <div class="custom-control custom-checkbox">
-                        <input id="rememberId"
-                           type="checkbox"
-                           class="custom-control-input ng-untouched ng-pristine ng-valid"><label
-                           for="rememberId"
-                           class="custom-control-label">아이디 기억하기</label>
-                     </div>
-                  </div>
-                  <div
-                     class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                     <div id="findIdform" >아이디/비밀번호 찾기</div>
-                     <button type="submit" class="btn btn-primary" onclick="CheckForm();">로그인</button>
-                     <a href="/imsilogin"><button type="button" class="btn btn-primary" id="loginBtn">간편 로그인(관리자)</button></a>
-                  </div>
-            </div>
-            <div class="card-footer text-center">
-               <div class="middle">
-                  <a href="/user/addUser">회원가입</a>
-               </div>
-            </div>
-         </div>
-      </div>
-   </form>
-   </div>
+						<div class="sign-in-htm">
+							<div class="group">
+								<label for="user" class="label"></label> <input id="userId"
+									type="text" class="input" name="userId" placeholder="아이디">
+							</div>
+							<div class="group">
+								<label for="pass" class="label"></label> <input id="userPw"
+									type="password" class="input" name="userPw" placeholder="비밀번호">
+							</div>
+							<div class="group" style="text-align:left;">
+								<input id="rememberId" type="checkbox"> <label
+									for="check"> 아이디 기억하기</label>
+							</div>
+							<div class="group">
+								<input type="submit" class="button" value="로그인"
+									onclick="CheckForm();">
+								<div style="text-align: center;">
+									<a href="/imsilogin"><button type="button"
+											class="btn btn-primary" id="loginBtn">간편 로그인(관리자)</button></a>
+								</div>
+							</div>
+							<div class="foot-lnk">
+								<a href="/user/findIdform">비밀번호 찾기</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</form>
+	</div>
 </th:block>
 
 <th:block layout:fragment="customJs">
-<script>
-//number 길이제한
-function maxLengthCheck(object){
-	   if (object.value.length > object.maxLength){
-	    object.value = object.value.slice(0, object.maxLength);
-	   }   
-	  }
+	<script>
+		//number 길이제한
+		function maxLengthCheck(object) {
+			if (object.value.length > object.maxLength) {
+				object.value = object.value.slice(0, object.maxLength);
+			}
+		}
 
-</script>
+		function CheckForm() {
 
-<script>
+			var userId = $("#userId").val();
+			var userPw = $("#userPw").val();
 
- function CheckForm(){
-	
-	var userId = $("#userId").val();
-	var userPw = $("#userPw").val();
-	
-	if(!userId){
-		alert("아이디를 입력하세요.");
-		$("#userId").focus();
-		return false;
-	}else if(!userPw){
-		alert("비밀번호를 입력하세요.");
-		$("#userPw").focus();
-		return false;
-	}else {
-		login(userId,userPw);
-	}
-	
-} 
+			if (!userId) {
+				alert("아이디를 입력하세요.");
+				$("#userId").focus();
+				return false;
+			} else if (!userPw) {
+				alert("비밀번호를 입력하세요.");
+				$("#userPw").focus();
+				return false;
+			} else {
+				login(userId, userPw);
+			}
 
-</script>
+		}
+		//아이디 저장하기
+		$(document).ready(function() {
+			var userId = getCookie("userId");//저장된 쿠기값 가져오기
+			$("input[name='userId']").val(userId);
 
- <script>
- //아이디 저장하기
-        $(document).ready(function(){
-    var userId = getCookie("userId");//저장된 쿠기값 가져오기
-    $("input[name='userId']").val(userId); 
-     
-    if($("input[name='userId']").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩
-                                           // 아이디 저장하기 체크되어있을 시,
-        $("#rememberId").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
-    }
-     
-    $("#rememberId").change(function(){ // 체크박스에 변화가 발생시
-        if($("#rememberId").is(":checked")){ // ID 저장하기 체크했을 때,
-            var userId = $("input[name='userId']").val();
-            setCookie("userId", userId, 7); // 7일 동안 쿠키 보관
-        }else{ // ID 저장하기 체크 해제 시,
-            deleteCookie("userId");
-        }
-    });
-     
-    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
-    $("input[name='userId']").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
-        if($("#rememberId").is(":checked")){ // ID 저장하기를 체크한 상태라면,
-            var userId = $("input[name='userId']").val();
-            setCookie("userId", userId, 7); // 7일 동안 쿠키 보관
-        }
-    });
-});
- 
-function setCookie(cookieName, value, exdays){
-    var exdate = new Date();
-    exdate.setDate(exdate.getDate() + exdays);
-    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
-    document.cookie = cookieName + "=" + cookieValue;
-}
- 
-function deleteCookie(cookieName){
-    var expireDate = new Date();
-    expireDate.setDate(expireDate.getDate() - 1);
-    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
-}
- 
-function getCookie(cookieName) {
-    cookieName = cookieName + '=';
-    var cookieData = document.cookie;
-    var start = cookieData.indexOf(cookieName);
-    var cookieValue = '';
-    if(start != -1){
-        start += cookieName.length;
-        var end = cookieData.indexOf(';', start);
-        if(end == -1)end = cookieData.length;
-        cookieValue = cookieData.substring(start, end);
-    }
-    return unescape(cookieValue);
-}
-     </script>
+			if ($("input[name='userId']").val() != "") { // 그 전에 ID를 저장해서 처음 페이지 로딩
+				// 아이디 저장하기 체크되어있을 시,
+				$("#rememberId").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+			}
 
-<script>
-//아이디 찾기
-$(function(){
-	$("#findIdform").click(function(){
-		location.href='user/findIdform';
-	})
-})
+			$("#rememberId").change(function() { // 체크박스에 변화가 발생시
+				if ($("#rememberId").is(":checked")) { // ID 저장하기 체크했을 때,
+					var userId = $("input[name='userId']").val();
+					setCookie("userId", userId, 7); // 7일 동안 쿠키 보관
+				} else { // ID 저장하기 체크 해제 시,
+					deleteCookie("userId");
+				}
+			});
 
-</script>
+			// ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+			$("input[name='userId']").keyup(function() { // ID 입력 칸에 ID를 입력할 때,
+				if ($("#rememberId").is(":checked")) { // ID 저장하기를 체크한 상태라면,
+					var userId = $("input[name='userId']").val();
+					setCookie("userId", userId, 7); // 7일 동안 쿠키 보관
+				}
+			});
+		});
+
+		function setCookie(cookieName, value, exdays) {
+			var exdate = new Date();
+			exdate.setDate(exdate.getDate() + exdays);
+			var cookieValue = escape(value)
+					+ ((exdays == null) ? "" : "; expires="
+							+ exdate.toGMTString());
+			document.cookie = cookieName + "=" + cookieValue;
+		}
+
+		function deleteCookie(cookieName) {
+			var expireDate = new Date();
+			expireDate.setDate(expireDate.getDate() - 1);
+			document.cookie = cookieName + "= " + "; expires="
+					+ expireDate.toGMTString();
+		}
+
+		function getCookie(cookieName) {
+			cookieName = cookieName + '=';
+			var cookieData = document.cookie;
+			var start = cookieData.indexOf(cookieName);
+			var cookieValue = '';
+			if (start != -1) {
+				start += cookieName.length;
+				var end = cookieData.indexOf(';', start);
+				if (end == -1)
+					end = cookieData.length;
+				cookieValue = cookieData.substring(start, end);
+			}
+			return unescape(cookieValue);
+		}
+
+		//아이디 찾기
+		$(function() {
+			$("#findIdform").click(function() {
+				location.href = 'user/findIdform';
+			})
+		})
+	</script>
 
 </th:block>
 </html>
