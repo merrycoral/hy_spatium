@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/maindefault}">
+
+<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+</th:block>
+<th:block layout:fragment="customContent">
+	<div class="col-md-12 col-sm-12 col-lg-8 col-offset-lg-2">
+		<div class="col-md-6 col-sm-6 ">
+			<div class="x_panel tile">
+				<div class="x_title">
+					<h1>내가 작성한 리뷰 조회 </h1>
+		
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</th:block>
+</html>

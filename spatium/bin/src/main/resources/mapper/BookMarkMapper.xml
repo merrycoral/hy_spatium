@@ -3,59 +3,63 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.BookmarkMapper">
-	
-	
-	
-	<!-- 즐겨찾기 모두삭제
+
+	<!-- 북마크 전체삭제 -->
 	<delete id="deleteAll">
 		DELETE
 		FROM
 		tbBookmark
 		WHERE
-		userId=#{userId}; 
+		userId = #{userId};
 	</delete>
 
-	즐겨찾기 삭제
-	<delete id="delete">
+	<!-- 북마크 삭제 -->
+	<delete id="removeBookMark">
 		DELETE
 		FROM
 		tbBookmark
 		WHERE
-		storeCode = #{storeCode}; 
-	</delete> -->
+		bookMarkCode =
+		#{bookMarkCode};
+	</delete>
 
-	<!--즐겨찾기 수정  -->
-	<!-- <update id = "modifyBookmark">
-	UPDATE 
-		tbBookmark
-	SET 
-		bookmark = bookmark+1 
-	WHERE 
-		storeCode = #{storeCode} 
- 	</update> -->
+	<!-- 북마크 리스트 -->
+	<select id="bookMark" resultType="Bookmark">
+		SELECT bookMarkCode, userId,
+		BookRegDate, storeName
+		FROM tbBookmark AS b
+		INNER JOIN
+		tbStore AS s
+		ON
+		s.storeCode = b.storeCode
+	</select>
 
- 
-	<!-- 즐겨찾기 리스트 -->
-	<select id="getBookMarkList" resultType="int">
+	<!-- 북마크 체크 -->
+	<select id="getBookMark" parameterType="String"
+		resultType="Bookmark">
 		SELECT
-			COUNT(bookMarkCode)
+		bookMarkCode
+		,userId
+		,storeCode
+		,BookRegDate
 		FROM
-			tbBookmark
-		WHERE 
-			storeCode = #{storeCode} AND userId = #{userId};
+		tbBookmark
+		WHERE
+		userId=#{userId}
+		AND
+		storeCode=#{storeCode};
 	</select>
 
 
-	<!-- 즐겨찾기 추가
-	<insert id="addBookmark">
-        INSERT INTO tbBookmark
-        (bookMarkCode, userId, storeCode, BookRegDate)
-        VALUES(
-           #{bookMarkCode}
-          ,#{userId}
-          ,#{storeCode}
-          ,NOW()););
-        
-    </insert> -->
+	<!-- 북마크 추가 -->
+	<insert id="addbookMark" parameterType="String">
+		INSERT INTO tbBookmark
+		(userId, storeCode, BookRegDate)
+		VALUES(
+		#{userId}
+		,#{storeCode}
+		,NOW());
+
+	</insert>
 
 </mapper>

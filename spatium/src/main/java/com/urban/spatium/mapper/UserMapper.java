@@ -14,8 +14,14 @@ public interface UserMapper {
 	//휴면회원 리스트
 	public List<User> restUser(); 
 	
+	//불량회원 삭제
+	int removeBlack(String blackUserId);
+	
 	//불량회원 리스트
 	public List<User> blackUser(); 
+	
+	//불량회원 등록
+	public int addBlackUser(User user);
 	
 	//탈퇴회원 업데이트
 	int modifyDeleteUser(String userId);

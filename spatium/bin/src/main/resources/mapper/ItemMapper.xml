@@ -24,7 +24,6 @@
 		, itemBuyPrice = #{itemBuyPrice}
 		, itemBuyAccount = #{itemBuyAccount}
 		, itemBuyPhone = #{itemBuyPhone}
-		, itemBuyRegDate = #{itemBuyRegDate}
 		WHERE
 			itemBuyCode = #{itemBuyCode};     
 	</update>
@@ -42,7 +41,48 @@
 			, itemBuyRegDate
 		FROM
 			tbItemBuyList;
+
 	</select>
+	
+	<!--장비 코드로 장비 가져오기 -->
+	<select id = "itemListByCode" resultType="Item">
+		SELECT 
+			itemBuyCode
+			, storeBuyCode
+			, storeBuyItemCode
+			, userBuyId
+			, itemBuyPrice
+			, itemBuyAccount
+			, itemBuyPhone
+			, itemBuyRegDate
+		FROM
+			tbItemBuyList
+		WHERE
+			itemBuyCode=#{itemBuyCode}
+	</select>
+	
+	<!-- 장비구입 등록 -->
+	<insert id = "addItemBuy" parameterType="Item">
+		
+		INSERT INTO tbItemBuyList
+			(
+			 storeBuyCode
+			, storeBuyItemCode
+			, userBuyId
+			, itemBuyPrice
+			, itemBuyAccount
+			, itemBuyPhone
+			, itemBuyRegDate)
+		VALUES 
+			(
+			 #{storeBuyCode}
+			, #{storeBuyItemCode}
+			, #{userBuyId}
+			, #{itemBuyPrice}
+			, #{itemBuyAccount}
+			, #{itemBuyPhone}
+			, #{itemBuyRegDate}	)
+	</insert>
 
 	<!--장비수리내역 삭제 -->
 	<delete id="removeitemRepair">
@@ -62,7 +102,6 @@
 		, storeItemRepairCode = #{storeItemRepairCode}
 		, userRepairId	= #{userRepairId}
 		, itemRepairPrice = #{itemRepairPrice}
-		, itemRepairRegDate = #{itemRepairRegDate}
 		, itemRepairEndDate = #{itemRepairEndDate}
 		, itemRepairName = #{itemRepairName}
 		, itemRepairCompany = #{itemRepairCompany}
@@ -70,6 +109,25 @@
 		WHERE
 			itemRepairCode = #{itemRepairCode};     
 	</update>
+	
+	<!--장비수리 코드로 장비 가져오기 -->
+	<select id = "itemRepairByCode" resultType="Item">
+		SELECT 
+			itemRepairCode
+			, storeRepairCode
+			, storeItemRepairCode
+			, userRepairId
+			, itemRepairPrice
+			, itemRepairRegDate
+			, itemRepairEndDate
+			, itemRepairName
+			, itemRepairCompany
+			, itemRepairCompanyPhone
+		FROM
+			tbItemRepair
+		WHERE
+			itemRepairCode=#{itemRepairCode}
+	</select>
 	
 	<!--장비수리내역 -->
 	<select id = "itemRepairList" resultType="Item">
@@ -88,29 +146,71 @@
 			tbItemRepair;
 	</select>
 	
+	<!-- 장비수리 등록 -->
+	<insert id = "addItemRepair" parameterType="Item">
+		
+		INSERT INTO tbItemRepair
+			(
+			 itemRepairCode
+			, storeRepairCode
+			, storeItemRepairCode
+			, userRepairId
+			, itemRepairPrice
+			, itemRepairRegDate
+			, itemRepairEndDate
+			, itemRepairName
+			, itemRepairCompany
+			, itemRepairCompanyPhone)
+		VALUES 
+			(
+			 #{itemRepairCode}
+			, #{storeRepairCode}
+			, #{storeItemRepairCode}
+			, #{userRepairId}
+			, #{itemRepairPrice}
+			, #{itemRepairRegDate}
+			, #{itemRepairEndDate}
+			, #{itemRepairName}
+			, #{itemRepairCompany}
+			, #{itemRepairCompanyPhone})
+	</insert>
+	
 	<!--장비파기내역 삭제 -->
 	<delete id="removeitemDelete">
 		DELETE
 		FROM
 		tbItemDeleteList
 		WHERE
-		itemDeleteCode = #{itemDeleteCode}; 
+		storeDeleteCode = #{storeDeleteCode}; 
 	</delete>
 	
 	<!--장비파기내역 수정 -->
 	<update id="modifyitemDelete" >
 		UPDATE
-		itemDeleteCode
+		tbItemDeleteList
 		SET 
 		  storeDeleteCode = #{storeDeleteCode}
 		, storeItemDeleteCode = #{storeItemDeleteCode}
 		, userDeleteId	= #{userDeleteId}
 		, itemDeleteReason = #{itemDeleteReason}
-		, itemDeleteReason = #{itemDeleteReason}
-		, itemDeleteRegDate = #{itemDeleteRegDate}
 		WHERE
 			itemDeleteCode = #{itemDeleteCode};     
 	</update>
+	
+	<!--장비수리 코드로 장비 가져오기 -->
+	<select id = "itemDeleteByCode" resultType="Item">
+		SELECT 
+			itemDeleteCode
+			, storeDeleteCode
+			, storeItemDeleteCode
+			, userDeleteId
+			, itemDeleteReason
+			, itemDeleteRegDate
+		FROM
+			tbItemDeleteList
+		WHERE
+			storeDeleteCode=#{storeDeleteCode}
+	</select>
 	
 	<!--장비파기내역 -->
 	<select id = "itemDeleteList" resultType="Item">
@@ -124,6 +224,25 @@
 		FROM
 			tbItemDeleteList;
 	</select>
+	
+	<!-- 장비파기 등록 -->
+	<insert id = "addItemDelete" parameterType="Item">
+		
+		INSERT INTO tbItemDeleteList
+			(
+			 storeDeleteCode
+			, storeItemDeleteCode
+			, userDeleteId
+			, itemDeleteReason
+			, itemDeleteRegDate)
+		VALUES 
+			(
+			 #{storeDeleteCode}
+			, #{storeItemDeleteCode}
+			, #{userDeleteId}
+			, #{itemDeleteReason}
+			, NOW())
+	</insert>
 
 
 	<select id = "itemCountListByStoreCode" parameterType="int" resultType="Item">
@@ -184,8 +303,7 @@
 	<insert id = "addItem" parameterType="Item">
 		
 		INSERT INTO tbItemDetail
-			(storeItemCode
-			, itemDetailCode
+			( itemDetailCode
 			, storeDetailCode
 			, itemName
 			, itemCategory
@@ -197,9 +315,8 @@
 			, itemChangeRegDate
 			, itemDetailUserId)
 		VALUES 
-			(NULL
-			, #{itemDetailCode}
-			, 5
+			( 200000001
+			, #{storeDetailCode}
 			, #{itemName}
 			, #{itemCategory}
 			, #{itemDetail}
@@ -208,8 +325,36 @@
 			, #{itemImg}
 			, NOW()
 			, NOW()
-			, 'id001')
+			, #{itemDetailUserId})
 		
 	</insert>
+	
+	<select id="addItmeChoice" parameterType="String" resultType="Store">
+	
+		SELECT 
+			storeCode
+			, storeId
+			, storeName
+			, storeRepresentative
+			, storeNumber
+			, storeBusinessType
+			, storeAddressNumber
+			, storeAddress
+			, storeAddressDetail
+			, storeIntroduction
+			, storeRsvType
+			, storeEmail
+			, storePhone
+			, storeAccountBankName
+			, storeAccountNumber
+			, storeRefundRull
+			, storeImage
+			, storeLevel
+		FROM
+			tbStore
+		WHERE	
+			storeId = #{storeId};
+	
+	</select>
 
 </mapper>

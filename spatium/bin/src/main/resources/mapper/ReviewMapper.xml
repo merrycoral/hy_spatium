@@ -8,14 +8,12 @@
 		SELECT 
 			reviewCode, 
 			reviewSpaceRsv, 
-			reviewSpaceCode, 
 			reviewStoreId,
 			reviewTitle, 
 			reviewContents, 
 			reviewAddId, 
 			reviewAddDate, 
 			reviewUpDate, 
-			reviewLikeCnt, 
 			reviewType, 
 			reviewPoint,
 			reviewDisplay, 
@@ -26,6 +24,75 @@
 			reviewAmbience, 
 			reviewScore
 	</sql>
+	
+	<insert id="replyReview" parameterType="String">
+		INSERT INTO tbReviewReply
+			( rvCode
+			, rvReplyId
+			, rvReplyContents
+			, rvReplyAddDate)
+		VALUES
+			( #{getReviewCode}
+			, #{SID}
+			, #{storeReply}
+			, NOW()
+			);
+	</insert>
+	
+	<insert id="insertReview" parameterType="hashMap">
+		INSERT INTO tbReview
+			( reviewSpaceRsv
+			, reviewStoreId
+			, reviewStoreCode
+			, reviewTitle
+			, reviewContents
+			, reviewAddId
+			, reviewAddDate
+			, reviewType
+			, reviewPoint
+			, reviewDisplay
+			, reviewClean
+			, reviewService
+			, reviewRestroom
+			, reviewFacility
+			, reviewAmbience, reviewScore, reviewPhoto)
+			VALUES
+			( #{reviewSpaceRsv}
+			, #{reviewStoreId}
+			, #{reviewStoreCode}
+			, #{reviewTitle}
+			, #{reviewContents}
+			, #{SID}
+			, NOW()
+			, #{reviewType}
+			, #{reviewPoint}
+			, 'Y', #{reviewClean}, #{reviewService}, #{reviewRestroom}
+			, #{reviewFacility}, #{reviewAmbience}
+			, #{reviewScore}, #{reviewPhoto})
+	</insert>
+	
+	<select id="getReplyReview" parameterType="String" resultType="Map">
+		SELECT 
+			  rvReplyCode
+			, rvCode
+			, rvReplyId
+			, rvReplyContents
+			, rvReplyAddDate
+			, rvReplyUpDate
+		FROM tbReviewReply
+		WHERE
+			rvCode = #{reviewCode}
+	</select>
+	
+	<select id="getStore" parameterType="String" resultType="Map">
+		select
+			  storeCode
+			, storeId
+		From
+			viewRsv
+		where
+			rsvCode = #{rsvCode}
+	</select>
 	
 	<select id="getReviewByStoreCode" parameterType="int" resultType="Review">
 		<include refid="seletReviewColumn" />
@@ -115,7 +182,30 @@
 		FROM 
 			tbReview
 		ORDER BY reviewCode DESC
-		LIMIT #{startRow}, #{rowPerPage};
+	</select>
+	
+	<select id="getRsv" parameterType="String" resultType="Rsv">
+		SELECT 
+			storeName
+			, rsvCode
+			, rsvUserId
+			, rsvUserName
+			, rsvUserPhone
+			, rsvUserEmail
+			, rsvUserRequest
+			, rsvTotalPrice
+			, rsvStartDateTime
+			, rsvEndDateTime
+			, rsvRegDate
+			, rsvState
+		FROM 
+			tbRsv
+		INNER JOIN 
+			tbStore
+		ON 
+			rsvStoreCode = storeCode
+		WHERE
+			rsvCode = #{rsvCode}
 	</select>
 	
 	

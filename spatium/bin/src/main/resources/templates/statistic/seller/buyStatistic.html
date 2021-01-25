@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customContent">
+	<h1>구매 통계 페이지 </h1>
+    <!-- bar charts group -->
+    <div class="col-md-6 col-sm-6  ">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Bar Chart Group <small>Sessions</small></h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Settings 1</a>
+                  <a class="dropdown-item" href="#">Settings 2</a>
+                </div>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content1">
+          <div id="graph_bar_group" style="width:100%; height:280px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- /bar charts group -->
+
+	<div class="col-md-6 col-sm-6 ">
+		<div class="x_panel tile fixed_height_320 overflow_hidden">
+			<div class="x_title">
+				<h2>직업별 이용 통계</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+			
+			
+				<table class="" style="width: 100%">
+					<tbody>
+						<tr>
+							<th style="width: 50%;">
+								직업별 이용 통계
+							</th>
+							<th>
+								<div class="col-lg-8 col-md-8 col-sm-7 ">
+									직업
+								</div>
+								<div class="col-lg-4 col-md-4 col-sm-5 ">
+									비율
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<td><iframe class="chartjs-hidden-iframe"
+									style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; inset: 0px;"></iframe>
+								<canvas id="browserDoughnut" height="180" width="180"
+									style="margin: 15px 10px 10px 0px; width: 100%; height: 100%;"></canvas>
+							</td>
+							<td>
+								<table class="tile_info">
+									<tbody>
+										<tr>
+											<td>
+												<p>
+													<i class="fa fa-square blue"></i><span th:text="${btopname0}">%</span>
+												</p>
+											</td>
+											<td th:text="${btoprate0}"></td>
+										</tr>
+										<tr>
+											<td>
+												<p>
+													<i class="fa fa-square green"></i><span th:text="${btopname1}"></span>
+												</p>
+											</td>
+											<td th:text="${btoprate1}"></td>
+										</tr>
+										<tr>
+											<td>
+												<p>
+													<i class="fa fa-square purple"></i><span th:text="${btopname2}"></span>
+												</p>
+											</td>
+											<td th:text="${btoprate2}"></td>
+										</tr>
+										<tr>
+											<td>
+												<p>
+													<i class="fa fa-square red"></i><span th:text="${btopname3}"></span>
+												</p>
+											</td>
+											<td th:text="${btoprate3}"></td>
+										</tr>
+										<tr>
+											<td>
+												<p>
+													<i class="fa fa-square aero"></i><span th:text="${btopname4}"></span>
+												</p>
+											</td>
+											<td th:text="${btoprate4}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<h2>임시 테이블입니다</h2>
+	
+
+</th:block>
+<th:block layout:fragment="customJs">
+<!-- morris.js -->
+<script src="/vendors/raphael/raphael.min.js"></script>
+<script src="/vendors/morris.js/morris.min.js"></script>
+<script  th:inline="javascript">
+
+	function init_morris_charts() {
+		
+	    if ($('#graph_bar_group').length) {
+        	/*<![CDATA[*/
+        		var latest7days = [[${latest7days}]];
+        		var i = 0;
+        	/*]]>*/
+        	
+	        Morris.Bar({
+	            element: 'graph_bar_group',
+	            data: [
+					
+	            	    { "period": latest7days[0].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[0].calcDaySales
+	            	    	, "매출 합계": latest7days[0].calcDaySum /10000 },
+	            	    { "period": latest7days[1].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[1].calcDaySales
+	            	    	, "매출 합계": latest7days[1].calcDaySum/10000 },
+	            	    { "period": latest7days[2].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[2].calcDaySales
+	            	    	, "매출 합계": latest7days[2].calcDaySum/10000 },
+	            	    { "period": latest7days[3].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[3].calcDaySales
+	            	    	, "매출 합계": latest7days[3].calcDaySum/10000 },
+	            	    { "period": latest7days[4].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[4].calcDaySales
+	            	    	, "매출 합계": latest7days[4].calcDaySum/10000 },
+	            	    { "period": latest7days[5].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[5].calcDaySales
+	            	    	, "매출 합계": latest7days[5].calcDaySum/10000 },
+	            	    { "period": latest7days[6].calcDay.slice(-2) +"일"
+	            	    	, "예약 건수": latest7days[6].calcDaySales
+	            	    	, "매출 합계": latest7days[6].calcDaySum/10000 }
+
+	            ],
+	            xkey: 'period',
+	            barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+	            ykeys: ['예약 건수', '매출 합계'],
+	            labels: ['예약 건수', '매출(만원)'],
+	            hideHover: 'auto',
+	            xLabelAngle: 0,
+	            resize: true
+	        });
+	
+	    }
+		
+	}
+	
+
+
+	/*<![CDATA[*/
+	var testValue = /*[[${accessList}]]*/;
+	var btopcount0 = /*[[${btopcount0}]]*/;
+	var btopcount1 = /*[[${btopcount1}]]*/;
+	var btopcount2 = /*[[${btopcount2}]]*/;
+	var btopcount3 = /*[[${btopcount3}]]*/;
+	var btopcount4 = /*[[${btopcount4}]]*/;
+	var btopname0 = /*[[${btopname0}]]*/;
+	var btopname1 = /*[[${btopname1}]]*/;
+	var btopname2 = /*[[${btopname2}]]*/;
+	var btopname3 = /*[[${btopname3}]]*/;
+	var btopname4 = /*[[${btopname4}]]*/;
+	/*]]>*/
+</script>
+<script type="text/javascript">
+
+	function init_chart_doughnut() {
+	
+	    if (typeof (Chart) === 'undefined') { return; }
+	
+	    console.log('init_chart_doughnut');
+   	
+	    if ($('#browserDoughnut').length) {
+	
+	        var chart_doughnut_settings = {
+	            type: 'doughnut',
+	            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+	            data: { 
+	                labels: [
+	                	btopname0,
+	                	btopname1,
+	                	btopname2,
+	                	btopname3,
+	                	btopname4
+	                ],
+	                datasets: [{
+	                    data: [btopcount0, btopcount1, btopcount2, btopcount3, btopcount4],
+	                    backgroundColor: [
+	                        "#3498DB",
+	                        "#26B99A",
+	                        "#9B59B6",
+	                        "#E74C3C",
+	                        "#BDC3C7"
+	                    ],
+	                    hoverBackgroundColor: [
+	                        "#49A9EA",
+	                        "#36CAAB",
+	                        "#B370CF",
+	                        "#E95E4F",
+	                        "#CFD4D8"
+	                    ]
+	                }]
+	            },
+	            options: {
+	                legend: false,
+	                responsive: false
+	            }
+	        }
+	
+	        $('#browserDoughnut').each(function () {
+	
+	            var chart_element = $(this);
+	            var chart_doughnut = new Chart(chart_element, chart_doughnut_settings);
+	
+	        });
+	
+	    }
+	
+	}
+</script>
+</th:block>
+</html>

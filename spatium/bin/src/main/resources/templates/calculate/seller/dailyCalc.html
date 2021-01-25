@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customContent">
+	<div class="col-md-12 col-sm-12 ">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>일자별 매출 조회 페이지 </h2>
+				<div style="float:right;">
+					<b th:text="${storeInfo.storeId}"></b> / 
+					<b th:text="${storeInfo.storeRepresentative}"></b>  님의 
+					<b th:text="${storeInfo.storeName}"></b>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				각 날짜를 클릭하면 해당 날짜의 상세 내역을 보실 수 있습니다.<br><br>
+				<div class="table-responsive">
+					<table class="table table-striped jambo_table bulk_action no-footer" id="daySales" style="padding: 0px;">
+						<thead>
+							<tr class="headings" style="text-align:center;">
+								<th class="column-title" rowspan="2" id="calcDate">날짜</th>
+								<th class="column-title" rowspan="2">매출</th>
+								<th class="column-title" colspan="2">판매</th>
+								<th class="column-title" colspan="2"> 환불</th>
+								<th class="column-title bulk-actions" colspan="8"> 선택된 결제건  ( <span
+										class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i>
+								</th>
+							</tr>
+							<tr>
+								<th>실 결제금액 (+)</th>
+								<th>포인트 사용 (+)</th>
+								<th>환불된 금액 (-)</th>
+								<th>환불 수수료 (+)</th>
+							</tr>
+						</thead>
+		<tbody>
+			<th:block th:each = "d : ${dailyCalcList}">
+				<tr class="even pointer">
+					<td> <a th:href = "@{/calculate/seller/dailyCalcSeeMore(calcDay=${d.calcDay})}" th:text = "${d.calcDay}"> </a></td>
+					<td th:text = "${d.calcDaySum}"></td>
+					<td th:text = "${d.calcDaySum - d.calcDayPoint + d.calcDayRefund}"></td>
+					<td th:text = "${d.calcDayPoint}"></td>
+					<td th:text = "${d.calcDayRefund}"></td>
+					<td th:text = "${d.calcDayRefCommission}"></td>
+				</tr>
+			</th:block>
+		</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</th:block>
+<th:block layout:fragment="customJs">
+<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script  th:inline="javascript">
+		$(function(){
+			$("#calcDate").click();
+			
+		});
+		$("#daySales").DataTable({
+	  		order: [ [ 0, "asc" ] ],
+	  		ordering: true,
+	  		lengthChange: false,
+	  		"dom": 'fltip',
+            "language": {
+		                "info": "페이지 _PAGE_ / _PAGES_",
+		                "paginate": {
+		                            "first": "첫페이지",
+		                            "last": "마지막",
+		                             "previous": "이전",
+		                             "next":"다음"
+		                           },
+		                "sEmptyTable": "No data available in table",
+		                "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		                "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		                "sInfoPostFix": "",
+		                "sLengthMenu": "Show _MENU_ 개씩",
+		                "sSearch": "검색:",
+		                "sSearchPlaceholder": "",
+		                "sZeroRecords": "일치하는 검색 결과가 없습니다."
+		                }
+		 });
+</script>
+</th:block>
+</html>

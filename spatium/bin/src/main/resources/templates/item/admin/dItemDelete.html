@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customContent">
+
+	<form th:action="@{/item/admin/removeitemDelete}" method="post">
+
+		<span class="section">장비파기내역 삭제</span>
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">장비 파기 코드</label>
+			<div class="col-md-6 col-sm-6">
+				<div th:text="${itemDeleteCode}">
+			</div>
+			</div>
+		</div>
+		
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디</label>
+			<div class="col-md-6 col-sm-6">
+					<input type="hidden" id="userId" name="userId" th:value="${user.userId}" required="required">
+			</div>
+		</div>
+		<div class="form-group" align="center">
+			<div class="col-md-6 offset-md-3">
+				<button type="submit" id="submit" class="btn btn-primary ">장비구입내역 삭제</button>
+			</div>
+		</div>
+	</form>
+
+</th:block>
+</html>

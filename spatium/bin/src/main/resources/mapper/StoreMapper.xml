@@ -2,6 +2,82 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.StoreMapper">
 
+<delete id="delBestStore" parameterType="String">
+	
+	DELETE 
+	FROM 
+		tbBestStore
+	WHERE
+		bestStoreCode = ${storeCode};
+	
+</delete>
+
+<select id="bestStoreList" resultType="Store">
+	
+	SELECT 
+	bestStoreCode as storeCode
+	, bestStoreImg as storeImage
+	, bestStoreName as storeName
+	FROM 
+	tbBestStore
+	
+</select>
+
+<insert id="addBestStore" parameterType="String">
+
+	INSERT INTO tbBestStore	(
+		 bestStoreCode
+		,bestStoreImg 
+		,bestStoreName
+	)VALUES(
+		 #{storeCode}
+		,(SELECT storeImage
+		  FROM tbStore
+		  WHERE storeCode = #{storeCode})
+		,(SELECT storeName
+		  FROM tbStore
+		  WHERE storeCode = #{storeCode})
+	)
+		
+</insert>
+
+<select id="mainSearchAll" resultType="Store" parameterType="String">
+
+	SELECT DISTINCT
+		  storeCode
+		, storeId
+		, storeName
+		, storeRepresentative
+		, storeNumber
+		, storeBusinessType
+		, storeAddressNumber
+		, storeAddress
+		, storeAddressDetail
+		, storeIntroduction
+		, storeRsvType
+		, storeEmail
+		, storePhone
+		, storeAccountBankName
+		, storeAccountNumber
+		, storeRefundRull
+		, storeImage
+		, storeLevel
+		, storeRegDate
+	FROM 
+		tbStore AS s
+	LEFT JOIN
+		tbOkaySpace AS o
+	ON 
+		s.storeCode = o.okayStoreCode
+	WHERE
+		s.storeName LIKE CONCAT('%',#{searchName},'%')
+	OR
+		s.storeBusinessType LIKE CONCAT('%',#{searchName},'%')
+	OR
+		o.okaySpaceTag LIKE CONCAT('%',#{searchName},'%')
+
+</select>
+
 <update id="updateStoreSet" parameterType="Store">
 
 	UPDATE tbStore

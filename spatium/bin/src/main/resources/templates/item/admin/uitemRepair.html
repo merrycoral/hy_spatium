@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customContent">
+
+	<form th:action="@{/item/admin/modifyitemRepair}" method="post">
+
+		<span class="section">장비수리내역 수정</span>
+			
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">업체 코드<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="storeRepairCode" name="storeRepairCode"
+					th:value="${item.storeRepairCode}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">세부 장비 코드<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="storeItemRepairCode" name="storeItemRepairCode"
+					th:value="${item.storeItemRepairCode}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="userRepairId" name="userRepairId"
+					th:value="${item.userRepairId}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">장비 수리 비용<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="itemRepairPrice" name="itemRepairPrice"
+					th:value="${item.itemRepairPrice}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">수리 맡긴 일자<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="itemRepairRegDate" name="itemRepairRegDate"
+					th:value="${item.itemRepairRegDate}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">수리 끝나는 일자<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="itemRepairEndDate" name="itemRepairEndDate"
+					th:value="${item.itemRepairEndDate}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">장비 이름<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="itemRepairName" name="itemRepairName"
+					th:value="${item.itemRepairName}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">수리 맡긴 업체<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="itemRepairCompany" name="itemRepairCompany"
+					th:value="${item.itemRepairCompany}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">수리 맡긴 업체 번호<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="itemRepairCompanyPhone" name="itemRepairCompanyPhone"
+					th:value="${item.itemRepairCompanyPhone}" >
+			</div>
+		</div>
+		
+		<div class="form-group" align="center">
+			<div class="col-md-6 offset-md-3">
+				<button type="submit" id="submit" class="btn btn-primary ">수정</button>
+				<a href="/item/admin/itemRepairList"><button type="button" id="cancel" class="btn btn-success">취소</button></a>
+			</div>
+		</div>
+	</form>
+</th:block>
+</html>

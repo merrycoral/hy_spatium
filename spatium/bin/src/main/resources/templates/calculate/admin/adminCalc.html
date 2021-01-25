@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customCss">
+<style type="text/css">
+	/* details {width: 500px;} */
+	details > summary {padding: 3px 10px;}
+	details > summary::-webkit-details-marker {display: none}
+	details > summary::marker {display: none}
+	
+	#reviewTable th {padding : 5px;}
+	#reviewTable td {padding : 5px;}
+	
+</style>
+</th:block>
+<th:block layout:fragment="customContent">
+	<div class="modal fade" id="deleteCheck">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title">리뷰 삭제 확인</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      </div>
+	      <div class="modal-body" style="font-size:15px;">
+	      	선택하신 <b><span class="selectRNum" style="font-size:25px; color:red"></span></b>개의 리뷰를 삭제하시겠습니까?<br>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="button" class="btn btn-danger" id="deleteReview">삭제하기</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" id="blindCheck">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title">리뷰 블라인드 확인</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      </div>
+	      <div class="modal-body" style="font-size:15px;">
+	      	선택하신 <b><span class="selectRNum" style="color:red"></span></b>개의 리뷰를<br>
+	      	<select id="blindCheck" class="form-control blind">
+				<option value="N">블라인드</option>
+				<option value="Y">블라인드 해제</option>
+			</select>
+			처리합니다.
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="button" class="btn btn-success" id="changeBlindReview">블라인드 변경하기</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<div class="col-md-12 col-sm-12  ">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>정산 대기 목록 <small>관리자 페이지</small></h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<button type="button" style="float:right;" class="btn btn-success btn-md" id="">선택 정산하기</button>
+				<div id="noticeBox" class="alert alert-danger alert-dismissible col-md-3 col-sm-3" 
+					role="alert" style="display:none;">
+				  <strong id="notice"></strong>
+                  <button type="button" id="closeBtn" class="close" style="padding:6px;">
+                  	<span aria-hidden="true">×</span>
+                  </button>
+                </div>
+				
+
+				
+			<form id="selectReview" method="post">
+				<div class="table-responsive">
+					<table class="table table-striped jambo_table bulk_action" id="reviewTable" style="padding: 0px;">
+						<thead>
+							<tr class="headings">
+								<th><input type="checkbox" id="check-all" class="flat">
+								</th>
+								<th class="column-title">결제 코드</th>
+								<th class="column-title">예약 코드</th>
+								<th class="column-title">업체 아이디</th>
+								<th class="column-title">환불 후 남은 금액</th>
+								<th class="column-title">실 결제 금액</th>
+								<th class="column-title">예약종료일</th>
+								<th class="column-title">결제 상태</th>
+								<th class="column-title no-link last">정산 상태</th>
+								<th class="column-title bulk-actions" colspan="8"> 선택된 결제건  ( <span
+										class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="even pointer" th:if="${#lists.size(calcWaitList) > 0}"
+								th:each="cwl : ${calcWaitList}">
+								<td class="a-center "><input type="checkbox" class="flat"
+									name="table_records" th:value="${cwl.get('paymentCode')}"></td>
+								<td class=" " th:text="${cwl.get('paymentCode')}"></td>
+								<td class=" " th:text="${cwl.get('paymentRsvCode')}"></td>
+								<td class=" " th:text="${cwl.get('paymentStoreId')}"></td>
+								<td class=" " th:text="${cwl.get('paymentRefund')}"></td>
+								<td class=" " th:text="${cwl.get('paymentUseMoney')}"></td>
+								<td class=" " th:text="${cwl.get('rsvEndDateTime')}"></td>
+								<td class=" " th:text="${cwl.get('paymentStatus')}"></td>
+								<td class="last" th:text="${cwl.get('rsvState')}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<input type="hidden" id="hiddenBox" name="blindValue">
+				</div>
+			</form>
+
+			</div>
+		</div>
+	</div>
+	
+</th:block>
+<th:block layout:fragment="customJs">
+<script  th:inline="javascript">
+
+</script>
+</th:block>
+
+</html>
+
