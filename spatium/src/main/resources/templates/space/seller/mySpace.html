@@ -15,11 +15,17 @@
 
 <th:block layout:fragment="customContent">
 
-<div class="x_panel">
-<div style="text-align: center;">
-<h1 class="divtag">공간 승인 대기 목록</h1>
-</div>	
-                    <div class="row"><div class="col-sm-12"><table id="tbSpaceReady" class="table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
+<ul class = "nav nav-tabs">
+	 <li class="nav-item">
+	    <a class="nav-link active" data-toggle="tab" href="#tbSpaceReady1">공간  승인 대기 목록</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" data-toggle="tab" href="#tbSpaceOk1">공간 승인 완료 목록</a>
+	  </li>
+</ul>
+
+<div class = "tab-content row">
+                    <div class="col-sm-12 tab-pane fade in active" id = "tbSpaceReady1"><table id="tbSpaceReady" class="table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
                       <thead>
                         <tr role="row">
                         <th class="sorting" style="text-align: center;"> 이름 </th>
@@ -43,16 +49,8 @@
 			</th:block>
 		</tbody>
                     </table>
-                    </div></div>
-                </div>
-                
-                <div class="x_panel">
-                <div style="text-align: center;">
-				<h1 class="divtag">공간 승인 완료 목록</h1>
-				</div>	
-                    <div class="row">
                     </div>
-                    <div class="row"><div class="col-sm-12"><table id="tbSpaceOk" class= "table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
+                    <div class="col-sm-12 tab-pane fade" id = "tbSpaceOk1"><table id="tbSpaceOk" class= "table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
                       <thead>
                         <tr role="row">
                         <th class="sorting" style="text-align: center;"> 이름 </th>
@@ -86,14 +84,14 @@
 			</th:block>
 		</tbody>
                     </table>
-                    </div></div>
-                </div>
-
+                    </div>
+</div>
 </th:block>
 
 <th:block layout:fragment="customJs">
 
 <script>
+
 	$("#tbSpaceReady, #tbSpaceOk").DataTable({
 		order: [ [ 0, "desc" ] ],
 		ordering: true,
@@ -119,5 +117,4 @@
 	});
 	
 	</script>
-
 </th:block>
