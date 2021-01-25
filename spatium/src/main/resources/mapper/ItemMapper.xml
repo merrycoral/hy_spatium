@@ -4,6 +4,55 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.ItemMapper">
 
+<select id="myItemCountList" resultType="Item" parameterType="String">
+
+	SELECT 
+		  itemCode
+		, storeTotalCode
+		, itemTotalName
+		, itemTotalAmount
+		, itemRentalPrice
+		, itemImg
+		, itemRegDate
+		, itemChangeRegDate
+		, itemTotalUserId
+	FROM 
+		tbItemTotalAmount AS i
+	INNER JOIN
+		tbStore AS s 
+	ON
+		i.storeTotalCode = s.storeCode
+	WHERE
+		s.storeId = #{itemTotalUserId};
+
+</select>
+
+<select id="myItemList" resultType="Item" parameterType="String">
+
+	SELECT 
+  	 	  storeItemCode
+		, itemDetailCode
+		, storeDetailCode
+		, itemName
+		, itemCategory
+		, itemDetail
+		, itemStatus
+		, itemRentalStatus
+		, itemImg
+		, itemRegDate
+		, itemChangeRegDate
+		, itemDetailUserId
+	FROM 
+		tbItemDetail AS i
+	INNER JOIN
+		tbStore AS s
+	ON
+		i.storeDetailCode = s.storeCode
+	WHERE
+		s.storeId = #{itemDetailUserId};
+
+</select>
+
 	<!--장비구입내역 삭제 -->
 	<delete id="removeitemBuy">
 		DELETE
