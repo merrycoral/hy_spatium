@@ -185,7 +185,7 @@
     	$('#bookMark').click(function(){
     		var storeCode = [[${storeInfo.storeCode}]]
     		var request = $.ajax({
-				url: "/addbookMark",	//요청 url
+				url: "/bookmark/addbookMark",	//요청 url
 				method: "POST",	//요청 방식
 				data: { storeCode : storeCode },	//요청하는 곳에 전달될 데이타
 				dataType: "text"	//응답되어 받은 데이타를 parsing 시킬 방식

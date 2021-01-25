@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.urban.spatium.dto.Bookmark;
+import com.urban.spatium.dto.Store;
 import com.urban.spatium.service.BookMarkService;
 
 @Controller("/bookmark")
@@ -48,8 +49,9 @@ public class BookmarkController {
 	}
 
 	@GetMapping("/bookmark/bookMark")
-	public String bookMarkList(Model model, @RequestParam(name="userId", required = false) String userId) {
+	public String bookMarkList(Model model, Store store, @RequestParam(name="userId", required = false) String userId) {
 		List<Bookmark> bookMarkList = bookmarkService.bookMark();
+		
 		model.addAttribute("bookMarkList", bookMarkList);
 		return "bookmark/bookMarkList";
 	}
@@ -61,14 +63,14 @@ public class BookmarkController {
     		, @RequestParam(name="storeCode", required = false)String storeCode) {
 		String userId=(String)session.getAttribute("SID");
         if(userId==null) { 
-        	return "로그인하고와라";
+        	return "로그인이 필요합니다.";
         }
         List<Bookmark> bookmark = bookmarkService.getBookMark(userId, storeCode);
         if(bookmark.size()>0) {
-        	return "야 이거 이미 햇는대?";
+        	return "이미 추가한 공간입니다.";
         }
 		bookmarkService.addbookMark(userId, storeCode);
-        return "추가햇어요"; 
+        return "찜하기 추가!"; 
     }
 	
 	

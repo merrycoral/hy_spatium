@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="@{layout/default}">
+	  layout:decorate="@{layout/maindefault}">
 
 <th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 </th:block>
 
+<th:block layout:fragment="customCss">
+<style>
+.divtag{font-size: 30px;}
+</style>
+</th:block>
+
 <th:block layout:fragment="customContent">
 
-<div class="x_panel">
-                  <div class="x_title">
-                    <h2> 장비 등록할 업체를 선택해주세요. </h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                      <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                    <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
-                    <div class="row">
-                    </div>
-                    <div class="row"><div class="col-sm-12"><table id="tbSpaceChoice" class="table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
+<div style="text-align: center;">
+<h1 class="divtag">업체 목록</h1>
+</div>	
+                    <div class="row"><div class="col-sm-12"><table id="tbStoreOk" class="table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
                       <thead>
                         <tr role="row">
-                        <th class="sorting" style="text-align: center;"> 업체 코드 </th>
+                        <th class="sorting" style="text-align: center;"> 아이디 </th>
                         <th class="sorting" style="text-align: center;"> 상호명 </th>
                         <th class="sorting" style="text-align: center;"> 대표자명 </th>
                         <th class="sorting" style="text-align: center;"> 사업자 번호 </th>
@@ -33,15 +30,16 @@
                         <th class="sorting" style="text-align: center;"> 사업자 계좌번호 </th>
                         <th class="sorting" style="text-align: center;"> 환불 정책 </th>
                         <th class="sorting" style="text-align: center;"> 업체 레벨 </th>
+                        <th class="sorting" style="text-align: center;"> 업체수정 </th>
                         </tr>
                       </thead>
 
 
             <tbody>
-			<th:block th:each = "s : ${itemList}">
-				<tr class = "spaceTr">
-					<td style="text-align: center;" th:text = "${s.storeCode}"> </td>
-					<td style="text-align: center;" th:text = "${s.storeName}"> </td>
+			<th:block th:each = "s : ${storeList}">
+				<tr>
+					<td style="text-align: center;" th:text = "${s.storeId}"></td>
+					<td style="text-align: center;"> <a th:href = "@{/store/admin/storeSeeMore(storeCode=${s.storeCode})}" th:text = "${s.storeName}" style="color: blue"> </a></td>
 					<td style="text-align: center;" th:text = "${s.storeRepresentative}"></td>
 					<td style="text-align: center;" th:text = "${s.storeNumber}"></td>
 					<td style="text-align: center;" th:text = "${s.storeAddress}"></td>
@@ -49,29 +47,19 @@
 					<td style="text-align: center;" th:text = "${s.storeAccountNumber}"></td>
 					<td style="text-align: center;" th:text = "${s.storeRefundRull}"></td>
 					<td style="text-align: center;" th:text = "${s.storeLevel}"></td>
+					<td style="text-align: center;"> <a th:href = "@{/store/admin/storeUpdate(storeCode=${s.storeCode})}"> 수정 </a> </td>
 				</tr>
 			</th:block>
 		</tbody>
                     </table>
-                    </div></div></div>
-                  </div>
-                  </div>
-              </div>
-            </div>
-                </div>
+                    </div></div>
 
 </th:block>
 
 <th:block layout:fragment="customJs">
 
 <script>
-	
-	$('#tbSpaceChoice').find('.spaceTr').click(function(){
-		var code = $(this).children().first().text();
-		location.href="/addItem?storeCode="+code;
-	});
-
-	$("#tbSpaceChoice").DataTable({
+	$("#tbStoreOk").DataTable({
 		order: [ [ 0, "desc" ] ],
 		ordering: true,
 		lengthChange: false,
@@ -98,5 +86,3 @@
 	</script>
 
 </th:block>
-
-</html>

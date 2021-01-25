@@ -81,7 +81,7 @@ public class refundController {
 		rsv.setRsvCode(cancelRsvCode);
 		int addRsvState = refundService.refundRsv(rsv);
 		
-		return "main";
+		return "index";
 	}
 	
 	

@@ -25,6 +25,19 @@ public class StoreController {
 	@Autowired
 	private RefundService refundService;
 	
+	/* 메인 페이지에서 본인 업체 조회*/
+	@GetMapping("/store/myStore")
+	public String myStore(HttpSession session, Store store, Model model) {
+			String storeId = (String) session.getAttribute("SID");
+			System.out.println(storeId);
+			List<Store> storeList = storeService.myStoreList(storeId);
+		
+			store.setStoreId(storeId);
+			model.addAttribute("storeList", storeList);
+			
+		return "store/seller/myStore";
+	}
+	
 	/* 업체명 클릭시 자세히 보기 위해서 들어오는 컨트롤러 */
 	@GetMapping("/store/admin/storeSeeMore")
 	public String storeSeeMore(Model model, Store store

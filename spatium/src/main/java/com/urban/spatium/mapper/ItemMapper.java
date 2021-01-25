@@ -10,6 +10,10 @@ import com.urban.spatium.dto.Store;
 @Mapper
 public interface ItemMapper {
 	
+	public List<Item> myItemCountList(String itemTotalUserId);
+	
+	public List<Item> myItemList(String itemDetailUserId);
+	
 	public List<Store> addItmeChoice(String storeId);
 	
 	public List<Item> itemCountList();
@@ -61,5 +65,7 @@ public interface ItemMapper {
 	public Item itemRepairByCode(String itemRepairCode);
 	
 	public Item itemDeleteByCode(String storeDeleteCode);
+
+	public List<Item> bookMark();
 	  
 }

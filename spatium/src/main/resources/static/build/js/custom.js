@@ -2594,7 +2594,6 @@ function init_morris_charts() {
             hideHover: 'auto',
             resize: true
         });
-
     }
 
     if ($('#graph_bar_group').length) {
