@@ -18,6 +18,20 @@ public class ItemService {
 	@Autowired
 	private ItemMapper itemMapper;
 	
+	public List<Item> myItemCountList(String itemTotalUserId){
+		
+		List<Item> myItemCountList = itemMapper.myItemCountList(itemTotalUserId);
+		
+		return myItemCountList;
+	}
+	
+	public List<Item> myItemList(String itemDetailUserId){
+		
+		List<Item> myItemList = itemMapper.myItemList(itemDetailUserId);
+		
+		return myItemList;
+	}
+	
 	//장비구입내역 삭제
 	public String removeitemBuy(String itemBuyCode) {
 		String result = "장비구입내역 삭제 실패";

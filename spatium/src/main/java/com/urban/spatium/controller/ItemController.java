@@ -22,7 +22,19 @@ public class ItemController {
 
 	@Autowired
 	private ItemService itemService;
-
+	
+	@GetMapping("/item/myItem")
+	public String myItemList(Model model, HttpSession session, Item item) {
+		
+			String storeId = (String) session.getAttribute("SID");
+			List<Item> itemList = itemService.myItemList(storeId);
+			List<Item> itemCountList = itemService.myItemCountList(storeId);
+			model.addAttribute("itemList", itemList);
+			model.addAttribute("itemTotalLi", itemCountList);
+			
+		return "item/seller/myItem";
+	}
+	
 	//장비구입내역삭제
 	 @GetMapping("/item/admin/removeitemBuy") 
 	 public String removeitemBuy(@RequestParam(name="itemBuyCode", required = false) String
