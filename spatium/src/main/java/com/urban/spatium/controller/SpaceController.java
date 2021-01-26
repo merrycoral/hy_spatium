@@ -22,6 +22,15 @@ public class SpaceController {
 	@Autowired
 	private SpaceService spaceService;
 	
+	/* 메인 페이지에서 공간 등록 버튼 클릭시 들어오는 컨트롤러 */
+	@GetMapping("/space/seller/mySpaceInsert")
+	public String mySpaceInsert(Model model) {
+		
+	
+		return "space/seller/mySpaceInsert";
+	}
+	
+	/* 메인 페이지에서 본인 공간 조회*/
 	@GetMapping("/space/mySpace")
 	public String myReadySpaceList(HttpSession session, Model model, ReadySpace readySpace, OKSpace okSpace){
 		
