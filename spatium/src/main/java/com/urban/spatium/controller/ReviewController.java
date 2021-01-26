@@ -36,8 +36,10 @@ public class ReviewController {
 		@GetMapping("/review/myReview")
 		public String myReview(Model model, HttpServletRequest request, HttpSession session
 				) {
-			
-			
+			String SID = (String) session.getAttribute("SID");
+			List<Review> myReview = reviewService.getMyReview(SID);
+			model.addAttribute("title", "내 리뷰 조회");
+			model.addAttribute("myReview", myReview);
 			return "review/myReview";
 		}
 		@GetMapping("/review/writeReview")
