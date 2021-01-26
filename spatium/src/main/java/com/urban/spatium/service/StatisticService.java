@@ -40,7 +40,7 @@ public class StatisticService {
 		resultMap.put("getByGender", getByGender);
 		resultMap.put("getByJob", getByJob);
 		resultMap.put("getByAge", getByAge);
-		
+		resultMap.put("storeInfo", storeInfo);
 		return resultMap;
 	}
 }

@@ -6,8 +6,8 @@
 
 	<select id="statAge"  parameterType="String" resultType="Map">
 		SELECT
-			TRUNCATE((YEAR(NOW())-substr(u.userBirth,1,4))/10,0)*10 AS age
-			,COUNT(TRUNCATE((YEAR(NOW())-substr(u.userBirth,1,4))/10,0)*10) AS agecount
+			TRUNCATE((YEAR(NOW())-SUBSTR(u.userBirth,1,4))/10,0)*10 AS age
+			,COUNT(TRUNCATE((YEAR(NOW())-SUBSTR(u.userBirth,1,4))/10,0)*10) AS ageCount
 		FROM
 			tbRsv AS r
 		INNER JOIN
@@ -15,16 +15,15 @@
 		ON
 			r.rsvUserId = u.userId
 		WHERE
-			
- r.rsvStoreCode = #{storeCode}
+ 			r.rsvStoreCode = #{storeCode}
 		AND
 			u.userJob != '(탈퇴)'
-		AND
-			<![CDATA[
+<!-- 		AND
+		<![CDATA[
 			r.rsvStartDateTime >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
 		AND
 			r.rsvStartDateTime < CURDATE()
-		]]>
+		]]> -->
 		GROUP BY age
 	</select>
 	
@@ -40,8 +39,7 @@
 		ON
 			r.rsvUserId = u.userId
 		WHERE
-			r.rsvStoreCode = '6'
-			<!-- r.rsvStoreCode = #{storeCode} -->
+			r.rsvStoreCode = #{storeCode}
 		AND
 			u.userJob != '(탈퇴)'
 <!-- 		AND
@@ -59,7 +57,6 @@
 			calcDaySales, calcDaySum
 		FROM
 			tbCalcDaily
-		
 		WHERE
 			calcDStoreId = #{sessionId}
 		ORDER BY calcDay DESC

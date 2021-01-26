@@ -28,10 +28,14 @@ public class StatisticController {
 	public String buyStat(Model model, HttpSession session,
 			 @RequestParam(name="result", required = false) String result) {
 		String SID = (String) session.getAttribute("SID");
+		Map<String, Object> resultMap = statisticService.statGenderJob(SID);
 		List<Map <String, Object>> latest7days = statisticService.getDailyRsv(SID);
-		model.addAttribute("title", SID + "님의 판매 통계");
-		
 		model.addAttribute("latest7days", latest7days);
+		model.addAttribute("title", SID + "님의 판매 통계");
+		model.addAttribute("getByAge", resultMap.get("getByAge"));
+		model.addAttribute("getByJob", resultMap.get("getByJob"));
+		model.addAttribute("getByGender", resultMap.get("getByGender"));
+		model.addAttribute("storeInfo", resultMap.get("storeInfo"));
 		return "statistic/seller/buyStatistic";
 	}
 	
@@ -40,10 +44,13 @@ public class StatisticController {
 			@RequestParam(name="result", required = false) String result) {
 		String SID = (String) session.getAttribute("SID");
 		Map<String, Object> resultMap = statisticService.statGenderJob(SID);
+		List<Map <String, Object>> latest7days = statisticService.getDailyRsv(SID);
+		model.addAttribute("latest7days", latest7days);
 		model.addAttribute("title", SID + "님의 판매 통계");
 		model.addAttribute("getByAge", resultMap.get("getByAge"));
 		model.addAttribute("getByJob", resultMap.get("getByJob"));
 		model.addAttribute("getByGender", resultMap.get("getByGender"));
+		model.addAttribute("storeInfo", resultMap.get("storeInfo"));
 		return "statistic/seller/chartEx";
 	}
 
