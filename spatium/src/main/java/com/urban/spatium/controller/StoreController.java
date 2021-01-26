@@ -25,6 +25,23 @@ public class StoreController {
 	@Autowired
 	private RefundService refundService;
 	
+	/* 메인 페이지에서 업체 등록 버튼 클릭시 들어오는 컨트롤러*/
+	@GetMapping("/store/seller/myStoreInsert")
+	public String myStoreInsert(Model model, HttpSession session, Store store) {
+		
+		model.addAttribute("title", "업체 등록");
+		String sessionId = (String) session.getAttribute("SID");
+		System.out.println(sessionId);
+		store.setStoreId(sessionId);
+		String storeId = store.getStoreId();
+		if(storeId.equals(null)) {
+			System.out.println("로그인 후 이용해주시기 바랍니다.");
+		}
+		model.addAttribute("storeId", storeId);
+		
+		return "store/seller/myStoreInsert";
+	}
+	
 	/* 메인 페이지에서 수정 버튼 클릭시 들어오는 포스트 맵핑 컨트롤러
 	 * (수정처리) */
 	@PostMapping("/store/seller/storeUpdate")
