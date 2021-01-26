@@ -4,13 +4,59 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.StatisticMapper">
 
+	<select id="statAge"  parameterType="String" resultType="Map">
+		SELECT
+			TRUNCATE((YEAR(NOW())-SUBSTR(u.userBirth,1,4))/10,0)*10 AS age
+			,COUNT(TRUNCATE((YEAR(NOW())-SUBSTR(u.userBirth,1,4))/10,0)*10) AS ageCount
+		FROM
+			tbRsv AS r
+		INNER JOIN
+			tbUser AS u
+		ON
+			r.rsvUserId = u.userId
+		WHERE
+ 			r.rsvStoreCode = #{storeCode}
+		AND
+			u.userJob != '(탈퇴)'
+<!-- 		AND
+		<![CDATA[
+			r.rsvStartDateTime >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+		AND
+			r.rsvStartDateTime < CURDATE()
+		]]> -->
+		GROUP BY age
+	</select>
+	
+	<select id="statGenderJob" parameterType="String" resultType="Map">
+		SELECT
+			u.userGender
+			,u.userJob
+			,COUNT(#{criteria}) AS '${criteria}Count'
+		FROM
+			tbRsv AS r
+		INNER JOIN
+			tbUser AS u
+		ON
+			r.rsvUserId = u.userId
+		WHERE
+			r.rsvStoreCode = #{storeCode}
+		AND
+			u.userJob != '(탈퇴)'
+<!-- 		AND
+			<![CDATA[
+			r.rsvStartDateTime >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+		AND
+			r.rsvStartDateTime < CURDATE()
+		]]> -->
+		GROUP BY ${criteria}
+	</select>
+	
 	<select id="getDailyRsv"  resultType="Map">
 		SELECT
 			calcDay, 
 			calcDaySales, calcDaySum
 		FROM
 			tbCalcDaily
-		
 		WHERE
 			calcDStoreId = #{sessionId}
 		ORDER BY calcDay DESC
