@@ -47,7 +47,26 @@
 									placeholder="등록 사유를 입력해주세요."></textarea>
 							</div>
 						</div>
-						
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								등록 일자 <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 ">
+								<input type="date" id="blackStartDate" name="blackStartDate"
+									class="form-control"
+									placeholder="등록 일자를 입력해주세요.">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								해제 일자 <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 ">
+								<input type="date" id="blackEndDate" name="blackEndDate"
+									class="form-control"
+									placeholder="해제 일자를 입력해주세요.">
+							</div>
+						</div>
 					<div class="form-group row">
 						<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
 							<div class="col-md-6 col-sm-6" style="text-align: center;">
@@ -64,7 +83,7 @@
 	<script type="text/javascript">
 			
 			$('#addBlackDelte').click(function(){
-				if($('#blackUserId').val() == "0"){
+				if($('#blackUserId').val() == ""){
 					alert("회원 아이디를 입력해주세요.");
 					return false;
 				}else{

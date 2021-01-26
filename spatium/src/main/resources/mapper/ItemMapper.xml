@@ -246,7 +246,7 @@
 			itemDeleteCode = #{itemDeleteCode};     
 	</update>
 	
-	<!--장비수리 코드로 장비 가져오기 -->
+	<!--장비파기 코드로 장비 가져오기 -->
 	<select id = "itemDeleteByCode" resultType="Item">
 		SELECT 
 			itemDeleteCode

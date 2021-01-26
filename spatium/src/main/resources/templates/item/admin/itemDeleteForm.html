@@ -86,27 +86,28 @@
 <th:block layout:fragment="customJs">
 	<script type="text/javascript">
 			
+	$(function() {
 			$('#addItemDelete').click(function(){
-				if($('#storeDeleteCode').val() == "0"){
+				if($('#storeDeleteCode').val() == ""){
 					alert("업체 코드를 입력해주세요.");
 					return false;
-				}else if($('#storeItemDeleteCode').val() == '0'){
+				}else if($('#storeItemDeleteCode').val() == ""){
 					alert("세부 장비 코드를 입력해주세요.");
 					return false;
-				}else if($('#userId').val() == "0"){
+				}else if($('#userId').val() == ""){
 					alert("아이디를 입력해주세요.");
 					return false;
-				}else if($('#itemDeleteReason')val() == "0"){
+				}else if($('#itemDeleteReason').val() == ""){
 					alert("장비 파기 사유를 입력해주세요.");
 					return false;
-				}else if($('#itemDeleteRegDate').val() == "0"){
+				}else if($('#itemDeleteRegDate').val() == ""){
 					alert("장비 파기 일자를 입력해주세요.");
 					return false;
 				}else{
 					alert("장비파기 등록에 성공하셨습니다.");
 				}
 			});
-			
+	});	
 			$('#itemDeleteReason').keyup(function() {
 				var content = $(this).val();
 				$('#counter').html("(" + content.length + " / 최대 500자)");

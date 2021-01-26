@@ -32,7 +32,7 @@
 		#{blackUserId}
 		,#{blackReason}
 		,NOW()
-		,NOW());
+		,#{blackEndDate});
 	</insert>
 
 	<!--탈퇴회원 업데이트-->
@@ -198,6 +198,16 @@
 		WHERE
 		userId = #{userId};
 	</select>
+	
+	<!-- 비밀번호 찾기-->
+    <update id = "passChange" parameterType="hashMap">
+    UPDATE
+    tbUser
+    SET
+    userPass=#{userPass} 
+    WHERE
+    userEmail=#{userEmail}
+    </update>
 	
 	<!-- 아이디 찾기 -->
 	<select id="findIdform" resultType="User">

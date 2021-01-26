@@ -5,7 +5,11 @@
 
 <th:block layout:fragment="customContent">
 <form action="/user/admin/restUser" method="post">
-
+<div class="x_panel">
+	  <div class="x_title">
+		<h2>휴면회원 목록</h2>
+		  <div class="clearfix"></div>
+		</div>  
 	<div class="table-responsive m-t-20">
 		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id="tbRestUser">
 			<thead>
@@ -39,13 +43,14 @@
 					<td th:text="${l.restUserEmail}"></td>
 					<td th:text="${l.restUserPoint}"></td>
 
-					<td><button type="submit"><a
+					<td><a
 
-						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}">삭제</a></button>
+						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}"><button type="submit">삭제</button></a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+	</div>
 	</div>
 </form>
 </th:block>

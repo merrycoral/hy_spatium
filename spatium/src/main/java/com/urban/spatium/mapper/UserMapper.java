@@ -1,6 +1,7 @@
 package com.urban.spatium.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -62,5 +63,6 @@ public interface UserMapper {
 	//구매자 회원가입
 	public int addUser(User user);
 
-	
+	//비밀번호찾기
+	public void passChange(Map<String, Object> map, User user);
 }

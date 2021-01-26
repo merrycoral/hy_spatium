@@ -109,7 +109,7 @@
 </th:block>
 <th:block layout:fragment="customJs">
 	<script>
-			
+	$(function() {
 			$('#addItemBuy').click(function(){
 				if($('#storeBuyCode').val() == ""){
 					alert("업체 코드를 입력해주세요.");
@@ -117,11 +117,11 @@
 				}else if($('#storeBuyItemCode').val() == ""){
 					alert("세부 장비 코드를 입력해주세요.");
 					return false;
+				}else if($('#itemBuyPrice').val() == ""){
+					alert("장구입 비용을 입력해주세요.");
+					return false;
 				}else if($('#userBuyId').val() == ""){
 					alert("아이디를 입력해주세요.");
-					return false;
-				}else if($('#itemBuyPrice')val() == ""){
-					alert("장구입 비용을 입력해주세요.");
 					return false;
 				}else if($('#itemBuyAccount').val() == ""){
 					alert("거래처를 입력해주세요.");
@@ -134,8 +134,10 @@
 					return false;
 				}else{
 					alert("장비구입 등록에 성공하셨습니다.");
+					return;
 				}
 			});
+	});
 	</script>
 </th:block>
 </html>
