@@ -125,38 +125,40 @@
 <th:block layout:fragment="customJs">
 	<script type="text/javascript">
 			
+	$(function() {
 			$('#addItemRepair').click(function(){
-				if($('#storeRepairCode').val() == "0"){
+				if($('#storeRepairCode').val() == ""){
 					alert("업체 코드를 입력해주세요.");
 					return false;
-				}else if($('#storeItemRepairCode').val() == '0'){
+				}else if($('#storeItemRepairCode').val() == ""){
 					alert("세부 장비 코드를 입력해주세요.");
 					return false;
-				}else if($('#userRepairId').val() == "0"){
+				}else if($('#userRepairId').val() == ""){
 					alert("아이디를 입력해주세요.");
 					return false;
-				}else if($('#itemRepairPrice')val() == "0"){
+				}else if($('#itemRepairPrice').val() == ""){
 					alert("장비 수리 비용을 입력해주세요.");
 					return false;
-				}else if($('#itemRepairRegDate').val() == "0"){
+				}else if($('#itemRepairRegDate').val() == ""){
 					alert("수리 맡긴 일자를 입력해주세요.");
 					return false;
-				}else if($('#itemRepairEndDate').val() == "0"){
+				}else if($('#itemRepairEndDate').val() == ""){
 					alert("수리끝나는 일자를 입력해주세요.");
 					return false;
-				}else if($('#itemRepairName').val() == "0"){
+				}else if($('#itemRepairName').val() == ""){
 					alert("장비 이름을 입력해주세요.");
 					return false;
-				}else if($('#itemRepairCompany').val() == "0"){
+				}else if($('#itemRepairCompany').val() == ""){
 					alert("수리 맡긴 업체를 입력해주세요.");
 					return false;
-				}else if($('#itemRepairCompanyPhone').val() == "0"){
+				}else if($('#itemRepairCompanyPhone').val() == ""){
 					alert("수리 맡긴 업체 번호를 입력해주세요.");
 					return false;
 				}else{
 					alert("장비수리 등록에 성공하셨습니다.");
 				}
 			});
+	});	
 	</script>
 </th:block>
 </html>

@@ -5,7 +5,11 @@
 
 <th:block layout:fragment="customContent">
 	<form action="/user/admin/removeUser" method="post">
-
+<div class="x_panel">
+	  <div class="x_title">
+		<h2>탈퇴회원 목록</h2>
+		  <div class="clearfix"></div>
+		</div>  
 	<div class="table-responsive m-t-20">
 		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id ="tbDeleteUser">
 			<thead>
@@ -43,6 +47,7 @@
 				</tr>
 			</tbody>
 		</table>
+	</div>
 	</div>
 	</form>
 </th:block>
