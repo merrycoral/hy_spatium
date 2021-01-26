@@ -14,7 +14,7 @@
 </th:block>
 
 <th:block layout:fragment="customContent">
-
+<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
 <ul class = "nav nav-tabs">
 	 <li class="nav-item">
 	    <a class="nav-link active" data-toggle="tab" href="#tbSpaceReady1">공간  승인 대기 목록</a>
@@ -59,8 +59,6 @@
                         <th class="sorting" style="text-align: center;"> 대여가격 </th>
                         <th class="sorting" style="text-align: center;"> 영업시작시간 </th>
                        	<th class="sorting" style="text-align: center;"> 영업종료시간 </th>
-                        <th class="sorting" style="text-align: center;"> 예약 불가 시작날짜 </th>
-                        <th class="sorting" style="text-align: center;"> 예약 불가 종료날짜 </th>
                         <th class="sorting" style="text-align: center;"> 승인 완료 날짜 </th>
                         <th class="sorting" style="text-align: center;"> 검수자 아이디 </th>
                         </tr>
@@ -76,8 +74,6 @@
 					<td style="text-align: center;" th:text = "${s.okaySpaceRentalPrice}">
 					<td style="text-align: center;" th:text = "${s.okayStartTime}">
 					<td style="text-align: center;" th:text = "${s.okayCloseTime}">
-					<td style="text-align: center;" th:text = "${s.okayExceptionStartDate}">
-					<td style="text-align: center;" th:text = "${s.okayExceptionEndDate}">
 					<td style="text-align: center;" th:text = "${s.okayCompletedDate}">
 					<td style="text-align: center;" th:text = "${s.okaySpaceId}">
 				</tr>
@@ -85,6 +81,7 @@
 		</tbody>
                     </table>
                     </div>
+</div>
 </div>
 </th:block>
 

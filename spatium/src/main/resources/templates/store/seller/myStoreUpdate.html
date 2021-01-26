@@ -14,6 +14,7 @@
 </style>
 </th:block>
 <th:block layout:fragment="customContent">
+<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -25,7 +26,7 @@
 		</div>
 		<div class="x_content">
 			<form id="addStoreForm" class="form-horizontal form-label-left"
-				th:action="@{/store/admin/storeUpdate}" method="post">
+				th:action="@{/store/seller/storeUpdate}" method="post">
 					<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
 					<div class="col-md-6 col-sm-6 ">
@@ -250,6 +251,7 @@
 
 			</form>
 		</div>
+	</div>
 	</div>
 	</div>
 

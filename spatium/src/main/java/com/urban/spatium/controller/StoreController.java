@@ -25,6 +25,38 @@ public class StoreController {
 	@Autowired
 	private RefundService refundService;
 	
+	/* 메인 페이지에서 수정 버튼 클릭시 들어오는 포스트 맵핑 컨트롤러
+	 * (수정처리) */
+	@PostMapping("/store/seller/storeUpdate")
+	public String myStoreUpdate(Model model, Store store) {
+		
+		String result = storeService.updateStoreSet(store);
+		System.out.println(result);
+		model.addAttribute("result", result);
+		
+		return "redirect:/store/myStore";
+	}
+	
+	/* 메인 페이지에서 본인 업체 조회 후 수정할 때 들어오는 컨트롤러 */
+	@GetMapping("/store/seller/myStoreUpdate")
+	public String myStoreUpdate(Model model, Store store
+								,@RequestParam(name = "storeCode", required = false) int storeCode) {
+		
+			System.out.println(storeCode);
+			Store result = storeService.updateStore(storeCode);
+			System.out.println(storeCode + "==== 업체 수정에서 가져온 스토어 코드 ====");
+			
+			List<RefundPolicy> refundPolicy =refundService.getRefundPolicy(storeCode);
+			System.out.println(refundPolicy + "storeUpdate 컨트롤러 받은 값");
+			model.addAttribute("title", "업체 수정");
+			model.addAttribute("result", result);
+			model.addAttribute("result2", refundPolicy);
+			
+		
+		return "store/seller/myStoreUpdate";
+	}
+	
+	/* 메인 페이지에서 본인 업체 조회 후 자세히 볼 때 들어오는 컨트롤러 */
 	@GetMapping("/store/seller/myStoreSeeMore")
 	public String myStoreSeeMore(Model model, Store store
 			,@RequestParam(name = "storeCode", required = false) int storeCode) {
