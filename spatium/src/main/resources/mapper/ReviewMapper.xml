@@ -84,6 +84,14 @@
 			rvCode = #{reviewCode}
 	</select>
 	
+	<select id="getMyReview" parameterType="String" resultType="Review">
+		<include refid="seletReviewColumn" />
+		FROM
+			tbReview
+		WHERE
+			reviewAddId = #{SID}
+	</select>
+	
 	<select id="getStore" parameterType="String" resultType="Map">
 		select
 			  storeCode

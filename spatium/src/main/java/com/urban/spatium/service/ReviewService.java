@@ -25,6 +25,13 @@ public class ReviewService {
 		@Autowired
 		private CalcMapper calcMapper;
 		
+		public List<Review> getMyReview(String SID) {
+			List<Review> myReview = reviewMapper.getMyReview(SID);
+			//Map<String, Object> resultMap = new HashMap<String, Object>();
+			//resultMap.put("myReview", myReview);
+			return myReview;
+		}
+
 		
 		public int insertReview(Review wroteReview, String SID) {
 			Map <String, Object> review = new HashMap<>();

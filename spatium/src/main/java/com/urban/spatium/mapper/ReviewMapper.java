@@ -42,4 +42,6 @@ public interface ReviewMapper {
 
 	public List<Map<String, Object>> viewReplyReview(String reviewCode);
 
+	public List<Review> getMyReview(String sID);
+
 }
