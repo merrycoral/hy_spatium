@@ -107,7 +107,7 @@ public class ReviewController {
 			//int result = reviewService.insertReview(review);
 			//System.out.println(result);
 			// /memberList?result=회원삭제성공
-			return "redirect:/review/admin/reviewAll";
+			return "redirect:/review/myReview";
 		}
 		
 		@GetMapping("/review/seller/reviewStore")
@@ -150,6 +150,25 @@ public class ReviewController {
 			redirectAttr.addAttribute("result", result);
 			// /memberList?result=회원삭제성공
 			return "redirect:/review/admin/reviewAll";
+		}
+		
+		@GetMapping("/review/deleteMyReview")
+		public String deleteMyReview(HttpSession session, HttpServletRequest request
+				,@RequestParam(name="reviewCode", required = false) String reviewCode
+				,@RequestParam(name="userId", required = false) String userId
+				,RedirectAttributes redirectAttr) {
+			System.out.println("입력받은 값(reviewCode)--->"	+ reviewCode);
+			System.out.println("입력받은 값(userId)--->"	+ userId);
+
+			String SID = (String) session.getAttribute("SID");
+			
+			int result = 0;
+			if(userId != null && SID != null && userId.equals(SID)) {
+				result = reviewService.deleteMyReview(SID, reviewCode);
+			}
+			System.out.println(result);
+			redirectAttr.addAttribute("result", result);
+			return "redirect:/review/myReview";
 		}
 		
 		@PostMapping("/review/admin/deleteReview")

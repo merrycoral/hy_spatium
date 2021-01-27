@@ -7,56 +7,48 @@
 		<title th:text="${title}"></title>
 </th:block>
 <th:block layout:fragment="customContent">
-	<div class="col-md-12 col-sm-12 col-lg-8 col-offset-lg-2">
-		<h1>내가 작성한 리뷰 조회 </h1>
-		<table class="table table-striped table-hover table-hover">
-			<thead>
-				<tr class="headings">
-					<th><input type="checkbox" id="check-all" class="flat">
-					</th>
-					<th class="column-title">리뷰 코드</th>
-					<th class="column-title">예약 코드</th>
-					<th class="column-title">방 코드</th>
-					<th class="column-title">리뷰 제목</th>
-					<th class="column-title">등록일</th>
-					<th class="column-title">수정일</th>
-					<th class="column-title">답변<br>여부</th>
-					<th class="column-title">리뷰<br>타입
-					</th>
-					<th class="column-title">적립<br>포인트
-					</th>
-					<th class="column-title">전시<br>상태</th>
-					<th class="">점수</th>
-					<th>수정</th>
-					<th>삭제</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="" th:if="${#lists.size(myReview) > 0}"
-								th:each="mr : ${myReview}">
-					<td class=" " th:text="${mr.reviewCode}"></td>
-					<td class=" " th:text="${mr.reviewSpaceRsv}"></td>
-					<td class=" " th:text="${mr.reviewSpaceCode}"></td>
-					<td class=" " th:text="${mr.reviewTitle}"></td>
-					<td class=" " th:text="${mr.reviewAddId}"></td>
-					<td class=" " th:text="${mr.reviewAddDate}"></td>
-					<td class=" " th:text="${mr.reviewUpDate}"></td>
-					<td class=" " th:text="${mr.reviewType}"></td>
-					<td class=" " th:text="${mr.reviewPoint}"></td>
-					<td class=" " th:text="${mr.reviewDisplay}"></td>
-					<td class=" " th:text="${mr.reviewScore}"></td>
-				</tr>
-			</tbody>
-		</table>
-	
-	
-		<div class="col-md-6 col-sm-6 ">
-			<div class="x_panel tile">
-				<div class="x_title">
-					ㅇㅅㅇ
-				</div>
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-lg-8 col-lg-offset-2">
+			<h2>내가 작성한 리뷰 조회 </h2>
+			<table class="table table-striped table-hover table-hover">
+				<thead>
+					<tr class="headings">
+						<th class="column-title">예약 코드</th>
+						<th class="column-title">방 코드</th>
+						<th class="column-title">리뷰 제목</th>
+						<th class="">점수</th>
+						<th class="column-title">등록일</th>
+						<th class="column-title">답변<br>여부</th>
+						<th class="column-title">적립<br>포인트</th>
+						<th>수정</th>
+						<th>삭제</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="" th:if="${#lists.size(myReview) > 0}"
+									th:each="mr : ${myReview}">
+						<td class=" " th:text="${mr.reviewSpaceRsv}"></td>
+						<td class=" " th:text="${mr.reviewSpaceCode}"></td>
+						<td class=" " th:text="${mr.reviewTitle}"></td>
+						<td class=" " th:text="${mr.reviewScore}"></td>
+						<td class=" " th:text="${mr.reviewAddDate}"></td>
+						<td></td>
+						<td class=" " th:text="${mr.reviewPoint}"></td>
+						<td><a th:href="@{/review/modifyReview(userId=${mr.reviewAddId}, reviewCode=${mr.reviewCode})}">
+							<button type="button" >수정</button></a>
+						</td>
+						<td><a th:href="@{/review/deleteMyReview(userId=${mr.reviewAddId}, reviewCode=${mr.reviewCode})}">
+							<button type="button" >삭제</button></a>
+						</td>
+					</tr>
+					<tr class="even pointer" th:if="${#lists.isEmpty(myReview)}">
+						<td colspan="9" style="text-align:center;">
+						작성한 리뷰가 없습니다.
+						</td>
+					</tr>
+				</tbody>
+			</table>
 			</div>
-		</div>
 	</div>
 	
 </th:block>
