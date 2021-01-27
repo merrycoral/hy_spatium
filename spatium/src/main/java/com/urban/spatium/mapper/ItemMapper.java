@@ -28,7 +28,7 @@ public interface ItemMapper {
 	int removeitemDelete(String storeDeleteCode);
 			  
 	//장비파기내역 수정
-	int modifyitemDelete(Item storeDeleteCode);
+	int modifyitemDelete(Item item);
 			  
 	//장비파기내역
 	public List<Item> itemDeleteList();
