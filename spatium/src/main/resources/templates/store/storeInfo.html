@@ -123,17 +123,18 @@
 						</table>
 					</div>
 					<!-- 환불정책 끝 -->
-					<!-- QnA 시작 -->
-					<div class="tab-pane fade" id="QnA"></div>
-					<!-- QnA 끝 -->
+
 					<!-- 리뷰 시작 -->
 					<div class="tab-pane fade" id="review">
-						<th:block th:each="rev : ${reviewList}">
+						<th:block th:if="${#lists.size(reviewList) > 0}" th:each="rev : ${reviewList}">
 							<div th:text="${rev.reviewAddId}"></div>
 							<div><span>평점 : [[${rev.reviewScore}]]</span></div>
 							<div style="font-weight: bold;" th:text="${rev.reviewTitle}"></div>
 							<div th:text="${rev.reviewContents}"></div>
-							<div>------------------------------------------------------------------------------------------------------</div>
+							<hr>
+						</th:block>
+						<th:block th:if="${#lists.isEmpty(reviewList)}">
+						<b>아직 등록된 리뷰가 없습니다.</b>
 						</th:block>
 					</div>
 					<!-- 리뷰 끝 -->

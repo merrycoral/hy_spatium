@@ -90,6 +90,7 @@
 			tbReview
 		WHERE
 			reviewAddId = #{SID}
+		ORDER BY reviewCode DESC;
 	</select>
 	
 	<select id="getStore" parameterType="String" resultType="Map">
@@ -161,6 +162,16 @@
 			reviewCode = #{reviewCode}
 		AND
 			reviewAddId = #{SID};
+	</delete>
+	
+	<delete id="rvReplyDelete" parameterType="String">
+		DELETE
+		FROM
+			tbReviewReply
+		WHERE
+			rvReplyCode = #{rvReplyCode}
+		AND
+			rvReplyId = #{SID};
 	</delete>
 	
 	<delete id="deleteReview" parameterType="String">

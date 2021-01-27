@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.urban.spatium.Criteria2;
 import com.urban.spatium.dto.Review;
 import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.mapper.CalcMapper;
@@ -238,9 +237,9 @@ public class ReviewService {
 		}
 
 		public List<Map<String, Object>> viewReplyReview(String reviewCode) {
-			//List<Map<String, Object>> storeReplyReview = reviewMapper.viewReplyReview(reviewCode);
 			System.out.println("service 도착");
-			return null;
+			List<Map<String, Object>> storeReplyReview = reviewMapper.getReplyReview(reviewCode);
+			return storeReplyReview;
 		}
 
 
@@ -249,6 +248,19 @@ public class ReviewService {
 			int delcnt = 0;
 			if(reviewCode != null && reviewCode !="") {
 				int removeCheck = reviewMapper.deleteMyReview(SID, reviewCode);
+				if(removeCheck > 0) delcnt ++;
+			}
+			result = "리뷰" + delcnt + "개 삭제에 성공";
+			System.out.println(result);
+			return delcnt;
+		}
+
+
+		public int rvReplyDelete(String SID, String rvReplyCode) {
+			String result = "리뷰 삭제 실패";
+			int delcnt = 0;
+			if(rvReplyCode != null && rvReplyCode !="") {
+				int removeCheck = reviewMapper.rvReplyDelete(SID, rvReplyCode);
 				if(removeCheck > 0) delcnt ++;
 			}
 			result = "리뷰" + delcnt + "개 삭제에 성공";
