@@ -1,16 +1,21 @@
 package com.urban.spatium.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.urban.spatium.dto.RefundPolicy;
 import com.urban.spatium.dto.Store;
@@ -147,10 +152,22 @@ public class StoreController {
 	
 	/* 공간 등록 폼에서 포스트 맵핑으로 들어오는 컨트롤러 */
 	@PostMapping("/space/seller/addSpace")
-	public String addStore(Model model, Store store , RefundPolicy refundPolicy) {
+	public String addStore(Model model, Store store , RefundPolicy refundPolicy
+							,@RequestParam(name = "file", required = false) MultipartFile storeImage) {
+		System.out.println(storeImage + "1111111111111111111111111");
+		File targetFile = new File("/src/main/resources/static/imges/" + storeImage.getOriginalFilename());
+		try {
+			InputStream fileStream = storeImage.getInputStream();
+			System.out.println(fileStream + "fileStream 1111111111111111111111111");
+			FileUtils.copyInputStreamToFile(fileStream, targetFile);
+		}catch(IOException e) {
+			FileUtils.deleteQuietly(targetFile);
+			e.printStackTrace();
+		}
+		System.out.println(targetFile + "1111111111111111111111111");
 		System.out.println(store);
-		
 		int checkStore = store.getStoreCode();
+		System.out.println(storeImage + "스토어 이미지!!!!!!!!!!!!!!!!!!!!!");
 		System.out.println(checkStore);
 		System.out.println("스토어 받은값 --> " + store);
 		System.out.println("===============start store================");
