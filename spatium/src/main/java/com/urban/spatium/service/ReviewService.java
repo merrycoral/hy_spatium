@@ -64,7 +64,6 @@ public class ReviewService {
 			System.out.println(review);
 			reviewMapper.insertReview(review);
 			
-			
 			return 7;
 		}
 		
@@ -242,6 +241,19 @@ public class ReviewService {
 			//List<Map<String, Object>> storeReplyReview = reviewMapper.viewReplyReview(reviewCode);
 			System.out.println("service 도착");
 			return null;
+		}
+
+
+		public int deleteMyReview(String SID, String reviewCode) {
+			String result = "리뷰 삭제 실패";
+			int delcnt = 0;
+			if(reviewCode != null && reviewCode !="") {
+				int removeCheck = reviewMapper.deleteMyReview(SID, reviewCode);
+				if(removeCheck > 0) delcnt ++;
+			}
+			result = "리뷰" + delcnt + "개 삭제에 성공";
+			System.out.println(result);
+			return delcnt;
 		}
 
 

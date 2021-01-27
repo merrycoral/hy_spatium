@@ -153,6 +153,16 @@
 			reviewCode = #{reviewCode};
 	</update>
 	
+	<delete id="deleteMyReview" parameterType="String">
+		DELETE
+		FROM
+			tbReview
+		WHERE
+			reviewCode = #{reviewCode}
+		AND
+			reviewAddId = #{SID};
+	</delete>
+	
 	<delete id="deleteReview" parameterType="String">
 		DELETE
 		FROM
