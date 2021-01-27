@@ -109,7 +109,7 @@
 						<td class=" "><a th:href="@{/reservation/rsvListExtend(rsvCode=${r.rsvCode})}">확장</a></td>
 						<td class="paymentTestTd"><a  th:href="@{/payment/paymentTest(rsvCode=${r.rsvCode})}" class="paymentTest">결제</a></td>
 						<td><a  th:href="@{/reservation/rsvCancel(rsvCode=${r.rsvCode},rsvState=${r.rsvState})}">취소</a></td>
-						<td><a th:href = "@{/review/writeReview(rsvCode=${rsvCode})}">리뷰</a></td>
+						<td><a th:href = "@{/review/writeReview(rsvCode=${r.rsvCode})}">리뷰</a></td>
 						<td th:text="${r.rsvState}" class="rsvState"></td>
 					</tr>
 				</tbody>
