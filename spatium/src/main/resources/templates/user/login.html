@@ -210,7 +210,7 @@ a {
 											class="btn btn-primary" id="loginBtn">간편 로그인(관리자)</button></a>
 								</div>
 							</div>
-								<a href="/user/findPwform">비밀번호 찾기 </a>
+								<button type="button" id="findId">아이디 찾기</button>
 						</div>
 					</div>
 				</div>
@@ -306,12 +306,12 @@ a {
 			return unescape(cookieValue);
 		}
 
-		//아이디 찾기
-		/* $(function() {
-			$("#findPwform").click(function() {
-				location.href = 'user/findPwform';
+		//아이디  찾기
+		 $(function() {
+			$("#findId").click(function() {
+				location.href = '/user/findIdform';
 			})
-		}) */
+		}) 
 	</script>
 
 </th:block>

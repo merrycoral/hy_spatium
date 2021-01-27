@@ -210,13 +210,13 @@
     </update>
 	
 	<!-- 아이디 찾기 -->
-	<select id="findIdform" resultType="User">
+	<select id="findIdajax" parameterType="String" resultType="String">
 		SELECT
 		userId
-		FROM 
+		FROM
 		tbUser
 		WHERE
-		userName = #{userName} AND userEmail = #{userEmail};
+		userEmail = #{userEmail};
 	</select>
 	
 	<!-- 관리자 아이디 중복 체크 -->

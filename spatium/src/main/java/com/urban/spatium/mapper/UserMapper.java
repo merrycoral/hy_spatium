@@ -3,6 +3,8 @@ package com.urban.spatium.mapper;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.urban.spatium.dto.User;
@@ -62,7 +64,14 @@ public interface UserMapper {
 	
 	//구매자 회원가입
 	public int addUser(User user);
+	
+	// 아이디 찾기
+	public String findIdajax(String userEmail);
+
+	//이메일발송
+	public void sendEmail(User user, String div) throws Exception;
 
 	//비밀번호찾기
-	public void passChange(Map<String, Object> map, User user);
+	public void findPw(HttpServletResponse resp, User user) throws Exception;
+
 }

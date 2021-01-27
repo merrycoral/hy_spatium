@@ -37,7 +37,7 @@
 			<div class="x_content">
 			
 				<form id="addStoreForm" class="form-horizontal form-label-left"
-					th:action="@{/space/seller/addSpace}" method="post">
+					th:action="@{/space/seller/addSpace}" method="post" enctype="multipart/form-data">
 					<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
 					<div class="col-md-6 col-sm-6 ">
@@ -282,7 +282,7 @@
 						</label>
 						<div class="col-md-6 col-sm-6 ">
 							<input type="file" id="storeImage" class="form-control"
-								name="storeImage">
+								name="file">
 								<div id="preview"></div>
 						</div>
 						
@@ -302,10 +302,12 @@
 	</div>
 
 	<script type="text/javascript">
+	
 		$(function() {
 			$('#addStore')
 					.click(
 							function() {
+								
 								if ($('#storeName').val() == "") {
 									alert("상호명을 입력해주시길 바랍니다.");
 									$('#storeName').focus();

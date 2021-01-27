@@ -258,7 +258,7 @@
 		FROM
 			tbItemDeleteList
 		WHERE
-			storeDeleteCode=#{storeDeleteCode}
+			itemDeleteCode=#{itemDeleteCode};
 	</select>
 	
 	<!--장비파기내역 -->
