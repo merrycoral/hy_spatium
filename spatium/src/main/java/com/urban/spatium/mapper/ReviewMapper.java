@@ -40,11 +40,13 @@ public interface ReviewMapper {
 
 	public void replyReview(String storeReply, String getReviewCode, String SID);
 
-	public List<Map<String, Object>> viewReplyReview(String reviewCode);
-
 	public List<Review> getMyReview(String SID);
 
 	public int deleteMyReview(String SID, String reviewCode);
+
+	public List<Map<String, Object>> getReplyReview(String reviewCode);
+
+	public int rvReplyDelete(String SID, String rvReplyCode);
 	
 
 }

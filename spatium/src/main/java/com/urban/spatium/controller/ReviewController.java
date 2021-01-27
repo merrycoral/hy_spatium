@@ -69,7 +69,7 @@ public class ReviewController {
 			System.out.println("ajax 실행");
 			System.out.println(getReviewCode + "<------ getReviewCode");
 			List<Map<String, Object>> storeReplyReview = reviewService.viewReplyReview(getReviewCode);
-			
+			System.out.println(storeReplyReview);
 			return storeReplyReview;
 		}
 
@@ -149,6 +149,22 @@ public class ReviewController {
 			System.out.println(result);
 			redirectAttr.addAttribute("result", result);
 			// /memberList?result=회원삭제성공
+			return "redirect:/review/admin/reviewAll";
+		}
+		
+		@GetMapping("/review/seller/rvReplyDelete")
+		public String rvReplyDelete(HttpSession session, HttpServletRequest request
+				,@RequestParam(name="rvReplyCode", required = false) String rvReplyCode
+				,RedirectAttributes redirectAttr) {
+			System.out.println("입력받은 값(rvReplyCode)--->"	+ rvReplyCode);
+			
+			String SID = (String) session.getAttribute("SID");
+			int result = 0;
+			if(SID != null) {
+				result = reviewService.rvReplyDelete(SID, rvReplyCode);
+			}
+			System.out.println(result);
+			redirectAttr.addAttribute("result", result);
 			return "redirect:/review/admin/reviewAll";
 		}
 		
