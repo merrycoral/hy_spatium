@@ -82,8 +82,10 @@ public class ItemController {
 		String sessionId = (String) session.getAttribute("SID");
 		System.out.println(userBuyId );
 
-		System.out.println(sessionId); item.setItemDetailUserId(sessionId);
-
+		System.out.println(sessionId); 
+		
+		item.setItemDetailUserId(sessionId);
+		
 		String result = itemService.addItemBuy(item); 
 		System.out.println(result);
 
@@ -173,9 +175,9 @@ public class ItemController {
 	}
 
 	@GetMapping("/item/admin/modifyitemDelete") 
-	public String modifyitemDelete(@RequestParam(name="storeDeleteCode", required = false) String storeDeleteCode, Model model) { 
-	  System.out.println("장비구입 수정화면에 입력받은 값 ->" +  storeDeleteCode);
-	  Item item = itemService.itemDeleteByCode(storeDeleteCode);
+	public String modifyitemDelete(@RequestParam(name="itemDeleteCode", required = false) String itemDeleteCode, Model model) { 
+	  System.out.println("장비구입 수정화면에 입력받은 값 ->" +  itemDeleteCode);
+	  Item item = itemService.itemDeleteByCode(itemDeleteCode);
 	  model.addAttribute("item", item);
 	  
 	  return "item/admin/uItemDelete"; 
