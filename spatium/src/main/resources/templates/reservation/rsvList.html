@@ -42,8 +42,7 @@
 			
 			
 			$("#rsvListTb").DataTable({
-				order: [ [ 0, "desc" ] ],
-				ordering: true,
+				ordering: false,
 				lengthChange: false,
 				"dom": 'fltip',
 				"language": {
@@ -86,10 +85,11 @@
 						<th class="column-title">총 가격</th>
 						<th class="column-title">시작 일시</th>
 						<th class="column-title">종료 일시</th>
-						<th class="column-title">예약 상태</th>
 						<th class="column-title">세부</th>
 						<th class="column-title">결제</th>
-						<th class="column-title">예약취소</th>
+						<th class="column-title">취소</th>
+						<th class="column-title">리뷰</th>
+						<th class="column-title">예약 상태</th>
 						<th class="bulk-actions" colspan="12" style="display: none;">
 							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
 								class="fa fa-chevron-down"></i>
@@ -109,6 +109,7 @@
 						<td class=" "><a th:href="@{/reservation/rsvListExtend(rsvCode=${r.rsvCode})}">확장</a></td>
 						<td class="paymentTestTd"><a  th:href="@{/payment/paymentTest(rsvCode=${r.rsvCode})}" class="paymentTest">결제</a></td>
 						<td><a  th:href="@{/reservation/rsvCancel(rsvCode=${r.rsvCode},rsvState=${r.rsvState})}">취소</a></td>
+						<td><a th:href = "@{/review/writeReview(rsvCode=${r.rsvCode})}">리뷰</a></td>
 						<td th:text="${r.rsvState}" class="rsvState"></td>
 					</tr>
 				</tbody>

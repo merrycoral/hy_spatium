@@ -21,7 +21,6 @@
 						<th class="column-title">시간당 가격</th>
 						<th class="column-title">시간</th>
 						<th class="column-title">총가격</th>
-						<th class="column-title">리뷰쓰기</th>
 						<th class="bulk-actions" colspan="11" style="display: none;">
 							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
 								class="fa fa-chevron-down"></i>
@@ -40,7 +39,6 @@
 						<td th:text="${r.rsvDetailTotalPrice}"></td>
 						<td th:text="${r.rsvTime}" ></td>
 						<td th:text="${r.rsvTimePrice}"></td>
-						<td><a th:href = "@{/review/writeReview(rsvCode=${rsvCode})}">리뷰쓰러가기</a></td>
 					</tr>
 				</tbody>
 			</table>
