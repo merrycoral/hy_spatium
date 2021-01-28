@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="@{layout/maindefault}">
+	layout:decorate="@{layout/default}">
 
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
+<th:block layout:fragment="customCss">
+	<style type="text/css">
+		.disable{
+			display: none;
+		}
+	</style>
+</th:block>
 
 <th:block layout:fragment="customContent">
-<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
-	<form th:action="@{/user/addUser}" id="joinform" method="post">
+
+	<form th:action="@{/user/admin/addAdmin}" id="joinform" method="post">
 
 		<span class="section">회원 등록</span>
 		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">회원구분
 				<span class="required">*</span>
 			</label>
-			<div class="col-md-9 col-sm-9">
 			<div class="form-check">
 
 				<label class="form-radio-label"> <input
@@ -28,23 +34,23 @@
 				</label>
 			</div>
 		</div>
-	</div>	
+		
 		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
 				class="required">*</span></label>
-			<div class="col-md-9 col-sm-9">
+			<div class="col-md-6 col-sm-6">
 
 				<input class="form-control" maxlength="12"
 					id="userId" name="userId"	required="required">
-				<button type="submit" id="idchk" class="btn btn-primary"
-					onclick="idChk();" value="N">중복확인</button>
+				<button type="button"  class="btn btn-primary"
+					onclick="idCheck();" value="N">중복확인</button>
 			</div>
 
 		</div>
 		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호<span
 				class="required">*</span></label>
-			<div class="col-md-9 col-sm-9">
+			<div class="col-md-6 col-sm-6">
 				<input type="password" class="form-control"
 					id="password" name="userPw" placeholder="4~12자의 대소문자와 숫자를 입력하세요"
 					maxlength="12" required="required">
@@ -56,7 +62,7 @@
 			<label class="col-form-label col-md-3 col-sm-3  label-align">이름
 				<span class="required">*</span>
 			</label>
-			<div class="col-md-9 col-sm-9">
+			<div class="col-md-6 col-sm-6">
 				<input class="form-control" type="text" id="name" name="userName"
 					 required="required">
 			</div>
@@ -66,7 +72,7 @@
 			<label class="col-form-label col-md-3 col-sm-3  label-align">생년월일
 				<span class="required">*</span>
 			</label>
-			<div class="col-md-9 col-sm-9">
+			<div class="col-md-6 col-sm-6">
 				<input class="form-control" type="date" id="birth" name="userBirth"	required="required">
 
 			</div>
@@ -76,8 +82,8 @@
 			<label class="col-form-label col-md-3 col-sm-3  label-align">성별
 				<span class="required">*</span>
 			</label>
-			<div class="col-md-9 col-sm-9">
 			<div class="form-check">
+
 				<label class="form-radio-label"> <input
 					class="form-radio-input1" type="radio" name="userGender" value="남"
 					checked="checked"> <span class="form-radio-sign1">남성</span>
@@ -87,13 +93,13 @@
 				</label>
 			</div>
 		</div>
-</div>
+
 		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화
 				<span class="required">*</span>
 			</label>
-			<div class="col-md-9 col-sm-9">
-				<input class="form-control" type="number" id="phone" name="userPhone"
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="tel" id="phone" name="userPhone"
 					maxlength="11" oninput="maxLengthCheck(this)" placeholder="ex)01012345678"
 					required="required">
 
@@ -102,7 +108,7 @@
 		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">직업<span
 				class="required">*</span></label>
-			<div class="col-md-9 col-sm-9">
+			<div class="col-md-3 col-sm-3">
 				<select class="form-control" id="job" name="userJob">
 					<option value="학생">학생</option>
 					<option value="회사원">회사원</option>
@@ -112,38 +118,35 @@
 				</select>
 			</div>
 		</div>
-		</div>
 		<div class="field item form-group">
 			<label class="col-form-label col-md-3 col-sm-3  label-align">이메일<span
 				class="required">*</span></label>
-			<div class="col-md-9 col-sm-9">
+			<div class="col-md-6 col-sm-6">
 				<input class="form-control" id="email" name="userEmail"
 					required="required" type="email">
 			</div>
 		</div>
+
 		<div class="form-group" align="center">
-			<div class="col-md-12 offset-md-3">
-				<button type="submit" id="submit" class="btn btn-primary ">회원가입</button>
+			<div class="col-md-6 offset-md-3">
+				<button type="submit" id="submit" class="btn btn-primary">회원가입</button>
 				<button type="button" id="cancel" class="btn btn-success">취소</button>
 			</div>
 		</div>
 	</form>
-</div>
+
 </th:block>
 <th:block layout:fragment="customJs">
-
 <script> 
-	//number 제한길이
-	function maxLengthCheck(object){
-    	if (object.value.length > object.maxLength){
-     		 object.value = object.value.slice(0, object.maxLength);
-    	}    
-  }
-</script>
- 
-  <script >
-  //유효성검사
- 	
+//아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
+var check = 0;
+			//number 제한길이
+			function maxLengthCheck(object){
+		    	if (object.value.length > object.maxLength){
+		     		 object.value = object.value.slice(0, object.maxLength);
+		    	}    
+		 	 }
+		  //유효성검사
 	 		$("#cancel").on("click", function(){
 				location.href = "/";
 			})
@@ -154,67 +157,70 @@
 					$("#userId").focus();
 					return false;
 				}
-				if($("#password").val()==""){
+				if($("#userPw").val()==""){
 					alert("비밀번호를 입력해주세요.");
-					$("#userPass").focus();
+					$("#userPw").focus();
 					return false;
 				}
-				if($("#name").val()==""){
+				if($("#userName").val()==""){
 					alert("성명을 입력해주세요.");
 					$("#userName").focus();
 					return false;
 				}
-				if($("#birth").val()==""){
+				if($("#userBirth").val()==""){
 					alert("생년월일을 입력해주세요.");
-					$("#birth").focus();
+					$("#userBirth").focus();
 					return false;
 				}
-				if($("#gender").val()==""){
-					alert("성별을 선택해주세요.");
-					$("#gender").focus();
-					return false;
-				}
-				if($("#phone").val()==""){
+				if($("#userPhone").val()==""){
 					alert("휴대전화번호를 입력해주세요.");
-					$("#phone").focus();
+					$("#userPhone").focus();
 					return false;
 				}
-				if($("#job").val()==""){
-					alert("직업을 입력해주세요.");
-					$("#job").focus();
-					return false;
-				}
-				if($("#email").val()==""){
+				if($("#userEmail").val()==""){
 					alert("이메일을 입력해주세요.");
-					$("#email").focus();
+					$("#userEmail").focus();
 					return false;
 				}
-				var idChk = $("#idChk").val();
-				if(idChk == "N"){
+				if(confirm("회원가입 하시겠습니까?")){
+			        alert("회원가입을 축하합니다");
+			        return true;
+			    }
+				var idCheck = $("#idCheck").val();
+				if(idCheck == "N"){
 					alert("중복확인 버튼을 눌러주세요.");
-				}else {
-					$("#joinform").submit();
+					return false;
 				}
+				if(check==1){
+					console.log("서브밋!");
+					console.log("서브밋 끝!");
+					return true;
+	 			}else if(check==0){
+	 				alert("아이디 중복체크를 해주세요");
+	 				return false;
+	 			}
 			});
 		
-	</script >
-	< <script >		
 		
 		//아이디 중복체크
-		function idChk(){
+ 		$('#userId').change(function(){
+ 			check=0;
+ 		})
+		function idCheck(){
 			$.ajax({
-				url : "/idChk",
+				url : "/user/admin/idCheck",
 				type : "post",
 				dataType : "json",
 				data : {"userId" : $("#userId").val()},
 				success : function(data){
 					if(data == 1){
 						alert("이미 존재하는 아이디입니다.");
+						check=0;
 					}else if(data == 0){
-						$("#idChk").attr("value", "Y");
+						$("#idCheck").attr("value", "Y");
 						alert("사용가능한 아이디입니다.");
+						check=1;
 					}
-						
 				}
 			})
 		};

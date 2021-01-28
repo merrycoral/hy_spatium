@@ -83,7 +83,6 @@ public class ItemController {
 		System.out.println(userBuyId );
 
 		System.out.println(sessionId); 
-		
 		item.setItemDetailUserId(sessionId);
 		
 		String result = itemService.addItemBuy(item); 
@@ -94,6 +93,7 @@ public class ItemController {
 
 	@GetMapping("/item/admin/addItemBuy") 
 	public String addItemBuy(Model model) {
+		
 		model.addAttribute("title", "장비수리 등록 하기"); 
 		return "item/admin/itemBuyForm2"; 
 	}
@@ -159,17 +159,17 @@ public class ItemController {
 
 	//장비파기내역 삭제
 	@GetMapping("/item/admin/removeitemDelete") 
-	 public String removeitemDelete(@RequestParam(name="storeDeleteCode", required = false) String storeDeleteCode ,Model model) {
-		 System.out.println("장비파기 수정화면에 입력받은 값 ->" + storeDeleteCode);
-		 itemService.removeitemDelete(storeDeleteCode);
-		 model.addAttribute("storeDeleteCode", storeDeleteCode);
+	 public String removeitemDelete(@RequestParam(name="itemDeleteCode", required = false) String itemDeleteCode ,Model model) {
+		 System.out.println("장비파기 삭제화면에 입력받은 값 ->" + itemDeleteCode);
+		 itemService.removeitemDelete(itemDeleteCode);
+		 model.addAttribute("itemDeleteCode", itemDeleteCode);
 		 return "redirect:/item/admin/itemDeleteList";
 	  }
 	
 	//장비파기내역 수정
 	@PostMapping("/item/admin/modifyitemDelete")
 	public String modifyitemDelete(Item item) {
-		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
+		System.out.println("장비파기 수정화면에서 입력 받은 값->"+ item);
 		itemService.modifyitemDelete(item);
 		return "redirect:/item/admin/itemDeleteList";
 	}
@@ -201,7 +201,9 @@ public class ItemController {
 		String sessionId = (String) session.getAttribute("SID");
 		System.out.println(userDeleteId );
 
-		System.out.println(sessionId); item.setItemDetailUserId(sessionId);
+		System.out.println(sessionId); 
+		
+		item.setItemDetailUserId(sessionId);
 
 		String result = itemService.addItemDelete(item); 
 		System.out.println(result);

@@ -230,7 +230,7 @@
 		FROM
 		tbItemDeleteList
 		WHERE
-		storeDeleteCode = #{storeDeleteCode}; 
+		itemDeleteCode = #{itemDeleteCode}; 
 	</delete>
 	
 	<!--장비파기내역 수정 -->
