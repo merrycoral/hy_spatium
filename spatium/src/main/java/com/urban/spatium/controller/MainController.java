@@ -69,16 +69,16 @@ public class MainController {
 		return "promotion/admin/bestSpaceOrder";
 	}
 	//추천 공간 등록
-	@PostMapping("/addBestStore")
+	@PostMapping("/promotion/admin/addBestStore")
 	public String addBestStore(Model model, @RequestParam(name="storeCode", required = false)String storeCode) {
 		storeService.addBestStore(storeCode);
-		return "redirect:/bestSpaceOrder";
+		return "redirect:/promotion/admin/bestSpaceOrder";
 	}
 	//추천 공간 삭제
-	@PostMapping("/delBestStore")
+	@PostMapping("/promotion/admin/delBestStore")
 	public String delBestStore(Model model, @RequestParam(name="storeCode", required = false)String storeCode) {
 		storeService.delBestStore(storeCode);
-		return "redirect:/bestSpaceOrder";
+		return "redirect:/promotion/admin/bestSpaceOrder";
 	}
 	
 	@GetMapping("/admin")

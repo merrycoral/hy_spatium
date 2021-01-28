@@ -8,14 +8,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.urban.spatium.dto.RefundPolicy;
 import com.urban.spatium.dto.Store;
@@ -152,13 +150,13 @@ public class StoreController {
 	
 	/* 공간 등록 폼에서 포스트 맵핑으로 들어오는 컨트롤러 */
 	@PostMapping("/space/seller/addSpace")
-	public String addStore(Model model, Store store , RefundPolicy refundPolicy) {
+	public String addStore(Model model, Store store , RefundPolicy refundPolicy){
 		
 		   String fileName = null;
 	          
-	          if(store.getProBgImage().isEmpty()) {
+	          if(!store.getProBgImage().isEmpty()) {
 	             fileName = store.getProBgImage().getOriginalFilename();
-	             String path = "C:\\Users\\ECS\\git\\spatium\\spatium\\src\\main\\resources\\static\\image\\"; //패스 경로
+	             String path = "C:\\Users\\ECS\\git\\spatium\\spatium\\src\\main\\resources\\static\\imges\\"; //패스 경로
 	          
 	             try {
 	                new File(path).mkdir(); 
