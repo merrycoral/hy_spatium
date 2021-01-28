@@ -32,7 +32,7 @@ import com.urban.spatium.service.UserService;
 
 
 @Controller
-public class paymentController {
+public class PaymentController {
 	@Autowired 
 	private PaymentService paymentService; 
 	@Autowired

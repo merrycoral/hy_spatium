@@ -28,7 +28,7 @@ import com.urban.spatium.service.RefundService;
 
 
 @Controller
-public class refundController {
+public class RefundController {
 	@Autowired 
 	private PaymentService paymentService; 
 	@Autowired 
