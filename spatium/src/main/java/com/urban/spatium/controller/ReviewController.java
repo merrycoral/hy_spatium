@@ -92,11 +92,19 @@ public class ReviewController {
 				, @RequestParam(name="getReviewCode", required = true) String getReviewCode) {
 			//postReply
 			String SID = (String) session.getAttribute("SID");
+			String sLevel = (String) session.getAttribute("SLEVEL");
+			System.out.println(sLevel + "<------- sLevel");
 			String result = reviewService.replyReview(storeReply,getReviewCode, SID);
 			System.out.println(result);
 			
-			return "redirect:/review/admin/reviewAll";
+			if(sLevel.equals("1")) {
+				return "redirect:/review/admin/reviewAll";
+			}else if(sLevel.equals("2")) {
+				return "redirect:/review/seller/reviewStore";
+			}
+			return "admin";
 		}
+		
 		@PostMapping("/review/writeReview")
 		public String insertReview(HttpSession session, Model model, Review wroteReview) {
 			System.out.println(wroteReview);
@@ -111,26 +119,17 @@ public class ReviewController {
 		}
 		
 		@GetMapping("/review/seller/reviewStore")
-		public String reviewStore(HttpSession session, Model model, @RequestParam(name="result", required = false) String result
-					, @RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		public String reviewStore(HttpSession session, Model model, @RequestParam(name="result", required = false) String result) {
 			//List<Review> allReview = reviewService.getAllReview();
 			String sessionId = (String) session.getAttribute("SID");
 			System.out.println(sessionId);
 			
-			Map<String, Object> resultMap = reviewService.getStoreReview(currentPage, sessionId);
+			Map<String, Object> resultMap = reviewService.getStoreReview(sessionId);
 			
 			model.addAttribute("title", "내 매장 리뷰 조회");
+			model.addAttribute("storeInfo", resultMap.get("storeInfo"));
 			model.addAttribute("allReview", resultMap.get("storeReview"));
-			model.addAttribute("lastPage", resultMap.get("lastPage"));
-			model.addAttribute("currentPage", currentPage);
-			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
-			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
 			model.addAttribute("sessionId", sessionId);
-			
-			System.out.println(resultMap.get("startPageNum"));
-			System.out.println(resultMap.get("endPageNum"));
-			
-				//return "redirect:/";
 			
 			return "review/seller/reviewStore";
 		}
@@ -143,7 +142,6 @@ public class ReviewController {
 			System.out.println("blindReview 통과");
 			System.out.println("입력받은 값(reviewCode)--->"	+ reviewCode);
 			System.out.println("입력받은 값(blindValue)--->"	+ blindValue);
-			
 			//서비스계층에서 권한 별 삭제 처리 후 결과 
 			int result = reviewService.blindReview(reviewCode, blindValue);
 			System.out.println(result);
@@ -191,12 +189,10 @@ public class ReviewController {
 		public String deleteReview(@RequestParam(name="table_records", required = false) String reviewCode
 								  ,RedirectAttributes redirectAttr) {
 			System.out.println("입력받은 값(reviewCode)--->"	+ reviewCode);
-			
 			//서비스계층에서 권한 별 삭제 처리 후 결과 
 			int result = reviewService.deleteReview(reviewCode);
 			System.out.println(result);
 			redirectAttr.addAttribute("result", result);
-			// /memberList?result=회원삭제성공
 			return "redirect:/review/admin/reviewAll";
 		}
 	

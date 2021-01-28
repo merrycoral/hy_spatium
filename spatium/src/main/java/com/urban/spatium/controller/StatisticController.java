@@ -39,21 +39,6 @@ public class StatisticController {
 		return "statistic/seller/buyStatistic";
 	}
 	
-	@GetMapping("/statistic/seller/chartEx")
-	public String chartEx(Model model,  HttpSession session,
-			@RequestParam(name="result", required = false) String result) {
-		String SID = (String) session.getAttribute("SID");
-		Map<String, Object> resultMap = statisticService.statGenderJob(SID);
-		List<Map <String, Object>> latest7days = statisticService.getDailyRsv(SID);
-		model.addAttribute("latest7days", latest7days);
-		model.addAttribute("title", SID + "님의 판매 통계");
-		model.addAttribute("getByAge", resultMap.get("getByAge"));
-		model.addAttribute("getByJob", resultMap.get("getByJob"));
-		model.addAttribute("getByGender", resultMap.get("getByGender"));
-		model.addAttribute("storeInfo", resultMap.get("storeInfo"));
-		return "statistic/seller/chartEx";
-	}
-
 	@GetMapping("/statistic/admin/accessStat")
 	public String statisticEx(Model model, @RequestParam(name="result", required = false) String result) {
 		List<Access> accessList = accessService.getAccessRecord();
@@ -97,7 +82,7 @@ public class StatisticController {
 		
 		int max = brate.length;
 		
-		return "statistic/admin/statisticEx";
+		return "statistic/admin/accessStat";
 	}
 	//name=result 일치하는 값을 가져오겠다.
 	//false일 시 필수X, String result에 null로 들어간다. false시 : localhost/memberList true시 : localhost/memberList?result=123

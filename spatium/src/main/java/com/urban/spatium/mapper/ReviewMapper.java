@@ -22,8 +22,7 @@ public interface ReviewMapper {
 
 	public int getStoreReviewCount(String sessionId);
 
-	public List<Map<String, Object>> getStoreReview(String sessionId, int startRow, int rowPerPage);
-
+	public List<Map<String, Object>> getStoreReview(String sessionId);
 
 	public List<Map<String, Object>> searchReview(int startRow, String searchKey, String searchValue);
 
