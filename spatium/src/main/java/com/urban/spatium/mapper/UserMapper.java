@@ -68,10 +68,5 @@ public interface UserMapper {
 	// 아이디 찾기
 	public String findIdajax(String userEmail);
 
-	//이메일발송
-	public void sendEmail(User user, String div) throws Exception;
-
-	//비밀번호찾기
-	public void findPw(HttpServletResponse resp, User user) throws Exception;
 
 }
