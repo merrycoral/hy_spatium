@@ -9,7 +9,7 @@ public class Test {
 		StandardPBEStringEncryptor pbeEnc = new StandardPBEStringEncryptor(); 
 		pbeEnc.setAlgorithm("PBEWithMD5AndDES"); 
 		pbeEnc.setPassword("ksmart37"); 
-		String url = "jdbc:log4jdbc:mysql://kissmekj.cafe24.com:3306/kissmekj?serverTimezone=UTC&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull"; 
+		String url = "jdbc:log4jdbc:mysql://kissmekj.cafe24.com:3306/kissmekj?serverTimezone=Asia/Seoul&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull"; 
 		String username = "kissmekj"; 
 		String password = "nr09241844"; 
 		System.out.println("기존 URL :: " + url + " | 변경 URL :: " + pbeEnc.encrypt(url)); 
