@@ -184,7 +184,7 @@
 <th:block layout:fragment="customJs">
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rt37xgq4ur"></script>
     <script type="text/javascript" th:inline="javascript"> //타임리프값을 쓰려면 th:inline 써줘야함
-    /* 리뷰 관련 스크립트 부분 */
+   		/* 리뷰 관련 스크립트 시작 */
     	$(function() {
     		var totalAvg = 0;
     		var pointClean = 0;
@@ -222,8 +222,6 @@
     		$('#avgFacility').text((pointFacility/totalRvCount).toFixed(1));
     		$('#avgAmbience').text((pointAmbience/totalRvCount).toFixed(1));
     		
-    		console.log(pointRestroom);
-    		
     		var rvReplyArea = $(".rvReplyArea");
     		var viewReplyBtn = $(".viewReplyBtn");
     		
@@ -231,7 +229,6 @@
     			var rvReplyList = "";
     			var getReviewCode = $(this).val();
     			var thisBtn = $(this);
-    			//console.log("rvcode-----" + getReviewCode);
     			var request = $.ajax({
     				url: '/review/viewReplyReview', 
     				method: 'POST',
@@ -239,28 +236,24 @@
     				dataType: 'json'
     			});
     			request.done(function( data ) {
-    				//console.log(data);
     				if (data.length == 0){
     					rvReplyList = "<hr>답글이 없습니다.";
     				}else{
 	    				for(var i=0;i<data.length;i++){
 	    					var writeTime = data[i].rvReplyAddDate.substr(0,10) +" " + data[i].rvReplyAddDate.substr(11,8);
-	    					//console.log(writeTime);
-	    					//console.log(data[i]);
 	    					rvReplyList += "<hr><b>사장님 답글</b>   <small>작성일 : " 
 	    									+ writeTime + "</small>" + "<br><br>"+data[i].rvReplyContents;
 	    				}
     				}
     				thisBtn.siblings('.rvReplyArea').html(rvReplyList);
     				
-    				
     			});
     			request.fail(function( jqXHR, textStatus ) {
     				alert( "Request failed: " + textStatus );
     			});	
     		}); 
-    		
     	});
+    	/* 리뷰 관련 스크립트 종료 */
     
     	$(function() {
    		//주소를 좌표로 변환하고싶은 ajax
