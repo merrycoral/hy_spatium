@@ -102,7 +102,7 @@
 				
 				var IMP = window.IMP; // 생략가능
 				var paymentUseMoney = $('.paymentUseMoney').val();
-				var money = $('input[name="cp_item"]:checked').val();
+				var rsvUserName = $('.rsvUserName').text();
 				IMP.init('imp48494121');
 				// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 				// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
@@ -140,7 +140,7 @@
 					amount : paymentUseMoney,
 					//가격
 					buyer_email : 'iamport@siot.do',
-					buyer_name : '이태영',
+					buyer_name : '홍길동',
 					buyer_tel : '010-1234-5678',
 					buyer_addr : '서울특별시 강남구 삼성동',
 					buyer_postcode : '123-456',
@@ -314,9 +314,9 @@
 										<ul class="">
 											<li>예약업체 : <label th:text="${rsv.storeName}"></label></li>
 											<li>예약아이디 : <label th:text="${rsv.rsvUserId}"></label></li>
-											<li><span th:text="${rsv.rsvUserName}"></span></li>
-											<li><span th:text="${rsv.rsvUserPhone}"></span></li>
-											<li><span th:text="${rsv.rsvUserEmail}"></span></li>
+											<li><span th:text="${rsv.rsvUserName}" class="rsvUserName"></span></li>
+											<li><span th:text="${rsv.rsvUserPhone}" class="rsvUserPhone"></span></li>
+											<li><span th:text="${rsv.rsvUserEmail}" class="rsvUserEmail"></span></li>
 											<li><input type="hidden" th:value="${rsv.rsvUserId}" name="pointID"readonly="readonly"></li>
 										</ul>
 									</div>
