@@ -24,6 +24,12 @@
 		width: 150px;
 		font-size: 25px;
 	}
+	
+	small{	font-size: 80%;	}
+	b{	font-weight: bold; }
+	.ystar {color:#F5C225; font-size: 20px;}
+	.gstar {color:#DDD; font-size: 20px;}
+	
 </style>
 </th:block>
 
@@ -126,13 +132,44 @@
 
 					<!-- 리뷰 시작 -->
 					<div class="tab-pane fade" id="review">
+						<br>
+						<div class="panel panel-warning">
+					      <div class="panel-heading">이용자들의 평가</div>
+					      <div class="panel-body">
+					        <b class="">종합 점수 : <span id="totalAvg"></span>  </b> 
+					        <small>  이용자들이 얼마나 추천하는지의 점수예요!</small><br><hr>
+					     	청결도 : <span id="avgClean"></span> | 
+					      	서비스 : <span id="avgService"></span> | 
+					      	화장실 : <span id="avgRestroom"></span> | 
+					      	시설 : <span id="avgFacility"></span> | 
+					      	분위기 : <span id="avgAmbience"></span>
+					      </div>
+					    </div>
+
 						<th:block th:if="${#lists.size(reviewList) > 0}" th:each="rev : ${reviewList}">
-							<div th:text="${rev.reviewAddId}"></div>
-							<div><span>평점 : [[${rev.reviewScore}]]</span></div>
-							<div style="font-weight: bold;" th:text="${rev.reviewTitle}"></div>
-							<div th:text="${rev.reviewContents}"></div>
-							<hr>
+							<div class="panel panel-default">
+							  <div class="panel-body">
+								<span style="font-weight: bold;" th:text="${rev.reviewTitle}"></span>
+						      	<input type="hidden" th:value="${rev.reviewScore}" class="starRating">
+						      	<span class="ystar"></span><span class="gstar"></span>
+						      	<small >작성자 : <span th:text="${rev.reviewAddId}"></span>
+						      	작성일 : <span th:text="${rev.reviewAddDate}"></span>
+						      	<br>
+							      	청결도 : <span th:text="${rev.reviewClean}" class="pointClean"></span> | 
+							      	서비스 : <span th:text="${rev.reviewService}" class="pointService"></span> | 
+							      	화장실 : <span th:text="${rev.reviewRestroom}" class="pointRestroom"></span> | 
+							      	시설 : <span th:text="${rev.reviewFacility}" class="pointFacility"></span> | 
+							      	분위기 : <span th:text="${rev.reviewAmbience}" class="pointAmbience"></span>
+						      	</small>
+						      	<hr>
+					      		<span th:text="${rev.reviewContents}"></span>
+						      	<hr>
+						      	<button type="button" class="btn btn-default viewReplyBtn" th:value="${rev.reviewCode}">사장님 답글 보기</button>
+						      	<div class="rvReplyArea"></div>
+							  </div>
+							</div>
 						</th:block>
+						
 						<th:block th:if="${#lists.isEmpty(reviewList)}">
 						<b>아직 등록된 리뷰가 없습니다.</b>
 						</th:block>
@@ -147,6 +184,84 @@
 <th:block layout:fragment="customJs">
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rt37xgq4ur"></script>
     <script type="text/javascript" th:inline="javascript"> //타임리프값을 쓰려면 th:inline 써줘야함
+    /* 리뷰 관련 스크립트 부분 */
+    	$(function() {
+    		var totalAvg = 0;
+    		var pointClean = 0;
+    		var pointService = 0;
+    		var pointRestroom = 0;
+    		var pointFacility = 0;
+    		var pointAmbience = 0;
+    		var starRating = $(".starRating");
+    		console.log(starRating);
+    		var totalRvCount = starRating.length;
+    		for(var j=0; j<totalRvCount ; j++){
+	    		var ystar = $($(starRating)[j]).val();
+	    		var gstar = 5 - ystar;
+	    		var starScore = "";
+	    		var grayStar = "";
+	    		for(var i=1;i<=ystar;i++){
+	    			starScore += '★'
+	    		}
+	    		for(var i=1;i<=gstar;i++){
+	    			grayStar += '★'
+	    		}
+	    		$($('.ystar')[j]).text(starScore);
+	    		$($('.gstar')[j]).text(grayStar);
+	    		totalAvg += ystar *1;
+	    		pointClean += $($('.pointClean')[j]).text() *1;
+	    		pointService += $($('.pointService')[j]).text() *1;
+	    		pointRestroom += $($('.pointRestroom')[j]).text() *1;
+	    		pointFacility += $($('.pointFacility')[j]).text() *1;
+	    		pointAmbience += $($('.pointAmbience')[j]).text() *1;
+    		}
+    		$('#totalAvg').text((totalAvg/totalRvCount).toFixed(1));
+    		$('#avgClean').text((pointClean/totalRvCount).toFixed(1));
+    		$('#avgService').text((pointService/totalRvCount).toFixed(1));
+    		$('#avgRestroom').text((pointRestroom/totalRvCount).toFixed(1));
+    		$('#avgFacility').text((pointFacility/totalRvCount).toFixed(1));
+    		$('#avgAmbience').text((pointAmbience/totalRvCount).toFixed(1));
+    		
+    		console.log(pointRestroom);
+    		
+    		var rvReplyArea = $(".rvReplyArea");
+    		var viewReplyBtn = $(".viewReplyBtn");
+    		
+    		viewReplyBtn.click(function(){
+    			var rvReplyList = "";
+    			var getReviewCode = $(this).val();
+    			var thisBtn = $(this);
+    			//console.log("rvcode-----" + getReviewCode);
+    			var request = $.ajax({
+    				url: '/review/viewReplyReview', 
+    				method: 'POST',
+    				data: { getReviewCode : getReviewCode }, 
+    				dataType: 'json'
+    			});
+    			request.done(function( data ) {
+    				//console.log(data);
+    				if (data.length == 0){
+    					rvReplyList = "<hr>답글이 없습니다.";
+    				}else{
+	    				for(var i=0;i<data.length;i++){
+	    					var writeTime = data[i].rvReplyAddDate.substr(0,10) +" " + data[i].rvReplyAddDate.substr(11,8);
+	    					//console.log(writeTime);
+	    					//console.log(data[i]);
+	    					rvReplyList += "<hr><b>사장님 답글</b>   <small>작성일 : " 
+	    									+ writeTime + "</small>" + "<br><br>"+data[i].rvReplyContents;
+	    				}
+    				}
+    				thisBtn.siblings('.rvReplyArea').html(rvReplyList);
+    				
+    				
+    			});
+    			request.fail(function( jqXHR, textStatus ) {
+    				alert( "Request failed: " + textStatus );
+    			});	
+    		}); 
+    		
+    	});
+    
     	$(function() {
    		//주소를 좌표로 변환하고싶은 ajax
 	   		/*<![CDATA[*/

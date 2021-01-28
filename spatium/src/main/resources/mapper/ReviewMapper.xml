@@ -207,7 +207,24 @@
 	</select>
 	
 	<select id="getAllReview" resultType="map">
-		<include refid="seletReviewColumn" />
+		SELECT 
+			reviewCode, 
+			reviewSpaceRsv, 
+			reviewStoreId,
+			reviewTitle, 
+			reviewContents, 
+			reviewAddId, 
+			reviewAddDate, 
+			reviewUpDate, 
+			reviewType, 
+			reviewPoint,
+			reviewDisplay, 
+			reviewClean, 
+			reviewService, 
+			reviewRestroom, 
+			reviewFacility, 
+			reviewAmbience, 
+			reviewScore
 		FROM 
 			tbReview
 		ORDER BY reviewCode DESC

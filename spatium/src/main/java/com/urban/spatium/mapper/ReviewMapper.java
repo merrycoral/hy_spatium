@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.urban.spatium.Criteria2;
 import com.urban.spatium.dto.Review;
 import com.urban.spatium.dto.Rsv;
 

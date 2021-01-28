@@ -145,7 +145,6 @@
 								<th class="column-title">리뷰 제목</th>
 								<th class="column-title">작성자</th>
 								<th class="column-title">등록일</th>
-								<th class="column-title">수정일</th>
 								<th class="column-title">답변<br>여부</th>
 								<th class="column-title">리뷰<br>타입
 								</th>
@@ -176,7 +175,6 @@
 								</td>
 								<td class=" " th:text="${ar.get('reviewAddId')}"></td>
 								<td class=" " th:text="${ar.get('reviewAddDate')}"></td>
-								<td class=" " th:text="${ar.get('reviewUpDate')}"></td>
 								<td class=" " ></td>
 								<td class=" " th:text="${ar.get('reviewType')}"></td>
 								<td class=" " th:text="${ar.get('reviewPoint')}"></td>
@@ -208,10 +206,12 @@
 	var reviewTitle = $("td.reviewTitle");
 		
 	reviewTitle.click(function(e) {
-	
+		
 		e.preventDefault();
 		var index = $(".reviewTitle").index(this);
 		console.log(index);
+		
+		console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
 		
 		var reviewRow = $(this).parents('tr');
 		console.log(reviewRow);
