@@ -174,8 +174,8 @@ margin-right: 20px;
 						<td th:text="${i.itemRentalPrice}" class="eachRsvItemPrice"></td>
 						<td style="padding: 0;"><input type="number" class="rsvItemNum" value="0"></td>
 						<td style="display:none" th:text="${i.itemTotalAmount}" class="itemTotalAmount"></td>
-						
 					</tr>
+					<tr th:unless="${#lists.size(getItemByStore) > 0}"><td colspan="6">보유 장비가 없습니다.</td></tr>	
 				</tbody>
 			</table>
 		</div>
