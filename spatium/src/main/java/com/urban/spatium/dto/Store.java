@@ -2,6 +2,8 @@ package com.urban.spatium.dto;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Store {
 	
 	private int storeCode;
@@ -33,6 +35,7 @@ public class Store {
 	private String refundPercents;
 	private int refundPolicyCode;
 	
+	private MultipartFile proBgImage;
 	
 	public int getRefundPolicyCode() {
 		return refundPolicyCode;
@@ -45,6 +48,12 @@ public class Store {
 	}
 	public void setRemainingDays(String remainingDays) {
 		this.remainingDays = remainingDays;
+	}
+	public MultipartFile getProBgImage() {
+		return proBgImage;
+	}
+	public void setProBgImage(MultipartFile proBgImage) {
+		this.proBgImage = proBgImage;
 	}
 	public String getRefundPercents() {
 		return refundPercents;
@@ -277,6 +286,8 @@ public class Store {
 		builder.append(refundPercents);
 		builder.append(", refundPolicyCode=");
 		builder.append(refundPolicyCode);
+		builder.append(", proBgImage=");
+		builder.append(proBgImage);
 		builder.append(", spaceRelationStoreCode=");
 		builder.append(spaceRelationStoreCode);
 		builder.append(", spaceRelationCateCode=");

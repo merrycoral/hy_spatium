@@ -152,22 +152,28 @@ public class StoreController {
 	
 	/* 공간 등록 폼에서 포스트 맵핑으로 들어오는 컨트롤러 */
 	@PostMapping("/space/seller/addSpace")
-	public String addStore(Model model, Store store , RefundPolicy refundPolicy
-							,@RequestParam(name = "file", required = false) MultipartFile storeImage) {
-		System.out.println(storeImage + "1111111111111111111111111");
-		File targetFile = new File("/src/main/resources/static/imges/" + storeImage.getOriginalFilename());
-		try {
-			InputStream fileStream = storeImage.getInputStream();
-			System.out.println(fileStream + "fileStream 1111111111111111111111111");
-			FileUtils.copyInputStreamToFile(fileStream, targetFile);
-		}catch(IOException e) {
-			FileUtils.deleteQuietly(targetFile);
-			e.printStackTrace();
-		}
-		System.out.println(targetFile + "1111111111111111111111111");
+	public String addStore(Model model, Store store , RefundPolicy refundPolicy) {
+		
+		   String fileName = null;
+	          
+	          if(store.getProBgImage().isEmpty()) {
+	             fileName = store.getProBgImage().getOriginalFilename();
+	             String path = "C:\\Users\\ECS\\git\\spatium\\spatium\\src\\main\\resources\\static\\image\\"; //패스 경로
+	          
+	             try {
+	                new File(path).mkdir(); 
+	               store.getProBgImage().transferTo(new File(path+fileName));
+	               
+	            } catch (IllegalStateException e) {   
+	               e.printStackTrace();
+	            } catch (IOException e) {
+	               e.printStackTrace();
+	            }
+	             store.setStoreImage(fileName);          
+	          }
+		
 		System.out.println(store);
 		int checkStore = store.getStoreCode();
-		System.out.println(storeImage + "스토어 이미지!!!!!!!!!!!!!!!!!!!!!");
 		System.out.println(checkStore);
 		System.out.println("스토어 받은값 --> " + store);
 		System.out.println("===============start store================");
