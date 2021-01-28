@@ -76,7 +76,7 @@ public class RsvController {
 		//미결제된 예약일시 바로 취소 및 DB에서 삭제(릴레이션, 예약, 세부예약 삭제)
 		System.out.println("삭제할 예약 코드 --> " + rsvCode);
 		rsvService.cancelRsv(rsvCode);
-		return "redirect:reservation/admin/rsvListAdmin";
+		return "redirect:/reservation/admin/rsvListAdmin";
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public class RsvController {
 		//미결제된 예약일시 바로 취소 및 DB에서 삭제(릴레이션, 예약, 세부예약 삭제)
 		System.out.println("삭제할 예약 코드 --> " + rsvCode);
 		rsvService.cancelRsv(rsvCode);
-		return "redirect:reservation/rsvList";
+		return "redirect:/reservation/rsvList";
 	}
 	
 	/**
