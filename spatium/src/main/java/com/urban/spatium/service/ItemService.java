@@ -18,6 +18,13 @@ public class ItemService {
 	@Autowired
 	private ItemMapper itemMapper;
 	
+	public List<Item> itemDetailBuy(String storeId){
+		
+		List<Item> itemDetailBuy = itemMapper.itemDetailBuy(storeId);
+		
+		return itemDetailBuy;
+	}
+	
 	public List<Item> myItemCountList(String itemTotalUserId){
 		
 		List<Item> myItemCountList = itemMapper.myItemCountList(itemTotalUserId);

@@ -365,7 +365,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/findIdform")
-	public String findIdform(Model model) throws Exception{
+	public String findIdform(Model model) {
 		return "/user/findIdform";
 	}
 	
