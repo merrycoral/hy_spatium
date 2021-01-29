@@ -283,7 +283,7 @@ public class ItemController {
 		return "item/admin/itemInfo";
 	}
 
-	@GetMapping("/item/seller/addItemChoice")
+	@GetMapping("/item/admin/addItemChoice")
 	public String addItemChoice(Model model, HttpSession session) {
 
 		String storeId = (String) session.getAttribute("SID");
@@ -293,7 +293,7 @@ public class ItemController {
 		model.addAttribute("title", "장비 등록");
 		model.addAttribute("itemList", itemList);
 
-		return "item/seller/itemBuyChoice";
+		return "item/admin/itemBuyChoice";
 	}
 
 }

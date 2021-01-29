@@ -11,7 +11,7 @@
 
 <div class="x_panel">
                   <div class="x_title">
-                    <h2> 장비 등록할 업체를 선택해주세요. </h2>
+                    <h2> 공간 등록할 업체를 선택해주세요. </h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -38,7 +38,7 @@
 
 
             <tbody>
-			<th:block th:each = "s : ${itemList}">
+			<th:block th:each = "s : ${spaceChoice}">
 				<tr class = "spaceTr">
 					<td style="text-align: center;" th:text = "${s.storeCode}"> </td>
 					<td style="text-align: center;" th:text = "${s.storeName}"> </td>
@@ -68,7 +68,7 @@
 	
 	$('#tbSpaceChoice').find('.spaceTr').click(function(){
 		var code = $(this).children().first().text();
-		location.href="/addItem?storeCode="+code;
+		location.href="/space/admin/addSpace?storeCode="+code;
 	});
 
 	$("#tbSpaceChoice").DataTable({
