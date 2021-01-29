@@ -10,6 +10,8 @@ import com.urban.spatium.dto.Store;
 @Mapper
 public interface StoreMapper {
 	
+	public int storeDelete(String storeCode);
+	
 	public List<Store> myStoreList(String storeId);
 	
 	public List<Store> mainSearchAll(String searchName);

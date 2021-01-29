@@ -28,6 +28,16 @@ public class StoreController {
 	@Autowired
 	private RefundService refundService;
 	
+	@GetMapping("/store/admin/storeDelete")
+	public String storeDelete(Model model
+								,@RequestParam(name = "storeCode", required = false) String storeCode) {
+		
+		System.out.println(storeCode);
+		storeService.storeDelete(storeCode);
+		
+		return "redirect:/store/admin/storeListOK";
+	}
+	
 	/* 메인 페이지에서 업체 등록 버튼 클릭시 들어오는 컨트롤러*/
 	@GetMapping("/store/seller/myStoreInsert")
 	public String myStoreInsert(Model model, HttpSession session, Store store) {
@@ -149,7 +159,7 @@ public class StoreController {
 	}
 	
 	/* 공간 등록 폼에서 포스트 맵핑으로 들어오는 컨트롤러 */
-	@PostMapping("/space/seller/addSpace")
+	@PostMapping("/space/admin/addSpace")
 	public String addStore(Model model, Store store , RefundPolicy refundPolicy){
 		
 		   String fileName = null;
@@ -231,11 +241,11 @@ public class StoreController {
 		System.out.println(result);
 		System.out.println("================end result===============");
 		
-		return "space/seller/addSpace";
+		return "space/admin/addSpace";
 	}
 	
 	/* 왼쪽 메뉴에서 업체 등록 클릭시 들어오는 컨트롤러 */
-	@GetMapping("/store/seller/addStore")
+	@GetMapping("/store/admin/addStore")
 	public String addStore(Model model, HttpSession session, Store store) {
 		model.addAttribute("title", "업체 등록");
 		String sessionId = (String) session.getAttribute("SID");
@@ -246,7 +256,7 @@ public class StoreController {
 			System.out.println("로그인 후 이용해주시기 바랍니다.");
 		}
 		model.addAttribute("storeId", storeId);
-		return "store/seller/addStore";
+		return "store/admin/addStore";
 	}
 	
 	/* 왼쪽 메뉴에서 업체 리스트 클릭시 들어오는 컨트롤러 */

@@ -34,6 +34,7 @@
                         <th class="sorting" style="text-align: center;"> 환불 정책 </th>
                         <th class="sorting" style="text-align: center;"> 업체 레벨 </th>
                         <th class="sorting" style="text-align: center;"> 업체수정 </th>
+                        <th class="sorting" style="text-align: center;"> 업체삭제 </th>
                         </tr>
                       </thead>
 
@@ -51,6 +52,7 @@
 					<td style="text-align: center;" th:text = "${s.storeRefundRull}"></td>
 					<td style="text-align: center;" th:text = "${s.storeLevel}"></td>
 					<td style="text-align: center;"> <a th:href = "@{/store/admin/storeUpdate(storeCode=${s.storeCode})}"> 수정 </a> </td>
+					<td style="text-align: center;"> <a th:href = "@{/store/admin/storeDelete(storeCode=${s.storeCode})}"> 삭제 </a> </td>
 				</tr>
 			</th:block>
 		</tbody>

@@ -183,21 +183,7 @@ var check = 0;
 					return false;
 				}
 				if(confirm("회원가입 하시겠습니까?")){
-			        alert("회원가입을 축하합니다");
 			        return true;
-			    }
-				var idCheck = $("#idCheck").val();
-				if(idCheck == "N"){
-					alert("중복확인 버튼을 눌러주세요.");
-					return false;
-				}
-				if(check==1){
-					console.log("서브밋!");
-					console.log("서브밋 끝!");
-					return true;
-	 			}else if(check==0){
-	 				alert("아이디 중복체크를 해주세요");
-	 				return false;
 	 			}
 			});
 		

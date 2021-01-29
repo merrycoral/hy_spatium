@@ -92,7 +92,17 @@ public class ItemController {
 	}
 
 	@GetMapping("/item/admin/addItemBuy") 
-	public String addItemBuy(Model model) {
+	public String addItemBuy(Model model, HttpSession session) {
+		
+		String storeId = (String) session.getAttribute("SID");
+		
+		List<Store> storeList = itemService.addItemChoice(storeId);
+		List<Item> itemList = itemService.itemDetailBuy(storeId);
+		
+		model.addAttribute("storeList", storeList);
+		model.addAttribute("itemList", itemList);
+		
+		System.out.println(storeList);
 		
 		model.addAttribute("title", "장비수리 등록 하기"); 
 		return "item/admin/itemBuyForm2"; 
@@ -152,7 +162,16 @@ public class ItemController {
 		return "redirect:/item/admin/itemRepairList"; 
 	}
 
-	@GetMapping("/item/admin/addItemRepair") public String addItemRepair(Model model) {
+	@GetMapping("/item/admin/addItemRepair") public String addItemRepair(Model model, HttpSession session) {
+		
+		String storeId = (String) session.getAttribute("SID");
+		
+		List<Store> storeList = itemService.addItemChoice(storeId);
+		List<Item> itemList = itemService.itemDetailBuy(storeId);
+		
+		model.addAttribute("storeList", storeList);
+		model.addAttribute("itemList", itemList);
+		
 		model.addAttribute("title", "장비수리 등록 하기"); 
 		return "item/admin/itemRepairForm"; 
 	}
@@ -212,7 +231,15 @@ public class ItemController {
 
 	}
 
-	@GetMapping("/item/admin/addItemDelete") public String addItemDelte(Model model) {
+	@GetMapping("/item/admin/addItemDelete") public String addItemDelte(Model model, HttpSession session) {
+		
+		String storeId = (String) session.getAttribute("SID");
+		
+		List<Store> storeList = itemService.addItemChoice(storeId);
+		List<Item> itemList = itemService.itemDetailBuy(storeId);
+		
+		model.addAttribute("storeList", storeList);
+		model.addAttribute("itemList", itemList);
 		model.addAttribute("title", "장비 등록 하기"); 
 		return "item/admin/itemDeleteForm"; 
 	}
@@ -283,7 +310,7 @@ public class ItemController {
 		return "item/admin/itemInfo";
 	}
 
-	@GetMapping("/item/seller/addItemChoice")
+	@GetMapping("/item/admin/addItemChoice")
 	public String addItemChoice(Model model, HttpSession session) {
 
 		String storeId = (String) session.getAttribute("SID");
@@ -293,7 +320,7 @@ public class ItemController {
 		model.addAttribute("title", "장비 등록");
 		model.addAttribute("itemList", itemList);
 
-		return "item/seller/itemBuyChoice";
+		return "item/admin/itemBuyChoice";
 	}
 
 }

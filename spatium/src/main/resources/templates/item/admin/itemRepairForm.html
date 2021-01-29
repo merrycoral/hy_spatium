@@ -30,10 +30,10 @@
 							<label class="col-form-label col-md-3 col-sm-3 label-align">
 								업체 코드 <span class="required">*</span>
 							</label>
-							<div class="col-md-6 col-sm-6 ">
+							<div class="col-md-6 col-sm-6 " th:each="i : ${storeList}">
 								<input type="text" id="storeRepairCode" name="storeRepairCode"
 									class="form-control"
-									placeholder="업체 코드를 입력해주세요.">
+									th:value="${i.storeCode}" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -41,9 +41,11 @@
 								세부 장비 코드 <span class="required">*</span>
 							</label>
 								<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="storeItemRepairCode" name="storeItemRepairCode"
-									class="form-control"
-									placeholder="세부 장비 코드를 입력해주세요.">
+								<select>
+								<th:block th:each = "i2 : ${itemList}">
+								<option th:value="${i2.storeItemCode}" th:text="${i2.itemName}"></option>
+								</th:block> 
+								</select>
 							</div>
 						</div>	
 						<div class="form-group row">

@@ -96,7 +96,7 @@ public class SpaceController {
 	}
 	
 	/* 공간 등록 클릭 후 등록 하고자 하는 공간을 클릭시 들어오는 컨트톨러 */
-	@GetMapping("/space/seller/addSpace")
+	@GetMapping("/space/admin/addSpace")
 	public String addSpace(Model model, HttpSession session, Store store, String storeCode) {
 		System.out.println(storeCode + "spacecontroller에서 받은 스토어 코드 값");
 		model.addAttribute("title", "공간 등록");
@@ -110,11 +110,11 @@ public class SpaceController {
 		model.addAttribute("storeBusiness", array);
 		model.addAttribute("storeCode", storeCode);
 		
-		return "space/seller/addSpace";
+		return "space/admin/addSpace";
 	}
 	
 	/* 왼쪽 메뉴에서 공간 등록 클릭시 들어오는 컨트롤러 */
-	@GetMapping("/space/seller/addSpaceChoice")
+	@GetMapping("/space/admin/addSpaceChoice")
 	public String addSpaceChoice(Model model, HttpSession session, Store store) {
 		model.addAttribute("title", "공간 등록");
 		String storeId = (String) session.getAttribute("SID");
@@ -122,7 +122,7 @@ public class SpaceController {
 		List<Store> spaceChoice = spaceService.addSpaceChoice(storeId);
 		model.addAttribute("spaceChoice", spaceChoice);
 		
-		return "space/seller/addSpaceChoice";
+		return "space/admin/addSpaceChoice";
 	}
 	
 	/* 왼쪽 메뉴에서 공간 승인 대기 클릭시 들어오는 컨트롤러 */
