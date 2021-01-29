@@ -71,6 +71,31 @@
 			, #{reviewScore}, #{reviewPhoto})
 	</insert>
 	
+	<update id="modifyMyReview" parameterType="hashMap">
+		UPDATE tbReview
+		SET
+			reviewTitle=#{reviewTitle},
+			reviewContents=#{reviewContents},
+			reviewUpDate=NOW(),
+			reviewClean=#{reviewClean},
+			reviewService=#{reviewService},
+			reviewRestroom=#{reviewRestroom},
+			reviewFacility=#{reviewFacility},
+			reviewAmbience=#{reviewAmbience},
+			reviewScore=#{reviewScore},
+			reviewPhoto=#{reviewPhoto}
+		WHERE 
+			reviewCode = #{reviewCode};
+	</update>
+	
+	<select id="getReviewForModify" parameterType="String" resultType="Review">
+		<include refid="seletReviewColumn" />
+		FROM
+			tbReview
+		WHERE
+			reviewCode = #{reviewCode}
+	</select>
+	
 	<select id="getReplyReview" parameterType="String" resultType="Map">
 		SELECT 
 			  rvReplyCode

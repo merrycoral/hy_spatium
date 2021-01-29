@@ -42,6 +42,57 @@ public class ReviewController {
 			model.addAttribute("myReview", myReview);
 			return "review/myReview";
 		}
+		
+		@GetMapping("/review/modifyReview")
+		public String modifyReview(Model model, HttpSession session, HttpServletRequest request
+				,@RequestParam(name="reviewCode", required = false) String reviewCode
+				,@RequestParam(name="userId", required = false) String userId
+			) {
+			System.out.println("입력받은 값(reviewCode)--->"	+ reviewCode);
+			System.out.println("입력받은 값(userId)--->"	+ userId);
+
+			String SID = (String) session.getAttribute("SID");
+			
+			if(userId != null && SID != null && userId.equals(SID)) {
+				Review getReviewForModify = reviewService.getReviewForModify(reviewCode);
+				String rsvCode = Integer.toString(getReviewForModify.getReviewSpaceRsv());
+				//입력받은 리뷰코드에서 예약 코드를 가져옵니다. 가져온 예약 코드로 예약 정보를 가져옵니다.
+				List<Rsv> getRsv = reviewService.getRsv(rsvCode);
+				List<Rsv> rsvListExtend = rsvService.rsvListExtend(rsvCode);
+				
+				model.addAttribute("title", "리뷰 수정하기");
+				model.addAttribute("getReview", getReviewForModify);
+				model.addAttribute("rsvCode", rsvCode);
+				model.addAttribute("getRsv", getRsv);
+				model.addAttribute("rsvListExtend", rsvListExtend);
+				return "review/modifyReview";
+			}else{
+				System.out.println("리뷰 작성자 아이디와 세션 아이디가 일치하지 않습니다.");
+				return "reservation/rsvList";
+			}
+		}
+		
+		@PostMapping("/review/modifyReview")
+		public String modifyMyReview(HttpSession session, Model model, Review wroteReview
+				,@RequestParam(name="reviewCode", required = false) String reviewCode
+				,@RequestParam(name="userId", required = false) String userId
+				) {
+			System.out.println(wroteReview);
+			System.out.println(wroteReview.getReviewTitle());
+			String SID = (String) session.getAttribute("SID");
+			
+			if(userId != null && SID != null && userId.equals(SID)) {
+				int updateResult = reviewService.modifyMyReview(reviewCode, wroteReview);
+				
+				model.addAttribute("title", "리뷰 수정완료");
+				return "redirect:/review/myReview";
+			}else{
+				System.out.println("리뷰 작성자 아이디와 세션 아이디가 일치하지 않습니다.");
+				return "redirect:/reservation/rsvList";
+			}
+		}
+		
+		
 		@GetMapping("/review/writeReview")
 		public String writeReview(Model model, HttpServletRequest request, HttpSession session
 				) {
@@ -60,6 +111,19 @@ public class ReviewController {
 			model.addAttribute("title", "리뷰 작성하기");
 			model.addAttribute("rsvListExtend", rsvListExtend);
 			return "review/writeReview";
+		}
+		
+		@PostMapping("/review/writeReview")
+		public String insertReview(HttpSession session, Model model, Review wroteReview) {
+			System.out.println(wroteReview);
+			System.out.println(wroteReview.getReviewTitle());
+			String SID = (String) session.getAttribute("SID");
+			reviewService.insertReview(wroteReview, SID);
+			
+			//int result = reviewService.insertReview(review);
+			//System.out.println(result);
+			// /memberList?result=회원삭제성공
+			return "redirect:/review/myReview";
 		}
 		
 		@ResponseBody
@@ -103,19 +167,6 @@ public class ReviewController {
 				return "redirect:/review/seller/reviewStore";
 			}
 			return "admin";
-		}
-		
-		@PostMapping("/review/writeReview")
-		public String insertReview(HttpSession session, Model model, Review wroteReview) {
-			System.out.println(wroteReview);
-			System.out.println(wroteReview.getReviewTitle());
-			String SID = (String) session.getAttribute("SID");
-			reviewService.insertReview(wroteReview, SID);
-			
-			//int result = reviewService.insertReview(review);
-			//System.out.println(result);
-			// /memberList?result=회원삭제성공
-			return "redirect:/review/myReview";
 		}
 		
 		@GetMapping("/review/seller/reviewStore")

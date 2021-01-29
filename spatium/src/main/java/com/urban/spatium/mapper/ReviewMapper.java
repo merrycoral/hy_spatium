@@ -45,6 +45,10 @@ public interface ReviewMapper {
 	public List<Map<String, Object>> getReplyReview(String reviewCode);
 
 	public int rvReplyDelete(String SID, String rvReplyCode);
+
+	public Review getReviewForModify(String reviewCode);
+
+	public int modifyMyReview(Map<String, Object> review);
 	
 
 }

@@ -30,7 +30,34 @@ public class ReviewService {
 			//resultMap.put("myReview", myReview);
 			return myReview;
 		}
-
+		
+		public Review getReviewForModify(String reviewCode) {
+			Review getReviewForModify = reviewMapper.getReviewForModify(reviewCode);
+			return getReviewForModify;
+		}
+		
+		public int modifyMyReview(String reviewCode, Review wroteReview) {
+			String result = "리뷰 수정 실패";
+			Map <String, Object> review = new HashMap<>();
+			review.put("reviewCode", reviewCode);
+			review.put("reviewTitle", wroteReview.getReviewTitle());
+			review.put("reviewContents", wroteReview.getReviewContents());
+			review.put("reviewClean", wroteReview.getReviewClean());
+			review.put("reviewService", wroteReview.getReviewService());
+			review.put("reviewRestroom", wroteReview.getReviewRestroom());
+			review.put("reviewFacility", wroteReview.getReviewFacility());
+			review.put("reviewAmbience", wroteReview.getReviewAmbience());
+			review.put("reviewScore", wroteReview.getReviewScore());
+			review.put("reviewPhoto", wroteReview.getReviewPhoto());
+			int modfiycnt = 0;
+			if(reviewCode != null && reviewCode !="") {
+				int removeCheck = reviewMapper.modifyMyReview(review);
+				if(removeCheck > 0) modfiycnt ++;
+			}
+			result = "리뷰" + modfiycnt + "개 수정 성공";
+			System.out.println(result);
+			return modfiycnt;
+		}
 		
 		public int insertReview(Review wroteReview, String SID) {
 			Map <String, Object> review = new HashMap<>();
@@ -212,7 +239,7 @@ public class ReviewService {
 			return storeReplyReview;
 		}
 
-
+		
 		public int deleteMyReview(String SID, String reviewCode) {
 			String result = "리뷰 삭제 실패";
 			int delcnt = 0;
