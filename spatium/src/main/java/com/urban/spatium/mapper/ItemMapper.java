@@ -10,6 +10,8 @@ import com.urban.spatium.dto.Store;
 @Mapper
 public interface ItemMapper {
 	
+	public List<Item> itemDetailBuy(String storeId);
+	
 	public List<Item> myItemCountList(String itemTotalUserId);
 	
 	public List<Item> myItemList(String itemDetailUserId);
