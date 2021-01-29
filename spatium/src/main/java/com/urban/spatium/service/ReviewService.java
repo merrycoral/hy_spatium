@@ -186,46 +186,16 @@ public class ReviewService {
 			return delcnt;
 		}
 
-		public Map<String, Object> getStoreReview(int currentPage, String sessionId) {
-			int startRow = 0;
-			int rowPerPage = 10;
-			int startPageNum = 1;
-			int endPageNum = 10;
-			
-			//페이지 알고리즘
-			startRow = (currentPage - 1) * rowPerPage;
-			
+		public Map<String, Object> getStoreReview(String sessionId) {
 			//last 페이지 구하기
 			double count = reviewMapper.getStoreReviewCount(sessionId);
-			System.out.println(count + "<--- count");
-			int lastPage = (int) Math.ceil(count/rowPerPage);
-			System.out.println(lastPage + "<--- lastPage");
 			
-			List<Map<String, Object>> storeReview = reviewMapper.getStoreReview(sessionId, startRow, rowPerPage);
+			List<Map<String, Object>> storeReview = reviewMapper.getStoreReview(sessionId);
 			
-			if(currentPage > 6 && lastPage < 10) {
-				startPageNum = currentPage - 5;
-				endPageNum  = currentPage + 4;
-				
-				if(endPageNum >= lastPage) {
-					startPageNum = (lastPage - 9);
-					if(startPageNum == 0) {
-						startPageNum = 1;
-					}
-					endPageNum = lastPage;
-				}
-			}else {
-				endPageNum = lastPage;
-			}
-			
+			Map<String, Object> storeInfo = calcMapper.getStoreInfo(sessionId);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("lastPage", lastPage);
+			resultMap.put("storeInfo", storeInfo);
 			resultMap.put("storeReview", storeReview);
-			resultMap.put("startPageNum", startPageNum);
-			resultMap.put("endPageNum", endPageNum);
-			System.out.println(resultMap.get("startPageNum"));
-			System.out.println(resultMap.get("endPageNum"));
-			
 			return resultMap;
 		}
 

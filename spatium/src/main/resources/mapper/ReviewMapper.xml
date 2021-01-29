@@ -108,6 +108,7 @@
 		FROM
 			tbReview
 		WHERE reviewStoreCode = #{storeCode}
+		AND reviewDisplay = 'Y'
 		ORDER BY reviewCode DESC
 			
 	</select>
@@ -126,8 +127,7 @@
 			tbReview
 		WHERE
 			reviewStoreId = #{sessionId}
-		ORDER BY reviewCode DESC
-		LIMIT #{startRow}, #{rowPerPage};
+		ORDER BY reviewCode DESC;
 	</select>
 	
 	<select id="getStoreReviewCount" resultType="int">

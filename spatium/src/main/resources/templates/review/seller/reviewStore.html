@@ -9,75 +9,96 @@
 	details > summary::-webkit-details-marker {display: none}
 	details > summary::marker {display: none}
 	
+	#reviewSpaceRsv input {-webkit-appearance: none}
 	#reviewTable th {padding : 5px;}
 	#reviewTable td {padding : 5px;}
-	.fa-star {font-size: 20px;}
-	.ystar {color:#F5C225;}
 	
+	.ystar {color:#F5C225; font-size: 20px;}
 	
 </style>
 </th:block>
 
 <th:block layout:fragment="customContent">
-	 
- 	<div class="modal fade" id="reviewDetail">
+	
+	<!-- 리뷰 답변 모달  -->
+	<div class="modal fade" id="reviewReply">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h4 class="modal-title">리뷰 상세 보기</h4>
+	        <h4 class="modal-title">리뷰에 사장님 답글 작성하기</h4>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      </div>
 	      <div class="modal-body" style="font-size:15px;">
-	      
-	      	선택하신 <b><span class="selectRNum" style="font-size:25px; color:red"></span></b>개의 리뷰를 삭제하시겠습니까?<br>
-	      </div>
+	      	<h5 id="reviewTitle"></h5>
+	      	<small >작성자 : <span id="reviewAddId"></span>
+	      	작성일 : <span id="reviewAddDate"></span>
+	      	<br>
+	      	리뷰 코드 : <span id="reviewCode"> </span>
+	      	예약 코드 : <span class="reviewSpaceRsv"> </span>
+	      	
+	      	공간 코드 : <span id="reviewSpaceCode"> </span>
+	      	</small>
+	      	<br><br>
+	      	<h5> 종합 추천 점수 : <span id="reviewScore" class="ystar"></span></h5>
+	      	<small>
+		      	청결도 : <span id="reviewClean"></span> | 
+		      	서비스 : <span id="reviewService"></span> | 
+		      	화장실 : <span id="reviewRestroom"></span> | 
+		      	시설 : <span id="reviewFacility"></span> | 
+		      	분위기 : <span id="reviewAmbience"></span>
+	      	</small>
+	      	<hr>
+      		<span id="reviewContents"></span>
+	      	<hr>
+	      	<b>답글 작성</b>
+	      	<form id="storeReply" method="post">
+		      	<textarea class="form-control" name="storeReply" rows="3" placeholder="답글을 입력해주세요." 
+		      	style="margin-top: 0px; margin-bottom: 0px; height: 131px;"></textarea>
+		      	<input type="hidden" id="getReviewCode" name="getReviewCode" readonly>
+	      	</form>
+	 	  </div>
+	 	  <div id="rvReplyArea" class="modal-body" style="font-size:15px;"></div>
+				
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-danger" id="deleteReview">삭제하기</button>
+	        <button type="button" class="btn btn-success" id="postReply">답글 등록</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-	
+
 	<div class="col-md-12 col-sm-12  ">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>내 공간 리뷰 조회 <small th:text="${sessionId}"></small><small>님의 공간 리뷰 페이지</small></h2>
+				<h2>내 매장 리뷰 목록 <small>판매자 페이지</small></h2>
+				<div style="float:right;">
+					<b th:text="${storeInfo.storeId}"></b> / 
+					<b th:text="${storeInfo.storeRepresentative}"></b>  님의 
+					<b th:text="${storeInfo.storeName}"></b>
+				</div>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star ystar"></i>
-				<i class="fa fa-star ystar"></i>
-				
-				<form action="/searchReview" method="post">
-					<select name="sk" class="form-control col-md-1 col-sm-1">
-						<option value="작성자">작성자</option>
-						<option value="리뷰제목">리뷰제목</option>
-						<option value="리뷰코드">리뷰코드</option>
-						<option value="예약코드">예약코드</option>
-						<option value="방코드">방 코드</option>
-					</select>
-					<input type="text" name="sv" class="form-control col-md-2 col-sm-2" placeholder="검색어를 입력해주세요"/>
-					<button type="submit" class="btn btn-primary">검색</button>
-				</form>
-				
+				<div id="noticeBox" class="alert alert-danger alert-dismissible col-md-3 col-sm-3" 
+					role="alert" style="display:none;">
+				  <strong id="notice"></strong>
+                  <button type="button" id="closeBtn" class="close" style="padding:6px;">
+                  	<span aria-hidden="true">×</span>
+                  </button>
+                </div>
+			<!-- 리뷰 목록 -->
 			<form id="selectReview" method="post">
 				<div class="table-responsive">
 					<table class="table table-striped jambo_table bulk_action" id="reviewTable" style="padding: 0px;">
 						<thead>
 							<tr class="headings">
-								<th><input type="checkbox" id="check-all" class="flat">
+								<th><input type="hidden" id="check-all" class="flat">
 								</th>
 								<th class="column-title">리뷰 코드</th>
 								<th class="column-title">예약 코드</th>
-								<th class="column-title">방 코드</th>
 								<th class="column-title">리뷰 제목</th>
 								<th class="column-title">작성자</th>
 								<th class="column-title">등록일</th>
-								<th class="column-title">수정일</th>
-								<th class="column-title">추천수</th>
 								<th class="column-title">리뷰<br>타입
 								</th>
 								<th class="column-title">적립<br>포인트
@@ -95,21 +116,17 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" th:if="${#lists.size(allReview) > 0}"
+							<tr class="even pointer reviewRow" th:if="${#lists.size(allReview) > 0}"
 								th:each="ar : ${allReview}">
-								<td class="a-center "><input type="checkbox" class="flat"
-									name="table_records" th:value="${ar.reviewCode}"></td>
+								<td class="a-center "><input type="hidden" class="flat chose"
+									name="table_records" th:value="${ar.get('reviewCode')}"></td>
 								<td class=" " th:text="${ar.get('reviewCode')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceRsv')}"></td>
-								<td class=" " th:text="${ar.get('reviewSpaceCode') }"></td>
-								<td class="rvTitle " th:text="${ar.get('reviewTitle')}" >
-										<span th:text="${ar.get('reviewContents')}"> </span>
+								<td class="reviewTitle"> <span th:text="${ar.get('reviewTitle')}"></span>
+									 <input type="hidden" class="reviewIn" th:value="${ar.get('reviewContents')}">								
 								</td>
-									
 								<td class=" " th:text="${ar.get('reviewAddId')}"></td>
 								<td class=" " th:text="${ar.get('reviewAddDate')}"></td>
-								<td class=" " th:text="${ar.get('reviewUpDate')}"></td>
-								<td class=" " th:text="${ar.get('reviewLikeCnt')}"></td>
 								<td class=" " th:text="${ar.get('reviewType')}"></td>
 								<td class=" " th:text="${ar.get('reviewPoint')}"></td>
 								<td class=" " th:text="${ar.get('reviewDisplay')}"></td>
@@ -121,81 +138,141 @@
 								<td class=" last" th:text="${ar.get('reviewScore')}"></td>
 							</tr>
 						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="18" style="text-align:center;">
-									<a th:href="@{/reviewStore(1)}">[맨처음]</a>
-									<a th:if="${currentPage > 1}" th:href="@{/reviewStore(currentPage = ${currentPage - 1 })}">[이전]</a>
-									<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
-										<a th:unless="${currentPage == num}" th:href="@{/reviewStore(currentPage = ${num})}" th:text="${'[' + num + ']'}"></a>
-										<span th:if="${currentPage == num}" th:text="${'[' + num + ']'}"></span>
-									</th:block>
-									<a th:if="${currentPage < lastPage}"th:href="@{/reviewStore(currentPage = ${currentPage + 1 })}">[다음]</a>
-									<a th:href="@{/reviewStore(currentPage = ${lastPage})}">[맨마지막]</a>
-								</td>
-							</tr>
-						</tfoot>
+
 					</table>
 					<input type="hidden" id="hiddenBox" name="blindValue">
 				</div>
 			</form>
-
 			</div>
 		</div>
 	</div>
 	
 </th:block>
 <th:block layout:fragment="customJs">
+<!-- datepicker js파일 --><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- datepicker css파일 --><link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script  th:inline="javascript">
-	
-	$('#myCollapsible').collapse({
-	  toggle: false
-	});
-	
-	$('.rvTitle').click(function(){
-		console.log($('.rvTitle').index(this));
-		$('#reviewDetail').modal();
+	var details = $('details');
+	var reviewTitle = $("td.reviewTitle");
 		
-	});
-	
-	
-	$('#deleteBtn').click(function(){
-		$("form").attr("action", "/deleteReview");
-		var selected = $('.flat:checked').length;
-		console.log(selected);
-		if (selected > 0) {
-			$('#noticeBox').attr("style", "display:none;");
-			$('#deleteCheck').modal();
-			$('.selectRNum').text(selected);
-			
-			$('#deleteReview').click(function(){
-					$('#selectReview').submit();
-			});
-		}else{
-			$('#notice').text('삭제할 리뷰를 선택하세요.');
-			$('#noticeBox').attr("style", "float:right; height: 38px; padding:8px 12px; margin: 0 5px;");
+	reviewTitle.click(function(e) {
+		
+		e.preventDefault();
+		var index = $(".reviewTitle").index(this);
+		console.log(index);
+		
+		console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
+		
+		var reviewRow = $(this).parents('tr');
+		console.log(reviewRow);
+	  
+		var reviewCode = $(this).parents('tr').find('td')[1];
+		console.log($(reviewCode).text());
+		var reviewSpaceRsv = $(this).parents('tr').find('td')[2];
+		console.log($(reviewSpaceRsv).text());
+		
+		var reviewSpaceCode = $(this).parents('tr').find('td')[3];
+		var reviewTitle = $(this).parents('tr').find('.reviewTitle');
+		var reviewContents = $(this).parents('tr').find('.reviewIn');
+		var reviewAddId = $(this).parents('tr').find('td')[5];
+		var reviewAddDate = $(this).parents('tr').find('td')[6];
+		var reviewClean = $(this).parents('tr').find('td')[12];
+		var reviewService = $(this).parents('tr').find('td')[13];
+		var reviewRestroom = $(this).parents('tr').find('td')[14];
+		var reviewFacility = $(this).parents('tr').find('td')[15];
+		var reviewAmbience = $(this).parents('tr').find('td')[16];
+		var reviewScore = $(this).parents('tr').find('td')[17];
+		
+		$('#reviewCode').text($(reviewCode).text());
+		$('#getReviewCode').val($(reviewCode).text());
+		$('.reviewSpaceRsv').find('input').val($(reviewSpaceRsv).text());
+		$('.reviewSpaceRsv').text($(reviewSpaceRsv).text());
+		$('#reviewSpaceCode').text($(reviewSpaceCode).text());
+		$('#reviewTitle').text($(reviewTitle).text());
+		$('#reviewContents').text($(reviewContents).val());
+		$('#reviewAddId').text($(reviewAddId).text());
+		$('#reviewAddDate').text($(reviewAddDate).text());
+		$('#reviewClean').text($(reviewClean).text());
+		$('#reviewService').text($(reviewService).text());
+		$('#reviewRestroom').text($(reviewRestroom).text());
+		$('#reviewFacility').text($(reviewFacility).text());
+		$('#reviewAmbience').text($(reviewAmbience).text());
+		
+		var score = $(reviewScore).text();
+		var starScore = ""
+		for(i=1;i<=score;i++){
+			starScore += '★'
 		}
-	});
+		$('#reviewScore').text(starScore);
+		
+		$('#reviewReply').modal();
+	 }
+	
+	);
 
-			
-	$('#blindBtn').click(function(){
-		$("form").attr("action", "/blindReview");
-		var selected = $('.flat:checked').length;
-		console.log(selected);
-		if (selected > 0) {
-			$('#noticeBox').attr("style", "display:none;");
-			$('#blindCheck').modal();
-			$('.selectRNum').text(selected);
-			
-			$('#changeBlindReview').click(function(){
-					$('#hiddenBox').val($('#blindCheck option').val());
-					$('#selectReview').submit();
+		console.log(reviewTitle);
+		
+		var rvReplyArea = $("#rvReplyArea");
+		
+		reviewTitle.click(function(){
+			var rvReplyList = "";
+			var getReviewCode = $(reviewCode).text();
+			var request = $.ajax({
+				url: '/review/viewReplyReview', 
+				method: 'POST',
+				data: { getReviewCode : getReviewCode }, 
+				dataType: 'json'
 			});
-		}else{
-			$('#notice').text('변경할 리뷰를 선택하세요.');
-			$('#noticeBox').attr("style", "float:right; height: 38px; padding:8px 12px; margin: 0 5px;");
-		}
+			request.done(function( data ) {
+				console.log(data);
+				for(var i=0;i<data.length;i++){
+					var writeTime = data[i].rvReplyAddDate.substr(0,10) +" " + data[i].rvReplyAddDate.substr(11,8);
+					console.log(writeTime);
+					console.log(data[i]);
+					rvReplyDeleteBtn = "<a href=\"/review/seller/rvReplyDelete?rvReplyCode="
+									+ data[i].rvReplyCode+"\" onClick=\"return confirm('정말 삭제하시겠습니까?');\">  <span class=\"badge badge-info\">삭제하기</span></a>"
+					rvReplyList += "<hr><h5 style=\"display: inline;\">사장님 답글</h5><div style=\"float:right;\"><small>작성일 : " 
+									+ writeTime + "</small>"+rvReplyDeleteBtn + "</div><br>"+data[i].rvReplyContents;
+				}
+				rvReplyArea.html(rvReplyList);
+				
+				
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});	
+		}); 
+				
+		$("#reviewTable").DataTable({
+	  		order: [ [ 0, "asc" ] ],
+	  		ordering: true,
+	  		lengthChange: false,
+	  		"dom": 'fltip',
+            "language": {
+		                "info": "페이지 _PAGE_ / _PAGES_",
+		                "paginate": {
+		                            "first": "첫페이지",
+		                            "last": "마지막",
+		                             "previous": "이전",
+		                             "next":"다음"
+		                           },
+		                "sEmptyTable": "No data available in table",
+		                "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		                "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		                "sInfoPostFix": "",
+		                "sLengthMenu": "Show _MENU_ 개씩",
+		                "sSearch": "검색:",
+		                "sSearchPlaceholder": "",
+		                "sZeroRecords": "일치하는 검색 결과가 없습니다."
+		                }
+		 });
+	
+	$('#postReply').click(function(){
+		$("form").attr("action", "/review/replyReview");
+		console.log($('#getReviewCode').val());
+		$('#storeReply').submit();
 	});
+	
 </script>
 </th:block>
 
