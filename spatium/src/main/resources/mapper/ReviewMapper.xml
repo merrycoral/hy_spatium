@@ -108,6 +108,7 @@
 		FROM
 			tbReview
 		WHERE reviewStoreCode = #{storeCode}
+		AND reviewDisplay = 'Y'
 		ORDER BY reviewCode DESC
 			
 	</select>

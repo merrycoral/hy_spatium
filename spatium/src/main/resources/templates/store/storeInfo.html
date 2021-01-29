@@ -133,18 +133,20 @@
 					<!-- 리뷰 시작 -->
 					<div class="tab-pane fade" id="review">
 						<br>
-						<div class="panel panel-warning">
-					      <div class="panel-heading">이용자들의 평가</div>
-					      <div class="panel-body">
-					        <b class="">종합 점수 : <span id="totalAvg"></span>  </b> 
-					        <small>  이용자들이 얼마나 추천하는지의 점수예요!</small><br><hr>
-					     	청결도 : <span id="avgClean"></span> | 
-					      	서비스 : <span id="avgService"></span> | 
-					      	화장실 : <span id="avgRestroom"></span> | 
-					      	시설 : <span id="avgFacility"></span> | 
-					      	분위기 : <span id="avgAmbience"></span>
-					      </div>
-					    </div>
+						<th:block th:if="${#lists.size(reviewList) > 0}">
+							<div class="panel panel-warning">
+						      <div class="panel-heading">이용자들의 평가</div>
+						      <div class="panel-body">
+						        <b class="">종합 점수 : <span id="totalAvg"></span>  </b> 
+						        <small>  이용자들이 얼마나 추천하는지의 점수예요!</small><br><hr>
+						     	청결도 : <span id="avgClean"></span> | 
+						      	서비스 : <span id="avgService"></span> | 
+						      	화장실 : <span id="avgRestroom"></span> | 
+						      	시설 : <span id="avgFacility"></span> | 
+						      	분위기 : <span id="avgAmbience"></span>
+						      </div>
+						    </div>
+					    </th:block>
 
 						<th:block th:if="${#lists.size(reviewList) > 0}" th:each="rev : ${reviewList}">
 							<div class="panel panel-default">
@@ -171,7 +173,13 @@
 						</th:block>
 						
 						<th:block th:if="${#lists.isEmpty(reviewList)}">
-						<b>아직 등록된 리뷰가 없습니다.</b>
+							<div class="panel panel-warning">
+						      <div class="panel-heading">이용자들의 평가</div>
+						      <div class="panel-body">
+						       	등록된 평가가 없습니다.
+						      </div>
+						    </div>
+							<b>아직 등록된 후기가 없습니다.</b>
 						</th:block>
 					</div>
 					<!-- 리뷰 끝 -->
@@ -192,6 +200,7 @@
     		var pointRestroom = 0;
     		var pointFacility = 0;
     		var pointAmbience = 0;
+    		
     		var starRating = $(".starRating");
     		console.log(starRating);
     		var totalRvCount = starRating.length;
