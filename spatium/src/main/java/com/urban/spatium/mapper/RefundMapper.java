@@ -1,9 +1,5 @@
 package com.urban.spatium.mapper;	
 
-
-
-
-
 import java.util.List;
 import java.util.Map;	
 
@@ -17,9 +13,12 @@ import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.dto.Store;	
 
 
-
 @Mapper	
 public interface RefundMapper {	
+	
+	public int refundRelationDelete(String storeCode);
+	
+	public int refundPolicyDelete(String storeCode);
 	
 	public List<CancelRsv> refundSelectStore(String storeId);
 	

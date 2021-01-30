@@ -4,6 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.CalcMapper">
 
+	<delete id="CalcDailyDelete" parameterType="String">
+	
+	DELETE 
+	FROM 
+		tbCalcDaily
+	WHERE 
+		calcDStoreCode = #{storeCode};
+	
+	</delete>
+
 	<sql id="CalcCountColumn">
 		SELECT
 			COUNT(p.paymentRsvCode) AS paymentNumber

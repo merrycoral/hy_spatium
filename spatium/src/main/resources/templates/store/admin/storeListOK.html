@@ -52,7 +52,7 @@
 					<td style="text-align: center;" th:text = "${s.storeRefundRull}"></td>
 					<td style="text-align: center;" th:text = "${s.storeLevel}"></td>
 					<td style="text-align: center;"> <a th:href = "@{/store/admin/storeUpdate(storeCode=${s.storeCode})}"> 수정 </a> </td>
-					<td style="text-align: center;"> <a th:href = "@{/store/admin/storeDelete(storeCode=${s.storeCode})}"> 삭제 </a> </td>
+					<td style="text-align: center;"> <a class = "deleteBtn" th:href = "@{/store/admin/storeDelete(storeCode=${s.storeCode})}"> 삭제 </a> </td>
 				</tr>
 			</th:block>
 		</tbody>
@@ -91,6 +91,21 @@
 		        	 "sSearchPlaceholder": "",
 		        	 "sZeroRecords": "No matching records found"
 			         }
+	});
+	
+	$(function(){
+		
+		$('.deleteBtn').click(function(){
+			
+			var result = confirm('업체를 삭제할 시 이 업체를 통하여 생성하신 공간 및 장비도 모두 삭제 됩니다.');
+			
+			if(result){
+				alert('삭제가 완료되었습니다.');
+			}else{
+				return false;
+			}
+		});
+		
 	});
 	
 	</script>

@@ -18,6 +18,26 @@
 		</collection>
 	</resultMap>
 	
+	<delete id="refundRelationDelete" parameterType="String">
+	
+	DELETE 
+	FROM 
+		tbRefundPolicyRelation
+	WHERE 
+		RefundPolicyRelationStoreCode = #{storeCode};
+	
+	</delete>
+	
+	<delete id="refundPolicyDelete" parameterType="String">
+	
+	DELETE
+	FROM
+		tbRefundPolicy
+	WHERE 
+		refundPolicyStoreCode = #{storeCode};
+	
+	</delete>
+	
 	<select id="refundSelectStore" parameterType="String" resultMap="resultMapCancel">
 	SELECT
 	cancelCode

@@ -9,6 +9,8 @@ import com.urban.spatium.dto.CalcWait;
 
 public interface CalcMapper {
 
+	int CalcDailyDelete(String storeCode);
+	
 	List<Map<String, Object>> getCalcWait(int startRow, int rowPerPage);
 
 	int getCalcWaitCount();

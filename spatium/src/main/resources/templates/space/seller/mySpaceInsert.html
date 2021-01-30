@@ -50,9 +50,9 @@
 							공간 유형 <span class="required">*</span>
 						</label>
 
-						<div class="btn-group form-check" data-toggle="buttons">
+						<div class="btn-group form-check">
 							<th:block th:each="s : ${storeBusiness}">
-								<label class="btn btn-secondary"> <input type="checkbox"
+								<label class="btn btn-primary"> <input type="checkbox"
 									class="join-btn" th:value="${s}" th:text="${s}"
 									name="readyStoreBusinessType">
 								</label>

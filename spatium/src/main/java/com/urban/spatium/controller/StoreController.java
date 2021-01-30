@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.urban.spatium.dto.RefundPolicy;
 import com.urban.spatium.dto.Store;
+import com.urban.spatium.service.CalcService;
+import com.urban.spatium.service.ItemService;
 import com.urban.spatium.service.RefundService;
+import com.urban.spatium.service.SpaceService;
 import com.urban.spatium.service.StoreService;
 
 @Controller
@@ -27,12 +30,27 @@ public class StoreController {
 	private StoreService storeService;
 	@Autowired
 	private RefundService refundService;
+	@Autowired
+	private ItemService itemService;
+	@Autowired
+	private SpaceService spaceService;
+	@Autowired
+	private CalcService calcService;
 	
+	/* 업체 리스트 페이지에서 업체 삭제시 들어오는 컨트롤러 */
 	@GetMapping("/store/admin/storeDelete")
 	public String storeDelete(Model model
 								,@RequestParam(name = "storeCode", required = false) String storeCode) {
 		
 		System.out.println(storeCode);
+		
+		refundService.refundRelationDelete(storeCode);
+		refundService.refundPolicyDelete(storeCode);
+		calcService.CalcDailyDelete(storeCode);
+		itemService.itemDetailDelete(storeCode);
+		spaceService.spaceRelationDelet(storeCode);
+		spaceService.spaceReadyDelete(storeCode);
+		spaceService.spaceOKDelete(storeCode);
 		storeService.storeDelete(storeCode);
 		
 		return "redirect:/store/admin/storeListOK";

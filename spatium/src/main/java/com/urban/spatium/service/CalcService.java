@@ -17,6 +17,11 @@ public class CalcService {
 		@Autowired
 		private CalcMapper calcMapper;
 		
+		public int CalcDailyDelete(String storeCode) {
+			
+			return calcMapper.CalcDailyDelete(storeCode);
+		}
+		
 		public Map<String, Object> getDailyCalc (String sessionId, int sessionLevel) {
 			List<Map<String, Object>> dailyCalcList = calcMapper.getDailyCalc(sessionId, sessionLevel);
 			Map<String, Object> storeInfo = calcMapper.getStoreInfo(sessionId);

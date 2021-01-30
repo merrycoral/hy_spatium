@@ -4,6 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.ItemMapper">
 
+<delete id="itemDetailDelete" parameterType="String">
+
+	DELETE 
+	FROM 
+		tbItemDetail
+	WHERE 
+		storeDetailCode = #{storeCode};
+
+</delete>
+
 <select id = "itemDetailBuy" resultType="Item" parameterType="String">
 		
 		SELECT 
