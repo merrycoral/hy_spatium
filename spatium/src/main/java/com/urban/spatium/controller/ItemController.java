@@ -15,6 +15,7 @@ import com.urban.spatium.dto.Item;
 
 import com.urban.spatium.dto.Store;
 import com.urban.spatium.service.ItemService;
+import com.urban.spatium.service.StoreService;
 
 
 @Controller("/item")
@@ -22,7 +23,35 @@ public class ItemController {
 
 	@Autowired
 	private ItemService itemService;
+	@Autowired
+	private StoreService storeService;
 	
+	@GetMapping("/item/seller/myItemInsert")
+	public String myItemInsert(Model model, HttpSession session) {
+		String storeId = (String) session.getAttribute("SID");
+		String code = storeService.storeCodeGet(storeId);
+		model.addAttribute("code", code);
+		return "item/seller/myItemInsert";
+	}
+	
+	@PostMapping("/item/seller/myItemInsert")
+	public String myItemInsert(Item item, HttpSession session
+								,@RequestParam(name = "code", required = false)int code) {
+		
+		System.out.println(item + "=========== 장비 넘어온 값 ============");
+		String sessionId = (String) session.getAttribute("SID");
+		System.out.println(sessionId);
+		item.setItemDetailUserId(sessionId);
+		System.out.println(code + "포스트 맵핑 장비등록 스토어코드");
+		item.setStoreDetailCode(code);
+		String result = itemService.addItem(item);
+		
+		System.out.println(result);
+		
+		return "redirect:/user/myPage";
+	}
+	
+	/* 메인 페이지에서 내 장비 조회 버튼 클릭시 들어오는 컨트롤러 */
 	@GetMapping("/item/myItem")
 	public String myItemList(Model model, HttpSession session, Item item) {
 		

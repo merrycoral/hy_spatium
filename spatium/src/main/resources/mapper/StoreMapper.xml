@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.StoreMapper">
 
+<select id="storeCodeGet" resultType="String" parameterType="String">
+
+SELECT
+	s.storeCode
+FROM
+	tbStore AS s
+WHERE
+	s.storeId = #{storeId};
+
+</select>
+
+<select id = "myStoreCate" resultType="String" parameterType="String">
+
+	SELECT 
+		storeBusinessType
+	FROM
+		tbStore
+	WHERE
+		storeId = #{storeId};
+		
+</select>
+
 <delete id= "storeDelete" parameterType="String">
 
 	DELETE 

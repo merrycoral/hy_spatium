@@ -39,7 +39,7 @@
 			<th:block th:each = "i : ${itemLi}">
 				<tr>
 					<td style = "text-align: center;" th:text = "${i.storeDetailCode}"></td>
-					<td style = "text-align: center;"> <a th:href = "@{/item/admin/itemInfo(storeItemCode=${i.storeItemCode})}" th:text = "${i.itemName}" style="color: blue"></a></td>
+					<td style = "text-align: center;" th:text = "${i.itemName}"></td>
 					<td style = "text-align: center;" th:text = "${i.itemStatus}"></td>
 					<td style = "text-align: center;" th:text = "${i.itemRentalStatus}"></td>
 					<td style = "text-align: center;" th:text = "${i.itemRegDate}"></td>
