@@ -45,7 +45,9 @@
 
 					<td><a
 
-						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}"><button type="submit">삭제</button></a>
+						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}" onclick="return confirm('삭제하시겠습니까?');"><button type="button">삭제</button></a>
+						
+
 					</td>
 				</tr>
 			</tbody>

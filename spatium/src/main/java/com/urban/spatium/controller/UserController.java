@@ -1,27 +1,19 @@
 package com.urban.spatium.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.urban.spatium.dto.User;
@@ -319,7 +311,7 @@ public class UserController {
 	//관리자아이디 중복체크
 	@ResponseBody
 	@RequestMapping(value="/user/admin/idCheck", method = RequestMethod.POST)
-	public int idCheck(User user) throws Exception {
+	public int idCheck(User user) {
 		int result = userService.idCheck(user);
 		return result;
 	}
@@ -327,7 +319,7 @@ public class UserController {
 	//아이디 중복체크
 	@ResponseBody
 	@RequestMapping(value="/user/idChk", method = RequestMethod.POST)
-	public int idChk(User user) throws Exception {
+	public int idChk(User user)  {
 		int result = userService.idChk(user);
 		return result;
 	}
@@ -373,7 +365,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/findIdform")
-	public String findIdform(Model model) throws Exception{
+	public String findIdform(Model model) {
 		return "/user/findIdform";
 	}
 	

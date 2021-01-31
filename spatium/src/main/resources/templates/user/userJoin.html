@@ -132,7 +132,7 @@ label.light {
 					<div>
 					<label for="userId">아이디:</label> <input
 					type="text" id="userId" name="userId" maxlength="12" style="margin-bottom: 10px;" required="required">
-					<button type="button"  class="btn btn-primary" id="idChk"
+					<button type="button"  class="btn btn-primary" 
 					onclick="idChk();" value="N" style="margin-bottom: 30px;" >중복확인</button>
 					</div>
 					<div>
@@ -183,19 +183,14 @@ label.light {
 			<button type="submit" id="submit" class="btn btn-primary ">회원가입</button>
 			<div style=" margin-top: 10px"></div>
 			<button type="button" id="cancel" class="btn btn-success">취소</button>
-			</div>
 		</form>
+	</div>	
 </th:block>
 <th:block layout:fragment="customJs">
-
 	<script> 
-	var check = 0;
-	//number 제한길이
-	function maxLengthCheck(object){
-    	if (object.value.length > object.maxLength){
-     		 object.value = object.value.slice(0, object.maxLength);
-    	}    
-  }
+
+var check = 0;
+	
 
 	//유효성검사
 	 		$("#cancel").on("click", function(){
@@ -243,23 +238,6 @@ label.light {
 					$("#email").focus();
 					return false;
 				}
-				if(confirm("회원가입 하시겠습니까?")){
-			        alert("회원가입을 축하합니다");
-			        return true;
-			    }
-				var idChk = $("#idChk").val();
-				if(idChk == "N"){
-					alert("중복확인 버튼을 눌러주세요.");
-					return false;
-				}
-				if(check==1){
-					console.log("서브밋!");
-					console.log("서브밋 끝!");
-					return true;
-	 			}else if(check==0){
-	 				alert("아이디 중복체크를 해주세요");
-	 				return false;
-	 			}
 			});
 		
 		//아이디 중복체크

@@ -4,6 +4,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.ItemMapper">
 
+<delete id="itemDetailDelete" parameterType="String">
+
+	DELETE 
+	FROM 
+		tbItemDetail
+	WHERE 
+		storeDetailCode = #{storeCode};
+
+</delete>
+
+<select id = "itemDetailBuy" resultType="Item" parameterType="String">
+		
+		SELECT 
+			storeItemCode
+			, itemDetailCode
+			, storeDetailCode
+			, itemName
+			, itemDetail
+			, itemStatus
+			, itemRentalStatus
+			, itemImg
+			, itemRegDate
+			, itemChangeRegDate
+			, itemDetailUserId
+		FROM
+			tbItemDetail
+		WHERE
+			itemDetailUserId = #{storeId}
+		
+	</select>
+
 <select id="myItemCountList" resultType="Item" parameterType="String">
 
 	SELECT 
@@ -230,7 +261,7 @@
 		FROM
 		tbItemDeleteList
 		WHERE
-		storeDeleteCode = #{storeDeleteCode}; 
+		itemDeleteCode = #{itemDeleteCode}; 
 	</delete>
 	
 	<!--장비파기내역 수정 -->

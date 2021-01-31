@@ -15,6 +15,7 @@ import com.urban.spatium.dto.Item;
 
 import com.urban.spatium.dto.Store;
 import com.urban.spatium.service.ItemService;
+import com.urban.spatium.service.StoreService;
 
 
 @Controller("/item")
@@ -22,7 +23,35 @@ public class ItemController {
 
 	@Autowired
 	private ItemService itemService;
+	@Autowired
+	private StoreService storeService;
 	
+	@GetMapping("/item/seller/myItemInsert")
+	public String myItemInsert(Model model, HttpSession session) {
+		String storeId = (String) session.getAttribute("SID");
+		String code = storeService.storeCodeGet(storeId);
+		model.addAttribute("code", code);
+		return "item/seller/myItemInsert";
+	}
+	
+	@PostMapping("/item/seller/myItemInsert")
+	public String myItemInsert(Item item, HttpSession session
+								,@RequestParam(name = "code", required = false)int code) {
+		
+		System.out.println(item + "=========== 장비 넘어온 값 ============");
+		String sessionId = (String) session.getAttribute("SID");
+		System.out.println(sessionId);
+		item.setItemDetailUserId(sessionId);
+		System.out.println(code + "포스트 맵핑 장비등록 스토어코드");
+		item.setStoreDetailCode(code);
+		String result = itemService.addItem(item);
+		
+		System.out.println(result);
+		
+		return "redirect:/user/myPage";
+	}
+	
+	/* 메인 페이지에서 내 장비 조회 버튼 클릭시 들어오는 컨트롤러 */
 	@GetMapping("/item/myItem")
 	public String myItemList(Model model, HttpSession session, Item item) {
 		
@@ -83,7 +112,6 @@ public class ItemController {
 		System.out.println(userBuyId );
 
 		System.out.println(sessionId); 
-		
 		item.setItemDetailUserId(sessionId);
 		
 		String result = itemService.addItemBuy(item); 
@@ -93,7 +121,18 @@ public class ItemController {
 	}
 
 	@GetMapping("/item/admin/addItemBuy") 
-	public String addItemBuy(Model model) {
+	public String addItemBuy(Model model, HttpSession session) {
+		
+		String storeId = (String) session.getAttribute("SID");
+		
+		List<Store> storeList = itemService.addItemChoice(storeId);
+		List<Item> itemList = itemService.itemDetailBuy(storeId);
+		
+		model.addAttribute("storeList", storeList);
+		model.addAttribute("itemList", itemList);
+		
+		System.out.println(storeList);
+		
 		model.addAttribute("title", "장비수리 등록 하기"); 
 		return "item/admin/itemBuyForm2"; 
 	}
@@ -152,24 +191,33 @@ public class ItemController {
 		return "redirect:/item/admin/itemRepairList"; 
 	}
 
-	@GetMapping("/item/admin/addItemRepair") public String addItemRepair(Model model) {
+	@GetMapping("/item/admin/addItemRepair") public String addItemRepair(Model model, HttpSession session) {
+		
+		String storeId = (String) session.getAttribute("SID");
+		
+		List<Store> storeList = itemService.addItemChoice(storeId);
+		List<Item> itemList = itemService.itemDetailBuy(storeId);
+		
+		model.addAttribute("storeList", storeList);
+		model.addAttribute("itemList", itemList);
+		
 		model.addAttribute("title", "장비수리 등록 하기"); 
 		return "item/admin/itemRepairForm"; 
 	}
 
 	//장비파기내역 삭제
 	@GetMapping("/item/admin/removeitemDelete") 
-	 public String removeitemDelete(@RequestParam(name="storeDeleteCode", required = false) String storeDeleteCode ,Model model) {
-		 System.out.println("장비파기 수정화면에 입력받은 값 ->" + storeDeleteCode);
-		 itemService.removeitemDelete(storeDeleteCode);
-		 model.addAttribute("storeDeleteCode", storeDeleteCode);
+	 public String removeitemDelete(@RequestParam(name="itemDeleteCode", required = false) String itemDeleteCode ,Model model) {
+		 System.out.println("장비파기 삭제화면에 입력받은 값 ->" + itemDeleteCode);
+		 itemService.removeitemDelete(itemDeleteCode);
+		 model.addAttribute("itemDeleteCode", itemDeleteCode);
 		 return "redirect:/item/admin/itemDeleteList";
 	  }
 	
 	//장비파기내역 수정
 	@PostMapping("/item/admin/modifyitemDelete")
 	public String modifyitemDelete(Item item) {
-		System.out.println("장비구입 수정화면에서 입력 받은 값->"+ item);
+		System.out.println("장비파기 수정화면에서 입력 받은 값->"+ item);
 		itemService.modifyitemDelete(item);
 		return "redirect:/item/admin/itemDeleteList";
 	}
@@ -201,7 +249,9 @@ public class ItemController {
 		String sessionId = (String) session.getAttribute("SID");
 		System.out.println(userDeleteId );
 
-		System.out.println(sessionId); item.setItemDetailUserId(sessionId);
+		System.out.println(sessionId); 
+		
+		item.setItemDetailUserId(sessionId);
 
 		String result = itemService.addItemDelete(item); 
 		System.out.println(result);
@@ -210,7 +260,15 @@ public class ItemController {
 
 	}
 
-	@GetMapping("/item/admin/addItemDelete") public String addItemDelte(Model model) {
+	@GetMapping("/item/admin/addItemDelete") public String addItemDelte(Model model, HttpSession session) {
+		
+		String storeId = (String) session.getAttribute("SID");
+		
+		List<Store> storeList = itemService.addItemChoice(storeId);
+		List<Item> itemList = itemService.itemDetailBuy(storeId);
+		
+		model.addAttribute("storeList", storeList);
+		model.addAttribute("itemList", itemList);
 		model.addAttribute("title", "장비 등록 하기"); 
 		return "item/admin/itemDeleteForm"; 
 	}
@@ -281,7 +339,7 @@ public class ItemController {
 		return "item/admin/itemInfo";
 	}
 
-	@GetMapping("/item/seller/addItemChoice")
+	@GetMapping("/item/admin/addItemChoice")
 	public String addItemChoice(Model model, HttpSession session) {
 
 		String storeId = (String) session.getAttribute("SID");
@@ -291,7 +349,7 @@ public class ItemController {
 		model.addAttribute("title", "장비 등록");
 		model.addAttribute("itemList", itemList);
 
-		return "item/seller/itemBuyChoice";
+		return "item/admin/itemBuyChoice";
 	}
 
 }

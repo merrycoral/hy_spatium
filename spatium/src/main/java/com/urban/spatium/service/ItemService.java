@@ -18,6 +18,22 @@ public class ItemService {
 	@Autowired
 	private ItemMapper itemMapper;
 	
+	public String itemDetailDelete(String storeCode) {
+		
+		String itemChk = "장비 삭제";
+		
+		itemMapper.itemDetailDelete(storeCode);
+		
+		return itemChk;
+	}
+	
+	public List<Item> itemDetailBuy(String storeId){
+		
+		List<Item> itemDetailBuy = itemMapper.itemDetailBuy(storeId);
+		
+		return itemDetailBuy;
+	}
+	
 	public List<Item> myItemCountList(String itemTotalUserId){
 		
 		List<Item> myItemCountList = itemMapper.myItemCountList(itemTotalUserId);

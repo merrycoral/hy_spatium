@@ -55,14 +55,14 @@
 					<div class="form-group row">
 						<label class="col-form-label col-md-3 col-sm-3 ">후기 제목</label>
 						<div class="col-md-9 col-sm-9 ">
-							<input type="text" name="reviewTitle" class="form-control" placeholder="후기 제목을 입력하세요.">
+							<input type="text" name="reviewTitle" class="form-control" placeholder="후기 제목을 입력하세요." th:value="${getReview.reviewTitle}">
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-form-label col-md-3 col-sm-3 ">이용 후기</label>
 						<div class="col-md-9 col-sm-9 ">
 							<textarea
-							required="required" class="form-control" name="reviewContents" style="min-height:200px;"></textarea>
+							required="required" class="form-control" name="reviewContents" style="min-height:200px;" th:text="${getReview.reviewContents}"></textarea>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -112,8 +112,8 @@
 						</div>
 					</div>
 					<div style="text-align:center">
-						<button type="submit" class="btn btn-success">리뷰 등록하기</button>
-						<a th:href = "@{/reservation/rsvList}">
+						<button type="submit" class="btn btn-success">리뷰 수정하기</button>
+						<a th:href = "@{/review/myReview}">
 							<button type="button" class="btn btn-secondary">돌아가기</button>
 						</a>
 					</div>
@@ -125,20 +125,31 @@
 </th:block>
 
 <th:block layout:fragment="customJs">
-<script src="js/jquery.star-rating-svg.js"></script>
-<script  th:inline="javascript">
-
-	$(function(){
-		$("input:radio[name='reviewClean']:radio[value=" + 5 +"]").prop('checked', true); 
-		$("input:radio[name='reviewService']:radio[value=" + 5 +"]").prop('checked', true); 
-		$("input:radio[name='reviewRestroom']:radio[value=" + 5 +"]").prop('checked', true); 
-		$("input:radio[name='reviewFacility']:radio[value=" + 5 +"]").prop('checked', true); 
-		$("input:radio[name='reviewAmbience']:radio[value=" + 5 +"]").prop('checked', true); 
-		$("input:radio[name='reviewScore']:radio[value=" + 5 +"]").prop('checked', true); 
+	<script src="js/jquery.star-rating-svg.js"></script>
+	<script  th:inline="javascript">
+		/*<![CDATA[*/
+		var reviewClean = /*[[${getReview.reviewClean}]]*/;
+		var reviewService = /*[[${getReview.reviewService}]]*/;
+		var reviewRestroom = /*[[${getReview.reviewRestroom}]]*/;
+		var reviewFacility = /*[[${getReview.reviewFacility}]]*/;
+		var reviewAmbience = /*[[${getReview.reviewAmbience}]]*/;
+		var reviewScore = /*[[${getReview.reviewScore}]]*/;
+		/*]]>*/
 		
-	});
-
-</script>
+		$(function(){
+			$("input:radio[name='reviewClean']:radio[value=" + reviewClean +"]").prop('checked', true); 
+			$("input:radio[name='reviewService']:radio[value=" + reviewService +"]").prop('checked', true); 
+			$("input:radio[name='reviewRestroom']:radio[value=" + reviewRestroom +"]").prop('checked', true); 
+			$("input:radio[name='reviewFacility']:radio[value=" + reviewFacility +"]").prop('checked', true); 
+			$("input:radio[name='reviewAmbience']:radio[value=" + reviewAmbience +"]").prop('checked', true); 
+			$("input:radio[name='reviewScore']:radio[value=" + reviewScore +"]").prop('checked', true); 
+			
+		});
+		
+		
+	
+	
+	</script>
 </th:block>
 
 </html>

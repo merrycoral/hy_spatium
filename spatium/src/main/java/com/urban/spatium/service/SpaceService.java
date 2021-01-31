@@ -18,6 +18,33 @@ public class SpaceService {
 	@Autowired
 	private SpaceMapper spaceMapper;
 	
+	public String spaceOKDelete(String storeCode) {
+		
+		String spaceChk = "공간 완료 삭제";
+		
+		spaceMapper.spaceOKDelete(storeCode);
+		
+		return spaceChk;
+	}
+	
+	public String spaceReadyDelete(String storeCode) {
+		
+		String spaceChk = "공간 대기 삭제";
+		
+		spaceMapper.spaceReadyDelete(storeCode);
+		
+		return spaceChk;
+	}
+	
+	public String spaceRelationDelet(String storeCode) {
+		
+		String spaceChk = "공간 관계 삭제";
+		
+		spaceMapper.spaceRelationDelet(storeCode);
+		
+		return spaceChk;
+	}
+	
 	public List<OKSpace> myOKSpaceList(String okaySpaceId){
 		
 		List<OKSpace> myOKaySpaceList = spaceMapper.myOKSpaceList(okaySpaceId);

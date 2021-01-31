@@ -28,12 +28,11 @@
 						사항입니다.</div></div></div>
 						<div class="form-group row">
 							<label class="col-form-label col-md-3 col-sm-3 label-align">
-								업체 코드 <span class="required">*</span>
+								업체 코드 
 							</label>
-							<div class="col-md-6 col-sm-6 ">
+							<div class="col-md-6 col-sm-6 " th:each="i : ${storeList}">
 								<input type="text" id="storeDeleteCode" name="storeDeleteCode"
-									class="form-control"
-									placeholder="업체 코드를 입력해주세요.">
+									class="form-control" th:value="${i.storeCode}" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -41,11 +40,11 @@
 								세부 장비 코드 <span class="required">*</span>
 							</label>
 							<div class="col-md-6 col-sm-6 ">
-								<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="storeItemDeleteCode" name="storeItemDeleteCode"
-									class="form-control"
-									placeholder="세부 장비 코드를 입력해주세요.">
-							</div>
+								<select>
+								<th:block th:each = "i2 : ${itemList}">
+								<option th:value="${i2.storeItemCode}" th:text="${i2.itemName}"></option>
+								</th:block> 
+								</select>
 						</div>	
 					</div>						
 						<div class="form-group row">
@@ -104,7 +103,7 @@
 					alert("장비 파기 일자를 입력해주세요.");
 					return false;
 				}else{
-					alert("장비파기 등록에 성공하셨습니다.");
+					alert("등록 하시겠습니까?");
 				}
 			});
 	});	

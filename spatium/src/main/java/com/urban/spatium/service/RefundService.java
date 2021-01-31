@@ -23,6 +23,16 @@ public class RefundService {
 	@Autowired 
 	private RefundMapper refundMapper;
 	
+	public int refundRelationDelete(String storeCode) {
+		
+		return refundMapper.refundRelationDelete(storeCode);
+	}
+	
+	public int refundPolicyDelete(String storeCode) {
+		
+		return refundMapper.refundPolicyDelete(storeCode);
+	}
+	
 	public List<CancelRsv> refundSelectStore(String storeId){
 		return refundMapper.refundSelectStore(storeId);
 	}

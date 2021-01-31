@@ -30,9 +30,9 @@
 							<label class="col-form-label col-md-3 col-sm-3 label-align">
 								업체 코드 <span class="required">*</span>
 							</label>
-							<div class="col-md-6 col-sm-6 ">
+							<div class="col-md-6 col-sm-6 " th:each="i : ${storeList}">
 								<input type="text" id="storeBuyCode" name="storeBuyCode"
-									class="form-control">
+									class="form-control" th:value="${i.storeCode}" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -40,8 +40,11 @@
 								세부 장비 코드 <span class="required">*</span>
 							</label>
 								<div class="col-md-6 col-sm-6 ">
-								<input type="text" id="storeBuyItemCode" name="storeBuyItemCode"
-									class="form-control">
+								<select>
+								<th:block th:each = "i2 : ${itemList}">
+								<option th:value="${i2.storeItemCode}" th:text="${i2.itemName}"></option>
+								</th:block> 
+								</select>
 							</div>
 						</div>	
 						<div class="form-group row">
@@ -131,7 +134,7 @@
 					alert("구입 일자를 입력해주세요.");
 					return false;
 				}else{
-					alert("장비구입 등록에 성공하셨습니다.");
+					alert("등록 하시겠습니까?");
 					return;
 				}
 			});

@@ -2,6 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.urban.spatium.mapper.SpaceMapper">
 
+<delete id="spaceOKDelete" parameterType="String">
+
+	DELETE 
+	FROM 
+		tbOkaySpace
+	WHERE 
+		okayStoreCode = #{storeCode};
+
+</delete>
+
+<delete id="spaceReadyDelete" parameterType="String">
+
+	DELETE 
+	FROM 
+		tbReadySpace
+	WHERE 
+		readyStoreCode = #{storeCode};
+
+</delete>
+
+<delete id="spaceRelationDelet" parameterType="String">
+
+	DELETE 
+	FROM 
+		tbSpaceRelation
+	WHERE 
+		spaceRelationStoreCode = #{storeCode};
+
+</delete>
+
 <select id="myOKSpaceList" parameterType="String" resultType="OKSpace">
 
 SELECT

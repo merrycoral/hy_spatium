@@ -22,8 +22,7 @@ public interface ReviewMapper {
 
 	public int getStoreReviewCount(String sessionId);
 
-	public List<Map<String, Object>> getStoreReview(String sessionId, int startRow, int rowPerPage);
-
+	public List<Map<String, Object>> getStoreReview(String sessionId);
 
 	public List<Map<String, Object>> searchReview(int startRow, String searchKey, String searchValue);
 
@@ -46,6 +45,10 @@ public interface ReviewMapper {
 	public List<Map<String, Object>> getReplyReview(String reviewCode);
 
 	public int rvReplyDelete(String SID, String rvReplyCode);
+
+	public Review getReviewForModify(String reviewCode);
+
+	public int modifyMyReview(Map<String, Object> review);
 	
 
 }

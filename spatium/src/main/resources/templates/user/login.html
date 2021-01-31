@@ -5,25 +5,6 @@
 <th:block layout:fragment="customCss">
 	<style type="text/css">
 	
-/* *, :after, :before {
-	box-sizing: border-box
-}
-
-.clearfix:after, .clearfix:before {
-	content: '';
-	display: table
-}
-
-.clearfix:after {
-	clear: both;
-	display: block
-}
-
-a {
-	color: inherit;
-	text-decoration: none
-} */
-
 .login-wrap {
 	width: 100%;
 	margin: auto;
@@ -42,30 +23,7 @@ a {
 	background: #FEFEFD;
 }
 
-/* .login-html .sign-in-htm {
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	position: absolute;
-	transform: rotateY(180deg);
-	backface-visibility: hidden;
-	transition: all .4s linear;
-}
- 
- 
- .login-html .tab, .login-form .group .label, .login-form .group .button
-	{
-	text-transform: uppercase;
-}
 
-.login-form {
-	min-height: 345px;
-	position: relative;
-	perspective: 1000px;
-	transform-style: preserve-3d;
-}
-*/
 
 .login-html .sign-in, .login-form .group .check {
 	display: none;
@@ -113,69 +71,6 @@ a {
 	background: #FDD528;
 }
 
-/* .login-form .group .label {
-	color: #040404;
-	font-size: 12px;
-}
- */
-
-/*
-.login-form .group label .icon {
-	width: 15px;
-	height: 15px;
-	border-radius: 2px;
-	position: relative;
-	display: inline-block;
-	background: rgba(255, 255, 255, .1);
-}
-
-.login-form .group label .icon:before, .login-form .group label .icon:after
-	{
-	content: '';
-	width: 10px;
-	height: 2px;
-	background: #fff;
-	position: absolute;
-	transition: all .2s ease-in-out 0s;
-}
-
-.login-form .group label .icon:before {
-	left: 3px;
-	width: 5px;
-	bottom: 6px;
-	transform: scale(0) rotate(0);
-}
-
-.login-form .group label .icon:after {
-	top: 6px;
-	right: 0;
-	transform: scale(0) rotate(0);
-}
-
- .login-form .group .check:checked+label {
-	color: #090909;
-}
-
-.login-form .group .check:checked+label .icon {
-	background: #FDD528;
-}
-
-.login-form .group .check:checked+label .icon:before {
-	transform: scale(1) rotate(45deg);
-}
-
-.login-form .group .check:checked+label .icon:after {
-	transform: scale(1) rotate(-45deg);
-}
-
-.login-html .sign-in:checked+.tab+.login-form .sign-in-htm {
-	transform: rotate(0);
-}
-
-.foot-lnk {
-	text-align: center;
-}
- */
 </style>
 </th:block>
 <th:block layout:fragment="customContent">
@@ -210,24 +105,9 @@ a {
 											class="btn btn-primary" id="loginBtn">간편 로그인(관리자)</button></a>
 								</div>
 							</div>
-								<button type="button" id="findId">아이디 찾기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			</div>
-		</form>
-	</div>
-</th:block>
-
-<th:block layout:fragment="customJs">
-	<script>
-		//number 길이제한
-		function maxLengthCheck(object) {
-			if (object.value.length > object.maxLength) {
-				object.value = object.value.slice(0, object.maxLength);
-			}
-		}
+								<a href="/user/findIdform"><button type="button" id="findId">아이디 찾기</button></a>
+								
+									<script>
 
 		function CheckForm() {
 
@@ -305,13 +185,8 @@ a {
 			}
 			return unescape(cookieValue);
 		}
+		
 
-		//아이디  찾기
-		 $(function() {
-			$("#findId").click(function() {
-				location.href = '/user/findIdform';
-			})
-		}) 
 	</script>
 
 </th:block>

@@ -23,6 +23,24 @@ public class StoreService {
 	@Autowired
 	private RefundMapper refundMapper;
 	
+	public String storeCodeGet(String storeId) {
+		
+		return storeMapper.storeCodeGet(storeId);
+	}
+	
+	public String myStoreCate(String storeId) {
+		
+		return storeMapper.myStoreCate(storeId);
+	}
+	
+	public String storeDelete(String storeCode) {
+		
+		String deleteCheck = "업체 삭제";
+		storeMapper.storeDelete(storeCode);
+		
+		return deleteCheck;
+	}
+	
 	public List<Store> myStoreList(String storeId){
 		
 		List<Store> myStoreList =  storeMapper.myStoreList(storeId);
@@ -48,7 +66,7 @@ public class StoreService {
 			
 		return updateCheck;
 	}
-	
+		
 	public Store updateStore(int storeCode) {
 		Store updateStore = storeMapper.getStoreInfoByStoreCode(storeCode);
 		return updateStore;
