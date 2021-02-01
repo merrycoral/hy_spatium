@@ -34,6 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 				||  requestUri.indexOf("/storeInfo") 	> -1 ||	requestUri.indexOf("/searchAll") > -1
 				||	requestUri.indexOf("/imsilogin") 	> -1 ||	requestUri.indexOf("/adressAjax") > -1
 				||	requestUri.indexOf("/addbookMark") > -1	 ||	requestUri.indexOf("/idCheck") > -1
+				||	requestUri.indexOf("/idChk") > -1		 ||	requestUri.indexOf("/findId") > -1
 				) {
 				return true;
 			}else {

@@ -215,6 +215,11 @@ public class RsvService {
 			}
 			if(rsvStatAdmin.get(i).get("sumPrice") != null) {
 				int count0 = Integer.parseInt(rsvStatAdmin.get(0).get("sumPrice").toString());
+				for(int j=0; j<rsvStatAdmin.size(); j++) {
+					if(count0 < Integer.parseInt(rsvStatAdmin.get(j).get("sumPrice").toString())) {
+						count0 =  Integer.parseInt(rsvStatAdmin.get(j).get("sumPrice").toString());
+					}
+				}
 				int counti = Integer.parseInt(rsvStatAdmin.get(i).get("sumPrice").toString());
 				int percentS = (counti*100/count0);
 				rsvStatAdmin.get(i).put("percentS", percentS);
