@@ -44,6 +44,12 @@ public class UserService {
 		return insertCheck;
 	}
 	
+	//휴면회원 리스트
+		public List<User> restUser(){
+			List<User> restUser = userMapper.restUser(); 
+			return restUser; 
+		}
+	
 	//탈퇴회원 리스트
 	public List<User> deleteUser(){
 		List<User> deleteUser = userMapper.deleteUser(); 

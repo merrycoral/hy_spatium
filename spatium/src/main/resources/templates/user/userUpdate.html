@@ -66,7 +66,8 @@
 										<hr style="margin: 5px 0 5px 0;">
  -->
 										<div class="col-sm-5 col-xs-6 tital rt">아이디 :</div>
-										<input name="userId" th:value="${user.userId}" readonly="readonly">
+										<input name="userId" th:value="${user.userId}"
+											readonly="readonly">
 									</div>
 									<div class="clearfix"></div>
 									<div class="bot-border"></div>
@@ -90,14 +91,15 @@
 
 								<div class="col-sm-5 col-xs-6 tital rt">성별 :</div>
 								<div th:switch="${user.userGender}" name="userGender">
-								<p th:case="남">
-						남 <input type="radio" name="userGender" th:value="남" checked>
-						여<input type="radio" name="userGender" th:value="여">
-					</p>
-					<p th:case="여">
-						남<input type="radio" name="userGender" th:value="남">
-						여<input type="radio" name="userGender" th:value="여" checked>
-					</p></div>
+									<p th:case="남">
+										남 <input type="radio" name="userGender" th:value="남" checked>
+										여<input type="radio" name="userGender" th:value="여">
+									</p>
+									<p th:case="여">
+										남<input type="radio" name="userGender" th:value="남"> 여<input
+											type="radio" name="userGender" th:value="여" checked>
+									</p>
+								</div>
 
 								<div class="clearfix"></div>
 								<div class="bot-border"></div>
@@ -109,7 +111,17 @@
 								<div class="bot-border"></div>
 
 								<div class="col-sm-5 col-xs-6 tital rt">직업 :</div>
-								<input th:value="${user.userJob}" name="userJob">
+								<!-- <input th:value="${user.userJob}" name="userJob"> -->
+
+								<select th:field="${user.userJob}" name="userJob"
+									th:value="${user.userJob}">
+									<option th:value="학생">학생</option>
+									<option th:value="회사원">회사원</option>
+									<option th:value="자영업">자영업</option>
+									<option th:value="무직">무직</option>
+									<option th:value="기타">기타</option>
+								</select>
+
 
 								<div class="clearfix"></div>
 								<div class="bot-border"></div>
@@ -117,10 +129,11 @@
 								<div class="col-sm-5 col-xs-6 tital rt">이메일 :</div>
 								<input th:value="${user.userEmail}" name="userEmail">
 
-								<div class="col-sm-6 col-xs-7 tital rt" style="margin-top: 30px; ">
+								<div class="col-sm-6 col-xs-7 tital rt"
+									style="margin-top: 30px;">
 									<input type="submit" class="btn btn-primary"
-										onclick="updateCk()"> <a class="btn btn-success"
-										href="/">취소</a>
+										onclick="updateCk()" value="수정"> <a
+										class="btn btn-success" href="/">취소</a>
 								</div>
 							</div>
 						</div>

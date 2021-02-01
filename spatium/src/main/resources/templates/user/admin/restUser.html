@@ -30,7 +30,7 @@
 			</thead>
 
 			<tbody>
-				<tr th:if="${#lists.size(userList) > 0}" th:each="l : ${userList}">
+				<tr th:if="${#lists.size(restUser) > 0}" th:each="l : ${restUser}">
 					<td th:text="${l.restUserId}"></td>
 					<td th:text="${l.restUserRegDate}"></td>
 					<td th:text="${l.restUserEndRegDate}"></td>
@@ -45,7 +45,7 @@
 
 					<td><a
 
-						th:href="@{/removeUser(restUserId=${l.restUserId}, restUserLevel=${l.restUserLevel})}" onclick="return confirm('삭제하시겠습니까?');"><button type="button">삭제</button></a>
+						th:href="@{/removeUser(restUserId=${l.restUserId})}" onclick="return confirm('삭제하시겠습니까?');"><button class="btn btn-secondary btn-sm" type="button">삭제</button></a>
 						
 
 					</td>
