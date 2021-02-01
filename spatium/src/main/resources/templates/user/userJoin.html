@@ -126,65 +126,62 @@ label.light {
 			<h1>Sign Up</h1>
 
 			<fieldset>
-				<label for="userLevel">회원구분:</label> <input type="radio" id="userLevel"
-					name="userLevel" value="3" checked="checked"> 개인
-				<input type="radio" id="userLevel" name="userLevel" value="2" > 판매자
-					<div>
-					<label for="userId">아이디:</label> <input
-					type="text" id="userId" name="userId" maxlength="12" style="margin-bottom: 10px;" required="required">
-					<button type="button"  class="btn btn-primary" 
-					onclick="idChk();" value="N" style="margin-bottom: 30px;" >중복확인</button>
-					</div>
-					<div>
-					 <label
-					for="userPw">비밀번호:</label> <input type="password"
-					id="userPw" name="userPw" placeholder="4~12자의 대소문자와 숫자를 입력하세요"
-					maxlength="12" required="required"> 
-					</div>
-					<div>
-					 <label
-					for="userName">이름:</label> <input type="text"
-					id="userName" name="userName"  required="required"> 
-					</div>
-					<div>
-					 <label
-					for="userBirth">생년월일:</label> <input type="date"
-					id="userBirth" name="userBirth"  required="required"> 
-					</div>
-					<div>
-					 <label
-					for="userGender">성별:</label> <input type="radio"
-					id="userGender" name="userGender"  required="required" value="남"
-					checked="checked"> 남성
-					<input type="radio"	id="userGender" name="userGender"  required="required" value="여"
-					> 여성
-					</div>
-					<div>
-					 <label
-					for="userPhone">휴대전화:</label> <input type="tel"
-					id="userPhone" name="userPhone"  required="required" maxlength="11" oninput="maxLengthCheck(this)" placeholder="ex)01012345678"> 
-					</div>
-					<div>
-					 <label
-					for="userJob">직업:</label> <select id="userJob" name="userJob"  required="required" > 
-					<option value="학생">학생</option>
-					<option value="회사원">회사원</option>
-					<option value="자영업">자영업</option>
-					<option value="무직">무직</option>
-					<option value="기타">기타</option>
-				</select>
-					</div>
-					<div>
-					 <label
-					for="userEmail">이메일:</label> <input type="text"
-					id="userEmail" name="userEmail" required="required" style=" margin-bottom: 5px"> 
-					</div>
+				<label for="userLevel">회원구분:</label> <input type="radio"
+					id="userLevel" name="userLevel" value="3" checked="checked">
+				개인 <input type="radio" id="userLevel" name="userLevel" value="2">
+				판매자
+				<div>
+					<label for="userId">아이디:</label> <input type="text" id="userId"
+						name="userId" maxlength="12" style="margin-bottom: 10px;"
+						required="required">
+					<button type="button" class="btn btn-primary" onclick="idChk();"
+						value="N" style="margin-bottom: 30px;">중복확인</button>
+				</div>
+				<div>
+					<label for="userPw">비밀번호:</label> <input type="password"
+						id="userPw" name="userPw" placeholder="4~12자의 대소문자와 숫자를 입력하세요"
+						maxlength="12" required="required">
+				</div>
+				<div>
+					<label for="userName">이름:</label> <input type="text" id="userName"
+						name="userName" required="required">
+				</div>
+				<div>
+					<label for="userBirth">생년월일:</label> <input type="date"
+						id="userBirth" name="userBirth" required="required">
+				</div>
+				<div>
+					<label for="userGender">성별:</label> <input type="radio"
+						id="userGender" name="userGender" required="required" value="남"
+						checked="checked"> 남성 <input type="radio" id="userGender"
+						name="userGender" required="required" value="여"> 여성
+				</div>
+				<div>
+					<label for="userPhone">휴대전화:</label> <input type="tel"
+						id="userPhone" name="userPhone" required="required" maxlength="11"
+						oninput="maxLengthCheck(this)" placeholder="ex)01012345678">
+				</div>
+				<div>
+					<label for="userJob">직업:</label> <select id="userJob"
+						name="userJob" required="required">
+						<option value="학생">학생</option>
+						<option value="회사원">회사원</option>
+						<option value="자영업">자영업</option>
+						<option value="무직">무직</option>
+						<option value="기타">기타</option>
+					</select>
+				</div>
+				<div>
+					<label for="userEmail">이메일:</label> <input type="text"
+						id="userEmail" name="userEmail" required="required"
+						style="margin-bottom: 5px">
+				</div>
 			</fieldset>
 			<button type="submit" id="submit" class="btn btn-primary ">회원가입</button>
-			<div style=" margin-top: 10px"></div>
+			<div style="margin-top: 10px"></div>
 			<button type="button" id="cancel" class="btn btn-success">취소</button>
 		</form>
-	</div>	
+	</div>
 </th:block>
 <th:block layout:fragment="customJs">
 	<script> 
@@ -196,6 +193,37 @@ var check = 0;
 	 		$("#cancel").on("click", function(){
 				location.href = "/";
 			})
+			
+	$(document).ready(function(){
+			
+  //한글입력 안되게 처리
+  $("input[name=userId]").keyup(function(event){ 
+   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+    var inputVal = $(this).val();
+    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+   }
+  });
+});
+		//숫자만 입력
+		$(function(){ 
+			$(document).on("keyup", "#userPhone", function() {
+				$(this).val( $(this).val().replace(/[^0-9]/gi,""));
+				}); 
+		});  
+		
+		//한글만 입력
+		$(function(){ 
+			$(document).on("keyup", "#userName", function() {
+				$(this).val( $(this).val().replace(/[^가-힣]{2,6}$/gi,""));
+				}); 
+		});
+		
+		//비밀번호 A~Z, a~z, 0~9로 시작하는 4~12자리
+		$(function(){ 
+			$(document).on("keyup", "#userPw", function() {
+				$(this).val( $(this).val().replace(/(^?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/gi,""));
+				}); 
+		});   		
 		
 			$("#submit").on("click", function(){
 				if($("#userId").val()==""){
@@ -203,47 +231,60 @@ var check = 0;
 					$("#userId").focus();
 					return false;
 				}
-				if($("#password").val()==""){
+				if($("#userPw").val()==""){
 					alert("비밀번호를 입력해주세요.");
-					$("#userPass").focus();
+					$("#userPw").focus();
 					return false;
 				}
-				if($("#name").val()==""){
+				if($("#userName").val()==""){
 					alert("성명을 입력해주세요.");
 					$("#userName").focus();
 					return false;
 				}
-				if($("#birth").val()==""){
+				if($("#userBirth").val()==""){
 					alert("생년월일을 입력해주세요.");
-					$("#birth").focus();
+					$("#userBirth").focus();
 					return false;
 				}
-				if($("#gender").val()==""){
+				if($("#userGender").val()==""){
 					alert("성별을 선택해주세요.");
-					$("#gender").focus();
+					$("#userGender").focus();
 					return false;
 				}
-				if($("#phone").val()==""){
+				if($("#userPhone").val()==""){
 					alert("휴대전화번호를 입력해주세요.");
-					$("#phone").focus();
+					$("#userPhone").focus();
 					return false;
 				}
-				if($("#job").val()==""){
+				if($("#userJob").val()==""){
 					alert("직업을 입력해주세요.");
-					$("#job").focus();
+					$("#userJob").focus();
 					return false;
 				}
-				if($("#email").val()==""){
+				if($("#userEmail").val()==""){
 					alert("이메일을 입력해주세요.");
-					$("#email").focus();
+					$("#userEmail").focus();
 					return false;
 				}
+				var idChkVal = $("#idChk").val();
+				if(idChkVal == "N"){
+					alert("중복확인 버튼을 눌러주세요.");
+				}else if(idChkVal == "Y"){
+					$("#joinform").submit();
 			});
 		
 		//아이디 중복체크
 		$('#userId').change(function(){
  			check=0;
  		})
+ 		
+ 		var userId = $("#userId").val();
+ 		if(userId == null){
+ 			alert("아이디를 입력하세요");
+ 			check=0;
+ 		
+ 		}
+ 			
 		function idChk(){
 			$.ajax({
 				url : "/user/idChk",
@@ -261,6 +302,7 @@ var check = 0;
 					}
 				}
 			})
+		}
 		};
 		
 	</script>
