@@ -73,7 +73,7 @@ public class StatisticController {
 		model.addAttribute("btopcount4", btopcount[4]);
 		
 		//model.addAttribute("btopname1", btopname[1]);
-		model.addAttribute("title", "접속 목록");
+		model.addAttribute("title", "접속 통계");
 		model.addAttribute("accessList", accessList);
 		model.addAttribute("browser4", browser4);
 		model.addAttribute("accessTotalCount", accessCount);

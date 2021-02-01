@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
 <th:block layout:fragment="customContent">
 	<div style="width:100%; margin: 0 0 10px 0;">
 		<b style="font-size:20px;">판매 통계 페이지  |  </b>    
@@ -40,7 +43,7 @@
 	<div class="col-md-6 col-sm-6 ">
 		<div class="x_panel tile">
 			<div class="x_title">
-				<h2>직업별 이용 통계</h2>
+				<h2>직업별 이용 통계 <small>전체 기간의 데이터입니다.</small></h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -90,7 +93,7 @@
 	<div class="col-md-6 col-sm-6 ">
 		<div class="x_panel tile">
 			<div class="x_title">
-				<h2>성별 이용 통계</h2>
+				<h2>성별 이용 통계 <small>전체 기간의 데이터입니다.</small></h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -139,7 +142,7 @@
 	<div class="col-md-6 col-sm-6 ">
 		<div class="x_panel tile">
 			<div class="x_title">
-				<h2>연령대별 이용 통계</h2>
+				<h2>연령대별 이용 통계   <small>전체 기간의 데이터입니다.</small></h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">

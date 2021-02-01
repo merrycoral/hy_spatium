@@ -9,52 +9,12 @@
 	details > summary::-webkit-details-marker {display: none}
 	details > summary::marker {display: none}
 	
-	#reviewTable th {padding : 5px;}
-	#reviewTable td {padding : 5px;}
+	#calcTable th {padding : 5px;}
+	#calcTable td {padding : 5px;}
 	
 </style>
 </th:block>
 <th:block layout:fragment="customContent">
-	<div class="modal fade" id="deleteCheck">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h4 class="modal-title">리뷰 삭제 확인</h4>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	      </div>
-	      <div class="modal-body" style="font-size:15px;">
-	      	선택하신 <b><span class="selectRNum" style="font-size:25px; color:red"></span></b>개의 리뷰를 삭제하시겠습니까?<br>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-danger" id="deleteReview">삭제하기</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	
-	<div class="modal fade" id="blindCheck">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h4 class="modal-title">리뷰 블라인드 확인</h4>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	      </div>
-	      <div class="modal-body" style="font-size:15px;">
-	      	선택하신 <b><span class="selectRNum" style="color:red"></span></b>개의 리뷰를<br>
-	      	<select id="blindCheck" class="form-control blind">
-				<option value="N">블라인드</option>
-				<option value="Y">블라인드 해제</option>
-			</select>
-			처리합니다.
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-success" id="changeBlindReview">블라인드 변경하기</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
 
 	<div class="col-md-12 col-sm-12  ">
 		<div class="x_panel">
@@ -72,11 +32,9 @@
                   </button>
                 </div>
 				
-
-				
 			<form id="selectReview" method="post">
 				<div class="table-responsive">
-					<table class="table table-striped jambo_table bulk_action" id="reviewTable" style="padding: 0px;">
+					<table class="table table-striped jambo_table bulk_action" id="calcTable" style="padding: 0px;">
 						<thead>
 							<tr class="headings">
 								<th><input type="checkbox" id="check-all" class="flat">
@@ -121,7 +79,29 @@
 </th:block>
 <th:block layout:fragment="customJs">
 <script  th:inline="javascript">
-
+	$("#calcTable").DataTable({
+		order: [ [ 1, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+       "language": {
+                "info": "페이지 _PAGE_ / _PAGES_",
+                "paginate": {
+                            "first": "첫페이지",
+                            "last": "마지막",
+                             "previous": "이전",
+                             "next":"다음"
+                           },
+                "sEmptyTable": "데이터가 없습니다.",
+                "sInfoEmpty": "데이터가 없습니다.",
+                "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                "sInfoPostFix": "",
+                "sLengthMenu": "Show _MENU_ 개씩",
+                "sSearch": "검색:",
+                "sSearchPlaceholder": "",
+                "sZeroRecords": "일치하는 검색 결과가 없습니다."
+                }
+ });
 </script>
 </th:block>
 

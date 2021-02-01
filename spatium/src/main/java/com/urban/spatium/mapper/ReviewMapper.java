@@ -49,6 +49,10 @@ public interface ReviewMapper {
 	public Review getReviewForModify(String reviewCode);
 
 	public int modifyMyReview(Map<String, Object> review);
-	
+
+	public Map<String, Object> getReview(String getReviewCode);
+
+	public String getStoreCodeById(String storeId);
+
 
 }

@@ -12,7 +12,9 @@
 	b{	font-weight: bold; }
 	#reviewTable th:nth-of-type(1) { display: none; } 
 	#reviewTable td:nth-of-type(1) { display: none; } 
-
+	div .modal {font-size:15px;}
+	.modal-body {font-size:15px;}
+	.ystar {color:#F5C225; font-size: 20px;}
 </style>
 </th:block>
 <th:block layout:fragment="customContent">
@@ -22,18 +24,18 @@
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h4 class="modal-title">리뷰 내용 보기</h4>
+	        <h4 class="modal-title"><b style="font-size:20px;">리뷰 내용 보기</b></h4>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      </div>
-	      <div class="modal-body" style="font-size:15px;">
-	      	<h5 id="reviewTitle"></h5>
+	      <div class="modal-body">
+	      	<span id="reviewTitle"></span>
 	      	<small >작성자 : <span id="reviewAddId"></span>
 	      	작성일 : <span id="reviewAddDate"></span>
 	      	<br>
 	      	리뷰 코드 : <span id="reviewCode"> </span>
 	      	예약 코드 : <span class="reviewSpaceRsv"> </span>
 	      	
-	      	공간 코드 : <span id="reviewSpaceCode"> </span>
+	      	업체 코드 : <a id="storeLink"><span id="reviewStoreCode"> </span></a>
 	      	</small>
 	      	<br><br>
 	      	<h5> 종합 추천 점수 : <span id="reviewScore" class="ystar"></span></h5>
@@ -94,6 +96,7 @@
 						</td>
 					</tr>
 					<tr class="even pointer" th:if="${#lists.isEmpty(myReview)}">
+						<td></td>
 						<td colspan="9" style="text-align:center;">
 						작성한 리뷰가 없습니다.
 						</td>
@@ -118,15 +121,35 @@
 			var getReviewCode = $($(reviewCode)).text();
 			console.log(getReviewCode);
 			var request = $.ajax({
-				url: '/review/viewReplyReview', 
+				url: '/review/viewMyReview', 
 				method: 'POST',
 				data: { getReviewCode : getReviewCode }, 
 				dataType: 'json'
 			});
 			request.done(function( data ) {
 				console.log(data);
-				var writeTime = data[0].rvReplyAddDate.substr(0,10) +" " + data[0].rvReplyAddDate.substr(11,8);
+				var writeTime = data.reviewAddDate.substr(0,10) +" " + data.reviewAddDate.substr(11,8);
 				console.log(writeTime);
+				$('#reviewCode').text($(reviewCode).text());
+				$('.reviewSpaceRsv').text(data.reviewSpaceRsv);
+				$('#reviewTitle').text(data.reviewTitle);
+				$('#reviewContents').text(data.reviewContents);
+				$('#reviewAddId').text(data.reviewAddId);
+				$('#reviewAddDate').text(writeTime);
+				$('#reviewClean').text(data.reviewClean);
+				$('#reviewService').text(data.reviewService);
+				$('#reviewRestroom').text(data.reviewRestroom);
+				$('#reviewFacility').text(data.reviewFacility);
+				$('#reviewAmbience').text(data.reviewAmbience);
+				$('#reviewScore').text(data.reviewScore);
+				$('#storeLink').attr("href", "/store/storeInfo?storeCode=" + data.reviewStoreCode);
+				$('#reviewStoreCode').text(data.reviewStoreCode);
+				var score = $(reviewScore).text();
+				var starScore = ""
+				for(i=1;i<=score;i++){
+					starScore += '★'
+				}
+				$('#reviewScore').text(starScore);
 			});
 			request.fail(function( jqXHR, textStatus ) {
 				alert( "Request failed: " + textStatus );
@@ -134,7 +157,7 @@
 		});
 		
 		$("#reviewTable").DataTable({
-	  		order: [ [ 0, "asc" ] ],
+	  		order: [ [ 1, "desc" ] ],
 	  		ordering: true,
 	  		lengthChange: false,
 	  		"dom": 'fltip',
@@ -147,7 +170,7 @@
 		                             "next":"다음"
 		                           },
 		                "sEmptyTable": "데이터가 없습니다.",
-		                "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		                "sInfoEmpty": "데이터가 없습니다.",
 		                "sInfoFiltered": "(filtered from _MAX_ total entries)",
 		                "sInfoPostFix": "",
 		                "sLengthMenu": "Show _MENU_ 개씩",

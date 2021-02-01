@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
 <th:block layout:fragment="customCss">
 <style type="text/css">
 	/* details {width: 500px;} */
@@ -115,9 +118,7 @@
 			<div class="x_title">
 				<h2>리뷰 전체 목록 <small>관리자 페이지</small></h2>
 				<div style="float:right;">
-					<b th:text="${storeInfo.storeId}"></b> / 
-					<b th:text="${storeInfo.storeRepresentative}"></b>  님의 
-					<b th:text="${storeInfo.storeName}"></b>
+					<b>관리자 </b><b th:text="${storeInfo.storeId}"></b><b>님 접속중</b>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -141,11 +142,9 @@
 								</th>
 								<th class="column-title">리뷰 코드</th>
 								<th class="column-title">예약 코드</th>
-								<th class="column-title">방 코드</th>
 								<th class="column-title">리뷰 제목</th>
 								<th class="column-title">작성자</th>
 								<th class="column-title">등록일</th>
-								<th class="column-title">답변<br>여부</th>
 								<th class="column-title">리뷰<br>타입
 								</th>
 								<th class="column-title">적립<br>포인트
@@ -169,13 +168,11 @@
 									name="table_records" th:value="${ar.get('reviewCode')}"></td>
 								<td class=" " th:text="${ar.get('reviewCode')}"></td>
 								<td class=" " th:text="${ar.get('reviewSpaceRsv')}"></td>
-								<td class=" " th:text="${ar.get('reviewSpaceCode') }"></td>
 								<td class="reviewTitle"> <span th:text="${ar.get('reviewTitle')}"></span>
 									 <input type="hidden" class="reviewIn" th:value="${ar.get('reviewContents')}">								
 								</td>
 								<td class=" " th:text="${ar.get('reviewAddId')}"></td>
 								<td class=" " th:text="${ar.get('reviewAddDate')}"></td>
-								<td class=" " ></td>
 								<td class=" " th:text="${ar.get('reviewType')}"></td>
 								<td class=" " th:text="${ar.get('reviewPoint')}"></td>
 								<td class=" " th:text="${ar.get('reviewDisplay')}"></td>
@@ -192,7 +189,6 @@
 					<input type="hidden" id="hiddenBox" name="blindValue">
 				</div>
 			</form>
-			<span class="label label-default">삭제하기</span>
 			</div>
 		</div>
 	</div>

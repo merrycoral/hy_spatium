@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
 <th:block layout:fragment="customCss">
 <style type="text/css">
 	/* details {width: 500px;} */
@@ -35,8 +38,6 @@
 	      	<br>
 	      	리뷰 코드 : <span id="reviewCode"> </span>
 	      	예약 코드 : <span class="reviewSpaceRsv"> </span>
-	      	
-	      	공간 코드 : <span id="reviewSpaceCode"> </span>
 	      	</small>
 	      	<br><br>
 	      	<h5> 종합 추천 점수 : <span id="reviewScore" class="ystar"></span></h5>
@@ -171,23 +172,21 @@
 		var reviewSpaceRsv = $(this).parents('tr').find('td')[2];
 		console.log($(reviewSpaceRsv).text());
 		
-		var reviewSpaceCode = $(this).parents('tr').find('td')[3];
 		var reviewTitle = $(this).parents('tr').find('.reviewTitle');
 		var reviewContents = $(this).parents('tr').find('.reviewIn');
-		var reviewAddId = $(this).parents('tr').find('td')[5];
-		var reviewAddDate = $(this).parents('tr').find('td')[6];
-		var reviewClean = $(this).parents('tr').find('td')[12];
-		var reviewService = $(this).parents('tr').find('td')[13];
-		var reviewRestroom = $(this).parents('tr').find('td')[14];
-		var reviewFacility = $(this).parents('tr').find('td')[15];
-		var reviewAmbience = $(this).parents('tr').find('td')[16];
-		var reviewScore = $(this).parents('tr').find('td')[17];
+		var reviewAddId = $(this).parents('tr').find('td')[4];
+		var reviewAddDate = $(this).parents('tr').find('td')[5];
+		var reviewClean = $(this).parents('tr').find('td')[9];
+		var reviewService = $(this).parents('tr').find('td')[10];
+		var reviewRestroom = $(this).parents('tr').find('td')[11];
+		var reviewFacility = $(this).parents('tr').find('td')[12];
+		var reviewAmbience = $(this).parents('tr').find('td')[13];
+		var reviewScore = $(this).parents('tr').find('td')[14];
 		
 		$('#reviewCode').text($(reviewCode).text());
 		$('#getReviewCode').val($(reviewCode).text());
 		$('.reviewSpaceRsv').find('input').val($(reviewSpaceRsv).text());
 		$('.reviewSpaceRsv').text($(reviewSpaceRsv).text());
-		$('#reviewSpaceCode').text($(reviewSpaceCode).text());
 		$('#reviewTitle').text($(reviewTitle).text());
 		$('#reviewContents').text($(reviewContents).val());
 		$('#reviewAddId').text($(reviewAddId).text());

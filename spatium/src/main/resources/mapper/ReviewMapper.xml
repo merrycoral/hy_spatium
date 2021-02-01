@@ -88,6 +88,14 @@
 			reviewCode = #{reviewCode};
 	</update>
 	
+	<select id="getReview" parameterType="String" resultType="Map">
+		<include refid="seletReviewColumn" />
+		FROM
+			tbReview
+		WHERE
+			reviewCode = #{reviewCode}
+	</select>
+	
 	<select id="getReviewForModify" parameterType="String" resultType="Review">
 		<include refid="seletReviewColumn" />
 		FROM
@@ -116,6 +124,16 @@
 		WHERE
 			reviewAddId = #{SID}
 		ORDER BY reviewCode DESC;
+	</select>
+	
+	<select id="getStoreCodeById" parameterType="String" resultType="String">
+		select
+			  storeCode
+		From
+			viewRsv
+		where
+			storeId = #{storeId}
+		GROUP BY storeId
 	</select>
 	
 	<select id="getStore" parameterType="String" resultType="Map">

@@ -127,6 +127,17 @@ public class ReviewController {
 		}
 		
 		@ResponseBody
+		@PostMapping(value = "/review/viewMyReview", produces = "application/json")
+		public Map<String, Object> viewMyReview(
+				@RequestParam(name="getReviewCode", required = false) String getReviewCode){
+			System.out.println("ajax 실행");
+			System.out.println(getReviewCode + "<------ getReviewCode");
+			Map<String, Object> viewMyReview = reviewService.viewMyReview(getReviewCode);
+			System.out.println(viewMyReview);
+			return viewMyReview;
+		}
+		
+		@ResponseBody
 		@PostMapping(value = "/review/viewReplyReview", produces = "application/json")
 		public List<Map<String, Object>> viewReplyReview(
 				@RequestParam(name="getReviewCode", required = false) String getReviewCode){

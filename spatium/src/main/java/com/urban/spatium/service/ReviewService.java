@@ -265,5 +265,16 @@ public class ReviewService {
 			return delcnt;
 		}
 
+		public Map<String, Object> viewMyReview(String getReviewCode) {
+			Map<String, Object> getMyReview = reviewMapper.getReview(getReviewCode);
+			System.out.println("업체코드 가져오기!!!!");
+			System.out.println(getMyReview);
+			System.out.println(getMyReview.get("reviewStoreId"));
+			String storeCode = reviewMapper.getStoreCodeById((String) getMyReview.get("reviewStoreId"));
+			getMyReview.put("reviewStoreCode", storeCode);
+			
+			return getMyReview;
+		}
+
 
 }
