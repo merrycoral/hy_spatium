@@ -1,9 +1,6 @@
 package com.urban.spatium.mapper;
 
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -65,8 +62,11 @@ public interface UserMapper {
 	//구매자 회원가입
 	public int addUser(User user);
 	
-	// 아이디 찾기
+	//아이디 찾기
 	public String findIdajax(String userEmail);
+	
+	//비밀번호 찾기
+	public int findPw(User user);
 
 
 }
