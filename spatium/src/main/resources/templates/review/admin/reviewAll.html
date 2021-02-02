@@ -99,7 +99,7 @@
 	      </div>
 	      <div class="modal-body" style="font-size:15px;">
 	      	선택하신 <b><span class="selectRNum" style="color:red"></span></b>개의 리뷰를<br>
-	      	<select id="blindCheck" class="form-control blind">
+	      	<select id="blindCheckValue" class="form-control blind">
 				<option value="N">블라인드</option>
 				<option value="Y">블라인드 해제</option>
 			</select>
@@ -356,7 +356,7 @@
 			$('.selectRNum').text(selected);
 			
 			$('#changeBlindReview').click(function(){
-					$('#hiddenBox').val($('#blindCheck option').val());
+					$('#hiddenBox').val($('#blindCheckValue').val());
 					$('#selectReview').submit();
 			});
 		}else{
