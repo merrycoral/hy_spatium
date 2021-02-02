@@ -42,7 +42,7 @@
 
 				<input class="form-control" maxlength="12" id="userId" name="userId"
 					required="required">
-				<button type="button" class="btn btn-primary" onclick="idCheck();" id="idCheck"
+				<button type="button" class="btn btn-primary"  id="idCheck"
 					value="N">중복확인</button>
 			</div>
 
@@ -130,7 +130,7 @@
 
 		<div class="form-group" align="center">
 			<div class="col-md-6 offset-md-3">
-				<button type="submit" id="joinBtn" class="btn btn-primary">회원가입</button>
+				<button type="submit" id="submit" class="btn btn-primary">회원가입</button>
 				<button type="button" id="cancel" class="btn btn-success">취소</button>
 			</div>
 		</div>
@@ -179,39 +179,34 @@ var check = 0;
 		});   
 
 		//아이디 중복체크
- 		$('#userId').change(function(){
- 			check=0;
- 		})
- 		
- 	
- 		$('#idCheck').on("click", function(){
- 		var userId = $("#userId").val();
- 		if(userId == ""){
- 			alert("아이디를 입력하세요");
- 			return ;
- 		}else{
- 		}
- 		
-		function idCheck(){
-			$.ajax({
-				url : "/user/admin/idCheck",
-				type : "post",
-				dataType : "json",
-				data : {"userId" : $("#userId").val()},
-				success : function(data){
-					if(data == 1 || data){
-						alert("이미 존재하는 아이디입니다.");
-						check=0;
-					
-					}else if(data == 0){
-						$("#idCheck").attr("value", "Y");
-						alert("사용가능한 아이디입니다.");
-						check=1;
-				}
-			}
-		}); 
-		}; 
- 		});
+		$('#userId').change(function(){
+          check=0;
+       });
+		
+		$('#idCheck').click(function(){
+			idCheck();
+       });
+       
+      
+      function idCheck(){
+         $.ajax({
+            url : "/user/admin/idCheck",
+            type : "post",
+            dataType : "json",
+            data : {"userId" : $("#userId").val()},
+            success : function(data){
+               if(data == 1){
+                  alert("이미 존재하는 아이디입니다.");
+                  check=0;
+               }else if(data == 0){
+                  $("#idChk").attr("value", "Y");
+                  alert("사용가능한 아이디입니다.");
+                  check=1;
+               }
+            }
+         })
+      };
+		
 	</script>
 </th:block>
 </html>
