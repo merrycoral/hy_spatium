@@ -17,6 +17,14 @@ public class UserService {
 	@Autowired 
 	private UserMapper userMapper;
 
+	/*
+	 * @Autowired UserRepository userRepository;
+	 * 
+	 * private JavaMailSender mailSender; private static final String FROM_ADDRESS =
+	 * "본인의 이메일 주소를 입력하세요!";
+	 */
+    
+    
 	//불량회원 삭제
 	public String removeBlack(String blackUserId) { 
 		String result =	"불량회원 삭제 실패";
@@ -167,14 +175,19 @@ public class UserService {
 
 	//아이디찾기
 	public String findIdajax(String userEmail) {
-		String id = userMapper.findIdajax(userEmail);
-		System.out.println("userId는  : " + id);
+		String userId = userMapper.findIdajax(userEmail);
+		System.out.println("userId는  : " + userId);
 		String result = null;
-		if (id == null) {
+		if (userId == null) {
 			result = "해당 이메일에 해당하는 아이디가 없습니다.";
 		} else {
-			result = "고객님의 아이디는 : "+id+" 입니다.";
+			result = "고객님의 아이디는 : "+userId+" 입니다.";
 		}
 		return result;
 	}
+	
+	
+	public void findPw(String userId, String userEmail)  {
+		
+}
 }
