@@ -31,7 +31,7 @@
 		<result column="pointSellList" 	property="pointSellList"/>
 		<result column="pointList" 	property="pointList"/>
 		<result column="pointPaymentCode" 	property="pointPaymentCode"/>
-		<result column="reviewCodepointReviewCode" 	property="reviewCodepointReviewCode"/>
+		<result column="pointReviewCode" 	property="pointReviewCode"/>
 		<result column="pointModyfiDate" 		property="pointModyfiDate"/>
 	</resultMap>
 	
@@ -191,7 +191,7 @@
 		, pointSellList
 		, pointList
 		, pointPaymentCode
-		, reviewCodepointReviewCode
+		, pointReviewCode
 		, pointModyfiDate
 	FROM tbPointList
 	where
@@ -206,7 +206,7 @@
 		, pointSellList
 		, pointList
 		, pointPaymentCode
-		, reviewCodepointReviewCode
+		, pointReviewCode
 		, pointModyfiDate
 	FROM tbPointList
 	</select>

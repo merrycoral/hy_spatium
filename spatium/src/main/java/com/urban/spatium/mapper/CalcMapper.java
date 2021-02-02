@@ -15,7 +15,7 @@ public interface CalcMapper {
 
 	int getCalcWaitCount();
 
-	int getTodayCount(String today);
+	int getTodayCount(String storeCode, String today);
 
 	List<Map<String, Object>> getTodayList(String today, String SID);
 

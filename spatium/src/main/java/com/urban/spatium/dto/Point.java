@@ -8,7 +8,7 @@ public class Point {
 	private String pointModyfiDate;
 	private int pointList;
 	private int pointPaymentCode;
-	private int reviewCodepointReviewCode;
+	private int pointReviewCode;
 	
 	
 	public String getPointModyfiDate() {
@@ -17,11 +17,12 @@ public class Point {
 	public void setPointModyfiDate(String pointModyfiDate) {
 		this.pointModyfiDate = pointModyfiDate;
 	}
-	public int getReviewCodepointReviewCode() {
-		return reviewCodepointReviewCode;
+
+	public int getPointReviewCode() {
+		return pointReviewCode;
 	}
-	public void setReviewCodepointReviewCode(int reviewCodepointReviewCode) {
-		this.reviewCodepointReviewCode = reviewCodepointReviewCode;
+	public void setPointReviewCode(int pointReviewCode) {
+		this.pointReviewCode = pointReviewCode;
 	}
 	public int getPointPaymentCode() {
 		return pointPaymentCode;
@@ -59,15 +60,15 @@ public class Point {
 	public void setPointList(int pointList) {
 		this.pointList = pointList;
 	}
+	
 	@Override
 	public String toString() {
 		return "Point [PointCode=" + PointCode + ", pointAddList=" + pointAddList + ", pointSellList=" + pointSellList
 				+ ", pointID=" + pointID + ", pointModyfiDate=" + pointModyfiDate + ", pointList=" + pointList
-				+ ", pointPaymentCode=" + pointPaymentCode + ", reviewCodepointReviewCode=" + reviewCodepointReviewCode
-				+ "]";
+				+ ", pointPaymentCode=" + pointPaymentCode + ", pointReviewCode=" + pointReviewCode + "]";
 	}
-	
-	
+
+
 }
 	
 	

@@ -53,10 +53,14 @@ public class CalcService {
 					Map<String, Object> todaytotal = getTodayTotal.get(getTodayTotal.size()-1);
 					System.out.println(todaytotal + " <-- todaytotal");
 					Map<String, Object> lastParam = getTodayTotal.get(getTodayTotal.size()-1);
+					System.out.println(lastParam + "<---- lastParam");
 					int moneySubtotal = Integer.parseInt(getTodayTotal.get(getTodayTotal.size()-1).get("moneySubtotal").toString());
 					int refundSubtotal = Integer.parseInt(getTodayTotal.get(getTodayTotal.size()-1).get("refundSubtotal").toString());
+					int countSubtotal = calcMapper.getTodayCount(Integer.toString(storeCode), today);
+					System.out.println(countSubtotal + "<------ countSubtotal");
 					System.out.println(lastParam.get("refundMoney"));
 					lastParam.put("storeCode", storeCode);
+					lastParam.put("countSubtotal", countSubtotal);
 					lastParam.put("SID", SID);
 					lastParam.put("today", today);
 					calcMapper.insertDayClose(lastParam);

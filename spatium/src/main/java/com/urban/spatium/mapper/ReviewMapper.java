@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.urban.spatium.dto.Point;
 import com.urban.spatium.dto.Review;
 import com.urban.spatium.dto.Rsv;
 
@@ -34,7 +35,7 @@ public interface ReviewMapper {
 
 	public Map<String, Object> getStore(String rsvCode);
 
-	public void insertReview(Map<String, Object> review);
+	public void insertReview(Review wroteReview);
 
 	public void replyReview(String storeReply, String getReviewCode, String SID);
 
@@ -53,6 +54,8 @@ public interface ReviewMapper {
 	public Map<String, Object> getReview(String getReviewCode);
 
 	public String getStoreCodeById(String storeId);
+
+	public void addPointReview(Point addReviewPoint);
 
 
 }

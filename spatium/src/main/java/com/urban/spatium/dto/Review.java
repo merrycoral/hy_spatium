@@ -5,12 +5,13 @@ public class Review {
 	private int reviewSpaceRsv;
 	private int reviewSpaceCode;
 	private String reviewStoreId;
+	private String reviewStoreCode;
 	private String reviewTitle;
 	private String reviewContents;
 	private String reviewAddId;
 	private String reviewAddDate;	
 	private String reviewUpDate;
-	private String reviewType;
+	private int reviewType;
 	private int reviewPoint;
 	private String reviewDisplay;
 	private String reviewReply;
@@ -25,15 +26,23 @@ public class Review {
 	@Override
 	public String toString() {
 		return "Review [reviewCode=" + reviewCode + ", reviewSpaceRsv=" + reviewSpaceRsv + ", reviewSpaceCode="
-				+ reviewSpaceCode + ", reviewStoreId=" + reviewStoreId + ", reviewTitle=" + reviewTitle
-				+ ", reviewContents=" + reviewContents + ", reviewAddId=" + reviewAddId + ", reviewAddDate="
-				+ reviewAddDate + ", reviewUpDate=" + reviewUpDate + ", reviewType=" + reviewType + ", reviewPoint="
-				+ reviewPoint + ", reviewDisplay=" + reviewDisplay + ", reviewReply=" + reviewReply + ", reviewPhoto="
-				+ reviewPhoto + ", reviewClean=" + reviewClean + ", reviewService=" + reviewService
+				+ reviewSpaceCode + ", reviewStoreId=" + reviewStoreId + ", reviewStoreCode=" + reviewStoreCode
+				+ ", reviewTitle=" + reviewTitle + ", reviewContents=" + reviewContents + ", reviewAddId=" + reviewAddId
+				+ ", reviewAddDate=" + reviewAddDate + ", reviewUpDate=" + reviewUpDate + ", reviewType=" + reviewType
+				+ ", reviewPoint=" + reviewPoint + ", reviewDisplay=" + reviewDisplay + ", reviewReply=" + reviewReply
+				+ ", reviewPhoto=" + reviewPhoto + ", reviewClean=" + reviewClean + ", reviewService=" + reviewService
 				+ ", reviewRestroom=" + reviewRestroom + ", reviewFacility=" + reviewFacility + ", reviewAmbience="
 				+ reviewAmbience + ", reviewScore=" + reviewScore + "]";
 	}
 
+	public String getReviewStoreCode() {
+		return reviewStoreCode;
+	}
+
+	public void setReviewStoreCode(String reviewStoreCode) {
+		this.reviewStoreCode = reviewStoreCode;
+	}
+	
 	public String getReviewReply() {
 		return reviewReply;
 	}
@@ -104,10 +113,10 @@ public class Review {
 	public void setReviewUpDate(String reviewUpDate) {
 		this.reviewUpDate = reviewUpDate;
 	}
-	public String getReviewType() {
+	public int getReviewType() {
 		return reviewType;
 	}
-	public void setReviewType(String reviewType) {
+	public void setReviewType(int reviewType) {
 		this.reviewType = reviewType;
 	}
 	public int getReviewPoint() {

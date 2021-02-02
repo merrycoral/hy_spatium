@@ -106,6 +106,8 @@
 		<include refid="CalcCountColumn" />
 		<![CDATA[
 		WHERE
+			r.rsvStoreCode = #{storeCode}
+		AND
 			r.rsvStartDateTime >= #{today}
 		AND
 			r.rsvStartDateTime < DATE_ADD(#{today},INTERVAL 1 day)

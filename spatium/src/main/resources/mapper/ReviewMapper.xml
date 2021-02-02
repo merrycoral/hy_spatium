@@ -25,6 +25,28 @@
 			reviewScore
 	</sql>
 	
+	<insert id="addPointReview" parameterType="Point">
+		INSERT INTO tbPointList
+			(
+			 pointID
+			, pointAddList
+			, pointSellList
+			, pointList
+			, pointModyfiDate
+			, pointReviewCode)
+		VALUES 
+			( 
+			
+			 #{pointID}
+			, #{pointAddList}
+			, #{pointSellList}
+			, #{pointList}
+			, NOW()
+			, #{pointReviewCode}
+			
+			)
+	</insert>
+	
 	<insert id="replyReview" parameterType="String">
 		INSERT INTO tbReviewReply
 			( rvCode
@@ -39,7 +61,8 @@
 			);
 	</insert>
 	
-	<insert id="insertReview" parameterType="hashMap">
+	<insert id="insertReview" parameterType="Review" useGeneratedKeys="true" keyProperty="reviewCode">
+
 		INSERT INTO tbReview
 			( reviewSpaceRsv
 			, reviewStoreId
@@ -62,7 +85,7 @@
 			, #{reviewStoreCode}
 			, #{reviewTitle}
 			, #{reviewContents}
-			, #{SID}
+			, #{reviewAddId}
 			, NOW()
 			, #{reviewType}
 			, #{reviewPoint}

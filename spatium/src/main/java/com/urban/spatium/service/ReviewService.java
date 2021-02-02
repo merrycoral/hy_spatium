@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.urban.spatium.dto.Point;
 import com.urban.spatium.dto.Review;
 import com.urban.spatium.dto.Rsv;
 import com.urban.spatium.mapper.CalcMapper;
@@ -60,36 +61,37 @@ public class ReviewService {
 		}
 		
 		public int insertReview(Review wroteReview, String SID) {
-			Map <String, Object> review = new HashMap<>();
+			Point addReviewPoint = new Point();
 			String rsvCode = Integer.toString(wroteReview.getReviewSpaceRsv());
 			List<Rsv> getRsv = rsvMapper.rsvListExtend(rsvCode);
 			Map <String, Object> storeInfo = reviewMapper.getStore(rsvCode);
 			System.out.println("##########" + getRsv.get(0).getStoreId());
-			review.put("reviewSpaceRsv", rsvCode);
-			review.put("reviewStoreId", storeInfo.get("storeId"));
-			review.put("reviewStoreCode", storeInfo.get("storeCode"));
-			review.put("reviewTitle", wroteReview.getReviewTitle());
-			review.put("reviewContents", wroteReview.getReviewContents());
-			review.put("SID", SID);
-			if(wroteReview.getReviewPhoto() != null) {
-				review.put("reviewType", 2);
-				review.put("reviewPoint", 50);
+			wroteReview.setReviewSpaceRsv(Integer.parseInt(rsvCode));
+			wroteReview.setReviewStoreId((String) storeInfo.get("storeId"));
+			wroteReview.setReviewStoreCode(storeInfo.get("storeCode").toString());
+			wroteReview.setReviewAddId(SID);
+			//review.put("SID", SID);
+			if(wroteReview.getReviewPhoto() != null && wroteReview.getReviewPhoto() != "") {
+				wroteReview.setReviewType(2);
+				wroteReview.setReviewPoint(50);
+				addReviewPoint.setPointSellList("포토리뷰 작성");
+				addReviewPoint.setPointList(50);
 			}else {
-				review.put("reviewType", 3);
-				review.put("reviewPoint", 10);
+				wroteReview.setReviewType(3);
+				wroteReview.setReviewPoint(10);
+				addReviewPoint.setPointSellList("텍스트리뷰 작성");
+				addReviewPoint.setPointList(10);
 			}
-			review.put("reviewClean", wroteReview.getReviewClean());
-			review.put("reviewService", wroteReview.getReviewService());
-			review.put("reviewRestroom", wroteReview.getReviewRestroom());
-			review.put("reviewFacility", wroteReview.getReviewFacility());
-			review.put("reviewAmbience", wroteReview.getReviewAmbience());
-			review.put("reviewScore", wroteReview.getReviewScore());
-			review.put("reviewPhoto", wroteReview.getReviewPhoto());
 			//review.put("", wroteReview.get);
+			System.out.println(wroteReview);
+			reviewMapper.insertReview(wroteReview);
 			
-			System.out.println(review);
-			reviewMapper.insertReview(review);
-			
+			addReviewPoint.setPointAddList("리뷰 작성");
+			addReviewPoint.setPointID(wroteReview.getReviewAddId());
+			System.out.println(wroteReview.getReviewAddId());
+			addReviewPoint.setPointReviewCode(wroteReview.getReviewCode());
+			System.out.println(wroteReview.getReviewCode() + "wroteReview.getReviewCode()");
+			reviewMapper.addPointReview(addReviewPoint);
 			return 7;
 		}
 		

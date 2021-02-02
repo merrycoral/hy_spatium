@@ -95,11 +95,17 @@ public class CalcController {
 			return "/calculate/admin/adminCalc";
 		}
 		
-		@GetMapping("/calculte/seller/sellerCalc")
+		@GetMapping("/calculate/seller/sellerCalc")
 		public String sellerCalc(Model model, @RequestParam(name="result", required = false) String result,  HttpSession session) {
 			String sessionId = (String) session.getAttribute("SID");
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DATE, -1);
+			SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
+			//String today = day.format(cal.getTime());
+			String today = "2021-02-02";
+			calcService.CloseCalc(today);
 			
-			return "calculate/sellerCalc";
+			return "calculate/seller/sellerCalc";
 		}
 		
 }
