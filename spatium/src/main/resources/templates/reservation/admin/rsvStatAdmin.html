@@ -114,8 +114,6 @@
 					<th>업체 이름</th>
 					<th>예약수</th>
 					<th>금액(천원)</th>
-					<th>수정</th>
-					<th>삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -125,12 +123,6 @@
 					<td th:text="${r.storeName}"></td>
 					<td th:text="${r.count}"></td>
 					<td th:text="${r.sumPrice}"></td>
-					<!-- 객체 하나만 있을 때는 ? 해서 null 여부 확인으로 가능 -->
-					<td><a th:href="@{#}">수정</a></td>
-					<td>
-						<!--ex : /removeMember?memberId=id001&memberLevel=관리자  --> <a
-						th:href="@{#}">삭제</a>
-					</td>
 				</tr>
 			</tbody>
 		</table>
