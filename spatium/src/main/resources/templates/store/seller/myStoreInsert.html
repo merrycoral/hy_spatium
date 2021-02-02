@@ -20,6 +20,9 @@
  	max-width: 800px;
     display: table;
 }
+.xcontent{font-size: 17px;}
+.form-group{margin-bottom: 10px;}
+.col-form-label{margin-bottom: 5px;}
 </style>
 </th:block>
 <th:block layout:fragment="customContent">
@@ -41,14 +44,14 @@
 					th:action="@{/space/seller/mySpaceInsert}" method="post" enctype="multipart/form-data">
 					<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
-					<div class="col-md-6 col-sm-6 ">
+					<div class="col-md-6 col-sm-6 col-lg-9 ">
 			<div style="color: red; text-align: right;">* 표시는 필수 입력
 						사항입니다.</div></div></div>
 					<div class="form-group row">
 						<label class="col-form-label col-md-3 col-sm-3 label-align">
 							사업자 아이디 <span class="required">*</span>
 						</label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<input type="text" id="storeId" class="form-control"
 								name="storeId" th:value=${storeId} readonly="readonly">
 						</div>
@@ -57,7 +60,7 @@
 						<label class="col-form-label col-md-3 col-sm-3 label-align">
 							상호명 <span class="required">*</span>
 						</label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<input type="text" id="storeName" class="form-control"
 								name="storeName" placeholder="상호명을 입력해주시기 바랍니다.">
 						</div>
@@ -66,7 +69,7 @@
 						<label class="col-form-label col-md-3 col-sm-3 label-align">
 							대표자명 <span class="required">*</span>
 						</label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<input type="text" id="storeRepresentative" class="form-control"
 								name="storeRepresentative" placeholder="대표자명을 입력해주시기 바랍니다.">
 						</div>
@@ -75,7 +78,7 @@
 						<label class="col-form-label col-md-3 col-sm-3 label-align">
 							사업자 번호 <span class="required">*</span>
 						</label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<input type="text" placeholder="사업자 번호를 입력해주시기 바랍니다."
 								id="storeNumber" class="form-control" name="storeNumber"
 								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
@@ -93,7 +96,7 @@
 							class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 							유형 <span class="required">*</span>
 						</label>
-						<div class="btn-group">
+						<div class="btn-group col-md-6 col-sm-6 col-lg-9">
 							<label class="btn btn-primary"> <input type="checkbox"
 								 name="storeBusinessType" value="촬영 스튜디오">
 								<span style="font-size: 12px;">촬영 스튜디오</span>
@@ -131,7 +134,7 @@
 							class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 							주소 <span class="required">*</span>
 						</label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<input type="text" id="sample6_postcode"
 								name="storeAddressNumber" placeholder="우편번호" readonly="readonly"
 								class="form-control" style="margin-bottom: 10px;"> <input
@@ -154,7 +157,7 @@
 					<div class="form-group row">
 						<label class="col-form-label col-md-3 col-sm-3 label-align"
 							style="margin-top: 20px;"> 업체 소개 </label>
-						<div class="col-md-6 col-sm-6" style="text-align: right;">
+						<div class="col-md-6 col-sm-6 col-lg-9" style="text-align: right;">
 							<span style="color: #aaa;" id="counter2">(0
 								/ 최대 500자)</span>
 							<textarea id="storeIntroduction" name="storeIntroduction"
@@ -166,7 +169,7 @@
 						<label
 							class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 							이메일 </label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<input type="text" id="storeEmail" class="form-control"
 								name="storeEmail" placeholder="업체 이메일을 입력해주시기 바랍니다.">
 						</div>
@@ -176,7 +179,7 @@
 							class="col-form-label col-md-3 col-sm-3 label-align"> 결제
 							방식 <span class="required">*</span>
 						</label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<select style="width: 100%; height: 40px;"
 								id="storeRsvType" name="storeRsvType">
 								<option value="0">:: 결제 방식 선택 ::</option>
@@ -189,7 +192,7 @@
 						<label class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 							연락처 <span class="required">*</span>
 						</label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<input type="text" id="storePhone" class="form-control"
 								placeholder="업체 연락처를 입력해주시기 바랍니다." name="storePhone"
 								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
@@ -200,7 +203,7 @@
 						<label class="col-form-label col-md-3 col-sm-3 label-align">
 							사업자 계좌번호 <span class="required">*</span>
 						</label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<select id="storeAccountBankName" name="storeAccountBankName" style="width: 100%; height:30px; margin-bottom: 15px;">
 								<option value="0">:: 은행 선택 ::</option>
 								<option value="BNP">BNP</option>
@@ -244,7 +247,7 @@
 							class="col-form-label col-md-3 col-sm-3 label-align"> 환불
 							정책 <span class="required">*</span>
 						</label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<table border="1" style="width: 100%;">
 								<thead>
 									<tr style="width: 100%">
@@ -281,7 +284,7 @@
 							class="col-form-label col-md-3 col-sm-3 label-align"> 업체
 							이미지 <span class="required">*</span>
 						</label>
-						<div class="col-md-6 col-sm-6 ">
+						<div class="col-md-6 col-sm-6 col-lg-9 ">
 							<input type="file" id="storeImage" class="form-control"
 								name="proBgImage">
 								<div id="preview"></div>
@@ -290,7 +293,7 @@
 					</div>
 					<div class="form-group row">
 					<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
-						<div class="col-md-6 col-sm-6" style="text-align: center;">
+						<div class="col-md-6 col-sm-6 col-lg-9" style="text-align: center;">
 							<input type="submit" class="btn btn-primary" value="업체 등록 하기"
 								id="addStore"
 								style="width: 100%; height: 50px; margin-top: 20px;">
