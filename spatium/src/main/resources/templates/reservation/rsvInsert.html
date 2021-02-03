@@ -17,7 +17,9 @@ margin-right: 20px;
 .btn-secondary{
     background-color: #A9F5A9;
 }
-
+.btn-danger{
+    background-color: red;
+}
 .disableMetter {
 	display: none
 }
@@ -555,9 +557,9 @@ margin-right: 20px;
 		// 체크된 공간 체크박스 값을 가져온다.
 		SpaceRsvCheck2.each(function(i) {
 			var spaceJson2 = {}
-			var tr2 = SpaceRsvCheck2.parent().parent().parent().parent().eq(i);
+			var tr2 = SpaceRsvCheck2.parent().parent().parent().eq(i);
 			var td2 = tr2.children();
-			var spaceCode2 = td2.eq(0).children().children().children().val();
+			var spaceCode2 = td2.eq(0).children().children().val();
 			spaceJson2["spaceCode"] = spaceCode2;
 			spaceList2.push(spaceJson2);
 		});

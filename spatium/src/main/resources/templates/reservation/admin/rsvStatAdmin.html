@@ -75,7 +75,7 @@
 	<div class="col-md-6 col-sm-6 pricePanelBox">
 		<div class="x_panel fixed_height_320">
 			<div class="x_title">
-				<h2>업체별 예약 금액 통계</h2>
+				<h2>업체별 예약 금액 통계(단위:천원)</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="upNdown"><i class="fa fa-arrows-v"></i>정렬</a></li>
 				</ul>
@@ -114,8 +114,6 @@
 					<th>업체 이름</th>
 					<th>예약수</th>
 					<th>금액(천원)</th>
-					<th>수정</th>
-					<th>삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -125,12 +123,6 @@
 					<td th:text="${r.storeName}"></td>
 					<td th:text="${r.count}"></td>
 					<td th:text="${r.sumPrice}"></td>
-					<!-- 객체 하나만 있을 때는 ? 해서 null 여부 확인으로 가능 -->
-					<td><a th:href="@{#}">수정</a></td>
-					<td>
-						<!--ex : /removeMember?memberId=id001&memberLevel=관리자  --> <a
-						th:href="@{#}">삭제</a>
-					</td>
 				</tr>
 			</tbody>
 		</table>
