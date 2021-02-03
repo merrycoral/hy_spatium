@@ -95,6 +95,8 @@ public class RsvService {
 			System.out.println("총 시간당 예약 가격 --> "+totalPrice);
 			if("시간".equals(rsv.getRsvState())) {
 				//총 예약 가격은 시간당 예약가격 x 예약 시간
+				System.out.println("가격 : "+totalPrice);
+				System.out.println("시간 : "+rsvTime);
 				totalPrice = totalPrice*(rsvTime);
 				rsvMapper.updateRsvPrice(rsvCode, totalPrice);
 			}else if("일".equals(rsv.getRsvState())) {
