@@ -47,6 +47,7 @@ td,th{text-align: center; padding: 6px;}
 				var elapsedDay = Math.ceil(elapsedMSec/1000/60/60/24);
 				console.log("계산>>>"+elapsedDay);
 				console.log($('.day').length);	
+				console.log($('.code').val() +"스토어코드값");	
 				
 				var result;
 				var result2;
@@ -60,28 +61,29 @@ td,th{text-align: center; padding: 6px;}
 					}
 				}
 				
-				var reCal = (result/100) * $('.Price').val();//환불할 금액
+				var reCal =Math.floor((result/100) * $('.Price').val());//환불할 금액
 				
 				$('.rePercent').val(result+"%");//환불할 퍼센트
 				//환불금액 반올림 해야함 하다가 맘ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
 				$('.rePrice').val(Math.floor(reCal));//환불퍼센트 * 실결제금액 = 환불할 금액
-				console.log($('.rePrice').val(Math.floor(reCal))) + " <<<<<환불하는금액";
+				console.log($('.rePrice').val(Math.floor(reCal)) + " <<<<<환불하는금액");
 				
 				$('.reCode').val(result2);
 				console.log($('.reCode').val() + " <<<<<환불코드");
 				$('.paymentRefund').val( $('.Price').val() - $('.rePrice').val() );//환불하고 남은금액
-				console.log($('.paymentRefund').val());
+				console.log($('.paymentRefund').val() +"환불하고 남은금액");
 				return reCal;
 				
 			}
 			dateCal();
-			console.log(dateCal());
+			console.log(dateCal() + "데이터칼");
+			console.log($('.rePrice').val() + "리프라이스");
 			
 			
-				$('.pointList').val( $('.Price').val() * 0.01 );//반활 적립 될 포인트
+				$('.pointList').val(Math.floor( $('.Price').val() * 0.01 ));//반활 적립 될 포인트
 				
 				
-				console.log($('.pointList').val());
+				console.log($('.pointList').val() +"반환적립될 포인트");
 				
 			$('#cancelTest').click(function(){	
 		
@@ -162,7 +164,7 @@ td,th{text-align: center; padding: 6px;}
 		</tr>
 		<tr>
 			<td>환불하는 금액</td>
-			<td><input type="text" class="rePrice" name="cancelPrice" readonly="readonly"></td>
+			<td><input type="number" class="rePrice" name="cancelPrice" readonly="readonly"></td>
 		</tr>
 		
 		
