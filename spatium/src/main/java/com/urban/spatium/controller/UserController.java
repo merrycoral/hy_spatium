@@ -253,12 +253,28 @@ public class UserController {
 		return "/user/admin/userList";
 	}
 
-	//간편로그인
+	//간편로그인 관리자
 	@GetMapping("/imsilogin")
 	public String imsilogin(HttpSession session) {
 		session.setAttribute("SID", "id001");
 		session.setAttribute("SLEVEL", "1");
 		session.setAttribute("SNAME", "이순신");
+		return "redirect:/";
+	}
+	//간편로그인 판매자
+	@GetMapping("/sellerlogin")
+	public String sellerlogin(HttpSession session) {
+		session.setAttribute("SID", "id002");
+		session.setAttribute("SLEVEL", "2");
+		session.setAttribute("SNAME", "홍길동");
+		return "redirect:/";
+	}
+	//간편로그인 구매자
+	@GetMapping("/buyerlogin")
+	public String buyerlogin(HttpSession session) {
+		session.setAttribute("SID", "id015");
+		session.setAttribute("SLEVEL", "3");
+		session.setAttribute("SNAME", "주전자");
 		return "redirect:/";
 	}
 

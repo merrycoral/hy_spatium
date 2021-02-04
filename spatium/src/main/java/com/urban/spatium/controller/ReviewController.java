@@ -133,7 +133,6 @@ public class ReviewController {
 			System.out.println("ajax 실행");
 			System.out.println(getReviewCode + "<------ getReviewCode");
 			Map<String, Object> viewMyReview = reviewService.viewMyReview(getReviewCode);
-			System.out.println(viewMyReview);
 			return viewMyReview;
 		}
 		
@@ -144,7 +143,6 @@ public class ReviewController {
 			System.out.println("ajax 실행");
 			System.out.println(getReviewCode + "<------ getReviewCode");
 			List<Map<String, Object>> storeReplyReview = reviewService.viewReplyReview(getReviewCode);
-			System.out.println(storeReplyReview);
 			return storeReplyReview;
 		}
 
