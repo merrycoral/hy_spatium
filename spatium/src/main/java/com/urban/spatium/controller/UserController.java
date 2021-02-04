@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import com.urban.spatium.dto.User;
 import com.urban.spatium.service.UserService;
 
@@ -368,32 +369,32 @@ public class UserController {
 	}
 
 	//관리자 회원가입
-	@PostMapping("/user/admin/addAdmin") 
-	public String addAdmin(User user ,@RequestParam(name = "userId", required = false)
+	@PostMapping("/user/admin/adminJoin") 
+	public String adminJoin(User user ,@RequestParam(name = "userId", required = false)
 	String userId) {
 		System.out.println("회원가입화면에서 입력받은 값--->" + user); 
-		String result = userService.addAdmin(user); 
+		String result = userService.adminJoin(user); 
 		System.out.println(result);
 		return "redirect:/user/admin/userList"; 
 	}
 	
-	@GetMapping("/user/admin/addAdmin") public String addAdmin(Model model) {
+	@GetMapping("/user/admin/adminJoin") public String adminJoin(Model model) {
 		model.addAttribute("title", "회원 가입");
 		return "user/admin/adminJoin";
 	}
 	
 	//구매자 회원가입
-	@PostMapping("/user/addUser") 
-	public String addUser(User user ,@RequestParam(name = "userId", required = false)
+	@PostMapping("/user/userJoin") 
+	public String userJoin(User user ,@RequestParam(name = "userId", required = false)
 	String userId) {
 		System.out.println("회원가입화면에서 입력받은 값--->" + user); 
-		String result = userService.addUser(user); 
+		String result = userService.userJoin(user); 
 		System.out.println(result);
 		return "redirect:/main"; 
 	}
 
-	@GetMapping("/user/addUser") 
-	public String addUser(Model model) {
+	@GetMapping("/user/userJoin") 
+	public String userJoin(Model model) {
 		model.addAttribute("title", "회원 가입");
 		return "/user/userJoin";
 	}
@@ -412,19 +413,6 @@ public class UserController {
 		return "/user/findIdform";
 	}
 	
-	//비밀번호 찾기
-	@RequestMapping(value = "/user/findPw", method = RequestMethod.POST)
-	public void findPw(@RequestParam(name="userEmail", required = false) String userEmail
-			,@RequestParam(name="userId", required = false) String userId) {
-		/*
-		 * String result = userService.findPw(userId, userEmail); return result;
-		 */
-	}
-	
-	  @RequestMapping(value = "/user/findPwform")
-		public String findPwform() throws Exception{
-			return "/user/findPwform";
-		}
 }
 
 

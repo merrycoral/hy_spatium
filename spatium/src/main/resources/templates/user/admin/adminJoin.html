@@ -16,7 +16,7 @@
 
 <th:block layout:fragment="customContent">
 
-	<form th:action="@{/user/admin/addAdmin}" id="joinform" method="post">
+	<form th:action="@{/user/admin/adminJoin}" id="joinform" method="post">
 
 		<span class="section">회원 등록</span>
 		<div class="field item form-group">
@@ -42,8 +42,7 @@
 
 				<input class="form-control" maxlength="12" id="userId" name="userId"
 					required="required">
-				<button type="button" class="btn btn-primary"  id="idCheck"
-					value="N">중복확인</button>
+				<button type="button" class="btn btn-primary" id="idCheck" value="N">중복확인</button>
 			</div>
 
 		</div>
@@ -189,6 +188,7 @@ var check = 0;
        
       
       function idCheck(){
+    	  if($("#userId").val() != null && $("#userId").val() != ""){
          $.ajax({
             url : "/user/admin/idCheck",
             type : "post",
@@ -205,7 +205,11 @@ var check = 0;
                }
             }
          })
-      };
+    	  }else{
+              alert("아이디를 입력하세요.");
+      }
+     
+      }
 		
 	</script>
 </th:block>

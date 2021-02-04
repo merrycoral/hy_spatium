@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import com.urban.spatium.dto.User;
 import com.urban.spatium.mapper.UserMapper;
 
@@ -152,10 +153,10 @@ public class UserService {
 	}
 
 	//관리자 회원가입	
-	public String addAdmin(User user) {
+	public String adminJoin(User user) {
 		String insertCheck = "회원가입 실패";
 		if(user != null) {
-			int result = userMapper.addAdmin(user);
+			int result = userMapper.adminJoin(user);
 			if(result > 0) insertCheck = "회원가입 성공";
 		}
 
@@ -163,10 +164,10 @@ public class UserService {
 	}
 
 	//구매자 회원가입	
-	public String addUser(User user) {
+	public String userJoin(User user) {
 		String insertCheck = "회원가입 실패";
 		if(user != null) {
-			int result = userMapper.addUser(user);
+			int result = userMapper.userJoin(user);
 			if(result > 0) insertCheck = "회원가입 성공";
 		}
 
@@ -186,8 +187,5 @@ public class UserService {
 		return result;
 	}
 	
-	
-	public void findPw(String userId, String userEmail)  {
-		
-}
+
 }
