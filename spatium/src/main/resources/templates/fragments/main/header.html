@@ -17,7 +17,8 @@
 			</form>
 			</div>
 			<div style="text-align: right; float:right; clear:both;">
-			<a th:href="@{/admin}" th:if="${session.SLEVEL == '1' || session.SLEVEL == '2'}" class="btn btn-info">관리자 화면  </a>
+			<a th:href="@{/admin}" th:if="${session.SLEVEL == '1'}" class="btn btn-info">관리자 화면  </a>
+			<a th:href="@{/admin}" th:if="${session.SLEVEL == '2'}" class="btn btn-info">판매자 화면  </a>
 			<a th:href="@{/user/myPage}" th:unless="${session.SID == null}" class="btn btn-info">마이페이지  </a>
 			<a th:href="@{/user/login}" th:if="${session.SID == null}" class="btn btn-info">로그인  </a> 
 			<a th:href="@{/user/logout}" th:unless="${session.SID == null}" class="btn btn-info">로그아웃  </a>
