@@ -236,15 +236,6 @@
 		userId = #{userId};
 	</select>
 	
-	<!-- 비밀번호 찾기 -->
-	<update id="findPw" parameterType="User">
-		UPDATE
-			tbUser
-		SET 
-			userPw = #{userPw} 
-		WHERE
-			userId = #{userId}
-	</update>
 
 	<!-- 아이디 찾기 -->
 	<select id="findIdajax" parameterType="String"
@@ -278,7 +269,7 @@
 	</select>
 
 	<!--관리자 회원가입 -->
-	<insert id="addAdmin">
+	<insert id="adminJoin">
 		INSERT INTO tbUser
 		(userId, userPw, userName,
 		userBirth, userGender, userPhone, userJob, userLevel, userEmail,
@@ -297,7 +288,7 @@
 	</insert>
 
 	<!--구매자 회원가입 -->
-	<insert id="addUser">
+	<insert id="userJoin">
 		INSERT INTO tbUser
 		(userId, userPw, userName,
 		userBirth, userGender, userPhone, userJob, userLevel, userEmail,
