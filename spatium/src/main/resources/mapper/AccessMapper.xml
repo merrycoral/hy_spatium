@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.AccessMapper">
+
+	
+	<select id="getEtcAccess" parameterType="String" resultType="int">
+		SELECT
+			COUNT(a.accessCode) AS EtcBrowser
+		FROM
+			tbAccessRecord AS a
+		WHERE 
+			a.AccessBrowser != #{btop1}
+		AND
+			a.AccessBrowser != #{btop2}
+		AND
+			a.AccessBrowser != #{btop3}
+		AND
+			a.AccessBrowser != #{btop4}	
+	</select>
+	
+	<select id="getTotalAccess" resultType="int">
+		SELECT
+			COUNT(a.accessCode) as totalAccess
+		FROM
+			tbAccessRecord AS a
+	</select>
+	
+	<select id="getBrowserTop4" resultType="Browser4">
+		SELECT
+			a.accessBrowser 			AS browserName 
+			, COUNT(a.accessBrowser)	AS browserCount
+		FROM
+			tbAccessRecord AS a
+			
+		GROUP BY
+			a.accessBrowser
+		ORDER BY 
+			COUNT(a.accessBrowser)
+		DESC
+		LIMIT 4
+		;
+	</select>
+	
+	<select id="getAccessRecord" resultType="Access">
+		SELECT
+			 accessCode
+			,accessBrowser
+			,accessDevice
+			,accessOS
+			,accessRoute
+			,accessIP
+			,accessTime
+			,accessID
+		FROM 
+			tbAccessRecord
+	</select>
+
+	
+</mapper>

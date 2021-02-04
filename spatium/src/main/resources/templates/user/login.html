@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/maindefault}">
+<th:block layout:fragment="customCss">
+	<style type="text/css">
+.login-wrap {
+	width: 100%;
+	margin: auto;
+	max-width: 525px;
+	min-height: 550px;
+	position: relative;
+	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0
+		rgba(0, 0, 0, .19);
+}
+
+.login-html {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	padding: 90px 70px 50px 70px;
+	background: #FEFEFD;
+}
+
+.login-html .sign-in, .login-form .group .check {
+	display: none;
+}
+
+.login-html .tab {
+	font-size: 22px;
+	margin-right: 15px;
+	padding-bottom: 5px;
+	margin: 0 15px 10px 0;
+	display: inline-block;
+	border-bottom: 2px solid transparent;
+}
+
+.login-html .sign-in:checked+.tab {
+	font-size: 40px;
+	color: #050505;
+	text-align: center;
+}
+
+.login-form .group {
+	margin-bottom: 15px;
+}
+
+.login-form .group .label, .login-form .group .input, .login-form .group .button
+	{
+	width: 100%;
+	color: #050505;
+	display: block;
+}
+
+.login-form .group .input, .login-form .group .button {
+	border: none;
+	padding: 15px 20px;
+	border-radius: 25px;
+	background: #E8E8E7;
+}
+
+.login-form .group input[data-type="password"] {
+	text-security: circle;
+	-webkit-text-security: circle;
+}
+
+.login-form .group .button {
+	background: #FDD528;
+}
+</style>
+</th:block>
+<th:block layout:fragment="customContent">
+	<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
+		<form th:action="@{/login}" name="loginForm" method="post">
+
+			<div class="login-wrap">
+				<div class="login-html">
+					<div style="text-align: center;">
+						<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label
+							for="tab-1" class="tab">LOGIN</label>
+						<div class="login-form">
+
+							<div class="sign-in-htm">
+								<div class="group">
+									<label for="user" class="label"></label> <input id="userId"
+										type="text" class="input" name="userId" placeholder="아이디">
+								</div>
+								<div class="group">
+									<label for="pass" class="label"></label> <input id="userPw"
+										type="password" class="input" name="userPw" placeholder="비밀번호">
+								</div>
+								<div class="group" style="text-align: left;">
+									<input id="rememberId" type="checkbox"> <label
+										for="check"> 아이디 기억하기</label>
+								</div>
+								<div class="group">
+									<input type="submit" class="button" value="로그인"
+										onclick="CheckForm();">
+									<div style="text-align: center; margin-top: 10px">
+										<a href="/imsilogin"><button type="button"
+												class="btn btn-primary" id="loginBtn">간편 로그인(관리자)</button></a>
+									</div>
+								</div>
+								<button type="button" id ="findId">아이디
+										찾기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+
+		function CheckForm() {
+
+			var userId = $("#userId").val();
+			var userPw = $("#userPw").val();
+
+			if (!userId) {
+				alert("아이디를 입력하세요.");
+				$("#userId").focus();
+				return false;
+			} else if (!userPw) {
+				alert("비밀번호를 입력하세요.");
+				$("#userPw").focus();
+				return false;
+			} else {
+				login(userId, userPw);
+			}
+
+		}
+		//아이디 기억하기
+		$(document).ready(function() {
+			var userId = getCookie("userId");//저장된 쿠기값 가져오기
+			$("input[name='userId']").val(userId);
+
+			if ($("input[name='userId']").val() != "") { // 그 전에 ID를 저장해서 처음 페이지 로딩
+				// 아이디 저장하기 체크되어있을 시,
+				$("#rememberId").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+			}
+
+			$("#rememberId").change(function() { // 체크박스에 변화가 발생시
+				if ($("#rememberId").is(":checked")) { // ID 저장하기 체크했을 때,
+					var userId = $("input[name='userId']").val();
+					setCookie("userId", userId, 7); // 7일 동안 쿠키 보관
+				} else { // ID 저장하기 체크 해제 시,
+					deleteCookie("userId");
+				}
+			});
+
+			// ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+			$("input[name='userId']").keyup(function() { // ID 입력 칸에 ID를 입력할 때,
+				if ($("#rememberId").is(":checked")) { // ID 저장하기를 체크한 상태라면,
+					var userId = $("input[name='userId']").val();
+					setCookie("userId", userId, 7); // 7일 동안 쿠키 보관
+				}
+			});
+		});
+
+		function setCookie(cookieName, value, exdays) {
+			var exdate = new Date();
+			exdate.setDate(exdate.getDate() + exdays);
+			var cookieValue = escape(value)
+					+ ((exdays == null) ? "" : "; expires="
+							+ exdate.toGMTString());
+			document.cookie = cookieName + "=" + cookieValue;
+		}
+
+		function deleteCookie(cookieName) {
+			var expireDate = new Date();
+			expireDate.setDate(expireDate.getDate() - 1);
+			document.cookie = cookieName + "= " + "; expires="
+					+ expireDate.toGMTString();
+		}
+
+		function getCookie(cookieName) {
+			cookieName = cookieName + '=';
+			var cookieData = document.cookie;
+			var start = cookieData.indexOf(cookieName);
+			var cookieValue = '';
+			if (start != -1) {
+				start += cookieName.length;
+				var end = cookieData.indexOf(';', start);
+				if (end == -1)
+					end = cookieData.length;
+				cookieValue = cookieData.substring(start, end);
+			}
+			return unescape(cookieValue);
+		}
+		
+
+
+		 $(function() {
+				$("#findId").click(function() {
+					location.href = '/user/findIdform';
+				})
+			}) 
+</script>
+</th:block>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/maindefault}">
+	
+<th:block layout:fragment="customJs">
+<script src="js/bootstrap.js"></script>
+
+</th:block>
+	
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>	
+
+	
+	
+<th:block layout:fragment="customContent">
+
+		<div class="container" style="margin-top: 70px; margin-bottom: 70px;">
+	<h1>게시글 작성</h1>
+	
+	<form th:action="@{/addPost}" onsubmit="return valCheck(this)" method="post">
+		<table class="table table-striped" >
+			<tr>
+				<td>카테고리</td>
+				<td>
+					<select id="board_cate" name="boardCateCode">
+						<option value="">카테고리선택</option>
+						<option th:if="${#lists.size(boardCate) > 0} and ${b.boardCateCode} <= 99" 
+						th:each="b : ${boardCate}" th:text="${b.boardCateName}" th:value="${b.boardCateCode}">
+						</option>
+
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td>
+					<input type="text" name="boardAddId" id="boardAddId" th:unless="${session.SID == null}" th:value="${session.SID}" readonly="readonly" class="form-control"/>
+				</td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td>
+					<input type="text" name="boardTitle" id="boardTitle" placeholder="제목을 입력해주세요" class="form-control"/>
+				</td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>
+					<textarea name="boardContents" rows="10" id="boardContents" placeholder="내용을 입력해주세요" class="form-control" /></textarea>
+				</td>
+			</tr>
+		</table>
+			<div class="text-center">
+					<button id="insertBtn" type="submit" class="btn btn-success">등록</button>
+					<button type="reset" class="btn btn-warning">다시쓰기</button>
+					<a th:href="@{/boardList}"><button type="button"  class="btn btn-primary">게시글보기</button></a>
+					
+			</div>
+	</form>
+	</div>
+
+	<script type="text/javascript">
+		$(function() {
+			$('#insertBtn').click(function() {
+				var boardAddId = $('#boardAddId').text();
+				var boardcate = $('#board_cate').val();
+				var boardTitle = $('#boardTitle').val();
+				var boardContents = $('#boardContents').val();
+				if (boardcate == 0) {
+					alert('카테고리를 선택해주세요');
+					return false;
+				}
+				if (boardTitle == '') {
+					alert('제목을 입력해주세요');
+					return false;
+				}
+				if (boardContents == '') {
+					alert('내용을 입력해주세요');
+					return false;
+				}
+/* 				if (boardAddId == '') {
+					alert('로그인 후 작성해주세요');
+					location.replace('/login');
+					return false;
+				} */
+
+			});
+			return true;
+		});
+	</script>
+</th:block>
+
+</html>

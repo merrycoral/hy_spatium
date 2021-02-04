@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customContent">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>
+						업체<small>상세보기</small>
+					</h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<section class="content invoice">
+
+						<div class="row">
+									<img data-src="holder.js/100%x180" alt="100%x180" th:src="@{/imges/{i}(i=${storeList.storeImage})}" style="height: 500px; width: 100%; display: block;">
+						</div>
+						<div class="row invoice-info">
+							<div class="col-sm-2 invoice-col">	
+								<strong style="font-family: fantasy;">업체 코드</strong> <h2 th:text = "${storeList.storeCode}"></h2>
+								<strong style="font-family: fantasy;">사업자 아이디</strong> <h2 th:text = ${storeList.storeId}></h2>
+								<strong style="font-family: fantasy;">사업자번호</strong> <h2 th:text = ${storeList.storeNumber}></h2>
+							</div>
+
+							<div class="col-sm-2 invoice-col">
+								<strong style="font-family: fantasy;">상호명</strong> <h2 th:text = ${storeList.storeName}></h2>
+								<strong style="font-family: fantasy;">대표자명</strong> <h2 th:text = ${storeList.storeRepresentative}></h2>
+								<strong style="font-family: fantasy;">업체 레벨</strong> <h2 th:text = ${storeList.storeLevel}></h2>
+							</div>
+
+							<div class="col-sm-4 invoice-col">
+								<strong style="font-family: fantasy;">업체 주소 우편번호</strong> <h2 th:text = ${storeList.storeAddressNumber}></h2>
+								<strong style="font-family: fantasy;">업체 주소</strong> <h2 th:text = ${storeList.storeAddress}></h2>
+								<strong style="font-family: fantasy;">업체 상세주소</strong> <h2 th:text = ${storeList.storeAddressDetail}></h2> 
+							</div>
+							<div class="col-sm-4 invoice-col">
+								<strong style="font-family: fantasy;">업체 이메일</strong> <h2 th:text = ${storeList.storeEmail}></h2>
+								<strong style="font-family: fantasy;">업체 연락처</strong> <h2 th:text = ${storeList.storePhone}></h2>
+								<strong style="font-family: fantasy;">업체 등록일자</strong> <h2 th:text = ${storeList.storeRegDate}></h2> 
+							</div>
+
+						</div>
+
+
+						<div class="row" style="margin-top: 20px;">
+							<div class="  table">
+								<table class="table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
+									<thead>
+										<tr style="text-align: center;">
+											<th>업체 결제 타입</th>
+											<th>업체 유형 </th>
+											<th>사업자 계좌 은행명</th>
+											<th>사업자 계좌 번호</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr style="text-align: center;">
+											<td th:text = ${storeList.storeRsvType}></td>
+											<td th:text = ${storeList.storeBusinessType}> </td>
+											<td th:text = ${storeList.storeAccountBankName}></td>
+											<td th:text = ${storeList.storeAccountNumber}></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+
+						<div class="row">
+
+							<div class="col-md-6">
+							<p class="lead">업체 소개</p>
+								<h2 th:utext = "${storeList.storeIntroduction}">
+								
+								</h2>
+							</div>
+
+							<div class="col-md-6">
+								<p class="lead">환불 정책</p>
+								<div class="table-responsive">
+									<table class="table">
+										<tbody>
+											<tr>
+											<th style="text-align: center; width: 50%;">예약까지남은일수</th>
+											<th style="text-align: center;">환불퍼센트</th>
+											</tr>
+											<tr th:each="r : ${storeList2}" style="width: 100%">
+										<td>이용<input type="text" name="remainingDay"
+											 class="a form-control"
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.remainingDay}" readonly="readonly">일전
+										</td>
+										<td>총금액의<input type="text" name="refundPercent"
+											 class="b form-control"
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" th:value = "${r.refundPercent}" readonly="readonly">%
+										</td>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+
+
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</th:block>
+
+</html>

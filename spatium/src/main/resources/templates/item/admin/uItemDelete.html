@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customContent">
+
+	<form th:action="@{/item/admin/modifyitemDelete}" method="post">
+
+		<span class="section">장비파기내역 수정</span>
+			
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">장비 수리 코드<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="itemDeleteCode" name="itemDeleteCode"
+					th:value="${item.itemDeleteCode}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">업체 코드<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="storeDeleteCode" name="storeDeleteCode"
+					th:value="${item.storeDeleteCode}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">세부 장비 코드<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="storeItemDeleteCode" name="storeItemDeleteCode"
+					th:value="${item.storeItemDeleteCode}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="userDeleteId" name="userDeleteId"
+					th:value="${item.userDeleteId}" >
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">장비 파기 사유<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="itemDeleteReason" name="itemDeleteReason"
+					th:value="${item.itemDeleteReason}" >
+			</div>
+		</div>
+				
+		<div class="form-group" align="center">
+			<div class="col-md-6 offset-md-3">
+				<button type="submit" id="submit" class="btn btn-primary ">수정</button>
+				<a href="/item/admin/itemDeleteList"><button type="button" id="cancel" class="btn btn-success">취소</button></a>
+			</div>
+		</div>
+	</form>
+</th:block>
+</html>

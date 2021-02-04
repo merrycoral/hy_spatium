@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/maindefault}">
+
+<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+</th:block>
+<th:block layout:fragment="customCss">
+<style type="text/css">
+	small{	font-size: 80%;	}
+	b{	font-weight: bold; }
+	#reviewTable th:nth-of-type(1) { display: none; } 
+	#reviewTable td:nth-of-type(1) { display: none; } 
+	div .modal {font-size:15px;}
+	.modal-body {font-size:15px;}
+	.ystar {color:#F5C225; font-size: 20px;}
+</style>
+</th:block>
+<th:block layout:fragment="customContent">
+
+	<!-- 리뷰 답변 모달  -->
+	<div class="modal fade" id="showReview">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title"><b style="font-size:20px;">리뷰 내용 보기</b></h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      </div>
+	      <div class="modal-body">
+	      	<span id="reviewTitle"></span>
+	      	<small >작성자 : <span id="reviewAddId"></span>
+	      	작성일 : <span id="reviewAddDate"></span>
+	      	<br>
+	      	리뷰 코드 : <span id="reviewCode"> </span>
+	      	예약 코드 : <span class="reviewSpaceRsv"> </span>
+	      	
+	      	업체 코드 : <a id="storeLink"><span id="reviewStoreCode"> </span></a>
+	      	</small>
+	      	<br><br>
+	      	<h5> 종합 추천 점수 : <span id="reviewScore" class="ystar"></span></h5>
+	      	<small>
+		      	청결도 : <span id="reviewClean"></span> | 
+		      	서비스 : <span id="reviewService"></span> | 
+		      	화장실 : <span id="reviewRestroom"></span> | 
+		      	시설 : <span id="reviewFacility"></span> | 
+		      	분위기 : <span id="reviewAmbience"></span>
+	      	</small>
+	      	<hr>
+      		<span id="reviewContents"></span>
+
+	 	  </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-lg-8 col-lg-offset-2">
+			<br><b style="font-size:20px;">내가 작성한 리뷰 조회 </b><hr>
+			<table id="reviewTable" class="table table-striped table-hover table-hover">
+				<thead>
+					<tr class="headings">
+						<th class="column-title">리뷰 코드</th>
+						<th class="column-title">예약 코드</th>
+						<th class="column-title">방 코드</th>
+						<th class="column-title">리뷰 제목</th>
+						<th class="">점수</th>
+						<th class="column-title">등록일</th>
+						<th class="column-title">적립<br>포인트</th>
+						<th>수정</th>
+						<th>삭제</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="" th:if="${#lists.size(myReview) > 0}"
+									th:each="mr : ${myReview}">
+						<td class=" " th:text="${mr.reviewCode}"></td>
+						<td class=" " th:text="${mr.reviewSpaceRsv}"></td>
+						<td class=" " th:text="${mr.reviewSpaceCode}"></td>
+						<td class="reviewTitle">
+							<a href="#showReview" data-target="#showReview" data-toggle="modal" th:text="${mr.reviewTitle}"></a>
+						</td>
+						<td class=" " th:text="${mr.reviewScore}"></td>
+						<td class=" " th:text="${mr.reviewAddDate}"></td>
+						<td class=" " th:text="${mr.reviewPoint}"></td>
+						<td><a th:href="@{/review/modifyReview(userId=${mr.reviewAddId}, reviewCode=${mr.reviewCode})}">
+							<button type="button" class="btn btn-warning">수정</button></a>
+						</td>
+						<td>
+							<a th:href="@{/review/deleteMyReview(userId=${mr.reviewAddId}, reviewCode=${mr.reviewCode})}"
+							 onClick="return confirm('정말 삭제하시겠습니까?');">
+							<button type="button" class="btn btn-danger">삭제</button></a>
+						</td>
+					</tr>
+					<tr class="even pointer" th:if="${#lists.isEmpty(myReview)}">
+						<td></td>
+						<td colspan="9" style="text-align:center;">
+						작성한 리뷰가 없습니다.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+	</div>
+</th:block>
+<th:block layout:fragment="customJs">
+	<script  th:inline="javascript">
+
+	$(function(){
+		
+
+		var reviewTitle = $(".reviewTitle");
+		reviewTitle.click(function() {
+			console.log($(this));
+			$('#layerpop').modal('show');
+			var reviewCode = $(this).parents('tr').find('td')[0];
+			console.log($(reviewCode).text());
+			var getReviewCode = $($(reviewCode)).text();
+			console.log(getReviewCode);
+			var request = $.ajax({
+				url: '/review/viewMyReview', 
+				method: 'POST',
+				data: { getReviewCode : getReviewCode }, 
+				dataType: 'json'
+			});
+			request.done(function( data ) {
+				console.log(data);
+				var writeTime = data.reviewAddDate.substr(0,10) +" " + data.reviewAddDate.substr(11,8);
+				console.log(writeTime);
+				$('#reviewCode').text($(reviewCode).text());
+				$('.reviewSpaceRsv').text(data.reviewSpaceRsv);
+				$('#reviewTitle').text(data.reviewTitle);
+				$('#reviewContents').text(data.reviewContents);
+				$('#reviewAddId').text(data.reviewAddId);
+				$('#reviewAddDate').text(writeTime);
+				$('#reviewClean').text(data.reviewClean);
+				$('#reviewService').text(data.reviewService);
+				$('#reviewRestroom').text(data.reviewRestroom);
+				$('#reviewFacility').text(data.reviewFacility);
+				$('#reviewAmbience').text(data.reviewAmbience);
+				$('#reviewScore').text(data.reviewScore);
+				$('#storeLink').attr("href", "/store/storeInfo?storeCode=" + data.reviewStoreCode);
+				$('#reviewStoreCode').text(data.reviewStoreCode);
+				var score = $(reviewScore).text();
+				var starScore = ""
+				for(i=1;i<=score;i++){
+					starScore += '★'
+				}
+				$('#reviewScore').text(starScore);
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});	
+		});
+		
+		$("#reviewTable").DataTable({
+	  		order: [ [ 1, "desc" ] ],
+	  		ordering: true,
+	  		lengthChange: false,
+	  		"dom": 'fltip',
+	           "language": {
+		                "info": "페이지 _PAGE_ / _PAGES_",
+		                "paginate": {
+		                            "first": "첫페이지",
+		                            "last": "마지막",
+		                             "previous": "이전",
+		                             "next":"다음"
+		                           },
+		                "sEmptyTable": "데이터가 없습니다.",
+		                "sInfoEmpty": "데이터가 없습니다.",
+		                "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		                "sInfoPostFix": "",
+		                "sLengthMenu": "Show _MENU_ 개씩",
+		                "sSearch": "검색:",
+		                "sSearchPlaceholder": "",
+		                "sZeroRecords": "일치하는 검색 결과가 없습니다."
+		                }
+		 });
+	 });
+	</script>
+</th:block>
+</html>

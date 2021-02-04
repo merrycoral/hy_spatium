@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+<th:block layout:fragment="customCss">
+	<style type="text/css">
+.disable {
+	display: none;
+}
+</style>
+</th:block>
+
+<th:block layout:fragment="customContent">
+
+	<form th:action="@{/user/admin/addAdmin}" id="joinform" method="post">
+
+		<span class="section">회원 등록</span>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">회원구분
+				<span class="required">*</span>
+			</label>
+			<div class="form-check">
+
+				<label class="form-radio-label"> <input
+					class="form-radio-input" type="radio" name="userLevel" value="3"
+					checked="checked"> <span class="form-radio-sign">개인</span>
+				</label> <label class="form-radio-label ml-3"> <input
+					class="form-radio-input" type="radio" name="userLevel" value="2">
+					<span class="form-radio-sign">판매자</span>
+				</label>
+			</div>
+		</div>
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+
+				<input class="form-control" maxlength="12" id="userId" name="userId"
+					required="required">
+				<button type="button" class="btn btn-primary"  id="idCheck"
+					value="N">중복확인</button>
+			</div>
+
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">비밀번호<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input type="password" class="form-control" id="password"
+					name="userPw" placeholder="4~12자의 대소문자와 숫자를 입력하세요" maxlength="12"
+					minlength="4" required="required">
+			</div>
+
+		</div>
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">이름
+				<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="text" id="userName"
+					name="userName" required="required">
+			</div>
+		</div>
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">생년월일
+				<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="date" id="birth" name="userBirth"
+					required="required">
+
+			</div>
+		</div>
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">성별
+				<span class="required">*</span>
+			</label>
+			<div class="form-check">
+
+				<label class="form-radio-label"> <input
+					class="form-radio-input1" type="radio" name="userGender" value="남"
+					checked="checked"> <span class="form-radio-sign1">남성</span>
+				</label> <label class="form-radio-label ml-3"> <input
+					class="form-radio-input1" type="radio" name="userGender" value="여">
+					<span class="form-radio-sign1">여성</span>
+				</label>
+			</div>
+		</div>
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">휴대전화
+				<span class="required">*</span>
+			</label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" type="tel" id="userPhone"
+					name="userPhone" maxlength="11" oninput="maxLengthCheck(this)"
+					placeholder="ex)01012345678" required="required">
+
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">직업<span
+				class="required">*</span></label>
+			<div class="col-md-3 col-sm-3">
+				<select class="form-control" id="job" name="userJob">
+					<option value="학생">학생</option>
+					<option value="회사원">회사원</option>
+					<option value="자영업">자영업</option>
+					<option value="무직">무직</option>
+					<option value="기타">기타</option>
+				</select>
+			</div>
+		</div>
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">이메일<span
+				class="required">*</span></label>
+			<div class="col-md-6 col-sm-6">
+				<input class="form-control" id="email" name="userEmail" type="email"
+					required="required">
+			</div>
+		</div>
+
+		<div class="form-group" align="center">
+			<div class="col-md-6 offset-md-3">
+				<button type="submit" id="submit" class="btn btn-primary">회원가입</button>
+				<button type="button" id="cancel" class="btn btn-success">취소</button>
+			</div>
+		</div>
+	</form>
+
+</th:block>
+<th:block layout:fragment="customJs">
+	<script> 
+	
+//아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
+var check = 0;		
+		//유효성검사
+		$("#cancel").on("click", function(){
+			location.href = "/";
+		})
+		
+	$(document).ready(function(){
+			
+  //한글입력 안되게 처리
+  $("input[name=userId]").keyup(function(event){ 
+   if (!(event.keyCode >=37 && event.keyCode<=40)) {
+    var inputVal = $(this).val();
+    $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+   }
+  });
+});
+		//숫자만 입력
+		$(function(){ 
+			$(document).on("keyup", "#userPhone", function() {
+				$(this).val( $(this).val().replace(/[^0-9]/gi,""));
+				}); 
+		});  
+		
+		//한글만 입력
+		$(function(){ 
+			$(document).on("keyup", "#userName", function() {
+				$(this).val( $(this).val().replace(/[^가-힣]{2,6}$/gi,""));
+				}); 
+		});
+		
+		//비밀번호 A~Z, a~z, 0~9로 시작하는 4~12자리
+		$(function(){ 
+			$(document).on("keyup", "#userPw", function() {
+				$(this).val( $(this).val().replace(/(^?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/gi,""));
+				}); 
+		});   
+
+		//아이디 중복체크
+		$('#userId').change(function(){
+          check=0;
+       });
+		
+		$('#idCheck').click(function(){
+			idCheck();
+       });
+       
+      
+      function idCheck(){
+         $.ajax({
+            url : "/user/admin/idCheck",
+            type : "post",
+            dataType : "json",
+            data : {"userId" : $("#userId").val()},
+            success : function(data){
+               if(data == 1){
+                  alert("이미 존재하는 아이디입니다.");
+                  check=0;
+               }else if(data == 0){
+                  $("#idChk").attr("value", "Y");
+                  alert("사용가능한 아이디입니다.");
+                  check=1;
+               }
+            }
+         })
+      };
+		
+	</script>
+</th:block>
+</html>

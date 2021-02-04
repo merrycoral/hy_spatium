@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<!DOCTYPE mapper	
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"	
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">	
+<mapper namespace="com.urban.spatium.mapper.RefundMapper">	
+	<resultMap type="CancelRsv" id="resultMapCancel">
+		<result column="cancelCode" 		property="cancelCode"/>
+		<result column="cancelRsvCode" 	property="cancelRsvCode"/>
+		<result column="cancelUserId" 	property="cancelUserId"/>
+		<result column="cancelRegDate" 		property="cancelRegDate"/>
+		<result column="cancelState" 	property="cancelState"/>
+		<result column="cancelReason" 	property="cancelReason"/>
+		<result column="cancelPrice" 	property="cancelPrice"/>
+		<result column="refundPolicyCode" 	property="refundPolicyCode"/>
+		<collection property="refundPolicyList" javaType="java.util.ArrayList" ofType="RefundPolicy">
+			<id column="refundPolicyCode" property="refundPolicyCode"/>
+			<result column="refundPolicyUserId" property="refundPolicyUserId"/>
+		</collection>
+	</resultMap>
+	
+	<delete id="refundRelationDelete" parameterType="String">
+	
+	DELETE 
+	FROM 
+		tbRefundPolicyRelation
+	WHERE 
+		RefundPolicyRelationStoreCode = #{storeCode};
+	
+	</delete>
+	
+	<delete id="refundPolicyDelete" parameterType="String">
+	
+	DELETE
+	FROM
+		tbRefundPolicy
+	WHERE 
+		refundPolicyStoreCode = #{storeCode};
+	
+	</delete>
+	
+	<select id="refundSelectStore" parameterType="String" resultMap="resultMapCancel">
+	SELECT
+	cancelCode
+	,cancelUserId
+	,cancelRsvCode
+	,cancelRegDate
+	,cancelState
+	,cancelReason
+	,cancelPrice
+	FROM
+		 tbCancelRsv
+	INNER join
+		 tbRefundPolicy
+	on
+		 cancelRefundPolicyCode = refundPolicyCode
+	WHERE
+		refundPolicyUserId = #{storeId}
+		
+	</select>
+	
+	<select id="refundSelect" resultMap="resultMapCancel">
+	SELECT 
+		cancelCode
+		, cancelRsvCode
+		, cancelUserId
+		, cancelRegDate
+		, cancelState
+		, cancelReason
+		, cancelPrice
+		, cancelRefundPolicyCode
+	FROM 
+		tbCancelRsv
+		
+	</select>
+	
+	<update id="refundRsv" parameterType="Rsv">
+	UPDATE 
+		tbRsv
+	SET
+		rsvState= #{rsvState}
+	WHERE 
+		rsvCode = #{rsvCode}
+	</update>
+	
+	<update id="refundPayment" parameterType="Payment">
+		UPDATE 
+			tbPayment
+		SET
+			paymentRefund=#{paymentRefund}
+		WHERE 
+			paymentRsvCode=#{paymentRsvCode}
+	</update>
+	
+	
+	<insert id="refundAddPoint" parameterType="Point">
+	INSERT INTO tbPointList
+		(
+		 pointID
+		, pointAddList
+		, pointSellList
+		, pointList
+		, pointPaymentCode
+		, pointModyfiDate
+		)
+		VALUES 
+		(
+		#{pointID}
+		, #{pointAddList}
+		, #{pointSellList}
+		, #{pointList}
+		, #{pointPaymentCode}
+		, NOW()
+		)
+	</insert>
+	
+	
+	
+	<insert id="cancelRefund" parameterType="CancelRsv" >
+	
+	INSERT INTO tbCancelRsv
+	(cancelCode
+	, cancelRsvCode
+	, cancelUserId
+	, cancelState
+	, cancelReason
+	, cancelPrice
+	, cancelRefundPolicyCode
+	, cancelRegDate)
+	VALUES 
+	(NULL
+	, #{cancelRsvCode}
+	, #{cancelUserId}
+	, #{cancelState}
+	, #{cancelReason}
+	, #{cancelPrice}
+	, #{cancelRefundPolicyCode}
+	, NOW())
+	
+	</insert>
+	
+	<insert id="addRefundPolicyRelation" parameterType="Store">	
+	INSERT INTO tbRefundPolicyRelation
+		(
+		RefundPolicyRelationStoreCode
+		, RefundPolicyRelationRefundPolicyCode)
+	VALUES (
+	 #{storeCode}
+	, #{refundPolicyCode}
+	)
+	</insert>
+	
+	<insert id="addRefundPolicy" parameterType="Store" useGeneratedKeys="true" keyProperty="refundPolicyCode">	
+     INSERT INTO tbRefundPolicy	
+		( refundPolicyStoreCode	
+		, remainingDay	
+		, refundPercent	
+		, refundPolicyUserId	
+		, refundPolicyRegDate)	
+      VALUES	
+       (	
+        #{storeCode}	
+      , #{remainingDays}	
+      , #{refundPercents}	
+      , #{storeId}	
+      , NOW()	
+      )	
+   </insert>	
+   <select id="getRefundPolicy" parameterType="int" resultType="RefundPolicy">
+   		SELECT 
+			refundPolicyCode
+			, refundPolicyStoreCode
+			, remainingDay
+			, refundPercent
+			, refundPolicyUserId
+		FROM tbRefundPolicy
+			WHERE refundPolicyStoreCode = #{storeCode}
+		ORDER BY remainingDay DESC;
+   </select>	
+
+</mapper> 

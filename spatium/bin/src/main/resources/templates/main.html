@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customCss">
+	<style type="text/css">
+	
+	.moveBtn{
+		font-family: nanumsquare;
+		width: 30%;
+		height: 200px;
+		margin: 30px;
+		font-weight: bold;
+		font-size: 17px;
+	    border: 1px solid rgb(221, 221, 221) !important;
+	    border-radius: 20px !important;
+	    color: rgb(34, 34, 34) !important;
+	    box-shadow: rgba(0, 0, 0, 0.15) 0px 16px 32px, rgba(0, 0, 0, 0.1) 0px 3px 8px !important;
+	    background-color: rgb(247, 247, 247) !important;
+	}
+	
+	.moveBtn:hover {
+	    color: rgb(255, 56, 92) !important;
+	
+	}
+	
+	.infoText{
+		font-family: nanumsquare;
+	    color: rgb(34, 34, 34) !important;
+		font-size: 17px;
+	
+	}
+	
+
+	
+	</style>
+	
+</th:block>	
+	
+	
+<th:block layout:fragment="customContent">
+<div class="container" style="margin-top:70px; margin-bottom:70px; text-align: center;">
+
+<img src="imges/null-logo.gif" alt="logo" style="width: 30%; margin-bottom: 50px;"/><br />
+
+
+<div class="infoText">
+본 사이트는 한국스마트정보교육원 개발자 37기 Null사랑하지않아 팀에서 제작한 포트폴리오 입니다.<br><br>
+입사지원제안 대표번호 : 한국 스마트정보 교육원 063-717-1008(평일 오전 9시 ~ 오후 5시 30분)<br><br>
+온라인 : 개별 메일<br><br>
+
+
+
+최광현 : atomkh1@naver.com | 김채현 : panda7je@naver.com | 김아영 : 0121a-young@hanmail.net<br><br>
+송하영 : merrycoral@gmail.com | 이태영 : 014057@naver.com | 유 선 : dbtjsdn97@naver.com<br><br><br><br>
+</div>
+</div>
+	
+</th:block>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Begin Left menu -->
+<div class="col-md-3 left_col" th:fragment="leftMenuFragment">
+	<div class="left_col scroll-view">
+		<div class="navbar nav_title" style="border: 0; text-align: center;">
+			<a th:href="@{/}"  class="site_title">
+			<img src="/imges/W-logo.gif" alt="로고" style="height: 50px;"/>
+				</a>
+		</div>
+
+		<div class="clearfix"></div>
+	
+		
+		<!-- menu profile quick info -->
+		<div class="profile clearfix">
+			<div class="profile_pic">
+				<img src="/production/images/img.jpg" alt="..."
+					class="img-circle profile_img">
+			</div>
+			<div th:unless="${session.SID==null}" class="profile_info">
+				<span>환영합니다,</span>
+				<h2>[[${session.SNAME}]]님</h2>
+			</div>
+			<div th:if="${session.SID==null}" class="profile_info">
+				<a href="/imsilogin"><button type="button" class="btn btn-secondary" id="loginBtn">간편 로그인</button></a>
+			</div>
+		</div>
+		<!-- /menu profile quick info -->
+
+		<br />
+		2021-01-22배포
+		<!-- sidebar menu -->
+		<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+			<div class="menu_section">
+				<h3>Spatium</h3>
+				<ul class="nav side-menu">
+				
+					<li><a><i class="fa fa-home"></i> !회원관리 <span
+							class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li th:if="${session.SLEVEL=='1'}"><a href="/user/admin/addAdmin">!회원 등록-kay</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/user/admin/userList">!회원 목록 조회-kay</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/user/admin/restUser">!휴면회원 관리-kay</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/user/admin/blackUser">!불량회원 관리-kay</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/user/admin/deleteUser">!탈퇴회원 관리-kay</a></li>
+							
+						</ul></li>
+						
+							<li><a><i class="fa fa-edit"></i> !업체 관리 <span
+							class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+							<li><a href="/review/admin/reviewAll">전체 리뷰 관리 (관)-shy</a></li>
+							<li><a href="/review/seller/reviewStore">내 매장 리뷰 (관?, 판)-shy</a></li>
+							<li><a href="/store/seller/addStore">업체 등록-ys</a></li>
+							<li><a href="/store/admin/storeListOK">업체 목록-ys</a></li>
+							<li><a href="/space/seller/addSpaceChoice">공간 등록-ys</a></li>
+							<li><a href="/space/admin/spaceListReady">공간 승인 대기-ys</a></li>
+							<li><a href="/space/admin/spaceListOK">공간 승인 완료-ys</a></li>
+							<li><a href="/item/seller/addItemChoice">장비 등록-ys</a></li>
+							<li><a href="/item/admin/itemList">장비 목록-ys</a></li>
+							<li><a href="/item/admin/itemBuyList">!장비 구입 목록-kay</a></li>
+							<li><a href="/item/admin/itemDeleteList">!장비 파기 목록-kay</a></li>
+							<li><a href="/item/admin/itemRepairList">!장비 수리 목록-kay</a></li>
+							<li><a href="/item/admin/itemCountList">장비 수량 목록-ys</a></li>
+							</ul></li>
+						
+							<li><a><i class="fa fa-desktop"></i> !예약 관리 <span
+							class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+							<li th:if="${session.SLEVEL=='1'}"><a href="/reservation/admin/rsvStoreList">예약 등록-cgh</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/reservation/admin/rsvListAdmin">전체 예약 목록 조회-cgh</a></li>
+							<li><a href="/reservation/seller/rsvListAdminByStore">!내 공간 예약 목록 조회-cgh</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/reservation/admin/rsvDetailListAdmin">전체 예약 세부 목록 조회-cgh</a></li>
+							<li><a href="/reservation/seller/rsvDetailListAdminByStore">!내 공간 예약 세부 목록 조회-cgh</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/payment/admin/paymentSearch">!결제 내역 조회-lty</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/refund/admin/refundSearch">!환불 내역 조회-lty</a></li>
+							<li><a href="/payment/seller/paymentSearchMyStore">!내공간 결제 내역 조회-lty</a></li>
+							<li><a href="/refund/seller/refundSearchMyStore">!내공간 환불 내역 조회-lty</a></li>
+							</ul></li>
+						
+						
+					<li><a><i class="fa fa-table"></i> !게시판 관리 <span
+							class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a href="/boardList">게시판 리스트-kch</a></li>
+							<li><a href="/boardArticleList">!게시글 관리-kch</a></li>
+							<li><a href="/faqList">!FAQ 관리-kch</a></li>
+						</ul></li>
+						
+						
+					<li><a><i class="fa fa-calculator"></i> !정산
+							<span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a href="/calculate/admin/adminCalc">!관리자 정산 조회-shy</a></li>
+							<li><a href="/calculate/seller/sellerCalc">!판매자 정산 조회-shy</a></li>
+							<li><a href="/calculate/seller/currentCalc">실시간 매출 조회-shy</a></li>
+							<li><a href="/calculate/seller/dailyCalc">!일별 매출 조회-shy</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/point/admin/pointSearch">!포인트 사용 내역 조회-lty</a></li>
+						</ul></li>
+						
+						
+					<li><a><i class="fa fa-bar-chart"></i>!통계 <span
+							class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a href="/statistic/admin/accessStat">!접속 통계 (관) (OS별, 시간대별, 연령대별)-shy</a></li>
+							<li><a href="/statistic/seller/buyStat">#구매 통계 (판) (공간별, 연령대별, 직업별)-shy</a></li>
+							<li th:if="${session.SLEVEL=='1'}"><a href="/statistic/admin/rsvStatAdmin">#업체별 예약수,금액 통계 (관)-cgh</a></li>
+						</ul></li>
+						
+						
+					<li th:if="${session.SLEVEL=='1'}"><a><i class="fa fa-clone"></i> 프로모션
+						<span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu">
+						<li><a href="/promotion/admin/bestSpaceOrder">추천 상품 진열-cgh</a></li>
+					</ul></li>
+					
+					<li><a  href="/index"><i class="fa fa-share"></i> 구매자 화면</a></li>
+				</ul>
+			</div>
+         </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top"
+				title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top"
+				title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen"
+				aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close"
+				aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top"
+				title="Logout" href="login.html">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+<!-- End Left menu -->

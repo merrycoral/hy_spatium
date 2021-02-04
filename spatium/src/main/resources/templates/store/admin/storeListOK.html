@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customContent">
+
+<div class="x_panel">
+                  <div class="x_title">
+                    <h2> 업체 목록 </h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                    <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
+                    <div class="row">
+                    </div>
+                    <div class="row"><div class="col-sm-12"><table id="tbStoreOk" class="table table-striped jambo_table bulk_action dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable_info">
+                      <thead>
+                        <tr role="row">
+                        <th class="sorting" style="text-align: center;"> 아이디 </th>
+                        <th class="sorting" style="text-align: center;"> 상호명 </th>
+                        <th class="sorting" style="text-align: center;"> 대표자명 </th>
+                        <th class="sorting" style="text-align: center;"> 사업자 번호 </th>
+                        <th class="sorting" style="text-align: center;"> 업체 주소 </th>
+                        <th class="sorting" style="text-align: center;"> 업체 연락처 </th>
+                        <th class="sorting" style="text-align: center;"> 사업자 계좌번호 </th>
+                        <th class="sorting" style="text-align: center;"> 환불 정책 </th>
+                        <th class="sorting" style="text-align: center;"> 업체 레벨 </th>
+                        <th class="sorting" style="text-align: center;"> 업체수정 </th>
+                        <th class="sorting" style="text-align: center;"> 업체삭제 </th>
+                        </tr>
+                      </thead>
+
+
+            <tbody>
+			<th:block th:each = "s : ${storeList}">
+				<tr>
+					<td style="text-align: center;" th:text = "${s.storeId}"></td>
+					<td style="text-align: center;"> <a th:href = "@{/store/admin/storeSeeMore(storeCode=${s.storeCode})}" th:text = "${s.storeName}" style="color: blue"> </a></td>
+					<td style="text-align: center;" th:text = "${s.storeRepresentative}"></td>
+					<td style="text-align: center;" th:text = "${s.storeNumber}"></td>
+					<td style="text-align: center;" th:text = "${s.storeAddress}"></td>
+					<td style="text-align: center;" th:text = "${s.storePhone}"></td>
+					<td style="text-align: center;" th:text = "${s.storeAccountNumber}"></td>
+					<td style="text-align: center;" th:text = "${s.storeRefundRull}"></td>
+					<td style="text-align: center;" th:text = "${s.storeLevel}"></td>
+					<td style="text-align: center;"> <a th:href = "@{/store/admin/storeUpdate(storeCode=${s.storeCode})}"> 수정 </a> </td>
+					<td style="text-align: center;"> <a class = "deleteBtn" th:href = "@{/store/admin/storeDelete(storeCode=${s.storeCode})}"> 삭제 </a> </td>
+				</tr>
+			</th:block>
+		</tbody>
+                    </table>
+                    </div></div></div>
+                  </div>
+                  </div>
+              </div>
+            </div>
+                </div>
+
+</th:block>
+
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbStoreOk").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	$(function(){
+		
+		$('.deleteBtn').click(function(){
+			
+			var result = confirm('업체를 삭제할 시 이 업체를 통하여 생성하신 공간 및 장비도 모두 삭제 됩니다.');
+			
+			if(result){
+				alert('삭제가 완료되었습니다.');
+			}else{
+				return false;
+			}
+		});
+		
+	});
+	
+	</script>
+
+</th:block>
+
+</html>

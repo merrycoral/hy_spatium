@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.BoardMapper">
+
+	<select id="getBoardCate" resultType="Board">
+		SELECT boardCateCode, boardCateName
+		FROM tbBoardCete
+	</select>
+	
+	<sql id="searchColumn">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'boardTitle'.equals(searchType)">
+							AND boardTitle LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'boardContents'.equals(searchType)">
+							AND boardContents LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="'boardAddId'.equals(searchType)">
+							AND boardAddId LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+					</choose>
+				</when>
+				<!-- 검색 유형이 없을 때 -->
+				<otherwise>
+					AND
+						(
+							   boardTitle LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR boardContents LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR boardAddId LIKE CONCAT('%', #{searchKeyword}, '%')
+						)
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+	
+	 <select id="getBoardsList" resultType="Board" parameterType="Board">
+		SELECT
+			boardIdx
+			,boardAddId
+			,boardCateName
+			,boardTitle
+			,boardContents
+			,boardLikeCnt
+			,boardHitCnt
+			,boardAddDate
+			,boardUpDate
+			,boardDeclaration
+			,boardBlind
+		FROM
+			tbBoard
+				INNER JOIN 
+			tbBoardCete
+				on
+			boardCateCode = boardCate
+		WHERE
+			boardDeclaration = 'N'
+				AND
+			boardBlind = 'N'
+		<include refid="searchColumn" />
+		ORDER BY boardIdx DESC
+		LIMIT
+			#{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+	</select> 
+	
+	<select id="getBoardTotalCount" parameterType="Board" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			tbBoard
+		WHERE
+			boardDeclaration = 'N'
+				AND
+			boardBlind = 'N'
+		<include refid="searchColumn" />
+	</select>
+	
+	<select id="getBoardsByCode" parameterType="int" resultType="Board">
+		SELECT
+			boardIdx
+			,boardAddId
+			,boardCateName
+			,boardTitle
+			,boardContents
+			,boardLikeCnt
+			,boardHitCnt
+			,boardAddDate
+			,boardUpDate
+			,boardDeclaration
+			,boardBlind
+		FROM
+			tbBoard
+				INNER JOIN 
+			tbBoardCete
+				on
+			boardCateCode = boardCate
+		WHERE
+			
+			boardIdx = #{boardIdx};	
+	</select>
+	
+	<insert id="addPost" parameterType="Board">
+		INSERT INTO tbBoard
+		( boardAddId
+		 ,boardCate
+		 ,boardTitle
+		 ,boardContents
+		 ,boardAddDate
+		) VALUES(
+		  #{boardAddId}
+		 ,#{boardCateCode}
+		 ,#{boardTitle}
+		 ,#{boardContents}
+		 ,NOW());
+	</insert>
+	
+	<update id="modifyPost" parameterType="Board">
+		UPDATE 
+			tbBoard
+		SET
+			boardCate = #{boardCateCode}
+			,boardTitle = #{boardTitle}
+			,boardContents = #{boardContents}
+			,boardUpDate = NOW()
+		WHERE 
+			boardIdx = #{boardIdx};		
+	</update>
+	
+
+	<delete id="removePost" parameterType="int">
+		DELETE
+		FROM
+			tbBoard
+		WHERE
+			boardIdx = #{boardIdx};
+	</delete>
+
+	 
+	 <update id="blindPost" parameterType="int">
+		UPDATE tbBoard
+		SET
+			  boardBlind = 'Y'
+		WHERE
+			boardIdx = #{boardIdx};
+	</update>
+
+	 <update id="declarationPost" parameterType="int">
+		UPDATE tbBoard
+		SET
+			  boardDeclaration = 'Y'
+		WHERE
+			boardIdx = #{boardIdx};
+	</update>
+	
+	 <update id="postHitCnt" parameterType="int">
+		UPDATE tbBoard
+		SET
+			  boardHitCnt = boardHitCnt+1
+		WHERE
+			boardIdx = #{boardIdx};
+	</update>
+
+	
+	<!-- 댓글 -->
+	
+	<select id = "getReplysList" resultType="BoardReply" parameterType="BoardReply">
+		SELECT
+			replyIdx
+			,boardIdx
+			,boardAddId
+			,replyContents
+			,replyLikeCnt
+			,replyAddId
+			,replyAddDate
+			,replyUpDate
+			,replyDeclaration
+			,replyBlind
+		FROM
+			tbBoardReply
+		WHERE
+			replyDeclaration = 'N'
+				AND
+			replyBlind = 'N'
+		ORDER BY replyIdx DESC
+		LIMIT
+			#{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+	</select>
+	
+	<select id = "getReplyByCode" parameterType="int" resultType="BoardReply">
+		SELECT
+			replyIdx
+			,boardIdx
+			,boardAddId
+			,replyContents
+			,replyLikeCnt
+			,replyAddId
+			,replyAddDate
+			,replyUpDate
+			,replyDeclaration
+			,replyBlind
+		FROM
+			tbBoardReply
+		WHERE
+			boardIdx = #{boardIdx};	
+	</select>
+	
+	<insert id="addReply"  parameterType="BoardReply">
+		INSERT INTO tbBoardReply
+		( boardIdx
+		 ,boardAddId
+		 ,replyAddId
+		 ,replyContents
+		 ,replyAddDate
+		) VALUES(
+		  #{boardIdx}
+		 ,#{boardAddId}
+		 ,#{replyAddId}
+		 ,#{replyContents}
+		 ,NOW());
+	 </insert>
+
+	<update id="modifyReply" parameterType="BoardReply">
+		UPDATE 
+			tbBoardReply
+		SET
+			replyContents = #{replyContents}
+			,replyUpDate = NOW()
+		WHERE 
+			replyIdx = #{replyIdx};		
+	</update>
+
+	<delete id="removeReply" parameterType="int">
+		DELETE
+		FROM
+			tbBoardReply
+		WHERE
+			replyIdx = #{replyIdx};
+	</delete>
+
+	 
+	 <update id="blindReply" parameterType="int">
+		UPDATE tbBoardReply
+		SET
+			  replyBlind = 'Y'
+		WHERE
+			replyIdx = #{replyIdx};
+	</update>
+
+	 <update id="declarationReply" parameterType="int">
+		UPDATE tbBoard
+		SET
+			  replyDeclaration = 'Y'
+		WHERE
+			replyIdx = #{replyIdx};
+	</update>
+	
+	<select id="getReplyTotalCount" parameterType="BoardReply" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			tbBoardReply
+		WHERE
+			boardIdx = #{boardIdx};
+	</select>
+	
+
+
+</mapper>

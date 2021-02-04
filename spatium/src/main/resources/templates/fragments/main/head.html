@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:fragment="headFragment">
+<meta charset="UTF-8">
+	<script src="/js/jquery-3.5.1.min.js"></script>
+	<script src="/js/commonAjax.js"></script>
+	<script src="/js/main.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	
+
+
+	<!-- 화면 title -->
+	<th:block layout:fragment="customTitle"></th:block>
+	
+	<!-- 외부 스타일 -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+	
+
+	<!-- 젠틀라 데이터테이블 css -->
+<!-- 
+	<link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+	<link href="/vendors/datatables.net-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+	<link href="/vendors/datatables.net-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+	<link href="/vendors/datatables.net-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+ -->
+	
+	<!-- 사용자 정의 css -->
+	<th:block layout:fragment="customCss">
+	</th:block>
+	<!-- 사용자 정의 css end -->
+
+
+
+	
+</head>
+</html>

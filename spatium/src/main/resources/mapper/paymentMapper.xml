@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.PaymentMapper">
+	
+	<resultMap type="Payment" id="resultMapPayment">
+		<result column="paymentCode" 		property="paymentCode"/>
+		<result column="paymentRsvCode" 	property="paymentRsvCode"/>
+		<result column="paymentPrice" 		property="paymentPrice"/>
+		<result column="paymentUsePoint" 	property="paymentUsePoint"/>
+		<result column="paymentUseMoney" 	property="paymentUseMoney"/>
+		<result column="paymentAddPoint" 	property="paymentAddPoint"/>
+		<result column="paymentRegDate" 	property="paymentRegDate"/>
+		<result column="paymentMethod" 		property="paymentMethod"/>
+		<result column="paymentIP" 			property="paymentIP"/>
+		<collection property="RsvList" javaType="java.util.ArrayList" ofType="Rsv">
+			<id column="rsvCode" property="rsvCode"/>
+			<result column="rsvUserId" property="rsvUserId"/>
+			<result column="rsvUserName" property="rsvUserName"/>
+			<result column="rsvState" property="rsvState"/>
+			<result column="rsvUserPhone" property="rsvUserPhone"/>
+			<result column="rsvStartDateTime" property="rsvStartDateTime"/>
+		</collection>
+		
+	</resultMap>
+	<resultMap type="Point" id="resultMapPoint">
+		<result column="pointCode" 		property="pointCode"/>
+		<result column="pointID" 	property="pointID"/>
+		<result column="pointAddList" 		property="pointAddList"/>
+		<result column="pointSellList" 	property="pointSellList"/>
+		<result column="pointList" 	property="pointList"/>
+		<result column="pointPaymentCode" 	property="pointPaymentCode"/>
+		<result column="pointReviewCode" 	property="pointReviewCode"/>
+		<result column="pointModyfiDate" 		property="pointModyfiDate"/>
+	</resultMap>
+	
+	
+	
+	
+	
+	<select id="rsvDetail" parameterType="String" resultType="Payment">
+	SELECT 
+	     rsvCode
+	    ,rsvDetailCode
+		,rsvDetailSpace	
+	    ,okayStoreCode	
+		,okaySpaceType	
+		,okaySpaceName	
+		,rsvDetailItem	
+		,itemTotalName	
+		,rsvDetailNum	
+		,rsvDetailOnePrice
+		,rsvState
+		,rsvStartDateTime
+
+	FROM
+		tbPayment AS p
+	INNER join
+		tbRsv AS r
+	ON
+		p.paymentRsvCode = r.rsvCode
+	INNER join
+		tbRsvRelation AS l
+	ON
+		r.rsvCode = l.rsvRelationRsvCode
+	INNER join
+		tbRsvDetail AS d
+	ON
+		l.rsvRelationRsvDetailCode = d.rsvDetailCode
+	INNER join
+		tbOkaySpace AS o
+	ON	
+		d.rsvDetailSpace = o.okaySpaceCode
+	Left join
+		tbItemTotalAmount AS t
+	ON	
+		d.rsvDetailItem = t.itemCode
+	WHERE
+	p.paymentCode = #{payCode};	
+	</select>
+	
+	
+	<select id="getPaymentCode" parameterType="String" resultMap="resultMapPayment">
+		SELECT 
+			*
+		FROM
+			 tbPayment AS p
+		INNER join
+			tbRsv AS r
+		on
+			p.paymentRsvCode = r.rsvCode
+		WHERE
+			p.paymentCode = #{paymentCode};
+	</select>
+	
+	
+	
+	
+	<update id="updateState" parameterType="Rsv">
+		UPDATE tbRsv
+		SET
+			rsvState=#{rsvState}
+		WHERE 
+		 rsvCode = #{rsvCode}
+	</update>
+	
+	<select id="rsvCheck" resultType="int" parameterType ="java.util.Map" >
+		
+		SELECT 
+			COUNT(DISTINCT(rsvCode))
+		FROM 
+			tbRsv AS r
+		INNER JOIN
+			tbRsvRelation AS a
+		ON 
+			r.rsvCode = a.rsvRelationRsvCode
+		INNER JOIN
+			tbRsvDetail AS d
+		ON
+			a.rsvRelationRsvDetailCode = d.rsvDetailCode
+		WHERE
+		<foreach item="i" collection="list" separator=" OR ">
+			r.rsvState = '결제 완료' AND
+			${i.columName} = #{i.columValue}  AND 
+			   (rsvStartDateTime <![CDATA[ <= ]]>  #{i.rsvStartDateTime} AND rsvEndDateTime <![CDATA[ > ]]>  #{i.rsvStartDateTime}
+			OR rsvStartDateTime <![CDATA[ < ]]>  #{i.rsvEndDateTime} AND rsvEndDateTime <![CDATA[ >= ]]>  #{i.rsvEndDateTime} 
+			OR rsvStartDateTime <![CDATA[ > ]]>  #{i.rsvStartDateTime} AND rsvEndDateTime <![CDATA[ < ]]>  #{i.rsvEndDateTime} )
+		</foreach>
+	
+	</select>
+	
+	
+	
+	
+		<!--예약코드를 넣으면 방코드, 장비코드 불러오는 쿼리문  -->
+	<select id="getRsvDetailCode" parameterType="String"  resultType="java.util.LinkedHashMap" >
+		SELECT 
+			 rsvDetailSpace
+			,rsvDetailItem
+		<if test= "dateTime !=''">
+			,rsvStartDateTime
+			,rsvEndDateTime
+		</if>	
+		FROM 
+			tbRsv AS r
+		INNER JOIN
+			tbRsvRelation AS a
+		ON 
+			r.rsvCode = a.rsvRelationRsvCode
+		INNER JOIN
+			tbRsvDetail AS d
+		ON
+			a.rsvRelationRsvDetailCode = d.rsvDetailCode
+		WHERE r.rsvCode= #{rsvCode};
+	</select>
+	
+	<select id="rsvState" parameterType="String"  resultType="Rsv" >
+	SELECT 
+		rsvCode
+		, rsvUserId
+		, rsvStoreCode
+		, rsvUserName
+		, rsvUserPhone
+		, rsvUserEmail
+		, rsvUserRequest
+		, rsvTotalPrice
+		, rsvStartDateTime
+		, rsvEndDateTime
+		, rsvRegDate
+		, rsvState
+		, storeId
+		, storeName
+		
+		
+	FROM 
+		tbRsv AS r
+	INNER join
+		tbStore AS s
+	on
+		rsvStoreCode = storeCode
+	WHERE 
+		rsvCode = #{rsvCode};
+	</select>
+	
+	<select id="userPointSelect" resultMap="resultMapPoint" >
+	SELECT 
+		pointCode
+		, pointID
+		, pointAddList
+		, pointSellList
+		, pointList
+		, pointPaymentCode
+		, pointReviewCode
+		, pointModyfiDate
+	FROM tbPointList
+	where
+		pointID = #{SID}
+	</select>
+	
+	<select id="pointSelect" resultMap="resultMapPoint" >
+	SELECT 
+		pointCode
+		, pointID
+		, pointAddList
+		, pointSellList
+		, pointList
+		, pointPaymentCode
+		, pointReviewCode
+		, pointModyfiDate
+	FROM tbPointList
+	</select>
+	<!-- 관리자 결제내역 페이지 조회 -->
+	<select id="allPaymentSelect" parameterType="String" resultMap="resultMapPayment">
+	SELECT 	
+	   paymentCode
+		,paymentRsvCode
+		,paymentPrice
+		, paymentUsePoint
+		, paymentUseMoney
+		, paymentAddPoint
+		, paymentIP
+		, paymentRegDate
+		, rsvUserId
+		, rsvStartDateTime
+		, rsvState
+	FROM
+		tbPayment AS p
+	INNER JOIN
+		tbRsv AS r
+	on
+		p.paymentRsvCode = r.rsvCode		
+	
+	</select>
+	<!-- 판매자 결제내역 페이지 조회 -->
+	<select id="StorePaymentSelect" parameterType="String" resultMap="resultMapPayment">
+	SELECT 	
+	   paymentCode
+		,paymentRsvCode
+		,paymentPrice
+		, paymentUsePoint
+		, paymentUseMoney
+		, paymentAddPoint
+		, paymentIP
+		, paymentRegDate
+		, rsvUserId
+		, rsvStartDateTime
+		, rsvState
+	FROM
+		tbPayment AS p
+	INNER JOIN
+		tbRsv AS r
+	on
+		p.paymentRsvCode = r.rsvCode		
+	where
+	paymentStoreId = #{SID}
+	</select>
+	
+	<!-- 구매자 결제내역 페이지 세션아이디 있는값 조회 -->
+	<select id="paymentSelect" parameterType="String" resultMap="resultMapPayment">
+	SELECT 	
+	   paymentCode
+		,paymentRsvCode
+		,paymentPrice
+		, paymentUsePoint
+		, paymentUseMoney
+		, paymentAddPoint
+		, paymentIP
+		, paymentRegDate
+		, rsvUserId
+		, rsvStartDateTime
+		, rsvState
+	FROM
+		tbPayment AS p
+	INNER JOIN
+		tbRsv AS r
+	on
+		p.paymentRsvCode = r.rsvCode		
+	WHERE
+		r.rsvUserId = #{SID};
+	
+	</select>
+	
+	<!-- 인설트 되는값 결제성공페이지 보여주기  -->
+	<select id="paymentSuccess" parameterType="int" resultType="Payment">
+		SELECT
+			*
+		FROM
+			 tbPayment
+		WHERE
+			paymentCode = #{a};
+	</select>
+	
+	<insert id="paymentSystem" parameterType="Payment" useGeneratedKeys="true" keyProperty="paymentCode">
+	
+	INSERT INTO tbPayment
+	(
+	
+	 paymentPrice
+	, paymentRsvCode
+	, paymentUsePoint
+	, paymentUseMoney
+	, paymentAddPoint
+	, paymentStoreCode
+	, paymentIP
+	, paymentRegDate
+	, paymentStoreId
+	)
+	VALUES (
+	
+	#{paymentPrice}
+	, #{paymentRsvCode}
+	, #{paymentUsePoint}
+	, #{paymentUseMoney}
+	, #{paymentAddPoint}
+	, #{paymentStoreCode}
+	, #{paymentIP}
+	, NOW()
+	, #{paymentStoreId}
+	)
+	
+	</insert>
+	
+	
+	<insert id="addPoint" parameterType="Point">
+		INSERT INTO tbPointList
+			(
+			 pointID
+			, pointAddList
+			, pointSellList
+			, pointList
+			, pointModyfiDate
+			, pointPaymentCode)
+		VALUES 
+			( 
+			
+			 #{pointID}
+			, #{pointAddList}
+			, #{pointSellList}
+			, #{pointList}
+			, NOW()
+			, #{pointPaymentCode}
+			
+			)
+	</insert>
+	
+	
+	<select id="totalPoint" parameterType="String" resultType="String">
+		SELECT
+			SUM(pointList)
+		FROM 
+			tbPointList
+		WHERE
+			pointID = #{pointID}
+	</select>
+	
+
+</mapper>

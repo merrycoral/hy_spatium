@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Begin header -->
+<header id="header_main" th:fragment="headerFragment">
+	<nav class="navbar navbar-fixed-top">
+
+		<div class="container">
+			<div class="  col-md-3">
+				<a th:href="@{/}" >
+				<img src="/imges/B-logo.gif" alt="logo" class="logo " />
+				</a>
+			</div>
+
+			<div class="col-md-6 navbar-form serch">
+			<form th:action="@{/store/searchAll}" method="post">
+				<input class="serch_bar" placeholder="검색" name = "searchName"></input>
+				<button class="serch_btn" type="submit">검색</button>
+			</form>
+			</div>
+			<div class="login col-md-1 nav-right">
+				<div class="login-btn">
+					<div class="line line--1"></div>
+					<div class="line line--2"></div>
+					<div class="line line--3"></div>
+				</div>
+				<div class="login-links">
+					<a th:href="@{/admin}" th:if="${session.SLEVEL == '1' || session.SLEVEL == '2'}" class="link">관리자 화면(임시)</a>
+					<a th:href="@{/user/myPage}" th:unless="${session.SID == null}" class="link">마이페이지</a>
+					<a th:href="@{/user/login}" th:if="${session.SID == null}" class="link">로그인</a> 
+					<a th:href="@{/user/logout}" th:unless="${session.SID == null}" class="link">07로그아웃</a>
+					<a th:href="@{/user/addUser}" th:if="${session.SID == null}" class="link">회원가입</a> 
+					<div style="text-align: right">
+						<label th:unless="${session.SID == null}"
+							th:text="${'id: ' + session.SID + ' ' + session.SNAME + '님이  로그인하셨습니다.'}"></label>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</nav>
+
+</header>
+<!-- end header -->
+</html>

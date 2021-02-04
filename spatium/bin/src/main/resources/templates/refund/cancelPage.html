@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/maindefault}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customCss">
+<style>
+
+table{ float: left; margin-right: 200px; }
+
+td,th{text-align: center; padding: 6px;}
+
+#table1{width: 30%; min-height: 500px; margin-left: 100px; border: 1px solid;}
+#table2{float: none; width: 350px; float: none; border: 2px solid;}
+#Explanation{margin-left: 510px; margin-top: 5px;}
+.hid{display: none;}
+
+</style>
+</th:block>
+
+<th:block layout:fragment="customJs">
+	<script>
+		$(function(){
+			function dateCal(){
+				var rsvdate = $('.rsvDate').val();
+				var rsvdateYear = rsvdate.substring(0,4);
+				var rsvdateMonth = rsvdate.substring(5,7);
+				var rsvdateDay = rsvdate.substring(8,10);
+				console.log(rsvdateYear+"-"+rsvdateMonth+"-"+rsvdateDay);
+				var rsvDay = new Date(rsvdateYear,rsvdateMonth,rsvdateDay);
+				var toDay = new Date();
+				var toDayYear = toDay.getFullYear();
+				var toDayMonth = toDay.getMonth();
+				toDay.setMonth(toDayMonth+1);
+				toDayMonth = toDay.getMonth();
+				if(toDayMonth==0){
+					toDayMonth=12;
+				}
+				var toDayDay = toDay.getDate();
+				console.log(toDayYear+"-"+toDayMonth+"-"+toDayDay);
+				var elapsedMSec = rsvDay.getTime() - toDay.getTime();
+				console.log("계산>>>"+elapsedMSec);
+				var elapsedDay = Math.ceil(elapsedMSec/1000/60/60/24);
+				console.log("계산>>>"+elapsedDay);
+				console.log($('.day').length);	
+				
+				var result;
+				var result2;
+				for(var i=0; i<$('.day').length; i++){
+					if(elapsedDay >= $('.day').eq(0).val()){
+						result = $('.Pay').eq(0).val();
+						result2 = $('.code').eq(0).val();
+					}else if(elapsedDay < $('.day').eq(i-1).val() && elapsedDay >= $('.day').eq(i).val()){
+						result = $('.Pay').eq(i).val();
+						result2 = $('.code').eq(i).val();
+					}
+				}
+				
+				var reCal = (result/100) * $('.Price').val();//환불할 금액
+				
+				$('.rePercent').val(result+"%");//환불할 퍼센트
+				//환불금액 반올림 해야함 하다가 맘ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
+				$('.rePrice').val(Math.floor(reCal));//환불퍼센트 * 실결제금액 = 환불할 금액
+				console.log($('.rePrice').val(Math.floor(reCal))) + " <<<<<환불하는금액";
+				
+				$('.reCode').val(result2);
+				console.log($('.reCode').val() + " <<<<<환불코드");
+				$('.paymentRefund').val( $('.Price').val() - $('.rePrice').val() );//환불하고 남은금액
+				console.log($('.paymentRefund').val());
+				return reCal;
+				
+			}
+			dateCal();
+			console.log(dateCal());
+			
+			
+				$('.pointList').val( $('.Price').val() * 0.01 );//반활 적립 될 포인트
+				
+				
+				console.log($('.pointList').val());
+				
+			$('#cancelTest').click(function(){	
+		
+			 var result = confirm("환불하시겠습니까 ?");			   
+			        if(result){
+			        	if(dateCal() != $('.rePrice').val()){
+							alert('환불일자 갱신으로 재신청바랍니다.');
+							 location.href="/paymentSearch" ;
+		
+							/*  alert('환불일자 갱신으로 재신청바랍니다.');
+								dateCal();
+								return false; */		 
+					}else if(dateCal() == $('.rePrice').val()){
+							
+							$('form').submit();
+						}
+			        }else{
+			           return false;
+			        }
+
+			});
+			
+			 
+		});
+	</script>
+</th:block>
+
+
+
+<th:block layout:fragment="customContent">
+<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
+
+<form action="/refundBtn" method="post">
+	
+	<!--예약테이블 결제상태 환불로변경? --><input type="hidden" name="rsvState" >
+	<!-- 포인트 적립내역 환불완료로 수정 --><input type="hidden" name="pointAddList">
+	<!-- 포인트에 환불 적립 될 (아이디 rsvId 쓰면됨)--><input type="hidden" name="pointID">
+	<!-- 적립된 포인트 마이너스 추가 --><input type="hidden" name="pointList" class="pointList">
+	<!-- 환불하고 남는금액 --><input type="hidden" name="paymentRefund" class="paymentRefund">
+	<!-- 환불상태 변경 --><input type="hidden" value="환불완료" name="cancelState" readonly="readonly">
+<table id="table1">
+	<tbody >
+		<th:block th:if="${#lists.size(cacelData) > 0}" th:each = "p : ${cacelData}">
+		<th:block th:each = "pr : ${p.RsvList}">
+		<tr class="hid">
+			<td>취소하는 방 결제코드</td>
+			<td><input type="text" name="pointPaymentCode" th:value="${p.paymentCode}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>취소하는 방 예약코드</td>
+			<td><input type="text" name="cancelRsvCode" th:value="${p.paymentRsvCode}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>취소자 아이디</td>
+			<td><input type="text" name="cancelUserId" th:value = "${pr.rsvUserId}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>취소자 이름</td>
+			<td><input type="text" th:value = "${pr.rsvUserName}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>취소자 휴대폰</td>
+			<td><input type="text" th:value = "${pr.rsvUserPhone}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>결제한 금액</td>
+			<td><input type="text" class="Price" th:value="${p.paymentUseMoney}" readonly="readonly"></td>
+		</tr>
+		
+		<tr class="hid">
+			<td>환불 코드</td>
+			<td><input type="text" class="reCode" name="cancelRefundPolicyCode" readonly="readonly"></td>
+		</tr>
+		
+		<tr>
+			<td>환불 퍼센트</td>
+			<td><input type="text" class="rePercent" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>환불하는 금액</td>
+			<td><input type="text" class="rePrice" name="cancelPrice" readonly="readonly"></td>
+		</tr>
+		
+		
+		<tr>
+			<td>취소사유</td>
+			<td><input type="text" name="cancelReason"></td>
+		</tr>
+		<tr>
+			<td>결제 날짜</td>
+			<td><input type="text" class="paydate" th:value="${p.paymentRegDate}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>예약 날짜</td>
+			<td><input type="text" class="rsvDate" th:value="${pr.rsvStartDateTime}" readonly="readonly"></td>
+		</tr>
+		<tr align="center">
+			<td colspan="2"><button type="button"  class="btn btn-primary btn-lg" id="cancelTest">취소신청</button></td>
+		</tr>
+		
+		</th:block>
+		</th:block>
+	</tbody>
+</table>
+	
+	<table id="table2">
+				<thead class="thead2">
+					<tr>
+						<th>예약까지남은일수</th>
+						<th>환불퍼센트</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="re : ${refundPolicy}">
+						<td class="hid">
+						<!-- 환불정책 코드값 --><input type="hidden" name="refundPolicyCode" class="code" th:value="${re.refundPolicyCode}">
+						</td>
+						<td>이용<input type="text" name="remainingDay"
+							style="width: 60px;" class="day" th:value="${re.remainingDay}"
+							readonly="readonly">일전
+						</td>
+						<td>총금액의<input type="text" name="refundPercent"
+							style="width: 60px;" class="Pay"
+							th:value="${re.refundPercent}" readonly="readonly">%
+						</td>
+					</tr>
+				</tbody>
+	</table>
+			
+		
+		<p id="Explanation">※해당업체의 환불정책</p>
+	
+	
+</form>
+</div>
+</th:block>

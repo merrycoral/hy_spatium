@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/maindefault}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+<th:block layout:fragment="customCss">
+<style type="text/css">
+	.spaceInfo{
+		margin-top: 15px;
+		font-weight: bold;
+	}
+	#refundTb, #refundTb tr, #refundTb tr td{
+		border: solid 1px;
+		padding: 5px;
+	}
+	#rsvBtn{
+		text-align: center;
+		padding: 0;
+		margin: 0;
+		height: 50px;
+		width: 150px;
+		font-size: 25px;
+	}
+	
+	small{	font-size: 80%;	}
+	b{	font-weight: bold; }
+	.ystar {color:#F5C225; font-size: 20px;}
+	.gstar {color:#DDD; font-size: 20px;}
+	
+</style>
+</th:block>
+
+
+<th:block layout:fragment="customContent">
+
+
+	<!-- 공간 진열 start -->
+	<div class="container main_space"
+		data-example-id="thumbnails-with-custom-content">
+		<div th:text="${storeInfo.storeName}" style="font-size: 50px; font-weight: bold; margin-bottom: 10px;"></div>		
+		<div style="margin-bottom: 10px;">
+			<span th:text="'#'+${storeInfo.storeBusinessType}" ></span>
+			<span>
+				<button type="button" class="btn btn-danger" id="bookMark">찜하기</button>
+			</span>
+		</div>
+		
+		<div class="row ">
+			<div class="col-lg-12 col-sm-12">
+				<div class="thumbnail">
+					<img data-src="holder.js/100%x200" alt="100%x500"
+						th:src="@{/imges/{i}(i=${storeInfo.storeImage})}" data-holder-rendered="true"
+						style="height: 500px; width: 100%; display: block;">
+				</div>
+			</div>
+		</div>
+		<a style="margin: 0;" th:href="@{/reservation/rsvInsert(storeCode=${storeInfo.storeCode},rsvType=${storeInfo.storeRsvType})}">
+			<button id="rsvBtn" class="btn btn-info">예약하기</button>
+		</a>
+		<div class="row ">
+			<div class="x_content col-xs-12">
+				<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+					<li class="nav-item active">
+						<a data-toggle="tab" href="#info">업체 소개</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#space">보유 공간</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#item">보유 장비</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#refundRule">환불 정책</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#QnA">QnA</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#review">이용 후기</a>
+					</li>
+				</ul>
+				
+				<div class="tab-content" id="myTabContent">
+					<!-- 업체소개 시작-->
+					<div class="tab-pane fade active show in" id="info">
+						<div th:utext ="${storeInfo.storeIntroduction}" style="margin: 20px;"></div>
+						<div id="map" style="width:100%;height:400px;"></div>
+					</div>
+					
+					<!-- 업체소개 끝-->
+					<!-- 공간소개 시작 -->
+					<div class="tab-pane fade" id="space">
+						<th:block th:each="s : ${spaceList}">
+							<div class="spaceInfo" th:text="${s.okaySpaceName}" style="font-size: 20px; font-weight: bold; margin-bottom: 10px;"></div>
+							<div class="spaceInfo"></div><div><span th:text="${s.okayBriefSpace}"></span></div>
+							<div class="spaceInfo">공간 설명 </div><div><span th:utext = "${s.okayDetailSpace}"></span></div>
+							<div class="spaceInfo">최대 인원 </div><div><span th:text = "${s.okayPeopleNumber}+명"></span></div>
+							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${storeInfo.storeRsvType}"></span>당 <span th:text = "${s.okaySpaceRentalPrice}"></span>원</div>
+							<div class="spaceInfo">영업 시간 </div><div><span th:text = "${s.okayStartTime}"></span> ~ <span th:text = "${s.okayCloseTime}"></span></div>
+							<div class="spaceInfo">기본 옵션 </div><div><span th:text = "${s.okaySpaceBasicOption}"></span></div>
+							<div class="spaceInfo">------------------------------------------------------------------------------------------------------</div>
+						</th:block>
+					</div>
+					<!-- 공간소개 끝 -->
+					<!-- 장비소개 시작 -->
+					<div class="tab-pane fade" id="item">
+						<th:block th:each="i : ${itemCountListByStoreCode}">
+							<div class="spaceInfo" th:text="${i.itemTotalName}" style="font-size: 20px; font-weight: bold; margin-bottom: 10px;"></div>
+							<div class="spaceInfo"></div>
+							<div><img data-src="holder.js/100%x200" alt="100%x500"
+									th:src="${i.itemImg}" data-holder-rendered="true"
+									style="height: 200px; width: 300px; display: block;"></div>
+							<div class="spaceInfo">보유 개수 </div><div><span th:text = "${i.itemTotalAmount}+개"></span></div>
+							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${storeInfo.storeRsvType}"></span>당<span th:text = "${i.itemRentalPrice}"></span>원</div>
+							<div class="spaceInfo">------------------------------------------------------------------------------------------------------</div>
+						</th:block>
+					</div>
+					<!-- 장비소개 끝 -->
+					<!-- 환불정책 시작 -->
+					<div class="tab-pane fade" id="refundRule">
+						<table id="refundTb">
+							<tr th:each="ref : ${refundRule}">
+								<td th:text="${ref.get('remainingDay')}+일전"></td>
+								<td th:text="${ref.get('refundPercent')}+'%'"></td>
+							</tr>
+						</table>
+					</div>
+					<!-- 환불정책 끝 -->
+
+					<!-- 리뷰 시작 -->
+					<div class="tab-pane fade" id="review">
+						<br>
+						<th:block th:if="${#lists.size(reviewList) > 0}">
+							<div class="panel panel-warning">
+						      <div class="panel-heading">이용자들의 평가</div>
+						      <div class="panel-body">
+						        <b class="">종합 점수 : <span id="totalAvg"></span>  </b> 
+						        <small>  이용자들이 얼마나 추천하는지의 점수예요!</small><br><hr>
+						     	청결도 : <span id="avgClean"></span> | 
+						      	서비스 : <span id="avgService"></span> | 
+						      	화장실 : <span id="avgRestroom"></span> | 
+						      	시설 : <span id="avgFacility"></span> | 
+						      	분위기 : <span id="avgAmbience"></span>
+						      </div>
+						    </div>
+					    </th:block>
+
+						<th:block th:if="${#lists.size(reviewList) > 0}" th:each="rev : ${reviewList}">
+							<div class="panel panel-default">
+							  <div class="panel-body">
+								<span style="font-weight: bold;" th:text="${rev.reviewTitle}"></span>
+						      	<input type="hidden" th:value="${rev.reviewScore}" class="starRating">
+						      	<span class="ystar"></span><span class="gstar"></span>
+						      	<small >작성자 : <span th:text="${rev.reviewAddId}"></span>
+						      	작성일 : <span th:text="${rev.reviewAddDate}"></span>
+						      	<br>
+							      	청결도 : <span th:text="${rev.reviewClean}" class="pointClean"></span> | 
+							      	서비스 : <span th:text="${rev.reviewService}" class="pointService"></span> | 
+							      	화장실 : <span th:text="${rev.reviewRestroom}" class="pointRestroom"></span> | 
+							      	시설 : <span th:text="${rev.reviewFacility}" class="pointFacility"></span> | 
+							      	분위기 : <span th:text="${rev.reviewAmbience}" class="pointAmbience"></span>
+						      	</small>
+						      	<hr>
+					      		<span th:text="${rev.reviewContents}"></span>
+						      	<hr>
+						      	<button type="button" class="btn btn-default viewReplyBtn" th:value="${rev.reviewCode}">사장님 답글 보기</button>
+						      	<div class="rvReplyArea"></div>
+							  </div>
+							</div>
+						</th:block>
+						
+						<th:block th:if="${#lists.isEmpty(reviewList)}">
+							<div class="panel panel-warning">
+						      <div class="panel-heading">이용자들의 평가</div>
+						      <div class="panel-body">
+						       	등록된 평가가 없습니다.
+						      </div>
+						    </div>
+							<b>아직 등록된 후기가 없습니다.</b>
+						</th:block>
+					</div>
+					<!-- 리뷰 끝 -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 공간 진열 end -->
+</th:block>
+<th:block layout:fragment="customJs">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rt37xgq4ur"></script>
+    <script type="text/javascript" th:inline="javascript"> //타임리프값을 쓰려면 th:inline 써줘야함
+   		/* 리뷰 관련 스크립트 시작 */
+    	$(function() {
+    		var totalAvg = 0;
+    		var pointClean = 0;
+    		var pointService = 0;
+    		var pointRestroom = 0;
+    		var pointFacility = 0;
+    		var pointAmbience = 0;
+    		
+    		var starRating = $(".starRating");
+    		console.log(starRating);
+    		var totalRvCount = starRating.length;
+    		for(var j=0; j<totalRvCount ; j++){
+	    		var ystar = $($(starRating)[j]).val();
+	    		var gstar = 5 - ystar;
+	    		var starScore = "";
+	    		var grayStar = "";
+	    		for(var i=1;i<=ystar;i++){
+	    			starScore += '★'
+	    		}
+	    		for(var i=1;i<=gstar;i++){
+	    			grayStar += '★'
+	    		}
+	    		$($('.ystar')[j]).text(starScore);
+	    		$($('.gstar')[j]).text(grayStar);
+	    		totalAvg += ystar *1;
+	    		pointClean += $($('.pointClean')[j]).text() *1;
+	    		pointService += $($('.pointService')[j]).text() *1;
+	    		pointRestroom += $($('.pointRestroom')[j]).text() *1;
+	    		pointFacility += $($('.pointFacility')[j]).text() *1;
+	    		pointAmbience += $($('.pointAmbience')[j]).text() *1;
+    		}
+    		$('#totalAvg').text((totalAvg/totalRvCount).toFixed(1));
+    		$('#avgClean').text((pointClean/totalRvCount).toFixed(1));
+    		$('#avgService').text((pointService/totalRvCount).toFixed(1));
+    		$('#avgRestroom').text((pointRestroom/totalRvCount).toFixed(1));
+    		$('#avgFacility').text((pointFacility/totalRvCount).toFixed(1));
+    		$('#avgAmbience').text((pointAmbience/totalRvCount).toFixed(1));
+    		
+    		var rvReplyArea = $(".rvReplyArea");
+    		var viewReplyBtn = $(".viewReplyBtn");
+    		
+    		viewReplyBtn.click(function(){
+    			var rvReplyList = "";
+    			var getReviewCode = $(this).val();
+    			var thisBtn = $(this);
+    			var request = $.ajax({
+    				url: '/review/viewReplyReview', 
+    				method: 'POST',
+    				data: { getReviewCode : getReviewCode }, 
+    				dataType: 'json'
+    			});
+    			request.done(function( data ) {
+    				if (data.length == 0){
+    					rvReplyList = "<hr>답글이 없습니다.";
+    				}else{
+	    				for(var i=0;i<data.length;i++){
+	    					var writeTime = data[i].rvReplyAddDate.substr(0,10) +" " + data[i].rvReplyAddDate.substr(11,8);
+	    					rvReplyList += "<hr><b>사장님 답글</b>   <small>작성일 : " 
+	    									+ writeTime + "</small>" + "<br><br>"+data[i].rvReplyContents;
+	    				}
+    				}
+    				thisBtn.siblings('.rvReplyArea').html(rvReplyList);
+    				
+    			});
+    			request.fail(function( jqXHR, textStatus ) {
+    				alert( "Request failed: " + textStatus );
+    			});	
+    		}); 
+    	});
+    	/* 리뷰 관련 스크립트 종료 */
+    
+    	$(function() {
+   		//주소를 좌표로 변환하고싶은 ajax
+	   		/*<![CDATA[*/
+   			var address = [[${storeInfo.storeAddress}]];
+	   		console.log(address);
+			/*]]>*/	
+   			var xCode = 0;
+   			var yCode = 0;
+	   		var request = $.ajax({
+	   			url : '/adressAjax',
+				method: 'POST',
+				data :{address : address},
+				dataType: 'json' ,
+			});
+			request.done(function( data ) {
+				console.log(data);
+				xCode=data.xCode;
+				yCode=data.yCode;
+				console.log(address);
+				console.log(xCode);
+				console.log(yCode);
+				var mapOptions = {
+			    	    center: new naver.maps.LatLng(yCode, xCode),
+			    	    zoom: 15
+			    	};
+		    	var map = new naver.maps.Map('map', mapOptions);
+		    	var marker = new naver.maps.Marker({
+		    		position: new naver.maps.LatLng(yCode, xCode),
+		    		map: map
+		    		});
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+		
+    	
+    	$('#bookMark').click(function(){
+    		var storeCode = [[${storeInfo.storeCode}]]
+    		var request = $.ajax({
+				url: "/bookmark/addbookMark",	//요청 url
+				method: "POST",	//요청 방식
+				data: { storeCode : storeCode },	//요청하는 곳에 전달될 데이타
+				dataType: "text"	//응답되어 받은 데이타를 parsing 시킬 방식
+			});
+			
+    		request.done(function( data ) {
+				alert(data);
+			});
+			
+    		request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+
+
+    	});
+    	
+    	})
+    	
+    </script>
+</th:block>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

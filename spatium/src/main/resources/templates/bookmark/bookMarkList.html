@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/maindefault}">
+
+<th:block layout:fragment="customContent">
+<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
+
+	<div class="table-responsive m-t-20">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id = "tbBookmark">
+			<thead>
+				<tr>
+					<th scope="col">No.</th>
+					<th scope="col">아이디</th>
+					<th scope="col">공간</th>
+					<th scope="col">등록일자</th>
+					<th scope="col">삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${#lists.size(bookMarkList) > 0}" th:each="b : ${bookMarkList}">
+					<td th:text="${b.bookMarkCode}"></td>
+					<td th:text="${b.userId}"></td>
+					<td th:text="${b.storeName}"></td>
+					<td th:text="${b.BookRegDate}"></td>
+					<td>
+						<a th:href="@{/bookmark/removeBookMark(bookMarkCode=${b.bookMarkCode})}" onclick="return confirm('삭제하시겠습니까?');"><button>삭제</button></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</th:block>
+<th:block layout:fragment="customJs">
+
+<script type="text/javascript" th:inline="javascript">
+$(function() {
+	$("#tbBookmark").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+		
+});
+	</script>
+</th:block>
+</html>

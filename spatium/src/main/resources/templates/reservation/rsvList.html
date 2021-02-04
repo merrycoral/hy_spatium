@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/maindefault}">
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+<th:block layout:fragment="customJs">
+	<script>
+		$(function(){
+			
+			//오늘날짜 셋팅
+			var toDay = new Date();
+			var toDayYear = toDay.getFullYear();
+			var toDayMonth = toDay.getMonth();
+			toDay.setMonth(toDayMonth+1);
+			toDayMonth = toDay.getMonth();
+			if(toDayMonth==0){
+				toDayMonth=12;
+			}
+			var toDayDay = toDay.getDate();
+			var toDay1= new Date(toDayYear,toDayMonth,toDayDay);
+			
+			
+			for(var i=0; i<$('.rsvDate').length; i++){
+				var rsvdate = $('.rsvDate').eq(i).text();
+				//예약날짜
+				var rsvdateYear = rsvdate.substring(0,4);
+				var rsvdateMonth = rsvdate.substring(5,7);
+				var rsvdateDay = rsvdate.substring(8,10);
+				var rsvDay = new Date(rsvdateYear,rsvdateMonth,rsvdateDay);
+				console.log(rsvdateYear+"-"+rsvdateMonth+"-"+rsvdateDay);
+				console.log(rsvdate + "예약날짜");
+				//오늘날짜, 예약날짜 비교
+				//결재 완료된건 a링크 삭제 후 텍스트로 표현
+				if(rsvDay<toDay1 || $('.rsvState').eq(i).text()=="결제 완료" || $('.rsvState').eq(i).text()=="환불 완료"  ){
+						$('.rsvState').eq(i).parent().find('.paymentTest').remove();
+						$('.rsvState').eq(i).parent().find('.paymentTestTd').text('완료');
+				}
+			}
+			/***************************************** 여기까지  ****************************************************/
+			
+			
+			$("#rsvListTb").DataTable({
+				ordering: false,
+				lengthChange: false,
+				"dom": 'fltip',
+				"language": {
+					         "info": "페이지 _PAGE_ of _PAGES_",
+				        	 "paginate": {
+								        	 "first": "첫페이지",
+								        	 "last": "마지막",
+								             "previous": "이전",
+								             "next":"다음"
+								           },
+				        	 "sEmptyTable": "데이터가 없습니다.",
+				        	 "sInfoEmpty": "데이터가 없습니다.",
+				        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+				        	 "sInfoPostFix": "",
+				        	 "sLengthMenu": "Show _MENU_ 개씩",
+				        	 "sSearch": "검색:",
+				        	 "sSearchPlaceholder": "",
+				        	 "sZeroRecords": "일치하는 검색 결과가 없습니다."
+					         }
+			});
+		});
+	
+	
+		
+	</script>
+</th:block>
+	
+	
+<th:block layout:fragment="customContent">
+<div class="container " style="margin-top: 70px; margin-bottom: 70px;">
+	<div class="x_content">
+		<div class="table-responsive">
+			<table class="table table-striped jambo_table bulk_action" id="rsvListTb" border="1">
+
+				<thead>
+					<tr class="headings">
+						<th class="column-title">예약 업체</th>
+						<th class="column-title">이름</th>
+						<th class="column-title">연락처</th>
+						<th class="column-title">총 가격</th>
+						<th class="column-title">시작 일시</th>
+						<th class="column-title">종료 일시</th>
+						<th class="column-title">세부</th>
+						<th class="column-title">결제</th>
+						<th class="column-title">취소</th>
+						<th class="column-title">리뷰</th>
+						<th class="column-title">예약 상태</th>
+						<th class="bulk-actions" colspan="12" style="display: none;">
+							<a class="antoo" style="color: #fff; font-weight: 500;">선택한 행의 개수 ( <span class="action-cnt">0 Records Selected</span> ) <i
+								class="fa fa-chevron-down"></i>
+						</a>
+						</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr class="even pointer" th:if="${#lists.size(rsvList) > 0}" th:each = "r : ${rsvList}">
+						<td th:text="${r.storeName}" class=" "></td>
+						<td th:text="${r.rsvUserName}" class=" "></td>
+						<td th:text="${r.rsvUserPhone}" class=" "></td>
+						<td th:text="${r.rsvTotalPrice}" class=" "></td>
+						<td th:text="${r.rsvStartDateTime}" class="rsvDate"></td>
+						<td th:text="${r.rsvEndDateTime}" class=" "></td>
+						<td class=" "><a th:href="@{/reservation/rsvListExtend(rsvCode=${r.rsvCode})}">확장</a></td>
+						<td class="paymentTestTd"><a  th:href="@{/payment/paymentTest(rsvCode=${r.rsvCode})}" class="paymentTest">결제</a></td>
+						<td><a th:href="@{/reservation/rsvCancel(rsvCode=${r.rsvCode},rsvState=${r.rsvState})}">취소</a></td>
+						<td><a th:href = "@{/review/writeReview(rsvCode=${r.rsvCode})}">리뷰</a></td>
+						<td th:text="${r.rsvState}" class="rsvState"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</th:block>
+</html>

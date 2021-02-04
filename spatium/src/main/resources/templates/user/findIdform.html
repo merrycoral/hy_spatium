@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/maindefault}">
+<th:block layout:fragment="customCss">
+	<style type="text/css">
+.form-gap {
+	padding-top: 70px;
+}
+</style>
+</th:block>
+
+<th:block layout:fragment="customContent">
+	<form action="/user/findIdform" method="post">
+
+		<div class="form-gap"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="text-center">
+								<h3>
+									<i class="fa fa-lock fa-4x"></i>
+								</h3>
+								<h2 class="text-center">아이디 찾기</h2>
+								<div class="panel-body">
+
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="glyphicon glyphicon-envelope color-blue"></i></span> <input
+												id="userEmail" name="userEmail" placeholder="이메일을 입력하세요"
+												class="form-control" type="email">
+										</div>
+									</div>
+									<div class="form-group">
+										<button type="button" class="btn btn-primary" id="findId"
+											>찾기</button>
+										<button type="button" class="btn btn-success" onclick="history.go(-1);">취소</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</form>
+</th:block>
+
+<th:block layout:fragment="customJs">
+	<script>
+//아이디  찾기
+		$('#findId').click(function(){
+			var userEmail = $('#userEmail').val();
+
+    		 var request = $.ajax({
+				url: "/findIdajax",	
+				method: "POST",	
+				data: { userEmail : userEmail },	
+				dataType: "text"	
+			});
+			
+    		request.done(function( data ) {
+				alert(data);
+			});
+			
+    		request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			}); 
+
+
+    	});
+    	
+	</script>
+	</th:block>
+</html>

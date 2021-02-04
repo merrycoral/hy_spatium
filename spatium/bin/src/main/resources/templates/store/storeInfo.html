@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/maindefault}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+<th:block layout:fragment="customCss">
+<style type="text/css">
+	.spaceInfo{
+		margin-top: 15px;
+		font-weight: bold;
+	}
+	#refundTb, #refundTb tr, #refundTb tr td{
+		border: solid 1px;
+		padding: 5px;
+	}
+	#rsvBtn{
+		text-align: center;
+		padding: 0;
+		margin: 0;
+		height: 50px;
+		width: 150px;
+	}
+</style>
+</th:block>
+
+
+<th:block layout:fragment="customContent">
+
+
+	<!-- 공간 진열 start -->
+	<div class="container main_space"
+		data-example-id="thumbnails-with-custom-content">
+		<div th:text="${storeInfo.storeName}" style="font-size: 50px; font-weight: bold; margin-bottom: 10px;"></div>		
+		<div style="margin-bottom: 10px;">
+			<span th:text="'#'+${storeInfo.storeBusinessType}" ></span>
+			<span>
+				<button type="button" class="btn btn-danger" id="bookMark">찜하기</button>
+			</span>
+		</div>
+		
+		<div class="row ">
+			<div class="col-lg-12 col-sm-12">
+				<div class="thumbnail">
+					<img data-src="holder.js/100%x200" alt="100%x500"
+						th:src="${storeInfo.storeImage}" data-holder-rendered="true"
+						style="height: 500px; width: 100%; display: block;">
+				</div>
+			</div>
+		</div>
+		<a style="margin: 0;" th:href="@{/reservation/rsvInsert(storeCode=${storeInfo.storeCode},rsvType=${storeInfo.storeRsvType})}">
+			<button id="rsvBtn">예약하기</button>
+		</a>
+		<div class="row ">
+			<div class="x_content">
+				<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+					<li class="nav-item active">
+						<a data-toggle="tab" href="#info">업체 소개</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#space">보유 공간</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#item">보유 장비</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#refundRule">환불 정책</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#QnA">QnA</a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="tab" href="#review">이용 후기</a>
+					</li>
+				</ul>
+				
+				<div class="tab-content" id="myTabContent">
+					<!-- 업체소개 시작-->
+					<div class="tab-pane fade active show in" id="info">
+						<div th:utext ="${storeInfo.storeIntroduction}" style="margin: 20px;"></div>
+						<div id="map" style="width:100%;height:400px;"></div>
+					</div>
+					
+					<!-- 업체소개 끝-->
+					<!-- 공간소개 시작 -->
+					<div class="tab-pane fade" id="space">
+						<th:block th:each="s : ${spaceList}">
+							<div class="spaceInfo" th:text="${s.okaySpaceName}" style="font-size: 20px; font-weight: bold; margin-bottom: 10px;"></div>
+							<div class="spaceInfo"></div><div><span th:text="${s.okayBriefSpace}"></span></div>
+							<div class="spaceInfo">공간 설명 </div><div><span th:utext = "${s.okayDetailSpace}"></span></div>
+							<div class="spaceInfo">최대 인원 </div><div><span th:text = "${s.okayPeopleNumber}+명"></span></div>
+							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${storeInfo.storeRsvType}"></span>당 <span th:text = "${s.okaySpaceRentalPrice}"></span>원</div>
+							<div class="spaceInfo">영업 시간 </div><div><span th:text = "${s.okayStartTime}"></span> ~ <span th:text = "${s.okayCloseTime}"></span></div>
+							<div class="spaceInfo">기본 옵션 </div><div><span th:text = "${s.okaySpaceBasicOption}"></span></div>
+							<div class="spaceInfo">------------------------------------------------------------------------------------------------------</div>
+						</th:block>
+					</div>
+					<!-- 공간소개 끝 -->
+					<!-- 장비소개 시작 -->
+					<div class="tab-pane fade" id="item">
+						<th:block th:each="i : ${itemCountListByStoreCode}">
+							<div class="spaceInfo" th:text="${i.itemTotalName}" style="font-size: 20px; font-weight: bold; margin-bottom: 10px;"></div>
+							<div class="spaceInfo"></div>
+							<div><img data-src="holder.js/100%x200" alt="100%x500"
+									th:src="${i.itemImg}" data-holder-rendered="true"
+									style="height: 200px; width: 300px; display: block;"></div>
+							<div class="spaceInfo">보유 개수 </div><div><span th:text = "${i.itemTotalAmount}+개"></span></div>
+							<div class="spaceInfo">예약 가격 </div><div><span th:text = "${storeInfo.storeRsvType}"></span>당<span th:text = "${i.itemRentalPrice}"></span>원</div>
+							<div class="spaceInfo">------------------------------------------------------------------------------------------------------</div>
+						</th:block>
+					</div>
+					<!-- 장비소개 끝 -->
+					<!-- 환불정책 시작 -->
+					<div class="tab-pane fade" id="refundRule">
+						<table id="refundTb">
+							<tr th:each="ref : ${refundRule}">
+								<td th:text="${ref.get('remainingDay')}+일전"></td>
+								<td th:text="${ref.get('refundPercent')}+'%'"></td>
+							</tr>
+						</table>
+					</div>
+					<!-- 환불정책 끝 -->
+					<!-- QnA 시작 -->
+					<div class="tab-pane fade" id="QnA"></div>
+					<!-- QnA 끝 -->
+					<!-- 리뷰 시작 -->
+					<div class="tab-pane fade" id="review">
+						<th:block th:each="rev : ${reviewList}">
+							<div th:text="${rev.reviewAddId}"></div>
+							<div><span>평점 : [[${rev.reviewScore}]]</span></div>
+							<div style="font-weight: bold;" th:text="${rev.reviewTitle}"></div>
+							<div th:text="${rev.reviewContents}"></div>
+							<div>------------------------------------------------------------------------------------------------------</div>
+						</th:block>
+					</div>
+					<!-- 리뷰 끝 -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 공간 진열 end -->
+</th:block>
+<th:block layout:fragment="customJs">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rt37xgq4ur"></script>
+    <script type="text/javascript" th:inline="javascript">
+    	$(function() {
+   		//주소를 좌표로 변환하고싶은 ajax
+	   		/*<![CDATA[*/
+   			var address = [[${storeInfo.storeAddress}]];
+	   		console.log(address);
+			/*]]>*/	
+   			var xCode = 0;
+   			var yCode = 0;
+	   		var request = $.ajax({
+	   			url : '/adressAjax',
+				method: 'POST',
+				data :{address : address},
+				dataType: 'json' ,
+			});
+			request.done(function( data ) {
+				console.log(data);
+				xCode=data.xCode;
+				yCode=data.yCode;
+				console.log(address);
+				console.log(xCode);
+				console.log(yCode);
+				var mapOptions = {
+			    	    center: new naver.maps.LatLng(yCode, xCode),
+			    	    zoom: 15
+			    	};
+		    	var map = new naver.maps.Map('map', mapOptions);
+		    	var marker = new naver.maps.Marker({
+		    		position: new naver.maps.LatLng(yCode, xCode),
+		    		map: map
+		    		});
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+		
+    	
+    	$('#bookMark').click(function(){
+    		var storeCode = [[${storeInfo.storeCode}]]
+    		var request = $.ajax({
+				url: "/bookmark/addbookMark",	//요청 url
+				method: "POST",	//요청 방식
+				data: { storeCode : storeCode },	//요청하는 곳에 전달될 데이타
+				dataType: "text"	//응답되어 받은 데이타를 parsing 시킬 방식
+			});
+			
+    		request.done(function( data ) {
+				alert(data);
+			});
+			
+    		request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+
+
+    	});
+    	
+    	})
+    	
+    </script>
+</th:block>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

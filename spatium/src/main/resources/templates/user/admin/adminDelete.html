@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customContent">
+
+	<form th:action="@{/user/admin/removeUser}" method="post" name="removeUser">
+
+		<span class="section">회원 삭제</span>
+
+
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">아이디</label>
+			<div class="col-md-6 col-sm-6">
+			<div id="userId" th:text="${userId}"></div>
+				<input type="hidden" th:value="${userId}" name="userId">
+			</div>
+			</div>
+		
+		<div class="field item form-group">
+			<label class="col-form-label col-md-3 col-sm-3  label-align">탈퇴 사유
+			</label>
+			<div class="form-check">
+
+				<label class="form-checkbox-label"> <input
+					class="form-checkbox-input1" type="checkbox" name="reason" value="강제탈퇴"
+					> <span class="form-checkbox-sign1">강제탈퇴</span>
+				</label>
+				<label class="form-checkbox-label"> <input
+					class="form-checkbox-input1" type="checkbox" name="reason" value="일반탈퇴"
+					> <span class="form-checkbox-sign1">일반탈퇴</span>
+				</label>
+			</div>
+		</div>
+		<div class="form-group" align="center">
+			<div class="col-md-6 offset-md-3">
+				<button type="submit" id="submit" class="btn btn-primary " onclick="deleteCk()">회원삭제</button>
+			</div>
+		</div>
+	</form>
+
+</th:block>
+
+<th:block layout:fragment="customJs">
+<script>
+function deleteCk() {
+	 if (confirm("삭제 하시겠습니까?") == true){  
+	     document.removeUser.submit();
+	 }else{  
+	     return false;
+	 }
+}
+	
+</script>
+</th:block>
+
+</html>

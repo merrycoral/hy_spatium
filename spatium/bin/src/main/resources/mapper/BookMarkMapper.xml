@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.BookmarkMapper">
+
+	<!-- 북마크 전체삭제 -->
+	<delete id="deleteAll">
+		DELETE
+		FROM
+		tbBookmark
+		WHERE
+		userId = #{userId};
+	</delete>
+
+	<!-- 북마크 삭제 -->
+	<delete id="removeBookMark">
+		DELETE
+		FROM
+		tbBookmark
+		WHERE
+		bookMarkCode =
+		#{bookMarkCode};
+	</delete>
+
+	<!-- 북마크 리스트 -->
+	<select id="bookMark" resultType="Bookmark">
+		SELECT bookMarkCode, userId,
+		BookRegDate, storeName
+		FROM tbBookmark AS b
+		INNER JOIN
+		tbStore AS s
+		ON
+		s.storeCode = b.storeCode
+	</select>
+
+	<!-- 북마크 체크 -->
+	<select id="getBookMark" parameterType="String"
+		resultType="Bookmark">
+		SELECT
+		bookMarkCode
+		,userId
+		,storeCode
+		,BookRegDate
+		FROM
+		tbBookmark
+		WHERE
+		userId=#{userId}
+		AND
+		storeCode=#{storeCode};
+	</select>
+
+
+	<!-- 북마크 추가 -->
+	<insert id="addbookMark" parameterType="String">
+		INSERT INTO tbBookmark
+		(userId, storeCode, BookRegDate)
+		VALUES(
+		#{userId}
+		,#{storeCode}
+		,NOW());
+
+	</insert>
+
+</mapper>

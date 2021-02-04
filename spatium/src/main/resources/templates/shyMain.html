@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/maindefault}">
+	
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>	
+<th:block layout:fragment="customCss">
+	<style type="text/css">
+	.moveBtn{
+		font-family: nanumsquare;
+		width: 20%;
+		height: 200px;
+		margin: 30px;
+		font-weight: bold;
+		font-size: 17px;
+	    border: 1px solid rgb(221, 221, 221) !important;
+	    border-radius: 20px !important;
+	    color: rgb(34, 34, 34) !important;
+	    box-shadow: rgba(0, 0, 0, 0.15) 0px 16px 32px, rgba(0, 0, 0, 0.1) 0px 3px 8px !important;
+	    background-color: rgb(247, 247, 247) !important;
+	}
+	
+	.moveBtn:hover {
+	    color: rgb(255, 56, 92) !important;
+	}
+	.btn-info {
+		font-weight:bold;
+	}
+	
+	.infoText{
+		font-family: nanumsquare;
+	    color: rgb(34, 34, 34) !important;
+		font-size: 17px;
+	}
+	h3 {
+	  display: block;
+	  font-size: 1.17em;
+	  margin-top: 1em;
+	  margin-bottom: 1em;
+	  margin-left: 0;
+	  margin-right: 0;
+	  font-weight: bold;
+	}
+	</style>
+</th:block>	
+	
+<th:block layout:fragment="customContent">
+	
+	<div class="row" style="text-align:center;">
+		<div class="col-lg-12 col-sm-12">
+			<br>
+			안녕하십니까? 신입 개발자 송하영입니다.<br><br>
+			메일 주소 : merrycoral@gmail.com
+			<br><br><br>
+			<a th:href="@{/imsilogin}" th:if="${session.SID == null}" class="btn btn-info">관리자 권한 간편 로그인  </a>
+			<br>
+			기능 이용 전에 ↑ 로그인 부탁드립니다^^
+			<br><br>
+			<br><br>
+			송하영이 만든 주요 기능
+			<br><br>
+			<a href="/review/admin/reviewAll"><button type="button"
+				class="btn btn-info">리뷰 관리로 이동</button></a>
+			<a href="/review/seller/reviewStore"><button type="button"
+				class="btn btn-info">판매자 리뷰 페이지 이동</button></a>
+			<a href="/review/myReview"><button type="button"
+				class="btn btn-info">구매자 리뷰 목록 이동</button></a><br>
+			<br>
+			<a href="/calculate/seller/dailyCalc"><button type="button"
+				class="btn btn-info">판매자 일별 정산 페이지 이동</button></a>
+			<a href="/statistic/seller/buyStat"><button type="button"
+				class="btn btn-info">판매 통계로 이동</button></a>
+			
+			<div style="margin-top:50px; margin-bottom:50px; text-align: center;">
+				<a href="/admin"><button class="moveBtn">관리자 화면 메인페이지로 이동</button></a>
+				
+				<a href="/index"><button class="moveBtn">구매자 화면 메인페이지로 이동</button></a>
+			</div>
+
+			<details>
+				<summary>송하영이 만든 주요 기능 보기</summary>	
+				<br>
+				<h3>관리자는 리뷰 관리 페이지에서 여러 리뷰를 체크박스로 선택하여 블라인드 및 삭제 처리를 할 수 있습니다.</h3>	
+				<img src="imges/shy/shy_spatium_1.png">
+				<hr><br>
+				<h3>판매자는 리뷰에 답글을 달 수 있습니다.</h3>
+				<img src="imges/shy/shy_spatium_2.png">
+				<hr><br>
+				<h3>상품 상세페이지에서 나타나는 리뷰 화면입니다.</h3>	
+				<img src="imges/shy/shy_spatium_5.png">
+				<hr><br>
+				<h3>매일 0시에 마감정산이 실행되며 그 데이터를 확인할 수 있습니다.</h3>	
+				<img src="imges/shy/shy_spatium_4.png">
+				<hr><br>
+				<h3>판매자는 자신의 매장의 판매 상황 통계를 볼 수 있습니다.</h3>	
+				<img src="imges/shy/shy_spatium_3.png">
+				<br>
+				<a href="javascript:window.scrollTo(0,0);">
+					<button type="button" class="btn btn-primary btn-lg"> ▲ TOP </button>
+				</a>
+			</details>
+			<br><br>
+		</div>
+	</div>
+	
+	
+</th:block>
+</html>

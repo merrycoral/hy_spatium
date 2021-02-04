@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+
+<th:block layout:fragment="customContent">
+	<div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
+		<div class="card my-5 ">
+			<div class="card-body p-5 text-center">
+				<div class="h3 font-weight-light mb-0">비밀번호 찾기
+					</div>
+			</div>
+			<hr class="my-0">
+			<div class="card-body p-5">
+				<div class="text-center text-muted mb-4">가입 당시 입력한 이메일로 비밀번호를 발송합니다.</div>
+					<div class="form-group">
+						<label for="inputEmailAddress"
+							class="text-gray-600 small"></label><input
+							id="userEmail"
+							data-cy="emailInput" type="email" 
+							name="userEmail"  placeholder="이메일"
+							class="form-control form-control-solid py-4 ng-untouched ng-pristine ng-invalid">
+						<div class="invalid-feedback">이메일</div>
+						
+					</div>
+					<div class="text-center small mt-2" id="checkMsg" style="color: red"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove"></span> Cancel
+                    </button>
+                </div>
+			</div>
+			
+				<div class="text-center">
+					<a href="/<!-- addUser -->">회원가입</a>
+				</div>
+			</div>
+</html>

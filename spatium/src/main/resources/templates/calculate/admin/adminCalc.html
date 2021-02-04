@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http//www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customCss">
+<style type="text/css">
+	/* details {width: 500px;} */
+	details > summary {padding: 3px 10px;}
+	details > summary::-webkit-details-marker {display: none}
+	details > summary::marker {display: none}
+	
+	#calcTable th {padding : 5px;}
+	#calcTable td {padding : 5px;}
+	
+</style>
+</th:block>
+<th:block layout:fragment="customContent">
+
+	<div class="col-md-12 col-sm-12  ">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>정산 대기 목록 <small>관리자 페이지</small></h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<button type="button" style="float:right;" class="btn btn-success btn-md" id="">선택 정산하기</button>
+				<div id="noticeBox" class="alert alert-danger alert-dismissible col-md-3 col-sm-3" 
+					role="alert" style="display:none;">
+				  <strong id="notice"></strong>
+                  <button type="button" id="closeBtn" class="close" style="padding:6px;">
+                  	<span aria-hidden="true">×</span>
+                  </button>
+                </div>
+				
+			<form id="selectReview" method="post">
+				<div class="table-responsive">
+					<table class="table table-striped jambo_table bulk_action" id="calcTable" style="padding: 0px;">
+						<thead>
+							<tr class="headings">
+								<th><input type="checkbox" id="check-all" class="flat">
+								</th>
+								<th class="column-title">결제 코드</th>
+								<th class="column-title">예약 코드</th>
+								<th class="column-title">업체 아이디</th>
+								<th class="column-title">환불 후 남은 금액</th>
+								<th class="column-title">실 결제 금액</th>
+								<th class="column-title">예약종료일</th>
+								<th class="column-title">결제 상태</th>
+								<th class="column-title no-link last">정산 상태</th>
+								<th class="column-title bulk-actions" colspan="8"> 선택된 결제건  ( <span
+										class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="even pointer" th:if="${#lists.size(calcWaitList) > 0}"
+								th:each="cwl : ${calcWaitList}">
+								<td class="a-center "><input type="checkbox" class="flat"
+									name="table_records" th:value="${cwl.get('paymentCode')}"></td>
+								<td class=" " th:text="${cwl.get('paymentCode')}"></td>
+								<td class=" " th:text="${cwl.get('paymentRsvCode')}"></td>
+								<td class=" " th:text="${cwl.get('paymentStoreId')}"></td>
+								<td class=" " th:text="${cwl.get('paymentRefund')}"></td>
+								<td class=" " th:text="${cwl.get('paymentUseMoney')}"></td>
+								<td class=" " th:text="${cwl.get('rsvEndDateTime')}"></td>
+								<td class=" " th:text="${cwl.get('paymentStatus')}"></td>
+								<td class="last" th:text="${cwl.get('rsvState')}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<input type="hidden" id="hiddenBox" name="blindValue">
+				</div>
+			</form>
+
+			</div>
+		</div>
+	</div>
+	
+</th:block>
+<th:block layout:fragment="customJs">
+<script  th:inline="javascript">
+	$("#calcTable").DataTable({
+		order: [ [ 1, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+       "language": {
+                "info": "페이지 _PAGE_ / _PAGES_",
+                "paginate": {
+                            "first": "첫페이지",
+                            "last": "마지막",
+                             "previous": "이전",
+                             "next":"다음"
+                           },
+                "sEmptyTable": "데이터가 없습니다.",
+                "sInfoEmpty": "데이터가 없습니다.",
+                "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                "sInfoPostFix": "",
+                "sLengthMenu": "Show _MENU_ 개씩",
+                "sSearch": "검색:",
+                "sSearchPlaceholder": "",
+                "sZeroRecords": "일치하는 검색 결과가 없습니다."
+                }
+ });
+</script>
+</th:block>
+
+</html>
+

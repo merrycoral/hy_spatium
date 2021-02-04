@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Begin header -->
+<header id="header_main" th:fragment="headerFragment">
+	<nav class="navbar">
+		<div class="container">
+			<div class="  col-md-3">
+				<a th:href="@{/}" >
+				<img src="/imges/B-logo.gif" alt="logo" class="logo " />
+				</a>
+			</div>
+
+			<div class="col-md-6 navbar-form serch">
+			<form th:action="@{/store/searchAll}" method="post">
+				<input class="serch_bar" placeholder="검색" name = "searchName"></input>
+				<button class="serch_btn" type="submit">검색</button>
+			</form>
+			</div>
+			<div style="text-align: right; float:right; clear:both;">
+			<a th:href="@{/admin}" th:if="${session.SLEVEL == '1' || session.SLEVEL == '2'}" class="btn btn-info">관리자 화면  </a>
+			<a th:href="@{/user/myPage}" th:unless="${session.SID == null}" class="btn btn-info">마이페이지  </a>
+			<a th:href="@{/user/login}" th:if="${session.SID == null}" class="btn btn-info">로그인  </a> 
+			<a th:href="@{/user/logout}" th:unless="${session.SID == null}" class="btn btn-info">로그아웃  </a>
+			<a th:href="@{/user/addUser}" th:if="${session.SID == null}" class="btn btn-info">회원가입  </a>
+			</div>
+		</div>
+	</nav>
+
+</header>
+<!-- end header -->
+</html>

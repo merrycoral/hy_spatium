@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.ReviewMapper">
+
+	<sql id="seletReviewColumn">
+		SELECT 
+			reviewCode, 
+			reviewSpaceRsv, 
+			reviewStoreId,
+			reviewTitle, 
+			reviewContents, 
+			reviewAddId, 
+			reviewAddDate, 
+			reviewUpDate, 
+			reviewType, 
+			reviewPoint,
+			reviewDisplay, 
+			reviewClean, 
+			reviewService, 
+			reviewRestroom, 
+			reviewFacility, 
+			reviewAmbience, 
+			reviewScore
+	</sql>
+	
+	<insert id="addPointReview" parameterType="Point">
+		INSERT INTO tbPointList
+			(
+			 pointID
+			, pointAddList
+			, pointSellList
+			, pointList
+			, pointModyfiDate
+			, pointReviewCode)
+		VALUES 
+			( 
+			
+			 #{pointID}
+			, #{pointAddList}
+			, #{pointSellList}
+			, #{pointList}
+			, NOW()
+			, #{pointReviewCode}
+			
+			)
+	</insert>
+	
+	<insert id="replyReview" parameterType="String">
+		INSERT INTO tbReviewReply
+			( rvCode
+			, rvReplyId
+			, rvReplyContents
+			, rvReplyAddDate)
+		VALUES
+			( #{getReviewCode}
+			, #{SID}
+			, #{storeReply}
+			, NOW()
+			);
+	</insert>
+	
+	<insert id="insertReview" parameterType="Review" useGeneratedKeys="true" keyProperty="reviewCode">
+
+		INSERT INTO tbReview
+			( reviewSpaceRsv
+			, reviewStoreId
+			, reviewStoreCode
+			, reviewTitle
+			, reviewContents
+			, reviewAddId
+			, reviewAddDate
+			, reviewType
+			, reviewPoint
+			, reviewDisplay
+			, reviewClean
+			, reviewService
+			, reviewRestroom
+			, reviewFacility
+			, reviewAmbience, reviewScore, reviewPhoto)
+			VALUES
+			( #{reviewSpaceRsv}
+			, #{reviewStoreId}
+			, #{reviewStoreCode}
+			, #{reviewTitle}
+			, #{reviewContents}
+			, #{reviewAddId}
+			, NOW()
+			, #{reviewType}
+			, #{reviewPoint}
+			, 'Y', #{reviewClean}, #{reviewService}, #{reviewRestroom}
+			, #{reviewFacility}, #{reviewAmbience}
+			, #{reviewScore}, #{reviewPhoto})
+	</insert>
+	
+	<update id="modifyMyReview" parameterType="hashMap">
+		UPDATE tbReview
+		SET
+			reviewTitle=#{reviewTitle},
+			reviewContents=#{reviewContents},
+			reviewUpDate=NOW(),
+			reviewClean=#{reviewClean},
+			reviewService=#{reviewService},
+			reviewRestroom=#{reviewRestroom},
+			reviewFacility=#{reviewFacility},
+			reviewAmbience=#{reviewAmbience},
+			reviewScore=#{reviewScore},
+			reviewPhoto=#{reviewPhoto}
+		WHERE 
+			reviewCode = #{reviewCode};
+	</update>
+	
+	<select id="getReview" parameterType="String" resultType="Map">
+		<include refid="seletReviewColumn" />
+		FROM
+			tbReview
+		WHERE
+			reviewCode = #{reviewCode}
+	</select>
+	
+	<select id="getReviewForModify" parameterType="String" resultType="Review">
+		<include refid="seletReviewColumn" />
+		FROM
+			tbReview
+		WHERE
+			reviewCode = #{reviewCode}
+	</select>
+	
+	<select id="getReplyReview" parameterType="String" resultType="Map">
+		SELECT 
+			  rvReplyCode
+			, rvCode
+			, rvReplyId
+			, rvReplyContents
+			, rvReplyAddDate
+			, rvReplyUpDate
+		FROM tbReviewReply
+		WHERE
+			rvCode = #{reviewCode}
+	</select>
+	
+	<select id="getMyReview" parameterType="String" resultType="Review">
+		<include refid="seletReviewColumn" />
+		FROM
+			tbReview
+		WHERE
+			reviewAddId = #{SID}
+		ORDER BY reviewCode DESC;
+	</select>
+	
+	<select id="getStoreCodeById" parameterType="String" resultType="String">
+		select
+			  storeCode
+		From
+			viewRsv
+		where
+			storeId = #{storeId}
+		GROUP BY storeId
+	</select>
+	
+	<select id="getStore" parameterType="String" resultType="Map">
+		select
+			  storeCode
+			, storeId
+		From
+			viewRsv
+		where
+			rsvCode = #{rsvCode}
+	</select>
+	
+	<select id="getReviewByStoreCode" parameterType="int" resultType="Review">
+		<include refid="seletReviewColumn" />
+		FROM
+			tbReview
+		WHERE reviewStoreCode = #{storeCode}
+		AND reviewDisplay = 'Y'
+		ORDER BY reviewCode DESC
+			
+	</select>
+	
+	<select id="exallReview" resultType="Review">
+		<include refid="seletReviewColumn" />
+		FROM 
+			tbReview
+		ORDER BY reviewCode DESC
+		LIMIT #{startRow}, #{rowPerPage};
+	</select>
+	
+	<select id="getStoreReview" resultType="map">
+		<include refid="seletReviewColumn" />
+		FROM 
+			tbReview
+		WHERE
+			reviewStoreId = #{sessionId}
+		ORDER BY reviewCode DESC;
+	</select>
+	
+	<select id="getStoreReviewCount" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			tbReview
+		WHERE
+		 reviewStoreId = #{sessionId}	;
+	</select>
+	
+	<select id="getAllReviewCount" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			tbReview;
+	</select>
+	
+	<update id="blindReview" parameterType="String">
+		UPDATE tbReview
+		SET
+			reviewDisplay = #{blindValue}
+		WHERE
+			reviewCode = #{reviewCode};
+	</update>
+	
+	<delete id="deleteMyReview" parameterType="String">
+		DELETE
+		FROM
+			tbReview
+		WHERE
+			reviewCode = #{reviewCode}
+		AND
+			reviewAddId = #{SID};
+	</delete>
+	
+	<delete id="rvReplyDelete" parameterType="String">
+		DELETE
+		FROM
+			tbReviewReply
+		WHERE
+			rvReplyCode = #{rvReplyCode}
+		AND
+			rvReplyId = #{SID};
+	</delete>
+	
+	<delete id="deleteReview" parameterType="String">
+		DELETE
+		FROM
+			tbReview
+		WHERE
+			reviewCode = #{reviewCode};
+	</delete>
+
+	<select id="searchReview" parameterType="String" resultType="map">
+		<include refid="seletReviewColumn" />
+		FROM 
+			tbReview
+		WHERE
+			<if test="searchKey != null and searchKey neq ''.toString()">
+				${searchKey} LIKE CONCAT('%', #{searchValue} , '%')
+			</if>
+		ORDER BY reviewCode DESC
+		LIMIT #{startRow}, 1000;
+	</select>
+	
+	<select id="searchReviewUnit" parameterType="String" resultType="Review">
+		<include refid="seletReviewColumn" />	
+		FROM 
+			tbReview
+		WHERE
+			<if test="searchKey != null and searchKey neq ''.toString()">
+				${searchKey} LIKE CONCAT('%', #{searchValue} , '%')
+			</if>
+		ORDER BY reviewCode DESC
+		LIMIT #{startRow}, 1000;
+	</select>
+	
+	<select id="getAllReview" resultType="map">
+		SELECT 
+			reviewCode, 
+			reviewSpaceRsv, 
+			reviewStoreId,
+			reviewTitle, 
+			reviewContents, 
+			reviewAddId, 
+			reviewAddDate, 
+			reviewUpDate, 
+			reviewType, 
+			reviewPoint,
+			reviewDisplay, 
+			reviewClean, 
+			reviewService, 
+			reviewRestroom, 
+			reviewFacility, 
+			reviewAmbience, 
+			reviewScore
+		FROM 
+			tbReview
+		ORDER BY reviewCode DESC
+	</select>
+	
+	<select id="getRsv" parameterType="String" resultType="Rsv">
+		SELECT 
+			storeName
+			, rsvCode
+			, rsvUserId
+			, rsvUserName
+			, rsvUserPhone
+			, rsvUserEmail
+			, rsvUserRequest
+			, rsvTotalPrice
+			, rsvStartDateTime
+			, rsvEndDateTime
+			, rsvRegDate
+			, rsvState
+		FROM 
+			tbRsv
+		INNER JOIN 
+			tbStore
+		ON 
+			rsvStoreCode = storeCode
+		WHERE
+			rsvCode = #{rsvCode}
+	</select>
+	
+	
+</mapper>

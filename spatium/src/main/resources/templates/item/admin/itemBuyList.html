@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customContent">
+<form action="/item/admin/itemBuyList" method="post"></form>
+<div class="x_panel">
+	  <div class="x_title">
+		<h2>장비구입 목록</h2>
+		  <div class="clearfix"></div>
+		</div>  
+	<div class="table-responsive m-t-20">
+		<table class="table table-striped jambo_table bulk_action dataTable no-footer" id = "tbItemBuy">
+			<thead>
+				<tr>
+					<th scope="col">장비 구입 코드</th>
+					<th scope="col">업체 코드</th>
+					<th scope="col">세부 장비 코드</th>
+					<th scope="col">아이디</th>
+					<th scope="col">구입 비용</th>
+					<th scope="col">구입 거래처</th>
+					<th scope="col">구입처 전화번호</th>
+					<th scope="col">구입 일자</th>
+					<th scope="col">수정</th>
+					<th scope="col">삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${#lists.size(itemBuyList) > 0}" th:each="i : ${itemBuyList}">
+				<td th:text="${i.itemBuyCode}"></td>
+				<td th:text="${i.storeBuyCode}"></td>
+				<td th:text="${i.storeBuyItemCode}"></td>
+				<td th:text="${i.userBuyId}"></td>
+				<td th:text="${i.itemBuyPrice}"></td>
+				<td th:text="${i.itemBuyAccount}"></td>
+				<td th:text="${i.itemBuyPhone}"></td>
+				<td th:text="${i.itemBuyRegDate}"></td>
+				<td>
+					<a th:href="@{/item/admin/modifyitemBuy(itemBuyCode=${i.itemBuyCode})}"><button class="btn btn-secondary btn-sm" type="submit">수정</button></a>
+				</td>
+				<td>
+					<a th:href="@{/item/admin/removeitemBuy(itemBuyCode=${i.itemBuyCode})}" onclick="return confirm('삭제하시겠습니까?');"><button class="btn btn-secondary btn-sm" type="button">삭제</button></a>
+				</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	<a th:href="@{/item/admin/addItemBuy}"><button class="btn btn-secondary btn-sm" type="submit" style="float: right;" > 글쓰기</button></a>
+</th:block>
+
+<th:block layout:fragment="customJs">
+
+<script>
+	$("#tbItemBuy").DataTable({
+		order: [ [ 0, "desc" ] ],
+		ordering: true,
+		lengthChange: false,
+		"dom": 'fltip',
+		"language": {
+			         "info": "페이지 _PAGE_ of _PAGES_",
+		        	 "paginate": {
+						        	 "first": "첫페이지",
+						        	 "last": "마지막",
+						             "previous": "이전",
+						             "next":"다음"
+						           },
+		        	 "sEmptyTable": "No data available in table",
+		        	 "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		        	 "sInfoFiltered": "(filtered from _MAX_ total entries)",
+		        	 "sInfoPostFix": "",
+		        	 "sLengthMenu": "Show _MENU_ 개씩",
+		        	 "sSearch": "검색:",
+		        	 "sSearchPlaceholder": "",
+		        	 "sZeroRecords": "No matching records found"
+			         }
+	});
+	
+	</script>
+
+</th:block>
+</html>

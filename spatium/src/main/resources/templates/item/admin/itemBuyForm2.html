@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+
+<th:block layout:fragment="customContent">
+<form th:action="@{/item/admin/addItemBuy}" method="post">
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 ">
+				<div class="x_title">
+					<h2>
+						장비구입 <small> 등록하기 </small>
+					</h2>
+					<div class="clearfix"></div>
+				</div>
+				
+				<div class="x_content">
+					<br>
+					<div class="form-group row">
+					<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
+					<div class="col-md-6 col-sm-6 ">
+			<div style="color: red; text-align: right;">* 표시는 필수 입력
+						사항입니다.</div></div></div>
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								업체 코드 <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 " th:each="i : ${storeList}">
+								<input type="text" id="storeBuyCode" name="storeBuyCode"
+									class="form-control" th:value="${i.storeCode}" readonly="readonly">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								세부 장비 코드 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<select>
+								<th:block th:each = "i2 : ${itemList}">
+								<option th:value="${i2.storeItemCode}" th:text="${i2.itemName}"></option>
+								</th:block> 
+								</select>
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								아이디 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="text" id="userBuyId" name="userBuyId"
+									class="form-control"
+									placeholder="구매한 사람 아이디를 입력해주세요.">
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								구입 비용 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="text" id="itemBuyPrice" name="itemBuyPrice"
+									class="form-control"
+									placeholder="구입 비용을 입력해주세요.">
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								구입 거래처 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="text" id="itemBuyAccount" name="itemBuyAccount"
+									class="form-control"
+									placeholder="구입 거래처를 입력해주세요.">
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								구입처 전화번호 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="text" id="itemBuyPhone" name="itemBuyPhone"
+									class="form-control"
+									placeholder="전화번호를 입력해주세요.">
+							</div>
+						</div>	
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3 label-align">
+								구입 일자 <span class="required">*</span>
+							</label>
+								<div class="col-md-6 col-sm-6 ">
+								<input type="date" id="itemBuyRegDate" name="itemBuyRegDate"
+									class="form-control">
+							</div>
+						</div>	
+					<div class="form-group row">
+						<label class="col-form-label col-md-3 col-sm-3 label-align"></label>
+							<div class="col-md-6 col-sm-6" style="text-align: center;">
+								<button type="submit" class="btn btn-primary"
+									style="width: 100%; height: 50px;" id = "addItemBuy" >상품등록</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</form>
+</th:block>
+<th:block layout:fragment="customJs">
+	<script>
+	$(function() {
+			$('#addItemBuy').click(function(){
+				if($('#storeBuyCode').val() == ""){
+					alert("업체 코드를 입력해주세요.");
+					return false;
+				}else if($('#storeBuyItemCode').val() == ""){
+					alert("세부 장비 코드를 입력해주세요.");
+					return false;
+				}else if($('#itemBuyPrice').val() == ""){
+					alert("장구입 비용을 입력해주세요.");
+					return false;
+				}else if($('#userBuyId').val() == ""){
+					alert("아이디를 입력해주세요.");
+					return false;
+				}else if($('#itemBuyAccount').val() == ""){
+					alert("거래처를 입력해주세요.");
+					return false;
+				}else if($('#itemBuyPhone').val() == ""){
+					alert("전화번호를 입력해주세요.");
+					return false;
+				}else if($('#itemBuyRegDate').val() == ""){
+					alert("구입 일자를 입력해주세요.");
+					return false;
+				}else{
+					alert("등록 하시겠습니까?");
+					return;
+				}
+			});
+	});
+	</script>
+</th:block>
+</html>

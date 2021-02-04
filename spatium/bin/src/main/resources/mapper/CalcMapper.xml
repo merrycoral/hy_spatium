@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.CalcMapper">
+
+	<sql id="CalcCountColumn">
+		SELECT
+			COUNT(p.paymentRsvCode) AS paymentNumber
+		FROM
+			tbPayment as p
+		INNER JOIN
+			tbRsv AS r
+		ON
+			p.paymentRsvCode = r.rsvCode
+	</sql>
+	
+	<sql id="CalcWaitColumn">
+		SELECT
+			 p.paymentCode
+			,p.paymentRsvCode
+			,p.paymentRefund
+			,p.paymentUseMoney
+			,p.paymentUsePoint
+			,p.paymentState
+			,p.paymentStoreId
+			,r.rsvStartDateTime
+			,r.rsvEndDateTime
+			,r.rsvState
+		FROM
+			tbPayment as p
+		INNER JOIN
+			tbRsv AS r
+		ON
+			p.paymentRsvCode = r.rsvCode
+	</sql>
+	
+	<select id="getStoreInfo"  resultType="Map">
+		SELECT 
+			storeId, storeName, storeRepresentative
+		FROM 
+			tbStore
+			
+		<if test="sessionId != null and sessionId neq ''.toString()">
+			WHERE
+				storeId = #{sessionId}
+		</if>
+	</select>
+	
+	<select id="getDailyCalc"  resultType="Map">
+		SELECT
+			calcDailyCode, calcDStoreCode, calcDStoreId, calcDay, 
+			calcDaySales, calcDaySum, calcDayPoint, calcDayRefund, 
+			calcDayRefCommission, calcDayLogTime
+		FROM
+			tbCalcDaily
+			WHERE
+				calcDStoreId = #{sessionId}
+	</select>
+	
+	<insert id="insertDayClose" parameterType="Map">
+		INSERT INTO tbCalcDaily
+	(calcDStoreCode, calcDStoreId, calcDay, calcDaySales, calcDaySum, calcDayPoint, calcDayRefund, calcDayRefCommission)
+	VALUES 
+		( #{storeCode}
+		, #{SID}
+		, #{today}
+		, #{countSubtotal}
+		, #{moneySubtotal}
+		, #{pointSubtotal} 
+		, #{refundMoney}
+		, #{refundSubtotal}
+		)
+	</insert>
+	
+	<select id="getStoreIdList"  resultType="Map">
+		SELECT
+			  s.storeCode
+			, s.storeId
+		FROM
+			tbStore AS s
+	</select>
+	
+	<select id="getCalcWait" parameterType="int" resultType="Map">
+		<include refid="CalcWaitColumn" />
+
+	</select>
+	
+	<select id="getCalcWaitCount" parameterType="int" resultType="int">
+		<include refid="CalcCountColumn" />
+		WHERE
+			p.paymentState = 'N';
+	</select>
+	
+	<select id="getTodayCount" parameterType="String" resultType="int">
+		<include refid="CalcCountColumn" />
+		<![CDATA[
+		WHERE
+			r.rsvStartDateTime >= #{today}
+		AND
+			r.rsvStartDateTime < DATE_ADD(#{today},INTERVAL 1 day)
+		]]>
+	</select>
+	
+	<select id="getTodayTotal" parameterType="String" resultType="Map">
+		SELECT
+			 ifnull(p.paymentCode, '총합계') as 'subtotal'
+			,p.paymentRsvCode
+			,sum(p.paymentRefund) as 'refundSubtotal'
+			,SUM((if(r.rsvState='결제 완료',p.paymentUseMoney,0)+p.paymentRefund)) as 'moneySubtotal'
+			,sum(if(r.rsvState='환불 완료',p.paymentUseMoney-p.paymentRefund,0)) as 'refundMoney'
+			,sum(p.paymentUsePoint) as 'pointSubtotal'
+			,count(p.paymentState) as 'countSubtotal'
+			,p.paymentStoreId
+			,r.rsvStartDateTime
+			,r.rsvEndDateTime
+			,r.rsvState
+		FROM
+			tbPayment as p
+		INNER JOIN
+			tbRsv AS r
+		ON
+			p.paymentRsvCode = r.rsvCode
+		<![CDATA[
+		WHERE
+			p.paymentStoreId = #{SID}
+		AND
+			r.rsvStartDateTime >= #{today}
+		AND
+			r.rsvStartDateTime < DATE_ADD(#{today},INTERVAL 1 day)
+		]]>
+		GROUP BY p.paymentCode WITH ROLLUP
+	</select>
+	
+	<select id="getTodayList" parameterType="String" resultType="Map">
+		<include refid="CalcWaitColumn" />
+		<![CDATA[
+		WHERE
+			r.rsvStartDateTime >= #{today} 
+		AND
+			r.rsvStartDateTime < DATE_ADD(#{today},INTERVAL 1 day)
+		]]>
+	</select>
+	
+	<select id="getCalcWaitByTerm" parameterType="int" resultType="Map">
+		<include refid="CalcWaitColumn" />
+		<![CDATA[
+		WHERE
+			r.rsvStartDateTime >= #{startDay}
+		AND
+			r.rsvStartDateTime < #{startEndDay}
+		AND
+			p.paymentStatus = 'N'
+		]]>
+	</select>
+	
+</mapper>

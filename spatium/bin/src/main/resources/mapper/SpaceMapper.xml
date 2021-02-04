@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urban.spatium.mapper.SpaceMapper">
+
+<insert id="OKSpaceInsert" parameterType="String">
+	
+	INSERT INTO tbOkaySpace
+	SELECT
+		  null
+		, readyStoreCode
+		, readySpaceName
+		, readySpaceType
+		, readyPeopleNumber
+		, readyDetailSpace
+		, readyBriefSpace
+		, readySpaceTag
+		, readyRentalPrice
+		, readyStartTime
+		, readyCloseTime
+		, readyExceptionStartDate
+		, readyExceptionEndDate
+		, NOW()
+		, readySpaceBasicOption
+		, #{readySpaceId}
+	FROM
+		tbReadySpace AS r
+	WHERE
+		r.readySpace = #{readySpaceCode};
+
+</insert>
+
+<delete id="readySpaceDelete" parameterType="String">
+
+	DELETE 
+	FROM 
+		tbReadySpace 
+	WHERE 
+		readySpace = #{readySpace}
+
+</delete>
+
+<select id="readySpaceAccept" resultType="ReadySpace" parameterType="int">
+	
+	SELECT
+		readySpace
+		, readyStoreCode
+		, readySpaceName
+		, readySpaceType
+		, readyPeopleNumber
+		, readyBriefSpace
+		, readyDetailSpace
+		, readySpaceTag
+		, readyRentalPrice
+		, readyStartTime
+		, readyCloseTime
+		, readyExceptionStartDate
+		, readyExceptionEndDate
+		, readySpaceBasicOption
+		, readyRequestDate
+	FROM 
+		tbReadySpace
+	WHERE
+		readySpace = #{readySpace};
+	
+</select>
+
+<select id="addSpaceChoice" resultType="Store" parameterType="String">
+
+SELECT 
+	storeCode
+	, storeId
+	, storeName
+	, storeRepresentative
+	, storeNumber
+	, storeBusinessType
+	, storeAddressNumber
+	, storeAddress
+	, storeAddressDetail
+	, storeIntroduction
+	, storeRsvType
+	, storeEmail
+	, storePhone
+	, storeAccountBankName
+	, storeAccountNumber
+	, storeRefundRull
+	, storeImage
+	, storeLevel
+	, storeRegDate
+FROM 
+	tbStore
+WHERE
+	storeId = #{storeId};
+
+</select>
+
+<select id = "addSpace" resultType="String" parameterType="String">
+
+SELECT 
+	storeBusinessType
+FROM 
+	tbStore
+WHERE
+	storeCode = #{storeCode}
+
+</select>
+
+<insert id = "addReadySpace">
+
+	INSERT INTO tbReadySpace
+	( readyStoreCode
+	, readySpaceName
+	, readySpaceType
+	, readyPeopleNumber
+	, readyBriefSpace
+	, readyDetailSpace
+	, readySpaceTag
+	, readyRentalPrice
+	, readyStartTime
+	, readyCloseTime
+	, readyExceptionStartDate
+	, readyExceptionEndDate
+	, readySpaceBasicOption
+	, readyRequestDate)
+VALUES 
+	( #{readyStoreCode}
+	, #{readySpaceName}
+	, #{readyStoreBusinessType}
+	, #{readyPeopleNumber}
+	, #{readyBriefSpace}
+	, #{readyDetailSpace}
+	, #{readySpaceTag}
+	, #{readyRentalPrice}
+	, #{readyStartTime}
+	, #{readyCloseTime}
+	, #{readyExceptionStartDate}
+	, #{readyExceptionEndDate}
+	, #{readySpaceBasicOption}
+	, NOW())
+	
+</insert>
+
+<select id = "readySpaceList" resultType="ReadySpace">
+
+SELECT
+	readySpace
+	, readyStoreCode
+	, readySpaceName
+	, readySpaceType
+	, readyPeopleNumber
+	, readyBriefSpace
+	, readyDetailSpace
+	, readySpaceTag
+	, readyRentalPrice
+	, readyStartTime
+	, readyCloseTime
+	, readyExceptionStartDate
+	, readyExceptionEndDate
+	, readySpaceBasicOption
+	, readyRequestDate
+FROM 
+	tbReadySpace
+	
+</select>
+
+<select id = "OKSpaceList" resultType="OKSpace">
+
+SELECT
+	okaySpaceCode
+	, okayStoreCode
+	, okaySpaceName
+	, okaySpaceType
+	, okayPeopleNumber
+	, okayDetailSpace
+	, okayBriefSpace
+	, okaySpaceTag
+	, okaySpaceRentalPrice
+	, okayStartTime
+	, okayCloseTime
+	, okayExceptionStartDate
+	, okayExceptionEndDate
+	, okayCompletedDate
+	, okaySpaceBasicOption
+	, okaySpaceId
+FROM 
+	tbOkaySpace
+	
+</select>
+
+
+<select id = "OKSpaceListByStoreCode" resultType="OKSpace">
+
+SELECT
+	okaySpaceCode
+	, okayStoreCode
+	, okaySpaceName
+	, okaySpaceType
+	, okayPeopleNumber
+	, okayDetailSpace
+	, okayBriefSpace
+	, okaySpaceTag
+	, okaySpaceRentalPrice
+	, okayStartTime
+	, okayCloseTime
+	, okayExceptionStartDate
+	, okayExceptionEndDate
+	, okayCompletedDate
+	, okaySpaceBasicOption
+	, okaySpaceId
+FROM 
+	tbOkaySpace
+WHERE
+	okayStoreCode = #{storeCode}
+	
+</select>
+
+</mapper>
