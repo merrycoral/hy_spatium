@@ -99,7 +99,31 @@ public class UserController {
 		return "user/userDelete";
 	}
 
+	//판매자 마이페이지 수정
+	@PostMapping("/user/seller/myInfo")
+	public String mySellerInfo(User user) {
+		System.out.println("회원 수정 폼에서 입력받은 값" + user);
 
+		String result = userService.myInfo(user);
+		System.out.println(result);
+
+		return "redirect:/user/seller/myInfo";
+	}
+	
+	@GetMapping("/user/seller/myInfo") 
+	public String mySellerInfo(Model model, HttpSession session) {
+
+		String userIdchk = (String) session.getAttribute("SID"); //로그인한 아이디를 가져오겠다는 코드
+		System.out.println(userIdchk);
+		User user = userService.login(userIdchk);	
+
+		System.out.println("db에서 검색한 회원정보-->" + user);
+
+		model.addAttribute("title", "회원 수정화면");
+		model.addAttribute("user", user);
+		return "/user/seller/myInfo";
+	}
+	
 	//관리자 마이페이지 수정
 	@PostMapping("/user/admin/myInfo")
 	public String myInfo(User user) {
