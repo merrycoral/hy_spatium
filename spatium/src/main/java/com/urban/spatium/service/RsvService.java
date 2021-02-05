@@ -95,6 +95,11 @@ public class RsvService {
 			System.out.println("총 시간당 예약 가격 --> "+totalPrice);
 			if("시간".equals(rsv.getRsvState())) {
 				//총 예약 가격은 시간당 예약가격 x 예약 시간
+<<<<<<< HEAD
+=======
+				System.out.println("가격 : "+totalPrice);
+				System.out.println("시간 : "+rsvTime);
+>>>>>>> branch 'SHY' of https://github.com/merrycoral/hy_spatium
 				totalPrice = totalPrice*(rsvTime);
 				rsvMapper.updateRsvPrice(rsvCode, totalPrice);
 			}else if("일".equals(rsv.getRsvState())) {

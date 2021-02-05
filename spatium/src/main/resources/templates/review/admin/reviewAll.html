@@ -217,6 +217,7 @@
 		var reviewSpaceRsv = $(this).parents('tr').find('td')[2];
 		console.log($(reviewSpaceRsv).text());
 		
+<<<<<<< HEAD
 		var reviewSpaceCode = "";
 		var reviewTitle = $(this).parents('tr').find('.reviewTitle');
 		var reviewContents = $(this).parents('tr').find('.reviewIn');
@@ -228,6 +229,19 @@
 		var reviewFacility = $(this).parents('tr').find('td')[12];
 		var reviewAmbience = $(this).parents('tr').find('td')[13];
 		var reviewScore = $(this).parents('tr').find('td')[14];
+=======
+		var reviewSpaceCode = $(this).parents('tr').find('td')[3];
+		var reviewTitle = $(this).parents('tr').find('.reviewTitle');
+		var reviewContents = $(this).parents('tr').find('.reviewIn');
+		var reviewAddId = $(this).parents('tr').find('td')[5];
+		var reviewAddDate = $(this).parents('tr').find('td')[6];
+		var reviewClean = $(this).parents('tr').find('td')[12];
+		var reviewService = $(this).parents('tr').find('td')[13];
+		var reviewRestroom = $(this).parents('tr').find('td')[14];
+		var reviewFacility = $(this).parents('tr').find('td')[15];
+		var reviewAmbience = $(this).parents('tr').find('td')[16];
+		var reviewScore = $(this).parents('tr').find('td')[17];
+>>>>>>> branch 'SHY' of https://github.com/merrycoral/hy_spatium
 		
 		$('#reviewCode').text($(reviewCode).text());
 		$('#getReviewCode').val($(reviewCode).text());

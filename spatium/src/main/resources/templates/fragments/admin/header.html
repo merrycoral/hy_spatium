@@ -16,7 +16,12 @@
 					</a>
 					<div class="dropdown-menu dropdown-usermenu pull-right"
 						aria-labelledby="navbarDropdown">
+<<<<<<< HEAD
 						<a class="dropdown-item" href="/user/admin/myInfo"> 내 정보</a> 
+=======
+						<a th:if = "${session.SLEVEL=='1'}" class="dropdown-item" href="/user/admin/myInfo"> 내 정보</a> 
+						<a th:if = "${session.SLEVEL=='2'}" class="dropdown-item" href="/user/seller/myInfo"> 내 정보</a> 
+>>>>>>> branch 'SHY' of https://github.com/merrycoral/hy_spatium
 						<a
 							class="dropdown-item" href="/user/logout"><i
 							class="fa fa-sign-out pull-right"></i>로그 아웃</a>

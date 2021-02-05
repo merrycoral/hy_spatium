@@ -133,6 +133,7 @@ public class ReviewController {
 			System.out.println("ajax 실행");
 			System.out.println(getReviewCode + "<------ getReviewCode");
 			Map<String, Object> viewMyReview = reviewService.viewMyReview(getReviewCode);
+<<<<<<< HEAD
 			System.out.println(viewMyReview);
 			return viewMyReview;
 		}
@@ -145,6 +146,18 @@ public class ReviewController {
 			System.out.println(getReviewCode + "<------ getReviewCode");
 			List<Map<String, Object>> storeReplyReview = reviewService.viewReplyReview(getReviewCode);
 			System.out.println(storeReplyReview);
+=======
+			return viewMyReview;
+		}
+		
+		@ResponseBody
+		@PostMapping(value = "/review/viewReplyReview", produces = "application/json")
+		public List<Map<String, Object>> viewReplyReview(
+				@RequestParam(name="getReviewCode", required = false) String getReviewCode){
+			System.out.println("ajax 실행");
+			System.out.println(getReviewCode + "<------ getReviewCode");
+			List<Map<String, Object>> storeReplyReview = reviewService.viewReplyReview(getReviewCode);
+>>>>>>> branch 'SHY' of https://github.com/merrycoral/hy_spatium
 			return storeReplyReview;
 		}
 

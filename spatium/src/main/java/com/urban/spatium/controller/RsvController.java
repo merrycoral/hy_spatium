@@ -89,7 +89,11 @@ public class RsvController {
 		if("결제 완료".equals(rsvState)) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
+<<<<<<< HEAD
 			out.println("<script>alert('이미 결제가 완료되었습니다. 결제 페이지에서 환불해주세요'); location.href=\"/payment/paymentSearch\";</script>");
+=======
+			out.println("<script>alert('이미 결제가 완료되었습니다. 결제 페이지에서 환불해주세요'); location.href=\"/payment/paymentSearchMain\";</script>");
+>>>>>>> branch 'SHY' of https://github.com/merrycoral/hy_spatium
 			out.flush();
 			return "index";
 		}else if ("환불 완료".equals(rsvState)) {

@@ -30,11 +30,21 @@ public class LoginInterceptor implements HandlerInterceptor{
 		
 		//관리자1 판매자2 구매자3
 		if(sessionId == null) {//비로그인시 접근 가능한곳
+<<<<<<< HEAD
 			if(		requestUri.indexOf("/addUser") 		> -1 || requestUri.indexOf("/index") > -1
 				||  requestUri.indexOf("/storeInfo") 	> -1 ||	requestUri.indexOf("/searchAll") > -1
 				||	requestUri.indexOf("/imsilogin") 	> -1 ||	requestUri.indexOf("/adressAjax") > -1
 				||	requestUri.indexOf("/addbookMark") > -1	 ||	requestUri.indexOf("/idCheck") > -1
 				||	requestUri.indexOf("/idChk") > -1		 ||	requestUri.indexOf("/findId") > -1
+=======
+			if(		requestUri.indexOf("/userJoin") 		> -1 || requestUri.indexOf("/index") > -1
+				||  requestUri.indexOf("/storeInfo") 	> -1 ||	requestUri.indexOf("/searchAll") > -1
+				||	requestUri.indexOf("/imsilogin") 	> -1 ||	requestUri.indexOf("/adressAjax") > -1
+				||	requestUri.indexOf("/sellerlogin") 	> -1 ||	requestUri.indexOf("/buyerlogin") > -1
+				||	requestUri.indexOf("/addbookMark") > -1	 ||	requestUri.indexOf("/idCheck") > -1
+				||	requestUri.indexOf("/idChk") > -1		 ||	requestUri.indexOf("/findId") > -1
+				||	requestUri.indexOf("/viewReplyReview") > -1	 
+>>>>>>> branch 'SHY' of https://github.com/merrycoral/hy_spatium
 				) {
 				return true;
 			}else {
