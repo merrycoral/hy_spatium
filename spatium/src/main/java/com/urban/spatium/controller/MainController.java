@@ -100,12 +100,8 @@ public class MainController {
 	public String mainPage(Model model) {
 		
 		model.addAttribute("title", "37기 포트폴리오");
-<<<<<<< HEAD
 		//return "mainPage";
 		return "shyMain";
-=======
-		return "mainPage";
->>>>>>> branch 'SHY' of https://github.com/merrycoral/hy_spatium
 	}
 	/**
 	 * 메인화면에서 업체사진 클릭시 업체정보

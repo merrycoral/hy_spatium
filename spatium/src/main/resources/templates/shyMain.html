@@ -54,9 +54,13 @@
 			안녕하십니까? 신입 개발자 송하영입니다.<br><br>
 			메일 주소 : merrycoral@gmail.com
 			<br><br><br>
-			<a th:href="@{/imsilogin}" th:if="${session.SID == null}" class="btn btn-info">관리자 권한 간편 로그인  </a>
-			<br>
-			기능 이용 전에 ↑ 로그인 부탁드립니다^^
+			<th:block th:if="${session.SID == null}">
+				<a th:href="@{/imsilogin}" th:if="${session.SID == null}" class="btn btn-info">관리자 간편 로그인  </a> 
+				<a th:href="@{/sellerlogin}" th:if="${session.SID == null}" class="btn btn-info">판매자 간편 로그인  </a> 
+				<a th:href="@{/buyerlogin}" th:if="${session.SID == null}" class="btn btn-info">구매자 간편 로그인  </a> 
+				<br>
+				기능 이용 전에 ↑ 로그인 부탁드립니다^^
+			</th:block>
 			<br><br>
 			<br><br>
 			송하영이 만든 주요 기능

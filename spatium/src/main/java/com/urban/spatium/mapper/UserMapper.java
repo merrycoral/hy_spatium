@@ -57,19 +57,6 @@ public interface UserMapper {
 	public int idChk(User user);
 	
 	//관리자 회원가입
-<<<<<<< HEAD
-	public int addAdmin(User user);
-	
-	//구매자 회원가입
-	public int addUser(User user);
-	
-	//아이디 찾기
-	public String findIdajax(String userEmail);
-	
-	//비밀번호 찾기
-	public int findPw(User user);
-
-=======
 	public int adminJoin(User user);
 	
 	//구매자 회원가입
@@ -78,6 +65,5 @@ public interface UserMapper {
 	//아이디 찾기
 	public String findIdajax(String userEmail);
 	
->>>>>>> branch 'SHY' of https://github.com/merrycoral/hy_spatium
 
 }
